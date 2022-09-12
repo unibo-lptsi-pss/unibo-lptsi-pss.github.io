@@ -1,6 +1,9 @@
 name: Create PDFs
 
 on:
+  push:
+    branches:
+      - master
   workflow_dispatch:
   workflow_run:
     workflows: ["pages-build-deployment"]
