@@ -1,0 +1,47 @@
+name: Create PDFs
+
+on:
+  workflow_dispatch:
+  workflow_run:
+    workflows: ["pages-build-deployment"]
+    types:
+      - completed
+
+jobs:
+  makepdfs:
+    concurrency:
+      group: markdown-${{ github.ref }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the pdf creation script
+        uses: actions/checkout@v3.0.2
+      - name: Checkout gh-pages
+        uses: actions/checkout@v3.0.2
+        with:
+          path: pages
+          ref: gh-pages
+      - name: Count the commits so far
+        id: commit-counter
+        run: echo "::set-output name=commits::$(git -C pages rev-list --count HEAD)"
+      - name: Create version
+        id: version-compute
+        run: echo "::set-output name=version::${{ steps.commit-counter.outputs.commits }}.$(date +"%Y.%-m%d")"
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1.116.0
+        with:
+          ruby-version: '3.0.4'
+      - name: Setup Chrome
+        uses: browser-actions/setup-chrome@latest
+        with:
+          chrome-version: stable
+      - name: Make the pdfs
+        run: ./makepdfs.rb pages
+      - name: Deliver the pdfs
+        uses: ncipollo/release-action@v1.10.0
+        with:
+          allowUpdates: true
+          artifacts: "*.pdf"
+          replacesArtifacts: true
+          repo: pss-slides
+          tag: ${{ steps.version-compute.outputs.version }}
+          token: ${{ secrets.DEPLOYMENT_TOKEN }}
