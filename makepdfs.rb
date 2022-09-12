@@ -20,8 +20,11 @@ paths = Hash[
 ]
 for name, path in paths do
     puts "Working on #{name} built from #{path}"
-    command = "time #{command_base}#{name}.pdf '#{path}'"
-    puts "launching #{command}"
-    `#{command}`
-    sleep 2
+    output = "#{name}.pdf"
+    command = "time #{command_base}#{output} '#{path}'"
+    attempt = 0
+    until (File.size(output) || 0) / 1024 > 0 do
+        puts "ATTEMPT #{attempt}: launching #{command}"
+        `#{command}`
+    end
 end
