@@ -20,5 +20,8 @@ paths = Hash[
 ]
 for name, path in paths do
     puts "Working on #{name} built from #{path}"
-    `#{command_base}#{name}.pdf '#{path}'`
+    command = "time #{command_base}#{name}.pdf '#{path}'"
+    puts "launching #{command}"
+    `#{command}`
+    sleep 2
 end
