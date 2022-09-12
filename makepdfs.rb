@@ -24,6 +24,7 @@ for name, path in paths do
     command = "time #{command_base}#{output} '#{path}'"
     attempt = 0
     until (File.size?(output) || 0) / 1024 > 0 do
+        attempts = attempts + 1
         puts "ATTEMPT #{attempt}: launching #{command}"
         `#{command}`
     end
