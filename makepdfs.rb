@@ -23,7 +23,7 @@ for name, path in paths do
     output = "#{name}.pdf"
     command = "time #{command_base}#{output} '#{path}'"
     attempt = 0
-    until (File.size?(output) || 0) / 1024 > 0 do
+    until (File.size?(output) || 0) / 1024 >= 3 do
         attempt = attempt + 1
         puts "ATTEMPT #{attempt}: launching #{command}"
         `#{command}`
