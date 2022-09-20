@@ -24,24 +24,31 @@ def is_letter_format(file)
 end
 
 max_attempts = 100
+max_attempts_format = 10
 
 for name, path in paths do
     puts "Working on #{name} built from #{path}"
-    output = "#{name}.pdf"
+    output = "#{name}_slides.pdf"
     command = "time #{command_base}#{output} '#{path}'"
     attempt = 0
+    attempts_for_format = 1
     size = 0
     is_letter = true
-    while size / 1024 < 3 || is_letter && attempt < max_attempts do
+    while size / 1024 < 3 || is_letter && attempt < max_attempts && attempts_for_format < max_attempts_format do
         attempt = attempt + 1
         puts "ATTEMPT #{attempt}: launching #{command}"
         `#{command}`
         size = File.size?(output) || 0
         is_letter = size > 1024 && is_letter_format(output)
+        if is_letter then attempts_for_format += 1 end
         puts "Produced a file of #{size} bytes with the #{is_letter ? 'wrong' : 'correct'} format"
     end
     if attempt >= max_attempts then
-        puts "Giving up after #{max_attempts} attempts"
+        puts "::error ::Giving up after #{max_attempts} attempts, the URL #{path} produced an invalid file too many times."
         File.delete(output)
+    end
+    if attempts_for_format >= max_attempts_format then
+        puts "::warning ::Website at #{path} does not seem to be rendering slides, saving as other document"
+        File.rename(output, "#{name}_page_format.pdf")
     end
 end
