@@ -18,14 +18,30 @@ paths = Hash[
         [route.nil? || route.strip.empty? ? "index" : route.gsub('/', '_'), "https://#{owner}.github.io#{repo}/#{route}#{command_end}"]
     }
 ]
+
+def is_letter_format(file)
+    `pdfinfo #{file} | grep 'Page size'`.include?('letter')
+end
+
+max_attempts = 100
+
 for name, path in paths do
     puts "Working on #{name} built from #{path}"
     output = "#{name}.pdf"
     command = "time #{command_base}#{output} '#{path}'"
     attempt = 0
-    until (File.size?(output) || 0) / 1024 >= 3 do
+    size = 0
+    is_letter = true
+    while size / 1024 < 3 || is_letter && attempt < max_attempts do
         attempt = attempt + 1
         puts "ATTEMPT #{attempt}: launching #{command}"
         `#{command}`
+        size = File.size?(output) || 0
+        is_letter = size > 1024 && is_letter_format(output)
+        puts "Produced a file of #{size} bytes with the #{is_letter ? 'wrong' : 'correct'} format"
+    end
+    if attempt >= max_attempts then
+        puts "Giving up after #{max_attempts} attempts"
+        File.delete(output)
     end
 end
