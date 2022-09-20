@@ -38,6 +38,8 @@ jobs:
         uses: browser-actions/setup-chrome@latest
         with:
           chrome-version: stable
+      - name: Install pdfinfo
+        run: sudo apt-get install -y poppler-utils
       - name: Make the pdfs
         run: ./makepdfs.rb pages
       - name: Deliver the pdfs
