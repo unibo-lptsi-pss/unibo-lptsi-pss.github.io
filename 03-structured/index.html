@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link rel="stylesheet" href="/reveal-js/dist/reset.css">
 <link rel="stylesheet" href="/reveal-js/dist/reveal.css">
-  <link rel="stylesheet" href="/css/custom-theme.min.4802ed2a7a4df7899a9c8b483c118fcc7a12d45b401c80c40d5917d0c8b84b13.css" id="theme"><link rel="stylesheet" href="/highlight-js/default.min.css">
+  <link rel="stylesheet" href="/css/custom-theme.min.58c970688929d6248302a76f54065b16b4bd4ff12c724c2b4fb1e5f736a77006.css" id="theme"><link rel="stylesheet" href="/highlight-js/default.min.css">
     
 <link rel="stylesheet" href="https://gitcdn.link/repo/DanySK/css-blur-animation/master/blur.css">
 <link href="https://fonts.googleapis.com/css?family=Roboto Mono" rel="stylesheet">
@@ -65,42 +65,52 @@ Mirko Viroli, che ringrazio.</p>
 <h3 id="cosè-un-tipo">Cos’è un tipo</h3>
 <ul>
 <li>È un meccanismo per classificare valori (e oggetti)</li>
-<li>È costituito da un nome, un set di valori, e un set di operatori/meccanismi per manipolarli</li>
+<li>Un <em>tipo</em> è costituito da un <em>nome</em>, un <em>set di valori</em>, e un <em>set di operatori</em>/meccanismi per manipolarli</li>
 </ul>
 <h3 id="tipi-di-java">Tipi di Java</h3>
 <ul>
-<li>Primitivi: <code>boolean</code>, <code>byte</code>, <code>short</code>, <code>int</code>, <code>long</code>, <code>float</code>, <code>double</code>, <code>char</code></li>
-<li>Array: <code>boolean[]</code>, <code>byte[]</code>, <code>String[]</code>, <code>String[][]</code>, $\ldots$</li>
-<li>Classi: <code>Object</code>, <code>String</code>, <code>Integer</code>, <code>ArrayList</code>, <code>JFrame</code>, $\ldots$</li>
+<li><em>Primitivi</em>: <code>boolean</code>, <code>byte</code>, <code>short</code>, <code>int</code>, <code>long</code>, <code>float</code>, <code>double</code>, <code>char</code></li>
+<li><em>Array</em>: <code>boolean[]</code>, <code>byte[]</code>, <code>String[]</code>, <code>String[][]</code>, $\ldots$</li>
+<li><em>Classi</em>: <code>Object</code>, <code>String</code>, <code>Integer</code>, <code>ArrayList</code>, <code>JFrame</code>, $\ldots$</li>
 <li>Altri che vedremo in seguito: interfacce, classi innestate, generici, …</li>
 </ul>
 <h3 id="java-e-i-tipi">Java e i tipi</h3>
 <ul>
-<li>Java ha “typing statico”: ogni espressione ha un tipo noto al compilatore</li>
-<li>Java ha “typing forte”: non si accettano espressioni con errori di tipo</li>
+<li>Java ha <em>“typing statico”</em>: ogni espressione ha un tipo noto al compilatore</li>
+<li>Java ha <em>“typing forte”</em>: non si accettano espressioni con errori di tipo</li>
 <li>$\Rightarrow$ .. permette l’intercettazione a priori di molti errori</li>
 <li>$\Rightarrow$ .. disciplina progettazione e programmazione</li>
 </ul>
 </section><section>
-<h2 id="booleani">Booleani</h2>
-<h3 id="nome-boolean">Nome: <code>boolean</code></h3>
+<h2 id="tipo-booleano">Tipo Booleano</h2>
 <ul>
-<li>Valori: <code>true</code>, <code>false</code></li>
-<li>Operatori unari: <code>!</code> (not)</li>
-<li>Operatori binari: <code>\&amp;</code> (and), <code>|</code> (or), \string^ (xor), <code>\&amp;\&amp;</code> (and-c), <code>||</code> (or-c)
+<li>
+<p>Nome del tipo: <code>boolean</code></p>
+</li>
+<li>
+<p><em>Valori</em>: <code>true</code>, <code>false</code></p>
+</li>
+<li>
+<p>Operatori unari: <code>!</code> (not)</p>
+</li>
+<li>
+<p>Operatori binari: <code>&amp;</code> (and), <code>|</code> (or), <code>^</code> (xor), <code>&amp;&amp;</code> (and-c), <code>||</code> (or-c)</p>
 <ul>
 <li><code>&amp;&amp;</code> e <code>||</code> valutano il secondo argomento solo se necessario</li>
 <li><code>false &amp;&amp; X</code> dà comunque <code>false</code></li>
 <li><code>true || X</code> dà comunque <code>true</code></li>
 </ul>
 </li>
-<li>Operatori di confronto numerici: <code>&gt;</code>, <code>&lt;</code>, <code>&gt;=</code>, <code>&lt;=</code></li>
-<li>Operatori di uguaglianza (su tutti i tipi): <code>==</code>, <code>!=</code>
-<ul>
-<li><code>10 == 20</code> (<code>false</code>)</li>
-<li><code>new Object() == new Object()</code> (<code>false</code>, confronta i riferimenti)</li>
-</ul>
+<li>
+<p>Operatori di confronto numerici: <code>&gt;</code>, <code>&lt;</code>, <code>&gt;=</code>, <code>&lt;=</code></p>
 </li>
+<li>
+<p>Operatori di uguaglianza (su tutti i tipi): <code>==</code>, <code>!=</code></p>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#000">10</span> <span style="color:#000">==</span> <span style="color:#000">20</span><span style="color:#000">`</span>                    <span style="color:#177500">// false
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#a90d91">new</span> <span style="color:#000">Object</span><span style="color:#000">()</span> <span style="color:#000">==</span> <span style="color:#a90d91">new</span> <span style="color:#000">Object</span><span style="color:#000">()</span> <span style="color:#177500">// false (confronta i riferimenti)
+</span></span></span></code></pre></div><ul>
 <li>Operatore ternario (booleano,tipo,tipo): <code>?:</code>
 <ul>
 <li><code>b ? v1 : v2</code> restituisce <code>v1</code> se <code>b</code> è vero, <code>v2</code> altrimenti</li>
@@ -115,15 +125,15 @@ Mirko Viroli, che ringrazio.</p>
 <h3 id="operatori">Operatori</h3>
 <ul>
 <li>Base: <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code> (con resto), <code>%</code> (resto), <code>+</code> e <code>-</code> anche unari</li>
-<li>Bit-a-bit: <code>\&amp;</code> (and), <code>|</code> (or), \string^ (xor), \string~ (not)</li>
+<li>Bit-a-bit: <code>&amp;</code> (and), <code>|</code> (or), <code>^</code> (xor), <code>~</code> (not)</li>
 <li>Shift: <code>&gt;&gt;</code> (dx senza segno), <code>&lt;&lt;</code> (sx), <code>&gt;&gt;&gt;</code> (dx con segno)</li>
 <li>Operatori unari/binari applicati ad un tipo, restituiscono il tipo stesso</li>
 </ul>
 <h3 id="codifica-rappresentazione">Codifica, rappresentazione</h3>
 <ul>
 <li>Interi codificati in complemento a 2 (ciò impatta il suo range)</li>
-<li>Rappresentazione decimale (200), ottale (0310), esadecimale (0xC8)</li>
-<li>Di default sono <code>int</code>, per avere un <code>long</code> va aggiunta una <code>L</code> (15L)</li>
+<li>Rappresentazione decimale (<code>200</code>), ottale (<code>0310</code>), esadecimale (<code>0xC8</code>)</li>
+<li>Di default sono <code>int</code>, per avere un <code>long</code> va aggiunta una <code>L</code> (<code>15L</code>)</li>
 </ul>
 <h3 id="prassi">Prassi</h3>
 <ul>
@@ -139,7 +149,7 @@ Mirko Viroli, che ringrazio.</p>
 <h3 id="codifica-rappresentazione-1">Codifica, rappresentazione</h3>
 <ul>
 <li>Codificati secondo lo standard IEEE 754</li>
-<li>Rappresentazione standard (-128.345), o scientifica (-1.2835E+2)</li>
+<li>Rappresentazione standard (<code>-128.345</code>), o scientifica (<code>-1.2835E+2</code>)</li>
 <li>Di default sono <code>double</code>, per avere un <code>float</code> va aggiunta una <code>F</code></li>
 </ul>
 <h3 id="prassi-1">Prassi</h3>
@@ -249,30 +259,24 @@ Mirko Viroli, che ringrazio.</p>
 <h2 id="sintassi-array">Sintassi Array</h2>
 <h3 id="creazione-array">Creazione array</h3>
 <ul>
-<li>Due notazioni, per elenco e per dimensione
-<ul>
-<li><code>int[] ar1 = new int[]{10,20,30,40,50,7,8,9};</code></li>
-<li><code>int[] ar2 = new int[200]; // new int[]{0,0,...,0}</code></li>
-<li>(variante con <code>var</code>: <code>var ar3 = new int[]{10,20,30}</code>)</li>
-<li>(variante senza <code>new</code>: <code>new : int[] ar4 = {10,20,30}</code>)</li>
+<li>Due notazioni, per elenco e per dimensione</li>
 </ul>
-</li>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">int</span><span style="color:#000">[]</span> <span style="color:#000">ar1</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#a90d91">int</span><span style="color:#000">[]{</span><span style="color:#000">10</span><span style="color:#000">,</span><span style="color:#000">20</span><span style="color:#000">,</span><span style="color:#000">30</span><span style="color:#000">,</span><span style="color:#000">40</span><span style="color:#000">,</span><span style="color:#000">50</span><span style="color:#000">,</span><span style="color:#000">7</span><span style="color:#000">,</span><span style="color:#000">8</span><span style="color:#000">,</span><span style="color:#000">9</span><span style="color:#000">};</span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">int</span><span style="color:#000">[]</span> <span style="color:#000">ar2</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#a90d91">int</span><span style="color:#000">[</span><span style="color:#000">200</span><span style="color:#000">];</span>      <span style="color:#177500">// new int[]{0,0,...,0}
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#000">var</span> <span style="color:#000">ar3</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#a90d91">int</span><span style="color:#000">[]{</span><span style="color:#000">10</span><span style="color:#000">,</span><span style="color:#000">20</span><span style="color:#000">,</span><span style="color:#000">30</span><span style="color:#000">};</span> <span style="color:#177500">// variante con `var`
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#a90d91">int</span><span style="color:#000">[]</span> <span style="color:#000">ar4</span> <span style="color:#000">=</span> <span style="color:#000">{</span><span style="color:#000">10</span><span style="color:#000">,</span><span style="color:#000">20</span><span style="color:#000">,</span><span style="color:#000">30</span><span style="color:#000">}</span><span style="color:#000">`</span>        <span style="color:#177500">// variante senza `new`
+</span></span></span></code></pre></div><ul>
 <li>quando creati per dimensione, gli elementi sono inizializzati come se fossero campi di una classe</li>
-<li>la creazione di array di array è analoga:
-<ul>
-<li><code>int[][] m = new int[][]{new int[]{..},..};</code></li>
-<li><code>int[][] m2 = new int[200][200];</code></li>
+<li>la creazione di array di array è analoga:</li>
 </ul>
-</li>
-</ul>
-<h3 id="accesso-array">Accesso array</h3>
-<ul>
-<li><code>ar1.length // lunghezza</code></li>
-<li><code>ar2[23] // espressione per leggere 24-esimo elemento</code></li>
-<li><code>ar2[23]=10; // assegnamento del 24-esimo elemento</code></li>
-<li><code>m[1][2]=10; // assegnamento riga 2 colonna 3</code></li>
-</ul>
-</section><section>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">int</span><span style="color:#000">[][]</span> <span style="color:#000">m</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#a90d91">int</span><span style="color:#000">[][]{</span><span style="color:#a90d91">new</span> <span style="color:#a90d91">int</span><span style="color:#000">[]{..},..};</span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">int</span><span style="color:#000">[][]</span> <span style="color:#000">m2</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#a90d91">int</span><span style="color:#000">[</span><span style="color:#000">200</span><span style="color:#000">][</span><span style="color:#000">200</span><span style="color:#000">];</span>
+</span></span></code></pre></div><h3 id="accesso-array">Accesso array</h3>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#000">ar1</span><span style="color:#000">.</span><span style="color:#836c28">length</span>  <span style="color:#177500">// lunghezza
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#000">ar2</span><span style="color:#000">[</span><span style="color:#000">23</span><span style="color:#000">]</span>     <span style="color:#177500">// espressione per leggere 24-esimo elemento
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#000">ar2</span><span style="color:#000">[</span><span style="color:#000">23</span><span style="color:#000">]=</span><span style="color:#000">10</span><span style="color:#000">;</span> <span style="color:#177500">// assegnamento del 24-esimo elemento
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#000">m</span><span style="color:#000">[</span><span style="color:#000">1</span><span style="color:#000">][</span><span style="color:#000">2</span><span style="color:#000">]=</span><span style="color:#000">10</span><span style="color:#000">;</span> <span style="color:#177500">// assegnamento riga 2 colonna 3
+</span></span></span></code></pre></div></section><section>
 <h2 id="qualche-esempio-duso-di-array">Qualche esempio d’uso di array</h2>
 <!--  \srcode{\scriptsize}{3}{100}{\ecl/UseArrays.java} -->
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseArrays</span> <span style="color:#000">{</span>
@@ -329,7 +333,12 @@ Mirko Viroli, che ringrazio.</p>
 </ul>
 <h3 id="panoramica-istruzioni">Panoramica istruzioni</h3>
 <ul>
-<li>Variabili e assegnamenti: <code>int x;</code>   <code>int x=5;</code>    <code>var x=5;</code>   <code>x=5;</code></li>
+<li>Variabili e assegnamenti:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">int</span> <span style="color:#000">x</span><span style="color:#000">;</span>              <span style="color:#177500">// dichiarazione
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#a90d91">int</span> <span style="color:#000">x</span><span style="color:#000">=</span><span style="color:#000">5</span><span style="color:#000">;</span>  <span style="color:#000">var</span> <span style="color:#000">x</span><span style="color:#000">=</span><span style="color:#000">5</span><span style="color:#000">;</span>  <span style="color:#177500">// dichiarazione e inizializzazione (assegnamento)
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#000">x</span><span style="color:#000">=</span><span style="color:#000">5</span><span style="color:#000">;</span>                <span style="color:#177500">// assegnamento
+</span></span></span></code></pre></div><ul>
 <li>Ritorno: <code>return 5;</code></li>
 <li>Chiamate: <code>meth(3,4);</code> <code>obj.meth(3);</code>  <code>cls.meth(4);</code></li>
 <li>Costrutti: <code>for</code>, <code>while</code>, <code>do</code>, <code>switch</code>, <code>if</code>, <code>break</code>, <code>continue</code></li>
@@ -362,7 +371,7 @@ Mirko Viroli, che ringrazio.</p>
 <ul>
 <li>Una classe ha solo metodi o campi dichiarati <code>static</code></li>
 <li>In questo caso tale classe definice un insieme di funzioni pure e variabili globali (a quella classe), ossia una struttura analoga a quella di una libreria C</li>
-<li>Un metodo (o campo) statico viene richiamato nel seguente modo:{
+<li>Un metodo (o campo) <em>statico</em> viene richiamato nel seguente modo:
 <ul>
 <li>da fuori la classe (se dichiarato <code>public</code>): <code>&lt;nome-classe&gt;.&lt;nome-metodo&gt;(...)</code></li>
 <li>da dentro la classe: <code>&lt;nome-metodo&gt;(...)</code></li>
@@ -595,7 +604,7 @@ Mirko Viroli, che ringrazio.</p>
 </ul>
 <h3 id="esempi-comuni-derrore">Esempi comuni d’errore</h3>
 <ul>
-<li>Uso inappropriato dei tipi: ``</li>
+<li>Uso inappropriato dei tipi:</li>
 </ul>
 <pre tabindex="0"><code>int a=true;
 int a=5+false;
@@ -644,7 +653,6 @@ if (5) ..
 <li>Ci si aspetta non si usino soluzioni sia più complesse che più lente</li>
 <li>Ci si aspetta che si sappiano allocare correttamente le risorse (memoria, tempo) qualora richiesto</li>
 </ul>
-</section><section>
 </section>
 
   
