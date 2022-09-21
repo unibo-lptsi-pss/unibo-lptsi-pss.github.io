@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link rel="stylesheet" href="/reveal-js/dist/reset.css">
 <link rel="stylesheet" href="/reveal-js/dist/reveal.css">
-  <link rel="stylesheet" href="/css/custom-theme.min.58c970688929d6248302a76f54065b16b4bd4ff12c724c2b4fb1e5f736a77006.css" id="theme"><link rel="stylesheet" href="/highlight-js/default.min.css">
+  <link rel="stylesheet" href="/css/custom-theme.min.6e1fd15a500d65868cc62be4b78ccf1998dd0633704e3d7cca3f7908d90e945e.css" id="theme"><link rel="stylesheet" href="/highlight-js/default.min.css">
     
 <link rel="stylesheet" href="https://gitcdn.link/repo/DanySK/css-blur-animation/master/blur.css">
 <link href="https://fonts.googleapis.com/css?family=Roboto Mono" rel="stylesheet">
@@ -80,7 +80,7 @@ Mirko Viroli, che ringrazio.</p>
 <li>lifetime di oggetti va oltre lo scope; no deallocazione manuale (cf. <em>GC</em>)</li>
 <li>classi: <em>campi</em> &amp; <em>metodi</em> (statici o d’istanza) – accedibili mediante <em>dot notation</em></li>
 <li>concetto di <em>receiver</em> di una <em>method call</em> e variabile speciale <code>this</code></li>
-<li><em>programmi</em>: <code>public static void main(String[] args)</code> in classe pubblica</li>
+<li><em>programmi</em>: metodo pubblico statico <code>main</code> in classe pubblica</li>
 </ul>
 </li>
 <li>Strumenti: compilazione con <code>javac</code> ed esecuzione con <code>java</code></li>
@@ -105,6 +105,15 @@ Mirko Viroli, che ringrazio.</p>
 <li>Elementi iniziali di buona programmazione</li>
 </ul>
 </section><section>
+<h2 id="il-tool-jshell">Il tool <code>JShell</code></h2>
+<h3 id="jshell-jdk-9">JShell (JDK 9+)</h3>
+<ul>
+<li>richiamabile da linea di comando: <code>jshell</code></li>
+<li>è una console Java, dove si possono eseguire istruzioni vedendone subito l’effetto</li>
+<li>si ispira a tool <em>REPL (Read-Eval-Print Loop)</em> di altri linguaggi</li>
+<li>non molto usata, ma utile per veloci esperimenti (cf. slide seguenti)</li>
+</ul>
+</section><section>
 <h1 id="tipi-e-operatori-di-java">Tipi e operatori di Java</h1>
 </section><section>
 <h2 id="tipi">Tipi</h2>
@@ -122,8 +131,8 @@ Mirko Viroli, che ringrazio.</p>
 </ul>
 <h3 id="java-e-i-tipi">Java e i tipi</h3>
 <ul>
-<li>Java ha <em>“typing statico”</em>: ogni espressione ha un tipo noto al compilatore</li>
-<li>Java ha <em>“typing forte”</em>: non si accettano espressioni con errori di tipo</li>
+<li>Java ha <em>tipizzazione statica</em>: ogni espressione ha un tipo noto dal compilatore</li>
+<li>Java ha <em>tipizzazione forte</em>: non si accettano espressioni con errori di tipo</li>
 <li>$\Rightarrow$ .. permette l’intercettazione a priori di molti errori</li>
 <li>$\Rightarrow$ .. disciplina progettazione e programmazione</li>
 </ul>
@@ -134,7 +143,7 @@ Mirko Viroli, che ringrazio.</p>
 <p>Nome del tipo: <code>boolean</code></p>
 </li>
 <li>
-<p><em>Valori</em>: <code>true</code>, <code>false</code></p>
+<p>Valori: <code>true</code>, <code>false</code></p>
 </li>
 <li>
 <p>Operatori unari: <code>!</code> (not)</p>
@@ -142,9 +151,9 @@ Mirko Viroli, che ringrazio.</p>
 <li>
 <p>Operatori binari: <code>&amp;</code> (and), <code>|</code> (or), <code>^</code> (xor), <code>&amp;&amp;</code> (and-c), <code>||</code> (or-c)</p>
 <ul>
-<li><code>&amp;&amp;</code> e <code>||</code> valutano il secondo argomento solo se necessario</li>
-<li><code>false &amp;&amp; X</code> dà comunque <code>false</code></li>
-<li><code>true || X</code> dà comunque <code>true</code></li>
+<li><code>&amp;&amp;</code> e <code>||</code> valutano il secondo argomento solo se necessario (<em>short-circuiting</em>)</li>
+<li><code>false &amp;&amp; X</code> restituisce <code>false</code> senza valutare <code>X</code></li>
+<li><code>true || X</code> restituisce <code>true</code> senza valutare <code>X</code></li>
 </ul>
 </li>
 <li>
@@ -283,27 +292,18 @@ Mirko Viroli, che ringrazio.</p>
 </span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>	<span style="color:#000">}</span>
 </span></span><span style="display:flex;"><span><span style="color:#000">}</span>
 </span></span></code></pre></div></section><section>
-<h2 id="il-tool-jshell">Il tool <code>JShell</code></h2>
-<h3 id="jshell-jdk-9">JShell (JDK 9+)</h3>
-<ul>
-<li>richiamabile da linea di comando: <code>jshell</code></li>
-<li>è una console Java, dove si possono eseguire istruzioni vedendone subito l’effetto.. via via</li>
-<li>si ispira a tool REPL di altri linguaggi</li>
-<li>non molto usata, ma utile per veloci esperimenti</li>
-</ul>
-</section><section>
 <h2 id="conversioni">Conversioni</h2>
-<h3 id="conversioni-di-tipo-dette-anche-__cast__-tipovalore">Conversioni di tipo, dette anche <em><strong>cast</strong></em>: <code>(tipo)valore</code></h3>
+<h3 id="conversioni-di-tipo-dette-anche-cast-tipovalore">Conversioni di tipo, dette anche <em>cast</em>: <code>(tipo)valore</code></h3>
 <ul>
 <li>Fra tipi numerici sono sempre consentite</li>
 <li>Possono causare perdita di informazione</li>
 <li>Es.: <code>(int)3.33</code>, <code>((double)10)/3</code>, <code>(short)100</code></li>
 </ul>
-<h3 id="conversioni-automatiche-dette-anche-__coercizioni__">Conversioni automatiche, dette anche <em><strong>coercizioni</strong></em></h3>
+<h3 id="conversioni-automatiche-dette-anche-coercizioni">Conversioni automatiche, dette anche <em>coercizioni</em></h3>
 <ul>
 <li>Le inserisce automaticamente il compilatore in certi casi</li>
 <li>Quando ci si aspetta un tipo, e si usa un valore diverso</li>
-<li>Solo da un tipo più specifico a uno più generale
+<li>Solo da un tipo più specifico a uno più generale (<em>promozione</em>)
 <ul>
 <li>(+ Specifico $\rightarrow$ + Generale) <code>byte</code>$\rightarrow$<code>short</code>$\rightarrow$<code>int</code>$\rightarrow$<code>long</code>$\rightarrow$<code>float</code>$\rightarrow$<code>double</code></li>
 </ul>
@@ -318,14 +318,14 @@ Mirko Viroli, che ringrazio.</p>
 </ul>
 </section><section>
 <h2 id="i-caratteri">I caratteri</h2>
-<h3 id="rappresentazione">Rappresentazione</h3>
+<h3 id="rappresentazione-esterna">Rappresentazione (esterna)</h3>
 <ul>
 <li>Singolo carattere: <code>'a'</code>, <code>'z'</code>, <code>'A'</code>, <code>'='</code></li>
 <li>Codice ASCII: 65 (<code>'A'</code>), 66 (<code>'B'</code>)</li>
 <li>Caratteri escape: <code>'\n'</code>, <code>'\\'</code>, <code>'\0'</code></li>
 <li>Caratteri UTF16: <code>'\u6C34'</code></li>
 </ul>
-<h3 id="codifica">Codifica</h3>
+<h3 id="codifica-rappresentazione-interna">Codifica (rappresentazione interna)</h3>
 <ul>
 <li>16 bit UTF16</li>
 <li>automaticamente convertibile ad un numerico fra 0 e 65535</li>
@@ -346,37 +346,39 @@ Mirko Viroli, che ringrazio.</p>
 <h2 id="java-array">Java array</h2>
 <h3 id="caratteristiche-generali">Caratteristiche generali</h3>
 <ul>
-<li>Internamente sono degli oggetti</li>
+<li>Internamente sono degli oggetti (cf. creazione con <code>new</code>)</li>
 <li>Quindi sono gestiti con riferimenti sullo heap</li>
 <li>Notazione ad-hoc (e C-like) per creare, leggere e scrivere elementi</li>
 </ul>
 <h3 id="principale-differenza-rispetto-al-c">Principale differenza rispetto al C</h3>
 <ul>
-<li>Un array ha una lunghezza esplicita e accessibile (non modificabile)</li>
-<li>È impossibile violare i limiti di una array, pena un errore (<code>ArryIndexOutOfBoundsException</code>)</li>
+<li>Un array ha una lunghezza (campo <code>length</code>) esplicita e accessibile (non modificabile)</li>
+<li>È impossibile violare i limiti di una array, pena un errore (<code>ArrayIndexOutOfBoundsException</code>)</li>
 <li>L’accesso all’array è di conseguenza leggermente rallentato</li>
 </ul>
 </section><section>
 <h2 id="sintassi-array">Sintassi Array</h2>
 <h3 id="creazione-array">Creazione array</h3>
 <ul>
-<li>Due notazioni, per elenco e per dimensione</li>
-</ul>
+<li>Due notazioni, per elenco (elencazione di valori)
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">int</span><span style="color:#000">[]</span> <span style="color:#000">ar1</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#a90d91">int</span><span style="color:#000">[]{</span><span style="color:#000">10</span><span style="color:#000">,</span><span style="color:#000">20</span><span style="color:#000">,</span><span style="color:#000">30</span><span style="color:#000">,</span><span style="color:#000">40</span><span style="color:#000">,</span><span style="color:#000">50</span><span style="color:#000">,</span><span style="color:#000">7</span><span style="color:#000">,</span><span style="color:#000">8</span><span style="color:#000">,</span><span style="color:#000">9</span><span style="color:#000">};</span>
-</span></span><span style="display:flex;"><span><span style="color:#a90d91">int</span><span style="color:#000">[]</span> <span style="color:#000">ar2</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#a90d91">int</span><span style="color:#000">[</span><span style="color:#000">200</span><span style="color:#000">];</span>      <span style="color:#177500">// new int[]{0,0,...,0}
-</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#000">var</span> <span style="color:#000">ar3</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#a90d91">int</span><span style="color:#000">[]{</span><span style="color:#000">10</span><span style="color:#000">,</span><span style="color:#000">20</span><span style="color:#000">,</span><span style="color:#000">30</span><span style="color:#000">};</span> <span style="color:#177500">// variante con `var`
-</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#a90d91">int</span><span style="color:#000">[]</span> <span style="color:#000">ar4</span> <span style="color:#000">=</span> <span style="color:#000">{</span><span style="color:#000">10</span><span style="color:#000">,</span><span style="color:#000">20</span><span style="color:#000">,</span><span style="color:#000">30</span><span style="color:#000">}</span><span style="color:#000">`</span>        <span style="color:#177500">// variante senza `new`
+</span></span><span style="display:flex;"><span><span style="color:#000">var</span>   <span style="color:#000">ar2</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#a90d91">int</span><span style="color:#000">[]{</span><span style="color:#000">10</span><span style="color:#000">,</span><span style="color:#000">20</span><span style="color:#000">,</span><span style="color:#000">30</span><span style="color:#000">};</span> <span style="color:#177500">// variante con `var`
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#a90d91">int</span><span style="color:#000">[]</span> <span style="color:#000">ar3</span> <span style="color:#000">=</span> <span style="color:#000">{</span><span style="color:#000">10</span><span style="color:#000">,</span><span style="color:#000">20</span><span style="color:#000">,</span><span style="color:#000">30</span><span style="color:#000">};</span>          <span style="color:#177500">// variante senza `new`
+</span></span></span></code></pre></div>e per dimensione
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">int</span><span style="color:#000">[]</span> <span style="color:#000">ar4</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#a90d91">int</span><span style="color:#000">[</span><span style="color:#000">200</span><span style="color:#000">];</span>        <span style="color:#177500">// new int[]{0,0,...,0}
 </span></span></span></code></pre></div><ul>
-<li>quando creati per dimensione, gli elementi sono inizializzati come se fossero campi di una classe</li>
-<li>la creazione di array di array è analoga:</li>
+<li>quando creati per dimensione, gli elementi sono inizializzati (come se fossero campi di una classe)</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">int</span><span style="color:#000">[][]</span> <span style="color:#000">m</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#a90d91">int</span><span style="color:#000">[][]{</span><span style="color:#a90d91">new</span> <span style="color:#a90d91">int</span><span style="color:#000">[]{..},..};</span>
+</li>
+<li>la creazione di array di array (<em>matrici</em>) è analoga:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">int</span><span style="color:#000">[][]</span> <span style="color:#000">m</span>  <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#a90d91">int</span><span style="color:#000">[][]{</span> <span style="color:#a90d91">new</span> <span style="color:#a90d91">int</span><span style="color:#000">[]{...},</span> <span style="color:#000">...</span> <span style="color:#000">};</span>
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">int</span><span style="color:#000">[][]</span> <span style="color:#000">m2</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#a90d91">int</span><span style="color:#000">[</span><span style="color:#000">200</span><span style="color:#000">][</span><span style="color:#000">200</span><span style="color:#000">];</span>
-</span></span></code></pre></div><h3 id="accesso-array">Accesso array</h3>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#000">ar1</span><span style="color:#000">.</span><span style="color:#836c28">length</span>  <span style="color:#177500">// lunghezza
-</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#000">ar2</span><span style="color:#000">[</span><span style="color:#000">23</span><span style="color:#000">]</span>     <span style="color:#177500">// espressione per leggere 24-esimo elemento
-</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#000">ar2</span><span style="color:#000">[</span><span style="color:#000">23</span><span style="color:#000">]=</span><span style="color:#000">10</span><span style="color:#000">;</span> <span style="color:#177500">// assegnamento del 24-esimo elemento
-</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#000">m</span><span style="color:#000">[</span><span style="color:#000">1</span><span style="color:#000">][</span><span style="color:#000">2</span><span style="color:#000">]=</span><span style="color:#000">10</span><span style="color:#000">;</span> <span style="color:#177500">// assegnamento riga 2 colonna 3
+</span></span></code></pre></div><h3 id="accesso-array-zero-indexed">Accesso array (<em>zero-indexed</em>)</h3>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#000">ar4</span><span style="color:#000">.</span><span style="color:#836c28">length</span>    <span style="color:#177500">// 200 (lunghezza)
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#000">ar4</span><span style="color:#000">[</span><span style="color:#000">23</span><span style="color:#000">]</span>       <span style="color:#177500">// espressione per leggere 24-esimo elemento
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#000">ar4</span><span style="color:#000">[</span><span style="color:#000">23</span><span style="color:#000">]</span> <span style="color:#000">=</span> <span style="color:#000">10</span><span style="color:#000">;</span> <span style="color:#177500">// assegnamento del 24-esimo elemento
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#000">m</span><span style="color:#000">[</span><span style="color:#000">1</span><span style="color:#000">][</span><span style="color:#000">2</span><span style="color:#000">]</span> <span style="color:#000">=</span> <span style="color:#000">10</span><span style="color:#000">;</span> <span style="color:#177500">// assegnamento riga 2 colonna 3
 </span></span></span></code></pre></div></section><section>
 <h2 id="qualche-esempio-duso-di-array">Qualche esempio d’uso di array</h2>
 <!--  \srcode{\scriptsize}{3}{100}{\ecl/UseArrays.java} -->
@@ -436,8 +438,9 @@ Mirko Viroli, che ringrazio.</p>
 <ul>
 <li>Come C++ e C#, Java è alla base anche imperativo/strutturato – altri linguaggi come Scala invece no</li>
 <li>Il codice di un metodo è un insieme di comandi C-like</li>
-<li>Ecco perché li si chiama object-oriented e non object-based</li>
 </ul>
+<!--  *  Ecco perché li si chiama object-oriented e non object-based -->
+<!-- In realtà: object-based PLs consentono di creare e usare oggetti; quelli object-oriented forniscono inoltre supporto per ereditarietà e polimorfismo -->
 <h3 id="panoramica-istruzioni">Panoramica istruzioni</h3>
 <ul>
 <li>Variabili e assegnamenti:</li>
@@ -447,19 +450,31 @@ Mirko Viroli, che ringrazio.</p>
 </span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#000">x</span><span style="color:#000">=</span><span style="color:#000">5</span><span style="color:#000">;</span>                <span style="color:#177500">// assegnamento
 </span></span></span></code></pre></div><ul>
 <li>Ritorno: <code>return 5;</code></li>
-<li>Chiamate: <code>meth(3,4);</code> <code>obj.meth(3);</code>  <code>cls.meth(4);</code></li>
-<li>Costrutti: <code>for</code>, <code>while</code>, <code>do</code>, <code>switch</code>, <code>if</code>, <code>break</code>, <code>continue</code></li>
+<li>Chiamate: <code>meth(3,4);</code> <code>obj.meth(3);</code>  <code>Cls.meth(4);</code></li>
+<li>Costrutti di controllo del flusso: <code>for</code>, <code>while</code>, <code>do</code>, <code>switch</code>, <code>if</code>, <code>break</code>, <code>continue</code></li>
 <li>Qualche altra tipologia, che vedremo nel prosieguo</li>
 </ul>
 </section><section>
 <h2 id="java-vs-c">Java vs C</h2>
 <h3 id="principali-differenze">Principali differenze</h3>
 <ul>
-<li>La condizione dell’<code>if</code>, <code>for</code>, <code>while</code> e <code>do</code> è un <code>boolean</code></li>
-<li>Nel <code>for</code> è possibile dichiarare la variabile di ciclo (come nel C99), sarà visibile solo internamente</li>
+<li>No coercizione da altri tipi verso <code>boolean</code> (cf. strong typing)
+<ul>
+<li>Nota: la condizione dell’<code>if</code>, <code>for</code>, <code>while</code> e <code>do</code> è un <code>boolean</code></li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">for</span><span style="color:#000">(</span><span style="color:#a90d91">int</span> <span style="color:#000">i</span><span style="color:#000">=</span><span style="color:#000">0</span><span style="color:#000">;</span><span style="color:#000">i</span><span style="color:#000">&lt;</span><span style="color:#000">10</span><span style="color:#000">;</span><span style="color:#000">i</span><span style="color:#000">++){..}</span>
-</span></span></code></pre></div><h3 id="differenza-filosofica">Differenza filosofica</h3>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">boolean</span> <span style="color:#000">b</span> <span style="color:#000">=</span> <span style="color:#000">1</span><span style="color:#000">;</span>            <span style="color:#177500">// ERROR: incompatible types: int cannot be converted to boolean
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#a90d91">boolean</span> <span style="color:#000">b</span> <span style="color:#000">=</span> <span style="color:#000">(</span><span style="color:#a90d91">boolean</span><span style="color:#000">)</span> <span style="color:#000">1</span><span style="color:#000">;</span>  <span style="color:#177500">// incompatible types: int cannot be converted to boolean
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#a90d91">if</span><span style="color:#000">(</span><span style="color:#000">1</span><span style="color:#000">){</span> <span style="color:#177500">/* ... */</span> <span style="color:#000">}</span>        <span style="color:#177500">// ERROR: incompatible types: int cannot be converted to boolean
+</span></span></span></code></pre></div></li>
+<li>No puntatori, no de/allocazione manuale di oggetti</li>
+</ul>
+<!--
+*  Nel `for` è possibile dichiarare la variabile di ciclo (come nel C99), che sarà visibile solo internamente
+```java
+for(int i=0; i<10; i++){ /* .. */ }
+```
+--->
+<h3 id="differenza-filosofica">Differenza filosofica</h3>
 <ul>
 <li>Java è molto più restrittivo del C</li>
 <li>Molto di ciò che è solo <em>warning</em> in C, è <em>errore</em> in Java
@@ -473,18 +488,18 @@ Mirko Viroli, che ringrazio.</p>
 <li>Le prassi che discuteremo ci porteranno ulteriori rigidità</li>
 </ul>
 </section><section>
-<h2 id="java-come-linguaggio-puramente-strutturato">Java come linguaggio puramente strutturato</h2>
+<h2 id="java-come-linguaggio-puramente-strutturato-procedurale">Java come linguaggio puramente strutturato-procedurale</h2>
 <h3 id="un-uso-limitato-ma-a-volte-utile-di-java">Un uso limitato (ma a volte utile) di Java</h3>
 <ul>
 <li>Una classe ha solo metodi o campi dichiarati <code>static</code></li>
-<li>In questo caso tale classe definice un insieme di funzioni pure e variabili globali (a quella classe), ossia una struttura analoga a quella di una libreria C</li>
-<li>Un metodo (o campo) <em>statico</em> viene richiamato nel seguente modo:
+<li>In questo caso tale classe definice un insieme di <em>funzioni/procedure</em> e <em>variabili globali</em> (a quella classe), ossia una struttura analoga a quella di una libreria C</li>
+<li>Un metodo (o campo) <em><strong>statico</strong></em> viene richiamato nel seguente modo:
 <ul>
 <li>da fuori la classe (se dichiarato <code>public</code>): <code>&lt;nome-classe&gt;.&lt;nome-metodo&gt;(...)</code></li>
 <li>da dentro la classe: <code>&lt;nome-metodo&gt;(...)</code></li>
 </ul>
 </li>
-<li>E’ una tecnica usata per realizzare “utility class”, come ad esempio la classe delle funzioni matematiche <code>java.lang.Math</code></li>
+<li>E’ una tecnica usata per realizzare <em>utility class</em>, come ad esempio la classe delle funzioni matematiche <code>java.lang.Math</code></li>
 </ul>
 </section><section>
 <h2 id="qualche-prova-di-javalangmath">Qualche prova di <code>java.lang.Math</code></h2>
@@ -543,7 +558,7 @@ Mirko Viroli, che ringrazio.</p>
 <ul>
 <li>supporta l’astrazione di “per ogni elemento della collezione fai..”</li>
 <li>utile con gli array quando non importa il valore corrente dell’indice</li>
-<li>utilizzabile anche con le Collection di Java (liste, insiemi,..)</li>
+<li>utilizzabile con oggetti <em>iterabili</em>, quindi anche con le Collection di Java (liste, insiemi,..)</li>
 </ul>
 <h3 id="sintassi----caso-di-array-di-interi">Sintassi – caso di array di interi</h3>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">for</span><span style="color:#000">(</span><span style="color:#a90d91">int</span> <span style="color:#000">v</span><span style="color:#000">:</span> <span style="color:#000">array</span><span style="color:#000">){</span> <span style="color:#177500">/* uso di v */</span> <span style="color:#000">}</span>
@@ -623,8 +638,8 @@ Mirko Viroli, che ringrazio.</p>
 </ul>
 <h3 id="elementi-implementativi">Elementi implementativi</h3>
 <ul>
-<li><code>java.io.Console.readLine</code> usabile per leggere input da tastiera</li>
-<li><code>java.lang.Integer.parseInt</code> usabile per convertire una stringa in un numero</li>
+<li><code>java.io.Console#readLine</code> usabile per leggere input da tastiera (console ottenibile da <code>System.console()</code>, se associata alla JVM in uso)</li>
+<li><code>java.lang.Integer.parseInt(String)</code> usabile per convertire una stringa in un numero</li>
 <li><code>java.util.Random.nextInt</code> usabile per ottenere un numero random</li>
 </ul>
 </section><section>
@@ -663,17 +678,20 @@ Mirko Viroli, che ringrazio.</p>
 <h3 id="qualità-esterna----aspetti-non-funzionali">Qualità esterna – aspetti non-funzionali</h3>
 <ul>
 <li>Performance adeguate (alle specifiche)</li>
-<li>Uso adeguato delle risorse del sistema (memoria, CPU)</li>
-<li>Caratteristiche di sicurezza, usabilità, etc..</li>
+<li>Uso efficiente/adeguato delle risorse del sistema (memoria, CPU)</li>
+<li>Caratteristiche di sicurezza, affidabilità, usabilità, etc..</li>
 </ul>
 <h3 id="qualità-interna----software-ben-costruito">Qualità interna – software ben costruito</h3>
 <ul>
 <li>Facilmente manutenibile (leggibile, flessibile, riusabile)</li>
-<li>E quindi: meno “costoso”, a breve-/medio-/lungo-termine</li>
-<li>$\Rightarrow$ ci concentriamo per ora su questa tipologia</li>
+<li>E quindi: meno “costoso”, a breve-/medio-/lungo-termine
+<ul>
+<li>ci concentriamo per ora su questa tipologia</li>
+</ul>
+</li>
 </ul>
 </section><section>
-<h2 id="caratteristiche-di-qualità-interna">Caratteristiche di qualità interna</h2>
+<h2 id="caratteristiche-di-qualità-interna">Caratteristiche di <em>qualità interna</em></h2>
 <h3 id="elementi-necessari-per-il-funzionamento">Elementi necessari per il funzionamento</h3>
 <ul>
 <li><em>Sintassi</em>: soddisfa la grammatica del linguaggio</li>
@@ -703,21 +721,25 @@ Mirko Viroli, che ringrazio.</p>
 <h2 id="correttezza-semantica">Correttezza semantica</h2>
 <h3 id="correttezza-semantica----check-del-compilatore">Correttezza semantica – check del compilatore</h3>
 <ul>
-<li>Oltre ad errori sintattici (forma), il compilatore segnala anche gli errori semantici (significato)</li>
+<li>Oltre ad errori sintattici (forma), il compilatore segnala anche gli errori semantici (significato)
+<ul>
+<li>ad es. quelli legati all’utilizzo dei tipi</li>
+</ul>
+</li>
 <li>Ed è molto più rigido del C</li>
 <li>Possono essere di varia natura, e a volte più difficili da comprendere</li>
 </ul>
 <h3 id="esempi-comuni-derrore">Esempi comuni d’errore</h3>
 <ul>
-<li>Uso inappropriato dei tipi:</li>
+<li>Uso inappropriato dei tipi (e.g. <em>incompatible types</em> o <em>bad operand types for operator</em>):</li>
 </ul>
-<pre tabindex="0"><code>int a=true;
-int a=5+false;
+<pre tabindex="0"><code>int a = true;
+int a = 5 + false;
 if (5) ..
 </code></pre><ul>
-<li>Refusi nel nome di campi, metodi, classi: <code>string</code>, <code>system</code>, <code>Sistem</code></li>
+<li>Refusi nel nome di campi, metodi, classi: <code>string</code>, <code>system</code>, <code>Sistem</code> (cf. Errore <em>cannot find symbol</em>)</li>
 <li>Accesso a variabili, campi, metodi, classi che non esistono o non sono visibili</li>
-<li>Errori di flusso: missing return statement</li>
+<li>Errori di flusso: <em>missing return statement</em></li>
 </ul>
 </section><section>
 <h2 id="convenzioni">Convenzioni</h2>
@@ -749,7 +771,7 @@ if (5) ..
 <ul>
 <li>I linguaggi OO sono stati spesso criticati perchè più lenti rispetto ai linguaggi imperativi/strutturati</li>
 <li>Java e C# in più hanno una VM d’esecuzione che introduce ulteriori rallentamenti</li>
-<li>Di recente, tecniche avanzate nelle VM hanno ridotto, se non in alcuni casi annullato, le differenze in performance</li>
+<li>Di recente, tecniche avanzate (cf. <em>JIT compilation</em>) nelle VM hanno ridotto, se non in alcuni casi annullato, le differenze in performance</li>
 </ul>
 <h3 id="in-questo-corso">In questo corso</h3>
 <ul>

@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link rel="stylesheet" href="/reveal-js/dist/reset.css">
 <link rel="stylesheet" href="/reveal-js/dist/reveal.css">
-  <link rel="stylesheet" href="/css/custom-theme.min.58c970688929d6248302a76f54065b16b4bd4ff12c724c2b4fb1e5f736a77006.css" id="theme"><link rel="stylesheet" href="/highlight-js/default.min.css">
+  <link rel="stylesheet" href="/css/custom-theme.min.6e1fd15a500d65868cc62be4b78ccf1998dd0633704e3d7cca3f7908d90e945e.css" id="theme"><link rel="stylesheet" href="/highlight-js/default.min.css">
     
 <link rel="stylesheet" href="https://gitcdn.link/repo/DanySK/css-blur-animation/master/blur.css">
 <link href="https://fonts.googleapis.com/css?family=Roboto Mono" rel="stylesheet">
@@ -72,19 +72,25 @@ Mirko Viroli, che ringrazio.</p>
 <li>il metodo <code>java.lang.System.getProperty()</code></li>
 </ul>
 </li>
-<li>Tali campi e metodi sono considerate proprietà della classe, non dell’oggetto</li>
-<li>Sintassi: <code>classe.metodo(argomenti)</code>, e <code>classe.campo</code>
-*  omettendo la classe si assume quella da cui parte la chiamata</li>
+<li>Tali campi e metodi sono considerate <em>proprietà della classe</em>, non dell’oggetto</li>
+<li>Sintassi: <code>Classe.metodo(argomenti)</code>, e <code>Classe.campo</code>
+<ul>
+<li>omettendo la classe si assume quella da cui parte la chiamata</li>
+</ul>
+</li>
 </ul>
 <h3 id="sulla-notazione">Sulla notazione</h3>
 <ul>
-<li>Iniziano con minuscolo: nomi di package, metodi e campi</li>
-<li>Iniziano con maiuscolo: nomi di classe</li>
-<li>$\Rightarrow$ Questo consente di capire facilmente il significato delle istruzioni</li>
+<li>Iniziano con <em>minuscolo</em>: nomi di package (<code>it.unibo.students</code>), metodi (<code>getName</code>) e campi (<code>firstName</code>)</li>
+<li>Iniziano con <em>maiuscolo</em>: nomi di classe (e.g. <code>Student</code>)
+<ul>
+<li>Questo consente di capire facilmente il significato delle istruzioni</li>
+</ul>
+</li>
 </ul>
 </section><section>
 <h2 id="uso-di-codice-statico-o-non-statico-in-una-classe-c">Uso di codice statico o non statico in una classe <code>C</code>?</h2>
-<h3 id="codice-non-statico-detto-anche-codice-istanza">Codice non statico (detto anche codice istanza)</h3>
+<h3 id="codice-non-statico-detto-anche-codice-distanza">Codice non statico (detto anche <em>codice d’istanza</em>)</h3>
 <ul>
 <li>È codice puro object-oriented</li>
 <li>Definisce le operazioni e lo stato di ogni oggetto creato da <code>C</code></li>
@@ -94,7 +100,7 @@ Mirko Viroli, che ringrazio.</p>
 <li>Non è codice puro object-oriented, ma codice in stile “imperativo/strutturato”</li>
 <li>Definisce funzioni e variabili del componente software definito da <code>C</code>
 <ul>
-<li>possono essere visti come metodi e campi dell’unico oggetto “classe <code>C</code>”</li>
+<li>possono essere visti come metodi e campi dell’unico oggetto “classe <code>C</code>” (cf. <em>reflection</em>)</li>
 </ul>
 </li>
 </ul>
@@ -105,9 +111,7 @@ Mirko Viroli, che ringrazio.</p>
 </ul>
 </section><section>
 <h2 id="esempio-point3d">Esempio Point3D</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">package</span> <span style="color:#000">it.unibo.apice.oop.p04objects</span><span style="color:#000">;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">Point3D</span> <span style="color:#000">{</span> <span style="color:#177500">// dichiarazione classe
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">Point3D</span> <span style="color:#000">{</span> <span style="color:#177500">// dichiarazione classe
 </span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>	<span style="color:#a90d91">double</span> <span style="color:#000">x</span><span style="color:#000">;</span> <span style="color:#177500">// 3 campi
 </span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>	<span style="color:#a90d91">double</span> <span style="color:#000">y</span><span style="color:#000">;</span>
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">double</span> <span style="color:#000">z</span><span style="color:#000">;</span>
@@ -136,9 +140,7 @@ Mirko Viroli, che ringrazio.</p>
 </span></span><span style="display:flex;"><span><span style="color:#000">}</span>
 </span></span></code></pre></div></section><section>
 <h2 id="uso-point3d">Uso Point3D</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">package</span> <span style="color:#000">it.unibo.apice.oop.p04objects</span><span style="color:#000">;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">UsePoint3D</span> <span style="color:#000">{</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">UsePoint3D</span> <span style="color:#000">{</span>
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span><span style="color:#000">(</span><span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">s</span><span style="color:#000">)</span> <span style="color:#000">{</span>
 </span></span><span style="display:flex;"><span>		<span style="color:#177500">// creo e inizializzo vari punti
 </span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#000">Point3D</span> <span style="color:#000">p1</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Point3D</span><span style="color:#000">();</span>
@@ -163,8 +165,8 @@ Mirko Viroli, che ringrazio.</p>
 <h2 id="point3d-commenti">Point3D: commenti</h2>
 <h3 id="si-notino-le-due-diverse-chiamate">Si notino le due diverse chiamate</h3>
 <ul>
-<li><code>build</code> è sempre chiamata su un oggetto, ossia su: <code>new Point3D()</code></li>
-<li><code>zero</code> e <code>max</code> sono chiamate sulla classe <code>Point3D</code></li>
+<li><code>build</code> è sempre chiamata <em>su un oggetto</em>, ossia su: <code>new Point3D()</code></li>
+<li><code>zero</code> e <code>max</code> sono chiamate <em>sulla classe</em> <code>Point3D</code></li>
 </ul>
 <h3 id="razionale">Razionale</h3>
 <ul>
@@ -173,14 +175,15 @@ Mirko Viroli, che ringrazio.</p>
 </ul>
 <h3 id="un-errore-comune">Un errore comune</h3>
 <ul>
-<li>se si omette l’indicazione del receiver, si rischia di chiamare una proprietà non statica da un metodo statico, e questo comporta un errore segnalato dal compilatore</li>
-<li>$\Rightarrow$ a questo si ovvia inserendo sempre l’indicazione del receiver</li>
+<li>se si omette l’indicazione del receiver, si rischia di chiamare una proprietà non statica da un metodo statico, e questo comporta un errore segnalato dal compilatore
+<ul>
+<li>a questo si ovvia inserendo sempre l’indicazione del receiver</li>
+</ul>
+</li>
 </ul>
 </section><section>
 <h2 id="variante-point3dbis-inizializzazione-con-ritorno">Variante Point3DBis.. inizializzazione con ritorno</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">package</span> <span style="color:#000">it.unibo.apice.oop.p04objects</span><span style="color:#000">;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">Point3DBis</span> <span style="color:#000">{</span> <span style="color:#177500">// dichiarazione classe
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">Point3DBis</span> <span style="color:#000">{</span> <span style="color:#177500">// dichiarazione classe
 </span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>	<span style="color:#a90d91">double</span> <span style="color:#000">x</span><span style="color:#000">;</span> <span style="color:#177500">// 3 campi
 </span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>	<span style="color:#a90d91">double</span> <span style="color:#000">y</span><span style="color:#000">;</span>
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">double</span> <span style="color:#000">z</span><span style="color:#000">;</span>
@@ -210,9 +213,7 @@ Mirko Viroli, che ringrazio.</p>
 </span></span><span style="display:flex;"><span><span style="color:#000">}</span>
 </span></span></code></pre></div></section><section>
 <h2 id="uso-point3dbis">Uso Point3DBis</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">package</span> <span style="color:#000">it.unibo.apice.oop.p04objects</span><span style="color:#000">;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">UsePoint3DBis</span> <span style="color:#000">{</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">UsePoint3DBis</span> <span style="color:#000">{</span>
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span><span style="color:#000">(</span><span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">s</span><span style="color:#000">)</span> <span style="color:#000">{</span>
 </span></span><span style="display:flex;"><span>		<span style="color:#177500">// creo vari punti
 </span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#000">Point3DBis</span> <span style="color:#000">p1</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Point3DBis</span><span style="color:#000">().</span><span style="color:#836c28">build</span><span style="color:#000">(</span><span style="color:#000">10</span><span style="color:#000">,</span> <span style="color:#000">20</span><span style="color:#000">,</span> <span style="color:#000">30</span><span style="color:#000">);</span>
@@ -240,7 +241,7 @@ Mirko Viroli, che ringrazio.</p>
 <h3 id="razionale-1">Razionale</h3>
 <ul>
 <li>è possibile concatenare creazione di oggetto e sua inizializzazione</li>
-<li>schema chiamato “fluente”</li>
+<li>schema chiamato <em>“fluente”</em></li>
 </ul>
 </section><section>
 <h2 id="sulluso-delle-proprietà-static">Sull’uso delle proprietà <code>static</code></h2>
@@ -253,7 +254,7 @@ Mirko Viroli, che ringrazio.</p>
 </ul>
 <h3 id="prassi-frequente-in-java">Prassi frequente in Java</h3>
 <ul>
-<li>se <code>XYZ</code> è una classe usata per generare oggetti, la classe <code>XYZs</code> conterrà solo proprietà statiche relative</li>
+<li>se <code>C</code> è una classe usata per generare oggetti, la classe <code>Cs</code> (plurale) conterrà solo proprietà statiche relative</li>
 <li>es: <code>Object</code>/<code>Objects</code>, <code>Array</code>/<code>Arrays</code>, <code>Collection</code>/<code>Collections</code></li>
 </ul>
 <h3 id="in-altri-linguaggi-come-scala">In altri linguaggi.. come Scala</h3>
@@ -262,11 +263,10 @@ Mirko Viroli, che ringrazio.</p>
 </ul>
 </section><section>
 <h2 id="ristrutturazione-point3d">Ristrutturazione <code>Point3D</code></h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">package</span> <span style="color:#000">it.unibo.apice.oop.p04objects.points</span><span style="color:#000">;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">Point3D</span> <span style="color:#000">{</span> 
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">double</span> <span style="color:#000">x</span><span style="color:#000">;</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">double</span> <span style="color:#000">y</span><span style="color:#000">;</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#177500">// Classe Point3D con solo membri d'istanza (non-static)
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">Point3D</span> <span style="color:#000">{</span> <span style="color:#177500">// dichiarazione classe
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>	<span style="color:#a90d91">double</span> <span style="color:#000">x</span><span style="color:#000">;</span> <span style="color:#177500">// 3 campi
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>	<span style="color:#a90d91">double</span> <span style="color:#000">y</span><span style="color:#000">;</span>
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">double</span> <span style="color:#000">z</span><span style="color:#000">;</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>	<span style="color:#000">Point3D</span> <span style="color:#000">build</span><span style="color:#000">(</span><span style="color:#a90d91">double</span> <span style="color:#000">a</span><span style="color:#000">,</span> <span style="color:#a90d91">double</span> <span style="color:#000">b</span><span style="color:#000">,</span> <span style="color:#a90d91">double</span> <span style="color:#000">c</span><span style="color:#000">)</span> <span style="color:#000">{</span>
@@ -279,13 +279,10 @@ Mirko Viroli, che ringrazio.</p>
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">double</span> <span style="color:#000">getModuloQuadro</span><span style="color:#000">()</span> <span style="color:#000">{</span> 
 </span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">x</span> <span style="color:#000">*</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">x</span> <span style="color:#000">+</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">y</span> <span style="color:#000">*</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">y</span> <span style="color:#000">+</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">z</span> <span style="color:#000">*</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">z</span><span style="color:#000">;</span>
 </span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
-</span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#000">}</span>
 </span></span></code></pre></div></section><section>
 <h2 id="modulo-points">Modulo <code>Points</code></h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">package</span> <span style="color:#000">it.unibo.apice.oop.p04objects.points</span><span style="color:#000">;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">Points</span> <span style="color:#000">{</span> <span style="color:#177500">// Modulo con funzionalità per punti 
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">Points</span> <span style="color:#000">{</span> <span style="color:#177500">// Modulo con funzionalità per punti 
 </span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>	
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">static</span> <span style="color:#000">Point3D</span> <span style="color:#000">zero</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Point3D</span><span style="color:#000">().</span><span style="color:#836c28">build</span><span style="color:#000">(</span><span style="color:#000">0</span><span style="color:#000">,</span> <span style="color:#000">0</span><span style="color:#000">,</span> <span style="color:#000">0</span><span style="color:#000">);</span>
 </span></span><span style="display:flex;"><span>
@@ -301,11 +298,9 @@ Mirko Viroli, che ringrazio.</p>
 </span></span><span style="display:flex;"><span><span style="color:#000">}</span>
 </span></span></code></pre></div></section><section>
 <h2 id="uso-point3d-e-points">Uso <code>Point3D</code> e <code>Points</code></h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">package</span> <span style="color:#000">it.unibo.apice.oop.p04objects.points</span><span style="color:#000">;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">UsePoint3D</span> <span style="color:#000">{</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">UsePoint3D</span> <span style="color:#000">{</span>
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span><span style="color:#000">(</span><span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">s</span><span style="color:#000">)</span> <span style="color:#000">{</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#177500">// creo vari punti
+</span></span><span style="display:flex;"><span>		<span style="color:#177500">// creo e inizializzo vari punti
 </span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#000">Point3D</span> <span style="color:#000">p1</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Point3D</span><span style="color:#000">().</span><span style="color:#836c28">build</span><span style="color:#000">(</span><span style="color:#000">10</span><span style="color:#000">,</span> <span style="color:#000">20</span><span style="color:#000">,</span> <span style="color:#000">30</span><span style="color:#000">);</span>
 </span></span><span style="display:flex;"><span>		<span style="color:#000">Point3D</span> <span style="color:#000">p2</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Point3D</span><span style="color:#000">().</span><span style="color:#836c28">build</span><span style="color:#000">(</span><span style="color:#000">5</span><span style="color:#000">,</span> <span style="color:#000">6</span><span style="color:#000">,</span> <span style="color:#000">7</span><span style="color:#000">);</span>
 </span></span><span style="display:flex;"><span>		<span style="color:#000">Point3D</span> <span style="color:#000">p3</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Point3D</span><span style="color:#000">().</span><span style="color:#836c28">build</span><span style="color:#000">(</span><span style="color:#000">100</span><span style="color:#000">,</span> <span style="color:#000">100</span><span style="color:#000">,</span> <span style="color:#000">100</span><span style="color:#000">);</span>
@@ -327,66 +322,77 @@ Mirko Viroli, che ringrazio.</p>
 <h2 id="la-costruzione-degli-oggetti">La costruzione degli oggetti</h2>
 <h3 id="loperatore-new">L’operatore <code>new</code></h3>
 <ul>
-<li>Allo stato attuale delle nostre conoscenze, crea un oggetto inizializzando tutti i suoi campi al loro valore di default (p.e. $0$ per i numeri), e ne restituisce il riferimento</li>
-<li>Altri metodi devono gestire la inizializzazione vera e propria</li>
-<li>Problema: garantire una corretta inizializzazione</li>
+<li>Allo stato attuale delle nostre conoscenze, l’operatore <code>new T</code> crea un oggetto di tipo <code>T</code> inizializzando tutti i suoi campi al loro valore di default (p.e. $0$ per i numeri), e ne restituisce il riferimento</li>
 </ul>
-<h3 id="costruttori-di-una-classe">Costruttori di una classe</h3>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#000">Point3D</span>   <span style="color:#000">p</span>  <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Point3D</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">Point3D</span><span style="color:#000">[]</span> <span style="color:#000">ps</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Point3D</span><span style="color:#000">[</span><span style="color:#000">2</span><span style="color:#000">];</span> <span style="color:#177500">// [null, null]
+</span></span></span></code></pre></div><ul>
+<li>Problema: garantire una corretta <em>inizializzazione</em></li>
+</ul>
+<h3 id="costruttori-di-una-classe"><em>Costruttori</em> di una classe</h3>
 <ul>
-<li>Assomigliano per struttura ai metodi</li>
-<li>Hanno lo stesso nome della classe in cui si trovano</li>
-<li>Nessun tipo di ritorno, possono avere dei parametri formali
+<li>I <em>costruttori</em> assomigliano per struttura ai metodi: hanno un nome e possono avere dei parametri formali
 <ul>
-<li>$\Rightarrow$ alla <code>new</code> si possono quindi passare dei valori</li>
+<li>alla <code>new</code> si possono quindi passare dei valori</li>
 </ul>
 </li>
-<li>Il costruttore di default (a zero argomenti) è implicitamente definito solo se non se ne aggiungono altri – ecco perché era consentito scrivere: <code>new Point3D()</code></li>
+<li>Particolarità (rispetto ai metodi)
+<ul>
+<li>Hanno lo <em>stesso nome della classe</em> in cui si trovano</li>
+<li>Si dichiarano <em>senza tipo di ritorno</em> (è implicito che il tipo di ritorno sia il tipo della classe)</li>
+</ul>
+</li>
+<li>Il <em>costruttore di default</em> (a zero argomenti) è implicitamente definito solo se non se ne aggiungono altri – ecco perché era consentito scrivere: <code>new Point3D()</code></li>
 </ul>
 </section><section>
 <h2 id="esempio-point3d-1">Esempio: Point3D</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">Point3D</span> <span style="color:#000">{</span>   <span style="color:#177500">// dichiarazione classe
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Point3Dcons</span> <span style="color:#000">{</span>   <span style="color:#177500">// dichiarazione classe
 </span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#a90d91">double</span> <span style="color:#000">x</span><span style="color:#000">;</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">double</span> <span style="color:#000">y</span><span style="color:#000">;</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">double</span> <span style="color:#000">z</span><span style="color:#000">;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#000">Point3D</span><span style="color:#000">(</span><span style="color:#a90d91">double</span> <span style="color:#000">inx</span><span style="color:#000">,</span><span style="color:#a90d91">double</span> <span style="color:#000">iny</span><span style="color:#000">,</span><span style="color:#a90d91">double</span> <span style="color:#000">inz</span><span style="color:#000">){</span> <span style="color:#177500">//costruttore
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#177500">// costruttore
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#000">Point3Dcons</span><span style="color:#000">(</span><span style="color:#a90d91">double</span> <span style="color:#000">inx</span><span style="color:#000">,</span><span style="color:#a90d91">double</span> <span style="color:#000">iny</span><span style="color:#000">,</span><span style="color:#a90d91">double</span> <span style="color:#000">inz</span><span style="color:#000">){</span> <span style="color:#177500">// nota: assenza di tipo di ritorno
 </span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>        <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">x</span> <span style="color:#000">=</span> <span style="color:#000">inx</span><span style="color:#000">;</span>	<span style="color:#177500">// metto l'argomento inx in this.x
 </span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>        <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">y</span> <span style="color:#000">=</span> <span style="color:#000">iny</span><span style="color:#000">;</span>	<span style="color:#177500">// ..
 </span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>        <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">z</span> <span style="color:#000">=</span> <span style="color:#000">inz</span><span style="color:#000">;</span>	<span style="color:#177500">// ..
 </span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#000">}</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#000">...</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span><span style="color:#000">(</span><span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span><span style="color:#000">){</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#177500">// creo l'oggetto usando il costruttore a tre argomenti
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>        <span style="color:#000">Point3Dcons</span> <span style="color:#000">p</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Point3Dcons</span><span style="color:#000">(</span><span style="color:#000">10</span><span style="color:#000">.</span><span style="color:#836c28">0</span><span style="color:#000">,</span> <span style="color:#000">20</span><span style="color:#000">.</span><span style="color:#836c28">0</span><span style="color:#000">,</span> <span style="color:#000">30</span><span style="color:#000">.</span><span style="color:#836c28">0</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#177500">// stampo
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>        <span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#c41a16">"p: "</span> <span style="color:#000">+</span> <span style="color:#000">p</span><span style="color:#000">.</span><span style="color:#836c28">x</span> <span style="color:#000">+</span> <span style="color:#c41a16">","</span> <span style="color:#000">+</span> <span style="color:#000">p</span><span style="color:#000">.</span><span style="color:#836c28">y</span> <span style="color:#000">+</span> <span style="color:#c41a16">","</span> <span style="color:#000">+</span> <span style="color:#000">p</span><span style="color:#000">.</span><span style="color:#836c28">z</span><span style="color:#000">);</span>	
+</span></span><span style="display:flex;"><span>        <span style="color:#177500">// costruttore di "default" in questo caso non funziona!
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>        <span style="color:#177500">// Point3D p2 = new Point3D(); NO!!
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#000">}</span>
 </span></span><span style="display:flex;"><span><span style="color:#000">}</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#177500">//creo l'oggetto usando il costruttore a tre argomenti
-</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#000">Point3D</span> <span style="color:#000">p</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Point3D</span><span style="color:#000">(</span><span style="color:#000">10</span><span style="color:#000">.</span><span style="color:#836c28">0</span><span style="color:#000">,</span><span style="color:#000">20</span><span style="color:#000">.</span><span style="color:#836c28">0</span><span style="color:#000">,</span><span style="color:#000">30</span><span style="color:#000">.</span><span style="color:#836c28">0</span><span style="color:#000">);</span>
-</span></span><span style="display:flex;"><span><span style="color:#177500">// stampo
-</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#c41a16">"p: "</span> <span style="color:#000">+</span> <span style="color:#000">p</span><span style="color:#000">.</span><span style="color:#836c28">x</span> <span style="color:#000">+</span> <span style="color:#c41a16">","</span> <span style="color:#000">+</span> <span style="color:#000">p</span><span style="color:#000">.</span><span style="color:#836c28">y</span> <span style="color:#000">+</span> <span style="color:#c41a16">","</span> <span style="color:#000">+</span> <span style="color:#000">p</span><span style="color:#000">.</span><span style="color:#836c28">z</span><span style="color:#000">);</span>	
-</span></span><span style="display:flex;"><span><span style="color:#177500">// costruttore di "default" in questo caso non funziona!
-</span></span></span><span style="display:flex;"><span><span style="color:#177500">//Point3D p2=new Point3D(); NO!!
-</span></span></span></code></pre></div></section><section>
+</span></span></code></pre></div></section><section>
 <h2 id="gli-argomenti-del-costr-spesso-corrispondono-ai-campi">Gli argomenti del costr. spesso corrispondono ai campi</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">Point3D</span> <span style="color:#000">{</span>   <span style="color:#177500">// dichiarazione classe
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">Point3Dvar</span> <span style="color:#000">{</span>  <span style="color:#177500">// dichiarazione classe
 </span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#a90d91">double</span> <span style="color:#000">x</span><span style="color:#000">;</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">double</span> <span style="color:#000">y</span><span style="color:#000">;</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">double</span> <span style="color:#000">z</span><span style="color:#000">;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#000">Point3D</span><span style="color:#000">(</span><span style="color:#a90d91">double</span> <span style="color:#000">x</span><span style="color:#000">,</span><span style="color:#a90d91">double</span> <span style="color:#000">y</span><span style="color:#000">,</span><span style="color:#a90d91">double</span> <span style="color:#000">z</span><span style="color:#000">){</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">x</span> <span style="color:#000">=</span> <span style="color:#000">x</span><span style="color:#000">;</span>	<span style="color:#177500">// metto l'argomento x in this.x
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">Point3Dvar</span><span style="color:#000">(</span><span style="color:#a90d91">double</span> <span style="color:#000">x</span><span style="color:#000">,</span> <span style="color:#a90d91">double</span> <span style="color:#000">y</span><span style="color:#000">,</span> <span style="color:#a90d91">double</span> <span style="color:#000">z</span><span style="color:#000">){</span> <span style="color:#177500">// costruttore
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>        <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">x</span> <span style="color:#000">=</span> <span style="color:#000">x</span><span style="color:#000">;</span>	<span style="color:#177500">// metto l'argomento x in this.x
 </span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>        <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">y</span> <span style="color:#000">=</span> <span style="color:#000">y</span><span style="color:#000">;</span>	<span style="color:#177500">// ..
 </span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>        <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">z</span> <span style="color:#000">=</span> <span style="color:#000">z</span><span style="color:#000">;</span>	<span style="color:#177500">// ..
 </span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#000">}</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#000">...</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#177500">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span><span style="color:#000">(</span><span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span><span style="color:#000">){</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#177500">//creo l'oggetto usando il costruttore a tre argomenti
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>        <span style="color:#000">Point3Dvar</span> <span style="color:#000">p</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Point3Dvar</span><span style="color:#000">(</span><span style="color:#000">10</span><span style="color:#000">.</span><span style="color:#836c28">0</span><span style="color:#000">,</span> <span style="color:#000">20</span><span style="color:#000">.</span><span style="color:#836c28">0</span><span style="color:#000">,</span> <span style="color:#000">30</span><span style="color:#000">.</span><span style="color:#836c28">0</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#177500">// stampo
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>        <span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#c41a16">"p: "</span> <span style="color:#000">+</span> <span style="color:#000">p</span><span style="color:#000">.</span><span style="color:#836c28">x</span> <span style="color:#000">+</span> <span style="color:#c41a16">","</span> <span style="color:#000">+</span> <span style="color:#000">p</span><span style="color:#000">.</span><span style="color:#836c28">y</span> <span style="color:#000">+</span> <span style="color:#c41a16">","</span> <span style="color:#000">+</span> <span style="color:#000">p</span><span style="color:#000">.</span><span style="color:#836c28">z</span><span style="color:#000">);</span>	
+</span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
 </span></span><span style="display:flex;"><span><span style="color:#000">}</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#177500">//creo l'oggetto usando il costruttore a tre argomenti
-</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#000">Point3D</span> <span style="color:#000">p</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Point3D</span><span style="color:#000">(</span><span style="color:#000">10</span><span style="color:#000">.</span><span style="color:#836c28">0</span><span style="color:#000">,</span><span style="color:#000">20</span><span style="color:#000">.</span><span style="color:#836c28">0</span><span style="color:#000">,</span><span style="color:#000">30</span><span style="color:#000">.</span><span style="color:#836c28">0</span><span style="color:#000">);</span>
-</span></span><span style="display:flex;"><span><span style="color:#177500">// stampo
-</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#c41a16">"p: "</span> <span style="color:#000">+</span> <span style="color:#000">p</span><span style="color:#000">.</span><span style="color:#836c28">x</span> <span style="color:#000">+</span> <span style="color:#c41a16">","</span> <span style="color:#000">+</span> <span style="color:#000">p</span><span style="color:#000">.</span><span style="color:#836c28">y</span> <span style="color:#000">+</span> <span style="color:#c41a16">","</span> <span style="color:#000">+</span> <span style="color:#000">p</span><span style="color:#000">.</span><span style="color:#836c28">z</span><span style="color:#000">);</span>	
 </span></span></code></pre></div></section><section>
 <h2 id="esempio-persona-3-costruttori">Esempio: Persona (3 costruttori)</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">package</span> <span style="color:#000">it.unibo.apice.oop.p04objects</span><span style="color:#000">;</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.Calendar</span><span style="color:#000">;</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">Persona</span> <span style="color:#000">{</span> <span style="color:#177500">// dichiarazione classe
-</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>	<span style="color:#a90d91">static</span> <span style="color:#a90d91">int</span> <span style="color:#000">currentYear</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">java</span><span style="color:#000">.</span><span style="color:#836c28">util</span><span style="color:#000">.</span><span style="color:#836c28">Date</span><span style="color:#000">().</span><span style="color:#836c28">getYear</span><span style="color:#000">();</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#000">String</span> <span style="color:#000">nome</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Persona</span> <span style="color:#000">{</span> <span style="color:#177500">// dichiarazione classe
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>	<span style="color:#000">String</span> <span style="color:#000">nome</span><span style="color:#000">;</span>
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">int</span> <span style="color:#000">annoNascita</span><span style="color:#000">;</span>
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">boolean</span> <span style="color:#000">sposato</span><span style="color:#000">;</span>
 </span></span><span style="display:flex;"><span>
@@ -407,17 +413,20 @@ Mirko Viroli, che ringrazio.</p>
 </span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">annoNascita</span> <span style="color:#000">=</span> <span style="color:#000">annoNascita</span><span style="color:#000">;</span>
 </span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">sposato</span> <span style="color:#000">=</span> <span style="color:#000">sposato</span><span style="color:#000">;</span>
 </span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">static</span> <span style="color:#a90d91">int</span> <span style="color:#000">currentYear</span> <span style="color:#000">=</span> <span style="color:#000">Calendar</span><span style="color:#000">.</span><span style="color:#836c28">getInstance</span><span style="color:#000">().</span><span style="color:#836c28">get</span><span style="color:#000">(</span><span style="color:#000">Calendar</span><span style="color:#000">.</span><span style="color:#836c28">YEAR</span><span style="color:#000">);</span>
 </span></span><span style="display:flex;"><span><span style="color:#000">}</span>
 </span></span></code></pre></div></section><section>
 <h2 id="esempio-uso-di-persona-3-costruttori">Esempio: Uso di Persona (3 costruttori)</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">package</span> <span style="color:#000">it.unibo.apice.oop.p04objects</span><span style="color:#000">;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">UsePersona</span> <span style="color:#000">{</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UsePersona</span> <span style="color:#000">{</span>
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span><span style="color:#000">(</span><span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">s</span><span style="color:#000">)</span> <span style="color:#000">{</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#177500">// Persona p1=new Persona(); NO!!
+</span></span><span style="display:flex;"><span>		<span style="color:#177500">// Persona p1 = new Persona(); NO!!
 </span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#000">Persona</span> <span style="color:#000">p2</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Persona</span><span style="color:#000">(</span><span style="color:#c41a16">"Mario Rossi"</span><span style="color:#000">);</span>
 </span></span><span style="display:flex;"><span>		<span style="color:#000">Persona</span> <span style="color:#000">p3</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Persona</span><span style="color:#000">(</span><span style="color:#c41a16">"Gino Bianchi"</span><span style="color:#000">,</span> <span style="color:#000">1979</span><span style="color:#000">);</span>
 </span></span><span style="display:flex;"><span>		<span style="color:#000">Persona</span> <span style="color:#000">p4</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Persona</span><span style="color:#000">(</span><span style="color:#c41a16">"Carlo Verdi"</span><span style="color:#000">,</span> <span style="color:#000">1971</span><span style="color:#000">,</span> <span style="color:#a90d91">true</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">p2</span><span style="color:#000">.</span><span style="color:#836c28">nome</span> <span style="color:#000">+</span> <span style="color:#c41a16">", nato/a nel "</span> <span style="color:#000">+</span> <span style="color:#000">p2</span><span style="color:#000">.</span><span style="color:#836c28">annoNascita</span> <span style="color:#000">+</span> 
+</span></span><span style="display:flex;"><span>			<span style="color:#000">(</span><span style="color:#000">p2</span><span style="color:#000">.</span><span style="color:#836c28">sposato</span> <span style="color:#000">?</span> <span style="color:#c41a16">""</span> <span style="color:#000">:</span> <span style="color:#c41a16">", non"</span><span style="color:#000">)</span> <span style="color:#000">+</span> <span style="color:#c41a16">" è sposato/a."</span><span style="color:#000">);</span>
 </span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
 </span></span><span style="display:flex;"><span><span style="color:#000">}</span>
 </span></span></code></pre></div><h3 id="sequenza-dazioni-effettuate-con-una-new">Sequenza d’azioni effettuate con una <code>new</code></h3>
@@ -433,44 +442,44 @@ Mirko Viroli, che ringrazio.</p>
 <li>tale istruzione può solo essere la prima di un costruttore</li>
 <li>questo meccanismo consente di riusare il codice di altri costruttori</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">package</span> <span style="color:#000">it.unibo.apice.oop.p04objects</span><span style="color:#000">;</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.Calendar</span><span style="color:#000">;</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">Persona2</span> <span style="color:#000">{</span> <span style="color:#177500">// dichiarazione classe
-</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>	<span style="color:#a90d91">static</span> <span style="color:#a90d91">int</span> <span style="color:#000">currentYear</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">java</span><span style="color:#000">.</span><span style="color:#836c28">util</span><span style="color:#000">.</span><span style="color:#836c28">Date</span><span style="color:#000">().</span><span style="color:#836c28">getYear</span><span style="color:#000">();</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#000">String</span> <span style="color:#000">nome</span><span style="color:#000">;</span>
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>	<span style="color:#000">String</span> <span style="color:#000">nome</span><span style="color:#000">;</span>
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">int</span> <span style="color:#000">annoNascita</span><span style="color:#000">;</span>
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">boolean</span> <span style="color:#000">sposato</span><span style="color:#000">;</span>
 </span></span><span style="display:flex;"><span>	
-</span></span><span style="display:flex;"><span>	<span style="color:#000">Persona2</span><span style="color:#000">(</span><span style="color:#000">String</span> <span style="color:#000">nome</span><span style="color:#000">,</span> <span style="color:#a90d91">int</span> <span style="color:#000">annoNascita</span><span style="color:#000">,</span> <span style="color:#a90d91">boolean</span> <span style="color:#000">sposato</span><span style="color:#000">)</span> <span style="color:#000">{</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">nome</span> <span style="color:#000">=</span> <span style="color:#000">nome</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">Persona2</span><span style="color:#000">(</span><span style="color:#000">String</span> <span style="color:#000">nome</span><span style="color:#000">,</span> <span style="color:#a90d91">int</span> <span style="color:#000">annoNascita</span><span style="color:#000">,</span> <span style="color:#a90d91">boolean</span> <span style="color:#000">sposato</span><span style="color:#000">)</span> <span style="color:#000">{</span> <span style="color:#177500">// costruttore completo
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">nome</span> <span style="color:#000">=</span> <span style="color:#000">nome</span><span style="color:#000">;</span>
 </span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">annoNascita</span> <span style="color:#000">=</span> <span style="color:#000">annoNascita</span><span style="color:#000">;</span>
 </span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">sposato</span> <span style="color:#000">=</span> <span style="color:#000">sposato</span><span style="color:#000">;</span>
 </span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>	<span style="color:#000">Persona2</span><span style="color:#000">(</span><span style="color:#000">String</span> <span style="color:#000">nome</span><span style="color:#000">,</span> <span style="color:#a90d91">int</span> <span style="color:#000">annoNascita</span><span style="color:#000">)</span> <span style="color:#000">{</span> <span style="color:#177500">// richiama costruttore a 3 arg..
-</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#a90d91">this</span><span style="color:#000">(</span><span style="color:#000">nome</span><span style="color:#000">,</span><span style="color:#000">annoNascita</span><span style="color:#000">,</span><span style="color:#a90d91">false</span><span style="color:#000">);</span>
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#a90d91">this</span><span style="color:#000">(</span><span style="color:#000">nome</span><span style="color:#000">,</span> <span style="color:#000">annoNascita</span><span style="color:#000">,</span> <span style="color:#a90d91">false</span><span style="color:#000">);</span>
 </span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
 </span></span><span style="display:flex;"><span>	
 </span></span><span style="display:flex;"><span>	<span style="color:#000">Persona2</span><span style="color:#000">(</span><span style="color:#000">String</span> <span style="color:#000">nome</span><span style="color:#000">)</span> <span style="color:#000">{</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span><span style="color:#000">(</span><span style="color:#000">nome</span><span style="color:#000">,</span><span style="color:#000">Persona2</span><span style="color:#000">.</span><span style="color:#836c28">currentYear</span><span style="color:#000">);</span> <span style="color:#177500">// richiama costruttore a 2 arg..
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span><span style="color:#000">(</span><span style="color:#000">nome</span><span style="color:#000">,</span> <span style="color:#000">Persona2</span><span style="color:#000">.</span><span style="color:#836c28">currentYear</span><span style="color:#000">);</span> <span style="color:#177500">// richiama costruttore a 2 arg..
 </span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>	<span style="color:#000">}</span>
 </span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">static</span> <span style="color:#a90d91">int</span> <span style="color:#000">currentYear</span> <span style="color:#000">=</span> <span style="color:#000">Calendar</span><span style="color:#000">.</span><span style="color:#836c28">getInstance</span><span style="color:#000">().</span><span style="color:#836c28">get</span><span style="color:#000">(</span><span style="color:#000">Calendar</span><span style="color:#000">.</span><span style="color:#836c28">YEAR</span><span style="color:#000">);</span>
 </span></span><span style="display:flex;"><span><span style="color:#000">}</span>
 </span></span></code></pre></div></section><section>
 <h2 id="overloading-dei-costruttori">Overloading dei costruttori</h2>
 <h3 id="overloading-un-nome-più-significati">Overloading: un nome, più significati</h3>
 <ul>
-<li>L’overloading è un meccanismo importante per il programmatore</li>
-<li>La difficoltà che comporta è dovuta alla tecnica di disambiguazione</li>
-<li>Due esempi visti finora: overloading operatori matematici, overloading costruttori</li>
+<li>L’<em>overloading</em> è un meccanismo che consente di definire più metodi/operatori con lo stesso nome</li>
+<li>La difficoltà che comporta è dovuta alla necessità di disambiguazione</li>
+<li>Due esempi visti finora: overloading operatori matematici (cf. <code>+</code>) e overloading costruttori</li>
 </ul>
 <h3 id="overloading-dei-costruttori-1">Overloading dei costruttori</h3>
 <p>Data una <code>new</code>, quale costruttore richiamerà? (JLS 15.12)</p>
 <ul>
-<li>si scartano i costruttori con numero di argomenti che non corrisponde</li>
-<li>si scartano i costruttori il cui tipo d’argomenti non è compatibile</li>
-<li>se ve ne è uno allora è quello che verrà chiamato..</li>
-<li>altrimenti il compilatore segnala un errore</li>
+<li>si scartano i costruttori con <em>numero di argomenti</em> che non corrisponde</li>
+<li>si scartano i costruttori il cui <em>tipo d’argomenti</em> non è compatibile</li>
+<li>se ve ne è <em>uno solo</em> allora è quello che verrà chiamato..</li>
+<li>altrimenti il compilatore segnala un errore (per ambiguità)</li>
 </ul>
 </section><section>
 <h2 id="overloading-dei-metodi">Overloading dei metodi</h2>
@@ -479,25 +488,22 @@ Mirko Viroli, che ringrazio.</p>
 <li>Si può fare overloading dei metodi con stessa tecnica di risoluzione</li>
 <li>Sia su metodi statici, che su metodi standard (metodi istanza)</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">package</span> <span style="color:#000">it.unibo.apice.oop.p04objects</span><span style="color:#000">;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">ExampleOverloading</span> <span style="color:#000">{</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">ExampleOverloading</span> <span style="color:#000">{</span>
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">static</span> <span style="color:#a90d91">int</span> <span style="color:#000">m</span><span style="color:#000">(</span><span style="color:#a90d91">double</span> <span style="color:#000">a</span><span style="color:#000">,</span> <span style="color:#a90d91">int</span> <span style="color:#000">b</span><span style="color:#000">)</span>     <span style="color:#000">{</span> <span style="color:#a90d91">return</span> <span style="color:#000">1</span><span style="color:#000">;</span> <span style="color:#000">}</span>
-</span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">static</span> <span style="color:#a90d91">int</span> <span style="color:#000">m</span><span style="color:#000">(</span><span style="color:#a90d91">int</span> <span style="color:#000">a</span><span style="color:#000">,</span> <span style="color:#a90d91">double</span> <span style="color:#000">b</span><span style="color:#000">)</span>     <span style="color:#000">{</span> <span style="color:#a90d91">return</span> <span style="color:#000">2</span><span style="color:#000">;</span> <span style="color:#000">}</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">static</span> <span style="color:#a90d91">int</span> <span style="color:#000">m2</span><span style="color:#000">(</span><span style="color:#a90d91">double</span> <span style="color:#000">a</span><span style="color:#000">,</span> <span style="color:#a90d91">double</span> <span style="color:#000">b</span><span style="color:#000">)</span> <span style="color:#000">{</span> <span style="color:#a90d91">return</span> <span style="color:#000">1</span><span style="color:#000">;</span> <span style="color:#000">}</span>
-</span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">static</span> <span style="color:#a90d91">int</span> <span style="color:#000">m2</span><span style="color:#000">(</span><span style="color:#a90d91">int</span> <span style="color:#000">a</span><span style="color:#000">,</span> <span style="color:#a90d91">int</span> <span style="color:#000">b</span><span style="color:#000">)</span>       <span style="color:#000">{</span> <span style="color:#a90d91">return</span> <span style="color:#000">2</span><span style="color:#000">;</span> <span style="color:#000">}</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span><span style="color:#000">(</span><span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">s</span><span style="color:#000">)</span> <span style="color:#000">{</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#177500">// System.out.println(""+m(1,1)); AMBIGUOUS!
-</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#177500">// System.out.println(""+m(1.5,1.5)); NO COMPATIBLE!
-</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>
+</span></span><span style="display:flex;"><span>		<span style="color:#177500">// System.out.println(""+m(1, 1));      // ERROR: reference to m is AMBIGUOUS
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#177500">// System.out.println(""+m(1.5, 1.5));  // ERROR: no suitable method found for m(Double,Double)
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#c41a16">""</span><span style="color:#000">+</span><span style="color:#000">m</span><span style="color:#000">(</span><span style="color:#000">1</span><span style="color:#000">.</span><span style="color:#836c28">5</span><span style="color:#000">,</span> <span style="color:#000">1</span><span style="color:#000">));</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#c41a16">""</span><span style="color:#000">+</span><span style="color:#000">m</span><span style="color:#000">((</span><span style="color:#a90d91">float</span><span style="color:#000">)</span><span style="color:#000">1</span><span style="color:#000">,</span> <span style="color:#000">1</span><span style="color:#000">));</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#c41a16">""</span><span style="color:#000">+</span><span style="color:#000">m</span><span style="color:#000">(</span><span style="color:#000">1</span><span style="color:#000">,</span> <span style="color:#000">1</span><span style="color:#000">.</span><span style="color:#836c28">5</span><span style="color:#000">));</span>
 </span></span><span style="display:flex;"><span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#c41a16">""</span> <span style="color:#000">+</span> <span style="color:#000">m2</span><span style="color:#000">(</span><span style="color:#000">1</span><span style="color:#000">.</span><span style="color:#836c28">5</span><span style="color:#000">,</span> <span style="color:#000">1</span><span style="color:#000">.</span><span style="color:#836c28">5</span><span style="color:#000">));</span> <span style="color:#177500">// 1
-</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#c41a16">""</span> <span style="color:#000">+</span> <span style="color:#000">m2</span><span style="color:#000">(</span><span style="color:#000">1</span><span style="color:#000">,</span> <span style="color:#000">1</span><span style="color:#000">));</span> <span style="color:#177500">// 2
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#c41a16">""</span> <span style="color:#000">+</span> <span style="color:#000">m2</span><span style="color:#000">(</span><span style="color:#000">1</span><span style="color:#000">,</span> <span style="color:#000">1</span><span style="color:#000">));</span>     <span style="color:#177500">// 2
 </span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>	<span style="color:#000">}</span>
-</span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#000">}</span>
 </span></span></code></pre></div></section><section>
 <h1 id="controllo-daccesso">Controllo d’accesso</h1>
@@ -506,8 +512,12 @@ Mirko Viroli, che ringrazio.</p>
 <h3 id="problema">Problema</h3>
 <ul>
 <li>Un framework mainstream come quello di Java può disporre  di decine di migliaia di classi di libreria e di applicazione</li>
-<li>È necessario un meccanismo per consentire di strutturarle in gruppi (a più livelli gerarchici)</li>
-<li>Per poter meglio gestirli in memoria secondaria, e per meglio accedervi</li>
+<li>È necessario un meccanismo per consentire di strutturarle in gruppi (a più <em>livelli gerarchici</em>)</li>
+<li>Per poter meglio gestirli in memoria secondaria, e per meglio accedervi
+<ul>
+<li>cf. filesystem nei sistemi operativi</li>
+</ul>
+</li>
 </ul>
 <h3 id="package-in-java">Package in Java</h3>
 <ul>
@@ -522,7 +532,7 @@ Mirko Viroli, che ringrazio.</p>
 <ul>
 <li>Ogni unità di compilazione (file <code>.java</code>) deve specificare il suo package</li>
 <li>Lo fa con la direttiva <code>package pname;</code></li>
-<li>Se non lo fa, allora trattasi del package di “default”</li>
+<li>Se non lo fa, allora trattasi del <em>package di “default”</em></li>
 <li>Se lo fa, tale file dovrà stare nella opportuna directory</li>
 </ul>
 <h3 id="importazione-classi-da-altri-package">Importazione classi da altri package</h3>
@@ -534,20 +544,36 @@ Mirko Viroli, che ringrazio.</p>
 <li><code>import java.util.Date;</code> importa la sola <code>java.util.Date</code></li>
 </ul>
 </li>
+<li>L’importazione non è necessaria per classi che si trovano nello stesso package</li>
 </ul>
+</section><section>
+<h2 id="package-esempio-di-organizzazione-dei-sorgenti-class-e-dei-file-compilati-class">Package: esempio di organizzazione dei sorgenti .class e dei file compilati .class</h2>
+<div class="container">
+<div class="col">
+<div class="mermaid" data-processed="true" pre-rendered="true"><svg viewBox="0 0 225.1875 294.53125" style="max-width: 225.1875px;" height="294.53125" aria-labelledby="chart-title-mermaid-1663775265042 chart-desc-mermaid-1663775265042" role="img" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" width="100%" id="mermaid-1663775265042"><title id="chart-title-mermaid-1663775265042"></title><desc id="chart-desc-mermaid-1663775265042"></desc><style>#mermaid-1663775265042 {font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:16px;fill:#333;}#mermaid-1663775265042 .error-icon{fill:#552222;}#mermaid-1663775265042 .error-text{fill:#552222;stroke:#552222;}#mermaid-1663775265042 .edge-thickness-normal{stroke-width:2px;}#mermaid-1663775265042 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-1663775265042 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-1663775265042 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-1663775265042 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-1663775265042 .marker{fill:#333333;stroke:#333333;}#mermaid-1663775265042 .marker.cross{stroke:#333333;}#mermaid-1663775265042 svg{font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:16px;}#mermaid-1663775265042 .label{font-family:"trebuchet ms",verdana,arial,sans-serif;color:#333;}#mermaid-1663775265042 .cluster-label text{fill:#333;}#mermaid-1663775265042 .cluster-label span{color:#333;}#mermaid-1663775265042 .label text,#mermaid-1663775265042 span{fill:#333;color:#333;}#mermaid-1663775265042 .node rect,#mermaid-1663775265042 .node circle,#mermaid-1663775265042 .node ellipse,#mermaid-1663775265042 .node polygon,#mermaid-1663775265042 .node path{fill:#ECECFF;stroke:#9370DB;stroke-width:1px;}#mermaid-1663775265042 .node .label{text-align:center;}#mermaid-1663775265042 .node.clickable{cursor:pointer;}#mermaid-1663775265042 .arrowheadPath{fill:#333333;}#mermaid-1663775265042 .edgePath .path{stroke:#333333;stroke-width:2.0px;}#mermaid-1663775265042 .flowchart-link{stroke:#333333;fill:none;}#mermaid-1663775265042 .edgeLabel{background-color:#e8e8e8;text-align:center;}#mermaid-1663775265042 .edgeLabel rect{opacity:0.5;background-color:#e8e8e8;fill:#e8e8e8;}#mermaid-1663775265042 .cluster rect{fill:#ffffde;stroke:#aaaa33;stroke-width:1px;}#mermaid-1663775265042 .cluster text{fill:#333;}#mermaid-1663775265042 .cluster span{color:#333;}#mermaid-1663775265042 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:12px;background:hsl(80, 100%, 96.2745098039%);border:1px solid #aaaa33;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-1663775265042 :root{--mermaid-font-family:"trebuchet ms",verdana,arial,sans-serif;}#mermaid-1663775265042 .f&gt;*{fill:#ddd!important;}#mermaid-1663775265042 .f span{fill:#ddd!important;}</style><g transform="translate(0, 0)"><g class="output"><g class="clusters"></g><g class="edgePaths"><g style="opacity: 1;" id="L-A-B" class="edgePath LS-A LE-B"><path style="fill:none" marker-end="url(#arrowhead13)" d="M113.484375,46L113.484375,50.166666666666664C113.484375,54.333333333333336,113.484375,62.666666666666664,113.484375,71C113.484375,79.33333333333333,113.484375,87.66666666666667,113.484375,91.83333333333333L113.484375,96" class="path"></path><defs><marker orient="auto" markerHeight="6" markerWidth="8" markerUnits="strokeWidth" refY="5" refX="9" viewBox="0 0 10 10" id="arrowhead13"><path style="stroke-width: 1; stroke-dasharray: 1, 0;" class="arrowheadPath" d="M 0 0 L 10 5 L 0 10 z"></path></marker></defs></g><g style="opacity: 1;" id="L-B-C" class="edgePath LS-B LE-C"><path style="fill:none" marker-end="url(#arrowhead14)" d="M90.86185804785521,144.63297229053336L83.83279837321267,150.55351857544449C76.80373869857014,156.47406486035558,62.74561934928507,168.31515743017778,55.71655967464253,178.40237038175556C48.6875,188.48958333333334,48.6875,196.82291666666666,48.6875,200.98958333333334L48.6875,205.15625" class="path"></path><defs><marker orient="auto" markerHeight="6" markerWidth="8" markerUnits="strokeWidth" refY="5" refX="9" viewBox="0 0 10 10" id="arrowhead14"><path style="stroke-width: 1; stroke-dasharray: 1, 0;" class="arrowheadPath" d="M 0 0 L 10 5 L 0 10 z"></path></marker></defs></g><g style="opacity: 1;" id="L-B-D" class="edgePath LS-B LE-D"><path style="fill:none" marker-end="url(#arrowhead15)" d="M136.1068919521448,144.63297229053336L143.13595162678732,150.55351857544449C150.16501130142987,156.47406486035558,164.22313065071492,168.31515743017778,171.25219032535747,178.69924538175556C178.28125,189.08333333333334,178.28125,198.01041666666666,178.28125,202.47395833333334L178.28125,206.9375" class="path"></path><defs><marker orient="auto" markerHeight="6" markerWidth="8" markerUnits="strokeWidth" refY="5" refX="9" viewBox="0 0 10 10" id="arrowhead15"><path style="stroke-width: 1; stroke-dasharray: 1, 0;" class="arrowheadPath" d="M 0 0 L 10 5 L 0 10 z"></path></marker></defs></g></g><g class="edgeLabels"><g style="opacity: 1;" transform="" class="edgeLabel"><g class="label" transform="translate(0,0)"><rect height="0" width="0" ry="0" rx="0"></rect><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span style="" class="edgeLabel L-LS-A' L-LE-B" id="L-L-A-B"></span></div></foreignObject></g></g><g style="opacity: 1;" transform="" class="edgeLabel"><g class="label" transform="translate(0,0)"><rect height="0" width="0" ry="0" rx="0"></rect><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span style="" class="edgeLabel L-LS-B' L-LE-C" id="L-L-B-C"></span></div></foreignObject></g></g><g style="opacity: 1;" transform="" class="edgeLabel"><g class="label" transform="translate(0,0)"><rect height="0" width="0" ry="0" rx="0"></rect><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span style="" class="edgeLabel L-LS-B' L-LE-D" id="L-L-B-D"></span></div></foreignObject></g></g></g><g class="nodes"><g style="opacity: 1;" transform="translate(113.484375,27)" id="flowchart-A-12" class="node default"><circle class="label-container" r="19" y="-19" x="-14"></circle><g transform="translate(0,0)" class="label"><g transform="translate(-4,-9)"><foreignObject height="18" width="8"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml">it</div></foreignObject></g></g></g><g style="opacity: 1;" transform="translate(113.484375,125.578125)" id="flowchart-B-13" class="node default"><circle class="label-container" r="29.578125" y="-19" x="-29.578125"></circle><g transform="translate(0,0)" class="label"><g transform="translate(-19.578125,-9)"><foreignObject height="18" width="39.15625"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml">unibo</div></foreignObject></g></g></g><g style="opacity: 1;" transform="translate(48.6875,245.84375)" id="flowchart-C-15" class="node f"><circle class="label-container" r="40.6875" y="-19" x="-40.6875"></circle><g transform="translate(0,0)" class="label"><g transform="translate(-30.6875,-9)"><foreignObject height="18" width="61.375"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml">Foo.java</div></foreignObject></g></g></g><g style="opacity: 1;" transform="translate(178.28125,245.84375)" id="flowchart-D-17" class="node f"><circle class="label-container" r="38.90625" y="-19" x="-38.90625"></circle><g transform="translate(0,0)" class="label"><g transform="translate(-28.90625,-9)"><foreignObject height="18" width="57.8125"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml">Bar.java</div></foreignObject></g></g></g></g></g></g></svg></div>
+
+</div>
+<div class="col">
+<div class="mermaid" data-processed="true" pre-rendered="true"><svg viewBox="0 0 239.390625 301.625" style="max-width: 239.390625px;" height="301.625" aria-labelledby="chart-title-mermaid-1663775265045 chart-desc-mermaid-1663775265045" role="img" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" width="100%" id="mermaid-1663775265045"><title id="chart-title-mermaid-1663775265045"></title><desc id="chart-desc-mermaid-1663775265045"></desc><style>#mermaid-1663775265045 {font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:16px;fill:#333;}#mermaid-1663775265045 .error-icon{fill:#552222;}#mermaid-1663775265045 .error-text{fill:#552222;stroke:#552222;}#mermaid-1663775265045 .edge-thickness-normal{stroke-width:2px;}#mermaid-1663775265045 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-1663775265045 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-1663775265045 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-1663775265045 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-1663775265045 .marker{fill:#333333;stroke:#333333;}#mermaid-1663775265045 .marker.cross{stroke:#333333;}#mermaid-1663775265045 svg{font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:16px;}#mermaid-1663775265045 .label{font-family:"trebuchet ms",verdana,arial,sans-serif;color:#333;}#mermaid-1663775265045 .cluster-label text{fill:#333;}#mermaid-1663775265045 .cluster-label span{color:#333;}#mermaid-1663775265045 .label text,#mermaid-1663775265045 span{fill:#333;color:#333;}#mermaid-1663775265045 .node rect,#mermaid-1663775265045 .node circle,#mermaid-1663775265045 .node ellipse,#mermaid-1663775265045 .node polygon,#mermaid-1663775265045 .node path{fill:#ECECFF;stroke:#9370DB;stroke-width:1px;}#mermaid-1663775265045 .node .label{text-align:center;}#mermaid-1663775265045 .node.clickable{cursor:pointer;}#mermaid-1663775265045 .arrowheadPath{fill:#333333;}#mermaid-1663775265045 .edgePath .path{stroke:#333333;stroke-width:2.0px;}#mermaid-1663775265045 .flowchart-link{stroke:#333333;fill:none;}#mermaid-1663775265045 .edgeLabel{background-color:#e8e8e8;text-align:center;}#mermaid-1663775265045 .edgeLabel rect{opacity:0.5;background-color:#e8e8e8;fill:#e8e8e8;}#mermaid-1663775265045 .cluster rect{fill:#ffffde;stroke:#aaaa33;stroke-width:1px;}#mermaid-1663775265045 .cluster text{fill:#333;}#mermaid-1663775265045 .cluster span{color:#333;}#mermaid-1663775265045 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:12px;background:hsl(80, 100%, 96.2745098039%);border:1px solid #aaaa33;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-1663775265045 :root{--mermaid-font-family:"trebuchet ms",verdana,arial,sans-serif;}#mermaid-1663775265045 .c&gt;*{fill:#fff!important;}#mermaid-1663775265045 .c span{fill:#fff!important;}</style><g transform="translate(0, 0)"><g class="output"><g class="clusters"></g><g class="edgePaths"><g style="opacity: 1;" id="L-A-B" class="edgePath LS-A LE-B"><path style="fill:none" marker-end="url(#arrowhead13)" d="M120.58203125,46L120.58203125,50.166666666666664C120.58203125,54.333333333333336,120.58203125,62.666666666666664,120.58203125,71C120.58203125,79.33333333333333,120.58203125,87.66666666666667,120.58203125,91.83333333333333L120.58203125,96" class="path"></path><defs><marker orient="auto" markerHeight="6" markerWidth="8" markerUnits="strokeWidth" refY="5" refX="9" viewBox="0 0 10 10" id="arrowhead13"><path style="stroke-width: 1; stroke-dasharray: 1, 0;" class="arrowheadPath" d="M 0 0 L 10 5 L 0 10 z"></path></marker></defs></g><g style="opacity: 1;" id="L-B-C" class="edgePath LS-B LE-C"><path style="fill:none" marker-end="url(#arrowhead14)" d="M97.46890910610959,144.0348057220916L89.92982008842466,150.05504643507632C82.39073107073973,156.07528714806105,67.31255303536987,168.11576857403054,59.77346401768494,178.30267595368196C52.234375,188.48958333333334,52.234375,196.82291666666666,52.234375,200.98958333333334L52.234375,205.15625" class="path"></path><defs><marker orient="auto" markerHeight="6" markerWidth="8" markerUnits="strokeWidth" refY="5" refX="9" viewBox="0 0 10 10" id="arrowhead14"><path style="stroke-width: 1; stroke-dasharray: 1, 0;" class="arrowheadPath" d="M 0 0 L 10 5 L 0 10 z"></path></marker></defs></g><g style="opacity: 1;" id="L-B-D" class="edgePath LS-B LE-D"><path style="fill:none" marker-end="url(#arrowhead15)" d="M143.6951533938904,144.0348057220916L151.23424241157534,150.05504643507632C158.77333142926025,156.07528714806105,173.85150946463014,168.11576857403054,181.39059848231508,178.5982488703486C188.9296875,189.08072916666666,188.9296875,198.00520833333334,188.9296875,202.46744791666666L188.9296875,206.9296875" class="path"></path><defs><marker orient="auto" markerHeight="6" markerWidth="8" markerUnits="strokeWidth" refY="5" refX="9" viewBox="0 0 10 10" id="arrowhead15"><path style="stroke-width: 1; stroke-dasharray: 1, 0;" class="arrowheadPath" d="M 0 0 L 10 5 L 0 10 z"></path></marker></defs></g></g><g class="edgeLabels"><g style="opacity: 1;" transform="" class="edgeLabel"><g class="label" transform="translate(0,0)"><rect height="0" width="0" ry="0" rx="0"></rect><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span style="" class="edgeLabel L-LS-A' L-LE-B" id="L-L-A-B"></span></div></foreignObject></g></g><g style="opacity: 1;" transform="" class="edgeLabel"><g class="label" transform="translate(0,0)"><rect height="0" width="0" ry="0" rx="0"></rect><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span style="" class="edgeLabel L-LS-B' L-LE-C" id="L-L-B-C"></span></div></foreignObject></g></g><g style="opacity: 1;" transform="" class="edgeLabel"><g class="label" transform="translate(0,0)"><rect height="0" width="0" ry="0" rx="0"></rect><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span style="" class="edgeLabel L-LS-B' L-LE-D" id="L-L-B-D"></span></div></foreignObject></g></g></g><g class="nodes"><g style="opacity: 1;" transform="translate(120.58203125,27)" id="flowchart-A-12" class="node default"><circle class="label-container" r="19" y="-19" x="-14"></circle><g transform="translate(0,0)" class="label"><g transform="translate(-4,-9)"><foreignObject height="18" width="8"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml">it</div></foreignObject></g></g></g><g style="opacity: 1;" transform="translate(120.58203125,125.578125)" id="flowchart-B-13" class="node default"><circle class="label-container" r="29.578125" y="-19" x="-29.578125"></circle><g transform="translate(0,0)" class="label"><g transform="translate(-19.578125,-9)"><foreignObject height="18" width="39.15625"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml">unibo</div></foreignObject></g></g></g><g style="opacity: 1;" transform="translate(52.234375,249.390625)" id="flowchart-C-15" class="node c"><circle class="label-container" r="44.234375" y="-19" x="-44.234375"></circle><g transform="translate(0,0)" class="label"><g transform="translate(-34.234375,-9)"><foreignObject height="18" width="68.46875"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml">Foo.class</div></foreignObject></g></g></g><g style="opacity: 1;" transform="translate(188.9296875,249.390625)" id="flowchart-D-17" class="node c"><circle class="label-container" r="42.4609375" y="-19" x="-42.4609375"></circle><g transform="translate(0,0)" class="label"><g transform="translate(-32.4609375,-9)"><foreignObject height="18" width="64.921875"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml">Bar.class</div></foreignObject></g></g></g></g></g></g></svg></div>
+
+</div>
+</div>
 </section><section>
 <h2 id="unità-di-compilazione-e-livello-daccesso-package">Unità di compilazione e livello d’accesso “package”</h2>
 <h3 id="unità-di-compilazione">Unità di compilazione</h3>
 <ul>
-<li>È un file compilabile in modo atomico da <code>javac</code></li>
+<li>Un’<em>unità di compilazione</em> è un file compilabile in modo atomico da <code>javac</code></li>
 <li>Si deve chiamare con estensione <code>.java</code></li>
 <li>Può contenere varie classi indicate una dopo l’altra</li>
 </ul>
 <h3 id="livello-daccesso-package">Livello d’accesso package</h3>
 <ul>
-<li>Le classi in una unità di compilazione, i loro metodi, campi, e costruttori hanno di default il <em><strong>livello d’accesso package</strong></em></li>
-<li>$\Rightarrow$ sono visibili e richiamabili solo dentro al package stesso</li>
-<li>$\Rightarrow$ sono invisibili da fuori</li>
+<li>Le classi in una unità di compilazione, i loro metodi, campi, e costruttori hanno di <em>default</em> il <em><strong>livello d’accesso package</strong></em>
+<ul>
+<li>sono <em>visibili e richiamabili solo dentro al package stesso</em></li>
+<li>sono invisibili da fuori</li>
+</ul>
+</li>
 </ul>
 </section><section>
 <h2 id="livelli-daccesso-public-e-private">Livelli d’accesso <code>public</code> e <code>private</code></h2>
@@ -565,7 +591,8 @@ Mirko Viroli, che ringrazio.</p>
 <h2 id="qualche-conseguenza">Qualche conseguenza</h2>
 <h3 id="a-livello-di-classe">A livello di classe</h3>
 <ul>
-<li>In una unità di compilazione solo una classe può essere <code>public</code>, e questa deve avere lo stesso nome del file <code>.java</code></li>
+<li>In una unità di compilazione solo una classe può essere <code>public</code></li>
+<li>Tale classe deve avere lo stesso nome del file <code>.java</code></li>
 </ul>
 <h3 id="a-livello-di-metodicampicostruttori">A livello di metodi/campi/costruttori</h3>
 <ul>
@@ -593,9 +620,7 @@ Mirko Viroli, che ringrazio.</p>
 </ul>
 </section><section>
 <h2 id="esempio-magic-numbers">Esempio Magic Numbers</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">package</span> <span style="color:#000">it.unibo.apice.oop.p04objects</span><span style="color:#000">;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">MagicExample</span> <span style="color:#000">{</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">MagicExample</span> <span style="color:#000">{</span>
 </span></span><span style="display:flex;"><span>	<span style="color:#177500">// Put 100 into a constant and give it a name!!
 </span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>	<span style="color:#a90d91">private</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">SIZE</span> <span style="color:#000">=</span> <span style="color:#000">100</span><span style="color:#000">;</span>
 </span></span><span style="display:flex;"><span>
@@ -612,10 +637,7 @@ Mirko Viroli, che ringrazio.</p>
 </span></span><span style="display:flex;"><span><span style="color:#000">}</span>
 </span></span></code></pre></div></section><section>
 <h2 id="guessmynumberapp-revisited"><code>GuessMyNumberApp</code> revisited</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">package</span> <span style="color:#000">it.unibo.apice.oop.p04objects</span><span style="color:#000">;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.io.Console</span><span style="color:#000">;</span> <span style="color:#177500">// Classe non funzionante dall'IDE Eclipse
-</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.Random</span><span style="color:#000">;</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.Random</span><span style="color:#000">;</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">GuessMyNumberApp</span> <span style="color:#000">{</span>
 </span></span><span style="display:flex;"><span>	
@@ -667,22 +689,23 @@ Mirko Viroli, che ringrazio.</p>
 <h2 id="distruzione-degli-oggetti">Distruzione degli oggetti</h2>
 <h3 id="il-tempo-di-vita-degli-oggetti">Il tempo di vita degli oggetti</h3>
 <ul>
-<li>Durante l’esecuzione di un programma, è verosimile che molto oggetti vengano creati</li>
+<li>Durante l’esecuzione di un programma, è verosimile che <em>molti oggetti</em> vengano creati</li>
 <li>Ogni creazione comporta l’uso di una parte di memoria centrale</li>
-<li>Non è noto quanto durerà l’esecuzione del programma</li>
-<li>$\Rightarrow$ Qualcuno dovrà preoccuparsi di deallocare la memoria</li>
+<li>Non è noto quanto <em>durerà</em> l’esecuzione del programma
+<ul>
+<li>Qualcuno dovrà preoccuparsi di deallocare la memoria</li>
+</ul>
+</li>
 </ul>
 <h3 id="il-garbage-collector-gc">Il garbage collector (GC)</h3>
 <ul>
-<li>E’ un componente della JVM richiamato dalla JVM con una frequenza che dipende dallo stato della memoria</li>
+<li>Il <em>garbage collector (GC)</em> è un componente della JVM richiamato dalla JVM con una frequenza che dipende dallo stato della memoria</li>
 <li>Ogni volta, cerca oggetti in memoria heap che nessuna parte attiva del programma (thread) sta più usando (neanche indirettamente)</li>
-<li>Trovatili, li dealloca (come la <code>free</code> del C) <em><strong>senza che il programmatore debba occuparsene</strong></em></li>
+<li>Una volta trovati, li dealloca (come la <code>free</code> del C) <em><strong>senza che il programmatore debba occuparsene</strong></em></li>
 </ul>
 </section><section>
 <h2 id="esempio-funzionamento-gc">Esempio funzionamento GC</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">package</span> <span style="color:#000">it.unibo.apice.oop.p04objects</span><span style="color:#000">;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">GC</span> <span style="color:#000">{</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">GC</span> <span style="color:#000">{</span>
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">private</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">long</span> <span style="color:#000">size</span> <span style="color:#000">=</span> <span style="color:#000">1000</span><span style="color:#000">;</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span><span style="color:#000">(</span><span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">s</span><span style="color:#000">)</span> <span style="color:#000">{</span>
@@ -710,14 +733,14 @@ Mirko Viroli, che ringrazio.</p>
 <p>Data una semplice classe <code>Picture</code> che gestisce gli aspetti grafici, realizzare una applicazione che disegna il frattale Mandelbrot.</p>
 <h3 id="elementi-progettuali">Elementi progettuali</h3>
 <ul>
-<li>Classe fornita <code>Picture</code> – codice non comprensibile ora{
+<li>Classe fornita <code>Picture</code> – codice non comprensibile ora
 <ul>
 <li>ha un costruttore che accetta larghezza e altezza in pixel della finestra</li>
 <li>metodo <code>void drawPixel(int x,int y,int color)</code></li>
 </ul>
 </li>
 <li>Classe <code>Complex</code> modella numeri complessi e operazioni base</li>
-<li>Classe <code>Mandelbrot</code> si occupa di calcolare il valore di ogni punto del rettangolo{
+<li>Classe <code>Mandelbrot</code> si occupa di calcolare il valore di ogni punto del rettangolo
 <ul>
 <li>metodo <code>void advancePosition()</code> passa al prossimo punto</li>
 <li>metodo <code>boolean isCompleted()</code> dice se ci sono altri punti da calcolare</li>
@@ -760,7 +783,8 @@ Mirko Viroli, che ringrazio.</p>
 </span></span><span style="display:flex;"><span><span style="color:#000">}</span>
 </span></span></code></pre></div></section><section>
 <h2 id="classe-mandelbrot">Classe <code>Mandelbrot</code></h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Mandelbrot</span> <span style="color:#000">{</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Mandelbrot</span> <span style="color:#000">{</span>
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">static</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">double</span> <span style="color:#000">MAX_PRODUCT</span> <span style="color:#000">=</span> <span style="color:#000">4</span><span style="color:#000">.</span><span style="color:#836c28">0</span><span style="color:#000">;</span>
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">int</span> <span style="color:#000">width</span><span style="color:#000">,</span> <span style="color:#000">height</span><span style="color:#000">,</span> <span style="color:#000">x</span><span style="color:#000">,</span> <span style="color:#000">y</span><span style="color:#000">;</span> <span style="color:#177500">// uno per linea di norma
 </span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>	<span style="color:#a90d91">double</span> <span style="color:#000">minx</span><span style="color:#000">,</span> <span style="color:#000">maxx</span><span style="color:#000">,</span> <span style="color:#000">miny</span><span style="color:#000">,</span> <span style="color:#000">maxy</span><span style="color:#000">,</span> <span style="color:#000">maxIter</span><span style="color:#000">;</span> <span style="color:#177500">// uno per linea di norma
