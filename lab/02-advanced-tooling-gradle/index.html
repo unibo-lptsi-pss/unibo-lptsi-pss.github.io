@@ -1,0 +1,529 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="utf-8">
+<title>Progettazione e Sviluppo del Software</title>
+<meta name="description" content="Progettazione e Sviluppo del Software, Tecnologie dei Sistemi Informatici">
+<meta name="author" content="Danilo Pianini">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="/reveal-js/dist/reset.css">
+<link rel="stylesheet" href="/reveal-js/dist/reveal.css">
+  <link rel="stylesheet" href="/css/custom-theme.min.6e1fd15a500d65868cc62be4b78ccf1998dd0633704e3d7cca3f7908d90e945e.css" id="theme"><link rel="stylesheet" href="/highlight-js/default.min.css">
+    
+<link rel="stylesheet" href="https://gitcdn.link/repo/DanySK/css-blur-animation/master/blur.css">
+<link href="https://fonts.googleapis.com/css?family=Roboto Mono" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Oxygen Mono" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Ubuntu Mono" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+
+  </head>
+  <body>
+    
+    <div class="reveal">
+      <div class="slides">
+  
+
+    <section><h1 id="strumenti-di-compilazione-avanzati">Strumenti di compilazione avanzati</h1>
+<h4 id="progettazione-e-sviluppo-del-software">Progettazione e Sviluppo del Software</h4>
+<h4 id="cdl-tecnologie-dei-sistemi-informatici">C.D.L. Tecnologie dei Sistemi Informatici</h4>
+<h3 id="roberto-casadei-----robycasadeiuniboitmailtorobycasadeiuniboit"><a href="mailto:roby.casadei@unibo.it">Roberto Casadei — <code>roby.casadei@unibo.it</code></a></h3>
+<h3 id="danilo-pianini-----danilopianiniuniboitmailtodanilopianiniuniboit"><a href="mailto:danilo.pianini@unibo.it">Danilo Pianini — <code>danilo.pianini@unibo.it</code></a></h3>
+<p><a href="?print-pdf&amp;pdfSeparateFragments=false"><i class="fa fa-print" aria-hidden="true"></i> versione stampabile</a></p>
+</section><section>
+<h2 id="nota">Nota</h2>
+<ul>
+<li>
+<p>Questo materiale è ampiamente basato su quello realizzato dal Prof.
+Mirko Viroli, che ringrazio.</p>
+</li>
+<li>
+<p>Ogni errore riscontratovi è esclusiva responsabilità degli autori di questo documento.</p>
+</li>
+</ul>
+</section><section>
+<h2 id="pre-requisiti">Pre-requisiti</h2>
+<ul>
+<li>Rudimenti di programmazione e codifica</li>
+<li>Nozioni di base dei filesystem
+<ul>
+<li>percorsi assoluti e relativi</li>
+</ul>
+</li>
+<li>Utilizzo del terminale
+<ul>
+<li>interazione con il file system attraverso terminale (navigazione; concetto di working directory; etc.)</li>
+</ul>
+</li>
+<li>Compilazione ed esecuzione di base di programmi Java
+<ul>
+<li>uso basilare dei comandi <code>javac</code> e <code>java</code></li>
+<li>distinzione tra file sorgenti (<code>.java</code>) e file di classi compilate (<code>.class</code>)</li>
+<li>concetto di <strong>programma/applicazione</strong> in Java</li>
+</ul>
+</li>
+<li>Il concetto di <strong>package</strong> in Java
+<ul>
+<li>contenitore (organizzato gerarchicamente) di tipi (ad es. classi) che funge da namespace e permette controllo degli accessi ai tipi contenuti</li>
+</ul>
+</li>
+</ul>
+</section><section>
+<h1 id="stili-e-convenzioni-per-il-codice-sorgente">Stili e Convenzioni per il codice sorgente</h1>
+</section><section>
+<h2 id="stili-e-convenzioni">Stili e Convenzioni</h2>
+<ul>
+<li>Il codice sorgente che un programmatore scrive, generalmente è condiviso con altre persone (del proprio team, ma anche persone esterne al team o la community)
+<ul>
+<li>è importante scrivere software immediatamente comprensibile</li>
+<li>il fatto che un software “giri” (rispetti i requisiti e/o produca i risultati attesi) non è una sufficente metrica di qualità</li>
+</ul>
+</li>
+<li>è importante, fondamentale, adottare uno stile e seguirlo
+<ul>
+<li>chiaro</li>
+<li>condiviso</li>
+<li>consistente</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live. Code for readability.
+<cite>John Woods [disputed]}</cite></p>
+</blockquote>
+</section><section>
+<h2 id="ogni-linguaggio-ha-le-sue-prassi">Ogni linguaggio ha le sue prassi…</h2>
+<ul>
+<li>Quelle Java di riferimento sono disponibili qui:
+<ul>
+<li><a href="http://bit.ly/java-style-guide">http://bit.ly/java-style-guide</a></li>
+<li><a href="http://bit.ly/java-code-conventions">http://bit.ly/java-code-conventions</a></li>
+<li><a href="http://bit.ly/oracle-java-code-conventions">http://bit.ly/oracle-java-code-conventions</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="ogni-azienda-poi-è-libera-di-darsi-altre-regole-interne">Ogni azienda poi è libera di darsi altre regole interne</h2>
+<ul>
+<li>
+<p>Ad esempio:</p>
+<ul>
+<li>Google: <a href="http://archive.is/a0Jhz">http://archive.is/a0Jhz</a></li>
+<li>Twitter: <a href="http://archive.is/aa1tE">http://archive.is/aa1tE</a></li>
+<li>Mozilla: <a href="http://archive.is/rs3Ns">http://archive.is/rs3Ns</a></li>
+</ul>
+</li>
+<li>
+<p>Notare che sono sempre <strong>consistenti</strong>!</p>
+</li>
+<li>
+<p>E che sono tipicamente restrizioni delle convenzioni, non modifiche!
+<strong>Nel corso faremo riferimento alle Java Code Conventions (con qualche vincolo in più)</strong></p>
+</li>
+</ul>
+</section><section>
+<h2 id="java-code-conventions-un-estratto">Java Code Conventions (un estratto)</h2>
+<h3 id="usare-sempre-le-parentesi-per-if-else-for-while-anche-se-segue-una-sola-istruzione">Usare sempre le parentesi per if, else, for, while, anche se segue una sola istruzione</h3>
+<ul>
+<li>Aumentano la manutenibilità del codice</li>
+<li>È facile che nella fretta si modifichi il codice in modo sbagliato</li>
+<li>È facile che alcuni tool automatici sbaglino quando “uniscono” pezzi di codice scritti da diverse persone</li>
+<li>Apple iOS soffrì di un grave bug a SSL/TLS causato da questa cattiva pratica <a href="http://archive.is/KQp8E">http://archive.is/KQp8E</a></li>
+</ul>
+<h3 id="le-parentesi-graffe-vanno-sempre-allegiziana-egyptian-brackets">Le parentesi graffe vanno sempre “all’egiziana” (Egyptian brackets)</h3>
+<ul>
+<li>La graffa che apre va in linea con lo statement di apertura</li>
+<li>La graffa che chiude va in a capo, nella stessa colonna dello statement di apertura</li>
+</ul>
+<h3 id="naming-conventions---molto-importanti">Naming conventions - <strong>molto importanti!</strong></h3>
+<ul>
+<li>I nomi di <code>package</code> usano sempre e solo lettere minuscole</li>
+<li>Usare sempre <code>camelCase</code>, evitare gli underscore (_)</li>
+<li>I nomi di classe cominciano sempre per maiuscola ed usano <code>PascalCase</code></li>
+<li>I nomi di campi, metodi e variabili locali iniziano sempre per minuscola</li>
+<li>I campi <code>static final</code> (costanti di classe) sono interamente maiuscoli e possono usare underscore</li>
+</ul>
+</section><section>
+<h1 id="compilazione-ed-esecuzione-avanzata-in-java">Compilazione ed esecuzione avanzata in Java</h1>
+</section><section>
+<h2 id="nuova-opzione-per-javac">Nuova opzione per <code>javac</code></h2>
+<ul>
+<li>Abbiamo già visto come compilare file sorgenti Java (file <code>.java</code>), generando classi in bytecode, che prendono la forma di file <code>.class</code> nella medesima directory</li>
+<li>Tuttavia è uso comune e <strong>buona pratica</strong> nella gestione di progetti articolati, <strong>separare le classi sorgenti dal bytecode</strong>, ad esempio:
+<ul>
+<li>cartella <code>src</code>, per i file sorgenti (<code>.java</code>)</li>
+<li>cartella <code>bin</code>, contenente le classi compilate (<code>.class</code>)
+<ul>
+<li>Come si fa?</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="nuova-opzione-del-comando-javac">Nuova opzione del comando <code>javac</code></h3>
+<ul>
+<li><code>-d</code>: consente di specificare la cartella destinazione in cui compilare i file <code>.java</code></li>
+<li>Si tratta di un’opzione che dovete obbligatoriamente saper usare</li>
+</ul>
+</section><section>
+<h2 id="compilazione-di-più-file-da-qualunque-directory-verso-una-qualunque-directory">Compilazione di più file da qualunque directory verso una qualunque directory</h2>
+<h3 id="compilazione-in-directory-arbitrarie">Compilazione in directory arbitrarie</h3>
+<ul>
+<li><code>javac -d &lt;CARTELLA DESTINAZIONE&gt; &lt;FILE JAVA&gt;</code></li>
+<li><strong>OVVIAMENTE</strong> vanno sostituite le variabili fra parentesi angolari con le
+directory che andranno usate.</li>
+</ul>
+<h3 id="compilazione-di-più-file-in-una-singola-passata">Compilazione di più file in una singola passata</h3>
+<ul>
+<li><code>javac -d &lt;CARTELLA DESTINAZIONE&gt; &lt;ELENCO DI FILE JAVA&gt;</code></li>
+<li><strong>OVVIAMENTE</strong> vanno sostituite le variabili fra parentesi angolari con le
+directory che andranno usate.</li>
+</ul>
+<p>È possibile anche utilizzare la wildcard (<code>*</code>) invece di elencare tutti i file!</p>
+<ul>
+<li>Su Unix si possono usare wildcard in più punti del path, ad esempio
+<code>progetti/*/src/*.java</code> elenca tutti i file con estensione java dentro ciascuna cartella
+<code>src</code> di ciascuna cartella dentro <code>progetti</code></li>
+</ul>
+</section><section>
+<h2 id="il-classpath-in-java">Il classpath in Java</h2>
+<ul>
+<li>Il risultato della compilazione di sorgenti Java sono una o più <strong>classi</strong></li>
+<li>Quando si va ad eseguire (comando <code>java</code>), si eseguono <strong>classi</strong>, non files
+<ul>
+<li>Infatti la virtual machine si aspetta il nome completo di una classe, il <strong>Fully-Qualified Class Name (FQCN)</strong>, in input
+<ul>
+<li>Non il file dov’è scritta</li>
+<li>Né il file dov’è compilata</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="come-fa-la-jvm-a-risolvere-le-classi">Come fa la JVM a risolvere le classi?</h3>
+<ul>
+<li>Possiede un elenco di percorsi che contengono i file compilati
+<ul>
+<li>All’interno di questi percorsi, i file devono essere opportunamente organizzati</li>
+<li>Ad esempio, la struttura delle cartelle deve replicare quella dei package</li>
+</ul>
+</li>
+<li>Cerca (in ordine) nei suddetti percorsi la classe che gli serve</li>
+<li>I percorsi possono essere directory, file compressi, o indirizzi di rete</li>
+<li>Per approfondire: <a href="http://archive.is/0ziau">http://archive.is/0ziau</a></li>
+</ul>
+<p>L’insieme <em>ordinato</em> dei percorsi prende il nome di <strong>classpath</strong></p>
+</section><section>
+<h2 id="default-classpath">Default classpath</h2>
+<p>Se non specificato, il classpath di Java include automaticamente:</p>
+<ul>
+<li>I file jar del Java Runtime Environment
+<ul>
+<li><code>rt.jar</code> ed altri file importanti</li>
+<li>Contengono ad esempio <code>java.lang.Math</code></li>
+</ul>
+</li>
+<li>La directory corrente</li>
+</ul>
+</section><section>
+<h2 id="aggiungere-directory-al-classpath">Aggiungere directory al classpath</h2>
+<p>Possono essere aggiunte directory al classpath</p>
+<ul>
+<li>Si usa l’opzione <code>-cp</code> (o, equivalentemente, <code>-classpath</code>), seguita da un elenco di percorsi
+<ul>
+<li>separati dal simbolo <code>:</code> (Unix)</li>
+<li>o dal simbolo <code>;</code> (Windows)</li>
+<li>Per evitare problemi con simboli e percorsi, conviene circondare l’intero classpath con doppi apici (simbolo <code>"</code>)</li>
+</ul>
+</li>
+</ul>
+</section><section>
+<h2 id="più-cartelle-nel-classpath">Più cartelle nel classpath</h2>
+<p>Il classpath non è composto da una sola cartella, ma può contenere più cartelle, oltre a file compressi contenenti bytecode e risorse, come zip o jar (li vedremo in futuro).</p>
+<p>Si possono specificare più cartelle utilizzando come separatore il simbolo “<code>:</code>” (per sistemi Unix) oppure “<code>;</code>” (per sistemi Windows)</p>
+<ul>
+<li><code>javac -d bin -cp "lib1:lib2:lib3" src/*.java</code>
+<ul>
+<li>Compila tutti i file con estensione java che si trovano nella cartella <code>src</code>, mettendo i compilati dentro <code>bin</code>. In compilazione, potrà linkare tutte le classi che si trovano nelle cartelle <code>lib1</code>, <code>lib2</code> e <code>lib3</code>: nel caso in cui alcuni sorgenti in src stiano usando delle classi definite dentro queste cartelle, la compilazione avrà successo.
+<ul>
+<li>Equivalente Windows: <code>javac -d bin -cp "lib1;lib2;lib3" src/*.java</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>java -cp "bin:lib1:lib2:lib3" MyClass</code>
+<ul>
+<li>Esegue il main della classe <code>MyClass</code>. Cercherà questa classe e tutte quelle collegate all’interno delle cartelle <code>bin</code>, <code>lib1</code>, <code>lib2</code> e <code>lib3</code>.</li>
+<li>Equivalente Windows: <code>java -cp "bin;lib1;lib2;lib3" MyClass</code></li>
+</ul>
+</li>
+</ul>
+</section><section>
+<h2 id="organizzazione-dei-sorgenti-in-presenza-di-package">Organizzazione dei sorgenti in presenza di package</h2>
+<p>È buona norma organizzare i sorgenti in modo da rappresentare su filesystem la struttura
+dei package. Si noti però che (dato che il compilatore lavora su <em><strong>file</strong></em>) questa scelta
+<strong>non è \underline{teoricamente} obbligatoria</strong>!</p>
+<ul>
+<li>Lo è di fatto in questo corso, perché le cose van fatte bene</li>
+<li>Lo sarà nel mondo del lavoro, perché è prassi assolutamente comune</li>
+</ul>
+<h3 id="risultato-della-compilazione">Risultato della compilazione</h3>
+<p>Quando ad essere compilata è una classe dichiarata in un package, il compilatore
+<strong>riproduce la struttura dei package usando delle directory</strong></p>
+<p>Dato che l’interprete non lavora con file ma con <em><strong>classi</strong></em>, il loro layout
+sul file system <strong>non può essere modificato!</strong></p>
+<h2 id="esecuzione">Esecuzione</h2>
+<pre><code>    L'esecuzione è identica al caso precedente, si faccia solo attenzione ad
+</code></pre>
+<p>usare l’intero nome della classe, che in Java include anche il nome del package!</p>
+</section><section>
+<h2 id="uso-del-classpath-in-fase-di-compilazione">Uso del classpath in fase di compilazione</h2>
+<p>Supponiamo di avere in mano la seguente classe:
+\sizedcode{\tiny}{../../workspace/lab02/02-classpathcompilation/src/oop/lab02/math/UseComplex.java}</p>
+<h2 id="comprensione-degli-errori">Comprensione degli errori</h2>
+<pre><code>    Se provassimo a compilarla, otterremmo degli errori
+    \sizedcode{\tiny}{code/esempio3/src/oop/lab02/math/error.txt}
+    
+    * Il compilatore ha bisogno di conoscere la classe `ComplexNum` per poterla
+</code></pre>
+<p>linkare e per poter compilare una classe che la riferisce
+* Il compilatore cerca nel classpath il bytecode della classe <code>ComplexNum</code>
+* Come risolviamo?</p>
+<h2 id="utilizzo-di--cp-in-fase-di-compilazione">Utilizzo di <code>-cp</code> in fase di compilazione</h2>
+<pre><code>        * Supponiamo di avere solo la versione compilata di `ComplexNum` (ovvero non il sorgente)
+        
+            * Notate che questa è la *norma* quando si usano delle librerie: vengono
+            fornite già compilate!
+       
+
+        * Basterà mettere il percorso in cui `ComplexNum` è stata compilata nel
+        classpath di `javac`!
+        * Supponiamo di avere `UseComplex.java` nel percorso
+        `src/oop/lab02/math/`
+        * Supponiamo di aver `ComplexNum` compilato dentro `lib/`
+        * Possiamo usare:
+   
+
+    *__{javac -d bin -cp lib src/oop/lab02/math/UseComplex.java}__*
+</code></pre>
+<h2 id="spiegazione-del-comando">Spiegazione del comando</h2>
+<pre><code>    `javac -d bin -cp lib src/oop/lab02/math/UseComplex.java`
+    
+        * `javac` $\Rightarrow$ Invocazione del compilatore
+        * `-d bin` $\Rightarrow$ `-d` determina la **destinazione**.
+</code></pre>
+<p>Vogliamo compilare dentro la cartella <code>bin</code>
+* <code>-cp lib</code> $\Rightarrow$ <code>-cp</code> consente di aggiungere percorsi al
+<strong>classpath</strong>. Noi vogliamo cercare le classi che ci servono, oltre che nella
+posizione corrente e nelle librerie java, anche dentro <code>lib</code>
+* <code>src/oop/lab02/math/UseComplex.java</code> $\Rightarrow$ Il <em>file</em> che
+vogliamo compilare</p>
+</section><section>
+<h2 id="passare-più-percorsi-al-classpath">Passare più percorsi al classpath</h2>
+<pre><code>Avendo come riferimento l'esempio precedente, proviamo ad eseguire.
+
+* Per eseguire correttamente `UseComplex` dobbiamo dire alla JVM, tramite
+</code></pre>
+<p><strong>-cp</strong>, dove trovare:</p>
+<pre><code>    * `ComplexNum`
+    * `UseComplex`
+
+
+    * Si trovano in *due percorsi diversi*!
+    * Dobbiamo specificare come argomento di `-cp` due percorsi, usando il
+</code></pre>
+<p><strong>separatore</strong>:</p>
+<pre><code>        * **`:`** su sistemi UNIX (Linux, Mac OSX, BSD)
+        * **`;`** su sistemi Windows
+   
+
+    * Useremo quindi:
+    
+        * `java -cp bin:lib oop.lab02.math.UseComplex` (Unix)
+        * `java -cp bin;lib oop.lab02.math.UseComplex` (Windows)
+</code></pre>
+</section><section>
+<h2 id="consiglio-finale">Consiglio finale</h2>
+<p>Visto che all’esame il loro utilizzo è richiesto, è necessario imparare <strong>a memoria</strong> le opzioni di <code>java</code> e <code>javac</code>?
+\begin{center}
+<strong>NO</strong>
+\end{center}
+Entrambi i comandi (e praticamente tutti i comandi Unix) hanno con loro un’opzione che consente di stampare a video un help. Provate</p>
+<p>}</p>
+<pre><code>  * java -help
+  * javac -help
+</code></pre>
+<p>\vspace{10pt}</p>
+<p>Gli help stampano abbondante testo con le relative istruzioni e a me serve una riga, davvero devo imparare a leggere e capire un help?
+\begin{center}
+<strong>SÌ</strong>
+\end{center}
+È molto facile dimenticarsi la sintassi delle opzioni di comandi che non si usano spesso. È molto più facile imparare a destreggiarsi in un help che andare a tentativi o ricordare cose a memoria.</p>
+</section><section>
+<h1 id="esecuzioni-di-programmi-java-con-argomenti">Esecuzioni di programmi java con argomenti</h1>
+</section><section>
+<h2 id="passaggio-di-argomenti-ad-un-programma-java">Passaggio di argomenti ad un programma Java</h2>
+<p>itemsep10pt
+* La maggior parte dei comandi supporta degli argomenti</p>
+<pre><code>        * Ad esempio, quando eseguite `javac -d bin MyClass.java` gli argomenti sono:
+        \begin{enumerate}
+         * `-d`
+         * `bin`
+         * `MyClass.java`
+        \end{enumerate}
+   
+
+    * In C, questi vengono passati al metodo `main()` come coppia di `char **` e `int`, rappresentanti rispettivamente un riferimento all'area di memoria dove sono salvati i parametri ed il numero dei suddetti.
+    * Anche in Java ovviamente è possibile passare degli argomenti ad un programma
+</code></pre>
+<p>\framebreak</p>
+<p>itemsep10pt
+* La gestione è un po’ più semplice che in C, grazie al fatto che gli array si portano dietro l’informazione circa la loro dimensione
+* E grazie al fatto che la signature del metodo <code>main()</code> è una sola in Java</p>
+<pre><code>        * `public static void main(String [])` è l'unica signature valida
+        * Mentre in C sia `int main(void)` che `int main(char **, int)` sono ugualmente accettabili
+   
+
+
+
+    * Gli argomenti con cui un programma Java viene invocato vengono passati come parametri attraverso l'array (`String[] args`) che il metodo `main()` prende in ingresso
+    
+    * Nonostante sia un parametro del *metodo principale* di qualunque programma Java, si tratta di un comune array senza alcuna particolarità.
+</code></pre>
+</section><section>
+<h1 id="laboratorio">Laboratorio</h1>
+</section><section>
+<h2 id="preparazione-ambiente-di-lavoro">Preparazione ambiente di lavoro</h2>
+<p>itemsep10pt</p>
+<ul>
+<li>
+<p>Accedere al PC di laboratorio con le proprie credenziali istituzionali
+* Accedere al sito del corso</p>
+<ul>
+<li>Scaricare il materiale dell’esercitazione odierna</li>
+<li>Spostare il file scaricato sul Desktop</li>
+<li>Decomprimere il file e aprire con Visual Studio Code la directory ottenuta (File $\to$ Open Folder…)</li>
+<li>Puntare il terminale alla directory con i sorgenti dell’esercitazione odierna</li>
+</ul>
+</li>
+</ul>
+</section><section>
+<p>\subsection{Appendice: richiami utili per gli esercizi del {\lab}}</p>
+<h2 id="a1----varianza">A1 – Varianza</h2>
+<h2 id="formula-per-il-calcolo-della-varianza">Formula per il calcolo della varianza</h2>
+<p>Sia $n$ il numero di elementi dell’array ed $x_i$ l’elemento all’indice $i$ dell’array, e $\mu$ la media dei valori del suddetto array. La varianza $\sigma^2$ può essere calcolata come:</p>
+<p>\centering
+\huge
+$\sigma^2 = \frac{\displaystyle\sum_{i=0}^{n-1}(x_i - \mu)^2} {n}$</p>
+</section><section>
+</section>
+
+  
+
+
+</div>
+      
+
+    </div>
+<script type="text/javascript" src="/reveal-hugo/object-assign.js"></script>
+
+<a href="/reveal-js/dist/print/" id="print-location" style="display: none;"></a>
+
+<script type="application/json" id="reveal-hugo-site-params">{"custom_theme":"custom-theme.scss","custom_theme_compile":true,"custom_theme_options":{"enablesourcemap":true,"targetpath":"css/custom-theme.css"},"height":"900","highlight_theme":"default","history":true,"mermaid":[{"startOnLoad":false}],"slide_number":true,"theme":"white","transition":"slide","transition_speed":"fast","width":"1440"}</script>
+<script type="application/json" id="reveal-hugo-page-params">null</script>
+
+<script src="/reveal-js/dist/reveal.js"></script>
+
+
+  
+  
+  <script type="text/javascript" src="/reveal-js/plugin/markdown/markdown.js"></script>
+  
+  <script type="text/javascript" src="/reveal-js/plugin/highlight/highlight.js"></script>
+  
+  <script type="text/javascript" src="/reveal-js/plugin/zoom/zoom.js"></script>
+  
+  <script type="text/javascript" src="/reveal-js/plugin/notes/notes.js"></script>
+  
+  
+  <script type="text/javascript" src="/reveal-js/plugin/notes/notes.js"></script>
+
+
+
+
+<script type="text/javascript">
+  
+  
+  function camelize(map) {
+    if (map) {
+      Object.keys(map).forEach(function(k) {
+        newK = k.replace(/(\_\w)/g, function(m) { return m[1].toUpperCase() });
+        if (newK != k) {
+          map[newK] = map[k];
+          delete map[k];
+        }
+      });
+    }
+    return map;
+  }
+  
+  var revealHugoDefaults = { center: true, controls: true, history: true, progress: true, transition: "slide" };
+
+  var revealHugoPlugins = { 
+    plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealZoom ]
+   };
+  var revealHugoSiteParams = JSON.parse(document.getElementById('reveal-hugo-site-params').innerHTML);
+  var revealHugoPageParams = JSON.parse(document.getElementById('reveal-hugo-page-params').innerHTML);
+  
+  var options = Object.assign({},
+    camelize(revealHugoDefaults),
+    camelize(revealHugoSiteParams),
+    camelize(revealHugoPageParams),
+    camelize(revealHugoPlugins));
+  Reveal.initialize(options);
+</script>
+
+
+
+
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@9.1.6/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({"startOnLoad":false});
+
+    let render = (event) => {
+      let mermaidElems = event.currentSlide.querySelectorAll('.mermaid');
+      if (!mermaidElems.length){
+          return
+      }
+      mermaidElems.forEach(mermaidElem => {
+          let processed = mermaidElem.getAttribute('data-processed');
+          if (!processed){
+              
+              mermaid.init(undefined, mermaidElem);
+          }
+      });
+    };
+    Reveal.addEventListener('slidechanged', render);
+    Reveal.addEventListener('ready', render);
+  </script>
+
+    <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+</script>
+
+<script type="text/javascript" id="MathJax-script" async="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+</script>
+
+    
+  
+
+</body></html>
