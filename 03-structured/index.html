@@ -262,7 +262,11 @@ Mirko Viroli, che ringrazio.</p>
 <li>Rappresentazione standard (<code>-128.345</code>), o scientifica (<code>-1.2835E+2</code>)</li>
 <li>Di default sono <code>double</code>, per avere un <code>float</code> va aggiunta una <code>F</code></li>
 </ul>
-<h3 id="prassi-1">Prassi</h3>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#000">5</span>   <span style="color:#177500">// int
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#000">5</span><span style="color:#000">.</span>  <span style="color:#177500">// double
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#000">5d</span>  <span style="color:#177500">// double
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#000">5f</span>  <span style="color:#177500">// float
+</span></span></span></code></pre></div><h3 id="prassi-1">Prassi</h3>
 <ul>
 <li>Raro l’uso di <code>float</code>, anche se più efficiente di <code>double</code></li>
 <li>Attenzione agli errori di precisione!!</li>
@@ -273,19 +277,24 @@ Mirko Viroli, che ringrazio.</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Try</span> <span style="color:#000">{</span>
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span><span style="color:#000">(</span><span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">s</span><span style="color:#000">)</span> <span style="color:#000">{</span>
 </span></span><span style="display:flex;"><span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">10</span> <span style="color:#000">+</span> <span style="color:#000">20</span><span style="color:#000">);</span> <span style="color:#177500">// 30
-</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">010</span> <span style="color:#000">+</span> <span style="color:#000">020</span><span style="color:#000">);</span> <span style="color:#177500">// 24
-</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">0xFFFFFFFF</span><span style="color:#000">);</span> <span style="color:#177500">// -1
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">010</span> <span style="color:#000">+</span> <span style="color:#000">020</span><span style="color:#000">);</span> <span style="color:#177500">// 24
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">0xFFFFFFFF</span><span style="color:#000">);</span> <span style="color:#177500">// -1
 </span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">0x7FFFFFFF</span><span style="color:#000">);</span> <span style="color:#177500">// 2147483647
 </span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">0x80000000</span><span style="color:#000">);</span> <span style="color:#177500">// -2147483648
 </span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">0x80000000</span> <span style="color:#000">-</span> <span style="color:#000">1</span><span style="color:#000">);</span> <span style="color:#177500">// 2147483647
-</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">2147483647</span> <span style="color:#000">+</span> <span style="color:#000">1</span><span style="color:#000">);</span> <span style="color:#177500">// -2147483648
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">2147483647</span> <span style="color:#000">+</span> <span style="color:#000">1</span><span style="color:#000">);</span> <span style="color:#177500">// -2147483648
 </span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">2147483647L</span> <span style="color:#000">+</span> <span style="color:#000">1</span><span style="color:#000">);</span> <span style="color:#177500">// 2147483648
-</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">((</span><span style="color:#000">0x0F0F</span> <span style="color:#000">|</span> <span style="color:#000">0xF0F0</span><span style="color:#000">)</span> <span style="color:#000">==</span> <span style="color:#000">0xFFFF</span><span style="color:#000">);</span> <span style="color:#177500">// true
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">((</span><span style="color:#000">0x0F0F</span> <span style="color:#000">|</span> <span style="color:#000">0xF0F0</span><span style="color:#000">)</span> <span style="color:#000">==</span> <span style="color:#000">0xFFFF</span><span style="color:#000">);</span> <span style="color:#177500">// true
 </span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">((</span><span style="color:#000">0x0F0F</span> <span style="color:#000">&amp;</span> <span style="color:#000">0xF0F0</span><span style="color:#000">)</span> <span style="color:#000">==</span> <span style="color:#000">0</span><span style="color:#000">);</span> <span style="color:#177500">// true
 </span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">((</span><span style="color:#000">0x0F0F</span> <span style="color:#000">&lt;&lt;</span> <span style="color:#000">4</span><span style="color:#000">)</span> <span style="color:#000">==</span> <span style="color:#000">0xF0F0</span><span style="color:#000">);</span> <span style="color:#177500">// true
 </span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">((</span><span style="color:#000">0x0F0F</span> <span style="color:#000">&gt;&gt;</span> <span style="color:#000">4</span><span style="color:#000">)</span> <span style="color:#000">==</span> <span style="color:#000">0x00F0</span><span style="color:#000">);</span> <span style="color:#177500">// true
 </span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(~</span><span style="color:#000">0x0F0F</span> <span style="color:#000">==</span> <span style="color:#000">0xFFFFF0F0</span><span style="color:#000">);</span> <span style="color:#177500">// true
-</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">10</span> <span style="color:#000">/</span> <span style="color:#000">3</span><span style="color:#000">);</span> <span style="color:#177500">// 3
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">10</span> <span style="color:#000">/</span> <span style="color:#000">3</span><span style="color:#000">);</span> <span style="color:#177500">// 3
 </span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">10</span> <span style="color:#000">%</span> <span style="color:#000">3</span><span style="color:#000">);</span> <span style="color:#177500">// 1
 </span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">3</span><span style="color:#000">.</span><span style="color:#836c28">5</span> <span style="color:#000">/</span> <span style="color:#000">51</span> <span style="color:#000">*</span> <span style="color:#000">51</span><span style="color:#000">);</span> <span style="color:#177500">// 3.5000000000000004
 </span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">3</span><span style="color:#000">.</span><span style="color:#836c28">5f</span> <span style="color:#000">/</span> <span style="color:#000">51</span> <span style="color:#000">*</span> <span style="color:#000">51</span><span style="color:#000">);</span><span style="color:#177500">// 3.5000002
@@ -295,7 +304,11 @@ Mirko Viroli, che ringrazio.</p>
 <h2 id="conversioni">Conversioni</h2>
 <h3 id="conversioni-di-tipo-dette-anche-cast-tipovalore">Conversioni di tipo, dette anche <em>cast</em>: <code>(tipo)valore</code></h3>
 <ul>
-<li>Fra tipi numerici sono sempre consentite</li>
+<li>Fra tipi numerici sono sempre consentite
+<ul>
+<li>mentre non lo sono, ad es. tra tipi numerici e <code>boolean</code></li>
+</ul>
+</li>
 <li>Possono causare perdita di informazione</li>
 <li>Es.: <code>(int)3.33</code>, <code>((double)10)/3</code>, <code>(short)100</code></li>
 </ul>
@@ -327,7 +340,11 @@ Mirko Viroli, che ringrazio.</p>
 </ul>
 <h3 id="codifica-rappresentazione-interna">Codifica (rappresentazione interna)</h3>
 <ul>
-<li>16 bit UTF16</li>
+<li>UTF16
+<ul>
+<li>variable-length encoding (ogni <em>codepoint</em> in 1 o 2 unità di 16 bit) $\to$ non compatibile con ASCII</li>
+</ul>
+</li>
 <li>automaticamente convertibile ad un numerico fra 0 e 65535</li>
 </ul>
 <!--  \srcode{\scriptsize}{3}{100}{\ecl/TryChars.java} -->
@@ -340,7 +357,19 @@ Mirko Viroli, che ringrazio.</p>
 </span></span><span style="display:flex;"><span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">print</span><span style="color:#000">(</span><span style="color:#c41a16">"a capo "</span> <span style="color:#000">+</span> <span style="color:#000">(</span><span style="color:#a90d91">char</span><span style="color:#000">)</span> <span style="color:#000">10</span><span style="color:#000">);</span>
 </span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
 </span></span><span style="display:flex;"><span><span style="color:#000">}</span>
-</span></span></code></pre></div></section><section>
+</span></span></code></pre></div><!--
+
+---
+
+```
+a".getBytes(java.nio.charset.StandardCharsets.ISO_8859_1) // byte[1] { 97 }
+
+a".getBytes(java.nio.charset.StandardCharsets.UTF_8)      // byte[1] { 97 }
+
+a".getBytes(java.nio.charset.StandardCharsets.UTF_16)     // byte[4] { -2, -1, 0, 97 }
+```
+-->
+</section><section>
 <h1 id="array">Array</h1>
 </section><section>
 <h2 id="java-array">Java array</h2>
