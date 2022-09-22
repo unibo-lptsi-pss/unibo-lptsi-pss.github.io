@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link rel="stylesheet" href="/reveal-js/dist/reset.css">
 <link rel="stylesheet" href="/reveal-js/dist/reveal.css">
-  <link rel="stylesheet" href="/css/custom-theme.min.6e1fd15a500d65868cc62be4b78ccf1998dd0633704e3d7cca3f7908d90e945e.css" id="theme"><link rel="stylesheet" href="/highlight-js/default.min.css">
+  <link rel="stylesheet" href="/css/custom-theme.min.739b3a345be3f938a64dd4b96128abbd4f5f28f6d26c254305b9d82585b55218.css" id="theme"><link rel="stylesheet" href="/highlight-js/default.min.css">
     
 <link rel="stylesheet" href="https://gitcdn.link/repo/DanySK/css-blur-animation/master/blur.css">
 <link href="https://fonts.googleapis.com/css?family=Roboto Mono" rel="stylesheet">
@@ -318,134 +318,262 @@ linkare e per poter compilare una classe che la riferisce</li>
 </ul>
 </section><section>
 <h2 id="utilizzo-di--cp-in-fase-di-compilazione">Utilizzo di <code>-cp</code> in fase di compilazione</h2>
+<p>Supponiamo di avere solo la versione compilata di <code>ComplexNum</code> (ovvero non il sorgente)</p>
 <ul>
-<li>Supponiamo di avere solo la versione compilata di <code>ComplexNum</code> (ovvero non il sorgente)
-<ul>
-<li>
-<p>Notate che questa è la <em>norma</em> quando si usano delle librerie: vengono fornite già compilate!</p>
-<ul>
+<li>Notate che questa è la <em>norma</em> quando si usano delle librerie: vengono fornite già compilate!</li>
 <li>Basterà mettere il percorso in cui <code>ComplexNum</code> è stata compilata nel
 classpath di <code>javac</code>!</li>
-<li>Supponiamo di avere <code>UseComplex.java</code> nel percorso
-<code>src/oop/lab02/math/</code></li>
+<li>Supponiamo di avere <code>UseComplex.java</code> nel percorso <code>src/oop/lab02/math/</code></li>
 <li>Supponiamo di aver <code>ComplexNum</code> compilato dentro <code>lib/</code></li>
 <li>Possiamo usare:</li>
 </ul>
-</li>
-</ul>
-</li>
-</ul>
-<p><em><strong>{javac -d bin -cp lib src/oop/lab02/math/UseComplex.java}</strong></em></p>
+<h4 id="javac--d-bin--cp-lib-srcooplab02mathusecomplexjava"><code>javac -d bin -cp lib src/oop/lab02/math/UseComplex.java</code></h4>
+</section><section>
 <h2 id="spiegazione-del-comando">Spiegazione del comando</h2>
-<pre><code>    `javac -d bin -cp lib src/oop/lab02/math/UseComplex.java`
-    
-        * `javac` $\Rightarrow$ Invocazione del compilatore
-        * `-d bin` $\Rightarrow$ `-d` determina la **destinazione**.
-</code></pre>
-<p>Vogliamo compilare dentro la cartella <code>bin</code>
-* <code>-cp lib</code> $\Rightarrow$ <code>-cp</code> consente di aggiungere percorsi al
+<p><code>javac -d bin -cp lib src/oop/lab02/math/UseComplex.java</code></p>
+<ul>
+<li><code>javac</code> $\Rightarrow$ Invocazione del compilatore</li>
+<li><code>-d bin</code> $\Rightarrow$ <code>-d</code> determina la <strong>destinazione</strong>.
+Vogliamo compilare dentro la cartella <code>bin</code></li>
+<li><code>-cp lib</code> $\Rightarrow$ <code>-cp</code> consente di aggiungere percorsi al
 <strong>classpath</strong>. Noi vogliamo cercare le classi che ci servono, oltre che nella
-posizione corrente e nelle librerie java, anche dentro <code>lib</code>
-* <code>src/oop/lab02/math/UseComplex.java</code> $\Rightarrow$ Il <em>file</em> che
-vogliamo compilare</p>
+posizione corrente e nelle librerie java, anche dentro <code>lib</code></li>
+<li><code>src/oop/lab02/math/UseComplex.java</code> $\Rightarrow$ Il <em>file</em> che
+vogliamo compilare</li>
+</ul>
 </section><section>
 <h2 id="passare-più-percorsi-al-classpath">Passare più percorsi al classpath</h2>
-<pre><code>Avendo come riferimento l'esempio precedente, proviamo ad eseguire.
-
-* Per eseguire correttamente `UseComplex` dobbiamo dire alla JVM, tramite
-</code></pre>
-<p><strong>-cp</strong>, dove trovare:</p>
-<pre><code>    * `ComplexNum`
-    * `UseComplex`
-
-
-    * Si trovano in *due percorsi diversi*!
-    * Dobbiamo specificare come argomento di `-cp` due percorsi, usando il
-</code></pre>
-<p><strong>separatore</strong>:</p>
-<pre><code>        * **`:`** su sistemi UNIX (Linux, Mac OSX, BSD)
-        * **`;`** su sistemi Windows
-   
-
-    * Useremo quindi:
-    
-        * `java -cp bin:lib oop.lab02.math.UseComplex` (Unix)
-        * `java -cp bin;lib oop.lab02.math.UseComplex` (Windows)
-</code></pre>
+<p>Avendo come riferimento l’esempio precedente, proviamo ad eseguire.</p>
+<ul>
+<li>Per eseguire correttamente <code>UseComplex</code> dobbiamo dire alla JVM, tramite
+<code>-cp</code>, dove trovare:
+<ul>
+<li><code>ComplexNum</code> (classe, non file)</li>
+<li><code>UseComplex</code> (classe, non file)</li>
+</ul>
+</li>
+</ul>
+<p>Si trovano in <em>due percorsi diversi</em>!</p>
+<ul>
+<li>
+<p>Dobbiamo specificare come argomento di <code>-cp</code> due percorsi, usando il <strong>separatore</strong>:</p>
+<ul>
+<li><strong><code>:</code></strong> su sistemi UNIX (Linux, Mac OSX, BSD)</li>
+<li><strong><code>;</code></strong> su sistemi Windows</li>
+</ul>
+</li>
+<li>
+<p>Useremo quindi:</p>
+<ul>
+<li><code>java -cp bin:lib oop.lab02.math.UseComplex</code> (Unix)</li>
+<li><code>java -cp bin;lib oop.lab02.math.UseComplex</code> (Windows)</li>
+</ul>
+</li>
+</ul>
 </section><section>
 <h2 id="consiglio-finale">Consiglio finale</h2>
-<p>Visto che all’esame il loro utilizzo è richiesto, è necessario imparare <strong>a memoria</strong> le opzioni di <code>java</code> e <code>javac</code>?
-\begin{center}
-<strong>NO</strong>
-\end{center}
-Entrambi i comandi (e praticamente tutti i comandi Unix) hanno con loro un’opzione che consente di stampare a video un help. Provate</p>
-<p>}</p>
-<pre><code>  * java -help
-  * javac -help
-</code></pre>
-<p>\vspace{10pt}</p>
-<p>Gli help stampano abbondante testo con le relative istruzioni e a me serve una riga, davvero devo imparare a leggere e capire un help?
-\begin{center}
-<strong>SÌ</strong>
-\end{center}
-È molto facile dimenticarsi la sintassi delle opzioni di comandi che non si usano spesso. È molto più facile imparare a destreggiarsi in un help che andare a tentativi o ricordare cose a memoria.</p>
+<p>Visto che all’esame il loro utilizzo è richiesto, è necessario imparare <strong>a memoria</strong> le opzioni di <code>java</code> e <code>javac</code>?</p>
+<div style="text-align: center;">
+  <h1><b>NO</b></h1>
+</div>
+<p>Entrambi i comandi (e praticamente tutti i comandi Unix) hanno con loro un’opzione che consente di stampare a video un help. Provate:</p>
+<ul>
+<li><code>java -help</code></li>
+<li><code>javac -help</code></li>
+</ul>
+<p>Gli help stampano abbondante testo con le relative istruzioni e a me serve una riga, davvero <em>devo imparare a leggere e capire uno help</em>?</p>
+<div style="text-align: center;">
+  <h1><b>SI</b></h1>
+</div>
+È molto facile dimenticarsi la sintassi delle opzioni di comandi che non si usano spesso. È molto più facile imparare a destreggiarsi in un help che andare a tentativi o ricordare cose a memoria.
+</section><section>
+<h1 id="build-systems">Build systems</h1>
+</section><section>
+<h2 id="quando-il-gioco-si-fa-duro-i-duri-automatizzano">Quando il gioco si fa duro, i duri <em>automatizzano</em></h2>
+<p>La gestione della compilazione potrebbe diventare complicata:</p>
+<ul>
+<li>Sorgenti in molte cartelle</li>
+<li>Divisi in molti package</li>
+<li>Alcune librerie binarie di cui non abbiamo il sorgente</li>
+</ul>
+<p>Comandi <strong>molto lunghi!</strong> Facile sbagliarsi, tedioso da fare a mano!</p>
+<p>Soluzione: costruire degli script!</p>
+</section><section>
+<h2 id="script-per-compilare">Script per compilare?</h2>
+<p>In fin dei conti, è solo software che, di mestiere, compila software</p>
+<p>…a sua volta, da compilare o interpretare.</p>
+<p>Fare uno script personalizzato è molto flessibile, ma se abbiamo <em>molti progetti</em>?</p>
+<ul>
+<li>Copiarlo da tutte le parti vuol dire doverlo modificare in molti posti in caso di errore!</li>
+<li>Viola un principio importante: <strong>Don’t Repeat Yourself</strong> (<strong>DRY</strong>)</li>
+</ul>
+<h4 id="la-compilazione-è-ripetitiva">La compilazione è <strong>ripetitiva</strong>!</h4>
+<p>Potremmo costruire un sistema che:</p>
+<ol>
+<li>Si aspetta che i sorgenti siano in un posto standard
+<ul>
+<li>Se li trova, allora compila, mettendo il risultato in un posto standard</li>
+</ul>
+</li>
+<li>Se sono in un posto non standard, si <em>configura</em> per funzionare</li>
+</ol>
+<h4 id="principio-convention-over-configuration">Principio <strong>convention over configuration</strong></h4>
+</section><section>
+<h2 id="build-systems-1">Build systems</h2>
+<p>Sono software che si occupano di aiutare con le varie fasi della costruzione del software:</p>
+<ul>
+<li>Ricerca e scaricamento di librerie (vediamo in futuro)</li>
+<li>Compilazione (vediamo oggi)</li>
+<li>Testing (vediamo in futuro)</li>
+<li>Packaging (vediamo in futuro)</li>
+<li>Generazione di documentazione (vediamo in futuro)</li>
+<li>Delivery degli artefatti (non oggetto del corso)</li>
+</ul>
+<h2 id="gradle">Gradle</h2>
+<ul>
+<li>Un <strong>moderno</strong> build system</li>
+<li>Supporta Java (oltre a C/C++, Scala, Kotlin…)
+<ul>
+<li>In tutto l’ecosistema, che include Android</li>
+</ul>
+</li>
+<li>Ne vedremo solo i rudimenti
+<ul>
+<li>Per noi è strumentale a costruire software Java</li>
+<li>Impareremo come sfruttarlo per automatizzare le operazioni di cui sopra</li>
+</ul>
+</li>
+</ul>
+</section><section>
+<h2 id="gradle-è-in-espansione-google-trends">Gradle è in espansione: Google trends</h2>
+<script type="text/javascript" src="https://ssl.gstatic.com/trends_nrtr/3045_RC01/embed_loader.js"></script> <script type="text/javascript"> trends.embed.renderExploreWidget("TIMESERIES", {"comparisonItem":[{"keyword":"/m/028m4s","geo":"","time":"2004-01-01 2022-09-22"},{"keyword":"/m/04tj5z","geo":"","time":"2004-01-01 2022-09-22"},{"keyword":"/m/080c0g9","geo":"","time":"2004-01-01 2022-09-22"}],"category":0,"property":""}, {"exploreQuery":"date=all&q=%2Fm%2F028m4s,%2Fm%2F04tj5z,%2Fm%2F080c0g9","guestPath":"https://trends.google.com:443/trends/embed/"}); </script>
+</section><section>
+<h2 id="gradle-configurazione-minimale-per-java">Gradle: configurazione minimale per Java</h2>
+<ul>
+<li>Gradle viene pilotato con due file:
+<ul>
+<li><code>settings.gradle.kts</code>
+<ul>
+<li>Per il momento, ci serve solo a dare un nome al progetto</li>
+</ul>
+</li>
+<li><code>build.gradle.kts</code>
+<ul>
+<li>Conterrà tutta la logica di costruzione del software</li>
+<li>Ma noi sfrutteremo le convenzioni, configurando ben poco!</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Al momento, ci basta una sola riga di codice per ciascuno!</li>
+</ul>
+<p><code>settings.gradle.kts</code></p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#000">rootProject</span>.<span style="color:#000">name</span> = <span style="color:#c41a16">"name-of-our-project"</span>
+</span></span></code></pre></div><p><code>build.gradle.kts</code></p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#000">plugins</span> { <span style="color:#000">java</span> }
+</span></span></code></pre></div><p>Così configurato, Gradle autonomamente:</p>
+<ul>
+<li>cerca e compila i sorgenti java dalla cartella: <code>src/main/java</code></li>
+<li>produce i binari dentro: <code>build/classes/java/main</code></li>
+</ul>
+<p>Vogliamo percorsi diversi?
+Va configurato.</p>
+</section><section>
+<h2 id="non-installare-gradle-il-wrapper">(Non) installare Gradle: il wrapper</h2>
+<p>Se da una versione all’altra di Gradle dovesse cambiare la convenzione,
+cosa succederebbe?</p>
+<ul>
+<li>Il nostro software smette di funzionare se aggiorniamo il build system!</li>
+</ul>
+<p>E se avessimo <em>progetti diversi</em> che richiedono <em>versioni diverse</em> di Gradle?</p>
+<h4 id="ci-serve-un-modo-per-portarci-dietro-la-versione-di-gradle-che-ci-serve">Ci serve un modo per portarci dietro la versione di Gradle che ci serve</h4>
+<h3 id="gradle-wrapper">Gradle wrapper</h3>
+<p>Un insieme di script con un software minimale che:</p>
+<ol>
+<li>Scarica la versione di Gradle indicata in un file di configurazione
+<ul>
+<li>se non già disponibile nel sistema</li>
+</ul>
+</li>
+<li>Usa quella versione per costruire il nostro sistema!</li>
+</ol>
+<p>Il wrapper può (deve) esser copiato in ogni progetto che gestiamo con Gradle</p>
+<p>Dato che si auto-scarica, non occorre installare Gradle!</p>
+<ul>
+<li>Anche se è comodo, la versione di Gradle installata può generare le versioni wrapper</li>
+</ul>
+</section><section>
+<h2 id="progetti-gradle-con-wrapper">Progetti Gradle con wrapper</h2>
+<ol>
+<li>Script bash eseguibile (<i class="fab fa-linux"></i>/<i class="fab fa-apple"></i>): <code>gradlew</code></li>
+<li>Script batch eseguibile (<i class="fab fa-windows"></i>): <code>gradlew.bat</code></li>
+<li>File di configurazione con indicata la versione di Gradle:<br>
+<code>gradle/wrapper/gradle-wrapper.properties</code></li>
+<li>Software Java che scarica la versione di Gradle descritta nel file di configurazione: <br>
+<code>gradle/wrapper/gradle-wrapper.jar</code></li>
+</ol>
+<p>Wrapper pronto per esser scaricato:</p>
+<ul>
+<li><a href="https://github.com/DanySK/Gradle-Wrapper/archive/refs/heads/master.zip">https://github.com/DanySK/Gradle-Wrapper/archive/refs/heads/master.zip</a></li>
+</ul>
+</section><section>
+<h2 id="utilizzo-di-gradle-in-un-progetto-java">Utilizzo di Gradle in un progetto Java</h2>
+<p>Se abbiamo il Gradle wrapper configurato in un progetto,
+possiamo usarlo attraverso uno dei due script:</p>
+<ul>
+<li><code>gradlew</code> (<i class="fab fa-linux"></i>/<i class="fab fa-apple"></i>)
+o <code>gradlew.bat</code> (<i class="fab fa-windows"></i>),
+a seconda della nostra piattaforma</li>
+<li>seguito da un elenco di comandi detti <strong>task</strong></li>
+</ul>
+<p>In Gradle, un <strong>task</strong> è una particolare <em>attività</em> del processo di costruzione del software</p>
+<p>Esiste un task che elenca i task, chiamato <code>tasks</code>.</p>
+<p>Quando configurato per compilare Java fra i vari task troviamo anche <code>compileJava</code></p>
+<h3 id="ottenere-lelenco-dei-task-disponibili">Ottenere l’elenco dei task disponibili</h3>
+<ul>
+<li><code>./gradlew tasks</code> (sistemi <i class="fab fa-linux"></i> e <i class="fab fa-apple"></i>)</li>
+<li><code>gradlew.bat tasks</code> (sistemi <i class="fab fa-windows"></i>)</li>
+</ul>
+<h3 id="compilazione-java">Compilazione Java</h3>
+<ul>
+<li><code>./gradlew compileJava</code> (sistemi <i class="fab fa-linux"></i> e <i class="fab fa-apple"></i>)</li>
+<li><code>gradlew.bat compileJava</code> (sistemi <i class="fab fa-windows"></i>)</li>
+</ul>
+<h4 id="continueremo-a-lanciare-i-nostri-eseguibili-a-mano-dal-terminale">Continueremo a <em>lanciare</em> i nostri eseguibili <em>a mano</em> dal terminale!</h4>
+<p><code>java -cp build/classes/java/main nome.qualificato.della.ClasseDaEseguire</code></p>
 </section><section>
 <h1 id="esecuzioni-di-programmi-java-con-argomenti">Esecuzioni di programmi java con argomenti</h1>
 </section><section>
 <h2 id="passaggio-di-argomenti-ad-un-programma-java">Passaggio di argomenti ad un programma Java</h2>
-<p>itemsep10pt
-* La maggior parte dei comandi supporta degli argomenti</p>
-<pre><code>        * Ad esempio, quando eseguite `javac -d bin MyClass.java` gli argomenti sono:
-        \begin{enumerate}
-         * `-d`
-         * `bin`
-         * `MyClass.java`
-        \end{enumerate}
-   
-
-    * In C, questi vengono passati al metodo `main()` come coppia di `char **` e `int`, rappresentanti rispettivamente un riferimento all'area di memoria dove sono salvati i parametri ed il numero dei suddetti.
-    * Anche in Java ovviamente è possibile passare degli argomenti ad un programma
-</code></pre>
-<p>\framebreak</p>
-<p>itemsep10pt
-* La gestione è un po’ più semplice che in C, grazie al fatto che gli array si portano dietro l’informazione circa la loro dimensione
-* E grazie al fatto che la signature del metodo <code>main()</code> è una sola in Java</p>
-<pre><code>        * `public static void main(String [])` è l'unica signature valida
-        * Mentre in C sia `int main(void)` che `int main(char **, int)` sono ugualmente accettabili
-   
-
-
-
-    * Gli argomenti con cui un programma Java viene invocato vengono passati come parametri attraverso l'array (`String[] args`) che il metodo `main()` prende in ingresso
-    
-    * Nonostante sia un parametro del *metodo principale* di qualunque programma Java, si tratta di un comune array senza alcuna particolarità.
-</code></pre>
-</section><section>
-<h1 id="laboratorio">Laboratorio</h1>
-</section><section>
-<h2 id="preparazione-ambiente-di-lavoro">Preparazione ambiente di lavoro</h2>
-<p>itemsep10pt</p>
+<p>La maggior parte dei comandi supporta degli argomenti</p>
+<p>Ad esempio, quando eseguite <code>javac -d bin MyClass.java</code> gli argomenti sono:</p>
+<ol>
+<li><code>-d</code></li>
+<li><code>bin</code></li>
+<li><code>MyClass.java</code></li>
+</ol>
+<p>In C, questi vengono passati al metodo <code>main()</code> come coppia di <code>char **</code> e <code>int</code>, rappresentanti rispettivamente un riferimento all’area di memoria dove sono salvati i parametri ed il numero dei suddetti.</p>
+<p>Anche in Java ovviamente è possibile passare degli argomenti ad un programma!</p>
 <ul>
-<li>
-<p>Accedere al PC di laboratorio con le proprie credenziali istituzionali
-* Accedere al sito del corso</p>
+<li>La gestione in Java è un po’ più semplice che in C:
 <ul>
-<li>Scaricare il materiale dell’esercitazione odierna</li>
-<li>Spostare il file scaricato sul Desktop</li>
-<li>Decomprimere il file e aprire con Visual Studio Code la directory ottenuta (File $\to$ Open Folder…)</li>
-<li>Puntare il terminale alla directory con i sorgenti dell’esercitazione odierna</li>
+<li>gli array hanno l’informazione circa la loro dimensione</li>
+<li>la signature del metodo <code>main()</code> è una sola:
+<ul>
+<li><code>public static void main(String [])</code> è l’unica signature valida</li>
+<li>In C sia <code>int main(void)</code> che <code>int main(char **, int)</code> sono ugualmente accettabili</li>
 </ul>
 </li>
 </ul>
+</li>
+<li>Gli argomenti con cui un programma Java viene invocato vengono passati come parametri attraverso l’array (<code>String[] args</code>) che il metodo <code>main()</code> prende in ingresso</li>
+<li>Nonostante sia un parametro del <em>metodo principale</em> di qualunque programma Java, si tratta di un comune array senza alcuna particolarità.</li>
+</ul>
 </section><section>
-<p>\subsection{Appendice: richiami utili per gli esercizi del {\lab}}</p>
-<h2 id="a1----varianza">A1 – Varianza</h2>
+<h2 id="appendice----varianza">Appendice – Varianza</h2>
 <h2 id="formula-per-il-calcolo-della-varianza">Formula per il calcolo della varianza</h2>
 <p>Sia $n$ il numero di elementi dell’array ed $x_i$ l’elemento all’indice $i$ dell’array, e $\mu$ la media dei valori del suddetto array. La varianza $\sigma^2$ può essere calcolata come:</p>
-<p>\centering
-\huge
-$\sigma^2 = \frac{\displaystyle\sum_{i=0}^{n-1}(x_i - \mu)^2} {n}$</p>
-</section><section>
+<p>$$\sigma^2 = \frac{\displaystyle\sum_{i=0}^{n-1}(x_i - \mu)^2} {n}$$</p>
 </section>
 
   
