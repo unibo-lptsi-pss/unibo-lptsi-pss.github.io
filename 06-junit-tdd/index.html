@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link rel="stylesheet" href="/reveal-js/dist/reset.css">
 <link rel="stylesheet" href="/reveal-js/dist/reveal.css">
-  <link rel="stylesheet" href="/css/custom-theme.min.59b2dbdac21755b13bafe3669fee3ff97ff95dfaf996ac8c702da67ebf8f7a6f.css" id="theme"><link rel="stylesheet" href="/highlight-js/default.min.css">
+  <link rel="stylesheet" href="/css/custom-theme.min.993ae6c0a74b2209d9bdb352c2297beaeb28589fa50c62c12cad5d4287d66aae.css" id="theme"><link rel="stylesheet" href="/highlight-js/default.min.css">
     
 <link rel="stylesheet" href="https://gitcdn.link/repo/DanySK/css-blur-animation/master/blur.css">
 <link href="https://fonts.googleapis.com/css?family=Roboto Mono" rel="stylesheet">
@@ -192,20 +192,20 @@
 <ul>
 <li><strong>Verifica</strong>: controllo di <em>correttezza</em> del software rispetto a <em>specifiche</em>
 <ul>
-<li>“Have we build the <em>thing right</em>?” (abbiamo costruito [il software] nel modo giusto?)</li>
+<li>“Have we built the <em>thing right</em>?” (abbiamo costruito [il software] nel modo giusto?)</li>
 <li>“Un progetto senza specifiche non può essere giusto o sbagliato, ma solo sorprendente!”</li>
 <li>Tuttavia, le specifiche potrebbero essere incomplete o sbagliate</li>
 </ul>
 </li>
 <li><strong>Validazione</strong>: controllo dell’<em>adeguatezza</em> del software rispetto alle <em>aspettative degli stakeholder</em>
 <ul>
-<li>“Have we build the <em>right thing</em>?"(abbiamo costruito [il software] giusto?)</li>
+<li>“Have we built the <em>right thing</em>?"(abbiamo costruito [il software] giusto?)</li>
 </ul>
 </li>
 </ul>
 </section><section>
 <h2 id="definizione-di-software-testing">Definizione di “software testing”</h2>
-<h3 id="definizioni-di-software-testing-in-letteratura">Definizioni di <em>software testing</em> in letteratura</h3>
+<h3 id="definizioni-di-software-testing">Definizioni di <em>software testing</em></h3>
 <ul>
 <li>“An <em>investigation</em> conducted to provide stakeholders with information about the <em>quality</em> of the software product or service under test” (Cem Kaner/Wikipedia)</li>
 </ul>
@@ -268,7 +268,7 @@ under specified conditions, the results are observed or recorded, and an evaluat
 </span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#000">@Test</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">someNumbers</span><span style="color:#000">(){</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">someNumbers</span><span style="color:#000">()</span> <span style="color:#000">{</span>
 </span></span><span style="display:flex;"><span>        <span style="color:#a90d91">int</span><span style="color:#000">[]</span> <span style="color:#000">input1</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#a90d91">int</span><span style="color:#000">[]{</span> <span style="color:#000">4</span><span style="color:#000">,</span> <span style="color:#000">25</span><span style="color:#000">,</span> <span style="color:#000">7</span><span style="color:#000">,</span> <span style="color:#000">9</span> <span style="color:#000">};</span>
 </span></span><span style="display:flex;"><span>        <span style="color:#000">numFinder</span><span style="color:#000">.</span><span style="color:#836c28">find</span><span style="color:#000">(</span><span style="color:#000">input1</span><span style="color:#000">);</span>
 </span></span><span style="display:flex;"><span>        <span style="color:#000">Assertions</span><span style="color:#000">.</span><span style="color:#836c28">assertEquals</span><span style="color:#000">(</span><span style="color:#000">4</span><span style="color:#000">,</span> <span style="color:#000">numFinder</span><span style="color:#000">.</span><span style="color:#836c28">smallest</span><span style="color:#000">);</span>
@@ -276,7 +276,7 @@ under specified conditions, the results are observed or recorded, and an evaluat
 </span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#000">@Test</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">positiveMonotonicallyIncreasingSequence</span><span style="color:#000">(){</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">positiveMonotonicallyIncreasingSequence</span><span style="color:#000">()</span> <span style="color:#000">{</span>
 </span></span><span style="display:flex;"><span>        <span style="color:#a90d91">int</span><span style="color:#000">[]</span> <span style="color:#000">input1</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#a90d91">int</span><span style="color:#000">[]{</span> <span style="color:#000">10</span><span style="color:#000">,</span> <span style="color:#000">20</span><span style="color:#000">,</span> <span style="color:#000">30</span> <span style="color:#000">};</span>
 </span></span><span style="display:flex;"><span>        <span style="color:#000">numFinder</span><span style="color:#000">.</span><span style="color:#836c28">find</span><span style="color:#000">(</span><span style="color:#000">input1</span><span style="color:#000">);</span>
 </span></span><span style="display:flex;"><span>        <span style="color:#000">Assertions</span><span style="color:#000">.</span><span style="color:#836c28">assertEquals</span><span style="color:#000">(</span><span style="color:#000">10</span><span style="color:#000">,</span> <span style="color:#000">numFinder</span><span style="color:#000">.</span><span style="color:#836c28">smallest</span><span style="color:#000">);</span>
@@ -284,7 +284,7 @@ under specified conditions, the results are observed or recorded, and an evaluat
 </span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#000">@Test</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">positiveMonotonicallyDecreasingSequence</span><span style="color:#000">(){</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">positiveMonotonicallyDecreasingSequence</span><span style="color:#000">()</span> <span style="color:#000">{</span>
 </span></span><span style="display:flex;"><span>        <span style="color:#a90d91">int</span><span style="color:#000">[]</span> <span style="color:#000">input1</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#a90d91">int</span><span style="color:#000">[]{</span> <span style="color:#000">30</span><span style="color:#000">,</span> <span style="color:#000">20</span><span style="color:#000">,</span> <span style="color:#000">10</span> <span style="color:#000">};</span>
 </span></span><span style="display:flex;"><span>        <span style="color:#000">numFinder</span><span style="color:#000">.</span><span style="color:#836c28">find</span><span style="color:#000">(</span><span style="color:#000">input1</span><span style="color:#000">);</span>
 </span></span><span style="display:flex;"><span>        <span style="color:#000">Assertions</span><span style="color:#000">.</span><span style="color:#836c28">assertEquals</span><span style="color:#000">(</span><span style="color:#000">4</span><span style="color:#000">,</span> <span style="color:#000">numFinder</span><span style="color:#000">.</span><span style="color:#836c28">smallest</span><span style="color:#000">);</span>
@@ -334,7 +334,7 @@ under specified conditions, the results are observed or recorded, and an evaluat
 <ul>
 <li>dichiarazioni di classe</li>
 <li>dichiarazioni di campi, metodi</li>
-<li>… in vari altri posti …</li>
+<li>…</li>
 </ul>
 </li>
 <li>Non vediamo come implementare nuove annotazioni e come processarle, al momento
@@ -378,21 +378,19 @@ under specified conditions, the results are observed or recorded, and an evaluat
 </span></span><span style="display:flex;"><span>    <span style="color:#000">mavenCentral</span>() <span style="color:#177500">// occorre per risolvere le dipendenze di JUnit
 </span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>}
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a90d91">val</span> <span style="color:#000">junitPlatformVersion</span> = <span style="color:#c41a16">"5.9.1"</span>
-</span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#000">dependencies</span> {
 </span></span><span style="display:flex;"><span>    <span style="color:#177500">// Dipendenza per scrivere i test
-</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#000">testImplementation</span>(<span style="color:#c41a16">"org.junit.jupiter:junit-jupiter-api:</span><span style="color:#c41a16">$junitPlatformVersion</span><span style="color:#c41a16">"</span>)
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#000">testImplementation</span>(<span style="color:#c41a16">"org.junit.jupiter:junit-jupiter-api:5.9.1"</span>)
 </span></span><span style="display:flex;"><span>    <span style="color:#177500">// Dipendenza per eseguire i test
-</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#000">testRuntimeOnly</span>(<span style="color:#c41a16">"org.junit.jupiter:junit-jupiter-engine:</span><span style="color:#c41a16">$junitPlatformVersion</span><span style="color:#c41a16">"</span>)
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#000">testRuntimeOnly</span>(<span style="color:#c41a16">"org.junit.jupiter:junit-jupiter-engine:5.9.1"</span>)
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#000">tasks</span>.<span style="color:#000">test</span> {
 </span></span><span style="display:flex;"><span>    <span style="color:#000">useJUnitPlatform</span>() <span style="color:#177500">// configura il task "test" per usare la JUnit Platform
-</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#000">testLogging</span> { <span style="color:#000">events</span>(<span style="color:#c41a16">"passed"</span>, <span style="color:#c41a16">"skipped"</span>, <span style="color:#c41a16">"failed"</span>) }
-</span></span><span style="display:flex;"><span>}
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#000">testLogging</span> { <span style="color:#000">events</span>(<span style="color:#c41a16">"passed"</span>, <span style="color:#c41a16">"skipped"</span>, <span style="color:#c41a16">"failed"</span>) } <span style="color:#177500">// per stampare l'esito di ogni test
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>}
 </span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span>$ ./gradlew <span style="color:#a90d91">test</span> 
-</span></span><span style="display:flex;"><span>$ ./gradlew <span style="color:#a90d91">test</span> --rerun-tasks --tests it.unibo.test.Buggy*Test
+</span></span><span style="display:flex;"><span>$ ./gradlew <span style="color:#a90d91">test</span> --tests it.unibo.*.Buggy*Test <span style="color:#177500"># filtra i test da eseguire</span>
 </span></span></code></pre></div></section><section>
 <h2 id="junit-5-architettura">JUnit 5: architettura</h2>
 <ul>
@@ -406,7 +404,7 @@ under specified conditions, the results are observed or recorded, and an evaluat
 </li>
 </ul>
 </li>
-<li>vari librerie di testing consentono di scrivere test per l’esecuzione sulla JUnit Platform
+<li>varie librerie di testing consentono di scrivere test per l’esecuzione sulla JUnit Platform
 <ul>
 <li><strong>JUnit Jupiter</strong> (JUnit 5):
 <ul>
@@ -463,14 +461,14 @@ under specified conditions, the results are observed or recorded, and an evaluat
 <h2 id="esempio-metodi-di-test">Esempio: metodi di test</h2>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">StringTest</span> <span style="color:#000">{</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#000">@Test</span> <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">checkContainsWithSubstring</span><span style="color:#000">(){</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">@Test</span> <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">checkContainsWithSubstring</span><span style="color:#000">()</span> <span style="color:#000">{</span>
 </span></span><span style="display:flex;"><span>      <span style="color:#000">String</span> <span style="color:#000">s</span> <span style="color:#000">=</span> <span style="color:#c41a16">"hello world"</span><span style="color:#000">;</span>
 </span></span><span style="display:flex;"><span>      <span style="color:#000">String</span> <span style="color:#000">substring</span> <span style="color:#000">=</span> <span style="color:#c41a16">"world"</span><span style="color:#000">;</span>
 </span></span><span style="display:flex;"><span>      <span style="color:#a90d91">boolean</span> <span style="color:#000">contained</span> <span style="color:#000">=</span> <span style="color:#000">s</span><span style="color:#000">.</span><span style="color:#836c28">contains</span><span style="color:#000">(</span><span style="color:#000">substring</span><span style="color:#000">);</span>
 </span></span><span style="display:flex;"><span>      <span style="color:#000">Assertions</span><span style="color:#000">.</span><span style="color:#836c28">assertTrue</span><span style="color:#000">(</span><span style="color:#000">contained</span><span style="color:#000">);</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
 </span></span><span style="display:flex;"><span>  
-</span></span><span style="display:flex;"><span>  <span style="color:#000">@Test</span> <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">checkContainsWithNoSubstring</span><span style="color:#000">(){</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000">@Test</span> <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">checkContainsWithNoSubstring</span><span style="color:#000">()</span> <span style="color:#000">{</span>
 </span></span><span style="display:flex;"><span>      <span style="color:#000">String</span> <span style="color:#000">s</span> <span style="color:#000">=</span> <span style="color:#c41a16">"hello world"</span><span style="color:#000">;</span>
 </span></span><span style="display:flex;"><span>      <span style="color:#000">String</span> <span style="color:#000">notSubstring</span> <span style="color:#000">=</span> <span style="color:#c41a16">"bar"</span><span style="color:#000">;</span>
 </span></span><span style="display:flex;"><span>      <span style="color:#a90d91">boolean</span> <span style="color:#000">contained</span> <span style="color:#000">=</span> <span style="color:#000">s</span><span style="color:#000">.</span><span style="color:#836c28">contains</span><span style="color:#000">(</span><span style="color:#000">notSubstring</span><span style="color:#000">);</span>
@@ -521,7 +519,7 @@ o verificare la conformità con uno specifico requisito.</li>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">OnAssertions</span> <span style="color:#000">{</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#000">@Test</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">workingWithAssertions</span><span style="color:#000">(){</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">workingWithAssertions</span><span style="color:#000">()</span> <span style="color:#000">{</span>
 </span></span><span style="display:flex;"><span>        <span style="color:#000">assertFalse</span><span style="color:#000">(</span><span style="color:#c41a16">"hello"</span> <span style="color:#000">==</span> <span style="color:#a90d91">new</span> <span style="color:#000">String</span><span style="color:#000">(</span><span style="color:#c41a16">"hello"</span><span style="color:#000">));</span>
 </span></span><span style="display:flex;"><span>        <span style="color:#000">assertEquals</span><span style="color:#000">(</span><span style="color:#c41a16">"hello"</span><span style="color:#000">,</span> <span style="color:#a90d91">new</span> <span style="color:#000">String</span><span style="color:#000">(</span><span style="color:#c41a16">"hello"</span><span style="color:#000">));</span>
 </span></span><span style="display:flex;"><span>        <span style="color:#000">assertNotSame</span><span style="color:#000">(</span><span style="color:#c41a16">"hello"</span><span style="color:#000">,</span> <span style="color:#a90d91">new</span> <span style="color:#000">String</span><span style="color:#000">(</span><span style="color:#c41a16">"hello"</span><span style="color:#000">));</span>
@@ -530,11 +528,8 @@ o verificare la conformità con uno specifico requisito.</li>
 </span></span><span style="display:flex;"><span>        <span style="color:#000">assertArrayEquals</span><span style="color:#000">(</span><span style="color:#a90d91">new</span> <span style="color:#a90d91">int</span><span style="color:#000">[]</span> <span style="color:#000">{</span> <span style="color:#000">1</span><span style="color:#000">,</span> <span style="color:#000">2</span><span style="color:#000">,</span> <span style="color:#000">3</span> <span style="color:#000">},</span> <span style="color:#a90d91">new</span> <span style="color:#a90d91">int</span><span style="color:#000">[]</span> <span style="color:#000">{</span> <span style="color:#000">1</span><span style="color:#000">,</span> <span style="color:#000">2</span><span style="color:#000">,</span> <span style="color:#000">3</span> <span style="color:#000">});</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>        <span style="color:#000">Object</span> <span style="color:#000">o</span> <span style="color:#000">=</span> <span style="color:#a90d91">null</span><span style="color:#000">;</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#000">assertThrows</span><span style="color:#000">(</span><span style="color:#000">NullPointerException</span><span style="color:#000">.</span><span style="color:#836c28">class</span><span style="color:#000">,</span> <span style="color:#000">()</span> <span style="color:#000">-&gt;</span> <span style="color:#000">o</span><span style="color:#000">.</span><span style="color:#836c28">toString</span><span style="color:#000">());</span>
-</span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>        <span style="color:#000">assertNull</span><span style="color:#000">(</span><span style="color:#000">o</span><span style="color:#000">);</span>
 </span></span><span style="display:flex;"><span>        <span style="color:#000">assertNotNull</span><span style="color:#000">(</span><span style="color:#a90d91">new</span> <span style="color:#a90d91">int</span><span style="color:#000">[]{</span> <span style="color:#000">});</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#000">assertSame</span><span style="color:#000">(</span><span style="color:#000">o</span><span style="color:#000">,</span> <span style="color:#000">o</span><span style="color:#000">);</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
 </span></span><span style="display:flex;"><span><span style="color:#000">}</span>
 </span></span></code></pre></div><ul>
@@ -631,7 +626,7 @@ o verificare la conformità con uno specifico requisito.</li>
 </span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">boolean</span> <span style="color:#000">isOn</span><span style="color:#000">(){</span> 
-</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">return</span> <span style="color:#000">acceso</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">acceso</span><span style="color:#000">;</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
 </span></span><span style="display:flex;"><span><span style="color:#000">}</span>
 </span></span></code></pre></div><ul>
@@ -665,7 +660,7 @@ o verificare la conformità con uno specifico requisito.</li>
 </span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">boolean</span> <span style="color:#000">isOn</span><span style="color:#000">(){</span> 
-</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">return</span> <span style="color:#000">on</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">on</span><span style="color:#000">;</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
 </span></span><span style="display:flex;"><span><span style="color:#000">}</span>
 </span></span></code></pre></div></div>
