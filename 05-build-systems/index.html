@@ -183,7 +183,8 @@ Gradle contiene diversi plugin pronti all’uso
 </ul>
 <p>Qualunque esecuzione di Gradle richiede di specificare uno o più <strong>task</strong>, ad esempio:</p>
 <ul>
-<li><code>gradle tasks</code> (elenca i task disponibili)</li>
+<li><code>gradle tasks</code> (elenca i task disponibili, escludendo quelli non categorizzati)</li>
+<li><code>gradle tasks --all</code> (elenca tutti i task disponibili)</li>
 <li><code>gradle compileJava</code> (compila i sorgenti java)</li>
 </ul>
 <p>Gradle è in grado capire le <em>dipendenze</em> fra task ed eseguirli nell’ordine corretto.</p>
@@ -243,7 +244,7 @@ Va configurato.</p>
 <ul>
 <li>elencare i task disponibili:
 <ul>
-<li><code>gradle tasks</code></li>
+<li><code>gradle tasks --all</code></li>
 </ul>
 </li>
 <li>compilazione:
@@ -263,6 +264,7 @@ Va configurato.</p>
 </li>
 </ul>
 </section><section>
+<!-- this file includes generated content. Do not edit. Edit content/05-build-systems/generator.md, instead. -->
 <h1 id="dipendenze-e-librerie">Dipendenze e librerie</h1>
 </section><section>
 <h2 id="dipendenze-nel-software">Dipendenze nel software</h2>
@@ -635,6 +637,7 @@ utilizzando il task <code>run</code> che viene aggiunto dal plugin <code>applica
 </span>
 
 </section><section>
+<!-- this file includes generated content. Do not edit. Edit content/05-build-systems/generator.md, instead. -->
 <h2 id="il-build-system-come-dipendenza">Il build system come dipendenza</h2>
 <p><strong>Problema</strong>: come tutti i software <em>anche il build system <strong>cambia</strong></em></p>
 <p>Se da una versione all’altra di Gradle dovesse cambiare la convenzione,
@@ -686,6 +689,11 @@ cosa succederebbe?</p>
 <p>Wrapper pronto per esser scaricato:</p>
 <ul>
 <li><a href="https://github.com/DanySK/Gradle-Wrapper/archive/refs/heads/master.zip">https://github.com/DanySK/Gradle-Wrapper/archive/refs/heads/master.zip</a></li>
+<li><strong>Attenzione</strong>: su <i class="fab fa-linux"></i> e <i class="fab fa-apple"></i>,
+eseguire anche il comando <code>chmod +x gradlew</code> per rendere eseguibile lo script</li>
+<li>setta i permessi Unix per eseguire, il cui valore viene resettato dalla compressione in formato zip</li>
+<li>alternativamente, lo script va eseguito chiedendo all’interprete della linea di comando di interpretarlo</li>
+<li><code>sh gradlew</code></li>
 </ul>
 </section><section>
 <h2 id="utilizzo-di-gradle-con-wrapper">Utilizzo di Gradle con wrapper</h2>
@@ -699,7 +707,7 @@ a seconda della nostra piattaforma</li>
 </ul>
 <h4 id="nota"><strong>Nota</strong></h4>
 <p>Su sistemi <i class="fab fa-linux"></i> e <i class="fab fa-apple"></i>
-per eseguire lo script occorre anche elencare il percorso corrente:</p>
+per eseguire lo script occorre anche includere il percorso corrente:</p>
 <ul>
 <li><code>./gradlew</code></li>
 </ul>
