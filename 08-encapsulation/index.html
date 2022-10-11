@@ -1,0 +1,993 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="utf-8">
+<title>Progettazione e Sviluppo del Software</title>
+<meta name="description" content="Progettazione e Sviluppo del Software, Tecnologie dei Sistemi Informatici">
+<meta name="author" content="Danilo Pianini">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="/reveal-js/dist/reset.css">
+<link rel="stylesheet" href="/reveal-js/dist/reveal.css">
+  <link rel="stylesheet" href="/css/custom-theme.min.993ae6c0a74b2209d9bdb352c2297beaeb28589fa50c62c12cad5d4287d66aae.css" id="theme"><link rel="stylesheet" href="/highlight-js/default.min.css">
+    
+<link rel="stylesheet" href="https://gitcdn.link/repo/DanySK/css-blur-animation/master/blur.css">
+<link href="https://fonts.googleapis.com/css?family=Roboto Mono" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Oxygen Mono" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Ubuntu Mono" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+
+  </head>
+  <body>
+    
+    <div class="reveal">
+      <div class="slides">
+  
+
+    <section><h1 id="encapsulation">Encapsulation</h1>
+<h4 id="progettazione-e-sviluppo-del-software">Progettazione e Sviluppo del Software</h4>
+<h4 id="cdl-tecnologie-dei-sistemi-informatici">C.D.L. Tecnologie dei Sistemi Informatici</h4>
+<h3 id="roberto-casadei-----robycasadeiuniboitmailtorobycasadeiuniboit"><a href="mailto:roby.casadei@unibo.it">Roberto Casadei — <code>roby.casadei@unibo.it</code></a></h3>
+<h3 id="danilo-pianini-----danilopianiniuniboitmailtodanilopianiniuniboit"><a href="mailto:danilo.pianini@unibo.it">Danilo Pianini — <code>danilo.pianini@unibo.it</code></a></h3>
+<p><a href="?print-pdf&amp;pdfSeparateFragments=false"><i class="fa fa-print" aria-hidden="true"></i> versione stampabile</a></p>
+</section><section>
+<h2 id="nota">Nota</h2>
+<ul>
+<li>
+<p>Questo materiale è ampiamente basato su quello realizzato dal Prof.
+Mirko Viroli, che ringrazio.</p>
+</li>
+<li>
+<p>Ogni errore riscontratovi è esclusiva responsabilità degli autori di questo documento.</p>
+</li>
+</ul>
+</section><section>
+<h2 id="outline">Outline</h2>
+<h3 id="goal-della-lezione">Goal della lezione</h3>
+<ul>
+<li>Illustrare concetti generali di incapsulamento e information hiding</li>
+<li>Mostrare tecniche di programmazione standard</li>
+<li>Fornire primi esempi di classi ben progettate</li>
+</ul>
+<h3 id="argomenti">Argomenti</h3>
+<ul>
+<li>Convenzioni su formattazione</li>
+<li>Incapsulamento in Java</li>
+<li>Una metodologia di progettazione</li>
+<li>Ulteriori convenzioni</li>
+</ul>
+</section><section>
+<!--
+
+## Ambiente integrato Eclipse
+
+
+  
+### Funzionalità
+
+
+
+  *  Supporto multi-linguaggio (C/C++, Java, Scala,..)
+  *  Vasta quantità di plug-in 
+  *  Supporta editing "intelligente", compilazione on-the-fly, debug, esecuzione
+  *  Concetto di progetto
+  
+
+
+  
+### Metodologia
+
+
+
+*  creazione progetto, package, classi
+*  esecuzione dalla classe col main
+*  possibilità di importare/esportare file ZIP (p.e., codice aula)
+  
+---
+
+-->
+<h1 id="alcuni-principi-di-buona-progettazione">Alcuni principi di buona progettazione</h1>
+<!--
+  % information hiding permette di calare le interdipendenze
+    % encapsulation è il modo di risolvere la cosa nei ling OO
+      % controllo d'accesso (mopdifiers)
+      % impacchettamento di dati e funzioni (classe)
+-->
+<h2 id="dai-meccanismi-alla-buona-progettazioneprogrammazione">Dai meccanismi alla buona progettazione/programmazione</h2>
+<h3 id="la-nostra-analisi-delloo-in-java-finora-ci-ha-insegnato">La nostra analisi dell’OO in Java finora, ci ha insegnato:</h3>
+<ul>
+<li>Parte imperativa/procedurale di Java (tipi primitivi, operatori, cicli)</li>
+<li>Classi, oggetti, costruttori, campi, metodi</li>
+<li>Codice statico, controllo d’accesso</li>
+</ul>
+<h3 id="detto-ciò-come-realizziamo-un-buon-sistema">Detto ciò, come realizziamo un buon sistema?</h3>
+<p>Come programmiamo il sistema</p>
+<ul>
+<li>per giungere al risultato voluto (<em>soddisfacimento requisiti</em>, funzionali e non), e</li>
+<li>così che sia <em>facilmente manutenibile (estendibile, flessibile, leggibile)</em>?</li>
+</ul>
+<p>$\Rightarrow$ un lunghissimo percorso: muoviamo i primi passi..</p>
+</section><section>
+<h2 id="passi">Passi</h2>
+<h3 id="il-nostro-approccio">Il nostro approccio</h3>
+<ul>
+<li>Ricapitoleremo le principali convenzioni sul codice Java</li>
+<li>Anticiperemo alcune tecniche di programmazione efficace basate sulle tecniche di <em><strong>incapsulamento</strong></em>, e conseguenti al fondamentale principio di <em><strong>decomposizione</strong></em> ($\Leftarrow$ aspetto cruciale della OO)</li>
+<li>Daremo qualche linea guida utile in future per costruire sistemi di più grosse dimensioni</li>
+</ul>
+<p>Nota: tutte queste tecniche e linee guida sono necessarie per gestire il livello di articolazione del linguaggio Java, ossia per rendere il suo uso più semplice possibile</p>
+</section><section>
+<h1 id="formattazione-del-codice">Formattazione del codice</h1>
+<h2 id="convenzioni-sulla-formattazione-pt-1">Convenzioni sulla formattazione, pt 1</h2>
+<h3 id="formattazione-generale">Formattazione generale</h3>
+<ul>
+<li><em>Indentazione</em> di 4 caratteri (comunque non 1, non 10..)</li>
+<li><em>Lughezza linee</em>: non più di 90 caratteri – spezzare in modo coerente</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#177500">// NON OK
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#a90d91">void</span> <span style="color:#000">m</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#c41a16">"Questa è una stringa veramente lungha che potrebbe portare ad infrangere la regola"</span><span style="color:#000">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#177500">// OK
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#a90d91">void</span> <span style="color:#000">m</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#c41a16">"Questa è una stringa veramente lungha "</span> <span style="color:#000">+</span> 
+</span></span><span style="display:flex;"><span>        <span style="color:#c41a16">"che potrebbe portare ad infrangere la regola"</span><span style="color:#000">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></section><section>
+<h3 id="commenti-nel-codice">Commenti nel codice</h3>
+<ul>
+<li><code>// ...</code> su una linea</li>
+<li><code>/* ..*/</code> su più linee per commentare sezioni</li>
+<li><code>/**..*/</code> su più linee per commenti che generano documentazione</li>
+</ul>
+<h3 id="istruzioni">Istruzioni</h3>
+<ul>
+<li>Definizione di variabile: una per linea, meglio se a inizio del metodo</li>
+<li>Meglio inizializzare sempre le variabili!</li>
+<li>Una sola istruzione per riga</li>
+</ul>
+</section><section>
+<h3 id="costrutti-vari">Costrutti vari</h3>
+<ul>
+<li>Apertura graffa: a fine linea della dichiarazione</li>
+<li>Chiusura graffa: in linea a sè, dove inizia la linea che la apre</li>
+<li>Metodi separati da una linea vuota</li>
+<li>Usare graffe anche con blocchi ad uno statement</li>
+<li>Non usare assegnamenti dentro a espressioni</li>
+<li>Disambiguare priorità operatori con parentesi</li>
+</ul>
+<h3 id="nomi">Nomi</h3>
+<ul>
+<li>Classi (e interface): iniziano con maiuscola</li>
+<li>Metodi, campi, variabili: iniziano con minuscola</li>
+<li>Se nome strutturato usare “camelCasing”</li>
+<li>Campi costanti: tutte maiuscole con eventuale separatore “\textunderscore”</li>
+</ul>
+</section><section>
+<h2 id="convenzioni-sulla-formattazione-pt-3">Convenzioni sulla formattazione, pt 3</h2>
+<h3 id="ordine-delle-proprietà-della-classe-protected-descritto-in-seguito">Ordine delle proprietà della classe (<code>protected</code> descritto in seguito)</h3>
+<ul>
+<li>Campi statici (pubblici, poi protetti, poi privati)</li>
+<li>Campi istanza (pubblici, poi protetti, poi privati)</li>
+<li>Costruttori (pubblici, poi protetti, poi privati)</li>
+<li>Metodi (raggruppati per ruolo)</li>
+</ul>
+<h3 id="nota-finale">Nota finale</h3>
+<ul>
+<li>L’uso delle corrette convenzioni rende il codice molto più leggibile, ma anche meno conciso</li>
+<li>Nelle slide è impossibile mostrarlo sempre in questo modo</li>
+<li>Quindi userò in futuro solo alcune convenzioni..</li>
+</ul>
+</section><section>
+<h2 id="esempio-point3d">Esempio: Point3D</h2>
+<div class="container">
+<div class="col">
+<div class="smaller">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#177500">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"> * Point3D is an example showcasing some functionality of OO in Java, focussing
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"> * on formatting. All properties have default (package) access
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"> */</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Point3D</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#177500">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">	 * A Point3D object is made of three doubles, and has some manipulation functions
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">	 */</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#177500">// A constant ZERO point
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>	<span style="color:#a90d91">static</span> <span style="color:#a90d91">final</span> <span style="color:#000">Point3D</span> <span style="color:#000">ZERO</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Point3D</span><span style="color:#000">(</span><span style="color:#000">0</span><span style="color:#000">,</span> <span style="color:#000">0</span><span style="color:#000">,</span> <span style="color:#000">0</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">double</span> <span style="color:#000">x</span><span style="color:#000">;</span> <span style="color:#177500">// x coordinate
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>	<span style="color:#a90d91">double</span> <span style="color:#000">y</span><span style="color:#000">;</span> <span style="color:#177500">// y coordinate
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>	<span style="color:#a90d91">double</span> <span style="color:#000">z</span><span style="color:#000">;</span> <span style="color:#177500">// z coordinate
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>
+</span></span><span style="display:flex;"><span>	<span style="color:#177500">/* A standard constructor initializing fields */</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">Point3D</span><span style="color:#000">(</span><span style="color:#a90d91">double</span> <span style="color:#000">x</span><span style="color:#000">,</span> <span style="color:#a90d91">double</span> <span style="color:#000">y</span><span style="color:#000">,</span> <span style="color:#a90d91">double</span> <span style="color:#000">z</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">x</span> <span style="color:#000">=</span> <span style="color:#000">x</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">y</span> <span style="color:#000">=</span> <span style="color:#000">y</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">z</span> <span style="color:#000">=</span> <span style="color:#000">z</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#177500">/* A simple function that extracts useful info from a point */</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">double</span> <span style="color:#000">getSquareModule</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">x</span> <span style="color:#000">*</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">x</span> <span style="color:#000">+</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">y</span> <span style="color:#000">*</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">y</span> <span style="color:#000">+</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">z</span> <span style="color:#000">*</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">z</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span></code></pre></div></div>
+</div>
+<div class="col">
+<div class="smaller">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span>	<span style="color:#177500">/* The following three are called selector methods */</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">double</span> <span style="color:#000">getX</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">x</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">double</span> <span style="color:#000">getY</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">y</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">double</span> <span style="color:#000">getZ</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">z</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#177500">/* An example of a method changing the object state */</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">void</span> <span style="color:#000">translate</span><span style="color:#000">(</span><span style="color:#a90d91">double</span> <span style="color:#000">x</span><span style="color:#000">,</span> <span style="color:#a90d91">double</span> <span style="color:#000">y</span><span style="color:#000">,</span> <span style="color:#a90d91">double</span> <span style="color:#000">z</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">x</span> <span style="color:#000">+=</span> <span style="color:#000">x</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">y</span> <span style="color:#000">+=</span> <span style="color:#000">y</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">z</span> <span style="color:#000">+=</span> <span style="color:#000">z</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#177500">/* We also provide an example static method */</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">static</span> <span style="color:#000">Point3D</span> <span style="color:#000">max</span><span style="color:#000">(</span><span style="color:#000">Point3D</span><span style="color:#000">[]</span> <span style="color:#000">ps</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">Point3D</span> <span style="color:#000">max</span> <span style="color:#000">=</span> <span style="color:#000">Point3D</span><span style="color:#000">.</span><span style="color:#836c28">ZERO</span><span style="color:#000">;</span> <span style="color:#177500">// Inizializing max
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#a90d91">for</span> <span style="color:#000">(</span><span style="color:#000">Point3D</span> <span style="color:#000">elem</span> <span style="color:#000">:</span> <span style="color:#000">ps</span><span style="color:#000">)</span> <span style="color:#000">{</span> <span style="color:#177500">// Iterating over all input points
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>			<span style="color:#a90d91">if</span> <span style="color:#000">(</span><span style="color:#000">elem</span><span style="color:#000">.</span><span style="color:#836c28">getSquareModule</span><span style="color:#000">()</span> <span style="color:#000">&gt;</span> <span style="color:#000">max</span><span style="color:#000">.</span><span style="color:#836c28">getSquareModule</span><span style="color:#000">())</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>				<span style="color:#000">max</span> <span style="color:#000">=</span> <span style="color:#000">elem</span><span style="color:#000">;</span> <span style="color:#177500">// Update max if needed..
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>			<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#000">max</span><span style="color:#000">;</span> <span style="color:#177500">// Return max
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></div>
+</div></div>
+</section><section>
+<h1 id="decomposizione-incapsulamento-information-hiding">Decomposizione, incapsulamento, information hiding</h1>
+<h2 id="il-principo-di-decomposizione">Il principo di decomposizione</h2>
+<p><span style="font-size:200%"> divide et impera </span></p>
+<h3 id="dividi-e-conquista-approccio-__top-down__">Dividi e conquista: approccio <em><strong>top-down</strong></em></h3>
+<ul>
+<li>La soluzione di un problema complesso avviene dividendolo in problemi più semplici</li>
+<li>La suddivisione è spesso multi-livello</li>
+</ul>
+<h3 id="esempi">Esempi</h3>
+<ul>
+<li>SW calcolatrice con GUI: GUI, gestione eventi, calcoli matematici</li>
+<li>Disegno Mandelbrot: Complex, Mandelbrot, MandelbrotApp</li>
+</ul>
+</section><section>
+<h2 id="decomposizione-modularità-e-dipendenze">Decomposizione, modularità e dipendenze</h2>
+<h3 id="un-punto-cruciale-della-decomposizione-è-la-modularità">Un punto cruciale della decomposizione è la “modularità”</h3>
+<ul>
+<li>La suddivisione va fatta in modo tale che sia effettivamente conveniente</li>
+<li>Bisogna isolare i “sottoproblemi” più semplici</li>
+<li>Ciò è possibile se riduciamo al massimo le “dipendenze” fra i sottoproblemi, il che consente:
+<ul>
+<li>più autonomia decisionale</li>
+<li>meno interazione con altri</li>
+<li><em><strong>meno influenze negative nel caso di modifiche</strong></em></li>
+</ul>
+</li>
+</ul>
+<h3 id="esempi-di-decomposizione-per-la-calcolatrice">Esempi di decomposizione per la calcolatrice</h3>
+<ul>
+<li>Caso 1: calcolatrice completa per soli numeri naturali, e parte separata per i reali</li>
+<li>Caso 2: grafica separata da calcoli matematici</li>
+<li>$\Rightarrow$ quale dei due casi porta a meno dipendenze (ossia è più modulare)?</li>
+</ul>
+</section><section>
+<h2 id="decomposizione-e-programmazione-oo">Decomposizione e programmazione OO</h2>
+<h3 id="nella-programmazione-oo-almeno-3-livelli-di-decomposizione">Nella programmazione OO, almeno 3 livelli di decomposizione</h3>
+<ul>
+<li>Suddivisione in package (dell’intero programma)</li>
+<li>Suddivisione in classi (di un package o programma)</li>
+<li>Suddivisione in metodi (di una classe)</li>
+</ul>
+<h3 id="il-punto-cruciale-da-affrontare-ora-è-la-suddivisone-in-classi">Il punto cruciale da affrontare ora è la suddivisone in classi</h3>
+<ul>
+<li>È necessario suddividire il codice in classi nel modo opportuno</li>
+<li>Creando il miglior link col “problem space”</li>
+<li><em><strong>Diminuendo il più possibile le dipendenze fra classi</strong></em></li>
+</ul>
+<h3 id="tecnica">Tecnica</h3>
+<ul>
+<li>Esistono consolidate pratiche di programmazione efficiente che risolvono il problema, e che cominceremo ad analizzare in questa lezione – farlo bene richiede molto tempo ed esperienza!</li>
+</ul>
+</section><section>
+<h2 id="dipendenze-e-oo">Dipendenze e OO</h2>
+<h3 id="dipendenza">Dipendenza</h3>
+<p>Si dice che una classe <code>A</code> dipende da una classe <code>B</code> se all’interno del codice di <code>A</code> si menziona la classe <code>B</code> (ad esempio come input di un metodo) o qualche sua proprietà. La dipendenza è tanto più profonda quanto più in <code>A</code> si usano anche costruttori e/o campi e/o metodi definiti in <code>B</code>.</p>
+<h3 id="implicazione">Implicazione</h3>
+<p>Ogni dipendenza vincola fortemente la possibilità di fare modifiche, perché ne comporta altre da fare in cascata. Se <code>A</code> dipende da <code>B</code> e modifico <code>B</code>, dovrò probabilmente modificare anche <code>A</code>.</p>
+<h3 id="la-sindrome-dellintoccabilità---sw-rigido">La sindrome dell’“intoccabilità”—SW rigido</h3>
+<p>Costruendo software complesso con troppe dipendenze, si giunge al punto che ogni singola modifica ne richiederebbe molte altre, e rischierebbe quindi di essere troppo costosa – risultato: non si cambia più il software!</p>
+</section><section>
+<h2 id="incapsulamento">Incapsulamento</h2>
+<h3 id="due-ingredienti-cruciali-della-programmazione-oo">Due ingredienti cruciali della programmazione OO</h3>
+<ul>
+<li>Impacchettamento dati + funzioni per manipolarli</li>
+<li>Information hiding via controllo d’accesso</li>
+</ul>
+<h3 id="filosofia">Filosofia</h3>
+<ul>
+<li>Ogni classe dichiari <code>public</code> solo quei (pochi) metodi/costruttori necessari a interagire con (o creare) le sue istanze</li>
+<li>Il resto (che quindi include meri aspetti realizzativi) sia <code>private</code>
+<ul>
+<li>metodi/costruttori a solo uso interno</li>
+<li><strong>tutti</strong> i campi (ossia lo stato interno)</li>
+</ul>
+</li>
+</ul>
+<h3 id="incapsulamento-e-dipendenze">Incapsulamento e dipendenze</h3>
+<p>Così facendo il “cliente” è debolmente influenzato da possibili modifiche future riguardanti meri aspetti realizzativi.</p>
+</section><section>
+<h2 id="esempio-base-classe-counter">Esempio base: Classe Counter</h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">Counter</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#177500">/* Il campo è reso inaccessibile */</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">private</span> <span style="color:#a90d91">int</span> <span style="color:#000">countValue</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#177500">/* E' il costruttore che inizializza i campi! */</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#000">Counter</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">countValue</span> <span style="color:#000">=</span> <span style="color:#000">0</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#177500">/* Unico modo per osservare lo stato */</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">int</span> <span style="color:#000">getValue</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">countValue</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#177500">/* Unico modo per modificare lo stato */</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">increment</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">countValue</span><span style="color:#000">++;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></section><section>
+<h2 id="semplice-uso">Semplice uso</h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseCounter</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span><span style="color:#000">(</span><span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">Counter</span> <span style="color:#000">c</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Counter</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">c</span><span style="color:#000">.</span><span style="color:#836c28">getValue</span><span style="color:#000">());</span> <span style="color:#177500">// 0
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#000">c</span><span style="color:#000">.</span><span style="color:#836c28">increment</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">c</span><span style="color:#000">.</span><span style="color:#836c28">increment</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">c</span><span style="color:#000">.</span><span style="color:#836c28">increment</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">c</span><span style="color:#000">.</span><span style="color:#836c28">increment</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">c</span><span style="color:#000">.</span><span style="color:#836c28">getValue</span><span style="color:#000">());</span> <span style="color:#177500">// 4
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></section><section>
+<h2 id="uso-contatore">Uso contatore</h2>
+<h3 id="la-classe-contatore">La classe contatore</h3>
+<ul>
+<li>Incapsula una semplice funzionalità di conteggio</li>
+<li>Dà un approccio più astratto rispetto all’uso di un <code>int</code></li>
+<li>Consende di agire sul conteggio solo con <code>getValue()</code> e <code>increment()</code></li>
+<li>$\Rightarrow$ è impossibile modificare il conteggio a piacimento (o per errore), ad esempio decrementando invece che incrementando, o azzerando</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseCounter2</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   <span style="color:#177500">/* Conto su un array, con Contatore creato internamente */</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#a90d91">static</span> <span style="color:#a90d91">int</span> <span style="color:#000">countElements</span><span style="color:#000">(</span><span style="color:#a90d91">int</span><span style="color:#000">[]</span> <span style="color:#000">array</span><span style="color:#000">,</span> <span style="color:#a90d91">int</span> <span style="color:#000">elem</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#000">Counter</span> <span style="color:#000">c</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Counter</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a90d91">for</span> <span style="color:#000">(</span><span style="color:#a90d91">int</span> <span style="color:#000">i</span> <span style="color:#000">:</span> <span style="color:#000">array</span><span style="color:#000">)</span> <span style="color:#000">{</span> <span style="color:#177500">// schema "for-each"
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>         <span style="color:#a90d91">if</span> <span style="color:#000">(</span><span style="color:#000">i</span> <span style="color:#000">==</span> <span style="color:#000">elem</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#000">c</span><span style="color:#000">.</span><span style="color:#836c28">increment</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>         <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a90d91">return</span> <span style="color:#000">c</span><span style="color:#000">.</span><span style="color:#836c28">getValue</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#000">}</span>
+</span></span></code></pre></div></section><section>
+<h2 id="uso-contatore-pt-2">Uso contatore, pt 2</h2>
+<h3 id="altra-possibilità">Altra possibilità</h3>
+<ul>
+<li>Passo il contatore alle funzioni che hanno bisogno di conteggi</li>
+<li>Ciò consente un più ampio grado di riuso</li>
+<li>In generale, ho aperto nuove possibilità d’uso</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span>   <span style="color:#177500">/* Conto su un array, con Contatore passato in input */</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">countInArray</span><span style="color:#000">(</span><span style="color:#a90d91">int</span><span style="color:#000">[]</span> <span style="color:#000">array</span><span style="color:#000">,</span> <span style="color:#a90d91">int</span> <span style="color:#000">elem</span><span style="color:#000">,</span> <span style="color:#000">Counter</span> <span style="color:#000">c</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a90d91">for</span> <span style="color:#000">(</span><span style="color:#a90d91">int</span> <span style="color:#000">i</span> <span style="color:#000">:</span> <span style="color:#000">array</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>         <span style="color:#a90d91">if</span> <span style="color:#000">(</span><span style="color:#000">i</span> <span style="color:#000">==</span> <span style="color:#000">elem</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#000">c</span><span style="color:#000">.</span><span style="color:#836c28">increment</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>         <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   <span style="color:#177500">/* Conto su una matrice, riusando appieno la countInArray */</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">countInMatrix</span><span style="color:#000">(</span><span style="color:#a90d91">int</span><span style="color:#000">[][]</span> <span style="color:#000">matrix</span><span style="color:#000">,</span> <span style="color:#a90d91">int</span> <span style="color:#000">elem</span><span style="color:#000">,</span> <span style="color:#000">Counter</span> <span style="color:#000">c</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a90d91">for</span> <span style="color:#000">(</span><span style="color:#a90d91">int</span><span style="color:#000">[]</span> <span style="color:#000">array</span> <span style="color:#000">:</span> <span style="color:#000">matrix</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>         <span style="color:#000">countInArray</span><span style="color:#000">(</span><span style="color:#000">array</span><span style="color:#000">,</span> <span style="color:#000">elem</span><span style="color:#000">,</span> <span style="color:#000">c</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></section><section>
+<h2 id="riflessione-incapsulazione-e-contratto">Riflessione: incapsulazione e contratto</h2>
+<h3 id="contratto">Contratto</h3>
+<ul>
+<li>Il contratto di un oggetto corrisponde ai suoi scenari di utilizzo</li>
+<li>E quindi alle aspettative che un cliente ha quando usa l’oggetto</li>
+<li>Grazie all’incapsulamento, è possibile vincolare fortemente questi contratti, controllando meglio il comportamento degli oggetti</li>
+</ul>
+<h3 id="il-caso-del-contatore">Il caso del Contatore</h3>
+<ul>
+<li>Il valore del conteggio all’atto della costruzione è <code>0</code></li>
+<li>Il valore del conteggio in ogni altro istante è pari al numero di chiamate di <code>increment()</code></li>
+</ul>
+<h3 id="osservazione">Osservazione</h3>
+<p>È grazie a questa idea che è più facile comporre oggetti in sistemi più complicati (vedi funzione <code>countInMatrix</code>)</p>
+</section><section>
+<h2 id="oggetti-immutabili">Oggetti immutabili</h2>
+<h3 id="cosa-sono">Cosa sono</h3>
+<ul>
+<li>Oggetti per i quali è garantito che il valore iniziale dei campi non si modificherà mai</li>
+<li>Portano un ulteriore livello di indipendenza (e eleganza) nel codice</li>
+<li>In alcuni casi potrebbero portare a soluzioni poco performanti</li>
+</ul>
+<h3 id="come-si-costruiscono">Come si costruiscono</h3>
+<ul>
+<li>I campi della classe sono dichiarati <code>final</code> (oltre che <code>private</code>), e..</li>
+<li>..contengono a loro volta valori primitivi o oggetti immutabili</li>
+<li>Quindi nessun metodo può modificarli (solo i costruttori possono, la prima volta)</li>
+<li>Invece che cambiare i campi si possono solo creare oggetti con nuovo stato</li>
+</ul>
+<h3 id="osservazione-1">Osservazione</h3>
+<p>Per ora è sufficiente saperli riconoscere e costruire</p>
+<h3 id="favorire-sempre-immutabilità-ove-possibile----un-principio-avanzato">Favorire sempre immutabilità ove possibile – un principio avanzato</h3>
+<p>Indicare anche <code>final</code> variabili e argomenti che non verranno modificati</p>
+</section><section>
+<h2 id="immutablepoint3d"><code>ImmutablePoint3D</code></h2>
+<div class="smaller">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">ImmutablePoint3D</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   <span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">double</span> <span style="color:#000">x</span><span style="color:#000">;</span> <span style="color:#177500">// x coordinate
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>   <span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">double</span> <span style="color:#000">y</span><span style="color:#000">;</span> <span style="color:#177500">// y coordinate
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>   <span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">double</span> <span style="color:#000">z</span><span style="color:#000">;</span> <span style="color:#177500">// z coordinate
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>
+</span></span><span style="display:flex;"><span>   <span style="color:#a90d91">public</span> <span style="color:#000">ImmutablePoint3D</span><span style="color:#000">(</span><span style="color:#a90d91">final</span> <span style="color:#a90d91">double</span> <span style="color:#000">x</span><span style="color:#000">,</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">double</span> <span style="color:#000">y</span><span style="color:#000">,</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">double</span> <span style="color:#000">z</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">x</span> <span style="color:#000">=</span> <span style="color:#000">x</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">y</span> <span style="color:#000">=</span> <span style="color:#000">y</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">z</span> <span style="color:#000">=</span> <span style="color:#000">z</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   <span style="color:#a90d91">public</span> <span style="color:#a90d91">double</span> <span style="color:#000">getSquareModule</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">x</span> <span style="color:#000">*</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">x</span> <span style="color:#000">+</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">y</span> <span style="color:#000">*</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">y</span> <span style="color:#000">+</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">z</span> <span style="color:#000">*</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">z</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   <span style="color:#a90d91">public</span> <span style="color:#a90d91">double</span> <span style="color:#000">getX</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">x</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   <span style="color:#a90d91">public</span> <span style="color:#a90d91">double</span> <span style="color:#000">getY</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">y</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   <span style="color:#a90d91">public</span> <span style="color:#a90d91">double</span> <span style="color:#000">getZ</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">z</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   <span style="color:#177500">/* A method that changes state is mimicked by creating a new object */</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#a90d91">public</span> <span style="color:#000">ImmutablePoint3D</span> <span style="color:#000">translate</span><span style="color:#000">(</span><span style="color:#a90d91">final</span> <span style="color:#a90d91">double</span> <span style="color:#000">x</span><span style="color:#000">,</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">double</span> <span style="color:#000">y</span><span style="color:#000">,</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">double</span> <span style="color:#000">z</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a90d91">return</span> <span style="color:#a90d91">new</span> <span style="color:#000">ImmutablePoint3D</span><span style="color:#000">(</span><span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">x</span> <span style="color:#000">+</span> <span style="color:#000">x</span><span style="color:#000">,</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">y</span> <span style="color:#000">+</span> <span style="color:#000">y</span><span style="color:#000">,</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">z</span> <span style="color:#000">+</span> <span style="color:#000">z</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></div>
+</section><section>
+<h2 id="useimmutablepoint3d"><code>UseImmutablePoint3D</code></h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseImmutablePoint3D</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span><span style="color:#000">(</span><span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a90d91">final</span> <span style="color:#000">ImmutablePoint3D</span> <span style="color:#000">p</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">ImmutablePoint3D</span><span style="color:#000">(</span><span style="color:#000">10</span><span style="color:#000">,</span> <span style="color:#000">20</span><span style="color:#000">,</span> <span style="color:#000">30</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#177500">// l'oggetto puntato da p non potrà essere modificato
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>
+</span></span><span style="display:flex;"><span>      <span style="color:#000">ImmutablePoint3D</span> <span style="color:#000">q</span> <span style="color:#000">=</span> <span style="color:#000">p</span><span style="color:#000">.</span><span style="color:#836c28">translate</span><span style="color:#000">(</span><span style="color:#000">1</span><span style="color:#000">,</span> <span style="color:#000">1</span><span style="color:#000">,</span> <span style="color:#000">1</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#177500">// q punta ad un nuovo oggetto
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>
+</span></span><span style="display:flex;"><span>      <span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">p</span><span style="color:#000">.</span><span style="color:#836c28">getX</span><span style="color:#000">()</span> <span style="color:#000">+</span> <span style="color:#c41a16">" "</span> <span style="color:#000">+</span> <span style="color:#000">p</span><span style="color:#000">.</span><span style="color:#836c28">getY</span><span style="color:#000">()</span> <span style="color:#000">+</span> <span style="color:#c41a16">" "</span> <span style="color:#000">+</span> <span style="color:#000">p</span><span style="color:#000">.</span><span style="color:#836c28">getZ</span><span style="color:#000">());</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#177500">// 10,20,30
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>      <span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">q</span><span style="color:#000">.</span><span style="color:#836c28">getX</span><span style="color:#000">()</span> <span style="color:#000">+</span> <span style="color:#c41a16">" "</span> <span style="color:#000">+</span> <span style="color:#000">q</span><span style="color:#000">.</span><span style="color:#836c28">getY</span><span style="color:#000">()</span> <span style="color:#000">+</span> <span style="color:#c41a16">" "</span> <span style="color:#000">+</span> <span style="color:#000">q</span><span style="color:#000">.</span><span style="color:#836c28">getZ</span><span style="color:#000">());</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#177500">// 11,21,31
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>
+</span></span><span style="display:flex;"><span>      <span style="color:#000">q</span> <span style="color:#000">=</span> <span style="color:#000">q</span><span style="color:#000">.</span><span style="color:#836c28">translate</span><span style="color:#000">(</span><span style="color:#000">1</span><span style="color:#000">,</span> <span style="color:#000">1</span><span style="color:#000">,</span> <span style="color:#000">1</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#177500">// la variabile q punta ad un nuovo oggetto
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>      <span style="color:#177500">// il vecchio verrà eleminato dal GC
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>
+</span></span><span style="display:flex;"><span>      <span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">q</span><span style="color:#000">.</span><span style="color:#836c28">getX</span><span style="color:#000">()</span> <span style="color:#000">+</span> <span style="color:#c41a16">" "</span> <span style="color:#000">+</span> <span style="color:#000">q</span><span style="color:#000">.</span><span style="color:#836c28">getY</span><span style="color:#000">()</span> <span style="color:#000">+</span> <span style="color:#c41a16">" "</span> <span style="color:#000">+</span> <span style="color:#000">q</span><span style="color:#000">.</span><span style="color:#836c28">getZ</span><span style="color:#000">());</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#177500">// 12,22,32
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>   <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></section><section>
+<h1 id="una-metodologia-basata-sullincapsulamento">Una metodologia basata sull’incapsulamento</h1>
+<h2 id="altro-esempio-classe-lamp">Altro esempio: classe <code>Lamp</code></h2>
+<h3 id="analisi-del-problema">Analisi del problema</h3>
+<p>In un sistema domotico, dovremo gestire un certo numero di lampadine (da accendere/spegnere e pilotare tramite un apposito controllore centralizzato, oltre che tramite i comandi a muro). Tali comandi sono a pulsante con controllo di intensità (10 livelli). Il controllore deve poter accedere alla situazione di ogni lampadina (accesa/spenta, livello di intensità) e modificarla a piacimento. Al primo avvio, le lampadine sono spente e il controllo di intensità è a zero (in un intervallo $[0,1]$).</p>
+<p>Come procediamo alla costruzione della classe <code>Lamp</code>?</p>
+</section><section>
+<h2 id="progettazione-e-implementazione-fasi">Progettazione e implementazione: fasi</h2>
+<h3 id="fasi-nella-costruzione-di-una-classe">Fasi nella costruzione di una classe</h3>
+<ul>
+<li>Progettazione della parte pubblica della classe</li>
+<li>Costruzione dello stato</li>
+<li>Completamento implementazione</li>
+<li>Miglioramento codice finale</li>
+<li>Test del risultato</li>
+</ul>
+</section><section>
+<h2 id="fase-1-progettazione-della-parte-pubblica-della-classe">Fase 1: Progettazione della parte pubblica della classe</h2>
+<p>Ovvero, del nome della classe e delle signature di operazioni pubbliche (metodi e costruttori)</p>
+<h3 id="linee-guida">Linee guida</h3>
+<ul>
+<li>Considerare tutti i vari casi d’uso di un oggetto della classe</li>
+<li>Inserire costruttori e metodi pubblici solo per le operazioni necessarie</li>
+<li>Evitare ove possibile di inserire un numero elevato di tali operazioni</li>
+</ul>
+<h3 id="il-caso-lamp">Il caso <code>Lamp</code></h3>
+<ul>
+<li>Un costruttore unico senza argomenti</li>
+<li>Metodi per accendere/spegnere</li>
+<li>Metodi per aumentare/ridurre/impostare intensità</li>
+<li>Metodi per accedere allo stato della lampadina</li>
+</ul>
+</section><section>
+<h2 id="parte-pubblica-della-classe-lamp">Parte pubblica della classe <code>Lamp</code></h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#177500">/* Classe d'esempio che modella il concetto di Lampadina
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">   in un sistema Domotico */</span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Lamp</span><span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#177500">/* Inizializzazione */</span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">Lamp</span><span style="color:#000">(){</span> <span style="color:#000">..</span> <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#177500">/* Accendo/Spengo */</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">switchOn</span><span style="color:#000">(){</span> <span style="color:#000">..</span> <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">switchOff</span><span style="color:#000">(){</span> <span style="color:#000">..</span> <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#177500">/* Meno intenso/Più intenso/Quanto intenso */</span>  
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">dim</span><span style="color:#000">(){</span> <span style="color:#000">..</span> <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">brighten</span><span style="color:#000">(){</span> <span style="color:#000">..</span> <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">setIntensity</span><span style="color:#000">(</span><span style="color:#a90d91">double</span> <span style="color:#000">value</span><span style="color:#000">){</span> <span style="color:#000">..</span> <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#177500">/* Selezione */</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">double</span> <span style="color:#000">getIntensity</span><span style="color:#000">(){</span> <span style="color:#000">..</span> <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">boolean</span> <span style="color:#000">isSwitchedOn</span><span style="color:#000">(){</span> <span style="color:#000">..</span> <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span> 
+</span></span></code></pre></div></section><section>
+<h2 id="fase-2-costruzione-dello-stato">Fase 2: Costruzione dello stato</h2>
+<p>Ovvero, dei campi privati della classe</p>
+<h3 id="linee-guida-1">Linee guida</h3>
+<ul>
+<li>Considerare che esistono varie scelte possibili (è un aspetto implementativo, ritrattabile successivamente)</li>
+<li>L’insieme dei campi deve essere più piccolo possibile, per esigenze di performance (spazio in memoria) e di non duplicazione</li>
+<li>L’insieme dei campi deve essere sufficiente a tenere traccia di tutti i modi in cui il comportamento dell’oggetto può cambiare a fronte dei messaggi ricevuti</li>
+</ul>
+<h3 id="il-caso-lamp-1">Il caso <code>Lamp</code></h3>
+<ul>
+<li>Dovremo sapere se è accesa o spenta (<code>boolean switchedOn</code>)</li>
+<li>Dovremo sapere il livello attuale di intensità (<code>double intensity</code>)</li>
+<li>Non sembrano servire altre informazioni</li>
+</ul>
+</section><section>
+<h2 id="stato-e-metodi-della-classe-lamp">Stato e metodi della classe <code>Lamp</code></h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#177500">/* Classe d'esempio che modella il concetto di Lampadina
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">   in un sistema Domotico */</span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Lamp</span><span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#177500">/* Campi */</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">boolean</span> <span style="color:#000">switchedOn</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">double</span> <span style="color:#000">intensity</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#177500">/* Costruttore */</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">Lamp</span><span style="color:#000">(){</span> <span style="color:#000">..</span> <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#177500">/* Metodi */</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">switchOn</span><span style="color:#000">(){</span> <span style="color:#000">..</span> <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">switchOff</span><span style="color:#000">(){</span> <span style="color:#000">..</span> <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">dim</span><span style="color:#000">(){</span> <span style="color:#000">..</span> <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">brighten</span><span style="color:#000">(){</span> <span style="color:#000">..</span> <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">setIntensity</span><span style="color:#000">(</span><span style="color:#a90d91">double</span> <span style="color:#000">value</span><span style="color:#000">){</span> <span style="color:#000">..</span> <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">double</span> <span style="color:#000">getIntensity</span><span style="color:#000">(){</span> <span style="color:#000">..</span> <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">boolean</span> <span style="color:#000">isSwitchedOn</span><span style="color:#000">(){</span> <span style="color:#000">..</span> <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span> 
+</span></span></code></pre></div></section><section>
+<h2 id="fase-3-completamento-implementazione">Fase 3: Completamento implementazione</h2>
+<p>Ovvero, del corpo di costruttori e metodi</p>
+<h3 id="linee-guida-2">Linee guida</h3>
+<ul>
+<li>Realizzare il corpo di ogni costruttore e metodo in modo compatibile col contratto previsto per la classe</li>
+<li>Accettare il fatto che la prima versione prodotta non necessariamente sarà quella finale</li>
+</ul>
+<h3 id="il-caso-lamp-2">Il caso <code>Lamp</code></h3>
+<ul>
+<li><code>switchOn()</code>, <code>switchOff()</code> sono semplici <em><strong>setter</strong></em> del campo <code>switchedOn</code></li>
+<li><code>isSwitchedOn()</code>, <code>getIntensity()</code> semplici <em><strong>getter</strong></em> dei due campi</li>
+<li><code>dim()</code> e <code>brigthen()</code> modificano il campo <code>intensity</code> (se nel range!)</li>
+</ul>
+</section><section>
+<h2 id="prima-versione-classe-lamp">Prima versione Classe Lamp</h2>
+<div class="smaller">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Lamp</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">double</span> <span style="color:#000">intensity</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">boolean</span> <span style="color:#000">switchedOn</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">Lamp</span><span style="color:#000">(){</span>
+</span></span><span style="display:flex;"><span>    	<span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">switchedOn</span> <span style="color:#000">=</span> <span style="color:#a90d91">false</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>    	<span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">intensity</span> <span style="color:#000">=</span> <span style="color:#000">0</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">switchOn</span><span style="color:#000">(){</span>
+</span></span><span style="display:flex;"><span>    	<span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">switchedOn</span> <span style="color:#000">=</span> <span style="color:#a90d91">true</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">switchOff</span><span style="color:#000">(){</span>
+</span></span><span style="display:flex;"><span>    	<span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">switchedOn</span> <span style="color:#000">=</span> <span style="color:#a90d91">false</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">dim</span><span style="color:#000">(){</span>
+</span></span><span style="display:flex;"><span>    	<span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">intensity</span> <span style="color:#000">=</span> <span style="color:#000">(</span><span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">intensity</span> <span style="color:#000">&lt;</span> <span style="color:#000">0</span><span style="color:#000">.</span><span style="color:#836c28">1</span> <span style="color:#000">?</span> <span style="color:#000">0</span> <span style="color:#000">:</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">intensity</span><span style="color:#000">-</span><span style="color:#000">0</span><span style="color:#000">.</span><span style="color:#836c28">1</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">brighten</span><span style="color:#000">(){</span>
+</span></span><span style="display:flex;"><span>    	<span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">intensity</span> <span style="color:#000">=</span> <span style="color:#000">(</span><span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">intensity</span> <span style="color:#000">&gt;</span> <span style="color:#000">0</span><span style="color:#000">.</span><span style="color:#836c28">9</span>  <span style="color:#000">?</span> <span style="color:#000">1</span> <span style="color:#000">:</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">intensity</span><span style="color:#000">+</span><span style="color:#000">0</span><span style="color:#000">.</span><span style="color:#836c28">1</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">setIntensity</span><span style="color:#000">(</span><span style="color:#a90d91">double</span> <span style="color:#000">value</span><span style="color:#000">){</span>
+</span></span><span style="display:flex;"><span>    	<span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">intensity</span> <span style="color:#000">=</span> <span style="color:#000">value</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>    	<span style="color:#a90d91">if</span> <span style="color:#000">(</span><span style="color:#000">value</span> <span style="color:#000">&lt;</span> <span style="color:#000">0</span><span style="color:#000">)</span> <span style="color:#000">{</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">intensity</span> <span style="color:#000">=</span> <span style="color:#000">0</span><span style="color:#000">;</span> <span style="color:#000">}</span> <span style="color:#177500">// Mal formattato!
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    	<span style="color:#a90d91">if</span> <span style="color:#000">(</span><span style="color:#000">value</span> <span style="color:#000">&gt;</span> <span style="color:#000">1</span><span style="color:#000">)</span> <span style="color:#000">{</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">intensity</span> <span style="color:#000">=</span> <span style="color:#000">1</span><span style="color:#000">;</span> <span style="color:#000">}</span> <span style="color:#177500">// Mal formattato!
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">double</span> <span style="color:#000">getIntensity</span><span style="color:#000">(){</span>
+</span></span><span style="display:flex;"><span>    	<span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">intensity</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">boolean</span> <span style="color:#000">isSwitchedOn</span><span style="color:#000">(){</span>
+</span></span><span style="display:flex;"><span>    	<span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">switchedOn</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span> 
+</span></span></code></pre></div></div>
+</section><section>
+<h2 id="fase-4-miglioramento-codice-finale">Fase 4: Miglioramento codice finale</h2>
+<h3 id="linee-guida-3">Linee guida</h3>
+<ul>
+<li>Inserire commenti nel codice</li>
+<li>Verificare la necessità di costanti per evitare numeri “magici”</li>
+<li>Eventualmente fattorizzare sotto-funzioni in metodi/costruttori pubblici/privati, per evitare duplicazioni</li>
+</ul>
+<h3 id="in-concreto-in-questo-caso">In concreto in questo caso</h3>
+<ul>
+<li>Vi sono numeri magici, usare costanti!</li>
+<li>Gestire meglio il limite $0..1$</li>
+<li>Evitare livelli intermedi ($0.145$) di luminosità</li>
+<li>Ritrattare la scelta del tipo del campo <code>intensity</code> – meglio un <code>int</code> fra $0$ e $10$!!</li>
+</ul>
+</section><section>
+<h2 id="versione-finale-classe-lamp">Versione finale Classe Lamp</h2>
+<div class="container">
+<div class="col">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Lamp</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   <span style="color:#177500">/* Costanti luminosità */</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#a90d91">private</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">LEVELS</span> <span style="color:#000">=</span> <span style="color:#000">10</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#a90d91">private</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">double</span> <span style="color:#000">DELTA</span> <span style="color:#000">=</span> <span style="color:#000">0</span><span style="color:#000">.</span><span style="color:#836c28">1</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   <span style="color:#177500">/* Campi della classe */</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#a90d91">private</span> <span style="color:#a90d91">int</span> <span style="color:#000">intensity</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#a90d91">private</span> <span style="color:#a90d91">boolean</span> <span style="color:#000">switchedOn</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   <span style="color:#177500">/* Costruttore */</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#a90d91">public</span> <span style="color:#000">Lamp</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">switchedOn</span> <span style="color:#000">=</span> <span style="color:#a90d91">false</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">intensity</span> <span style="color:#000">=</span> <span style="color:#000">0</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   <span style="color:#177500">/* Gestione switching */</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">switchOn</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">switchedOn</span> <span style="color:#000">=</span> <span style="color:#a90d91">true</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">switchOff</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">switchedOn</span> <span style="color:#000">=</span> <span style="color:#a90d91">false</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   <span style="color:#a90d91">public</span> <span style="color:#a90d91">boolean</span> <span style="color:#000">isSwitchedOn</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">switchedOn</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#000">}</span>
+</span></span></code></pre></div></div>
+<div class="col">
+<div class="smaller">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span>   <span style="color:#177500">/* Gestione intensita' */</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#a90d91">private</span> <span style="color:#a90d91">void</span> <span style="color:#000">correctIntensity</span><span style="color:#000">()</span> <span style="color:#000">{</span> <span style="color:#177500">// A solo uso interno
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>      <span style="color:#a90d91">if</span> <span style="color:#000">(</span><span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">intensity</span> <span style="color:#000">&lt;</span> <span style="color:#000">0</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>         <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">intensity</span> <span style="color:#000">=</span> <span style="color:#000">0</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#000">}</span> <span style="color:#a90d91">else</span> <span style="color:#a90d91">if</span> <span style="color:#000">(</span><span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">intensity</span> <span style="color:#000">&gt;</span> <span style="color:#000">LEVELS</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>         <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">intensity</span> <span style="color:#000">=</span> <span style="color:#000">LEVELS</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">setIntensity</span><span style="color:#000">(</span><span style="color:#a90d91">final</span> <span style="color:#a90d91">double</span> <span style="color:#000">value</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">intensity</span> <span style="color:#000">=</span> <span style="color:#000">Math</span><span style="color:#000">.</span><span style="color:#836c28">round</span><span style="color:#000">((</span><span style="color:#a90d91">float</span><span style="color:#000">)</span> <span style="color:#000">(</span><span style="color:#000">value</span> <span style="color:#000">/</span> <span style="color:#000">DELTA</span><span style="color:#000">));</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">correctIntensity</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">dim</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">intensity</span><span style="color:#000">--;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">correctIntensity</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">brighten</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">intensity</span><span style="color:#000">++;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">correctIntensity</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   <span style="color:#a90d91">public</span> <span style="color:#a90d91">double</span> <span style="color:#000">getIntensity</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">intensity</span> <span style="color:#000">*</span> <span style="color:#000">DELTA</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   <span style="color:#a90d91">public</span> <span style="color:#000">String</span> <span style="color:#000">toString</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>	   <span style="color:#a90d91">return</span> <span style="color:#c41a16">"Acceso: "</span> <span style="color:#000">+</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">isSwitchedOn</span><span style="color:#000">()</span> <span style="color:#000">+</span> <span style="color:#c41a16">" Intensità: "</span> <span style="color:#000">+</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">getIntensity</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></div>
+</div>
+</div>
+</section><section>
+<h2 id="fase-5-test-del-risultato">Fase 5: Test del risultato</h2>
+<h3 id="linee-guida-4">Linee guida</h3>
+<ul>
+<li>Definire un insieme di scenari d’uso di un oggetto</li>
+<li>Per ognuno costruire una procedura che crea l’oggetto, lo usa, e stampa i risultati necessari</li>
+</ul>
+<h3 id="il-caso-lamp-3">Il caso <code>Lamp</code></h3>
+<p>Un possibile caso (non costituisce da solo un test esaustivo):</p>
+<ul>
+<li>Costruisco l’oggetto lampadina</li>
+<li>La accendo</li>
+<li>Imposto la luminosità, poi la vario un poco</li>
+<li>Leggo e stampo lo stato del sistema</li>
+</ul>
+</section><section>
+<h2 id="classe-uselamp">Classe UseLamp</h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseLamp</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#a90d91">private</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">test1</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a90d91">final</span> <span style="color:#000">Lamp</span> <span style="color:#000">l</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Lamp</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">l</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#000">l</span><span style="color:#000">.</span><span style="color:#836c28">switchOn</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#000">l</span><span style="color:#000">.</span><span style="color:#836c28">setIntensity</span><span style="color:#000">(</span><span style="color:#000">0</span><span style="color:#000">.</span><span style="color:#836c28">5</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#000">l</span><span style="color:#000">.</span><span style="color:#836c28">dim</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#000">l</span><span style="color:#000">.</span><span style="color:#836c28">dim</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">l</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#000">l</span><span style="color:#000">.</span><span style="color:#836c28">brighten</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">l</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#177500">// Acceso: true Intensità: 0.4
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>   <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span><span style="color:#000">(</span><span style="color:#a90d91">final</span> <span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">s</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#000">UseLamp</span><span style="color:#000">.</span><span style="color:#836c28">test1</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#177500">// altri test...
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>   <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></section><section>
+<h2 id="il-metodo-tostring">Il metodo toString()</h2>
+<h3 id="una-convenzione-java">Una convenzione Java</h3>
+<ul>
+<li>Ogni classe dovrebbe definire un metodo <code>toString()</code></li>
+<li>Questo deve restituire una rappresentazione in stringa dell’oggetto</li>
+<li>Così si incapsula anche la funzionalità di presentazione (su console)</li>
+<li>Tale metodo è quello che viene automaticamente chiamato quando si usa l’operatore <code>+</code> per concatenare stringhe a oggetti</li>
+</ul>
+</section><section>
+<h2 id="uselamp-uso-di-tostring">UseLamp: uso di toString</h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseLampString</span><span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span><span style="color:#000">(</span><span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">s</span><span style="color:#000">){</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">LampString</span> <span style="color:#000">l</span><span style="color:#000">=</span><span style="color:#a90d91">new</span> <span style="color:#000">LampString</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>    	<span style="color:#000">l</span><span style="color:#000">.</span><span style="color:#836c28">switchOn</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>    	<span style="color:#000">l</span><span style="color:#000">.</span><span style="color:#836c28">setIntensity</span><span style="color:#000">(</span><span style="color:#000">0</span><span style="color:#000">.</span><span style="color:#836c28">5</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>    	<span style="color:#000">l</span><span style="color:#000">.</span><span style="color:#836c28">dim</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>    	<span style="color:#000">l</span><span style="color:#000">.</span><span style="color:#836c28">dim</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>    	<span style="color:#000">l</span><span style="color:#000">.</span><span style="color:#836c28">brighten</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>    	<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">l</span><span style="color:#000">.</span><span style="color:#836c28">toString</span><span style="color:#000">());</span>
+</span></span><span style="display:flex;"><span>    	<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#c41a16">"Oppure : "</span><span style="color:#000">+</span><span style="color:#000">l</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></section><section>
+<h2 id="il-collaudo-di-lamp-è-completato">Il collaudo di Lamp è completato?</h2>
+<h3 id="quanti-scenari-di-test-vanno-preparati">Quanti scenari di test vanno preparati?</h3>
+<ul>
+<li>
+<p>Non c’è un numero giusto</p>
+</li>
+<li>
+<p>Non è possibile in generale controllare in modo completo</p>
+</li>
+<li>
+<p>Bisogna trovare il giusto rapporto tempo/risultato</p>
+</li>
+<li>
+<p>Certamente, un unico scenario è insufficiente</p>
+</li>
+<li>
+<p>La metodologia <em>test-driven development</em> consiglia di costruire test esaustivi prima dell’effettivo sviluppo di ogni funzionalità</p>
+<ul>
+<li>Inizialmente percepito come un po’ noioso</li>
+<li>Sembra far perdere tempo</li>
+<li>Spesso ripaga in termini di temi complessivi e qualità del software profotto</li>
+<li>Supportata da framework dedicati ai test (<em>JUnit</em>)</li>
+</ul>
+</li>
+</ul>
+</section><section>
+<h1 id="ulteriori-convenzioni-e-linee-guida">Ulteriori convenzioni e linee guida</h1>
+<h2 id="convenzione-java-sui-nomi-di-metodi-gettersetter">Convenzione Java sui nomi di metodi getter/setter</h2>
+<h3 id="metodi-gettersetter">Metodi getter/setter</h3>
+<ul>
+<li>Un metodo <em><strong>getter</strong></em> è un metodo che senza input restituisce un valore, una proprietà dell’oggetto</li>
+<li>Un metodo <em><strong>setter</strong></em> è un metodo che restituisce <code>void</code> e accetta un valore che modifica una proprietà dell’oggetto</li>
+<li>(Tali proprietà sono spesso campi, ma ciò non è necessario)</li>
+<li>In <code>Lamp</code>, <code>getIntensity</code> e <code>isSwitchedOn</code> sono getter, <code>setIntensity</code> è un setter</li>
+</ul>
+<h3 id="convenzione-sul-nome-del-metodo-sia-data-la-proprietà-xyz-di-tipo-t">Convenzione sul nome del metodo: sia data la proprietà <code>XYZ</code> di tipo <code>T</code></h3>
+<ul>
+<li>Getter non booleano: <code>T getXYZ(){...}</code></li>
+<li>Getter booleano: <code>boolean getXYZ(){...}</code></li>
+<li>Setter: <code>void setXYZ() {...}</code></li>
+</ul>
+</section><section>
+<h2 id="gettersetter-in-lamp">Getter/setter in Lamp</h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Lamp</span><span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">...</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#177500">// Setter per proprieta' Intensity di tipo double 
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">setIntensity</span><span style="color:#000">(</span><span style="color:#a90d91">double</span> <span style="color:#000">value</span><span style="color:#000">){</span>
+</span></span><span style="display:flex;"><span>    	<span style="color:#000">...</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#177500">// Getter per proprieta' Intensity di tipo double
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">double</span> <span style="color:#000">getIntensity</span><span style="color:#000">(){</span>
+</span></span><span style="display:flex;"><span>    	<span style="color:#000">...</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#177500">// Getter per proprieta' SwitchedOn di tipo boolean
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">boolean</span> <span style="color:#000">isSwitchedOn</span><span style="color:#000">(){</span>
+</span></span><span style="display:flex;"><span>    	<span style="color:#000">...</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span> 
+</span></span></code></pre></div></section><section>
+<h2 id="lamputilities">LampUtilities</h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">LampUtilities</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   <span style="color:#177500">/* Costruisco una fila di lampadine */</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#000">Lamp</span><span style="color:#000">[]</span> <span style="color:#000">buildLampRow</span><span style="color:#000">(</span><span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">size</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a90d91">final</span> <span style="color:#000">Lamp</span><span style="color:#000">[]</span> <span style="color:#000">array</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Lamp</span><span style="color:#000">[</span><span style="color:#000">size</span><span style="color:#000">];</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a90d91">for</span> <span style="color:#000">(</span><span style="color:#a90d91">int</span> <span style="color:#000">index</span> <span style="color:#000">=</span> <span style="color:#000">0</span><span style="color:#000">;</span> <span style="color:#000">index</span> <span style="color:#000">&lt;</span> <span style="color:#000">size</span><span style="color:#000">;</span> <span style="color:#000">index</span><span style="color:#000">++)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>         <span style="color:#000">array</span><span style="color:#000">[</span><span style="color:#000">index</span><span style="color:#000">]</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Lamp</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a90d91">return</span> <span style="color:#000">array</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   <span style="color:#177500">/* Accendo/spengo una fila di lampadine */</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">switchAll</span><span style="color:#000">(</span><span style="color:#a90d91">final</span> <span style="color:#a90d91">boolean</span> <span style="color:#000">switchedOn</span><span style="color:#000">,</span> <span style="color:#a90d91">final</span> <span style="color:#000">Lamp</span><span style="color:#000">[]</span> <span style="color:#000">array</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a90d91">for</span> <span style="color:#000">(</span><span style="color:#000">Lamp</span> <span style="color:#000">l</span> <span style="color:#000">:</span> <span style="color:#000">array</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>         <span style="color:#a90d91">if</span> <span style="color:#000">(</span><span style="color:#000">switchedOn</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#000">l</span><span style="color:#000">.</span><span style="color:#836c28">switchOn</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>         <span style="color:#000">}</span> <span style="color:#a90d91">else</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#000">l</span><span style="color:#000">.</span><span style="color:#836c28">switchOff</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>         <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></section>
+
+  
+
+
+</div>
+      
+
+    </div>
+<script type="text/javascript" src="/reveal-hugo/object-assign.js"></script>
+
+<a href="/reveal-js/dist/print/" id="print-location" style="display: none;"></a>
+
+<script type="application/json" id="reveal-hugo-site-params">{"custom_theme":"custom-theme.scss","custom_theme_compile":true,"custom_theme_options":{"enablesourcemap":true,"targetpath":"css/custom-theme.css"},"height":"900","highlight_theme":"default","history":true,"mermaid":[{"startOnLoad":false}],"slide_number":true,"theme":"white","transition":"slide","transition_speed":"fast","width":"1440"}</script>
+<script type="application/json" id="reveal-hugo-page-params">null</script>
+
+<script src="/reveal-js/dist/reveal.js"></script>
+
+
+  
+  
+  <script type="text/javascript" src="/reveal-js/plugin/markdown/markdown.js"></script>
+  
+  <script type="text/javascript" src="/reveal-js/plugin/highlight/highlight.js"></script>
+  
+  <script type="text/javascript" src="/reveal-js/plugin/zoom/zoom.js"></script>
+  
+  <script type="text/javascript" src="/reveal-js/plugin/notes/notes.js"></script>
+  
+  
+  <script type="text/javascript" src="/reveal-js/plugin/notes/notes.js"></script>
+
+
+
+
+<script type="text/javascript">
+  
+  
+  function camelize(map) {
+    if (map) {
+      Object.keys(map).forEach(function(k) {
+        newK = k.replace(/(\_\w)/g, function(m) { return m[1].toUpperCase() });
+        if (newK != k) {
+          map[newK] = map[k];
+          delete map[k];
+        }
+      });
+    }
+    return map;
+  }
+  
+  var revealHugoDefaults = { center: true, controls: true, history: true, progress: true, transition: "slide" };
+
+  var revealHugoPlugins = { 
+    plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealZoom ]
+   };
+  var revealHugoSiteParams = JSON.parse(document.getElementById('reveal-hugo-site-params').innerHTML);
+  var revealHugoPageParams = JSON.parse(document.getElementById('reveal-hugo-page-params').innerHTML);
+  
+  var options = Object.assign({},
+    camelize(revealHugoDefaults),
+    camelize(revealHugoSiteParams),
+    camelize(revealHugoPageParams),
+    camelize(revealHugoPlugins));
+  Reveal.initialize(options);
+</script>
+
+
+
+
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@9.1.6/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({"startOnLoad":false});
+
+    let render = (event) => {
+      let mermaidElems = event.currentSlide.querySelectorAll('.mermaid');
+      if (!mermaidElems.length){
+          return
+      }
+      mermaidElems.forEach(mermaidElem => {
+          let processed = mermaidElem.getAttribute('data-processed');
+          if (!processed){
+              
+              mermaid.init(undefined, mermaidElem);
+          }
+      });
+    };
+    Reveal.addEventListener('slidechanged', render);
+    Reveal.addEventListener('ready', render);
+  </script>
+
+    <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+</script>
+
+<script type="text/javascript" id="MathJax-script" async="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+</script>
+
+    
+  
+
+</body></html>
