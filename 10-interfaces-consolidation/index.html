@@ -1,0 +1,158 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="utf-8">
+<title>Progettazione e Sviluppo del Software</title>
+<meta name="description" content="Progettazione e Sviluppo del Software, Tecnologie dei Sistemi Informatici">
+<meta name="author" content="Danilo Pianini">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="/reveal-js/dist/reset.css">
+<link rel="stylesheet" href="/reveal-js/dist/reveal.css">
+  <link rel="stylesheet" href="/css/custom-theme.min.993ae6c0a74b2209d9bdb352c2297beaeb28589fa50c62c12cad5d4287d66aae.css" id="theme"><link rel="stylesheet" href="/highlight-js/default.min.css">
+    
+<link rel="stylesheet" href="https://gitcdn.link/repo/DanySK/css-blur-animation/master/blur.css">
+<link href="https://fonts.googleapis.com/css?family=Roboto Mono" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Oxygen Mono" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Ubuntu Mono" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+
+  </head>
+  <body>
+    
+    <div class="reveal">
+      <div class="slides">
+  
+
+    <section><h1 id="consolidamento-su-incapsulamento-e-interfacce">Consolidamento su incapsulamento e interfacce</h1>
+<h4 id="progettazione-e-sviluppo-del-software">Progettazione e Sviluppo del Software</h4>
+<h4 id="cdl-tecnologie-dei-sistemi-informatici">C.D.L. Tecnologie dei Sistemi Informatici</h4>
+<h3 id="roberto-casadei-----robycasadeiuniboitmailtorobycasadeiuniboit"><a href="mailto:roby.casadei@unibo.it">Roberto Casadei — <code>roby.casadei@unibo.it</code></a></h3>
+<h3 id="danilo-pianini-----danilopianiniuniboitmailtodanilopianiniuniboit"><a href="mailto:danilo.pianini@unibo.it">Danilo Pianini — <code>danilo.pianini@unibo.it</code></a></h3>
+<p><a href="?print-pdf&amp;pdfSeparateFragments=false"><i class="fa fa-print" aria-hidden="true"></i> versione stampabile</a></p>
+</section><section>
+</section><section>
+<h2 id="outline">Outline</h2>
+<h3 id="goal-della-lezione">Goal della lezione</h3>
+<ul>
+<li>Riassumere i concetti, principi, meccanismi visti in precedenza</li>
+<li>Mostrare alcune applicazioni notevoli (pattern) di questi concetti, principi, e meccanismi</li>
+</ul>
+<h3 id="argomenti">Argomenti</h3>
+<ul>
+<li>Introduzione ai <em>design pattern</em></li>
+<li>Pattern <em>Strategy</em></li>
+</ul>
+</section><section>
+</section>
+
+  
+
+
+</div>
+      
+
+    </div>
+<script type="text/javascript" src="/reveal-hugo/object-assign.js"></script>
+
+<a href="/reveal-js/dist/print/" id="print-location" style="display: none;"></a>
+
+<script type="application/json" id="reveal-hugo-site-params">{"custom_theme":"custom-theme.scss","custom_theme_compile":true,"custom_theme_options":{"enablesourcemap":true,"targetpath":"css/custom-theme.css"},"height":"900","highlight_theme":"default","history":true,"mermaid":[{"startOnLoad":false}],"slide_number":true,"theme":"white","transition":"slide","transition_speed":"fast","width":"1440"}</script>
+<script type="application/json" id="reveal-hugo-page-params">null</script>
+
+<script src="/reveal-js/dist/reveal.js"></script>
+
+
+  
+  
+  <script type="text/javascript" src="/reveal-js/plugin/markdown/markdown.js"></script>
+  
+  <script type="text/javascript" src="/reveal-js/plugin/highlight/highlight.js"></script>
+  
+  <script type="text/javascript" src="/reveal-js/plugin/zoom/zoom.js"></script>
+  
+  <script type="text/javascript" src="/reveal-js/plugin/notes/notes.js"></script>
+  
+  
+  <script type="text/javascript" src="/reveal-js/plugin/notes/notes.js"></script>
+
+
+
+
+<script type="text/javascript">
+  
+  
+  function camelize(map) {
+    if (map) {
+      Object.keys(map).forEach(function(k) {
+        newK = k.replace(/(\_\w)/g, function(m) { return m[1].toUpperCase() });
+        if (newK != k) {
+          map[newK] = map[k];
+          delete map[k];
+        }
+      });
+    }
+    return map;
+  }
+  
+  var revealHugoDefaults = { center: true, controls: true, history: true, progress: true, transition: "slide" };
+
+  var revealHugoPlugins = { 
+    plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealZoom ]
+   };
+  var revealHugoSiteParams = JSON.parse(document.getElementById('reveal-hugo-site-params').innerHTML);
+  var revealHugoPageParams = JSON.parse(document.getElementById('reveal-hugo-page-params').innerHTML);
+  
+  var options = Object.assign({},
+    camelize(revealHugoDefaults),
+    camelize(revealHugoSiteParams),
+    camelize(revealHugoPageParams),
+    camelize(revealHugoPlugins));
+  Reveal.initialize(options);
+</script>
+
+
+
+
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@9.1.6/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({"startOnLoad":false});
+
+    let render = (event) => {
+      let mermaidElems = event.currentSlide.querySelectorAll('.mermaid');
+      if (!mermaidElems.length){
+          return
+      }
+      mermaidElems.forEach(mermaidElem => {
+          let processed = mermaidElem.getAttribute('data-processed');
+          if (!processed){
+              
+              mermaid.init(undefined, mermaidElem);
+          }
+      });
+    };
+    Reveal.addEventListener('slidechanged', render);
+    Reveal.addEventListener('ready', render);
+  </script>
+
+    <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+</script>
+
+<script type="text/javascript" id="MathJax-script" async="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+</script>
+
+    
+  
+
+</body></html>
