@@ -42,7 +42,51 @@
 <li>Pattern <em>Strategy</em></li>
 </ul>
 </section><section>
-<h2 id="riassunto-di-quanto-visto-finora">Riassunto di quanto visto finora</h2>
+<h2 id="riassunto-delle-puntate-precedenti">Riassunto delle puntate precedenti</h2>
+<ul>
+<li>Programma vs. sistema software</li>
+<li>Fasi processo di sviluppo: analisi $\to$ design $\to$ implementazione $\to$ collaudo $\to$ deployment</li>
+<li>Problem space (dominio/logica business) vs. solution space (scelte realizzative)
+<ul>
+<li>livello di astrazione</li>
+</ul>
+</li>
+<li>Astrazione object-oriented
+<ul>
+<li><em>oggetto = stato + comportamento + identità</em> (cf. <em>incapsulamento</em>)</li>
+<li>interazione attraverso “scambio di messaggi”</li>
+<li><em>classe</em> come “tipo” di oggetti e come “template” di costruzione di oggetti simili (<em>istanze</em>)</li>
+<li><em>interfaccia</em> vs. implementazione (cf. <em>information-hiding</em>)</li>
+</ul>
+</li>
+<li>Riuso mediante
+<ul>
+<li>utilizzo di altri oggetti (<em>composizione</em>)</li>
+<li>estensione dei servizi offerti da altri oggetti (<em>ereditarietà</em>)</li>
+</ul>
+</li>
+</ul>
+</section><section>
+<ul>
+<li>Java 17
+<ul>
+<li><em>write once, run everywhere</em></li>
+<li>JDK: JRE (JVM [<code>java</code>] + JCL) + strumenti di sviluppo (<code>javac</code>, …)</li>
+</ul>
+</li>
+<li>Costrutti Java per la OOP
+<ul>
+<li>tipi primitivi vs. tipi oggetto (classi)</li>
+<li>variabili e riferimenti ad oggetti (allocati nello <em>heap</em>) (assegnamento per copia)</li>
+<li>lifetime di oggetti va oltre lo scope; no deallocazione manuale (cf. <em>GC</em>)</li>
+<li>classi: <em>campi</em> &amp; <em>metodi</em> (statici o d’istanza) – accedibili mediante <em>dot notation</em></li>
+<li>concetto di <em>receiver</em> di una <em>method call</em> e variabile speciale <code>this</code></li>
+<li><em>programmi</em>: metodo pubblico statico <code>main</code> in classe pubblica</li>
+</ul>
+</li>
+<li>Strumenti: compilazione con <code>javac</code> ed esecuzione con <code>java</code></li>
+</ul>
+<p><em>Competenza attuale attesa: costruzione di semplici classi; loro esercizio mediante programmi; compilazione ed esecuzione di programmi</em></p>
 </section><section>
 <h1 id="design-pattern-e-progettazione-di-dettaglio">Design Pattern e Progettazione di Dettaglio</h1>
 <h2 id="progettazione-di-dettaglio">Progettazione di dettaglio</h2>
