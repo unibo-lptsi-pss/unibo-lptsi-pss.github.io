@@ -43,6 +43,7 @@
 </ul>
 </section><section>
 <h2 id="riassunto-delle-puntate-precedenti">Riassunto delle puntate precedenti</h2>
+<h3 id="elementi-di-progettazione-di-sistemi-software-oo">Elementi di progettazione di sistemi software (OO)</h3>
 <ul>
 <li>Programma vs. sistema software</li>
 <li>Fasi processo di sviluppo: analisi $\to$ design $\to$ implementazione $\to$ collaudo $\to$ deployment</li>
@@ -51,6 +52,42 @@
 <li>livello di astrazione</li>
 </ul>
 </li>
+<li>Riuso mediante
+<ul>
+<li>utilizzo di altri oggetti (<em>composizione</em>)</li>
+<li>estensione dei servizi offerti da altri oggetti (<em>ereditarietà</em>)</li>
+</ul>
+</li>
+<li>Concetti di modularità, dipendenza, accoppiamento, coesione</li>
+<li>Metodologie
+<ul>
+<li><em>test-driven development</em></li>
+</ul>
+</li>
+</ul>
+</section><section>
+<h3 id="strumenti">Strumenti</h3>
+<ul>
+<li>Java 17
+<ul>
+<li><em>write once, run everywhere</em></li>
+<li><strong>JDK</strong>: JRE (JVM [<code>java</code>] + JCL) + strumenti di sviluppo (<code>javac</code>, <code>jshell</code> …)</li>
+</ul>
+</li>
+<li><em>Terminali</em> per l’accesso al file system e ai programmi da linea di comando</li>
+<li>Strumenti JDK: compilazione con <code>javac</code> ed esecuzione con <code>java</code>
+<ul>
+<li><em>Programma</em>: metodo pubblico statico <code>main</code> in classe pubblica</li>
+</ul>
+</li>
+<li><code>gradle</code>: build system</li>
+<li><code>git</code>: version control system</li>
+<li><code>JUnit</code>: framework per lo unit testing</li>
+<li><em>Visual Studio Code</em>: ambiente di sviluppo integrato (IDE)</li>
+</ul>
+</section><section>
+<h3 id="basi-delloop-in-java">Basi dell’OOP in Java</h3>
+<ul>
 <li>Astrazione object-oriented
 <ul>
 <li><em>oggetto = stato + comportamento + identità</em> (cf. <em>incapsulamento</em>)</li>
@@ -59,34 +96,53 @@
 <li><em>interfaccia</em> vs. implementazione (cf. <em>information-hiding</em>)</li>
 </ul>
 </li>
-<li>Riuso mediante
+<li>Elementi di base
 <ul>
-<li>utilizzo di altri oggetti (<em>composizione</em>)</li>
-<li>estensione dei servizi offerti da altri oggetti (<em>ereditarietà</em>)</li>
+<li>tipi primitivi vs. tipi oggetto (classi)</li>
+<li>variabili e riferimenti ad oggetti (allocati nello <em>heap</em>) (assegnamento per copia)</li>
+<li>oggetti allocati in memoria dinamica (heap) $\to$ lifetime di oggetti va oltre lo scope
+<ul>
+<li>no deallocazione manuale (cf. <em>GC</em>)</li>
+</ul>
+</li>
+<li><strong>classi</strong>: <em>campi</em> &amp; <em>metodi</em> (statici o d’istanza) – accedibili mediante <em>dot notation</em></li>
+<li>concetto di <em>receiver</em> di una <em>method call</em> e variabile speciale <code>this</code></li>
+</ul>
+</li>
+<li>Altri costrutti
+<ul>
+<li>codice <em>statico</em>: modificatore <code>static</code> per metodi/campi <em>di classe</em></li>
+<li><em>costruttori</em> e inizializzazione di oggetti</li>
+<li><em>overloading</em> di metodi e costruttori</li>
+<li><em>package</em> come namespace e contenitori di classi (cf. dichiarazione <code>package</code>) organizzati gerarchicamente
+<ul>
+<li><em>FQCN (Fully-Qualified Class Name)</em></li>
+<li><code>import</code> per importare i nomi delle classi in scope</li>
+</ul>
+</li>
+<li><em>controllo di accesso</em>: <code>public</code>, package-private, <code>private</code></li>
+<li>modificatore <code>final</code> per campi e variabili <em>costanti</em> (non modificabili)</li>
 </ul>
 </li>
 </ul>
 </section><section>
+<h3 id="oop-efficace">OOP efficace</h3>
 <ul>
-<li>Java 17
+<li><em>Linee guida stilistiche</em> di formattazione di sorgenti Java (spaziature, nomi, etc.)</li>
+<li><strong>Incapsulamento</strong>
+<ol>
+<li>impacchettamento <em>dati</em> e <em>funzioni</em> per la loro manipolazione</li>
+<li><em>information hiding</em>: interfaccia pubblica stabile (<em>contratto</em>) e dettagli implementativi privati</li>
+</ol>
+</li>
+<li>Varie
 <ul>
-<li><em>write once, run everywhere</em></li>
-<li>JDK: JRE (JVM [<code>java</code>] + JCL) + strumenti di sviluppo (<code>javac</code>, …)</li>
+<li>metodi getter e setter</li>
+<li>oggetti <em>immutabili</em></li>
 </ul>
 </li>
-<li>Costrutti Java per la OOP
-<ul>
-<li>tipi primitivi vs. tipi oggetto (classi)</li>
-<li>variabili e riferimenti ad oggetti (allocati nello <em>heap</em>) (assegnamento per copia)</li>
-<li>lifetime di oggetti va oltre lo scope; no deallocazione manuale (cf. <em>GC</em>)</li>
-<li>classi: <em>campi</em> &amp; <em>metodi</em> (statici o d’istanza) – accedibili mediante <em>dot notation</em></li>
-<li>concetto di <em>receiver</em> di una <em>method call</em> e variabile speciale <code>this</code></li>
-<li><em>programmi</em>: metodo pubblico statico <code>main</code> in classe pubblica</li>
 </ul>
-</li>
-<li>Strumenti: compilazione con <code>javac</code> ed esecuzione con <code>java</code></li>
-</ul>
-<p><em>Competenza attuale attesa: costruzione di semplici classi; loro esercizio mediante programmi; compilazione ed esecuzione di programmi</em></p>
+<p><em>Competenza attuale attesa: costruzione di semplici classi ben incapsulate; loro esercizio mediante programmi; compilazione ed esecuzione di programmi</em></p>
 </section><section>
 <h1 id="design-pattern-e-progettazione-di-dettaglio">Design Pattern e Progettazione di Dettaglio</h1>
 <h2 id="progettazione-di-dettaglio">Progettazione di dettaglio</h2>
