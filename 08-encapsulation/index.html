@@ -44,14 +44,14 @@ Mirko Viroli, che ringrazio.</p>
 <h2 id="outline">Outline</h2>
 <h3 id="goal-della-lezione">Goal della lezione</h3>
 <ul>
-<li>Illustrare concetti generali di incapsulamento e information hiding</li>
-<li>Mostrare tecniche di programmazione standard</li>
-<li>Fornire primi esempi di classi ben progettate</li>
+<li>Illustrare concetti generali di <em>incapsulamento</em> e <em>information hiding</em></li>
+<li>Mostrare <em>tecniche di programmazione</em> “standard”</li>
+<li>Fornire primi <em>esempi di classi ben progettate</em></li>
 </ul>
 <h3 id="argomenti">Argomenti</h3>
 <ul>
-<li>Convenzioni su formattazione</li>
-<li>Incapsulamento in Java</li>
+<li>Convenzioni su <em>formattazione</em> di codice sorgente Java</li>
+<li><em>Incapsulamento</em> in Java</li>
 <li>Una metodologia di progettazione</li>
 <li>Ulteriori convenzioni</li>
 </ul>
@@ -117,14 +117,14 @@ Mirko Viroli, che ringrazio.</p>
 <p>Nota: tutte queste tecniche e linee guida sono necessarie per gestire il livello di articolazione del linguaggio Java, ossia per rendere il suo uso più semplice possibile</p>
 </section><section>
 <h1 id="formattazione-del-codice">Formattazione del codice</h1>
-<h2 id="convenzioni-sulla-formattazione-pt-1">Convenzioni sulla formattazione, pt 1</h2>
+<h2 id="convenzioni-sulla-formattazione">Convenzioni sulla formattazione</h2>
 <h3 id="formattazione-generale">Formattazione generale</h3>
 <ul>
 <li><em>Indentazione</em> di 4 caratteri (comunque non 1, non 10..)</li>
 <li><em>Lughezza linee</em>: non più di 90 caratteri – spezzare in modo coerente</li>
 </ul>
 <div class="smaller">
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#177500">// NON OK
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#177500">// MIGLIORABILE
 </span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#a90d91">void</span> <span style="color:#000">m</span><span style="color:#000">()</span> <span style="color:#000">{</span>
 </span></span><span style="display:flex;"><span>        <span style="color:#177500">// indentazione di 8 caratteri, da evitare, in quanto i sorgenti crescono facilmente orizzontalmente
 </span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>        <span style="color:#a90d91">for</span><span style="color:#000">(</span><span style="color:#a90d91">int</span> <span style="color:#000">i</span> <span style="color:#000">:</span> <span style="color:#a90d91">new</span> <span style="color:#a90d91">int</span><span style="color:#000">[]</span> <span style="color:#000">{</span><span style="color:#000">1</span><span style="color:#000">,</span> <span style="color:#000">2</span><span style="color:#000">,</span> <span style="color:#000">3</span><span style="color:#000">})</span> <span style="color:#000">{</span>
@@ -134,6 +134,7 @@ Mirko Viroli, che ringrazio.</p>
 </span></span><span style="display:flex;"><span>        <span style="color:#000">}</span>
 </span></span><span style="display:flex;"><span>        <span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#c41a16">"Questa è una stringa veramente lungha che potrebbe portare ad infrangere la regola"</span><span style="color:#000">)</span>
 </span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#177500">// OK
 </span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#a90d91">void</span> <span style="color:#000">m</span><span style="color:#000">()</span> <span style="color:#000">{</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">for</span><span style="color:#000">(</span><span style="color:#a90d91">int</span> <span style="color:#000">i</span> <span style="color:#000">:</span> <span style="color:#a90d91">new</span> <span style="color:#a90d91">int</span><span style="color:#000">[]</span> <span style="color:#000">{</span><span style="color:#000">1</span><span style="color:#000">,</span> <span style="color:#000">2</span><span style="color:#000">,</span> <span style="color:#000">3</span><span style="color:#000">})</span> <span style="color:#000">{</span>
@@ -180,7 +181,7 @@ Mirko Viroli, che ringrazio.</p>
 <li>Meglio inizializzare sempre le variabili!</li>
 <li>Una sola istruzione per riga</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#177500">// NON OK
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#177500">// MIGLIORABILE
 </span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#a90d91">int</span> <span style="color:#000">a</span><span style="color:#000">,</span> <span style="color:#000">b</span><span style="color:#000">,</span> <span style="color:#000">c</span><span style="color:#000">;</span>
 </span></span><span style="display:flex;"><span><span style="color:#000">b</span> <span style="color:#000">=</span> <span style="color:#000">c</span> <span style="color:#000">=</span> <span style="color:#000">5</span><span style="color:#000">;</span>
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">if</span><span style="color:#000">(</span><span style="color:#000">a</span> <span style="color:#000">&gt;</span> <span style="color:#000">b</span><span style="color:#000">)</span> <span style="color:#000">{</span> <span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#c41a16">"a = "</span> <span style="color:#000">+</span> <span style="color:#000">a</span><span style="color:#000">);</span> <span style="color:#000">}</span> <span style="color:#a90d91">else</span> <span style="color:#000">{</span> <span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#c41a16">"b = "</span> <span style="color:#000">+</span> <span style="color:#000">b</span><span style="color:#000">);</span> <span style="color:#000">}</span>
@@ -197,14 +198,26 @@ Mirko Viroli, che ringrazio.</p>
 </span></span></code></pre></div></section><section>
 <h3 id="costrutti-vari">Costrutti vari</h3>
 <ul>
+<li>Blocchi e parentesi graffe
+<ul>
 <li>Apertura graffa: a fine linea della dichiarazione</li>
 <li>Chiusura graffa: in linea a sè, dove inizia la linea che la apre</li>
-<li>Metodi separati da una linea vuota</li>
 <li>Usare graffe anche con blocchi ad uno statement</li>
+</ul>
+</li>
+<li>Espressioni
+<ul>
 <li>Non usare assegnamenti dentro a espressioni</li>
 <li>Disambiguare priorità operatori con parentesi</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#177500">// NON OK
+</li>
+<li>Spaziature di diverse “sezioni” del codice
+<ul>
+<li>Metodi separati da una linea vuota (e non più di 1)</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#177500">// MIGLIORABILE
 </span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#a90d91">void</span> <span style="color:#000">m</span><span style="color:#000">()</span>
 </span></span><span style="display:flex;"><span><span style="color:#000">{</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">if</span><span style="color:#000">(</span><span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">disabled</span> <span style="color:#000">?</span> <span style="color:#a90d91">true</span> <span style="color:#000">:</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">unavailable</span> <span style="color:#000">?</span> <span style="color:#a90d91">true</span> <span style="color:#000">:</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">urgent</span><span style="color:#000">)</span> <span style="color:#a90d91">return</span><span style="color:#000">;</span> 
@@ -240,7 +253,7 @@ Mirko Viroli, che ringrazio.</p>
 <li><strong>Package</strong>: interamente in <em>minuscolo</em> (anche se parole consecutive), solo lettere</li>
 <li><strong>Campi costanti</strong>: tutte <em>maiuscole</em> con eventuale separatore <code>_</code></li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#177500">// NON OK
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#177500">// MIGLIORABILE
 </span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#a90d91">package</span> <span style="color:#000">IT.UNIBO.some_package</span><span style="color:#000">;</span>
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">some_class</span> <span style="color:#000">{</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">static</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">someConstant</span> <span style="color:#000">=</span> <span style="color:#000">100</span><span style="color:#000">;</span>
@@ -257,34 +270,58 @@ Mirko Viroli, che ringrazio.</p>
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">void</span> <span style="color:#000">someMethod</span><span style="color:#000">()</span> <span style="color:#000">{</span> <span style="color:#177500">/* ... */</span> <span style="color:#000">}</span>
 </span></span><span style="display:flex;"><span><span style="color:#000">}</span>
 </span></span></code></pre></div></section><section>
-<h2 id="convenzioni-sulla-formattazione-pt-3">Convenzioni sulla formattazione, pt 3</h2>
-<h3 id="ordine-delle-proprietà-della-classe-protected-descritto-in-seguito">Ordine delle proprietà della classe (<code>protected</code> descritto in seguito)</h3>
-<ul>
+<h3 id="ordine-degli-elementi-della-classe-protected-descritto-in-seguito">Ordine degli elementi della classe (<code>protected</code> descritto in seguito)</h3>
+<ol>
 <li>Campi statici (pubblici, poi protetti, poi privati)</li>
 <li>Campi istanza (pubblici, poi protetti, poi privati)</li>
 <li>Costruttori (pubblici, poi protetti, poi privati)</li>
-<li>Metodi (raggruppati per ruolo)</li>
-</ul>
+<li>Metodi (<em>raggruppati per ruolo</em>)</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#177500">// MIGLIORABILE
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">SomeClass</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">void</span> <span style="color:#000">someMethod</span><span style="color:#000">()</span> <span style="color:#000">{</span> <span style="color:#177500">/* ... */</span> <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">SOME_CONSTANT1</span> <span style="color:#000">=</span> <span style="color:#000">100</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">SOME_CONSTANT2</span> <span style="color:#000">=</span> <span style="color:#000">100</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">int</span> <span style="color:#000">someField</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#177500">// OK
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">SomeClass</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#177500">// Campi statici
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">SOME_CONSTANT1</span> <span style="color:#000">=</span> <span style="color:#000">100</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">SOME_CONSTANT2</span> <span style="color:#000">=</span> <span style="color:#000">100</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#177500">// Campi d'istanza
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">int</span> <span style="color:#000">someField</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#177500">// Metodi d'istanza
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#a90d91">void</span> <span style="color:#000">someMethod</span><span style="color:#000">()</span> <span style="color:#000">{</span> <span style="color:#177500">/* ... */</span> <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></section><section>
 <h3 id="nota-finale">Nota finale</h3>
 <ul>
 <li>L’uso delle corrette convenzioni rende il codice molto più leggibile, ma anche meno conciso</li>
 <li>Nelle slide è impossibile mostrarlo sempre in questo modo</li>
-<li>Quindi userò in futuro solo alcune convenzioni..</li>
+<li>Quindi useremo in futuro solo alcune convenzioni..</li>
 </ul>
 </section><section>
-<h2 id="esempio-point3d">Esempio: Point3D</h2>
+<h2 id="esempio-di-buona-formattazione-point3d">Esempio di buona formattazione: <code>Point3D</code></h2>
 <div class="container">
 <div class="col">
 <div class="smaller">
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#177500">/**
-</span></span></span><span style="display:flex;"><span><span style="color:#177500"> * Point3D is an example showcasing some functionality of OO in Java, focussing
-</span></span></span><span style="display:flex;"><span><span style="color:#177500"> * on formatting. All properties have default (package) access
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"> * Point3D is an example showcasing some OO functionality 
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"> * in Java, with a focus on formatting. 
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"> * All properties have default (package) access.
 </span></span></span><span style="display:flex;"><span><span style="color:#177500"> */</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Point3D</span> <span style="color:#000">{</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>	<span style="color:#177500">/*
-</span></span></span><span style="display:flex;"><span><span style="color:#177500">	 * A Point3D object is made of three doubles, and has some manipulation functions
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">	 * A Point3D object is made of three doubles, 
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">	 * and has some manipulation functions.
 </span></span></span><span style="display:flex;"><span><span style="color:#177500">	 */</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>	<span style="color:#177500">// A constant ZERO point
@@ -304,13 +341,13 @@ Mirko Viroli, che ringrazio.</p>
 </span></span><span style="display:flex;"><span>	<span style="color:#177500">/* A simple function that extracts useful info from a point */</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">double</span> <span style="color:#000">getSquareModule</span><span style="color:#000">()</span> <span style="color:#000">{</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">x</span> <span style="color:#000">*</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">x</span> <span style="color:#000">+</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">y</span> <span style="color:#000">*</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">y</span> <span style="color:#000">+</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">z</span> <span style="color:#000">*</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">z</span><span style="color:#000">;</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
 </span></span></code></pre></div></div>
 </div>
 <div class="col">
 <div class="smaller">
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span>	<span style="color:#177500">/* The following three are called selector methods */</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#177500">/* The following three are called selector methods */</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">double</span> <span style="color:#000">getX</span><span style="color:#000">()</span> <span style="color:#000">{</span>
 </span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">x</span><span style="color:#000">;</span>
@@ -346,8 +383,8 @@ Mirko Viroli, che ringrazio.</p>
 </div></div>
 </section><section>
 <h1 id="decomposizione-incapsulamento-information-hiding">Decomposizione, incapsulamento, information hiding</h1>
-<h2 id="il-principo-di-decomposizione">Il principo di decomposizione</h2>
-<p><span style="font-size:200%"> divide et impera </span></p>
+</section><section>
+<h2 id="il-principo-di-decomposizione-divide-et-impera">Il principo di decomposizione: <strong>divide et impera</strong></h2>
 <h3 id="dividi-e-conquista-approccio-__top-down__">Dividi e conquista: approccio <em><strong>top-down</strong></em></h3>
 <ul>
 <li>La soluzione di un problema complesso avviene dividendolo in problemi più semplici</li>
@@ -359,19 +396,33 @@ Mirko Viroli, che ringrazio.</p>
 <li>Disegno Mandelbrot: Complex, Mandelbrot, MandelbrotApp</li>
 </ul>
 </section><section>
-<h2 id="decomposizione-modularità-e-dipendenze">Decomposizione, modularità e dipendenze</h2>
-<h3 id="un-punto-cruciale-della-decomposizione-è-la-modularità">Un punto cruciale della decomposizione è la “modularità”</h3>
+<h2 id="decomposizione-modularità-e-dipendenze">Decomposizione, modularità, e dipendenze</h2>
+<h3 id="un-punto-cruciale-della-decomposizione-è-la-modularità">Un punto cruciale della decomposizione è la <strong>modularità</strong></h3>
 <ul>
-<li>La suddivisione va fatta in modo tale che sia effettivamente conveniente</li>
+<li><strong>Modularità</strong>: il grado con cui un sistema è formato da “moduli” separati e combinabili
+<ul>
+<li>La suddivisione (in moduli) va fatta in modo tale che sia effettivamente conveniente</li>
 <li>Bisogna isolare i “sottoproblemi” più semplici</li>
-<li>Ciò è possibile se riduciamo al massimo le “dipendenze” fra i sottoproblemi, il che consente:
+</ul>
+</li>
+<li><strong>Dipendenza</strong>: modulo $A$ è una <em>dipendenza</em> del modulo $B$ se $B$ ha bisogno di $A$ per alcune sue funzioni
+<ul>
+<li>Una dipendenza crea un <strong>accoppiamento (coupling)</strong></li>
+</ul>
+</li>
+<li>Bisogna cercare di ridurre al massimo le <em>“dipendenze”</em> fra i sottoproblemi, il che consente:
 <ul>
 <li>più autonomia decisionale</li>
 <li>meno interazione con altri</li>
-<li><em><strong>meno influenze negative nel caso di modifiche</strong></em></li>
+<li><em><strong>meno influenze negative nel caso di modifiche</strong></em> (se il modulo $A$ cambia, può essere necessario modificare come conseguenza il modulo “dipendente” $B$)</li>
 </ul>
 </li>
+<li><strong>Coesione</strong>: il grado con cui una serie di componenti lavora bene insieme</li>
 </ul>
+</section><section>
+<p><img src="imgs/modularity.png" alt=""></p>
+<p><strong>modularità = alta coesione intra-modulo + basso accoppiamento inter-moduli</strong></p>
+</section><section>
 <h3 id="esempi-di-decomposizione-per-la-calcolatrice">Esempi di decomposizione per la calcolatrice</h3>
 <ul>
 <li>Caso 1: calcolatrice completa per soli numeri naturali, e parte separata per i reali</li>
@@ -382,35 +433,42 @@ Mirko Viroli, che ringrazio.</p>
 <h2 id="decomposizione-e-programmazione-oo">Decomposizione e programmazione OO</h2>
 <h3 id="nella-programmazione-oo-almeno-3-livelli-di-decomposizione">Nella programmazione OO, almeno 3 livelli di decomposizione</h3>
 <ul>
-<li>Suddivisione in package (dell’intero programma)</li>
-<li>Suddivisione in classi (di un package o programma)</li>
-<li>Suddivisione in metodi (di una classe)</li>
+<li>Suddivisione in <em>package</em> (dell’intero programma)</li>
+<li>Suddivisione in <em>classi</em> (di un package o programma)</li>
+<li>Suddivisione in <em>metodi</em> (di una classe)</li>
 </ul>
 <h3 id="il-punto-cruciale-da-affrontare-ora-è-la-suddivisone-in-classi">Il punto cruciale da affrontare ora è la suddivisone in classi</h3>
 <ul>
 <li>È necessario suddividire il codice in classi nel modo opportuno</li>
-<li>Creando il miglior link col “problem space”</li>
+<li>Creando il miglior link col <em>“problem space”</em></li>
 <li><em><strong>Diminuendo il più possibile le dipendenze fra classi</strong></em></li>
 </ul>
 <h3 id="tecnica">Tecnica</h3>
 <ul>
-<li>Esistono consolidate pratiche di programmazione efficiente che risolvono il problema, e che cominceremo ad analizzare in questa lezione – farlo bene richiede molto tempo ed esperienza!</li>
+<li>Esistono consolidate pratiche di programmazione efficace che risolvono il problema, e che cominceremo ad analizzare in questa lezione – farlo bene richiede molto tempo ed esperienza!</li>
 </ul>
 </section><section>
 <h2 id="dipendenze-e-oo">Dipendenze e OO</h2>
 <h3 id="dipendenza">Dipendenza</h3>
-<p>Si dice che una classe <code>A</code> dipende da una classe <code>B</code> se all’interno del codice di <code>A</code> si menziona la classe <code>B</code> (ad esempio come input di un metodo) o qualche sua proprietà. La dipendenza è tanto più profonda quanto più in <code>A</code> si usano anche costruttori e/o campi e/o metodi definiti in <code>B</code>.</p>
-<h3 id="implicazione">Implicazione</h3>
-<p>Ogni dipendenza vincola fortemente la possibilità di fare modifiche, perché ne comporta altre da fare in cascata. Se <code>A</code> dipende da <code>B</code> e modifico <code>B</code>, dovrò probabilmente modificare anche <code>A</code>.</p>
-<h3 id="la-sindrome-dellintoccabilità---sw-rigido">La sindrome dell’“intoccabilità”—SW rigido</h3>
+<p>Si dice che una classe <code>A</code> <em>dipende da</em> una classe <code>B</code> se all’interno del codice di <code>A</code> si menziona la classe <code>B</code> (ad esempio come input di un metodo) o qualche sua proprietà.</p>
+<ul>
+<li>La dipendenza è tanto più profonda (<em>high coupling</em>) quanto più in <code>A</code> si usano anche costruttori e/o campi e/o metodi definiti in <code>B</code>.</li>
+</ul>
+<p>Implicazione di avere una dipendenza</p>
+<ul>
+<li>Ogni dipendenza vincola fortemente la possibilità di fare modifiche, perché ne comporta altre da fare in cascata. Se <code>A</code> dipende da <code>B</code> e modifico <code>B</code>, dovrò probabilmente modificare anche <code>A</code>.</li>
+</ul>
+<h3 id="la-sindrome-dellintoccabilità---sw-rigido">La sindrome dell’“intoccabilità”—<em>SW “rigido”</em></h3>
 <p>Costruendo software complesso con troppe dipendenze, si giunge al punto che ogni singola modifica ne richiederebbe molte altre, e rischierebbe quindi di essere troppo costosa – risultato: non si cambia più il software!</p>
 </section><section>
 <h2 id="incapsulamento">Incapsulamento</h2>
-<h3 id="due-ingredienti-cruciali-della-programmazione-oo">Due ingredienti cruciali della programmazione OO</h3>
-<ul>
-<li>Impacchettamento dati + funzioni per manipolarli</li>
-<li>Information hiding via controllo d’accesso</li>
-</ul>
+<h3 id="definizione">Definizione</h3>
+<p><strong>Incapsulamento</strong>: il grado con cui un insieme di dati e funzioni sono parte di un oggetto</p>
+<p>L’incapsulamento si fonda su due ingredienti cruciali della programmazione OO:</p>
+<ol>
+<li><strong>Impacchettamento dati + funzioni per manipolarli</strong></li>
+<li><strong>Information hiding</strong> (via <em>controllo d’accesso</em>)</li>
+</ol>
 <h3 id="filosofia">Filosofia</h3>
 <ul>
 <li>Ogni classe dichiari <code>public</code> solo quei (pochi) metodi/costruttori necessari a interagire con (o creare) le sue istanze</li>
@@ -424,7 +482,60 @@ Mirko Viroli, che ringrazio.</p>
 <h3 id="incapsulamento-e-dipendenze">Incapsulamento e dipendenze</h3>
 <p>Così facendo il “cliente” è debolmente influenzato da possibili modifiche future riguardanti meri aspetti realizzativi.</p>
 </section><section>
-<h2 id="esempio-base-classe-counter">Esempio base: Classe Counter</h2>
+<h2 id="esempio-base-conteggio-non-incapsulato">Esempio base: conteggio (NON incapsulato)</h2>
+<ul>
+<li>dati e funzioni sono tenuti separati</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">package</span> <span style="color:#000">it.unibo.encapsulation.bad</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">CounterValue</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">value</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">CounterValue</span><span style="color:#000">(</span><span style="color:#a90d91">int</span> <span style="color:#000">value</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">value</span> <span style="color:#000">=</span> <span style="color:#000">value</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">package</span> <span style="color:#000">it.unibo.encapsulation.bad</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">CounterFunctions</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">static</span> <span style="color:#000">CounterValue</span> <span style="color:#000">increment</span><span style="color:#000">(</span><span style="color:#000">CounterValue</span> <span style="color:#000">cv</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">return</span> <span style="color:#a90d91">new</span> <span style="color:#000">CounterValue</span><span style="color:#000">(</span><span style="color:#000">cv</span><span style="color:#000">.</span><span style="color:#836c28">value</span> <span style="color:#000">+</span> <span style="color:#000">1</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span><span style="color:#000">(</span><span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span><span style="color:#000">){</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">CounterValue</span> <span style="color:#000">result</span> <span style="color:#000">=</span> <span style="color:#000">CounterFunctions</span><span style="color:#000">.</span><span style="color:#836c28">increment</span><span style="color:#000">(</span><span style="color:#a90d91">new</span> <span style="color:#000">CounterValue</span><span style="color:#000">(</span><span style="color:#000">10</span><span style="color:#000">));</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#c41a16">"Result: "</span> <span style="color:#000">+</span> <span style="color:#000">result</span><span style="color:#000">.</span><span style="color:#836c28">value</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">}</span> 
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></section><section>
+<h2 id="esempio-base-classe-counter-poco-incapsulata">Esempio base: classe <code>Counter</code> (POCO incapsulata)</h2>
+<ul>
+<li>dati e funzioni sono tenuti insieme (cosa piuttosto naturale nella OOP)</li>
+<li>ma i dati sono ben visibili dall’esterno (no information hiding)</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">package</span> <span style="color:#000">it.unibo.encapsulation.bad</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Counter</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">int</span> <span style="color:#000">value</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">increment</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">value</span><span style="color:#000">++;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">}</span> 
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">package</span> <span style="color:#000">it.unibo.encapsulation.bad</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseCounter</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span><span style="color:#000">(</span><span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span><span style="color:#000">){</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">Counter</span> <span style="color:#000">c</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Counter</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">c</span><span style="color:#000">.</span><span style="color:#836c28">increment</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">c</span><span style="color:#000">.</span><span style="color:#836c28">increment</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#c41a16">"Current value: "</span> <span style="color:#000">+</span> <span style="color:#000">c</span><span style="color:#000">.</span><span style="color:#836c28">value</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">c</span><span style="color:#000">.</span><span style="color:#836c28">value</span> <span style="color:#000">-=</span> <span style="color:#000">10</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#c41a16">"Current value: "</span> <span style="color:#000">+</span> <span style="color:#000">c</span><span style="color:#000">.</span><span style="color:#836c28">value</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">}</span> 
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></section><section>
+<h2 id="esempio-base-classe-counter-ben-incapsulata">Esempio base: classe <code>Counter</code> (ben incapsulata)</h2>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">Counter</span> <span style="color:#000">{</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>	<span style="color:#177500">/* Il campo è reso inaccessibile */</span>
@@ -505,15 +616,25 @@ Mirko Viroli, che ringrazio.</p>
 </span></span><span style="display:flex;"><span>   <span style="color:#000">}</span>
 </span></span><span style="display:flex;"><span><span style="color:#000">}</span>
 </span></span></code></pre></div></section><section>
-<h2 id="riflessione-incapsulazione-e-contratto">Riflessione: incapsulazione e contratto</h2>
+<h2 id="riflessione-incapsulamento-e-contratto">Riflessione: incapsulamento e contratto</h2>
 <h3 id="contratto">Contratto</h3>
 <ul>
-<li>Il contratto di un oggetto corrisponde ai suoi scenari di utilizzo</li>
-<li>E quindi alle aspettative che un cliente ha quando usa l’oggetto</li>
-<li>Grazie all’incapsulamento, è possibile vincolare fortemente questi contratti, controllando meglio il comportamento degli oggetti</li>
+<li>Nel diritto, un contratto è un accordo tra due o più parti, per regolare un rapporto</li>
+<li>Nell’OOP, un <strong>contratto</strong> è una specifica del <em>rapporto tra un oggetto e i suoi utilizzatori</em>
+<ul>
+<li>indica cosa l’oggetto si attende dai suoi utilizzatori (“obblighi”)</li>
+<li>indica cosa gli utilizzatori si possono attendere dall’uso dell’oggetto (“benefici”)</li>
 </ul>
+</li>
+<li><em>Grazie all’incapsulamento, è possibile vincolare fortemente questi contratti, controllando meglio il comportamento degli oggetti!</em></li>
+</ul>
+<!--
+* Il contratto di un oggetto corrisponde ai suoi scenari di utilizzo
+* E quindi alle aspettative che un cliente ha quando usa l'oggetto
+-->
 <h3 id="il-caso-del-contatore">Il caso del Contatore</h3>
 <ul>
+<li>L’utilizzatore può solo (1) creare un contatore; (2) ottenere il valore del contatore; e (3) incrementare il contatore</li>
 <li>Il valore del conteggio all’atto della costruzione è <code>0</code></li>
 <li>Il valore del conteggio in ogni altro istante è pari al numero di chiamate di <code>increment()</code></li>
 </ul>
@@ -523,16 +644,19 @@ Mirko Viroli, che ringrazio.</p>
 <h2 id="oggetti-immutabili">Oggetti immutabili</h2>
 <h3 id="cosa-sono">Cosa sono</h3>
 <ul>
-<li>Oggetti per i quali è garantito che il valore iniziale dei campi non si modificherà mai</li>
+<li><strong>Oggetto immutabile</strong>: oggetto per il quale è garantito che <em>il valore iniziale dei campi non cambierà mai</em></li>
 <li>Portano un ulteriore livello di indipendenza (e eleganza) nel codice</li>
 <li>In alcuni casi potrebbero portare a soluzioni poco performanti</li>
 </ul>
 <h3 id="come-si-costruiscono">Come si costruiscono</h3>
 <ul>
-<li>I campi della classe sono dichiarati <code>final</code> (oltre che <code>private</code>), e..</li>
+<li>I campi della classe sono dichiarati <code>final</code> (oltre che <code>private</code>), e..
+<ul>
 <li>..contengono a loro volta valori primitivi o oggetti immutabili</li>
-<li>Quindi nessun metodo può modificarli (solo i costruttori possono, la prima volta)</li>
-<li>Invece che cambiare i campi si possono solo creare oggetti con nuovo stato</li>
+</ul>
+</li>
+<li>Quindi nessun metodo può modificarli (<em>solo i costruttori possono, la prima volta</em>)</li>
+<li>Pattern di utilizzo: <em>invece che cambiare i campi si possono solo creare nuovi oggetti con il nuovo stato desiderato</em></li>
 </ul>
 <h3 id="osservazione-1">Osservazione</h3>
 <p>Per ora è sufficiente saperli riconoscere e costruire</p>
@@ -609,20 +733,23 @@ Mirko Viroli, che ringrazio.</p>
 <h2 id="progettazione-e-implementazione-fasi">Progettazione e implementazione: fasi</h2>
 <h3 id="fasi-nella-costruzione-di-una-classe">Fasi nella costruzione di una classe</h3>
 <ul>
-<li>Progettazione della parte pubblica della classe</li>
-<li>Costruzione dello stato</li>
-<li>Completamento implementazione</li>
-<li>Miglioramento codice finale</li>
-<li>Test del risultato</li>
+<li>Progettazione della <em>parte pubblica</em> della classe</li>
+<li>Costruzione dello <em>stato</em></li>
+<li>Completamento <em>implementazione</em></li>
+<li>Miglioramento codice finale (<em>refactoring</em>)</li>
+<li><em>Test</em> del risultato</li>
 </ul>
 </section><section>
 <h2 id="fase-1-progettazione-della-parte-pubblica-della-classe">Fase 1: Progettazione della parte pubblica della classe</h2>
 <p>Ovvero, del nome della classe e delle signature di operazioni pubbliche (metodi e costruttori)</p>
 <h3 id="linee-guida">Linee guida</h3>
 <ul>
-<li>Considerare tutti i vari casi d’uso di un oggetto della classe</li>
-<li>Inserire costruttori e metodi pubblici solo per le operazioni necessarie</li>
+<li>Considerare tutti i vari <em>casi d’uso</em> di un oggetto della classe</li>
+<li>Inserire <em>costruttori e metodi pubblici solo per le operazioni necessarie</em>
+<ul>
 <li>Evitare ove possibile di inserire un numero elevato di tali operazioni</li>
+</ul>
+</li>
 </ul>
 <h3 id="il-caso-lamp">Il caso <code>Lamp</code></h3>
 <ul>
@@ -872,17 +999,16 @@ Mirko Viroli, che ringrazio.</p>
 </ul>
 </section><section>
 <h2 id="uselamp-uso-di-tostring">UseLamp: uso di toString</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseLampString</span><span style="color:#000">{</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span><span style="color:#000">(</span><span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">s</span><span style="color:#000">){</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#000">LampString</span> <span style="color:#000">l</span><span style="color:#000">=</span><span style="color:#a90d91">new</span> <span style="color:#000">LampString</span><span style="color:#000">();</span>
-</span></span><span style="display:flex;"><span>    	<span style="color:#000">l</span><span style="color:#000">.</span><span style="color:#836c28">switchOn</span><span style="color:#000">();</span>
-</span></span><span style="display:flex;"><span>    	<span style="color:#000">l</span><span style="color:#000">.</span><span style="color:#836c28">setIntensity</span><span style="color:#000">(</span><span style="color:#000">0</span><span style="color:#000">.</span><span style="color:#836c28">5</span><span style="color:#000">);</span>
-</span></span><span style="display:flex;"><span>    	<span style="color:#000">l</span><span style="color:#000">.</span><span style="color:#836c28">dim</span><span style="color:#000">();</span>
-</span></span><span style="display:flex;"><span>    	<span style="color:#000">l</span><span style="color:#000">.</span><span style="color:#836c28">dim</span><span style="color:#000">();</span>
-</span></span><span style="display:flex;"><span>    	<span style="color:#000">l</span><span style="color:#000">.</span><span style="color:#836c28">brighten</span><span style="color:#000">();</span>
-</span></span><span style="display:flex;"><span>    	<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">l</span><span style="color:#000">.</span><span style="color:#836c28">toString</span><span style="color:#000">());</span>
-</span></span><span style="display:flex;"><span>    	<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#c41a16">"Oppure : "</span><span style="color:#000">+</span><span style="color:#000">l</span><span style="color:#000">);</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseLampString</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>  	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span><span style="color:#000">(</span><span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">s</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">LampString</span> <span style="color:#000">l</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">LampString</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">l</span><span style="color:#000">.</span><span style="color:#836c28">switchOn</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">l</span><span style="color:#000">.</span><span style="color:#836c28">setIntensity</span><span style="color:#000">(</span><span style="color:#000">0</span><span style="color:#000">.</span><span style="color:#836c28">5</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">l</span><span style="color:#000">.</span><span style="color:#836c28">dim</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">l</span><span style="color:#000">.</span><span style="color:#836c28">dim</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">l</span><span style="color:#000">.</span><span style="color:#836c28">brighten</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">l</span><span style="color:#000">.</span><span style="color:#836c28">toString</span><span style="color:#000">());</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#c41a16">"Oppure : "</span> <span style="color:#000">+</span> <span style="color:#000">l</span><span style="color:#000">);</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
 </span></span><span style="display:flex;"><span><span style="color:#000">}</span>
 </span></span></code></pre></div></section><section>
@@ -924,7 +1050,7 @@ Mirko Viroli, che ringrazio.</p>
 <h3 id="convenzione-sul-nome-del-metodo-sia-data-la-proprietà-xyz-di-tipo-t">Convenzione sul nome del metodo: sia data la proprietà <code>XYZ</code> di tipo <code>T</code></h3>
 <ul>
 <li>Getter non booleano: <code>T getXYZ(){...}</code></li>
-<li>Getter booleano: <code>boolean getXYZ(){...}</code></li>
+<li>Getter booleano: <code>boolean getXYZ(){...}</code> o anche <code>boolean isXYZ() {...}</code></li>
 <li>Setter: <code>void setXYZ() {...}</code></li>
 </ul>
 </section><section>
