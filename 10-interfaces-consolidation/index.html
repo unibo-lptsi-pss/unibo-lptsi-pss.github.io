@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link rel="stylesheet" href="/reveal-js/dist/reset.css">
 <link rel="stylesheet" href="/reveal-js/dist/reveal.css">
-  <link rel="stylesheet" href="/css/custom-theme.min.993ae6c0a74b2209d9bdb352c2297beaeb28589fa50c62c12cad5d4287d66aae.css" id="theme"><link rel="stylesheet" href="/highlight-js/default.min.css">
+  <link rel="stylesheet" href="/css/custom-theme.min.b14bd2cb8ebd9f5aadd1914151911df5ab7b2264253b1df19c307933796d5e56.css" id="theme"><link rel="stylesheet" href="/highlight-js/default.min.css">
     
 <link rel="stylesheet" href="https://gitcdn.link/repo/DanySK/css-blur-animation/master/blur.css">
 <link href="https://fonts.googleapis.com/css?family=Roboto Mono" rel="stylesheet">
@@ -34,11 +34,15 @@
 <h3 id="goal-della-lezione">Goal della lezione</h3>
 <ul>
 <li>Riassumere i concetti, principi, meccanismi visti in precedenza</li>
-<li>Mostrare alcune applicazioni notevoli (pattern) di questi concetti, principi, e meccanismi</li>
+<li>Introdurre le basi della <em>progettazione del software</em></li>
+<li>Introdurre le basi dell’<em>agile</em></li>
+<li>Mostrare alcune applicazioni notevoli (<em>pattern</em>) dei concetti, principi, e meccanismi OO visti in precedenza</li>
 </ul>
 <h3 id="argomenti">Argomenti</h3>
 <ul>
 <li>Introduzione ai <em>design pattern</em></li>
+<li><em>Architettura</em> e <em>design di dettaglio</em></li>
+<li><em>Agile software development</em>: cos’è, manifesto, principi</li>
 <li>Pattern <em>Strategy</em></li>
 </ul>
 </section><section>
@@ -166,7 +170,38 @@
 </ul>
 <p>Competenza attuale attesa: costruzione di piccoli progetti software Java/Gradle, tracciati con controllo di versione (git), che realizzano ed esercitano (mediante programmi e test JUnit) semplici sistemi ad oggetti ben incapsulati</p>
 </section><section>
-<h1 id="design-pattern-e-progettazione-di-dettaglio">Design Pattern e Progettazione di Dettaglio</h1>
+<h1 id="introduzione-alla-progettazione-del-software">Introduzione alla progettazione del software</h1>
+<h2 id="richiamo-qualità-interna-vs-esterna">Richiamo: qualità interna vs. esterna</h2>
+<h3 id="qualità-esterna----aspetti-funzionali">Qualità <em>esterna</em> – aspetti <em>funzionali</em></h3>
+<ul>
+<li>Realizza correttamente il suo compito</li>
+<li>In termini di quali funzionalità fornisce</li>
+</ul>
+<h3 id="qualità-esterna----aspetti-non-funzionali">Qualità <em>esterna</em> – aspetti <em>non-funzionali</em></h3>
+<ul>
+<li>Performance adeguate (alle specifiche)</li>
+<li>Uso efficiente/adeguato delle risorse del sistema (memoria, CPU)</li>
+<li>Caratteristiche di sicurezza, affidabilità, usabilità, etc..</li>
+</ul>
+<h3 id="qualità-interna----software-ben-costruito">Qualità <em>interna</em> – software ben costruito</h3>
+<ul>
+<li>Facilmente manutenibile (leggibile, flessibile, riusabile)
+<ul>
+<li>quindi: meno “costoso”, a breve-/medio-/lungo-termine</li>
+</ul>
+</li>
+</ul>
+</section><section>
+<h3 id="come-promuovere-la-qualità-interna-del-software">Come promuovere la qualità interna del software?</h3>
+<ul>
+<li>Regole di stile e formattazione dei sorgenti</li>
+<li>Principi e tecniche di programmazione/progettazione efficace</li>
+<li>Uso di pratiche come il TDD</li>
+</ul>
+<h3 id="il-problema-della-progettazione">Il problema della progettazione</h3>
+<ul>
+<li>Come organizzare efficaciemente un sistema OO (classi, interfacce, e relazioni tra queste) per ottenere la funzionalità e la qualità esterna desiderate?</li>
+</ul>
 </section><section>
 <h2 id="progettazione-del-software">Progettazione del software</h2>
 <h3 id="architettura">Architettura</h3>
@@ -196,16 +231,21 @@
 <li>documentata da più diagrammi UML di 5-10 classi ognuno</li>
 </ul>
 </section><section>
-<h3 id="come-progettare-una-buona-classe-o-gruppo-di-classi">Come progettare una buona classe o gruppo di classi?</h3>
+<h1 id="design-pattern-e-progettazione-di-dettaglio">Design Pattern e Progettazione di Dettaglio</h1>
+</section><section>
+<h2 id="come-progettare-una-buona-classe-o-gruppo-di-classi">Come progettare una buona classe o gruppo di classi?</h2>
 <ul>
 <li>buona conoscenza della programmazione OO
 <ul>
-<li>incapsulamento</li>
+<li>incapsulamento, information hiding</li>
+<li>polimorfismo</li>
+<li>ereditarietà (che vedremo)</li>
 </ul>
 </li>
 <li>buona conoscenza di principi e pratiche di progettazione/programmazione efficace
 <ul>
-<li>DRY (Don’t Repeat Yourself), tecniche di riuso, …</li>
+<li>DRY (Don’t Repeat Yourself), …</li>
+<li>astrazione attraverso interfacce, tecniche di riuso (composizione), …</li>
 </ul>
 </li>
 <li>utilizzo di cataloghi noti di pattern di progettazione (design pattern)</li>
@@ -217,23 +257,27 @@
 <li>Un <strong>pattern</strong> è una <em>soluzione notevole a problemi ricorrenti di design object-oriented</em>
  <!-- elementi riusabili (semplici ed eleganti) di progettazione OO -->
 <ul>
-<li>Idea: trasmettere esperienze (positive) e ore di lavoro (di identificazione, rifattorizzazione) ad altri per essere usate <em>tout court</em></li>
-<li>Sono stati ottenuti in passato (e tuttora) dall’analisi di soluzioni ricorrenti in progetti diversi</li>
+<li>I problemi di “design” sono spesso ricorrenti</li>
+<li>Progettisti esperti hanno nel tempo affrontato tali problemi, provato diverse soluzioni, fino ad ottenere soluzioni efficaci con chiara analisi di costi/benefici</li>
+<li>Tale “esperienza” è stata codificata in forma generica/riusabile in “pattern” che possono essere applicati in contesti simili</li>
 </ul>
 </li>
 <li>Alcuni sono particolarmente famosi, come quelli della <em>“Gang of Four”</em> (detti anche <em>Pattern GoF</em>)
 <ul>
 <li>Testo famosissimo (in C++): <em>Design Patterns: Elements of Reusable Object-Oriented Software</em> di <em>E. Gamma, R. Helm, R. Johnson, J. Vlissides</em></li>
-<li>23 in tutto. Esempi: Decorator, Singleton, Template Method, Observer</li>
+<li>23 in tutto. Esempi: Strategy, Decorator, Singleton, Template Method, Observer</li>
 <li>(Cit. “SW di grosse dimensioni li usano praticamente tutti”)</li>
 </ul>
 </li>
 <li>Benefici
 <ul>
-<li>Il loro uso migliora molto il codice</li>
-<li>Ne favorisce la comprensione se li si indicano nella documentazione</li>
+<li>Il loro uso migliora molto il codice
+<ul>
 <li>Rende il codice più flessibile (nascono per questo)</li>
-<li>Portano più direttamente ad una buona organizzazione</li>
+<li>Portano più direttamente ad una buona organizzazione (delle responsabilità, delle dipendenze, etc.)</li>
+</ul>
+</li>
+<li>Fanno parte di un “vocabolario” per la comunicazione fra programmatori/progettisti</li>
 </ul>
 </li>
 </ul>
@@ -241,10 +285,8 @@
 <h2 id="design-pattern-in-questa-sede">Design Pattern in questa sede</h2>
 <h3 id="nel-corso">Nel corso</h3>
 <ul>
-<li>Vari Pattern già stati utilizzati (es.: nelle librerie)</li>
-<li>Vanno usati dove opportuno nel progetto d’esame (e nella relazione)</li>
-<li>Possono essere tema dell’esame in laboratorio</li>
-<li>Quelli visti a lezione sono da conoscere tassativamente</li>
+<li>E’ importante imparare quelli che introdurremo</li>
+<li>E’ opportuno applicarli nel progetto d’esame (e nella relazione)</li>
 </ul>
 <h3 id="per-il-vostro-futuro">Per il vostro futuro</h3>
 <ul>
@@ -252,52 +294,130 @@
 <li>Un ottimo progettista li conosce e usa (ove opportuno) <em><strong>tutti</strong></em></li>
 </ul>
 </section><section>
-<h2 id="motivazioni">Motivazioni</h2>
-<h3 id="rifattorizzazione-refactoring">Rifattorizzazione (refactoring)</h3>
+<h2 id="motivazione-qualità-interna-refactoring-agilità">Motivazione: qualità interna, refactoring, agilità</h2>
 <ul>
-<li>Operazione di modifica del codice che non aggiunge funzionalità</li>
-<li>Ha lo scopo di migliorare programmazione e struttura del SW</li>
-<li>Ha lo scopo di attrezzare il codice a possibili cambiamenti futuri</li>
+<li>E’ importante conoscere e cercare di applicare i pattern in quanto:
+<ul>
+<li>promuovono la <em>qualità interna</em> del software</li>
+<li>permettono di velocizzare l’attività di <em>refactoring</em></li>
+</ul>
+</li>
+</ul>
+<h3 id="rifattorizzazione-refactoring">Rifattorizzazione (<strong>refactoring</strong>)</h3>
+<ul>
+<li>Operazione di modifica del codice che <em>non aggiunge funzionalità</em></li>
+<li>Ha lo scopo di <em>migliorare la qualità interna del SW</em>
+<ul>
+<li>la sua formattazione, la sua espressività semantica (cf. nomenclatura), la sua struttura</li>
+</ul>
+</li>
+<li>Ha lo scopo di attrezzare il codice a possibili cambiamenti futuri (cf. <em>agilità</em>)
+<ul>
 <li>Può/deve quindi comportare una riprogettazione di alcune parti</li>
 </ul>
-<h3 id="la-necessità-del-refactoring">La necessità del refactoring</h3>
+</li>
+<li>Il refactoring è una pratica necessaria
 <ul>
 <li>Una buona progettazione non la si ottiene al primo “colpo”, ma richiede vari refactoring</li>
-<li>Brian Foote identifica tre fasi nello sviluppo di un sistem: prototyping, expansionary, consolidating; nel consolidamento si rifattorizza</li>
-<li>Nell’agile programming, ogni ciclo di sviluppo non parte se non si è rifattorizzato il codice del ciclo precedente (sia in cicli corti che lunghi)</li>
+<li>Brian Foote identifica tre fasi nello sviluppo di un sistem: “prototyping”, “expansionary”, “consolidating”; nel consolidamento si rifattorizza</li>
 </ul>
-<h3 id="i-pattern">I pattern</h3>
+</li>
+</ul>
+<h3 id="agilità">Agilità</h3>
 <ul>
-<li>L’esperienza pregressa risulta fondamentale per velocizzare il processo di rifattorizzazione</li>
-<li>I Pattern di progettazione forniscono direttamente “ricette” di buona costruzione o rifattorizzazione del SW</li>
+<li>Si vuole rendere il software <em>agile</em>, ovvero in grado di rispondere facilmente al cambiamento</li>
+<li>Nell’<em>agile programming</em>, ogni ciclo di sviluppo non parte se non si è rifattorizzato il codice del ciclo precedente (sia in cicli corti che lunghi)</li>
 </ul>
+<p>I design pattern forniscono direttamente “ricette” di buona costruzione o rifattorizzazione del SW</p>
 </section><section>
-<h2 id="struttura">Struttura</h2>
+<h2 id="agile-software-development-sviluppo-agile-del-software">Agile software development (sviluppo agile del software)</h2>
+<h3 id="manifesto">Manifesto</h3>
+<p><a href="https://agilemanifesto.org/">https://agilemanifesto.org/</a></p>
+<p>Stiamo scoprendo modi migliori di creare software,
+sviluppandolo e aiutando gli altri a fare lo stesso.
+Grazie a questa attività siamo arrivati a considerare importanti:</p>
+<ol>
+<li>Gli <strong>individui e le interazioni</strong> più che i <em>processi e gli strumenti</em></li>
+<li>Il <strong>software funzionante</strong> più che la <em>documentazione esaustiva</em></li>
+<li>La <strong>collaborazione col cliente</strong> più che la <em>negoziazione dei contratti</em></li>
+<li><strong>Rispondere al cambiamento</strong> più che <em>seguire un piano</em></li>
+</ol>
+<p>Ovvero, fermo restando il valore delle voci a destra,
+consideriamo più importanti le voci a sinistra.</p>
+</section><section>
+<h3 id="agile-principi-1-12">Agile: principi 1-12</h3>
+<ol>
+<li>La nostra massima priorità è soddisfare il cliente
+rilasciando software di valore, fin da subito
+e in maniera continua.</li>
+<li><em>Accogliamo i cambiamenti nei requisiti,
+anche a stadi avanzati dello sviluppo.
+I processi agili sfruttano il cambiamento
+a favore del vantaggio competitivo del cliente.</em></li>
+<li>Consegnamo frequentemente software funzionante,
+con cadenza variabile da un paio di settimane a un paio di mesi,
+preferendo i periodi brevi.</li>
+<li>Committenti e sviluppatori devono lavorare insieme
+quotidianamente per tutta la durata del progetto.</li>
+<li>Fondiamo i progetti su individui motivati.
+Diamo loro l’ambiente e il supporto di cui hanno bisogno
+e confidiamo nella loro capacità di portare il lavoro a termine.</li>
+<li>Una conversazione faccia a faccia
+è il modo più efficiente e più efficace per comunicare
+con il team ed all’interno del team.</li>
+<li><em>Il software funzionante è il principale metro di misura di progresso.</em></li>
+<li>I processi agili promuovono uno sviluppo sostenibile.
+Gli sponsor, gli sviluppatori e gli utenti dovrebbero essere in grado
+di mantenere indefinitamente un ritmo costante.</li>
+<li><em>La continua attenzione all’eccellenza tecnica
+e alla buona progettazione esaltano l’agilità.</em></li>
+<li>La semplicità - l’arte di massimizzare la quantità
+di lavoro non svolto - è essenziale.</li>
+<li>Le architetture, i requisiti e la progettazione
+migliori emergono da team che si auto-organizzano.</li>
+<li>A intervalli regolari il team riflette su come
+diventare più efficace, dopodiché regola e adatta
+il proprio comportamento di conseguenza.</li>
+</ol>
+</section><section>
+<h2 id="struttura-di-un-pattern">Struttura di un “pattern”</h2>
 <h3 id="un-pattern-ha-quattro-elementi-fondamentali">Un Pattern ha quattro elementi fondamentali</h3>
+<ol>
+<li>Un <strong>nome</strong>.
 <ul>
-<li>Un nome. (È un aspetto fondamentale!)</li>
-<li>Un problema che risolve. (La causa che porta al suo uso)</li>
-<li>La soluzione che propone. (Gli elementi del progetto)</li>
-<li>La conseguenza che porta. (Riuso, variabilità, performance,..)</li>
+<li>È un aspetto fondamentale! Entra a far parte di un <em>vocabolario</em></li>
 </ul>
-<h3 id="granularità">Granularità</h3>
+</li>
+<li>Un <strong>problema</strong> che risolve.
 <ul>
-<li>
-<p>Gruppo ristretto di (1-5) oggetti/classi generali dipendenti fra loro</p>
-</li>
-<li>
-<p>Sistemi più specifici o più complessi sono utili, ma non propriamente dei “Pattern”</p>
-</li>
-<li>
-<p>Non singole classi riusabili (liste, hash-table)</p>
-</li>
-<li>
-<p>Non “pattern architetturali” (come MVC)</p>
-</li>
-<li>
-<p>Non framework complessi (gerarchia Swing, Reflection)</p>
-</li>
+<li>La causa che porta al suo uso</li>
+<li>Include il <em>contesto</em> di applicazione del pattern</li>
 </ul>
+</li>
+<li>La <strong>soluzione</strong> che propone.
+<ul>
+<li>gli <em>elementi</em> del design e le loro <em>responsabilità</em>, <em>relazioni</em> con altri elementi, e <em>collaborazioni</em></li>
+</ul>
+</li>
+<li>La <strong>conseguenza</strong> che porta.
+<ul>
+<li><em>risultati</em> e <em>vincoli</em> (ad es. in termini di riuso, variabilità, performance, …)</li>
+<li>il risultato è spesso un <em>trade-off</em></li>
+<li>la scelta di applicare un pattern è questione di <em>costi-benefici</em></li>
+</ul>
+</li>
+</ol>
+<!--
+    
+### Granularità
+
+*  Gruppo ristretto di (1-5) oggetti/classi generali dipendenti fra loro
+*  Sistemi più specifici o più complessi sono utili, ma non propriamente dei "Pattern"
+    *  Non singole classi riusabili (liste, hash-table)
+    *  Non "pattern architetturali" (come MVC)
+    *  Non framework complessi (gerarchia Swing, Reflection)
+	
+-->
 </section><section>
 <h2 id="classificazione-dei-pattern-categorie">Classificazione dei Pattern: categorie</h2>
 <h3 id="livello-proposito-del-pattern">Livello “proposito del Pattern”</h3>
@@ -308,8 +428,8 @@
 </ul>
 <h3 id="livello-scope">Livello “scope”</h3>
 <ul>
-<li>Classi: Il Pattern riguarda primariamente le relazioni fra classi (e sottoclassi), e quindi tratta aspetti statici (compile-time)</li>
-<li>Oggetti: Il Pattern riguarda primariamente le relazioni fra oggetti (l’esistenza di riferimenti fra oggetti), e quindi tratta aspetti dinamici (run-time)</li>
+<li><em>Classi</em>: Il Pattern riguarda primariamente le relazioni fra classi (e sottoclassi), e quindi tratta aspetti <em>statici</em> (compile-time)</li>
+<li><em>Oggetti</em>: Il Pattern riguarda primariamente le relazioni fra oggetti (l’esistenza di riferimenti fra oggetti), e quindi tratta aspetti <em>dinamici</em> (run-time)</li>
 </ul>
 </section><section>
 <h2 id="i-23-pattern-gof">I 23 Pattern GoF</h2>
@@ -337,123 +457,238 @@
 <li>Rappresentazione grafica (diagramma delle classi generale)</li>
 <li>Esempio (già visto/nuovo)</li>
 </ul>
-<h2 id="i-pattern-nel-corso">I pattern nel corso</h2>
-<h3 id="esami-di-progetto">Esami di progetto</h3>
-<ul>
-<li>Identificarne/usarne “pochi” è considerato poco soddisfacente</li>
-<li>Scegliere di usarli non è arbitario, ma è indice di buona progettazione e/o di buona rifattorizzazione</li>
-<li>Gli argomenti: “in questo progetto non servivano” e “non c’è stato tempo” sono pessimi</li>
-<li>Argomento di probabile discussione all’esame</li>
-</ul>
-<h3 id="di-conseguenza">Di conseguenza</h3>
-<ul>
-<li>I pattern qui presentati vanno conosciuti</li>
-<li>Gli altri pattern sono facoltativi, e importanti per il vostro futuro</li>
-</ul>
+<!--
+
+## I pattern nel corso
+
+    
+### Esami di progetto
+
+
+*  Identificarne/usarne "pochi" è considerato poco soddisfacente
+*  Scegliere di usarli non è arbitario, ma è indice di buona progettazione e/o di buona rifattorizzazione
+*  Gli argomenti: "in questo progetto non servivano" e "non c'è stato tempo" sono pessimi
+*  Argomento di probabile discussione all'esame
+
+    
+### Di conseguenza
+
+
+
+*  I pattern qui presentati vanno conosciuti
+*  Gli altri pattern sono facoltativi, e importanti per il vostro futuro
+    
+
+-->
 </section><section>
 <h1 id="alcuni-pattern-iniziali">Alcuni pattern iniziali</h1>
-<h2 id="singleton-creazionale-su-oggetti">Singleton: creazionale, su oggetti</h2>
-<h3 id="intentomotivazione">Intento/motivazione</h3>
-<pre><code>Garantire che una classe abbia una unica istanza, accessibile globalmente e facilmente a molteplici classi, senza doversi preoccupare di fornirne il riferimento a chi lo richiede (ad esempio passandolo al costruttore)
-</code></pre>
-<h3 id="esempi">Esempi</h3>
-<ul>
-<li>Un unico gestore di stampanti in un sistema</li>
-<li>Un unico gestore del “log”</li>
-<li><code>java.lang.Runtime</code></li>
-</ul>
-<h3 id="soluzione">Soluzione</h3>
-<ul>
-<li>La classe sia responsabile di tenere traccia di tale unica istanza</li>
-<li>La classe impedisca la creazione di altri oggetti</li>
-<li>La classe fornisca l’accesso a tale oggetto staticamente</li>
-<li>Attenzione: singleton accoppia clienti e implementazione</li>
-</ul>
-</section><section>
-<h2 id="singleton-uml">Singleton: UML</h2>
-<p><img src="img/singleton.jpg" alt=""></p>
-</section><section>
-<h2 id="singleton-il-caso-di-javalangruntime">Singleton: Il caso di <code>java.lang.Runtime</code></h2>
-<pre><code>\sizedrangedcode{\scriptsize}{3}{100}{\ecl/singleton/UseRuntime.java}
-</code></pre>
-</section><section>
-<h2 id="singleton-il-caso-di-una-classe-log">Singleton: Il caso di una classe <code>Log</code></h2>
-<pre><code>\sizedrangedcode{\scriptsize}{3}{100}{\ecl/singleton/Log.java}
-\sizedrangedcode{\scriptsize}{3}{100}{\ecl/singleton/UseLog.java}
-</code></pre>
-</section><section>
-<h2 id="singleton-conseguenze">Singleton: conseguenze</h2>
-<h3 id="effetti-benefici">Effetti benefici</h3>
-<ul>
-<li>C’è un controllo “incapsulato” di chi vi accede</li>
-<li>Evita di dover portare i riferimenti all’oggetto nei campi di tutti le classi che lo usano</li>
-<li>È facile raffinare l’implementazione del singleton (via subclassing)</li>
-<li>Può gestire la creazione by-need (detta anche <em>lazy</em>) dell’oggetto</li>
-<li>Più flessibile dei metodi statici (che non hanno overriding)</li>
-</ul>
-<h3 id="critiche">Critiche</h3>
-<ul>
-<li>Il Singleton può essere problematico col multi-threading</li>
-<li>Crea dipendenze nascoste, gli user dipendono dal nome della classe</li>
-<li>Difficile tornare indietro dalla scelta di usare il singleton</li>
-<li>Incapsula due responsabilità distinte (creazione + aspetti interni)</li>
-<li>Rende meno estendibile il codice della classe (è meno “OOP”)</li>
-<li>$\Rightarrow$ <em><strong>Da usare quando portare “in giro” il riferimento all’oggetto sarebbe complesso</strong></em></li>
-</ul>
-</section><section>
-<h2 id="singleton-con-lazy-initialization-non-thread-safe">Singleton con “lazy initialization” (non thread-safe)</h2>
-<pre><code>\sizedrangedcode{\scriptsize}{3}{100}{\ecl/singleton/LogLazy.java}
-</code></pre>
-</section><section>
-<h2 id="singleton-con-lazy-initialization-e-thread-safe">Singleton con “lazy initialization” e “thread-safe”</h2>
-<pre><code>\sizedrangedcode{\ssmall}{3}{100}{\ecl/singleton/LogLazyTS.java}
-</code></pre>
-</section><section>
-<h2 id="template-method-comportamentale-su-classi">Template Method: comportamentale, su classi</h2>
-<h3 id="intentomotivazione-1">Intento/motivazione</h3>
-<pre><code>Definisce lo scheletro (template) di un algoritmo (o comportamento), lasciando l'indicazione di alcuni suoi aspetti alle sottoclassi.
-</code></pre>
-<h3 id="esempi-1">Esempi</h3>
-<ul>
-<li>In un input stream (<code>InputStream</code>), i vari metodi di lettura sono dei Template Method: dipendono dall’implementazione del solo concetto di lettura di un <code>int</code>
-%*  Similmente, i metodi di <code>AbstractSet</code> tranne <code>size()</code> e <code>iterator()</code></li>
-<li>Le interfacce funzionali con metodi di default che chiamano l’astratto</li>
-</ul>
-<h3 id="soluzione-1">Soluzione</h3>
-<ul>
-<li>L’algoritmo è realizzato attraverso un metodo non astratto (il template method) di una classe astratta</li>
-<li>Questo realizza l’algoritmo, chiamando metodi astratti quando servono gli aspetti non noti a priori</li>
-<li>Una sottoclasse fornisce l’implementazione dei metodi astratti</li>
-</ul>
-</section><section>
-<h2 id="template-method-uml">Template Method: UML</h2>
-<pre><code>![](img/template_method.jpg)
-</code></pre>
-</section><section>
-<h2 id="template-method-una-estensione-di-inputstream">Template Method: Una estensione di <code>InputStream</code></h2>
-<pre><code>\sizedrangedcode{\ssmall}{3}{100}{\ecl/tmethod/UseRandomInputStream.java}
-</code></pre>
-</section><section>
-<h2 id="template-method-esempio-bankaccount">Template Method: esempio <code>BankAccount</code></h2>
-<pre><code>\sizedrangedcode{\ssmall}{3}{100}{\ecl/tmethod/BankAccount.java}
-</code></pre>
-</section><section>
-<h2 id="template-method-esempio-con-i-metodi-default">Template Method: esempio con i metodi <code>default</code></h2>
-<pre><code>\sizedrangedcode{\ssmall}{5}{100}{\ecllambda/interfaces/SimpleIterator.java}
-\sizedrangedcode{\ssmall}{3}{100}{\ecllambda/interfaces/UseSimpleIterator.java}
-</code></pre>
+<!--
+
+## Singleton: creazionale, su oggetti
+
+
+    
+### Intento/motivazione
+
+
+	Garantire che una classe abbia una unica istanza, accessibile globalmente e facilmente a molteplici classi, senza doversi preoccupare di fornirne il riferimento a chi lo richiede (ad esempio passandolo al costruttore)
+    
+
+    
+### Esempi
+
+
+
+*  Un unico gestore di stampanti in un sistema
+*  Un unico gestore del "log"
+*  `java.lang.Runtime`
+    
+
+
+    
+### Soluzione
+
+
+
+*  La classe sia responsabile di tenere traccia di tale unica istanza
+*  La classe impedisca la creazione di altri oggetti
+*  La classe fornisca l'accesso a tale oggetto staticamente
+*  Attenzione: singleton accoppia clienti e implementazione
+    
+
+
+
+
+---
+
+
+## Singleton: UML
+
+
+![](img/singleton.jpg)
+
+
+---
+
+
+## Singleton: Il caso di `java.lang.Runtime`
+
+
+    \sizedrangedcode{\scriptsize}{3}{100}{\ecl/singleton/UseRuntime.java}
+
+
+---
+
+
+## Singleton: Il caso di una classe `Log`
+
+
+    \sizedrangedcode{\scriptsize}{3}{100}{\ecl/singleton/Log.java}
+    \sizedrangedcode{\scriptsize}{3}{100}{\ecl/singleton/UseLog.java}
+
+
+---
+
+
+## Singleton: conseguenze
+
+
+    
+### Effetti benefici
+
+
+
+*  C'è un controllo "incapsulato" di chi vi accede
+*  Evita di dover portare i riferimenti all'oggetto nei campi di tutti le classi che lo usano
+*  È facile raffinare l'implementazione del singleton (via subclassing)
+*  Può gestire la creazione by-need (detta anche *lazy*) dell'oggetto
+*  Più flessibile dei metodi statici (che non hanno overriding)
+    
+
+
+    
+### Critiche
+
+
+
+*  Il Singleton può essere problematico col multi-threading
+*  Crea dipendenze nascoste, gli user dipendono dal nome della classe
+*  Difficile tornare indietro dalla scelta di usare il singleton
+*  Incapsula due responsabilità distinte (creazione + aspetti interni)
+*  Rende meno estendibile il codice della classe (è meno "OOP")
+* $\Rightarrow$ *__Da usare quando portare "in giro" il riferimento all'oggetto sarebbe complesso__*
+    
+
+
+
+
+---
+
+
+## Singleton con "lazy initialization" (non thread-safe)
+
+
+    \sizedrangedcode{\scriptsize}{3}{100}{\ecl/singleton/LogLazy.java}
+
+
+---
+
+
+## Singleton con "lazy initialization" e "thread-safe"
+
+
+    \sizedrangedcode{\ssmall}{3}{100}{\ecl/singleton/LogLazyTS.java}
+
+
+---
+
+
+
+## Template Method: comportamentale, su classi
+
+
+    
+### Intento/motivazione
+
+
+	Definisce lo scheletro (template) di un algoritmo (o comportamento), lasciando l'indicazione di alcuni suoi aspetti alle sottoclassi.
+    
+
+    
+### Esempi
+
+
+
+*  In un input stream (`InputStream`), i vari metodi di lettura sono dei Template Method: dipendono dall'implementazione del solo concetto di lettura di un `int`
+	%*  Similmente, i metodi di `AbstractSet` tranne `size()` e `iterator()`
+*  Le interfacce funzionali con metodi di default che chiamano l'astratto
+    
+
+
+    
+### Soluzione
+
+
+
+*  L'algoritmo è realizzato attraverso un metodo non astratto (il template method) di una classe astratta
+*  Questo realizza l'algoritmo, chiamando metodi astratti quando servono gli aspetti non noti a priori
+*  Una sottoclasse fornisce l'implementazione dei metodi astratti
+    
+
+
+
+
+---
+
+
+## Template Method: UML
+
+
+    ![](img/template_method.jpg)
+
+
+---
+
+
+## Template Method: Una estensione di `InputStream`
+
+
+    \sizedrangedcode{\ssmall}{3}{100}{\ecl/tmethod/UseRandomInputStream.java}
+
+
+---
+
+
+## Template Method: esempio `BankAccount`
+
+
+    \sizedrangedcode{\ssmall}{3}{100}{\ecl/tmethod/BankAccount.java}
+
+
+---
+
+
+## Template Method: esempio con i metodi `default`
+
+
+    \sizedrangedcode{\ssmall}{5}{100}{\ecllambda/interfaces/SimpleIterator.java}
+    \sizedrangedcode{\ssmall}{3}{100}{\ecllambda/interfaces/UseSimpleIterator.java}
+
+
+---
+
+-->
 </section><section>
 <h2 id="strategy-comportamentale-su-oggetti">Strategy: comportamentale, su oggetti</h2>
-<h3 id="intentomotivazione-2">Intento/motivazione</h3>
-<pre><code>Definisce una famiglia di algoritmi, e li rende interscambiabili, ossia usabili in modo trasparente dai loro clienti
-</code></pre>
-<h3 id="esempi-2">Esempi</h3>
+<h3 id="intentomotivazione">Intento/motivazione</h3>
+<p>Definisce una famiglia di algoritmi, e li rende interscambiabili, ossia usabili in modo trasparente dai loro clienti</p>
+<h3 id="esempi">Esempi</h3>
 <ul>
 <li>Strategia di disposizione di componenti in una GUI (<code>LayoutManager</code>)</li>
 <li>Strategie di confronto fra due elementi per sorting (<code>Comparable</code>)</li>
 <li>Strategie di <code>map</code>, <code>filter</code>, etc.. negli <code>Stream</code></li>
 </ul>
-<h3 id="soluzione-2">Soluzione</h3>
+<h3 id="soluzione">Soluzione</h3>
 <ul>
 <li>Gli algoritmi sono realizzati tramite specializzazioni di una classe/interfaccia base</li>
 <li>Ai clienti passo un oggetto (di una specializzazione) della classe base</li>
@@ -462,8 +697,7 @@
 </ul>
 </section><section>
 <h2 id="strategy-uml">Strategy: UML</h2>
-<pre><code>![](img/strategy.jpg)
-</code></pre>
+<p><img src="imgs/strategy.jpg" alt=""></p>
 </section><section>
 <h2 id="strategy-sorting-con-comparatori">Strategy: Sorting con comparatori</h2>
 <pre><code>\sizedrangedcode{\ssmall}{5}{100}{\ecl/strategy/UseComparator.java}
@@ -477,28 +711,45 @@
 <h2 id="strategy-caso-del-bankaccount-1">Strategy: Caso del BankAccount</h2>
 <pre><code>\sizedrangedcode{\ssmall}{3}{100}{\ecl/strategy/BankAccount.java}
 </code></pre>
-</section><section>
-<h2 id="strategy-vs-template-method">Strategy vs Template Method</h2>
-<h3 id="in-comune">In comune</h3>
-<ul>
-<li>Entrambi li si ottengono dall’esigenza di scorporare da una classe la gestione di una strategia o specializzazione</li>
-<li>Entrambi richiedono un behaviour aggiuntivo da realizzare</li>
-</ul>
-<h3 id="differenze">Differenze</h3>
-<ul>
-<li>Strategy è più flessibile, perché gli oggetti che rappresentano la specializzazione sono liberi dal dover estendere una certa classe, e quindi sono più facilmente riusabili (p.e. un <code>Comparator</code> è usabile con collection diverse)</li>
-<li>Template Method si integra con il subtyping, e quindi va usato quando a strategie specializzate devono corrispondere classi specializzate</li>
-</ul>
-<h3 id="altre-note">Altre note</h3>
-<ul>
-<li>Negli <code>InputStream</code> le limitazioni del Template Method sono mitigate dal Decorator</li>
-<li>Con le lambda, l’approccio a Strategy diventa più naturale</li>
-<li>Valutare di usare il Template Method insieme a Strategy, ossia per definire gerarchie di strategie</li>
-</ul>
-</section><section>
-</section><section>
-<h2 id="pattern-strategy">Pattern Strategy</h2>
-</section>
+<!--
+
+---
+
+
+## Strategy vs Template Method
+
+
+  
+### In comune
+
+
+
+*  Entrambi li si ottengono dall'esigenza di scorporare da una classe la gestione di una strategia o specializzazione
+*  Entrambi richiedono un behaviour aggiuntivo da realizzare
+  
+
+
+  
+### Differenze
+
+
+
+*  Strategy è più flessibile, perché gli oggetti che rappresentano la specializzazione sono liberi dal dover estendere una certa classe, e quindi sono più facilmente riusabili (p.e. un `Comparator` è usabile con collection diverse)
+*  Template Method si integra con il subtyping, e quindi va usato quando a strategie specializzate devono corrispondere classi specializzate
+  
+
+
+  
+### Altre note
+
+
+
+*  Negli `InputStream` le limitazioni del Template Method sono mitigate dal Decorator
+*  Con le lambda, l'approccio a Strategy diventa più naturale
+*  Valutare di usare il Template Method insieme a Strategy, ossia per definire gerarchie di strategie 
+  
+
+--></section>
 
   
 
