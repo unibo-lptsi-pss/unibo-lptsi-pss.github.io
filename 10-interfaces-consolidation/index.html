@@ -749,7 +749,33 @@ il proprio comportamento di conseguenza.</li>
 *  Valutare di usare il Template Method insieme a Strategy, ossia per definire gerarchie di strategie 
   
 
---></section>
+-->
+<h2 id="factory-method-e-abstract-factory">Factory Method e Abstract Factory</h2>
+<p><img src="img/fac3.png" alt="">
+<img src="img/fac4.png" alt=""></p>
+</section><section>
+<h2 id="factory-method-creazionale-su-oggetti">Factory Method: creazionale, su oggetti</h2>
+<h3 id="intentomotivazione-1">Intento/motivazione</h3>
+<pre><code>Definisce una interfaccia per creare oggetti, lasciando alle sottoclassi il compito di decidere quale classe istanziare e come
+</code></pre>
+<h3 id="esempi-1">Esempi</h3>
+<pre><code>*  Un framework deve creare oggetti, ma sue specializzazioni devono crearne versioni specializzate
+</code></pre>
+<h3 id="soluzione-1">Soluzione</h3>
+<pre><code>*  Una interfaccia creatrice fornisce il metodo factory col compito di creare e ritornare l'oggetto
+*  Tale interfaccia viene poi specializzata, e incapsula la logica di creazione dell'oggetto
+* $\Rightarrow$ ..spesso frainteso con static o simple factory
+</code></pre>
+</section><section>
+<h2 id="factory-method-uml">Factory Method: UML</h2>
+<p><img src="imgs/factorymethod.png" alt=""></p>
+</section><section>
+<h2 id="factory-method-esempio-persona-e-factorypersona">Factory Method: Esempio <code>Persona</code> e <code>FactoryPersona</code></h2>
+<pre><code>\sizedrangedcode{\ssmall}{3}{100}{\ecl/factory/person/Person.java}
+\sizedrangedcode{\ssmall}{3}{100}{\ecl/factory/person/PersonFactory.java}
+</code></pre>
+</section><section>
+</section>
 
   
 
