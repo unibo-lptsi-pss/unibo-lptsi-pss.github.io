@@ -1,0 +1,1056 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="utf-8">
+<title>Progettazione e Sviluppo del Software</title>
+<meta name="description" content="Progettazione e Sviluppo del Software, Tecnologie dei Sistemi Informatici">
+<meta name="author" content="Danilo Pianini">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="/reveal-js/dist/reset.css">
+<link rel="stylesheet" href="/reveal-js/dist/reveal.css">
+  <link rel="stylesheet" href="/css/custom-theme.min.b14bd2cb8ebd9f5aadd1914151911df5ab7b2264253b1df19c307933796d5e56.css" id="theme"><link rel="stylesheet" href="/highlight-js/default.min.css">
+    
+<link rel="stylesheet" href="https://gitcdn.link/repo/DanySK/css-blur-animation/master/blur.css">
+<link href="https://fonts.googleapis.com/css?family=Roboto Mono" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Oxygen Mono" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Ubuntu Mono" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+
+  </head>
+  <body>
+    
+    <div class="reveal">
+      <div class="slides">
+  
+
+    <section><h1 id="introduzione-alla-progettazione-efficace-ed-agile-del-software">Introduzione alla progettazione efficace ed agile del software</h1>
+<h4 id="progettazione-e-sviluppo-del-software">Progettazione e Sviluppo del Software</h4>
+<h4 id="cdl-tecnologie-dei-sistemi-informatici">C.D.L. Tecnologie dei Sistemi Informatici</h4>
+<h3 id="roberto-casadei-----robycasadeiuniboitmailtorobycasadeiuniboit"><a href="mailto:roby.casadei@unibo.it">Roberto Casadei — <code>roby.casadei@unibo.it</code></a></h3>
+<h3 id="danilo-pianini-----danilopianiniuniboitmailtodanilopianiniuniboit"><a href="mailto:danilo.pianini@unibo.it">Danilo Pianini — <code>danilo.pianini@unibo.it</code></a></h3>
+<p><a href="?print-pdf&amp;pdfSeparateFragments=false"><i class="fa fa-print" aria-hidden="true"></i> versione stampabile</a></p>
+</section><section>
+<h2 id="outline">Outline</h2>
+<h3 id="goal-della-lezione">Goal della lezione</h3>
+<ul>
+<li>Riassumere i concetti, principi, meccanismi visti in precedenza</li>
+<li>Introdurre le basi della <em>progettazione del software</em></li>
+<li>Introdurre le basi dell’<em>agile</em></li>
+<li>Mostrare alcune applicazioni notevoli (<em>pattern</em>) dei concetti, principi, e meccanismi OO visti in precedenza</li>
+</ul>
+<h3 id="argomenti">Argomenti</h3>
+<ul>
+<li>Introduzione ai <em>design pattern</em></li>
+<li><em>Architettura</em> e <em>design di dettaglio</em></li>
+<li><em>Agile software development</em>: cos’è, manifesto, principi</li>
+<li>Pattern <em>Strategy</em></li>
+</ul>
+</section><section>
+<h2 id="riassunto-delle-puntate-precedenti">Riassunto delle puntate precedenti</h2>
+<h3 id="elementi-di-progettazione-di-sistemi-software-oo">Elementi di progettazione di sistemi software (OO)</h3>
+<ul>
+<li>Programma vs. sistema software</li>
+<li>Fasi processo di sviluppo: analisi $\to$ design $\to$ implementazione $\to$ collaudo $\to$ deployment</li>
+<li>Problem space (dominio/logica business) vs. solution space (scelte realizzative)
+<ul>
+<li>concetto di <em>astrazione</em> e di “livello di astrazione”</li>
+</ul>
+</li>
+<li>Riuso mediante
+<ul>
+<li>utilizzo di altri oggetti (<em>composizione</em>)</li>
+<li>estensione dei servizi offerti da altri oggetti (<em>ereditarietà</em>)</li>
+</ul>
+</li>
+<li>Concetti di modularità, dipendenza, accoppiamento, coesione</li>
+<li>Metodologie
+<ul>
+<li><em>test-driven development</em></li>
+</ul>
+</li>
+</ul>
+</section><section>
+<h3 id="strumenti">Strumenti</h3>
+<ul>
+<li>Java 17
+<ul>
+<li><em>write once, run everywhere</em></li>
+<li><strong>JDK</strong>: JRE (JVM [<code>java</code>] + JCL) + strumenti di sviluppo (<code>javac</code>, <code>jshell</code> …)</li>
+</ul>
+</li>
+<li><em>Terminali</em> per l’accesso al file system e ai programmi da linea di comando</li>
+<li>Strumenti JDK: compilazione con <code>javac</code> ed esecuzione con <code>java</code>
+<ul>
+<li>concetto di <em>classpath</em></li>
+</ul>
+</li>
+<li><code>gradle</code>: build system
+<ul>
+<li>plugin <code>java</code>, e blocco <code>dependencies</code></li>
+</ul>
+</li>
+<li><code>git</code>: version control system</li>
+<li><code>JUnit</code>: framework per lo unit testing</li>
+<li><em>Visual Studio Code</em>: ambiente di sviluppo integrato (IDE)</li>
+</ul>
+</section><section>
+<h3 id="java-elementi-di-base">Java: elementi di base</h3>
+<ul>
+<li>Elementi di base
+<ul>
+<li>programmazione strutturata/imperativa (C-like)</li>
+<li><em>programma</em>: metodo pubblico statico <code>main</code> in classe pubblica</li>
+<li><em>tipi primitivi vs. tipi oggetto</em> (classi/interfacce)</li>
+<li>variabili contengono i <em>riferimenti</em> ad oggetti (allocati nello <em>heap</em>)
+<ul>
+<li>assegnamento per copia del riferimento</li>
+</ul>
+</li>
+<li>oggetti allocati in memoria dinamica (heap) $\to$ lifetime di oggetti va oltre lo scope
+<ul>
+<li>no deallocazione manuale (cf. <em>GC</em>)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</section><section>
+<h3 id="basi-delloop-in-java">Basi dell’OOP in Java</h3>
+<ul>
+<li>Astrazione object-oriented
+<ul>
+<li><em>oggetto = stato + comportamento + identità</em> (cf. <em>incapsulamento</em>)
+<ul>
+<li>interazione attraverso “scambio di messaggi” (in realtà: chiamate sincrone a metodi)</li>
+</ul>
+</li>
+<li><em>classe</em> come “tipo” di oggetti e come “template” di costruzione di oggetti simili (<em>istanze</em>)</li>
+<li><em>interfaccia</em> vs. implementazione (cf. <em>information-hiding</em>)</li>
+</ul>
+</li>
+<li>Costrutti
+<ul>
+<li>dichiarazione <code>class</code>: contiene dichiarazione <em>campi</em>, <em>metodi</em> (statici o d’istanza), e costruttori</li>
+<li>uso di oggetti: accesso a proprietà (metodi/campi) mediante <em>dot notation</em>
+<ul>
+<li>concetto di <em>receiver</em> di una <em>method call</em> e variabile speciale <code>this</code></li>
+</ul>
+</li>
+<li>dichiarazione <code>interface</code></li>
+<li>modificatore <code>static</code> per codice <em>statico</em> (metodi/campi <em>di classe</em>)</li>
+<li><em>costruttori</em> e inizializzazione di oggetti</li>
+<li><em>overloading</em> di metodi e costruttori</li>
+<li><em>package</em> come namespace e contenitori di classi (cf. dichiarazione <code>package</code>) organizzati gerarchicamente
+<ul>
+<li><em>FQCN (Fully-Qualified Class Name)</em></li>
+<li><code>import</code> per importare i nomi delle classi in scope</li>
+</ul>
+</li>
+<li><em>controllo di accesso</em>: <code>public</code>, package-private, <code>private</code></li>
+<li>modificatore <code>final</code> per campi e variabili <em>costanti</em> (non modificabili)</li>
+</ul>
+</li>
+</ul>
+</section><section>
+<h3 id="oop-efficace">OOP efficace</h3>
+<ul>
+<li><em>Linee guida stilistiche</em> di formattazione di sorgenti Java (spaziature, nomi, etc.)</li>
+<li><strong>Incapsulamento</strong>
+<ol>
+<li>impacchettamento <em>dati</em> e <em>funzioni</em> per la loro manipolazione</li>
+<li><em>information hiding</em>: interfaccia pubblica stabile (<em>contratto</em>) e dettagli implementativi privati</li>
+</ol>
+</li>
+<li>Uso <strong>interfacce</strong> per catturare astrazioni e contratti</li>
+<li>Varie
+<ul>
+<li>metodi getter e setter</li>
+<li>oggetti <em>immutabili</em></li>
+</ul>
+</li>
+</ul>
+<p>Competenza attuale attesa: costruzione di piccoli progetti software Java/Gradle, tracciati con controllo di versione (git), che realizzano ed esercitano (mediante programmi e test JUnit) semplici sistemi ad oggetti ben incapsulati</p>
+</section><section>
+<h1 id="introduzione-alla-progettazione-del-software">Introduzione alla progettazione del software</h1>
+</section><section>
+<h2 id="richiamo-qualità-interna-vs-esterna">Richiamo: qualità interna vs. esterna</h2>
+<h3 id="qualità-esterna----aspetti-funzionali">Qualità <em>esterna</em> – aspetti <em>funzionali</em></h3>
+<ul>
+<li>Realizza correttamente il suo compito</li>
+<li>In termini di quali funzionalità fornisce</li>
+</ul>
+<h3 id="qualità-esterna----aspetti-non-funzionali">Qualità <em>esterna</em> – aspetti <em>non-funzionali</em></h3>
+<ul>
+<li>Performance adeguate (alle specifiche)</li>
+<li>Uso efficiente/adeguato delle risorse del sistema (memoria, CPU)</li>
+<li>Caratteristiche di sicurezza, affidabilità, usabilità, etc..</li>
+</ul>
+<h3 id="qualità-interna----software-ben-costruito">Qualità <em>interna</em> – software ben costruito</h3>
+<ul>
+<li>Facilmente manutenibile (leggibile, flessibile, riusabile)
+<ul>
+<li>quindi: meno “costoso”, a breve-/medio-/lungo-termine</li>
+</ul>
+</li>
+</ul>
+</section><section>
+<h3 id="come-promuovere-la-qualità-interna-del-software">Come promuovere la qualità interna del software?</h3>
+<ul>
+<li>Regole di stile e formattazione dei sorgenti</li>
+<li>Principi e tecniche di programmazione/progettazione efficace</li>
+<li>Uso di pratiche come il TDD</li>
+</ul>
+<h3 id="il-problema-della-progettazione">Il problema della <strong>progettazione</strong></h3>
+<ul>
+<li>Come organizzare in modo efficace un sistema OO (classi, interfacce, e relazioni tra queste) per ottenere la funzionalità e la qualità esterna desiderate?</li>
+</ul>
+</section><section>
+<h2 id="progettazione-del-software">Progettazione del software</h2>
+<h3 id="architettura">Architettura</h3>
+<ul>
+<li><strong>Architettura del software</strong>: descrizione dei componenti principali e delle relazioni importanti tra questi</li>
+<li>esempio:
+<ul>
+<li>una applicazione <code>Calcolatrice</code> consiste in 3 componenti principali:
+<ol>
+<li>interfaccia grafica (GUI)</li>
+<li>componente che realizza i calcoli matematici</li>
+<li>controller: parte che richiede i calcoli a fronte delle azioni dell’utente e chiede alla GUI di visualizzare il risultato</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>approfondiremo questa parte più avanti</li>
+</ul>
+<h3 id="progettazione-di-dettaglio">Progettazione di dettaglio</h3>
+<ul>
+<li>La <strong>progettazione di dettaglio</strong> descrive relazioni fra un insieme coeso di (tipi di) oggetti
+<ul>
+<li>le relazioni più significative di un particolare sottosistema</li>
+<li>non descrive ogni singola classe/interfaccia del sistema</li>
+</ul>
+</li>
+<li>documentata da più diagrammi UML di 5-10 classi ognuno</li>
+</ul>
+</section><section>
+<h1 id="agile-software-development">Agile software development</h1>
+<h2 id="introduzione">Introduzione</h2>
+<p>Il software è il risultato di un <em>processo di sviluppo</em></p>
+<ul>
+<li>Processi, pratiche, e strumenti incidono sulla qualità del software</li>
+</ul>
+<p>Qui introduciamo una famiglia di processi e pratiche nota con il termine <strong>agile</strong></p>
+</section><section>
+<h2 id="agile-software-development-sviluppo-agile-del-software">Agile software development (sviluppo agile del software)</h2>
+<ul>
+<li>Lo <strong>sviluppo agile del software</strong> è un insieme di principi, pratiche, e metodi volti a <em>rispondere al cambiamento</em>
+<ul>
+<li>cambiamento della comprensione del problema, dei requisiti, delle risorse…</li>
+</ul>
+</li>
+<li>Si basa su approcci <em>iterativi/incrementali</em> a <em>cicli brevi</em> per <em>feedback frequente</em>, con focus su <em>qualità</em> attraverso pratiche/strumenti quali refactoring, pattern, …</li>
+</ul>
+<h3 id="manifesto">Manifesto</h3>
+<p><a href="https://agilemanifesto.org/">https://agilemanifesto.org/</a></p>
+<p>“Stiamo scoprendo modi migliori di creare software,
+sviluppandolo e aiutando gli altri a fare lo stesso.
+Grazie a questa attività siamo arrivati a considerare importanti:</p>
+<ol>
+<li>Gli <strong>individui e le interazioni</strong> più che i <em>processi e gli strumenti</em></li>
+<li>Il <strong>software funzionante</strong> più che la <em>documentazione esaustiva</em></li>
+<li>La <strong>collaborazione col cliente</strong> più che la <em>negoziazione dei contratti</em></li>
+<li><strong>Rispondere al cambiamento</strong> più che <em>seguire un piano</em></li>
+</ol>
+<p>Ovvero, fermo restando il valore delle voci a destra,
+consideriamo più importanti le voci a sinistra.”</p>
+</section><section>
+<h3 id="agile-principi-1-12">Agile: principi 1-12</h3>
+<ol>
+<li>La nostra massima priorità è soddisfare il cliente
+rilasciando software di valore, fin da subito
+e in maniera continua.</li>
+<li><em>Accogliamo i cambiamenti nei requisiti,
+anche a stadi avanzati dello sviluppo.
+I processi agili sfruttano il cambiamento
+a favore del vantaggio competitivo del cliente.</em></li>
+<li>Consegnamo frequentemente software funzionante,
+con cadenza variabile da un paio di settimane a un paio di mesi,
+preferendo i periodi brevi.</li>
+<li>Committenti e sviluppatori devono lavorare insieme
+quotidianamente per tutta la durata del progetto.</li>
+<li>Fondiamo i progetti su individui motivati.
+Diamo loro l’ambiente e il supporto di cui hanno bisogno
+e confidiamo nella loro capacità di portare il lavoro a termine.</li>
+<li>Una conversazione faccia a faccia
+è il modo più efficiente e più efficace per comunicare
+con il team ed all’interno del team.</li>
+<li><em>Il software funzionante è il principale metro di misura di progresso.</em></li>
+<li>I processi agili promuovono uno sviluppo sostenibile.
+Gli sponsor, gli sviluppatori e gli utenti dovrebbero essere in grado
+di mantenere indefinitamente un ritmo costante.</li>
+<li><em>La continua attenzione all’eccellenza tecnica
+e alla buona progettazione esaltano l’agilità.</em></li>
+<li>La semplicità - l’arte di massimizzare la quantità
+di lavoro non svolto - è essenziale.</li>
+<li>Le architetture, i requisiti e la progettazione
+migliori emergono da team che si auto-organizzano.</li>
+<li>A intervalli regolari il team riflette su come
+diventare più efficace, dopodiché regola e adatta
+il proprio comportamento di conseguenza.</li>
+</ol>
+</section><section>
+<h1 id="design-pattern-e-progettazione-di-dettaglio">Design Pattern e Progettazione di Dettaglio</h1>
+</section><section>
+<h2 id="come-progettare-una-buona-classe-o-gruppo-di-classi">Come progettare una buona classe o gruppo di classi?</h2>
+<ul>
+<li>buona conoscenza della <em>programmazione OO</em>
+<ul>
+<li>incapsulamento, information hiding</li>
+<li>polimorfismo</li>
+<li>ereditarietà (che vedremo)</li>
+</ul>
+</li>
+<li>buona conoscenza di <em>principi e pratiche di progettazione/programmazione efficace</em>
+<ul>
+<li>DRY (Don’t Repeat Yourself), …</li>
+<li>astrazione attraverso interfacce, tecniche di riuso (composizione), …</li>
+</ul>
+</li>
+<li>utilizzo di cataloghi noti di pattern di progettazione (<em>design pattern</em>)</li>
+</ul>
+</section><section>
+<h2 id="design-pattern">Design Pattern</h2>
+<h3 id="i-pattern-di-progettazione">I Pattern di progettazione</h3>
+<ul>
+<li>Un <strong>pattern</strong> è una <em>soluzione notevole a problemi ricorrenti di design object-oriented</em>
+ <!-- elementi riusabili (semplici ed eleganti) di progettazione OO -->
+<ul>
+<li>I problemi di “design” sono spesso ricorrenti</li>
+<li>Progettisti esperti hanno nel tempo affrontato tali problemi, provato diverse soluzioni, fino ad ottenere soluzioni efficaci con chiara analisi di costi/benefici</li>
+<li>Tale “esperienza” è stata codificata in forma generica/riusabile in “pattern” che possono essere applicati in contesti simili</li>
+</ul>
+</li>
+<li>Alcuni sono particolarmente famosi, come quelli della <em>“Gang of Four”</em> (detti anche <em>Pattern GoF</em>)
+<ul>
+<li>Testo famosissimo (in C++): <em>Design Patterns: Elements of Reusable Object-Oriented Software</em> di <em>E. Gamma, R. Helm, R. Johnson, J. Vlissides</em></li>
+<li>23 in tutto. Esempi: Strategy, Decorator, Singleton, Template Method, Observer</li>
+<li>(Cit. “SW di grosse dimensioni li usano praticamente tutti”)</li>
+</ul>
+</li>
+<li>Benefici
+<ul>
+<li>Il loro uso migliora molto il codice
+<ul>
+<li>Rende il codice più flessibile (nascono per questo)</li>
+<li>Portano più direttamente ad una buona organizzazione (delle responsabilità, delle dipendenze, etc.)</li>
+</ul>
+</li>
+<li>Fanno parte di un “vocabolario” per la comunicazione fra programmatori/progettisti</li>
+</ul>
+</li>
+</ul>
+</section><section>
+<h2 id="design-pattern-in-questa-sede">Design Pattern in questa sede</h2>
+<h3 id="nel-corso">Nel corso</h3>
+<ul>
+<li>E’ importante imparare quelli che introdurremo</li>
+<li>E’ opportuno applicarli nel progetto d’esame (e documentarli nella relazione)</li>
+</ul>
+<h3 id="per-il-vostro-futuro">Per il vostro futuro</h3>
+<ul>
+<li>Noi porremo le basi per uno loro studio in autonomia</li>
+<li>Un ottimo progettista li conosce e usa (ove opportuno) <em><strong>tutti</strong></em></li>
+</ul>
+</section><section>
+<h2 id="motivazione-qualità-interna-refactoring-agilità">Motivazione: qualità interna, refactoring, agilità</h2>
+<ul>
+<li>E’ importante conoscere e cercare di applicare i pattern in quanto:
+<ul>
+<li>promuovono la <em>qualità interna</em> del software</li>
+<li>promuovono l’<em>agilità</em> attraverso software di qualità</li>
+<li>permettono di velocizzare l’attività di <em>refactoring</em></li>
+</ul>
+</li>
+</ul>
+</section><section>
+<h3 id="rifattorizzazione-refactoring">Rifattorizzazione (<strong>refactoring</strong>)</h3>
+<ul>
+<li>Operazione di modifica del codice che <em>non aggiunge funzionalità</em></li>
+<li>Ha lo scopo di <em>migliorare la qualità interna del SW</em>
+<ul>
+<li>la sua formattazione, la sua espressività semantica (cf. nomenclatura), la sua struttura</li>
+</ul>
+</li>
+<li>Ha lo scopo di attrezzare il codice a possibili cambiamenti futuri (cf. <em>agilità</em>)
+<ul>
+<li>Può/deve quindi comportare una riprogettazione di alcune parti</li>
+</ul>
+</li>
+<li>Il refactoring è una pratica necessaria
+<ul>
+<li>Una buona progettazione non la si ottiene al primo “colpo”, ma richiede vari refactoring</li>
+<li>Brian Foote identifica tre fasi nello sviluppo di un sistema: “prototyping”, “expansionary”, “consolidating”; nel consolidamento si rifattorizza</li>
+</ul>
+</li>
+</ul>
+<h3 id="il-refactoring-è-supportato-da-test-e-pattern">Il refactoring è supportato da test e pattern</h3>
+<ul>
+<li>I <em>test automatici</em> permettono di verificare se un refactoring ha introdotto regressioni</li>
+<li>I <em>design pattern</em> forniscono direttamente “ricette” di buona costruzione o rifattorizzazione del SW</li>
+</ul>
+<!--
+
+### Agilità
+
+* Si vuole rendere il software *agile*, ovvero in grado di rispondere facilmente al cambiamento (nuovi requisiti, ...)
+*  Nell'*agile programming*, ogni ciclo di sviluppo non parte se non si è rifattorizzato il codice del ciclo precedente (sia in cicli corti che lunghi) 
+
+-->
+</section><section>
+<h2 id="struttura-di-un-pattern">Struttura di un “pattern”</h2>
+<h3 id="un-pattern-ha-quattro-elementi-fondamentali">Un Pattern ha quattro elementi fondamentali</h3>
+<ol>
+<li>Un <strong>nome</strong>.
+<ul>
+<li>È un aspetto fondamentale! Entra a far parte di un <em>vocabolario</em></li>
+</ul>
+</li>
+<li>Un <strong>problema</strong> che risolve.
+<ul>
+<li>La causa che porta al suo uso</li>
+<li>Include il <em>contesto</em> di applicazione del pattern</li>
+</ul>
+</li>
+<li>La <strong>soluzione</strong> che propone.
+<ul>
+<li>gli <em>elementi</em> del design e le loro <em>responsabilità</em>, <em>relazioni</em> con altri elementi, e <em>collaborazioni</em></li>
+</ul>
+</li>
+<li>La <strong>conseguenza</strong> che porta.
+<ul>
+<li><em>risultati</em> e <em>vincoli</em> (ad es. in termini di riuso, variabilità, performance, …)</li>
+<li>il risultato è spesso un <em>trade-off</em></li>
+<li>la scelta di applicare un pattern è questione di <em>costi-benefici</em></li>
+</ul>
+</li>
+</ol>
+<!--
+    
+### Granularità
+
+*  Gruppo ristretto di (1-5) oggetti/classi generali dipendenti fra loro
+*  Sistemi più specifici o più complessi sono utili, ma non propriamente dei "Pattern"
+    *  Non singole classi riusabili (liste, hash-table)
+    *  Non "pattern architetturali" (come MVC)
+    *  Non framework complessi (gerarchia Swing, Reflection)
+	
+-->
+</section><section>
+<h2 id="classificazione-dei-pattern-categorie">Classificazione dei Pattern: categorie</h2>
+<h3 id="livello-proposito-del-pattern">Livello “proposito del Pattern”</h3>
+<ul>
+<li><strong>Creazionali</strong>: Riguardano la creazione degli oggetti</li>
+<li><strong>Strutturali</strong>: Riguardano la composizione di classi/oggetti</li>
+<li><strong>Comportamentali</strong>: Riguardano la interazione e distribuzione di responsabilità fra classi/oggetti</li>
+</ul>
+<h3 id="livello-scope">Livello “scope”</h3>
+<ul>
+<li><strong>Classi</strong>: Il Pattern riguarda primariamente le relazioni fra classi (e sottoclassi), e quindi tratta aspetti <em>statici</em> (compile-time)</li>
+<li><strong>Oggetti</strong>: Il Pattern riguarda primariamente le relazioni fra oggetti (l’esistenza di riferimenti fra oggetti), e quindi tratta aspetti <em>dinamici</em> (run-time)</li>
+</ul>
+</section><section>
+<h2 id="i-23-pattern-gof">I 23 Pattern GoF</h2>
+<h3 id="creazionali">Creazionali</h3>
+<ul>
+<li>A livello di classe: <em><strong>Factory Method</strong></em></li>
+<li>A livello di oggetto: <em><strong>Abstract Factory</strong></em>, <em><strong>Builder</strong></em>, Prototype, <em><strong>Singleton</strong></em></li>
+</ul>
+<h3 id="strutturali">Strutturali</h3>
+<ul>
+<li>A livello di classe: <em><strong>Adapter</strong></em></li>
+<li>A livello di oggetto: <em><strong>Adapter</strong></em>, Bridge, Composite, <em><strong>Decorator</strong></em>, Facade, Proxy</li>
+</ul>
+<h3 id="comportamentali">Comportamentali</h3>
+<ul>
+<li>A livello di classe: Interpreter, <em><strong>Template Method</strong></em></li>
+<li>A livello di oggetto: Chain of Responsibility, Command, <em><strong>Iterator</strong></em>, Mediator, Memento, Flyweight, <em><strong>Observer</strong></em>, State, <em><strong>Strategy</strong></em>, <em><strong>Visitor</strong></em></li>
+</ul>
+</section><section>
+<h2 id="schema-di-descrizione-per-ogni-pattern">Schema di descrizione per ogni pattern</h2>
+<p>Aderiremo al seguente schema, che è una semplificazione di quello proposto alla GoF</p>
+<h3 id="ingredienti">Ingredienti</h3>
+<ul>
+<li>Descrizione in prosa (nome, motivazione, esempi, soluzione)</li>
+<li>Rappresentazione grafica (diagramma delle classi generale)</li>
+<li>Esempio (già visto/nuovo)</li>
+</ul>
+<!--
+
+## I pattern nel corso
+
+    
+### Esami di progetto
+
+
+*  Identificarne/usarne "pochi" è considerato poco soddisfacente
+*  Scegliere di usarli non è arbitario, ma è indice di buona progettazione e/o di buona rifattorizzazione
+*  Gli argomenti: "in questo progetto non servivano" e "non c'è stato tempo" sono pessimi
+*  Argomento di probabile discussione all'esame
+
+    
+### Di conseguenza
+
+
+
+*  I pattern qui presentati vanno conosciuti
+*  Gli altri pattern sono facoltativi, e importanti per il vostro futuro
+    
+
+-->
+</section><section>
+<h1 id="alcuni-pattern-iniziali">Alcuni pattern iniziali</h1>
+<!--
+
+## Singleton: creazionale, su oggetti
+
+
+    
+### Intento/motivazione
+
+
+	Garantire che una classe abbia una unica istanza, accessibile globalmente e facilmente a molteplici classi, senza doversi preoccupare di fornirne il riferimento a chi lo richiede (ad esempio passandolo al costruttore)
+    
+
+    
+### Esempi
+
+
+
+*  Un unico gestore di stampanti in un sistema
+*  Un unico gestore del "log"
+*  `java.lang.Runtime`
+    
+
+
+    
+### Soluzione
+
+
+
+*  La classe sia responsabile di tenere traccia di tale unica istanza
+*  La classe impedisca la creazione di altri oggetti
+*  La classe fornisca l'accesso a tale oggetto staticamente
+*  Attenzione: singleton accoppia clienti e implementazione
+    
+
+
+
+
+---
+
+
+## Singleton: UML
+
+
+![](img/singleton.jpg)
+
+
+---
+
+
+## Singleton: Il caso di `java.lang.Runtime`
+
+
+    \sizedrangedcode{\scriptsize}{3}{100}{\ecl/singleton/UseRuntime.java}
+
+
+---
+
+
+## Singleton: Il caso di una classe `Log`
+
+
+    \sizedrangedcode{\scriptsize}{3}{100}{\ecl/singleton/Log.java}
+    \sizedrangedcode{\scriptsize}{3}{100}{\ecl/singleton/UseLog.java}
+
+
+---
+
+
+## Singleton: conseguenze
+
+
+    
+### Effetti benefici
+
+
+
+*  C'è un controllo "incapsulato" di chi vi accede
+*  Evita di dover portare i riferimenti all'oggetto nei campi di tutti le classi che lo usano
+*  È facile raffinare l'implementazione del singleton (via subclassing)
+*  Può gestire la creazione by-need (detta anche *lazy*) dell'oggetto
+*  Più flessibile dei metodi statici (che non hanno overriding)
+    
+
+
+    
+### Critiche
+
+
+
+*  Il Singleton può essere problematico col multi-threading
+*  Crea dipendenze nascoste, gli user dipendono dal nome della classe
+*  Difficile tornare indietro dalla scelta di usare il singleton
+*  Incapsula due responsabilità distinte (creazione + aspetti interni)
+*  Rende meno estendibile il codice della classe (è meno "OOP")
+* $\Rightarrow$ *__Da usare quando portare "in giro" il riferimento all'oggetto sarebbe complesso__*
+    
+
+
+
+
+---
+
+
+## Singleton con "lazy initialization" (non thread-safe)
+
+
+    \sizedrangedcode{\scriptsize}{3}{100}{\ecl/singleton/LogLazy.java}
+
+
+---
+
+
+## Singleton con "lazy initialization" e "thread-safe"
+
+
+    \sizedrangedcode{\ssmall}{3}{100}{\ecl/singleton/LogLazyTS.java}
+
+
+---
+
+
+
+## Template Method: comportamentale, su classi
+
+
+    
+### Intento/motivazione
+
+
+	Definisce lo scheletro (template) di un algoritmo (o comportamento), lasciando l'indicazione di alcuni suoi aspetti alle sottoclassi.
+    
+
+    
+### Esempi
+
+
+
+*  In un input stream (`InputStream`), i vari metodi di lettura sono dei Template Method: dipendono dall'implementazione del solo concetto di lettura di un `int`
+	%*  Similmente, i metodi di `AbstractSet` tranne `size()` e `iterator()`
+*  Le interfacce funzionali con metodi di default che chiamano l'astratto
+    
+
+
+    
+### Soluzione
+
+
+
+*  L'algoritmo è realizzato attraverso un metodo non astratto (il template method) di una classe astratta
+*  Questo realizza l'algoritmo, chiamando metodi astratti quando servono gli aspetti non noti a priori
+*  Una sottoclasse fornisce l'implementazione dei metodi astratti
+    
+
+
+
+
+---
+
+
+## Template Method: UML
+
+
+    ![](img/template_method.jpg)
+
+
+---
+
+
+## Template Method: Una estensione di `InputStream`
+
+
+    \sizedrangedcode{\ssmall}{3}{100}{\ecl/tmethod/UseRandomInputStream.java}
+
+
+---
+
+
+## Template Method: esempio `BankAccount`
+
+
+    \sizedrangedcode{\ssmall}{3}{100}{\ecl/tmethod/BankAccount.java}
+
+
+---
+
+
+## Template Method: esempio con i metodi `default`
+
+
+    \sizedrangedcode{\ssmall}{5}{100}{\ecllambda/interfaces/SimpleIterator.java}
+    \sizedrangedcode{\ssmall}{3}{100}{\ecllambda/interfaces/UseSimpleIterator.java}
+
+
+---
+
+-->
+</section><section>
+<h2 id="strategy-comportamentale-su-oggetti">Strategy: comportamentale, su oggetti</h2>
+<h3 id="intentomotivazione">Intento/motivazione</h3>
+<p>Definisce una famiglia di algoritmi, e li rende interscambiabili, ossia usabili in modo trasparente dai loro clienti</p>
+<h3 id="esempi">Esempi</h3>
+<ul>
+<li>Strategie di confronto fra due elementi per sorting (<code>Comparable</code>)</li>
+<li>Strategia di disposizione di componenti in una GUI (<code>LayoutManager</code>)</li>
+<li>Strategie di <code>map</code>, <code>filter</code>, etc.. negli <code>Stream</code></li>
+</ul>
+<h3 id="soluzione">Soluzione</h3>
+<ul>
+<li>Gli algoritmi sono realizzati tramite specializzazioni di una classe/interfaccia base</li>
+<li>Ai clienti passo un oggetto (di una specializzazione) dell’interfaccia base</li>
+</ul>
+<!-- *  Se la strategia è funzionale si usano facilmente le lambda (e viceversa) -->
+<p><em><strong>È probabilmente uno dei pattern più importanti (assieme al Factory Methods)</strong></em></p>
+</section><section>
+<h2 id="strategy-uml">Strategy: UML</h2>
+<!-- ![](imgs/strategy.jpg) -->
+<div class="mermaid" data-processed="true" pre-rendered="true"><svg aria-labelledby="chart-title-mermaid-1666198704154 chart-desc-mermaid-1666198704154" role="img" viewBox="0 0 307.625 331" style="max-width: 307.625px;" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" width="100%" id="mermaid-1666198704154"><title id="chart-title-mermaid-1666198704154"></title><desc id="chart-desc-mermaid-1666198704154"></desc><style>#mermaid-1666198704154 {font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:16px;fill:#333;}#mermaid-1666198704154 .error-icon{fill:#552222;}#mermaid-1666198704154 .error-text{fill:#552222;stroke:#552222;}#mermaid-1666198704154 .edge-thickness-normal{stroke-width:2px;}#mermaid-1666198704154 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-1666198704154 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-1666198704154 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-1666198704154 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-1666198704154 .marker{fill:#333333;stroke:#333333;}#mermaid-1666198704154 .marker.cross{stroke:#333333;}#mermaid-1666198704154 svg{font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:16px;}#mermaid-1666198704154 g.classGroup text{fill:#9370DB;fill:#131300;stroke:none;font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:10px;}#mermaid-1666198704154 g.classGroup text .title{font-weight:bolder;}#mermaid-1666198704154 .nodeLabel,#mermaid-1666198704154 .edgeLabel{color:#131300;}#mermaid-1666198704154 .edgeLabel .label rect{fill:#ECECFF;}#mermaid-1666198704154 .label text{fill:#131300;}#mermaid-1666198704154 .edgeLabel .label span{background:#ECECFF;}#mermaid-1666198704154 .classTitle{font-weight:bolder;}#mermaid-1666198704154 .node rect,#mermaid-1666198704154 .node circle,#mermaid-1666198704154 .node ellipse,#mermaid-1666198704154 .node polygon,#mermaid-1666198704154 .node path{fill:#ECECFF;stroke:#9370DB;stroke-width:1px;}#mermaid-1666198704154 .divider{stroke:#9370DB;stroke:1;}#mermaid-1666198704154 g.clickable{cursor:pointer;}#mermaid-1666198704154 g.classGroup rect{fill:#ECECFF;stroke:#9370DB;}#mermaid-1666198704154 g.classGroup line{stroke:#9370DB;stroke-width:1;}#mermaid-1666198704154 .classLabel .box{stroke:none;stroke-width:0;fill:#ECECFF;opacity:0.5;}#mermaid-1666198704154 .classLabel .label{fill:#9370DB;font-size:10px;}#mermaid-1666198704154 .relation{stroke:#333333;stroke-width:1;fill:none;}#mermaid-1666198704154 .dashed-line{stroke-dasharray:3;}#mermaid-1666198704154 #compositionStart,#mermaid-1666198704154 .composition{fill:#333333!important;stroke:#333333!important;stroke-width:1;}#mermaid-1666198704154 #compositionEnd,#mermaid-1666198704154 .composition{fill:#333333!important;stroke:#333333!important;stroke-width:1;}#mermaid-1666198704154 #dependencyStart,#mermaid-1666198704154 .dependency{fill:#333333!important;stroke:#333333!important;stroke-width:1;}#mermaid-1666198704154 #dependencyStart,#mermaid-1666198704154 .dependency{fill:#333333!important;stroke:#333333!important;stroke-width:1;}#mermaid-1666198704154 #extensionStart,#mermaid-1666198704154 .extension{fill:#333333!important;stroke:#333333!important;stroke-width:1;}#mermaid-1666198704154 #extensionEnd,#mermaid-1666198704154 .extension{fill:#333333!important;stroke:#333333!important;stroke-width:1;}#mermaid-1666198704154 #aggregationStart,#mermaid-1666198704154 .aggregation{fill:#ECECFF!important;stroke:#333333!important;stroke-width:1;}#mermaid-1666198704154 #aggregationEnd,#mermaid-1666198704154 .aggregation{fill:#ECECFF!important;stroke:#333333!important;stroke-width:1;}#mermaid-1666198704154 #lollipopStart,#mermaid-1666198704154 .lollipop{fill:#ECECFF!important;stroke:#333333!important;stroke-width:1;}#mermaid-1666198704154 #lollipopEnd,#mermaid-1666198704154 .lollipop{fill:#ECECFF!important;stroke:#333333!important;stroke-width:1;}#mermaid-1666198704154 .edgeTerminals{font-size:11px;}#mermaid-1666198704154 :root{--mermaid-font-family:"trebuchet ms",verdana,arial,sans-serif;}</style><g><defs><marker orient="auto" markerHeight="240" markerWidth="190" refY="7" refX="0" class="marker aggregation classDiagram" id="classDiagram-aggregationStart"><path d="M 18,7 L9,13 L1,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="28" markerWidth="20" refY="7" refX="19" class="marker aggregation classDiagram" id="classDiagram-aggregationEnd"><path d="M 18,7 L9,13 L1,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="240" markerWidth="190" refY="7" refX="0" class="marker extension classDiagram" id="classDiagram-extensionStart"><path d="M 1,7 L18,13 V 1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="28" markerWidth="20" refY="7" refX="19" class="marker extension classDiagram" id="classDiagram-extensionEnd"><path d="M 1,1 V 13 L18,7 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="240" markerWidth="190" refY="7" refX="0" class="marker composition classDiagram" id="classDiagram-compositionStart"><path d="M 18,7 L9,13 L1,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="28" markerWidth="20" refY="7" refX="19" class="marker composition classDiagram" id="classDiagram-compositionEnd"><path d="M 18,7 L9,13 L1,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="240" markerWidth="190" refY="7" refX="0" class="marker dependency classDiagram" id="classDiagram-dependencyStart"><path d="M 5,7 L9,13 L1,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="28" markerWidth="20" refY="7" refX="19" class="marker dependency classDiagram" id="classDiagram-dependencyEnd"><path d="M 18,7 L9,13 L14,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="240" markerWidth="190" refY="7" refX="0" class="marker lollipop classDiagram" id="classDiagram-lollipopStart"><circle r="6" cy="7" cx="6" fill="white" stroke="black"></circle></marker></defs><g class="root"><g class="clusters"></g><g class="edgePaths"><path marker-start="url(#classDiagram-compositionStart)" style="fill:none" class="edge-pattern-solid relation" id="id1" d="M153.8125,65L153.8125,69.16666666666667C153.8125,73.33333333333333,153.8125,81.66666666666667,153.8125,90C153.8125,98.33333333333333,153.8125,106.66666666666667,153.8125,110.83333333333333L153.8125,115"></path><path marker-start="url(#classDiagram-extensionStart)" style="fill:none" class="edge-pattern-solid relation" id="id2" d="M96.68646523178808,216L91.97309602649007,220.16666666666666C87.25972682119205,224.33333333333334,77.83298841059603,232.66666666666666,73.11961920529801,241C68.40625,249.33333333333334,68.40625,257.6666666666667,68.40625,261.8333333333333L68.40625,266"></path><path marker-start="url(#classDiagram-extensionStart)" style="fill:none" class="edge-pattern-solid relation" id="id3" d="M210.93853476821192,216L215.65190397350992,220.16666666666666C220.36527317880794,224.33333333333334,229.79201158940396,232.66666666666666,234.50538079470198,241C239.21875,249.33333333333334,239.21875,257.6666666666667,239.21875,261.8333333333333L239.21875,266"></path></g><g class="edgeLabels"><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="edgeLabel"></span></div></foreignObject></g></g></g><g class="nodes"><g transform="translate(153.8125, 36.5)" id="classid-Context-0" class="node default"><rect height="57" width="74.5625" y="-28.5" x="-37.28125" class="outer title-state"></rect><line y2="1.5" y1="1.5" x2="37.28125" x1="-37.28125" class="divider"></line><line y2="17.5" y1="17.5" x2="37.28125" x1="-37.28125" class="divider"></line><g class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel"></span></div></foreignObject><foreignObject transform="translate( -29.78125, -21)" height="18" width="59.5625" class="classTitle"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">Context</span></div></foreignObject></g></g><g transform="translate(153.8125, 165.5)" id="classid-Strategy-1" class="node default"><rect height="101" width="194.640625" y="-50.5" x="-97.3203125" class="outer title-state"></rect><line y2="-20.5" y1="-20.5" x2="97.3203125" x1="-97.3203125" class="divider"></line><line y2="17.5" y1="17.5" x2="97.3203125" x1="-97.3203125" class="divider"></line><g class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel"></span></div></foreignObject><foreignObject transform="translate( -32.015625, -43)" height="18" width="64.03125" class="classTitle"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">Strategy</span></div></foreignObject><foreignObject transform="translate( -89.8203125, -9)" height="18" width="18.6875"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">&lt;&gt;</span></div></foreignObject><foreignObject transform="translate( -89.8203125, 25)" height="18" width="179.640625"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">doAlgorithm(SubContext)</span></div></foreignObject></g></g><g transform="translate(68.40625, 294.5)" id="classid-StrategyImpl1-2" class="node default"><rect height="57" width="120.8125" y="-28.5" x="-60.40625" class="outer title-state"></rect><line y2="1.5" y1="1.5" x2="60.40625" x1="-60.40625" class="divider"></line><line y2="17.5" y1="17.5" x2="60.40625" x1="-60.40625" class="divider"></line><g class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel"></span></div></foreignObject><foreignObject transform="translate( -52.90625, -21)" height="18" width="105.8125" class="classTitle"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">StrategyImpl1</span></div></foreignObject></g></g><g transform="translate(239.21875, 294.5)" id="classid-StrategyImpl2-3" class="node default"><rect height="57" width="120.8125" y="-28.5" x="-60.40625" class="outer title-state"></rect><line y2="1.5" y1="1.5" x2="60.40625" x1="-60.40625" class="divider"></line><line y2="17.5" y1="17.5" x2="60.40625" x1="-60.40625" class="divider"></line><g class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel"></span></div></foreignObject><foreignObject transform="translate( -52.90625, -21)" height="18" width="105.8125" class="classTitle"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">StrategyImpl2</span></div></foreignObject></g></g></g></g></g></svg></div>
+
+</section><section>
+<h2 id="strategy-sorting-con-comparatori">Strategy: Sorting con comparatori</h2>
+<!--    \sizedrangedcode{\ssmall}{5}{100}{\ecl/strategy/UseComparator.java} -->
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">interface</span> <span style="color:#3f6e75">PersonCompareStrategy</span> <span style="color:#000">{</span>	
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">int</span> <span style="color:#000">compareTwoPeople</span><span style="color:#000">(</span><span style="color:#000">Person</span> <span style="color:#000">p1</span><span style="color:#000">,</span> <span style="color:#000">Person</span> <span style="color:#000">p2</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></section><section>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">PersonComparatorByAge</span> <span style="color:#a90d91">implements</span> <span style="color:#000">PersonCompareStrategy</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">@Override</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">int</span> <span style="color:#000">compareTwoPeople</span><span style="color:#000">(</span><span style="color:#000">Person</span> <span style="color:#000">p1</span><span style="color:#000">,</span> <span style="color:#000">Person</span> <span style="color:#000">p2</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">return</span> <span style="color:#000">p1</span><span style="color:#000">.</span><span style="color:#836c28">getYearOfBirth</span><span style="color:#000">()</span> <span style="color:#000">&lt;</span> <span style="color:#000">p2</span><span style="color:#000">.</span><span style="color:#836c28">getYearOfBirth</span><span style="color:#000">()</span> <span style="color:#000">?</span> <span style="color:#000">-</span><span style="color:#000">1</span> <span style="color:#000">:</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#000">(</span><span style="color:#000">p1</span><span style="color:#000">.</span><span style="color:#836c28">getYearOfBirth</span><span style="color:#000">()</span> <span style="color:#000">==</span> <span style="color:#000">p2</span><span style="color:#000">.</span><span style="color:#836c28">getYearOfBirth</span><span style="color:#000">()</span> <span style="color:#000">?</span> <span style="color:#000">0</span> <span style="color:#000">:</span> <span style="color:#000">+</span><span style="color:#000">1</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>	
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">PersonComparatorByFullName</span> <span style="color:#a90d91">implements</span> <span style="color:#000">PersonCompareStrategy</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">@Override</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">int</span> <span style="color:#000">compareTwoPeople</span><span style="color:#000">(</span><span style="color:#000">Person</span> <span style="color:#000">p1</span><span style="color:#000">,</span> <span style="color:#000">Person</span> <span style="color:#000">p2</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">String</span> <span style="color:#000">fullName1</span> <span style="color:#000">=</span> <span style="color:#000">p1</span><span style="color:#000">.</span><span style="color:#836c28">getSurname</span><span style="color:#000">()</span> <span style="color:#000">+</span> <span style="color:#000">p1</span><span style="color:#000">.</span><span style="color:#836c28">getName</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">String</span> <span style="color:#000">fullName2</span> <span style="color:#000">=</span> <span style="color:#000">p2</span><span style="color:#000">.</span><span style="color:#836c28">getSurname</span><span style="color:#000">()</span> <span style="color:#000">+</span> <span style="color:#000">p2</span><span style="color:#000">.</span><span style="color:#836c28">getName</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">return</span> <span style="color:#000">fullName1</span><span style="color:#000">.</span><span style="color:#836c28">compareTo</span><span style="color:#000">(</span><span style="color:#000">fullName2</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>	
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></section><section>
+<div class="smaller">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UsePersons</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">sortPeople</span><span style="color:#000">(</span><span style="color:#000">Person</span><span style="color:#000">[]</span> <span style="color:#000">ps</span><span style="color:#000">,</span> <span style="color:#000">PersonCompareStrategy</span> <span style="color:#000">comparator</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">boolean</span> <span style="color:#000">sorted</span> <span style="color:#000">=</span> <span style="color:#a90d91">false</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">while</span><span style="color:#000">(!</span><span style="color:#000">sorted</span><span style="color:#000">){</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#000">sorted</span> <span style="color:#000">=</span> <span style="color:#a90d91">true</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#a90d91">for</span><span style="color:#000">(</span><span style="color:#a90d91">int</span> <span style="color:#000">i</span> <span style="color:#000">=</span> <span style="color:#000">0</span><span style="color:#000">;</span> <span style="color:#000">i</span> <span style="color:#000">&lt;</span> <span style="color:#000">ps</span><span style="color:#000">.</span><span style="color:#836c28">length</span><span style="color:#000">-</span><span style="color:#000">1</span><span style="color:#000">;</span> <span style="color:#000">i</span><span style="color:#000">++)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#a90d91">if</span><span style="color:#000">(</span><span style="color:#000">comparator</span><span style="color:#000">.</span><span style="color:#836c28">compareTwoPeople</span><span style="color:#000">(</span><span style="color:#000">ps</span><span style="color:#000">[</span><span style="color:#000">i</span><span style="color:#000">],</span> <span style="color:#000">ps</span><span style="color:#000">[</span><span style="color:#000">i</span><span style="color:#000">+</span><span style="color:#000">1</span><span style="color:#000">])</span> <span style="color:#000">&gt;</span> <span style="color:#000">0</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>                    <span style="color:#000">Person</span> <span style="color:#000">temp</span> <span style="color:#000">=</span> <span style="color:#000">ps</span><span style="color:#000">[</span><span style="color:#000">i</span><span style="color:#000">];</span>
+</span></span><span style="display:flex;"><span>                    <span style="color:#000">ps</span><span style="color:#000">[</span><span style="color:#000">i</span><span style="color:#000">]</span> <span style="color:#000">=</span> <span style="color:#000">ps</span><span style="color:#000">[</span><span style="color:#000">i</span><span style="color:#000">+</span><span style="color:#000">1</span><span style="color:#000">];</span>
+</span></span><span style="display:flex;"><span>                    <span style="color:#000">ps</span><span style="color:#000">[</span><span style="color:#000">i</span><span style="color:#000">+</span><span style="color:#000">1</span><span style="color:#000">]</span> <span style="color:#000">=</span> <span style="color:#000">temp</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>                    <span style="color:#000">sorted</span> <span style="color:#000">=</span> <span style="color:#a90d91">false</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">printPeople</span><span style="color:#000">(</span><span style="color:#000">Person</span><span style="color:#000">[]</span> <span style="color:#000">people</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">for</span><span style="color:#000">(</span><span style="color:#a90d91">int</span> <span style="color:#000">i</span> <span style="color:#000">=</span> <span style="color:#000">0</span><span style="color:#000">;</span> <span style="color:#000">i</span> <span style="color:#000">&lt;</span> <span style="color:#000">people</span><span style="color:#000">.</span><span style="color:#836c28">length</span><span style="color:#000">;</span> <span style="color:#000">i</span><span style="color:#000">++)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#c41a16">""</span> <span style="color:#000">+</span> <span style="color:#000">i</span> <span style="color:#000">+</span> <span style="color:#c41a16">") "</span> <span style="color:#000">+</span> <span style="color:#000">people</span><span style="color:#000">[</span><span style="color:#000">i</span><span style="color:#000">].</span><span style="color:#836c28">getName</span><span style="color:#000">()</span> <span style="color:#000">+</span> <span style="color:#c41a16">" "</span> <span style="color:#000">+</span> <span style="color:#000">people</span><span style="color:#000">[</span><span style="color:#000">i</span><span style="color:#000">].</span><span style="color:#836c28">getSurname</span><span style="color:#000">()</span> <span style="color:#000">+</span> 
+</span></span><span style="display:flex;"><span>                <span style="color:#c41a16">" - "</span> <span style="color:#000">+</span> <span style="color:#000">people</span><span style="color:#000">[</span><span style="color:#000">i</span><span style="color:#000">].</span><span style="color:#836c28">getYearOfBirth</span><span style="color:#000">());</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span><span style="color:#000">(</span><span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span><span style="color:#000">){</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">Person</span> <span style="color:#000">p1</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Person</span><span style="color:#000">(</span><span style="color:#c41a16">"Mario"</span><span style="color:#000">,</span> <span style="color:#c41a16">"Rossi"</span><span style="color:#000">,</span> <span style="color:#000">1985</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">Person</span> <span style="color:#000">p2</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Person</span><span style="color:#000">(</span><span style="color:#c41a16">"Dario"</span><span style="color:#000">,</span> <span style="color:#c41a16">"Verdi"</span><span style="color:#000">,</span> <span style="color:#000">1970</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">Person</span> <span style="color:#000">p3</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Person</span><span style="color:#000">(</span><span style="color:#c41a16">"Zarco"</span><span style="color:#000">,</span> <span style="color:#c41a16">"Neri"</span><span style="color:#000">,</span> <span style="color:#000">1952</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">Person</span><span style="color:#000">[]</span> <span style="color:#000">people</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Person</span><span style="color:#000">[]</span> <span style="color:#000">{</span> <span style="color:#000">p1</span><span style="color:#000">,</span> <span style="color:#000">p2</span><span style="color:#000">,</span> <span style="color:#000">p3</span> <span style="color:#000">};</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">sortPeople</span><span style="color:#000">(</span><span style="color:#000">people</span><span style="color:#000">,</span> <span style="color:#a90d91">new</span> <span style="color:#000">PersonComparatorByAge</span><span style="color:#000">());</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">printPeople</span><span style="color:#000">(</span><span style="color:#000">people</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#c41a16">"\n"</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">sortPeople</span><span style="color:#000">(</span><span style="color:#000">people</span><span style="color:#000">,</span> <span style="color:#a90d91">new</span> <span style="color:#000">PersonComparatorByFullName</span><span style="color:#000">());</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">printPeople</span><span style="color:#000">(</span><span style="color:#000">people</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></div>
+</section><section>
+<!--
+
+## Strategy: Caso del BankAccount
+
+
+    \sizedrangedcode{\ssmall}{3}{100}{\ecl/strategy/BankOperationFees.java}
+    \sizedrangedcode{\ssmall}{3}{100}{\ecl/strategy/StandardBankOperationFees.java}
+
+---
+
+
+
+## Strategy: Caso del BankAccount
+
+
+    \sizedrangedcode{\ssmall}{3}{100}{\ecl/strategy/BankAccount.java}
+
+-->
+<!--
+
+---
+
+
+## Strategy vs Template Method
+
+
+  
+### In comune
+
+
+
+*  Entrambi li si ottengono dall'esigenza di scorporare da una classe la gestione di una strategia o specializzazione
+*  Entrambi richiedono un behaviour aggiuntivo da realizzare
+  
+
+
+  
+### Differenze
+
+
+
+*  Strategy è più flessibile, perché gli oggetti che rappresentano la specializzazione sono liberi dal dover estendere una certa classe, e quindi sono più facilmente riusabili (p.e. un `Comparator` è usabile con collection diverse)
+*  Template Method si integra con il subtyping, e quindi va usato quando a strategie specializzate devono corrispondere classi specializzate
+  
+
+
+  
+### Altre note
+
+
+
+*  Negli `InputStream` le limitazioni del Template Method sono mitigate dal Decorator
+*  Con le lambda, l'approccio a Strategy diventa più naturale
+*  Valutare di usare il Template Method insieme a Strategy, ossia per definire gerarchie di strategie 
+  
+
+-->
+<!--
+
+## Factory Method 
+
+
+![](imgs/factorymethod.png) -->
+<h2 id="factory-method-creazionale-su-oggetti">Factory Method: creazionale, su oggetti</h2>
+<h3 id="intentomotivazione-1">Intento/motivazione</h3>
+<p>Definisce una interfaccia per creare oggetti, lasciando alle sottoclassi il compito di decidere quale classe istanziare e come</p>
+<h3 id="esempi-1">Esempi</h3>
+<ul>
+<li>Un framework deve creare oggetti, ma sue specializzazioni devono crearne versioni specializzate</li>
+</ul>
+<h3 id="soluzione-1">Soluzione</h3>
+<ul>
+<li>Una interfaccia creatrice fornisce il metodo factory col compito di creare e ritornare l’oggetto</li>
+<li>Tale interfaccia viene poi specializzata, e incapsula la logica di creazione dell’oggetto</li>
+<li>..spesso frainteso con static o simple factory</li>
+</ul>
+</section><section>
+<h2 id="factory-method-uml">Factory Method: UML</h2>
+<!--
+![](imgs/factorymethod.png)
+-->
+<div class="mermaid" data-processed="true" pre-rendered="true"><svg aria-labelledby="chart-title-mermaid-1666198704627 chart-desc-mermaid-1666198704627" role="img" viewBox="0 0 469.3203125 460" style="max-width: 469.3203125px;" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" width="100%" id="mermaid-1666198704627"><title id="chart-title-mermaid-1666198704627"></title><desc id="chart-desc-mermaid-1666198704627"></desc><style>#mermaid-1666198704627 {font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:16px;fill:#333;}#mermaid-1666198704627 .error-icon{fill:#552222;}#mermaid-1666198704627 .error-text{fill:#552222;stroke:#552222;}#mermaid-1666198704627 .edge-thickness-normal{stroke-width:2px;}#mermaid-1666198704627 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-1666198704627 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-1666198704627 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-1666198704627 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-1666198704627 .marker{fill:#333333;stroke:#333333;}#mermaid-1666198704627 .marker.cross{stroke:#333333;}#mermaid-1666198704627 svg{font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:16px;}#mermaid-1666198704627 g.classGroup text{fill:#9370DB;fill:#131300;stroke:none;font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:10px;}#mermaid-1666198704627 g.classGroup text .title{font-weight:bolder;}#mermaid-1666198704627 .nodeLabel,#mermaid-1666198704627 .edgeLabel{color:#131300;}#mermaid-1666198704627 .edgeLabel .label rect{fill:#ECECFF;}#mermaid-1666198704627 .label text{fill:#131300;}#mermaid-1666198704627 .edgeLabel .label span{background:#ECECFF;}#mermaid-1666198704627 .classTitle{font-weight:bolder;}#mermaid-1666198704627 .node rect,#mermaid-1666198704627 .node circle,#mermaid-1666198704627 .node ellipse,#mermaid-1666198704627 .node polygon,#mermaid-1666198704627 .node path{fill:#ECECFF;stroke:#9370DB;stroke-width:1px;}#mermaid-1666198704627 .divider{stroke:#9370DB;stroke:1;}#mermaid-1666198704627 g.clickable{cursor:pointer;}#mermaid-1666198704627 g.classGroup rect{fill:#ECECFF;stroke:#9370DB;}#mermaid-1666198704627 g.classGroup line{stroke:#9370DB;stroke-width:1;}#mermaid-1666198704627 .classLabel .box{stroke:none;stroke-width:0;fill:#ECECFF;opacity:0.5;}#mermaid-1666198704627 .classLabel .label{fill:#9370DB;font-size:10px;}#mermaid-1666198704627 .relation{stroke:#333333;stroke-width:1;fill:none;}#mermaid-1666198704627 .dashed-line{stroke-dasharray:3;}#mermaid-1666198704627 #compositionStart,#mermaid-1666198704627 .composition{fill:#333333!important;stroke:#333333!important;stroke-width:1;}#mermaid-1666198704627 #compositionEnd,#mermaid-1666198704627 .composition{fill:#333333!important;stroke:#333333!important;stroke-width:1;}#mermaid-1666198704627 #dependencyStart,#mermaid-1666198704627 .dependency{fill:#333333!important;stroke:#333333!important;stroke-width:1;}#mermaid-1666198704627 #dependencyStart,#mermaid-1666198704627 .dependency{fill:#333333!important;stroke:#333333!important;stroke-width:1;}#mermaid-1666198704627 #extensionStart,#mermaid-1666198704627 .extension{fill:#333333!important;stroke:#333333!important;stroke-width:1;}#mermaid-1666198704627 #extensionEnd,#mermaid-1666198704627 .extension{fill:#333333!important;stroke:#333333!important;stroke-width:1;}#mermaid-1666198704627 #aggregationStart,#mermaid-1666198704627 .aggregation{fill:#ECECFF!important;stroke:#333333!important;stroke-width:1;}#mermaid-1666198704627 #aggregationEnd,#mermaid-1666198704627 .aggregation{fill:#ECECFF!important;stroke:#333333!important;stroke-width:1;}#mermaid-1666198704627 #lollipopStart,#mermaid-1666198704627 .lollipop{fill:#ECECFF!important;stroke:#333333!important;stroke-width:1;}#mermaid-1666198704627 #lollipopEnd,#mermaid-1666198704627 .lollipop{fill:#ECECFF!important;stroke:#333333!important;stroke-width:1;}#mermaid-1666198704627 .edgeTerminals{font-size:11px;}#mermaid-1666198704627 :root{--mermaid-font-family:"trebuchet ms",verdana,arial,sans-serif;}</style><g><defs><marker orient="auto" markerHeight="240" markerWidth="190" refY="7" refX="0" class="marker aggregation classDiagram" id="classDiagram-aggregationStart"><path d="M 18,7 L9,13 L1,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="28" markerWidth="20" refY="7" refX="19" class="marker aggregation classDiagram" id="classDiagram-aggregationEnd"><path d="M 18,7 L9,13 L1,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="240" markerWidth="190" refY="7" refX="0" class="marker extension classDiagram" id="classDiagram-extensionStart"><path d="M 1,7 L18,13 V 1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="28" markerWidth="20" refY="7" refX="19" class="marker extension classDiagram" id="classDiagram-extensionEnd"><path d="M 1,1 V 13 L18,7 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="240" markerWidth="190" refY="7" refX="0" class="marker composition classDiagram" id="classDiagram-compositionStart"><path d="M 18,7 L9,13 L1,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="28" markerWidth="20" refY="7" refX="19" class="marker composition classDiagram" id="classDiagram-compositionEnd"><path d="M 18,7 L9,13 L1,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="240" markerWidth="190" refY="7" refX="0" class="marker dependency classDiagram" id="classDiagram-dependencyStart"><path d="M 5,7 L9,13 L1,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="28" markerWidth="20" refY="7" refX="19" class="marker dependency classDiagram" id="classDiagram-dependencyEnd"><path d="M 18,7 L9,13 L14,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="240" markerWidth="190" refY="7" refX="0" class="marker lollipop classDiagram" id="classDiagram-lollipopStart"><circle r="6" cy="7" cx="6" fill="white" stroke="black"></circle></marker></defs><g class="root"><g class="clusters"></g><g class="edgePaths"><path marker-start="url(#classDiagram-extensionStart)" style="fill:none" class="edge-pattern-solid relation" id="id1" d="M72.87621124031008,345L71.61298853359175,349.1666666666667C70.3497658268734,353.3333333333333,67.82332041343669,361.6666666666667,68.08304844659374,370C68.34277647975078,378.3333333333333,71.38867795950155,386.6666666666667,72.91162869937695,390.8333333333333L74.43457943925233,395"></path><path marker-start="url(#classDiagram-extensionStart)" style="fill:none" class="edge-pattern-solid relation" id="id2" d="M122.578125,317.2120591110777L150.91796875,326.0100492592314C179.2578125,334.80803940738514,235.9375,352.40401970369254,271.4308922313084,365.368676518513C306.92428446261687,378.3333333333333,321.2313814252337,386.6666666666667,328.3849299065421,390.8333333333333L335.5384783878505,395"></path><path marker-start="url(#classDiagram-compositionStart)" style="fill:none" class="edge-pattern-solid relation" id="id3" d="M276.94140625,64.00654527824166L282.8131510416667,68.33878773186805C288.6848958333333,72.67103018549444,300.4283854166667,81.33551509274723,306.3001302083333,89.83442421304028C312.171875,98.33333333333333,312.171875,106.66666666666667,312.171875,110.83333333333333L312.171875,115"></path><path marker-end="url(#classDiagram-dependencyEnd)" style="fill:none" class="edge-pattern-solid relation" id="id4" d="M202.37890625,49.38395448007873L182.791015625,56.15329540006561C163.203125,62.92263632005248,124.02734375,76.46131816002624,104.439453125,95.81399241334645C84.8515625,115.16666666666667,84.8515625,140.33333333333334,84.8515625,165.5C84.8515625,190.66666666666666,84.8515625,215.83333333333334,84.8515625,232.58333333333334C84.8515625,249.33333333333334,84.8515625,257.6666666666667,84.8515625,261.8333333333333L84.8515625,266"></path><path marker-end="url(#classDiagram-dependencyEnd)" style="fill:none" class="edge-pattern-solid relation" id="id5" d="M221.23455668604652,334L219.4155159883721,340C217.59647529069767,346,213.95839389534885,358,202.3676436961168,368.1666666666667C190.77689349688475,378.3333333333333,171.23347449376948,386.6666666666667,161.46176499221184,390.8333333333333L151.6900554906542,395"></path><path marker-end="url(#classDiagram-dependencyEnd)" style="fill:none" class="edge-pattern-solid relation" id="id6" d="M394.46875,334L394.46875,340C394.46875,346,394.46875,358,393.68993380062307,368.1666666666667C392.91111760124613,378.3333333333333,391.35348520249227,386.6666666666667,390.5746690031153,390.8333333333333L389.79585280373834,395"></path><path marker-start="url(#classDiagram-extensionStart)" style="fill:none" class="edge-pattern-solid relation" id="id7" d="M257.12562086092714,216L252.58385071743928,220.16666666666666C248.04208057395144,224.33333333333334,238.9585402869757,232.66666666666666,234.41677014348784,242.83333333333334C229.875,253,229.875,265,229.875,271L229.875,277"></path><path marker-start="url(#classDiagram-extensionStart)" style="fill:none" class="edge-pattern-solid relation" id="id8" d="M367.21812913907286,216L371.75989928256075,220.16666666666666C376.3016694260486,224.33333333333334,385.3852097130243,232.66666666666666,389.92697985651216,242.83333333333334C394.46875,253,394.46875,265,394.46875,271L394.46875,277"></path></g><g class="edgeLabels"><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="edgeLabel"></span></div></foreignObject></g></g></g><g class="nodes"><g transform="translate(84.8515625, 305.5)" id="classid-Product-0" class="node default"><rect height="79" width="75.453125" y="-39.5" x="-37.7265625" class="outer title-state"></rect><line y2="-9.5" y1="-9.5" x2="37.7265625" x1="-37.7265625" class="divider"></line><line y2="28.5" y1="28.5" x2="37.7265625" x1="-37.7265625" class="divider"></line><g class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel"></span></div></foreignObject><foreignObject transform="translate( -30.2265625, -32)" height="18" width="60.453125" class="classTitle"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">Product</span></div></foreignObject><foreignObject transform="translate( -30.2265625, 2)" height="18" width="18.6875"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">&lt;&gt;</span></div></foreignObject></g></g><g transform="translate(84.8515625, 423.5)" id="classid-ConcreteProduct1-1" class="node default"><rect height="57" width="153.703125" y="-28.5" x="-76.8515625" class="outer title-state"></rect><line y2="1.5" y1="1.5" x2="76.8515625" x1="-76.8515625" class="divider"></line><line y2="17.5" y1="17.5" x2="76.8515625" x1="-76.8515625" class="divider"></line><g class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel"></span></div></foreignObject><foreignObject transform="translate( -69.3515625, -21)" height="18" width="138.703125" class="classTitle"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">ConcreteProduct1</span></div></foreignObject></g></g><g transform="translate(384.46875, 423.5)" id="classid-ConcreteProduct2-2" class="node default"><rect height="57" width="153.703125" y="-28.5" x="-76.8515625" class="outer title-state"></rect><line y2="1.5" y1="1.5" x2="76.8515625" x1="-76.8515625" class="divider"></line><line y2="17.5" y1="17.5" x2="76.8515625" x1="-76.8515625" class="divider"></line><g class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel"></span></div></foreignObject><foreignObject transform="translate( -69.3515625, -21)" height="18" width="138.703125" class="classTitle"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">ConcreteProduct2</span></div></foreignObject></g></g><g transform="translate(312.171875, 165.5)" id="classid-Factory-3" class="node default"><rect height="101" width="195.515625" y="-50.5" x="-97.7578125" class="outer title-state"></rect><line y2="-20.5" y1="-20.5" x2="97.7578125" x1="-97.7578125" class="divider"></line><line y2="17.5" y1="17.5" x2="97.7578125" x1="-97.7578125" class="divider"></line><g class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel"></span></div></foreignObject><foreignObject transform="translate( -28.8984375, -43)" height="18" width="57.796875" class="classTitle"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">Factory</span></div></foreignObject><foreignObject transform="translate( -90.2578125, -9)" height="18" width="18.6875"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">&lt;&gt;</span></div></foreignObject><foreignObject transform="translate( -90.2578125, 25)" height="18" width="180.515625"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">factoryMethod() : Product</span></div></foreignObject></g></g><g transform="translate(239.66015625, 36.5)" id="classid-Context-4" class="node default"><rect height="57" width="74.5625" y="-28.5" x="-37.28125" class="outer title-state"></rect><line y2="1.5" y1="1.5" x2="37.28125" x1="-37.28125" class="divider"></line><line y2="17.5" y1="17.5" x2="37.28125" x1="-37.28125" class="divider"></line><g class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel"></span></div></foreignObject><foreignObject transform="translate( -29.78125, -21)" height="18" width="59.5625" class="classTitle"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">Context</span></div></foreignObject></g></g><g transform="translate(229.875, 305.5)" id="classid-FactoryImpl1-5" class="node default"><rect height="57" width="114.59375" y="-28.5" x="-57.296875" class="outer title-state"></rect><line y2="1.5" y1="1.5" x2="57.296875" x1="-57.296875" class="divider"></line><line y2="17.5" y1="17.5" x2="57.296875" x1="-57.296875" class="divider"></line><g class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel"></span></div></foreignObject><foreignObject transform="translate( -49.796875, -21)" height="18" width="99.59375" class="classTitle"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">FactoryImpl1</span></div></foreignObject></g></g><g transform="translate(394.46875, 305.5)" id="classid-FactoryImpl2-6" class="node default"><rect height="57" width="114.59375" y="-28.5" x="-57.296875" class="outer title-state"></rect><line y2="1.5" y1="1.5" x2="57.296875" x1="-57.296875" class="divider"></line><line y2="17.5" y1="17.5" x2="57.296875" x1="-57.296875" class="divider"></line><g class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel"></span></div></foreignObject><foreignObject transform="translate( -49.796875, -21)" height="18" width="99.59375" class="classTitle"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">FactoryImpl2</span></div></foreignObject></g></g></g></g></g></svg></div>
+
+</section><section>
+<h2 id="factory-method-esempio-person-e-personfactory">Factory Method: Esempio <code>Person</code> e <code>PersonFactory</code></h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">interface</span> <span style="color:#3f6e75">Person</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">String</span> <span style="color:#000">getName</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">String</span> <span style="color:#000">getSurname</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">int</span> <span style="color:#000">getYearOfBirth</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div><div class="smaller">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">PersonImpl</span> <span style="color:#a90d91">implements</span> <span style="color:#000">Person</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#000">String</span> <span style="color:#000">name</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#000">String</span> <span style="color:#000">surname</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">year</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>    <span style="color:#000">PersonImpl</span><span style="color:#000">(</span><span style="color:#a90d91">final</span> <span style="color:#000">String</span> <span style="color:#000">name</span><span style="color:#000">,</span> <span style="color:#a90d91">final</span> <span style="color:#000">String</span> <span style="color:#000">surname</span><span style="color:#000">,</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">year</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">name</span> <span style="color:#000">=</span> <span style="color:#000">name</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">surname</span> <span style="color:#000">=</span> <span style="color:#000">surname</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">year</span> <span style="color:#000">=</span> <span style="color:#000">year</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">String</span> <span style="color:#000">getName</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">return</span> <span style="color:#000">name</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">String</span> <span style="color:#000">getSurname</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">return</span> <span style="color:#000">surname</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">int</span> <span style="color:#000">getYearOfBirth</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">return</span> <span style="color:#000">year</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></div>
+</section><section>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">interface</span> <span style="color:#3f6e75">PersonFactory</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">Person</span> <span style="color:#000">createBasic</span><span style="color:#000">(</span><span style="color:#000">String</span> <span style="color:#000">name</span><span style="color:#000">,</span> <span style="color:#000">String</span> <span style="color:#000">surname</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">Person</span> <span style="color:#000">createAdvanced</span><span style="color:#000">(</span><span style="color:#000">String</span> <span style="color:#000">name</span><span style="color:#000">,</span> <span style="color:#000">String</span> <span style="color:#000">surname</span><span style="color:#000">,</span> <span style="color:#a90d91">int</span> <span style="color:#000">yearOfBirth</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">PersonFactoryImpl</span> <span style="color:#a90d91">implements</span> <span style="color:#000">PersonFactory</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">@Override</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">Person</span> <span style="color:#000">createBasic</span><span style="color:#000">(</span><span style="color:#000">String</span> <span style="color:#000">name</span><span style="color:#000">,</span> <span style="color:#000">String</span> <span style="color:#000">surname</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">return</span> <span style="color:#a90d91">new</span> <span style="color:#000">PersonImpl</span><span style="color:#000">(</span><span style="color:#000">name</span><span style="color:#000">,</span> <span style="color:#000">surname</span><span style="color:#000">,</span> <span style="color:#000">java</span><span style="color:#000">.</span><span style="color:#836c28">time</span><span style="color:#000">.</span><span style="color:#836c28">LocalDate</span><span style="color:#000">.</span><span style="color:#836c28">now</span><span style="color:#000">().</span><span style="color:#836c28">getYear</span><span style="color:#000">());</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#000">@Override</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">Person</span> <span style="color:#000">createAdvanced</span><span style="color:#000">(</span><span style="color:#000">String</span> <span style="color:#000">name</span><span style="color:#000">,</span> <span style="color:#000">String</span> <span style="color:#000">surname</span><span style="color:#000">,</span> <span style="color:#a90d91">int</span> <span style="color:#000">yearOfBirth</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">return</span> <span style="color:#a90d91">new</span> <span style="color:#000">PersonImpl</span><span style="color:#000">(</span><span style="color:#000">name</span><span style="color:#000">,</span> <span style="color:#000">surname</span><span style="color:#000">,</span> <span style="color:#000">yearOfBirth</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></section><section>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UsePerson</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span><span style="color:#000">(</span><span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span><span style="color:#000">){</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">PersonFactory</span> <span style="color:#000">pf</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">PersonFactoryImpl</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">Person</span> <span style="color:#000">p1</span> <span style="color:#000">=</span> <span style="color:#000">pf</span><span style="color:#000">.</span><span style="color:#836c28">createBasic</span><span style="color:#000">(</span><span style="color:#c41a16">"mario"</span><span style="color:#000">,</span> <span style="color:#c41a16">"rossi"</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">p1</span><span style="color:#000">.</span><span style="color:#836c28">getName</span><span style="color:#000">()</span> <span style="color:#000">+</span> <span style="color:#c41a16">" "</span> <span style="color:#000">+</span> <span style="color:#000">p1</span><span style="color:#000">.</span><span style="color:#836c28">getSurname</span><span style="color:#000">()</span> <span style="color:#000">+</span> <span style="color:#c41a16">" ("</span> <span style="color:#000">+</span> <span style="color:#000">p1</span><span style="color:#000">.</span><span style="color:#836c28">getYearOfBirth</span><span style="color:#000">()</span> <span style="color:#000">+</span> <span style="color:#c41a16">")"</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">Person</span> <span style="color:#000">p2</span> <span style="color:#000">=</span> <span style="color:#000">pf</span><span style="color:#000">.</span><span style="color:#836c28">createAdvanced</span><span style="color:#000">(</span><span style="color:#c41a16">"dario"</span><span style="color:#000">,</span> <span style="color:#c41a16">"verdi"</span><span style="color:#000">,</span> <span style="color:#000">1985</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">p2</span><span style="color:#000">.</span><span style="color:#836c28">getName</span><span style="color:#000">()</span> <span style="color:#000">+</span> <span style="color:#c41a16">" "</span> <span style="color:#000">+</span> <span style="color:#000">p2</span><span style="color:#000">.</span><span style="color:#836c28">getSurname</span><span style="color:#000">()</span> <span style="color:#000">+</span> <span style="color:#c41a16">" ("</span> <span style="color:#000">+</span> <span style="color:#000">p2</span><span style="color:#000">.</span><span style="color:#836c28">getYearOfBirth</span><span style="color:#000">()</span> <span style="color:#000">+</span> <span style="color:#c41a16">")"</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></section><section>
+</section>
+
+  
+
+
+</div>
+      
+
+    </div>
+<script type="text/javascript" src="/reveal-hugo/object-assign.js"></script>
+
+<a href="/reveal-js/dist/print/" id="print-location" style="display: none;"></a>
+
+<script type="application/json" id="reveal-hugo-site-params">{"custom_theme":"custom-theme.scss","custom_theme_compile":true,"custom_theme_options":{"enablesourcemap":true,"targetpath":"css/custom-theme.css"},"height":"900","highlight_theme":"default","history":true,"mermaid":[{"startOnLoad":false}],"slide_number":true,"theme":"white","transition":"slide","transition_speed":"fast","width":"1440"}</script>
+<script type="application/json" id="reveal-hugo-page-params">null</script>
+
+<script src="/reveal-js/dist/reveal.js"></script>
+
+
+  
+  
+  <script type="text/javascript" src="/reveal-js/plugin/markdown/markdown.js"></script>
+  
+  <script type="text/javascript" src="/reveal-js/plugin/highlight/highlight.js"></script>
+  
+  <script type="text/javascript" src="/reveal-js/plugin/zoom/zoom.js"></script>
+  
+  <script type="text/javascript" src="/reveal-js/plugin/notes/notes.js"></script>
+  
+  
+  <script type="text/javascript" src="/reveal-js/plugin/notes/notes.js"></script>
+
+
+
+
+<script type="text/javascript">
+  
+  
+  function camelize(map) {
+    if (map) {
+      Object.keys(map).forEach(function(k) {
+        newK = k.replace(/(\_\w)/g, function(m) { return m[1].toUpperCase() });
+        if (newK != k) {
+          map[newK] = map[k];
+          delete map[k];
+        }
+      });
+    }
+    return map;
+  }
+  
+  var revealHugoDefaults = { center: true, controls: true, history: true, progress: true, transition: "slide" };
+
+  var revealHugoPlugins = { 
+    plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealZoom ]
+   };
+  var revealHugoSiteParams = JSON.parse(document.getElementById('reveal-hugo-site-params').innerHTML);
+  var revealHugoPageParams = JSON.parse(document.getElementById('reveal-hugo-page-params').innerHTML);
+  
+  var options = Object.assign({},
+    camelize(revealHugoDefaults),
+    camelize(revealHugoSiteParams),
+    camelize(revealHugoPageParams),
+    camelize(revealHugoPlugins));
+  Reveal.initialize(options);
+</script>
+
+
+
+
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@9.1.6/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({"startOnLoad":false});
+
+    let render = (event) => {
+      let mermaidElems = event.currentSlide.querySelectorAll('.mermaid');
+      if (!mermaidElems.length){
+          return
+      }
+      mermaidElems.forEach(mermaidElem => {
+          let processed = mermaidElem.getAttribute('data-processed');
+          if (!processed){
+              
+              mermaid.init(undefined, mermaidElem);
+          }
+      });
+    };
+    Reveal.addEventListener('slidechanged', render);
+    Reveal.addEventListener('ready', render);
+  </script>
+
+    <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+</script>
+
+<script type="text/javascript" id="MathJax-script" async="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+</script>
+
+    
+  
+
+</body></html>
