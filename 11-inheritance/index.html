@@ -1,0 +1,962 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="utf-8">
+<title>Progettazione e Sviluppo del Software</title>
+<meta name="description" content="Progettazione e Sviluppo del Software, Tecnologie dei Sistemi Informatici">
+<meta name="author" content="Danilo Pianini">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="/reveal-js/dist/reset.css">
+<link rel="stylesheet" href="/reveal-js/dist/reveal.css">
+  <link rel="stylesheet" href="/css/custom-theme.min.b14bd2cb8ebd9f5aadd1914151911df5ab7b2264253b1df19c307933796d5e56.css" id="theme"><link rel="stylesheet" href="/highlight-js/default.min.css">
+    
+<link rel="stylesheet" href="https://gitcdn.link/repo/DanySK/css-blur-animation/master/blur.css">
+<link href="https://fonts.googleapis.com/css?family=Roboto Mono" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Oxygen Mono" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Ubuntu Mono" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+
+  </head>
+  <body>
+    
+    <div class="reveal">
+      <div class="slides">
+  
+
+    <section><h1 id="ereditarietà">Ereditarietà</h1>
+<h4 id="progettazione-e-sviluppo-del-software">Progettazione e Sviluppo del Software</h4>
+<h4 id="cdl-tecnologie-dei-sistemi-informatici">C.D.L. Tecnologie dei Sistemi Informatici</h4>
+<h3 id="roberto-casadei-----robycasadeiuniboitmailtorobycasadeiuniboit"><a href="mailto:roby.casadei@unibo.it">Roberto Casadei — <code>roby.casadei@unibo.it</code></a></h3>
+<h3 id="danilo-pianini-----danilopianiniuniboitmailtodanilopianiniuniboit"><a href="mailto:danilo.pianini@unibo.it">Danilo Pianini — <code>danilo.pianini@unibo.it</code></a></h3>
+<p><a href="?print-pdf&amp;pdfSeparateFragments=false"><i class="fa fa-print" aria-hidden="true"></i> versione stampabile</a></p>
+</section><section>
+<h2 id="nota">Nota</h2>
+<ul>
+<li>
+<p>Questo materiale è ampiamente basato su quello realizzato dal Prof.
+Mirko Viroli, che ringrazio.</p>
+</li>
+<li>
+<p>Ogni errore riscontratovi è esclusiva responsabilità degli autori di questo documento.</p>
+</li>
+</ul>
+</section><section>
+<h2 id="outline">Outline</h2>
+<h3 id="goal-della-lezione">Goal della lezione</h3>
+<ul>
+<li>Illustrare il riuso via ereditarietà</li>
+<li>Introdurre i vari meccanismi collegati all’ereditarietà</li>
+</ul>
+<h3 id="argomenti">Argomenti</h3>
+<ul>
+<li>Estensione di classi: <code>extends</code></li>
+<li>Livello d’accesso <code>protected</code></li>
+<li>Overriding dei metodi</li>
+<li>Gestione dei costruttori e chiamate <code>super</code></li>
+<li>Il modificatore <code>final</code> su classi e metodi</li>
+</ul>
+</section><section>
+<h1 id="riuso-via-ereditarietà">Riuso via ereditarietà</h1>
+</section><section>
+<h2 id="ereditarietà-1">Ereditarietà</h2>
+<p>È un meccanismo che consente di definire una nuova classe <em><strong>specializzandone</strong></em> una esistente, ossia “ereditando” i suoi campi e metodi (quelli privati non sono visibili), possibilmente/eventualmente modificando/aggiungendo campi/metodi, e quindi riusando codice già scritto e testato.</p>
+<h3 id="lereditarietà-è-un-concetto-chiave-delloo">L’ereditarietà è un concetto chiave dell’OO</h3>
+<ul>
+<li>È connesso al meccanismo delle interfacce</li>
+<li>È uno degli elementi chiave insieme a incapsulamento e interfacce</li>
+<li>Non riguarda solo il riuso di codice, ma influenza anche il polimorfismo conseguente</li>
+</ul>
+<h3 id="solito-approccio">Solito approccio</h3>
+<ul>
+<li>Illustreremo i meccanismi base attraverso semplici classi</li>
+<li>Successivamente recupereremo l’importanza nei casi reali</li>
+<li>Utilizzeremo l’idea di <em><strong>contatore</strong></em></li>
+</ul>
+</section><section>
+<h2 id="scenari-di-riuso-ed-estensione">Scenari di riuso ed estensione</h2>
+<ul>
+<li>Data una classe, realizzarne un’altra con caratteristiche solo in parte diverse (o nuove)</li>
+<li>Come sopra, ma senza disporre dei sorgenti della classe originaria (p.e., la classe di partenza è di libreria)</li>
+<li>Data una classe, crearne una più specializzata (ad esempio, più robusta e sicura, anche se più lenta)</li>
+<li>Creare gerarchie di classi ossia di comportamenti</li>
+</ul>
+</section><section>
+<h2 id="esempio-base-counter">Esempio base: <code>Counter</code></h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Counter</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">private</span> <span style="color:#a90d91">int</span> <span style="color:#000">value</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#000">Counter</span><span style="color:#000">(</span><span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">initialValue</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">value</span> <span style="color:#000">=</span> <span style="color:#000">initialValue</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">increment</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">value</span><span style="color:#000">++;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">int</span> <span style="color:#000">getValue</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">value</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></section><section>
+<h2 id="uso-della-classe-counter">Uso della classe <code>Counter</code></h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseCounter</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span><span style="color:#000">(</span><span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">s</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">Counter</span> <span style="color:#000">c</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Counter</span><span style="color:#000">(</span><span style="color:#000">0</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">c</span><span style="color:#000">.</span><span style="color:#836c28">getValue</span><span style="color:#000">());</span> <span style="color:#177500">// 0
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#000">c</span><span style="color:#000">.</span><span style="color:#836c28">increment</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">c</span><span style="color:#000">.</span><span style="color:#836c28">increment</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">c</span><span style="color:#000">.</span><span style="color:#836c28">getValue</span><span style="color:#000">());</span> <span style="color:#177500">// 2
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></section><section>
+<h2 id="una-nuova-classe-multicounter">Una nuova classe: <code>MultiCounter</code></h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">MultiCounter</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">int</span> <span style="color:#000">value</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">MultiCounter</span><span style="color:#000">(</span><span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">initialValue</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">value</span> <span style="color:#000">=</span> <span style="color:#000">initialValue</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">increment</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">value</span><span style="color:#000">++;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">int</span> <span style="color:#000">getValue</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">value</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#177500">/* Nuovo metodo */</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">multiIncrement</span><span style="color:#000">(</span><span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">n</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">for</span> <span style="color:#000">(</span><span style="color:#a90d91">int</span> <span style="color:#000">i</span> <span style="color:#000">=</span> <span style="color:#000">0</span><span style="color:#000">;</span> <span style="color:#000">i</span> <span style="color:#000">&lt;</span> <span style="color:#000">n</span><span style="color:#000">;</span> <span style="color:#000">i</span><span style="color:#000">++)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">increment</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></section><section>
+<h2 id="uso-della-classe-multicounter">Uso della classe <code>MultiCounter</code></h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseMultiCounter</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span><span style="color:#000">(</span><span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">s</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">final</span> <span style="color:#000">MultiCounter</span> <span style="color:#000">mc</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">MultiCounter</span><span style="color:#000">(</span><span style="color:#000">10</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">mc</span><span style="color:#000">.</span><span style="color:#836c28">getValue</span><span style="color:#000">());</span> <span style="color:#177500">// 10
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>        <span style="color:#000">mc</span><span style="color:#000">.</span><span style="color:#836c28">increment</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">mc</span><span style="color:#000">.</span><span style="color:#836c28">increment</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">mc</span><span style="color:#000">.</span><span style="color:#836c28">getValue</span><span style="color:#000">());</span> <span style="color:#177500">// 12
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>        <span style="color:#000">mc</span><span style="color:#000">.</span><span style="color:#836c28">multiIncrement</span><span style="color:#000">(</span><span style="color:#000">10</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">mc</span><span style="color:#000">.</span><span style="color:#836c28">getValue</span><span style="color:#000">());</span> <span style="color:#177500">// 22
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></section><section>
+<h2 id="versione-con-riuso-via-composizione-multicounter2">Versione con riuso via composizione: <code>MultiCounter2</code></h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">MultiCounter2</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#000">Counter</span> <span style="color:#000">counter</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">MultiCounter2</span><span style="color:#000">(</span><span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">initialValue</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">counter</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Counter</span><span style="color:#000">(</span><span style="color:#000">initialValue</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">increment</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">counter</span><span style="color:#000">.</span><span style="color:#836c28">increment</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">int</span> <span style="color:#000">getValue</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">counter</span><span style="color:#000">.</span><span style="color:#836c28">getValue</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#177500">/* Nuovo metodo */</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">multiIncrement</span><span style="color:#000">(</span><span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">n</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">for</span> <span style="color:#000">(</span><span style="color:#a90d91">int</span> <span style="color:#000">i</span> <span style="color:#000">=</span> <span style="color:#000">0</span><span style="color:#000">;</span> <span style="color:#000">i</span> <span style="color:#000">&lt;</span> <span style="color:#000">n</span><span style="color:#000">;</span> <span style="color:#000">i</span><span style="color:#000">++)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">counter</span><span style="color:#000">.</span><span style="color:#836c28">increment</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></section><section>
+<h2 id="la-necessità-di-estendere-e-modificare">La necessità di estendere e modificare</h2>
+<h3 id="una-tipica-situazione">Una tipica situazione</h3>
+<ul>
+<li>È tipico nei progetti software, accorgersi di dover creare anche versioni modificate delle classi esistenti</li>
+<li>Appoggiarsi al “copia e incolla” di codice come in questo caso è sempre sconsigliabile (principio DRY), perché tende a spargere errori in tutto il codice, e complica la manutenzione</li>
+<li>Ottenere riuso via composizione (ossia delegazione) è in generale una <em><strong>ottima soluzione</strong></em>.. ma è possibile in alcuni casi fare meglio..</li>
+</ul>
+<h3 id="si-usa-il-meccanismo-di-ereditarietà">Si usa il meccanismo di ereditarietà</h3>
+<ul>
+<li>Definizione: <code>class C extends D { ... }</code></li>
+<li>La nuova classe <code>C</code> eredita campi/metodi/costruttori non privati di <code>D</code>
+<ul>
+<li>Eredita anche campi/metodi privati, ma non sono accessibili da <code>C</code></li>
+<li>I costruttori di <code>D</code> non sono direttamente richiamabili con la <code>new</code>, bisogna sempre definirne di nuovi</li>
+</ul>
+</li>
+<li>Terminologia: <code>D</code> <em>superclasse</em>, o <em>classe base</em>, o <em>classe padre</em></li>
+<li>Terminologia: <code>C</code> <em>sottoclasse</em>, o <em>classe figlia</em>, o <em>specializzazione</em></li>
+<li>Nota: non serve disporre dei sorgenti di <code>D</code>, basta il codice binario</li>
+</ul>
+</section><section>
+<h2 id="una-nuova-versione-di-multicounter">Una nuova versione di <code>MultiCounter</code></h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#177500">/* Si noti la clausola extends */</span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">MultiCounter</span> <span style="color:#a90d91">extends</span> <span style="color:#000">Counter</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#177500">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">     * I costruttori vanno ridefiniti. Devono tuttavia richiamare 
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">     * quelli ereditati dalla sopraclasse
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">     */</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">MultiCounter</span><span style="color:#000">(</span><span style="color:#a90d91">int</span> <span style="color:#000">initialValue</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>    	<span style="color:#a90d91">super</span><span style="color:#000">(</span><span style="color:#000">initialValue</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#177500">// increment e getValue automaticamente ereditati
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>
+</span></span><span style="display:flex;"><span>    <span style="color:#177500">// si aggiunge multiIncrement
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">multiIncrement</span><span style="color:#000">(</span><span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">n</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">for</span> <span style="color:#000">(</span><span style="color:#a90d91">int</span> <span style="color:#000">i</span> <span style="color:#000">=</span> <span style="color:#000">0</span><span style="color:#000">;</span> <span style="color:#000">i</span> <span style="color:#000">&lt;</span> <span style="color:#000">n</span><span style="color:#000">;</span> <span style="color:#000">i</span><span style="color:#000">++)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">increment</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></section><section>
+<h2 id="razionale">Razionale</h2>
+<h3 id="ridefiniamo-la-classe-multicounter-come-estensione-di-counter">Ridefiniamo la classe <code>MultiCounter</code> come estensione di <code>Counter</code></h3>
+<ul>
+<li>Definiamo il nuovo metodo <code>multiIncrement()</code></li>
+<li>Definiamo il costruttore necessario
+<ul>
+<li>Il costruttore di una sottoclasse può cominciare con l’istruzione <code>super</code>, che chiama un costruttore (non privato) della classe padre</li>
+<li>Se non lo fa, si chiama il costruttore di default del padre</li>
+<li>Senza costruttori, si ha al solito solo quello di default</li>
+</ul>
+</li>
+<li><code>UseMultiCounter</code> continua a funzionare!</li>
+</ul>
+<h3 id="il-senso-della-definizione">Il senso della definizione</h3>
+<ul>
+<li>Un oggetto di <code>MultiCounter</code> è simile ad un oggetto di <code>Counter</code>
+<ul>
+<li>Ha i metodi <code>increment()</code> e <code>getValue()</code></li>
+<li>Ha anche il campo <code>value</code> (che in effetti è incrementato), anche se essendo privato è inaccessibile dal codice della classe <code>MultiCounter</code></li>
+</ul>
+</li>
+<li>Due modifiche necessarie rispetto a <code>Counter</code>: metodo <code>multiIncrement()</code> e ridefinizione del costruttore</li>
+</ul>
+</section><section>
+<h2 id="notazione-uml-per-lestensione">Notazione UML per l’estensione</h2>
+<ul>
+<li>Arco a <em>linea continua</em>  e  <em>punta a triangolo</em> (vuoto/pieno) per la relazione “<code>extends</code>”
+<ul>
+<li>Stessa notazione di “realizzazione interfaccia”, a parte che quest’ultima ha linea tratteggiata</li>
+</ul>
+</li>
+<li>Archi raggruppati per migliorare la resa grafica</li>
+</ul>
+<!--  ![](img/uml-ext.pdf) -->
+<div class="mermaid" data-processed="true" pre-rendered="true"><svg aria-labelledby="chart-title-mermaid-1666255909264 chart-desc-mermaid-1666255909264" role="img" viewBox="0 0 347.734375 312" style="max-width: 347.734375px;" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" width="100%" id="mermaid-1666255909264"><title id="chart-title-mermaid-1666255909264"></title><desc id="chart-desc-mermaid-1666255909264"></desc><style>#mermaid-1666255909264 {font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:16px;fill:#333;}#mermaid-1666255909264 .error-icon{fill:#552222;}#mermaid-1666255909264 .error-text{fill:#552222;stroke:#552222;}#mermaid-1666255909264 .edge-thickness-normal{stroke-width:2px;}#mermaid-1666255909264 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-1666255909264 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-1666255909264 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-1666255909264 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-1666255909264 .marker{fill:#333333;stroke:#333333;}#mermaid-1666255909264 .marker.cross{stroke:#333333;}#mermaid-1666255909264 svg{font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:16px;}#mermaid-1666255909264 g.classGroup text{fill:#9370DB;fill:#131300;stroke:none;font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:10px;}#mermaid-1666255909264 g.classGroup text .title{font-weight:bolder;}#mermaid-1666255909264 .nodeLabel,#mermaid-1666255909264 .edgeLabel{color:#131300;}#mermaid-1666255909264 .edgeLabel .label rect{fill:#ECECFF;}#mermaid-1666255909264 .label text{fill:#131300;}#mermaid-1666255909264 .edgeLabel .label span{background:#ECECFF;}#mermaid-1666255909264 .classTitle{font-weight:bolder;}#mermaid-1666255909264 .node rect,#mermaid-1666255909264 .node circle,#mermaid-1666255909264 .node ellipse,#mermaid-1666255909264 .node polygon,#mermaid-1666255909264 .node path{fill:#ECECFF;stroke:#9370DB;stroke-width:1px;}#mermaid-1666255909264 .divider{stroke:#9370DB;stroke:1;}#mermaid-1666255909264 g.clickable{cursor:pointer;}#mermaid-1666255909264 g.classGroup rect{fill:#ECECFF;stroke:#9370DB;}#mermaid-1666255909264 g.classGroup line{stroke:#9370DB;stroke-width:1;}#mermaid-1666255909264 .classLabel .box{stroke:none;stroke-width:0;fill:#ECECFF;opacity:0.5;}#mermaid-1666255909264 .classLabel .label{fill:#9370DB;font-size:10px;}#mermaid-1666255909264 .relation{stroke:#333333;stroke-width:1;fill:none;}#mermaid-1666255909264 .dashed-line{stroke-dasharray:3;}#mermaid-1666255909264 #compositionStart,#mermaid-1666255909264 .composition{fill:#333333!important;stroke:#333333!important;stroke-width:1;}#mermaid-1666255909264 #compositionEnd,#mermaid-1666255909264 .composition{fill:#333333!important;stroke:#333333!important;stroke-width:1;}#mermaid-1666255909264 #dependencyStart,#mermaid-1666255909264 .dependency{fill:#333333!important;stroke:#333333!important;stroke-width:1;}#mermaid-1666255909264 #dependencyStart,#mermaid-1666255909264 .dependency{fill:#333333!important;stroke:#333333!important;stroke-width:1;}#mermaid-1666255909264 #extensionStart,#mermaid-1666255909264 .extension{fill:#333333!important;stroke:#333333!important;stroke-width:1;}#mermaid-1666255909264 #extensionEnd,#mermaid-1666255909264 .extension{fill:#333333!important;stroke:#333333!important;stroke-width:1;}#mermaid-1666255909264 #aggregationStart,#mermaid-1666255909264 .aggregation{fill:#ECECFF!important;stroke:#333333!important;stroke-width:1;}#mermaid-1666255909264 #aggregationEnd,#mermaid-1666255909264 .aggregation{fill:#ECECFF!important;stroke:#333333!important;stroke-width:1;}#mermaid-1666255909264 #lollipopStart,#mermaid-1666255909264 .lollipop{fill:#ECECFF!important;stroke:#333333!important;stroke-width:1;}#mermaid-1666255909264 #lollipopEnd,#mermaid-1666255909264 .lollipop{fill:#ECECFF!important;stroke:#333333!important;stroke-width:1;}#mermaid-1666255909264 .edgeTerminals{font-size:11px;}#mermaid-1666255909264 :root{--mermaid-font-family:"trebuchet ms",verdana,arial,sans-serif;}</style><g><defs><marker orient="auto" markerHeight="240" markerWidth="190" refY="7" refX="0" class="marker aggregation classDiagram" id="classDiagram-aggregationStart"><path d="M 18,7 L9,13 L1,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="28" markerWidth="20" refY="7" refX="19" class="marker aggregation classDiagram" id="classDiagram-aggregationEnd"><path d="M 18,7 L9,13 L1,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="240" markerWidth="190" refY="7" refX="0" class="marker extension classDiagram" id="classDiagram-extensionStart"><path d="M 1,7 L18,13 V 1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="28" markerWidth="20" refY="7" refX="19" class="marker extension classDiagram" id="classDiagram-extensionEnd"><path d="M 1,1 V 13 L18,7 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="240" markerWidth="190" refY="7" refX="0" class="marker composition classDiagram" id="classDiagram-compositionStart"><path d="M 18,7 L9,13 L1,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="28" markerWidth="20" refY="7" refX="19" class="marker composition classDiagram" id="classDiagram-compositionEnd"><path d="M 18,7 L9,13 L1,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="240" markerWidth="190" refY="7" refX="0" class="marker dependency classDiagram" id="classDiagram-dependencyStart"><path d="M 5,7 L9,13 L1,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="28" markerWidth="20" refY="7" refX="19" class="marker dependency classDiagram" id="classDiagram-dependencyEnd"><path d="M 18,7 L9,13 L14,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="240" markerWidth="190" refY="7" refX="0" class="marker lollipop classDiagram" id="classDiagram-lollipopStart"><circle r="6" cy="7" cx="6" fill="white" stroke="black"></circle></marker></defs><g class="root"><g class="clusters"></g><g class="edgePaths"><path marker-start="url(#classDiagram-extensionStart)" style="fill:none" class="edge-pattern-solid relation" id="id1" d="M173.8671875,153L173.8671875,157.16666666666666C173.8671875,161.33333333333334,173.8671875,169.66666666666666,173.8671875,178C173.8671875,186.33333333333334,173.8671875,194.66666666666666,173.8671875,198.83333333333334L173.8671875,203"></path></g><g class="edgeLabels"><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="edgeLabel"></span></div></foreignObject></g></g></g><g class="nodes"><g transform="translate(173.8671875, 80.5)" id="classid-Counter-0" class="node default"><rect height="145" width="264.171875" y="-72.5" x="-132.0859375" class="outer title-state"></rect><line y2="-42.5" y1="-42.5" x2="132.0859375" x1="-132.0859375" class="divider"></line><line y2="-4.5" y1="-4.5" x2="132.0859375" x1="-132.0859375" class="divider"></line><g class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel"></span></div></foreignObject><foreignObject transform="translate( -30.6640625, -65)" height="18" width="61.328125" class="classTitle"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">Counter</span></div></foreignObject><foreignObject transform="translate( -124.5859375, -31)" height="18" width="64.921875"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">-int value</span></div></foreignObject><foreignObject transform="translate( -124.5859375, 3)" height="18" width="249.171875"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">+Counter(initialValue: int) : Counter</span></div></foreignObject><foreignObject transform="translate( -124.5859375, 25)" height="18" width="124.046875"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">+void increment()</span></div></foreignObject><foreignObject transform="translate( -124.5859375, 47)" height="18" width="103.328125"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">+int getValue()</span></div></foreignObject></g></g><g transform="translate(173.8671875, 253.5)" id="classid-MultiCounter-1" class="node default"><rect height="101" width="331.734375" y="-50.5" x="-165.8671875" class="outer title-state"></rect><line y2="-20.5" y1="-20.5" x2="165.8671875" x1="-165.8671875" class="divider"></line><line y2="-4.5" y1="-4.5" x2="165.8671875" x1="-165.8671875" class="divider"></line><g class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel"></span></div></foreignObject><foreignObject transform="translate( -49.328125, -43)" height="18" width="98.65625" class="classTitle"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">MultiCounter</span></div></foreignObject><foreignObject transform="translate( -158.3671875, 3)" height="18" width="316.734375"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">+MultiCounter(initialValue: int) : MultiCounter</span></div></foreignObject><foreignObject transform="translate( -158.3671875, 25)" height="18" width="193.40625"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">+void multiIncrement(n: int)</span></div></foreignObject></g></g></g></g></g></svg></div>
+
+</section><section>
+<h2 id="notazione-uml----versione-semplificata-per-il-design">Notazione UML – versione semplificata per il design</h2>
+<div class="mermaid" data-processed="true" pre-rendered="true"><svg aria-labelledby="chart-title-mermaid-1666255909728 chart-desc-mermaid-1666255909728" role="img" viewBox="0 0 215.0625 246" style="max-width: 215.0625px;" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" width="100%" id="mermaid-1666255909728"><title id="chart-title-mermaid-1666255909728"></title><desc id="chart-desc-mermaid-1666255909728"></desc><style>#mermaid-1666255909728 {font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:16px;fill:#333;}#mermaid-1666255909728 .error-icon{fill:#552222;}#mermaid-1666255909728 .error-text{fill:#552222;stroke:#552222;}#mermaid-1666255909728 .edge-thickness-normal{stroke-width:2px;}#mermaid-1666255909728 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-1666255909728 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-1666255909728 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-1666255909728 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-1666255909728 .marker{fill:#333333;stroke:#333333;}#mermaid-1666255909728 .marker.cross{stroke:#333333;}#mermaid-1666255909728 svg{font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:16px;}#mermaid-1666255909728 g.classGroup text{fill:#9370DB;fill:#131300;stroke:none;font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:10px;}#mermaid-1666255909728 g.classGroup text .title{font-weight:bolder;}#mermaid-1666255909728 .nodeLabel,#mermaid-1666255909728 .edgeLabel{color:#131300;}#mermaid-1666255909728 .edgeLabel .label rect{fill:#ECECFF;}#mermaid-1666255909728 .label text{fill:#131300;}#mermaid-1666255909728 .edgeLabel .label span{background:#ECECFF;}#mermaid-1666255909728 .classTitle{font-weight:bolder;}#mermaid-1666255909728 .node rect,#mermaid-1666255909728 .node circle,#mermaid-1666255909728 .node ellipse,#mermaid-1666255909728 .node polygon,#mermaid-1666255909728 .node path{fill:#ECECFF;stroke:#9370DB;stroke-width:1px;}#mermaid-1666255909728 .divider{stroke:#9370DB;stroke:1;}#mermaid-1666255909728 g.clickable{cursor:pointer;}#mermaid-1666255909728 g.classGroup rect{fill:#ECECFF;stroke:#9370DB;}#mermaid-1666255909728 g.classGroup line{stroke:#9370DB;stroke-width:1;}#mermaid-1666255909728 .classLabel .box{stroke:none;stroke-width:0;fill:#ECECFF;opacity:0.5;}#mermaid-1666255909728 .classLabel .label{fill:#9370DB;font-size:10px;}#mermaid-1666255909728 .relation{stroke:#333333;stroke-width:1;fill:none;}#mermaid-1666255909728 .dashed-line{stroke-dasharray:3;}#mermaid-1666255909728 #compositionStart,#mermaid-1666255909728 .composition{fill:#333333!important;stroke:#333333!important;stroke-width:1;}#mermaid-1666255909728 #compositionEnd,#mermaid-1666255909728 .composition{fill:#333333!important;stroke:#333333!important;stroke-width:1;}#mermaid-1666255909728 #dependencyStart,#mermaid-1666255909728 .dependency{fill:#333333!important;stroke:#333333!important;stroke-width:1;}#mermaid-1666255909728 #dependencyStart,#mermaid-1666255909728 .dependency{fill:#333333!important;stroke:#333333!important;stroke-width:1;}#mermaid-1666255909728 #extensionStart,#mermaid-1666255909728 .extension{fill:#333333!important;stroke:#333333!important;stroke-width:1;}#mermaid-1666255909728 #extensionEnd,#mermaid-1666255909728 .extension{fill:#333333!important;stroke:#333333!important;stroke-width:1;}#mermaid-1666255909728 #aggregationStart,#mermaid-1666255909728 .aggregation{fill:#ECECFF!important;stroke:#333333!important;stroke-width:1;}#mermaid-1666255909728 #aggregationEnd,#mermaid-1666255909728 .aggregation{fill:#ECECFF!important;stroke:#333333!important;stroke-width:1;}#mermaid-1666255909728 #lollipopStart,#mermaid-1666255909728 .lollipop{fill:#ECECFF!important;stroke:#333333!important;stroke-width:1;}#mermaid-1666255909728 #lollipopEnd,#mermaid-1666255909728 .lollipop{fill:#ECECFF!important;stroke:#333333!important;stroke-width:1;}#mermaid-1666255909728 .edgeTerminals{font-size:11px;}#mermaid-1666255909728 :root{--mermaid-font-family:"trebuchet ms",verdana,arial,sans-serif;}</style><g><defs><marker orient="auto" markerHeight="240" markerWidth="190" refY="7" refX="0" class="marker aggregation classDiagram" id="classDiagram-aggregationStart"><path d="M 18,7 L9,13 L1,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="28" markerWidth="20" refY="7" refX="19" class="marker aggregation classDiagram" id="classDiagram-aggregationEnd"><path d="M 18,7 L9,13 L1,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="240" markerWidth="190" refY="7" refX="0" class="marker extension classDiagram" id="classDiagram-extensionStart"><path d="M 1,7 L18,13 V 1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="28" markerWidth="20" refY="7" refX="19" class="marker extension classDiagram" id="classDiagram-extensionEnd"><path d="M 1,1 V 13 L18,7 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="240" markerWidth="190" refY="7" refX="0" class="marker composition classDiagram" id="classDiagram-compositionStart"><path d="M 18,7 L9,13 L1,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="28" markerWidth="20" refY="7" refX="19" class="marker composition classDiagram" id="classDiagram-compositionEnd"><path d="M 18,7 L9,13 L1,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="240" markerWidth="190" refY="7" refX="0" class="marker dependency classDiagram" id="classDiagram-dependencyStart"><path d="M 5,7 L9,13 L1,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="28" markerWidth="20" refY="7" refX="19" class="marker dependency classDiagram" id="classDiagram-dependencyEnd"><path d="M 18,7 L9,13 L14,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="240" markerWidth="190" refY="7" refX="0" class="marker lollipop classDiagram" id="classDiagram-lollipopStart"><circle r="6" cy="7" cx="6" fill="white" stroke="black"></circle></marker></defs><g class="root"><g class="clusters"></g><g class="edgePaths"><path marker-start="url(#classDiagram-extensionStart)" style="fill:none" class="edge-pattern-solid relation" id="id1" d="M107.53125,109L107.53125,113.16666666666667C107.53125,117.33333333333333,107.53125,125.66666666666667,107.53125,134C107.53125,142.33333333333334,107.53125,150.66666666666666,107.53125,154.83333333333334L107.53125,159"></path></g><g class="edgeLabels"><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="edgeLabel"></span></div></foreignObject></g></g></g><g class="nodes"><g transform="translate(107.53125, 58.5)" id="classid-Counter-0" class="node default"><rect height="101" width="129.703125" y="-50.5" x="-64.8515625" class="outer title-state"></rect><line y2="-20.5" y1="-20.5" x2="64.8515625" x1="-64.8515625" class="divider"></line><line y2="-4.5" y1="-4.5" x2="64.8515625" x1="-64.8515625" class="divider"></line><g class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel"></span></div></foreignObject><foreignObject transform="translate( -30.6640625, -43)" height="18" width="61.328125" class="classTitle"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">Counter</span></div></foreignObject><foreignObject transform="translate( -57.3515625, 3)" height="18" width="114.703125"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">void increment()</span></div></foreignObject><foreignObject transform="translate( -57.3515625, 25)" height="18" width="93.984375"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">int getValue()</span></div></foreignObject></g></g><g transform="translate(107.53125, 198.5)" id="classid-MultiCounter-1" class="node default"><rect height="79" width="199.0625" y="-39.5" x="-99.53125" class="outer title-state"></rect><line y2="-9.5" y1="-9.5" x2="99.53125" x1="-99.53125" class="divider"></line><line y2="6.5" y1="6.5" x2="99.53125" x1="-99.53125" class="divider"></line><g class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel"></span></div></foreignObject><foreignObject transform="translate( -49.328125, -32)" height="18" width="98.65625" class="classTitle"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">MultiCounter</span></div></foreignObject><foreignObject transform="translate( -92.03125, 14)" height="18" width="184.0625"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">void multiIncrement(n: int)</span></div></foreignObject></g></g></g></g></g></svg></div>
+
+</section><section>
+<h2 id="livello-daccesso-protected">Livello d’accesso <code>protected</code></h2>
+<h3 id="usabile-per-le-proprietà-duna-classe">Usabile per le proprietà d’una classe</h3>
+<ul>
+<li>È un livello intermedio fra <code>public</code> e <code>private</code></li>
+<li>Indica che la proprietà (campo, metodo, costruttore) è accessibile dalla classe corrente, da una sottoclasse, e dalle sottoclassi delle sottoclassi (ricorsivamente) – cavillo: anche da tutto il package</li>
+</ul>
+<h3 id="a-cosa-serve">A cosa serve?</h3>
+<ul>
+<li>Consente alle sottoclassi di accedere ad informazioni della sopraclasse che non si vogliono far vedere agli utilizzatori</li>
+<li>Molto spesso usato a posteriori rimpiazzando un <code>private</code></li>
+<li>Molto meglio avere campi privati e getter/setter protetti</li>
+</ul>
+<h3 id="esempio-classe-bicounter----contatore-bidirezionale">Esempio classe <code>BiCounter</code> – contatore bidirezionale</h3>
+<ul>
+<li>Un contatore con anche il metodo <code>decrement</code></li>
+<li>Irrealizzabile senza rendere accessibile il campo <code>counter</code></li>
+</ul>
+</section><section>
+<h2 id="un-contatore-estendibile-extendiblecounter">Un contatore estendibile: <code>ExtendibleCounter</code></h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#177500">/* Il nome ExtendibleCounter è di comodo, più propriamente
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"> andrebbe chiamata semplicemente Counter */</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">ExtendibleCounter</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#177500">/* campo value protetto */</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">protected</span> <span style="color:#a90d91">int</span> <span style="color:#000">value</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">ExtendibleCounter</span><span style="color:#000">(</span><span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">initialValue</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">value</span> <span style="color:#000">=</span> <span style="color:#000">initialValue</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">increment</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">value</span><span style="color:#000">++;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">int</span> <span style="color:#000">getValue</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">value</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></section><section>
+<h2 id="classe-multicounter">Classe <code>MultiCounter</code></h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">MultiCounter</span> <span style="color:#a90d91">extends</span> <span style="color:#000">ExtendibleCounter</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">MultiCounter</span><span style="color:#000">(</span><span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">initialValue</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">super</span><span style="color:#000">(</span><span style="color:#000">initialValue</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">multiIncrement</span><span style="color:#000">(</span><span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">n</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#177500">// Ora realizzabile più efficientemente
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>        <span style="color:#a90d91">if</span> <span style="color:#000">(</span><span style="color:#000">n</span> <span style="color:#000">&gt;</span> <span style="color:#000">0</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">value</span> <span style="color:#000">=</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">value</span> <span style="color:#000">+</span> <span style="color:#000">n</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></section><section>
+<h2 id="classe-bicounter">Classe <code>BiCounter</code></h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">BiCounter</span> <span style="color:#a90d91">extends</span> <span style="color:#000">ExtendibleCounter</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#000">BiCounter</span><span style="color:#000">(</span><span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">initialValue</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">super</span><span style="color:#000">(</span><span style="color:#000">initialValue</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">decrement</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#177500">/* Ora this.counter è accessibile */</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">value</span><span style="color:#000">--;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></section><section>
+<h2 id="overriding-di-metodi">Overriding di metodi</h2>
+<h3 id="estensione-e-modifica">Estensione e modifica</h3>
+<ul>
+<li>Quando si crea una nuova classe per estensione, molto spesso non è sufficiente aggiungere nuove funzionalità</li>
+<li>A volte serve anche modificare alcune di quelle disponibili, eventualmente anche stravolgendone il funzionamento originario</li>
+<li>Questo è realizzabile riscrivendo nella sottoclasse uno (o più) dei metodi della superclasse (ossia, facendone l’<em><strong>overriding</strong></em>)</li>
+<li>Se necessario, il metodo riscritto può invocare la versione del padre usando il receiver speciale <code>super</code></li>
+</ul>
+<h3 id="esempio">Esempio</h3>
+<ul>
+<li>Creare un contatore che, giunto ad un certo limite, non prosegue più</li>
+<li>È necessario fare overriding del metodo <code>increment()</code></li>
+<li>Un ulteriore metodo getter ispeziona il raggiungimento del limite</li>
+</ul>
+</section><section>
+<h2 id="classe-limitcounter">Classe <code>LimitCounter</code></h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">LimitCounter</span> <span style="color:#a90d91">extends</span> <span style="color:#000">ExtendibleCounter</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#177500">/* Aggiungo un campo, che tiene il limite */</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">protected</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">limit</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">LimitCounter</span><span style="color:#000">(</span><span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">limit</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">super</span><span style="color:#000">(</span><span style="color:#000">0</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">limit</span> <span style="color:#000">=</span> <span style="color:#000">limit</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">boolean</span> <span style="color:#000">isOver</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">getValue</span><span style="color:#000">()</span> <span style="color:#000">==</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">limit</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#177500">/* Overriding del metodo increment() */</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">increment</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">if</span> <span style="color:#000">(!</span><span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">isOver</span><span style="color:#000">())</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#a90d91">super</span><span style="color:#000">.</span><span style="color:#836c28">increment</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></section><section>
+<h2 id="uso-della-classe-limitcounter">Uso della classe <code>LimitCounter</code></h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseLimitCounter</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span><span style="color:#000">(</span><span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">s</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">LimitCounter</span> <span style="color:#000">c</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">LimitCounter</span><span style="color:#000">(</span><span style="color:#000">5</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">c</span><span style="color:#000">.</span><span style="color:#836c28">getValue</span><span style="color:#000">());</span> <span style="color:#177500">// 0
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">c</span><span style="color:#000">.</span><span style="color:#836c28">isOver</span><span style="color:#000">());</span> <span style="color:#177500">// false
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#000">c</span><span style="color:#000">.</span><span style="color:#836c28">increment</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">c</span><span style="color:#000">.</span><span style="color:#836c28">increment</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">c</span><span style="color:#000">.</span><span style="color:#836c28">getValue</span><span style="color:#000">());</span> <span style="color:#177500">// 2
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">c</span><span style="color:#000">.</span><span style="color:#836c28">isOver</span><span style="color:#000">());</span> <span style="color:#177500">// false
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#000">c</span><span style="color:#000">.</span><span style="color:#836c28">increment</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">c</span><span style="color:#000">.</span><span style="color:#836c28">increment</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">c</span><span style="color:#000">.</span><span style="color:#836c28">increment</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">c</span><span style="color:#000">.</span><span style="color:#836c28">increment</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">c</span><span style="color:#000">.</span><span style="color:#836c28">increment</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">c</span><span style="color:#000">.</span><span style="color:#836c28">increment</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">c</span><span style="color:#000">.</span><span style="color:#836c28">increment</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">c</span><span style="color:#000">.</span><span style="color:#836c28">getValue</span><span style="color:#000">());</span> <span style="color:#177500">// 5
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">c</span><span style="color:#000">.</span><span style="color:#836c28">isOver</span><span style="color:#000">());</span> <span style="color:#177500">// true
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></section><section>
+<h2 id="notazione-uml">Notazione UML</h2>
+<ul>
+<li>I campi/metodi protetti si annotano con un “#”</li>
+<li>I metodi overridden si riportano anche nella sottoclasse</li>
+</ul>
+<div class="mermaid" data-processed="true" pre-rendered="true"><svg aria-labelledby="chart-title-mermaid-1666255910182 chart-desc-mermaid-1666255910182" role="img" viewBox="0 0 429.609375 356" style="max-width: 429.609375px;" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" width="100%" id="mermaid-1666255910182"><title id="chart-title-mermaid-1666255910182"></title><desc id="chart-desc-mermaid-1666255910182"></desc><style>#mermaid-1666255910182 {font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:16px;fill:#333;}#mermaid-1666255910182 .error-icon{fill:#552222;}#mermaid-1666255910182 .error-text{fill:#552222;stroke:#552222;}#mermaid-1666255910182 .edge-thickness-normal{stroke-width:2px;}#mermaid-1666255910182 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-1666255910182 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-1666255910182 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-1666255910182 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-1666255910182 .marker{fill:#333333;stroke:#333333;}#mermaid-1666255910182 .marker.cross{stroke:#333333;}#mermaid-1666255910182 svg{font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:16px;}#mermaid-1666255910182 g.classGroup text{fill:#9370DB;fill:#131300;stroke:none;font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:10px;}#mermaid-1666255910182 g.classGroup text .title{font-weight:bolder;}#mermaid-1666255910182 .nodeLabel,#mermaid-1666255910182 .edgeLabel{color:#131300;}#mermaid-1666255910182 .edgeLabel .label rect{fill:#ECECFF;}#mermaid-1666255910182 .label text{fill:#131300;}#mermaid-1666255910182 .edgeLabel .label span{background:#ECECFF;}#mermaid-1666255910182 .classTitle{font-weight:bolder;}#mermaid-1666255910182 .node rect,#mermaid-1666255910182 .node circle,#mermaid-1666255910182 .node ellipse,#mermaid-1666255910182 .node polygon,#mermaid-1666255910182 .node path{fill:#ECECFF;stroke:#9370DB;stroke-width:1px;}#mermaid-1666255910182 .divider{stroke:#9370DB;stroke:1;}#mermaid-1666255910182 g.clickable{cursor:pointer;}#mermaid-1666255910182 g.classGroup rect{fill:#ECECFF;stroke:#9370DB;}#mermaid-1666255910182 g.classGroup line{stroke:#9370DB;stroke-width:1;}#mermaid-1666255910182 .classLabel .box{stroke:none;stroke-width:0;fill:#ECECFF;opacity:0.5;}#mermaid-1666255910182 .classLabel .label{fill:#9370DB;font-size:10px;}#mermaid-1666255910182 .relation{stroke:#333333;stroke-width:1;fill:none;}#mermaid-1666255910182 .dashed-line{stroke-dasharray:3;}#mermaid-1666255910182 #compositionStart,#mermaid-1666255910182 .composition{fill:#333333!important;stroke:#333333!important;stroke-width:1;}#mermaid-1666255910182 #compositionEnd,#mermaid-1666255910182 .composition{fill:#333333!important;stroke:#333333!important;stroke-width:1;}#mermaid-1666255910182 #dependencyStart,#mermaid-1666255910182 .dependency{fill:#333333!important;stroke:#333333!important;stroke-width:1;}#mermaid-1666255910182 #dependencyStart,#mermaid-1666255910182 .dependency{fill:#333333!important;stroke:#333333!important;stroke-width:1;}#mermaid-1666255910182 #extensionStart,#mermaid-1666255910182 .extension{fill:#333333!important;stroke:#333333!important;stroke-width:1;}#mermaid-1666255910182 #extensionEnd,#mermaid-1666255910182 .extension{fill:#333333!important;stroke:#333333!important;stroke-width:1;}#mermaid-1666255910182 #aggregationStart,#mermaid-1666255910182 .aggregation{fill:#ECECFF!important;stroke:#333333!important;stroke-width:1;}#mermaid-1666255910182 #aggregationEnd,#mermaid-1666255910182 .aggregation{fill:#ECECFF!important;stroke:#333333!important;stroke-width:1;}#mermaid-1666255910182 #lollipopStart,#mermaid-1666255910182 .lollipop{fill:#ECECFF!important;stroke:#333333!important;stroke-width:1;}#mermaid-1666255910182 #lollipopEnd,#mermaid-1666255910182 .lollipop{fill:#ECECFF!important;stroke:#333333!important;stroke-width:1;}#mermaid-1666255910182 .edgeTerminals{font-size:11px;}#mermaid-1666255910182 :root{--mermaid-font-family:"trebuchet ms",verdana,arial,sans-serif;}</style><g><defs><marker orient="auto" markerHeight="240" markerWidth="190" refY="7" refX="0" class="marker aggregation classDiagram" id="classDiagram-aggregationStart"><path d="M 18,7 L9,13 L1,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="28" markerWidth="20" refY="7" refX="19" class="marker aggregation classDiagram" id="classDiagram-aggregationEnd"><path d="M 18,7 L9,13 L1,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="240" markerWidth="190" refY="7" refX="0" class="marker extension classDiagram" id="classDiagram-extensionStart"><path d="M 1,7 L18,13 V 1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="28" markerWidth="20" refY="7" refX="19" class="marker extension classDiagram" id="classDiagram-extensionEnd"><path d="M 1,1 V 13 L18,7 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="240" markerWidth="190" refY="7" refX="0" class="marker composition classDiagram" id="classDiagram-compositionStart"><path d="M 18,7 L9,13 L1,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="28" markerWidth="20" refY="7" refX="19" class="marker composition classDiagram" id="classDiagram-compositionEnd"><path d="M 18,7 L9,13 L1,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="240" markerWidth="190" refY="7" refX="0" class="marker dependency classDiagram" id="classDiagram-dependencyStart"><path d="M 5,7 L9,13 L1,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="28" markerWidth="20" refY="7" refX="19" class="marker dependency classDiagram" id="classDiagram-dependencyEnd"><path d="M 18,7 L9,13 L14,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="240" markerWidth="190" refY="7" refX="0" class="marker lollipop classDiagram" id="classDiagram-lollipopStart"><circle r="6" cy="7" cx="6" fill="white" stroke="black"></circle></marker></defs><g class="root"><g class="clusters"></g><g class="edgePaths"><path marker-start="url(#classDiagram-extensionStart)" style="fill:none" class="edge-pattern-solid relation" id="id1" d="M214.8046875,153L214.8046875,157.16666666666666C214.8046875,161.33333333333334,214.8046875,169.66666666666666,214.8046875,178C214.8046875,186.33333333333334,214.8046875,194.66666666666666,214.8046875,198.83333333333334L214.8046875,203"></path></g><g class="edgeLabels"><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="edgeLabel"></span></div></foreignObject></g></g></g><g class="nodes"><g transform="translate(214.8046875, 80.5)" id="classid-ExtendibleCounter-0" class="node default"><rect height="145" width="413.609375" y="-72.5" x="-206.8046875" class="outer title-state"></rect><line y2="-42.5" y1="-42.5" x2="206.8046875" x1="-206.8046875" class="divider"></line><line y2="-4.5" y1="-4.5" x2="206.8046875" x1="-206.8046875" class="divider"></line><g class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel"></span></div></foreignObject><foreignObject transform="translate( -71.1171875, -65)" height="18" width="142.234375" class="classTitle"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">ExtendibleCounter</span></div></foreignObject><foreignObject transform="translate( -199.3046875, -31)" height="18" width="68.5"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">#int value</span></div></foreignObject><foreignObject transform="translate( -199.3046875, 3)" height="18" width="398.609375"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">+ExtendibleCounter(initialValue: int) : ExtendibleCounter</span></div></foreignObject><foreignObject transform="translate( -199.3046875, 25)" height="18" width="124.046875"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">+void increment()</span></div></foreignObject><foreignObject transform="translate( -199.3046875, 47)" height="18" width="103.328125"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">+int getValue()</span></div></foreignObject></g></g><g transform="translate(214.8046875, 275.5)" id="classid-LimitCounter-1" class="node default"><rect height="145" width="394.84375" y="-72.5" x="-197.421875" class="outer title-state"></rect><line y2="-42.5" y1="-42.5" x2="197.421875" x1="-197.421875" class="divider"></line><line y2="-4.5" y1="-4.5" x2="197.421875" x1="-197.421875" class="divider"></line><g class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel"></span></div></foreignObject><foreignObject transform="translate( -49.7734375, -65)" height="18" width="99.546875" class="classTitle"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">LimitCounter</span></div></foreignObject><foreignObject transform="translate( -189.921875, -31)" height="18" width="58.6875"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">#int limit</span></div></foreignObject><foreignObject transform="translate( -189.921875, 3)" height="18" width="379.84375"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">+LimitCounter(initialValue: int, limit: int) : LimitCounter</span></div></foreignObject><foreignObject transform="translate( -189.921875, 25)" height="18" width="136.515625"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">+isOver() : boolean</span></div></foreignObject><foreignObject transform="translate( -189.921875, 47)" height="18" width="124.046875"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">+void increment()</span></div></foreignObject></g></g></g></g></g></svg></div>
+
+</section><section>
+<h1 id="uno-scenario-completo">Uno scenario completo</h1>
+</section><section>
+<h2 id="una-applicazione-allo-scenario-domotica">Una applicazione allo scenario domotica</h2>
+<h3 id="elementi">Elementi</h3>
+<ul>
+<li>Usiamo <code>LimitCounter</code></li>
+<li>Definiamo una <code>LimitedLamp</code> (via estensione) che contiene un contatore, e che ha un tempo di vita basato sul numero di accensioni ammesse</li>
+<li>Un <code>EcoDomusController</code> si compone di $n$ <code>LimitedLamp</code>, e ha la possibilità di verificare se tutte le lampadine sono esaurite, e di accendere la lampadina alla quale è rimasto più tempo di vita</li>
+</ul>
+<h3 id="note-sulla-soluzione">Note sulla soluzione</h3>
+<ul>
+<li>Una alternativa era far sì che <code>EcoDomusController</code> componesse $n$ <code>SimpleLamp</code> e $n$ <code>LimitCounter</code></li>
+<li><code>LimitedLamp</code> realizza alcuni metodi per delegazione al suo contatore</li>
+<li>Per ora, non prevediamo l’aspetto di interazione con l’utente</li>
+</ul>
+</section><section>
+<h2 id="diagramma-uml-complessivo">Diagramma UML complessivo</h2>
+<p><img src="imgs/uml-domus.png" alt=""></p>
+</section><section>
+<h2 id="limitcounter"><code>LimitCounter</code></h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">LimitCounter</span> <span style="color:#a90d91">extends</span> <span style="color:#000">ExtendibleCounter</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">limit</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">LimitCounter</span><span style="color:#000">(</span><span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">initialValue</span><span style="color:#000">,</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">limit</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">super</span><span style="color:#000">(</span><span style="color:#000">initialValue</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">limit</span> <span style="color:#000">=</span> <span style="color:#000">limit</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">boolean</span> <span style="color:#000">isOver</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">getDistanceToLimit</span><span style="color:#000">()</span> <span style="color:#000">==</span> <span style="color:#000">0</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">int</span> <span style="color:#000">getDistanceToLimit</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">limit</span> <span style="color:#000">-</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">value</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">increment</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">if</span> <span style="color:#000">(!</span><span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">isOver</span><span style="color:#000">())</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#a90d91">super</span><span style="color:#000">.</span><span style="color:#836c28">increment</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></section><section>
+<h2 id="simplelamp"><code>SimpleLamp</code></h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">SimpleLamp</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">private</span> <span style="color:#a90d91">boolean</span> <span style="color:#000">switchedOn</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#000">SimpleLamp</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">switchedOn</span> <span style="color:#000">=</span> <span style="color:#a90d91">false</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">switchOn</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">switchedOn</span> <span style="color:#000">=</span> <span style="color:#a90d91">true</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">switchOff</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">switchedOn</span> <span style="color:#000">=</span> <span style="color:#a90d91">false</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">boolean</span> <span style="color:#000">isSwitchedOn</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">switchedOn</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></section><section>
+<h2 id="limitedlamp"><code>LimitedLamp</code></h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">LimitedLamp</span> <span style="color:#a90d91">extends</span> <span style="color:#000">SimpleLamp</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">private</span> <span style="color:#000">LimitCounter</span> <span style="color:#000">counter</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#000">LimitedLamp</span><span style="color:#000">(</span><span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">limit</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">super</span><span style="color:#000">();</span> <span style="color:#177500">// Questa istruzione è opzionale
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">counter</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">LimitCounter</span><span style="color:#000">(</span><span style="color:#000">0</span><span style="color:#000">,</span> <span style="color:#000">limit</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">switchOn</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">if</span> <span style="color:#000">(!</span><span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">isSwitchedOn</span><span style="color:#000">())</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#177500">// incremento solo se è una vera accensione
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>			<span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">counter</span><span style="color:#000">.</span><span style="color:#836c28">increment</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">if</span> <span style="color:#000">(!</span><span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">counter</span><span style="color:#000">.</span><span style="color:#836c28">isOver</span><span style="color:#000">())</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#a90d91">super</span><span style="color:#000">.</span><span style="color:#836c28">switchOn</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">int</span> <span style="color:#000">getRemainingLifeTime</span><span style="color:#000">()</span> <span style="color:#000">{</span> <span style="color:#177500">// delegazione a counter
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">counter</span><span style="color:#000">.</span><span style="color:#836c28">getDistanceToLimit</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">boolean</span> <span style="color:#000">isOver</span><span style="color:#000">()</span> <span style="color:#000">{</span> <span style="color:#177500">// delegazione a counter
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">counter</span><span style="color:#000">.</span><span style="color:#836c28">isOver</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></section><section>
+<h2 id="ecodomuscontroller"><code>EcoDomusController</code></h2>
+<div class="container">
+<div class="div">
+<div class="smaller">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">EcoDomusController</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#177500">/* Compongo n LimitedLamp */</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">final</span> <span style="color:#a90d91">private</span> <span style="color:#000">LimitedLamp</span><span style="color:#000">[]</span> <span style="color:#000">lamps</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#000">EcoDomusController</span><span style="color:#000">(</span><span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">size</span><span style="color:#000">,</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">lampsLimit</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">lamps</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">LimitedLamp</span><span style="color:#000">[</span><span style="color:#000">size</span><span style="color:#000">];</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">for</span> <span style="color:#000">(</span><span style="color:#a90d91">int</span> <span style="color:#000">i</span> <span style="color:#000">=</span> <span style="color:#000">0</span><span style="color:#000">;</span> <span style="color:#000">i</span> <span style="color:#000">&lt;</span> <span style="color:#000">size</span><span style="color:#000">;</span> <span style="color:#000">i</span><span style="color:#000">++)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">lamps</span><span style="color:#000">[</span><span style="color:#000">i</span><span style="color:#000">]</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">LimitedLamp</span><span style="color:#000">(</span><span style="color:#000">lampsLimit</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#000">LimitedLamp</span> <span style="color:#000">getLamp</span><span style="color:#000">(</span><span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">position</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">lamps</span><span style="color:#000">[</span><span style="color:#000">position</span><span style="color:#000">];</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">private</span> <span style="color:#000">LimitedLamp</span> <span style="color:#000">toBeUsedNext</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">LimitedLamp</span> <span style="color:#000">best</span> <span style="color:#000">=</span> <span style="color:#a90d91">null</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">for</span> <span style="color:#000">(</span><span style="color:#a90d91">final</span> <span style="color:#000">LimitedLamp</span> <span style="color:#000">lamp</span> <span style="color:#000">:</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">lamps</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#a90d91">if</span> <span style="color:#000">(!</span><span style="color:#000">lamp</span><span style="color:#000">.</span><span style="color:#836c28">isSwitchedOn</span><span style="color:#000">()</span> <span style="color:#000">&amp;&amp;</span> 
+</span></span><span style="display:flex;"><span>				<span style="color:#000">(</span> <span style="color:#000">best</span> <span style="color:#000">==</span> <span style="color:#a90d91">null</span> <span style="color:#000">||</span>
+</span></span><span style="display:flex;"><span>				  <span style="color:#000">lamp</span><span style="color:#000">.</span><span style="color:#836c28">getRemainingLifeTime</span><span style="color:#000">()</span> <span style="color:#000">&gt;</span> <span style="color:#000">best</span><span style="color:#000">.</span><span style="color:#836c28">getRemainingLifeTime</span><span style="color:#000">()))</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>				<span style="color:#000">best</span> <span style="color:#000">=</span> <span style="color:#000">lamp</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#000">best</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span></code></pre></div></div>
+</div>
+<div class="div">
+<div class="smaller">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span>	<span style="color:#177500">/* Accendo una lampadina spenta, scegliendola in modo economico */</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">switchOnOne</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">LimitedLamp</span> <span style="color:#000">lamp</span> <span style="color:#000">=</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">toBeUsedNext</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">if</span> <span style="color:#000">(</span><span style="color:#000">lamp</span> <span style="color:#000">!=</span> <span style="color:#a90d91">null</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#000">lamp</span><span style="color:#000">.</span><span style="color:#836c28">switchOn</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#177500">/* Verifico se sono tutti accesi */</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">boolean</span> <span style="color:#000">allOver</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">for</span> <span style="color:#000">(</span><span style="color:#a90d91">final</span> <span style="color:#000">LimitedLamp</span> <span style="color:#000">lamp</span> <span style="color:#000">:</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">lamps</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#a90d91">if</span> <span style="color:#000">(!</span><span style="color:#000">lamp</span><span style="color:#000">.</span><span style="color:#836c28">isOver</span><span style="color:#000">())</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>				<span style="color:#a90d91">return</span> <span style="color:#a90d91">false</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#a90d91">true</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#000">String</span> <span style="color:#000">toString</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">String</span> <span style="color:#000">s</span> <span style="color:#000">=</span> <span style="color:#c41a16">""</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">for</span> <span style="color:#000">(</span><span style="color:#a90d91">final</span> <span style="color:#000">LimitedLamp</span> <span style="color:#000">lamp</span> <span style="color:#000">:</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">lamps</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#000">s</span> <span style="color:#000">+=</span> <span style="color:#000">(</span><span style="color:#000">lamp</span><span style="color:#000">.</span><span style="color:#836c28">isSwitchedOn</span><span style="color:#000">()</span> <span style="color:#000">?</span> <span style="color:#c41a16">"on"</span> <span style="color:#000">:</span> <span style="color:#c41a16">"off"</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#000">s</span> <span style="color:#000">+=</span> <span style="color:#c41a16">"("</span> <span style="color:#000">+</span> <span style="color:#000">lamp</span><span style="color:#000">.</span><span style="color:#836c28">getRemainingLifeTime</span><span style="color:#000">()</span> <span style="color:#000">+</span> <span style="color:#c41a16">")"</span> <span style="color:#000">+</span> <span style="color:#c41a16">" | "</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#000">s</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></div>
+</div></div>
+</section><section>
+<h2 id="useecodomuscontroller"><code>UseEcoDomusController</code></h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseEcoDomusController</span> <span style="color:#a90d91">extends</span> <span style="color:#000">Object</span><span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span><span style="color:#000">(</span><span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">s</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#177500">// Simulazione sessione di lavoro
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#a90d91">final</span> <span style="color:#000">EcoDomusController</span> <span style="color:#000">controller</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">controller</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">EcoDomusController</span><span style="color:#000">(</span><span style="color:#000">5</span><span style="color:#000">,</span> <span style="color:#000">10</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">controller</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#177500">// off(10) | off(10) | off(10) | off(10) | off(10) |
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#a90d91">final</span> <span style="color:#000">LimitedLamp</span> <span style="color:#000">l</span> <span style="color:#000">=</span> <span style="color:#000">controller</span><span style="color:#000">.</span><span style="color:#836c28">getLamp</span><span style="color:#000">(</span><span style="color:#000">0</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">l</span><span style="color:#000">.</span><span style="color:#836c28">switchOn</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">l</span><span style="color:#000">.</span><span style="color:#836c28">switchOff</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">l</span><span style="color:#000">.</span><span style="color:#836c28">switchOn</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">controller</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#177500">// on(8) | off(10) | off(10) | off(10) | off(10) |
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#000">controller</span><span style="color:#000">.</span><span style="color:#836c28">switchOnOne</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">controller</span><span style="color:#000">.</span><span style="color:#836c28">switchOnOne</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">controller</span><span style="color:#000">.</span><span style="color:#836c28">switchOnOne</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">controller</span><span style="color:#000">.</span><span style="color:#836c28">switchOnOne</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">controller</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#177500">// on(8) | on(9) | on(9) | on(9) | on(9) |
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></section><section>
+<h1 id="ulteriori-dettagli">Ulteriori dettagli</h1>
+</section><section>
+<h2 id="ereditarietà-e-costruttori">Ereditarietà e costruttori</h2>
+<h3 id="scenario-standard">Scenario standard</h3>
+<ul>
+<li>Assumiamo si stia costruendo una catena di sottoclassi</li>
+<li>Ogni classe introduce alcuni campi, che si aggiungono a quelli della superclasse a formare la struttura di un oggetto in memoria</li>
+</ul>
+<h3 id="linee-guida-per-la-singola-classe">Linee guida per la singola classe</h3>
+<ul>
+<li>Dovrà definire tutti i costruttori necessari, seguendo l’approccio visto</li>
+<li>Ogni costruttore dovrà preoccuparsi di:
+<ul>
+<li>Chiamare l’opportuno costruttore padre come prima istruzione (<code>super</code>), altrimenti il costruttore di default verrà chiamato, se c’è</li>
+<li>Inizializzare propriamente i campi localmente definiti</li>
+</ul>
+</li>
+</ul>
+<h3 id="ordine-operazioni-a-seguito-di-una-new">Ordine operazioni a seguito di una <code>new</code></h3>
+<ul>
+<li>Prima si crea l’oggetto con tutti i campi non inizializzati</li>
+<li>Il codice dei costruttori sarà eseguito, dalle superclassi in giù</li>
+</ul>
+</section><section>
+<h2 id="analisi-cosa-succede">Analisi: cosa succede?</h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">A</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">protected</span> <span style="color:#a90d91">int</span> <span style="color:#000">i</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#000">A</span><span style="color:#000">(</span><span style="color:#a90d91">int</span> <span style="color:#000">i</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#c41a16">"A().. prima "</span> <span style="color:#000">+</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">i</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">i</span> <span style="color:#000">=</span> <span style="color:#000">i</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#c41a16">"A().. dopo "</span> <span style="color:#000">+</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">i</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">B</span> <span style="color:#a90d91">extends</span> <span style="color:#000">A</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">protected</span> <span style="color:#000">String</span> <span style="color:#000">s</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#000">B</span><span style="color:#000">(</span><span style="color:#000">String</span> <span style="color:#000">s</span><span style="color:#000">,</span> <span style="color:#a90d91">int</span> <span style="color:#000">i</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">super</span><span style="color:#000">(</span><span style="color:#000">i</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#c41a16">"B().. prima "</span> <span style="color:#000">+</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">s</span> <span style="color:#000">+</span> <span style="color:#c41a16">" "</span> <span style="color:#000">+</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">i</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">s</span> <span style="color:#000">=</span> <span style="color:#000">s</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#c41a16">"B().. dopo "</span> <span style="color:#000">+</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">s</span> <span style="color:#000">+</span> <span style="color:#c41a16">" "</span> <span style="color:#000">+</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">i</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span><span style="color:#000">(</span><span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">s</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">B</span> <span style="color:#000">b</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">B</span><span style="color:#000">(</span><span style="color:#c41a16">"prova"</span><span style="color:#000">,</span> <span style="color:#000">5</span><span style="color:#000">);</span> <span style="color:#177500">// Cosa succede?
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></section><section>
+<h2 id="chiamate-di-metodo-alla-superclasse-super">Chiamate di metodo alla superclasse (<code>super</code>)</h2>
+<h3 id="chiamate-super">Chiamate <code>super</code></h3>
+<ul>
+<li>Una sottoclasse <code>C</code> può includere una invocazione del tipo <code>super.m(..args..)</code></li>
+<li>Non solo in caso di overriding</li>
+<li>Cosa ci aspettiamo succeda?</li>
+</ul>
+<h3 id="semantica">Semantica</h3>
+<ul>
+<li>Accade quello che accadrebbe se la classe corrente non avesse il metodo <code>m</code>, ossia viene eseguito il metodo <code>m</code> della superclasse
+<ul>
+<li>O, se anche lì assente, quello nella sopraclasse più specifica che lo definisce</li>
+</ul>
+</li>
+<li>Se tale metodo al suo interno chiama un altro metodo <code>n</code> (su <code>this</code>), allora si ritorna a considerare la versione più specifica a partire dalla classe di partenza <code>C</code></li>
+</ul>
+</section><section>
+<h2 id="analisi-cosa-succede-1">Analisi: cosa succede?</h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">C</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">protected</span> <span style="color:#a90d91">int</span> <span style="color:#000">i</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">void</span> <span style="color:#000">m</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#c41a16">"C.m.. prima "</span> <span style="color:#000">+</span> <span style="color:#000">i</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">i</span><span style="color:#000">++;</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#c41a16">"C.m.. dopo "</span> <span style="color:#000">+</span> <span style="color:#000">i</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">D</span> <span style="color:#a90d91">extends</span> <span style="color:#000">C</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">D</span><span style="color:#000">(</span><span style="color:#a90d91">int</span> <span style="color:#000">i</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">i</span> <span style="color:#000">=</span> <span style="color:#000">i</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">void</span> <span style="color:#000">m</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">super</span><span style="color:#000">.</span><span style="color:#836c28">m</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#c41a16">"D.m.. dopo "</span> <span style="color:#000">+</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">i</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span><span style="color:#000">(</span><span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">s</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">new</span> <span style="color:#000">D</span><span style="color:#000">(</span><span style="color:#000">5</span><span style="color:#000">).</span><span style="color:#836c28">m</span><span style="color:#000">();</span> <span style="color:#177500">// Cosa succede?
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></section><section>
+<h2 id="altra-analisi-cosa-succede">Altra analisi: cosa succede?</h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">E</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">protected</span> <span style="color:#a90d91">int</span> <span style="color:#000">i</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">void</span> <span style="color:#000">m</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">i</span><span style="color:#000">++;</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">n</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">void</span> <span style="color:#000">n</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">i</span> <span style="color:#000">=</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">i</span> <span style="color:#000">+</span> <span style="color:#000">10</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">F</span> <span style="color:#a90d91">extends</span> <span style="color:#000">E</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">void</span> <span style="color:#000">n</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">i</span> <span style="color:#000">=</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">i</span> <span style="color:#000">+</span> <span style="color:#000">100</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span><span style="color:#000">(</span><span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">s</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">F</span> <span style="color:#000">f</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">F</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">f</span><span style="color:#000">.</span><span style="color:#836c28">i</span> <span style="color:#000">=</span> <span style="color:#000">10</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">f</span><span style="color:#000">.</span><span style="color:#836c28">m</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#c41a16">""</span> <span style="color:#000">+</span> <span style="color:#000">f</span><span style="color:#000">.</span><span style="color:#836c28">i</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></section><section>
+<h2 id="un-esempio-riprendiamo-limitcounter">Un esempio: riprendiamo <code>LimitCounter</code></h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">LimitCounter</span> <span style="color:#a90d91">extends</span> <span style="color:#000">ExtendibleCounter</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">limit</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">LimitCounter</span><span style="color:#000">(</span><span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">initialValue</span><span style="color:#000">,</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">limit</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">super</span><span style="color:#000">(</span><span style="color:#000">initialValue</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">limit</span> <span style="color:#000">=</span> <span style="color:#000">limit</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">boolean</span> <span style="color:#000">isOver</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">getDistanceToLimit</span><span style="color:#000">()</span> <span style="color:#000">==</span> <span style="color:#000">0</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">int</span> <span style="color:#000">getDistanceToLimit</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">limit</span> <span style="color:#000">-</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">value</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">increment</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">if</span> <span style="color:#000">(!</span><span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">isOver</span><span style="color:#000">())</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#a90d91">super</span><span style="color:#000">.</span><span style="color:#836c28">increment</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></section><section>
+<h2 id="un-esempio-nuova-specializzazione">Un esempio: nuova specializzazione</h2>
+<h3 id="cosa-succede-chiamando-increment-su-un-unlimitedcounter">Cosa succede chiamando <code>increment()</code> su un <code>UnlimitedCounter</code>?</h3>
+<ul>
+<li>Non avendo fatto overriding, si chiama la versione di <code>LimitCounter</code></li>
+<li>In <code>LimitCounter</code> si chiama <code>this.isOver()</code> che chiama <code>this.getDistanceToLimit()</code></li>
+<li>La versione di <code>this.getDistanceToLimit()</code> eseguita è quella di <code>UnlimitedCounter</code></li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UnlimitedCounter</span> <span style="color:#a90d91">extends</span> <span style="color:#000">LimitCounter</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#000">UnlimitedCounter</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">super</span><span style="color:#000">(</span><span style="color:#000">0</span><span style="color:#000">,</span> <span style="color:#000">Integer</span><span style="color:#000">.</span><span style="color:#836c28">MAX_VALUE</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">int</span> <span style="color:#000">getDistanceToLimit</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#177500">// Quindi il contatore non scade mai
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#a90d91">return</span> <span style="color:#000">Integer</span><span style="color:#000">.</span><span style="color:#836c28">MAX_VALUE</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></section><section>
+<h2 id="uso-di-unlimitedcounter">Uso di <code>UnlimitedCounter</code></h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseUnlimitedCounter</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span><span style="color:#000">(</span><span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">s</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">UnlimitedCounter</span> <span style="color:#000">uc</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">UnlimitedCounter</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#c41a16">"isOver: "</span> <span style="color:#000">+</span> <span style="color:#000">uc</span><span style="color:#000">.</span><span style="color:#836c28">isOver</span><span style="color:#000">());</span> <span style="color:#177500">// false
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#c41a16">"LifeTime: "</span> <span style="color:#000">+</span> <span style="color:#000">uc</span><span style="color:#000">.</span><span style="color:#836c28">getDistanceToLimit</span><span style="color:#000">());</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">uc</span><span style="color:#000">.</span><span style="color:#836c28">increment</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">uc</span><span style="color:#000">.</span><span style="color:#836c28">increment</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">uc</span><span style="color:#000">.</span><span style="color:#836c28">increment</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#c41a16">"isOver: "</span> <span style="color:#000">+</span> <span style="color:#000">uc</span><span style="color:#000">.</span><span style="color:#836c28">isOver</span><span style="color:#000">());</span> <span style="color:#177500">// false
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#c41a16">"LifeTime: "</span> <span style="color:#000">+</span> <span style="color:#000">uc</span><span style="color:#000">.</span><span style="color:#836c28">getDistanceToLimit</span><span style="color:#000">());</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div><!--
+
+  %*  `uc.isOver()` chiama la versione del metodo in `LimitCounter`
+  %*  questa chiama il metodo `getRemainingLifeCycle()`, ma di nuovo nella classe `UnlimitedCounter`!
+  % 
+
+-->
+</section><section>
+<h2 id="la-tabella-dei-metodi-virtuali">La tabella dei metodi virtuali</h2>
+<h3 id="anche-detta-vtable-call-table-dispatch-table">Anche detta: vtable, call table, dispatch table</h3>
+<ul>
+<li>ogni classe <code>C</code> ne ha una, ed è accessibile ai suoi oggetti</li>
+<li>ad ogni metodo definito (o ereditato) in <code>C</code>, associa il codice corrispondente da eseguire, ossia la classe che riporta il body</li>
+<li>le chiamate da risolvere con tale tabella sono quelle con <em><strong>late binding</strong></em></li>
+<li>è una struttura che rende efficiente il polimorfismo fra classi (che vedremo)</li>
+<li>è utile conoscerla anche se non è detto che la JVM usi esattamente tale struttura</li>
+<li>fa comprendere il funzionamento di <code>this.</code> e <code>super.</code></li>
+</ul>
+<h3 id="esempio-1">Esempio</h3>
+<p>Come sono fatte le tabelle relative alle classi <code>LimitedCounter</code> e <code>UnlimitedCounter</code> nell’esempio precedente?</p>
+</section><section>
+<h2 id="esempio-gestione-memoria-stackheapvtables">Esempio gestione memoria: stack/heap/vtables</h2>
+<p><img src="imgs/layout.png" alt=""></p>
+</section><section>
+<h2 id="il-modificatore-final">Il modificatore <code>final</code></h2>
+<h3 id="problema">Problema</h3>
+<ul>
+<li>Tramite l’overriding e le chiamate <code>super</code> è possibile prendere classi esistenti e modificarle con grande flessibilità</li>
+<li>Questo introduce problemi di sicurezza, specialmente connessi al polimorfismo che vedremo nella prossima lezione</li>
+</ul>
+<h3 id="soluzione-final">Soluzione: <code>final</code></h3>
+<ul>
+<li>Oltre che per i campi (e argomenti di funzione o variabili, come già visto), è possibile dichiare <code>final</code> anche metodi e intere classi</li>
+<li>Un metodo <code>final</code> è un metodo che NON può essere ri-definito per overriding</li>
+<li>Una classe <code>final</code> non può essere estesa</li>
+</ul>
+<h3 id="nelle-librerie-java">Nelle librerie Java</h3>
+<ul>
+<li>Moltissime classi sono <code>final</code>, ad esempio <code>String</code></li>
+</ul>
+</section><section>
+<h2 id="overriding-e-controllo-daccesso">Overriding e controllo d’accesso</h2>
+<h3 id="regole-per-fare-loverriding-di-un-metodo-m">Regole per fare l’overriding di un metodo $M$</h3>
+<ul>
+<li>La nuova versione deve avere esattamente la stessa signature</li>
+<li>È possibile estendere la visibilità di un metodo (da <code>protected</code> a <code>public</code>)</li>
+<li>Non è possile limitare la visibilità di un metodo (p.e. da <code>public</code> a <code>protected</code>, o da <code>public</code> a <code>private</code>)</li>
+<li>È possibile indicare il metodo <code>final</code></li>
+</ul>
+<p>$\Rightarrow$ sono tutte conseguenze del principio di sostituibilità</p>
+</section><section>
+<h2 id="la-classe-object">La classe <code>Object</code></h2>
+<h3 id="estensione-di-default">Estensione di default</h3>
+<ul>
+<li>Una classe deve per forza estendere da qualcosa</li>
+<li>Se non lo fa, si assume che estenda <code>java.lang.Object</code></li>
+<li>Quindi ogni classe eredita (indirettamente) da <code>Object</code></li>
+<li><code>Object</code> è la radice della gerarchia di ereditarietà di Java</li>
+</ul>
+<h3 id="classe-object">Classe <code>Object</code></h3>
+<p>Fornisce alcuni metodi di utilità generale</p>
+<ul>
+<li><code>toString()</code>, che stampa informazioni sulla classe e la posizione in memoria dell’oggetto</li>
+<li><code>clone()</code>, per clonare un oggetto</li>
+<li><code>equals()</code> e <code>hashCode()</code>, usati nelle collection</li>
+<li><code>notify()</code> e <code>wait()</code>, usati nella gestione dei thread</li>
+<li>…</li>
+</ul>
+</section><section>
+<h2 id="annotazione-override">Annotazione <code>@Override</code></h2>
+<ul>
+<li>Metodi che fanno override di metodi di interfacce/classi base possono essere annotati con <code>@Override</code>
+<ul>
+<li>Non è necessario, ma è buona prassi</li>
+</ul>
+</li>
+<li>Implicazioni
+<ul>
+<li>Il compilatore genererà un errore se il metodo non fa effettivamente override</li>
+<li>Migliora la leggibilità di codice, rendendo immediatamente evidenti i casi di override di metodi</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">Person</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#177500">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#000">@Override</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">String</span> <span style="color:#000">toString</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#177500">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></section><section>
+</section>
+
+  
+
+
+</div>
+      
+
+    </div>
+<script type="text/javascript" src="/reveal-hugo/object-assign.js"></script>
+
+<a href="/reveal-js/dist/print/" id="print-location" style="display: none;"></a>
+
+<script type="application/json" id="reveal-hugo-site-params">{"custom_theme":"custom-theme.scss","custom_theme_compile":true,"custom_theme_options":{"enablesourcemap":true,"targetpath":"css/custom-theme.css"},"height":"900","highlight_theme":"default","history":true,"mermaid":[{"startOnLoad":false}],"slide_number":true,"theme":"white","transition":"slide","transition_speed":"fast","width":"1440"}</script>
+<script type="application/json" id="reveal-hugo-page-params">null</script>
+
+<script src="/reveal-js/dist/reveal.js"></script>
+
+
+  
+  
+  <script type="text/javascript" src="/reveal-js/plugin/markdown/markdown.js"></script>
+  
+  <script type="text/javascript" src="/reveal-js/plugin/highlight/highlight.js"></script>
+  
+  <script type="text/javascript" src="/reveal-js/plugin/zoom/zoom.js"></script>
+  
+  <script type="text/javascript" src="/reveal-js/plugin/notes/notes.js"></script>
+  
+  
+  <script type="text/javascript" src="/reveal-js/plugin/notes/notes.js"></script>
+
+
+
+
+<script type="text/javascript">
+  
+  
+  function camelize(map) {
+    if (map) {
+      Object.keys(map).forEach(function(k) {
+        newK = k.replace(/(\_\w)/g, function(m) { return m[1].toUpperCase() });
+        if (newK != k) {
+          map[newK] = map[k];
+          delete map[k];
+        }
+      });
+    }
+    return map;
+  }
+  
+  var revealHugoDefaults = { center: true, controls: true, history: true, progress: true, transition: "slide" };
+
+  var revealHugoPlugins = { 
+    plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealZoom ]
+   };
+  var revealHugoSiteParams = JSON.parse(document.getElementById('reveal-hugo-site-params').innerHTML);
+  var revealHugoPageParams = JSON.parse(document.getElementById('reveal-hugo-page-params').innerHTML);
+  
+  var options = Object.assign({},
+    camelize(revealHugoDefaults),
+    camelize(revealHugoSiteParams),
+    camelize(revealHugoPageParams),
+    camelize(revealHugoPlugins));
+  Reveal.initialize(options);
+</script>
+
+
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@9.1.6/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({"startOnLoad":false});
+
+    let render = (event) => {
+      let mermaidElems = event.currentSlide.querySelectorAll('.mermaid');
+      if (!mermaidElems.length){
+          return
+      }
+      mermaidElems.forEach(mermaidElem => {
+          let processed = mermaidElem.getAttribute('data-processed');
+          if (!processed){
+              
+              mermaid.init(undefined, mermaidElem);
+          }
+      });
+    };
+    Reveal.addEventListener('slidechanged', render);
+    Reveal.addEventListener('ready', render);
+  </script>
+
+    <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+</script>
+
+<script type="text/javascript" id="MathJax-script" async="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+</script>
+
+    
+  
+
+</body></html>
