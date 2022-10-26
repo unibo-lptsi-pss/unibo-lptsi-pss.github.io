@@ -1,0 +1,931 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="utf-8">
+<title>Progettazione e Sviluppo del Software</title>
+<meta name="description" content="Progettazione e Sviluppo del Software, Tecnologie dei Sistemi Informatici">
+<meta name="author" content="Danilo Pianini">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="/reveal-js/dist/reset.css">
+<link rel="stylesheet" href="/reveal-js/dist/reveal.css">
+  <link rel="stylesheet" href="/css/custom-theme.min.b14bd2cb8ebd9f5aadd1914151911df5ab7b2264253b1df19c307933796d5e56.css" id="theme"><link rel="stylesheet" href="/highlight-js/default.min.css">
+    
+<link rel="stylesheet" href="https://gitcdn.link/repo/DanySK/css-blur-animation/master/blur.css">
+<link href="https://fonts.googleapis.com/css?family=Roboto Mono" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Oxygen Mono" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Ubuntu Mono" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+
+  </head>
+  <body>
+    
+    <div class="reveal">
+      <div class="slides">
+  
+
+    <section><h1 id="polimorfismo">Polimorfismo</h1>
+<h4 id="progettazione-e-sviluppo-del-software">Progettazione e Sviluppo del Software</h4>
+<h4 id="cdl-tecnologie-dei-sistemi-informatici">C.D.L. Tecnologie dei Sistemi Informatici</h4>
+<h3 id="roberto-casadei-----robycasadeiuniboitmailtorobycasadeiuniboit"><a href="mailto:roby.casadei@unibo.it">Roberto Casadei — <code>roby.casadei@unibo.it</code></a></h3>
+<h3 id="danilo-pianini-----danilopianiniuniboitmailtodanilopianiniuniboit"><a href="mailto:danilo.pianini@unibo.it">Danilo Pianini — <code>danilo.pianini@unibo.it</code></a></h3>
+<p><a href="?print-pdf&amp;pdfSeparateFragments=false"><i class="fa fa-print" aria-hidden="true"></i> versione stampabile</a></p>
+</section><section>
+<h2 id="nota">Nota</h2>
+<ul>
+<li>
+<p>Questo materiale è ampiamente basato su quello realizzato dal Prof.
+Mirko Viroli, che ringrazio.</p>
+</li>
+<li>
+<p>Ogni errore riscontratovi è esclusiva responsabilità degli autori di questo documento.</p>
+</li>
+</ul>
+</section><section>
+<h2 id="outline">Outline</h2>
+<h3 id="goal-della-lezione">Goal della lezione</h3>
+<ul>
+<li>Illustrare la connessione fra polimorfismo inclusivo e ereditarietà</li>
+<li>Mostrare le interconnessioni con interfacce e classi astratte</li>
+<li>Mostrare le varie ripercussioni nel linguaggio</li>
+</ul>
+<h3 id="argomenti">Argomenti</h3>
+<ul>
+<li>Polimorfismo inclusivo con le classi</li>
+<li>Layout oggetti in memoria</li>
+<li>Autoboxing dei tipi primitivi</li>
+<li>Tipi a run-time (cast, <code>instanceof</code>)</li>
+<li>Classi astratte</li>
+</ul>
+</section><section>
+<h1 id="polimorfismo-inclusivo-con-le-classi">Polimorfismo inclusivo con le classi</h1>
+</section><section>
+<h2 id="ereditarietà-e-polimorfismo">Ereditarietà e polimorfismo</h2>
+<h3 id="ricordando-il-principio-di-sostituibilità">Ricordando il principio di sostituibilità</h3>
+<p>Se <code>B</code> è un sottotipo di <code>A</code> allora ogni oggetto di <code>B</code> può essere utilizzato (e “deve poter” essere utilizzabile) dove ci si attende un oggetto di <code>A</code></p>
+<h3 id="con-lereditarietà">Con l’ereditarietà</h3>
+<ul>
+<li>Con la definizione: <code>class B extends A { ... }</code></li>
+<li>Gli oggetti della classe <code>B</code> rispondono a tutti i messaggi previsti dalla classe <code>A</code> (ed eventualmente a qualcuno in più)</li>
+<li>Quindi un oggetto della classe <code>B</code> potrebbe essere passato dove se ne aspetta uno della classe <code>A</code>, senza comportare problemi (di “typing”)</li>
+</ul>
+<h3 id="conseguenza">Conseguenza:</h3>
+<p>Visto che è possibile, corretto, ed utile, allora in Java si considera <code>B</code> come un sottotipo di <code>A</code> a tutti gli effetti!</p>
+</section><section>
+<h2 id="polimorfismo-con-le-classi">Polimorfismo con le classi</h2>
+<p><img src="imgs/uml-poli.png" alt=""></p>
+</section><section>
+<h2 id="polimorfismo-con-le-classi-1">Polimorfismo con le classi</h2>
+<h3 id="in-una-classe-d-che-usi-una-classe-c">In una classe <code>D</code> che usi una classe <code>C</code>…</h3>
+<ul>
+<li>
+<p>ci saranno punti in <code>D</code> in cui ci si attende oggetti della classe <code>C</code></p>
+<ul>
+<li>come argomenti a metodi, o da depositare nei campi..</li>
+</ul>
+</li>
+<li>
+<p>si potranno effettivamente passare oggetti della classe <code>C</code>, ma anche delle classi <code>C1</code>, <code>C2</code>,..,<code>C5</code>, o di ogni altra classe successivamente creata che estende, direttamente o indirettamente <code>C</code></p>
+</li>
+</ul>
+<div class="container">
+<div class="col">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">D</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">C</span> <span style="color:#000">c</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">D</span><span style="color:#000">(</span><span style="color:#000">C</span> <span style="color:#000">c</span><span style="color:#000">)</span> <span style="color:#000">{</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">c</span> <span style="color:#000">=</span> <span style="color:#000">c</span><span style="color:#000">;</span> <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></div>
+<div class="col">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">C</span> <span style="color:#000">{</span> <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">C1</span> <span style="color:#a90d91">extends</span> <span style="color:#000">C</span> <span style="color:#000">{</span> <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">new</span> <span style="color:#000">D</span><span style="color:#000">(</span><span style="color:#a90d91">new</span> <span style="color:#000">C1</span><span style="color:#000">());</span> <span style="color:#177500">// OK
+</span></span></span></code></pre></div></div></div>
+<h3 id="le-sottoclassi-di-c">Le sottoclassi di <code>C</code></h3>
+<p>A tutti gli effetti, gli oggetti delle sottoclassi di <code>C</code> sono compatibili con gli oggetti della classe <code>C</code></p>
+<ul>
+<li>supportano lo <em>stesso contratto</em> (in generale, qualche operazione in più)</li>
+<li>hanno lo <em>stesso stato</em>, ovveto gli stessi campi definiti in <code>C</code> (in generale, qualcuno in più)</li>
+<li>hanno auspicabilmente un comportamento compatibile</li>
+</ul>
+</section><section>
+<h2 id="layout-oggetti-in-memoria">Layout oggetti in memoria</h2>
+<h3 id="alcuni-aspetti-del-layout-degli-oggetti-in-memoria">Alcuni aspetti del layout degli oggetti in memoria…</h3>
+<p>Diamo alcune informazioni generali e astratte. Ogni JVM potrebbe realizzare gli oggetti in modo un po’ diverso. Questi elementi sono tuttavia comuni.</p>
+<h3 id="struttura-di-un-oggetto-in-memoria">Struttura di un oggetto in memoria</h3>
+<ul>
+<li>
+<p>Inizia con una intestazione ereditata da <code>Object</code> (16 byte circa), che include</p>
+<ul>
+<li>Indicazione di quale sia la <em>classe dell’oggetto</em> (runtime type information)</li>
+<li><em>Tabella dei puntatori ai metodi</em>, per supportare il late-binding</li>
+<li>I campi (privati) della classe <code>Object</code></li>
+</ul>
+</li>
+<li>
+<p>Via via tutti i campi della classe, a partire da quelli delle superclassi</p>
+</li>
+</ul>
+<h3 id="conseguenze-se-la-classe-c-è-sottoclasse-di-a">Conseguenze: se la classe <code>C</code> è sottoclasse di <code>A</code>…</h3>
+<p>Allora un oggetto di <code>C</code> è simile ad un oggetto di <code>A</code>, ha solo <em>informazioni aggiuntive</em> in fondo, e questo semplifica la sostituibilità!</p>
+</section><section>
+<h2 id="esempio-applicazione-polimorfismo-fra-classi----uml">Esempio applicazione polimorfismo fra classi – UML</h2>
+<p><img src="imgs/uml-person.png" alt=""></p>
+</section><section>
+<h2 id="person"><code>Person</code></h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Person</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#000">String</span> <span style="color:#000">name</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">id</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">Person</span><span style="color:#000">(</span><span style="color:#a90d91">final</span> <span style="color:#000">String</span> <span style="color:#000">name</span><span style="color:#000">,</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">id</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">super</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">name</span> <span style="color:#000">=</span> <span style="color:#000">name</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">id</span> <span style="color:#000">=</span> <span style="color:#000">id</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">String</span> <span style="color:#000">getName</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">name</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">int</span> <span style="color:#000">getId</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">id</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">String</span> <span style="color:#000">toString</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>       <span style="color:#a90d91">return</span> <span style="color:#c41a16">"P [name="</span> <span style="color:#000">+</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">name</span> <span style="color:#000">+</span> <span style="color:#c41a16">", id="</span> <span style="color:#000">+</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">id</span> <span style="color:#000">+</span> <span style="color:#c41a16">"]"</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></section><section>
+<h2 id="student"><code>Student</code></h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Student</span> <span style="color:#a90d91">extends</span> <span style="color:#000">Person</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">final</span> <span style="color:#a90d91">private</span> <span style="color:#a90d91">int</span> <span style="color:#000">matriculationYear</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#000">Student</span><span style="color:#000">(</span><span style="color:#a90d91">final</span> <span style="color:#000">String</span> <span style="color:#000">name</span><span style="color:#000">,</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">id</span><span style="color:#000">,</span> 
+</span></span><span style="display:flex;"><span>			           <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">matriculationYear</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">super</span><span style="color:#000">(</span><span style="color:#000">name</span><span style="color:#000">,</span> <span style="color:#000">id</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">matriculationYear</span> <span style="color:#000">=</span> <span style="color:#000">matriculationYear</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">int</span> <span style="color:#000">getMatriculationYear</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#000">matriculationYear</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#000">String</span> <span style="color:#000">toString</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#c41a16">"S [getName()="</span> <span style="color:#000">+</span> <span style="color:#000">getName</span><span style="color:#000">()</span> <span style="color:#000">+</span> 
+</span></span><span style="display:flex;"><span>				<span style="color:#c41a16">", getId()="</span> <span style="color:#000">+</span> <span style="color:#000">getId</span><span style="color:#000">()</span> <span style="color:#000">+</span>
+</span></span><span style="display:flex;"><span>				<span style="color:#c41a16">", matriculationYear="</span> <span style="color:#000">+</span> <span style="color:#000">matriculationYear</span> <span style="color:#000">+</span> <span style="color:#c41a16">"]"</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></section><section>
+<h2 id="teacher"><code>Teacher</code></h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.Arrays</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Teacher</span> <span style="color:#a90d91">extends</span> <span style="color:#000">Person</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">final</span> <span style="color:#a90d91">private</span> <span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">courses</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#000">Teacher</span><span style="color:#000">(</span><span style="color:#a90d91">final</span> <span style="color:#000">String</span> <span style="color:#000">name</span><span style="color:#000">,</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">id</span><span style="color:#000">,</span> 
+</span></span><span style="display:flex;"><span>			           <span style="color:#a90d91">final</span> <span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">courses</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">super</span><span style="color:#000">(</span><span style="color:#000">name</span><span style="color:#000">,</span> <span style="color:#000">id</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">courses</span> <span style="color:#000">=</span> <span style="color:#000">courses</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">getCourses</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#177500">// copia difensiva necessaria a preservare incapsulamento
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#a90d91">return</span> <span style="color:#000">Arrays</span><span style="color:#000">.</span><span style="color:#836c28">copyOf</span><span style="color:#000">(</span><span style="color:#000">courses</span><span style="color:#000">,</span><span style="color:#000">courses</span><span style="color:#000">.</span><span style="color:#836c28">length</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#000">String</span> <span style="color:#000">toString</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#c41a16">"T [getName()="</span> <span style="color:#000">+</span> <span style="color:#000">getName</span><span style="color:#000">()</span> <span style="color:#000">+</span> 
+</span></span><span style="display:flex;"><span>				<span style="color:#c41a16">", getId()="</span> <span style="color:#000">+</span> <span style="color:#000">getId</span><span style="color:#000">()</span> <span style="color:#000">+</span> 
+</span></span><span style="display:flex;"><span>				<span style="color:#c41a16">", courses="</span> <span style="color:#000">+</span> <span style="color:#000">Arrays</span><span style="color:#000">.</span><span style="color:#836c28">toString</span><span style="color:#000">(</span><span style="color:#000">courses</span><span style="color:#000">)</span> <span style="color:#000">+</span> <span style="color:#c41a16">"]"</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></section><section>
+<h2 id="useperson"><code>UsePerson</code></h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UsePerson</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span><span style="color:#000">(</span><span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>	    
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">var</span> <span style="color:#000">people</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Person</span><span style="color:#000">[]{</span>
+</span></span><span style="display:flex;"><span>				<span style="color:#a90d91">new</span> <span style="color:#000">Student</span><span style="color:#000">(</span><span style="color:#c41a16">"Marco Rossi"</span><span style="color:#000">,</span><span style="color:#000">334612</span><span style="color:#000">,</span><span style="color:#000">2013</span><span style="color:#000">),</span>
+</span></span><span style="display:flex;"><span>				<span style="color:#a90d91">new</span> <span style="color:#000">Student</span><span style="color:#000">(</span><span style="color:#c41a16">"Gino Bianchi"</span><span style="color:#000">,</span><span style="color:#000">352001</span><span style="color:#000">,</span><span style="color:#000">2013</span><span style="color:#000">),</span>
+</span></span><span style="display:flex;"><span>				<span style="color:#a90d91">new</span> <span style="color:#000">Student</span><span style="color:#000">(</span><span style="color:#c41a16">"Carlo Verdi"</span><span style="color:#000">,</span><span style="color:#000">354100</span><span style="color:#000">,</span><span style="color:#000">2012</span><span style="color:#000">),</span>
+</span></span><span style="display:flex;"><span>				<span style="color:#a90d91">new</span> <span style="color:#000">Teacher</span><span style="color:#000">(</span><span style="color:#c41a16">"Mirko Viroli"</span><span style="color:#000">,</span><span style="color:#000">34121</span><span style="color:#000">,</span><span style="color:#a90d91">new</span> <span style="color:#000">String</span><span style="color:#000">[]{</span>
+</span></span><span style="display:flex;"><span>						<span style="color:#c41a16">"OOP"</span><span style="color:#000">,</span><span style="color:#c41a16">"PPS"</span><span style="color:#000">,</span><span style="color:#c41a16">"PC"</span> 
+</span></span><span style="display:flex;"><span>				<span style="color:#000">})</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">};</span>
+</span></span><span style="display:flex;"><span>		
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">for</span> <span style="color:#000">(</span><span style="color:#a90d91">final</span> <span style="color:#000">var</span> <span style="color:#000">p</span><span style="color:#000">:</span> <span style="color:#000">people</span><span style="color:#000">){</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">p</span><span style="color:#000">.</span><span style="color:#836c28">getName</span><span style="color:#000">()+</span><span style="color:#c41a16">": "</span><span style="color:#000">+</span><span style="color:#000">p</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></section><section>
+<h2 id="la-differenza-col-caso-del-polimorfismo-con-le-interfacce">La differenza col caso del polimorfismo con le interfacce</h2>
+<h3 id="polimorfismo-con-le-interfacce">Polimorfismo con le interfacce</h3>
+<ul>
+<li>La classe <code>D</code> usa una interfaccia <code>I</code>, non un’altra classe <code>C</code></li>
+<li>Si può assumere vi sia un certo contratto, ma non che vi sia uno specifico comportamento (quello di <code>C</code>) che sia stato eventualmente specializzato</li>
+</ul>
+<h3 id="le-classi-non-consentono-ereditarietà-multipla-in-c-si">Le classi <em>non</em> consentono <em>“ereditarietà multipla”</em> (in C++ si)</h3>
+<ul>
+<li><em>NON</em> è possibile in Java dichiarare: <code>class C extends D1, D2, ... { ... }</code>
+<ul>
+<li>si creerebbero problemi se <code>D1</code> e <code>D2</code> avessero proprietà comuni</li>
+<li>diventerebbe complicato gestire la struttura in memoria dell’oggetto</li>
+</ul>
+</li>
+<li>Con le interfacce non ci sono questi problemi, risultato:
+<ul>
+<li>è molto più semplice prendere una classe esistente e renderla compatibile con una interfaccia <code>I</code>, piuttosto che con una classe <code>C</code></li>
+</ul>
+</li>
+</ul>
+</section><section>
+<h2 id="riassunto-polimorfismo-inclusivo">Riassunto polimorfismo inclusivo</h2>
+<h3 id="polimorfismo-1">Polimorfismo</h3>
+<ul>
+<li>Fornisce sopratipi che raccolgono classi uniformi tra loro</li>
+<li>Usabili da funzionalità/<em>contesti ad alta riusabilità</em></li>
+<li>Utile per costruire <em>collezioni omogenee</em> di oggetti</li>
+</ul>
+<h3 id="polimorfismo-con-le-interfacce-1">Polimorfismo con le interfacce</h3>
+<ul>
+<li>Solo relativo ad un <em>contratto</em></li>
+<li>Facilità nel far aderire al contratto classi esistenti</li>
+<li>Spesso vi è la tendenza a creare un alto numero di interfacce (cf. <em>interface segregation principle</em>)</li>
+</ul>
+<h3 id="polimorfismo-con-le-classi-2">Polimorfismo con le classi</h3>
+<ul>
+<li>Relativo a <em>contratto e comportamento</em></li>
+<li>In genere ci si aderisce per costruzione dall’inizio</li>
+<li>Vincolato dall’ereditarietà singola</li>
+</ul>
+</section><section>
+<h2 id="come-simulare-ereditarietà-multipla">Come simulare ereditarietà multipla?</h2>
+<p><img src="imgs/uml-diamond.png" alt=""></p>
+</section><section>
+<h2 id="come-simulare-ereditarietà-multipla-1">Come simulare ereditarietà multipla?</h2>
+<h3 id="definizioni">Definizioni</h3>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">interface</span> <span style="color:#3f6e75">Counter</span> <span style="color:#000">{</span> <span style="color:#000">...</span> <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">interface</span> <span style="color:#3f6e75">MultiCounter</span> <span style="color:#a90d91">extends</span> <span style="color:#000">Counter</span> <span style="color:#000">{</span> <span style="color:#000">...</span> <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">interface</span> <span style="color:#3f6e75">BiCounter</span> <span style="color:#a90d91">extends</span> <span style="color:#000">Counter</span> <span style="color:#000">{</span> <span style="color:#000">...</span> <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">interface</span> <span style="color:#3f6e75">BiAndMultiCounter</span> <span style="color:#a90d91">extends</span> <span style="color:#000">MultiCounter</span><span style="color:#000">,</span> <span style="color:#000">BiCounter</span> <span style="color:#000">{</span> <span style="color:#000">...</span> <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">CounterImpl</span> <span style="color:#a90d91">implements</span> <span style="color:#000">Counter</span> <span style="color:#000">{</span> <span style="color:#000">...</span> <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">MultiCounterImpl</span> <span style="color:#a90d91">extends</span> <span style="color:#000">CounterImpl</span> <span style="color:#a90d91">implements</span> <span style="color:#000">MultiCounter</span><span style="color:#000">{</span> <span style="color:#000">...</span> <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">BiCounterImpl</span> <span style="color:#a90d91">extends</span> <span style="color:#000">CounterImpl</span> <span style="color:#a90d91">implements</span> <span style="color:#000">BiCounter</span> <span style="color:#000">{</span> <span style="color:#000">...</span> <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">BiAndMultiCounterImpl</span> <span style="color:#a90d91">extends</span> <span style="color:#000">BiCounterImpl</span> <span style="color:#a90d91">implements</span> <span style="color:#000">BiAndMultiCounter</span> <span style="color:#000">{</span> <span style="color:#000">...</span> <span style="color:#000">}</span>
+</span></span></code></pre></div><h3 id="implementazione-di-biandmulticounterimpl">Implementazione di <code>BiAndMultiCounterImpl</code></h3>
+<ul>
+<li>si estende da <code>BiCounterImpl</code>, si delega via composizione ad un oggetto di <code>MultiCounterImpl</code></li>
+</ul>
+<h3 id="complessivamente">Complessivamente</h3>
+<ul>
+<li>si ha completa e corretta sostituibilità tramite le interfacce</li>
+<li>si ha ottimo riuso delle implementazioni</li>
+<li>$\Rightarrow$ si esplori la possibilità di usare solo delegazione, non ereditarietà</li>
+</ul>
+</section><section>
+<h1 id="tipi-a-run-time">Tipi a run-time</h1>
+</section><section>
+<h2 id="everything-is-an-object">Everything is an <code>Object</code></h2>
+<h3 id="perché-avere-una-radice-comune-per-tutte-le-classi">Perché avere una radice comune per tutte le classi?</h3>
+<ul>
+<li>Consente di fattorizzare lì comportamento comune</li>
+<li>Consente la costruzione di funzionalità che lavorano su qualunque oggetto</li>
+</ul>
+<h3 id="esempi-di-applicazione">Esempi di applicazione:</h3>
+<ul>
+<li>Container polimorfici, ad esempio via array di tipo <code>Object[]</code>
+<ul>
+<li>permette di costruire un elenco di oggetti di natura anche diversa</li>
+<li><code>new Object[]{ new SimpleLamp(), new Integer(10) }</code></li>
+</ul>
+</li>
+<li>Definizione di metodi con numero variabile di argomenti
+<ul>
+<li>argomenti codificati come <code>Object[]</code></li>
+</ul>
+</li>
+</ul>
+</section><section>
+<h2 id="uso-di-object">Uso di <code>Object[]</code></h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.Arrays</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#177500">/* Tutti gli oggetti possono formare un elenco Object[] */</span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">AObject</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span><span style="color:#000">(</span><span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">s</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">Object</span><span style="color:#000">[]</span> <span style="color:#000">os</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Object</span><span style="color:#000">[</span><span style="color:#000">5</span><span style="color:#000">];</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">os</span><span style="color:#000">[</span><span style="color:#000">0</span><span style="color:#000">]</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Object</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">os</span><span style="color:#000">[</span><span style="color:#000">1</span><span style="color:#000">]</span> <span style="color:#000">=</span> <span style="color:#c41a16">"stringa"</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">os</span><span style="color:#000">[</span><span style="color:#000">2</span><span style="color:#000">]</span> <span style="color:#000">=</span> <span style="color:#000">Integer</span><span style="color:#000">.</span><span style="color:#836c28">valueOf</span><span style="color:#000">(</span><span style="color:#000">10</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">os</span><span style="color:#000">[</span><span style="color:#000">3</span><span style="color:#000">]</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#a90d91">int</span><span style="color:#000">[]</span> <span style="color:#000">{</span> <span style="color:#000">10</span><span style="color:#000">,</span> <span style="color:#000">20</span><span style="color:#000">,</span> <span style="color:#000">30</span> <span style="color:#000">};</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">os</span><span style="color:#000">[</span><span style="color:#000">4</span><span style="color:#000">]</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">java</span><span style="color:#000">.</span><span style="color:#836c28">util</span><span style="color:#000">.</span><span style="color:#836c28">Date</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">printAll</span><span style="color:#000">(</span><span style="color:#000">os</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">Arrays</span><span style="color:#000">.</span><span style="color:#836c28">toString</span><span style="color:#000">(</span><span style="color:#000">os</span><span style="color:#000">));</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">Arrays</span><span style="color:#000">.</span><span style="color:#836c28">deepToString</span><span style="color:#000">(</span><span style="color:#000">os</span><span style="color:#000">));</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">printAll</span><span style="color:#000">(</span><span style="color:#a90d91">final</span> <span style="color:#000">Object</span><span style="color:#000">[]</span> <span style="color:#000">array</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">for</span> <span style="color:#000">(</span><span style="color:#a90d91">final</span> <span style="color:#000">Object</span> <span style="color:#000">o</span> <span style="color:#000">:</span> <span style="color:#000">array</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#c41a16">"Oggetto:"</span> <span style="color:#000">+</span> <span style="color:#000">o</span><span style="color:#000">.</span><span style="color:#836c28">toString</span><span style="color:#000">());</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></section><section>
+<h2 id="tipo-statico-e-tipo-a-run-time">Tipo statico e tipo a run-time</h2>
+<h3 id="una-dualità-introdotta-dal-subtyping-polimorfismo-inclusivo">Una dualità introdotta dal subtyping (polimorfismo inclusivo)</h3>
+<ul>
+<li><em>Tipo statico</em>: il tipo di dato di una variabile dichiarata <!-- espressione desumibile dal compilatore --></li>
+<li><em>Tipo run-time</em>: il tipo di dato del valore(/oggetto) effettivamente presente (potrebbe essere un sottotipo di quello statico)
+<ul>
+<li>in questo caso le chiamate di metodo sono fatte per late-binding</li>
+</ul>
+</li>
+</ul>
+<h3 id="esempio-nel-codice-di-printall-dentro-al-for">Esempio nel codice di <code>printAll()</code>, dentro al <code>for</code></h3>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">printAll</span><span style="color:#000">(</span><span style="color:#a90d91">final</span> <span style="color:#000">Object</span><span style="color:#000">[]</span> <span style="color:#000">array</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">for</span> <span style="color:#000">(</span><span style="color:#a90d91">final</span> <span style="color:#000">Object</span> <span style="color:#000">o</span> <span style="color:#000">:</span> <span style="color:#000">array</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#c41a16">"Oggetto:"</span> <span style="color:#000">+</span> <span style="color:#000">o</span><span style="color:#000">.</span><span style="color:#836c28">toString</span><span style="color:#000">());</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span></code></pre></div><ul>
+<li>Tipo statico di <code>o</code> è <code>Object</code></li>
+<li>Tipo run-time di <code>o</code> varia di volta in volta: <code>Object</code>, <code>String</code>, <code>Integer</code>, …</li>
+</ul>
+<h3 id="ispezione-tipo-a-run-time">Ispezione tipo a run-time</h3>
+<ul>
+<li>In alcuni casi è necessario ispezionare il tipo a run-time</li>
+<li>Lo si fa con l’operatore <code>instanceof</code></li>
+</ul>
+</section><section>
+<h2 id="instanceof-e-conversione-di-tipo"><code>instanceof</code> e conversione di tipo</h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#177500">/* Everything is an Object, ma quale?? */</span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">AObject2</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span><span style="color:#000">(</span><span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">s</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">Object</span><span style="color:#000">[]</span> <span style="color:#000">os</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Object</span><span style="color:#000">[</span><span style="color:#000">5</span><span style="color:#000">];</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">os</span><span style="color:#000">[</span><span style="color:#000">0</span><span style="color:#000">]</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Object</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">os</span><span style="color:#000">[</span><span style="color:#000">1</span><span style="color:#000">]</span> <span style="color:#000">=</span> <span style="color:#000">Integer</span><span style="color:#000">.</span><span style="color:#836c28">valueOf</span><span style="color:#000">(</span><span style="color:#000">10</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">os</span><span style="color:#000">[</span><span style="color:#000">2</span><span style="color:#000">]</span> <span style="color:#000">=</span> <span style="color:#000">Integer</span><span style="color:#000">.</span><span style="color:#836c28">valueOf</span><span style="color:#000">(</span><span style="color:#000">20</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">os</span><span style="color:#000">[</span><span style="color:#000">3</span><span style="color:#000">]</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#a90d91">int</span><span style="color:#000">[]</span> <span style="color:#000">{</span> <span style="color:#000">10</span><span style="color:#000">,</span> <span style="color:#000">20</span><span style="color:#000">,</span> <span style="color:#000">30</span> <span style="color:#000">};</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">os</span><span style="color:#000">[</span><span style="color:#000">4</span><span style="color:#000">]</span> <span style="color:#000">=</span> <span style="color:#000">Integer</span><span style="color:#000">.</span><span style="color:#836c28">valueOf</span><span style="color:#000">(</span><span style="color:#000">30</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">printAllAndSum</span><span style="color:#000">(</span><span style="color:#000">os</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#177500">/* Voglio anche stampare la somma degli Integer presenti */</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">printAllAndSum</span><span style="color:#000">(</span><span style="color:#a90d91">final</span> <span style="color:#000">Object</span><span style="color:#000">[]</span> <span style="color:#000">array</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">int</span> <span style="color:#000">sum</span> <span style="color:#000">=</span> <span style="color:#000">0</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">for</span> <span style="color:#000">(</span><span style="color:#a90d91">final</span> <span style="color:#000">Object</span> <span style="color:#000">o</span> <span style="color:#000">:</span> <span style="color:#000">array</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#c41a16">"Oggetto:"</span> <span style="color:#000">+</span> <span style="color:#000">o</span><span style="color:#000">.</span><span style="color:#836c28">toString</span><span style="color:#000">());</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#a90d91">if</span> <span style="color:#000">(</span><span style="color:#000">o</span> <span style="color:#a90d91">instanceof</span> <span style="color:#000">Integer</span><span style="color:#000">)</span> <span style="color:#000">{</span> <span style="color:#177500">// test a runtime
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>				<span style="color:#a90d91">final</span> <span style="color:#000">Integer</span> <span style="color:#000">i</span> <span style="color:#000">=</span> <span style="color:#000">(</span><span style="color:#000">Integer</span><span style="color:#000">)</span> <span style="color:#000">o</span><span style="color:#000">;</span> <span style="color:#177500">// (down)cast
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>				<span style="color:#000">sum</span> <span style="color:#000">=</span> <span style="color:#000">sum</span> <span style="color:#000">+</span> <span style="color:#000">i</span><span style="color:#000">.</span><span style="color:#836c28">intValue</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#c41a16">"Somme degli Integer: "</span> <span style="color:#000">+</span> <span style="color:#000">sum</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></section><section>
+<h2 id="instanceof-e-conversione-di-tipo-1"><code>instanceof</code> e conversione di tipo</h2>
+<h3 id="ispezione-ed-uso-della-sottoclasse-effettiva">Ispezione ed uso della sottoclasse effettiva</h3>
+<p>Data una variabile (o espressione) del tipo statico <code>C</code> può essere necessario capire se sia della sottoclasse <code>D</code>, in tal caso, su tale oggetto si vuole richiamare un metodo specifico della classe <code>D</code>.</p>
+<h3 id="coppia-instanceof--conversione">Coppia <code>instanceof</code> + conversione</h3>
+<ul>
+<li>con l’operatore <code>instanceof</code> si verifica se effettivamente sia di tipo <code>D</code></li>
+<li>con la conversione si deposita il riferimento in una espressione con tipo statico <code>D</code></li>
+<li>a questo punto si può invocare il metodo</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#000">C</span> <span style="color:#000">x</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">java</span><span style="color:#000">.</span><span style="color:#836c28">util</span><span style="color:#000">.</span><span style="color:#836c28">Random</span><span style="color:#000">().</span><span style="color:#836c28">nextInt</span><span style="color:#000">()</span> <span style="color:#000">&gt;</span> <span style="color:#000">0</span> <span style="color:#000">?</span> <span style="color:#a90d91">new</span> <span style="color:#000">D</span><span style="color:#000">()</span> <span style="color:#000">:</span> <span style="color:#a90d91">null</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">if</span><span style="color:#000">(</span><span style="color:#000">x</span> <span style="color:#a90d91">instanceof</span> <span style="color:#000">D</span><span style="color:#000">)</span> <span style="color:#000">{</span> <span style="color:#000">D</span> <span style="color:#000">d</span> <span style="color:#000">=</span> <span style="color:#000">(</span><span style="color:#000">D</span><span style="color:#000">)</span> <span style="color:#000">x</span><span style="color:#000">;</span> <span style="color:#177500">/* ... */</span> <span style="color:#000">}</span>
+</span></span></code></pre></div><h3 id="solo-due-tipi-di-conversione-fra-classi-consentite">Solo due tipi di conversione fra classi consentite</h3>
+<ul>
+<li><em>Upcast</em>: da sottoclasse a superclasse / classe antenata (spesso automatica)
+ <!-- * e.g., da `Integer` ad `Object` -->
+</li>
+<li><em>Downcast</em>: da superclasse a sottoclasse / classe discendente (potrebbe fallire)
+ <!-- * e.g., da `Object` ad `Integer` -->
+</li>
+</ul>
+<!--
+```java
+Integer i = Integer.valueOf(5);
+Object o = i;
+Integer i2 = (Integer) o;
+o = 1.0;
+Integer i3 = (Integer) o; // ClassCastException
+```
+-->
+</section><section>
+<h2 id="errori-possibili-connessi-alle-conversioni">Errori possibili connessi alle conversioni</h2>
+<h3 id="errori-semantici-a-tempo-di-compilazione-quindi-innocui">Errori semantici (a tempo di compilazione, quindi innocui)</h3>
+<ul>
+<li>Tentativo di conversione che non sia né upcast né downcast</li>
+<li>Chiamata ad un metodo non definito dalla classe (statica) del receiver</li>
+</ul>
+<h3 id="errori-desecuzione-molto-pericolosi-evitabili-con-linstanceof">Errori d’esecuzione (molto pericolosi, evitabili con l’<code>instanceof</code>)</h3>
+<ul>
+<li>Downcast verso una classe incompatibile col tipo dinamico, riportato come <code>ClassCastException</code></li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#177500">/* Showing ClassCastException */</span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">ShowCCE</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span><span style="color:#000">(</span><span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">as</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">Object</span> <span style="color:#000">o</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Integer</span><span style="color:#000">(</span><span style="color:#000">10</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">Integer</span> <span style="color:#000">i</span> <span style="color:#000">=</span> <span style="color:#000">(</span><span style="color:#000">Integer</span><span style="color:#000">)</span> <span style="color:#000">o</span><span style="color:#000">;</span> <span style="color:#177500">// OK
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#000">String</span> <span style="color:#000">s</span> <span style="color:#000">=</span> <span style="color:#000">(</span><span style="color:#000">String</span><span style="color:#000">)</span> <span style="color:#000">o</span><span style="color:#000">;</span> <span style="color:#177500">// ClassCastException
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#177500">// int i = o.intValue(); // No, intValue() non def.
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#177500">// String s = (String)i; // No, tipi inconvertibili
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></section><section>
+<h2 id="instanceof-conversioni-e-person"><code>instanceof</code>, conversioni e <code>Person</code></h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UsePerson2</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span><span style="color:#000">(</span><span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">Person</span><span style="color:#000">[]</span> <span style="color:#000">people</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Person</span><span style="color:#000">[]</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>				<span style="color:#a90d91">new</span> <span style="color:#000">Student</span><span style="color:#000">(</span><span style="color:#c41a16">"Marco Rossi"</span><span style="color:#000">,</span> <span style="color:#000">334612</span><span style="color:#000">,</span> <span style="color:#000">2013</span><span style="color:#000">),</span>
+</span></span><span style="display:flex;"><span>				<span style="color:#a90d91">new</span> <span style="color:#000">Student</span><span style="color:#000">(</span><span style="color:#c41a16">"Gino Bianchi"</span><span style="color:#000">,</span> <span style="color:#000">352001</span><span style="color:#000">,</span> <span style="color:#000">2013</span><span style="color:#000">),</span>
+</span></span><span style="display:flex;"><span>				<span style="color:#a90d91">new</span> <span style="color:#000">Student</span><span style="color:#000">(</span><span style="color:#c41a16">"Carlo Verdi"</span><span style="color:#000">,</span> <span style="color:#000">354100</span><span style="color:#000">,</span> <span style="color:#000">2012</span><span style="color:#000">),</span>
+</span></span><span style="display:flex;"><span>				<span style="color:#a90d91">new</span> <span style="color:#000">Teacher</span><span style="color:#000">(</span><span style="color:#c41a16">"Mirko Viroli"</span><span style="color:#000">,</span> <span style="color:#000">34121</span><span style="color:#000">,</span> 
+</span></span><span style="display:flex;"><span>						    <span style="color:#a90d91">new</span> <span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">{</span> <span style="color:#c41a16">"PO"</span><span style="color:#000">,</span> <span style="color:#c41a16">"FINF-A"</span><span style="color:#000">,</span> <span style="color:#c41a16">"ISAC"</span> <span style="color:#000">})</span> <span style="color:#000">};</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">for</span> <span style="color:#000">(</span><span style="color:#a90d91">final</span> <span style="color:#000">Person</span> <span style="color:#000">p</span> <span style="color:#000">:</span> <span style="color:#000">people</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#a90d91">if</span> <span style="color:#000">(</span><span style="color:#000">p</span> <span style="color:#a90d91">instanceof</span> <span style="color:#000">Student</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>				<span style="color:#a90d91">final</span> <span style="color:#000">Student</span> <span style="color:#000">s</span> <span style="color:#000">=</span> <span style="color:#000">(</span><span style="color:#000">Student</span><span style="color:#000">)</span> <span style="color:#000">p</span><span style="color:#000">;</span> <span style="color:#177500">// Qui non fallisce
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>				<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">s</span><span style="color:#000">.</span><span style="color:#836c28">getName</span><span style="color:#000">()</span> <span style="color:#000">+</span> <span style="color:#c41a16">" "</span> <span style="color:#000">+</span> 
+</span></span><span style="display:flex;"><span>				                   <span style="color:#000">s</span><span style="color:#000">.</span><span style="color:#836c28">getMatriculationYear</span><span style="color:#000">());</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></section><section>
+<h1 id="classi-astratte">Classi astratte</h1>
+</section><section>
+<h2 id="motivazioni">Motivazioni</h2>
+<h3 id="fra-interfacce-e-classi">Fra interfacce e classi</h3>
+<ul>
+<li>Le interfacce descrivono solo un contratto</li>
+<li>Le classi definiscono un comportamento completo</li>
+<li>…c’è margine per costrutti intermedi?</li>
+</ul>
+<h3 id="classi-astratte-1">Classi astratte</h3>
+<ul>
+<li>Sono usate per descrivere classi dal comportamento parziale, ossia in cui alcuni metodi sono dicharati ma non implementati</li>
+<li>Tali classi non sono istanziabili (l’operatore <code>new</code> non può essere usato)</li>
+<li>Possono essere estese e ivi completate, da cui la generazione di oggetti</li>
+</ul>
+<h3 id="tipica-applicazione-pattern-template-method">Tipica applicazione: pattern <em>Template Method</em></h3>
+<p>Serve a dichiare uno schema di strategia con un metodo che definisce un comportamente comune (spesso <code>final</code>), ma che usa metodi da concretizzare in sottoclassi</p>
+</section><section>
+<h2 id="classi-astratte-2">Classi astratte</h2>
+<h3 id="una-classe-astratta">Una classe astratta:</h3>
+<ul>
+<li>è dichiarata tale: <code>abstract class C ... { ... }</code></li>
+<li><em>non è istanziabile</em> (in quanto astratta, ovvero non pienamente specificata)</li>
+<li>può opzionalmente dichiarare <em>metodi astratti</em>:
+<ul>
+<li>hanno forma ad esempio: <code>abstract int m(int a, String s);</code></li>
+<li>ossia senza body, come nelle dichiarazioni delle interfacce</li>
+</ul>
+</li>
+</ul>
+<h3 id="altri-aspetti">Altri aspetti</h3>
+<ul>
+<li>può definire campi, costruttori, metodi, concreti e non</li>
+<li>…deve definire con cura il loro livello d’accesso</li>
+<li>può estendere da una classe astratta o non astratta</li>
+<li>può implementare interfacce, senza essere tenuta ad ottemperarne il contratto
+<ul>
+<li>se non implementati, i metodi dell’interfaccia implementata sono astratti</li>
+</ul>
+</li>
+<li><em>chi estende una classe astratta può essere non-astratto solo se concretizza/implementa tutti i metodi astratti</em></li>
+</ul>
+</section><section>
+<h2 id="esempio-limitedlamp-come-classe-astratta">Esempio: <code>LimitedLamp</code> come classe astratta</h2>
+<h3 id="obiettivo">Obiettivo</h3>
+<ul>
+<li>Vogliamo progettare una estensione di <code>SimpleLamp</code> col concetto di esaurimento</li>
+<li>La strategia con la quale gestire tale esaurimento può essere varia</li>
+<li>Ma bisogna far sì che qualunque strategia si specifichi, sia garantito che:
+<ul>
+<li>la lampadina si accenda solo se non esaurita</li>
+<li>in caso di effettiva accensione sia possibile tenerne traccia ai fini della strategia</li>
+</ul>
+</li>
+</ul>
+<h3 id="soluzione">Soluzione</h3>
+<ul>
+<li>Un uso accurato di <code>abstract</code>, <code>final</code>, e <code>protected</code></li>
+<li>Daremo tre possibili specializzazioni per una <code>LimitedLamp</code>
+<ul>
+<li>che non si esaurisce mai</li>
+<li>che si esaurisce all’n-esima accensione</li>
+<li>che si esaurisce dopo un certo tempo dalla prima accensione</li>
+</ul>
+</li>
+</ul>
+</section><section>
+<h2 id="uml-complessivo">UML complessivo</h2>
+<p><img src="imgs/uml-abstract.png" alt=""></p>
+</section><section>
+<h2 id="simplelamp"><code>SimpleLamp</code></h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">SimpleLamp</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">private</span> <span style="color:#a90d91">boolean</span> <span style="color:#000">switchedOn</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#000">SimpleLamp</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">switchedOn</span> <span style="color:#000">=</span> <span style="color:#a90d91">false</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">switchOn</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">switchedOn</span> <span style="color:#000">=</span> <span style="color:#a90d91">true</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">switchOff</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">switchedOn</span> <span style="color:#000">=</span> <span style="color:#a90d91">false</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">boolean</span> <span style="color:#000">isSwitchedOn</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">switchedOn</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></section><section>
+<h2 id="limitedlamp"><code>LimitedLamp</code></h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">abstract</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">LimitedLamp</span> <span style="color:#a90d91">extends</span> <span style="color:#000">SimpleLamp</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#000">LimitedLamp</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">super</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#177500">/* Questo metodo è finale: 
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">	 * - regola la coerenza con okSwitch() e isOver() */</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">void</span> <span style="color:#000">switchOn</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">if</span> <span style="color:#000">(!</span><span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">isSwitchedOn</span><span style="color:#000">()</span> <span style="color:#000">&amp;&amp;</span> <span style="color:#000">!</span><span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">isOver</span><span style="color:#000">())</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#a90d91">super</span><span style="color:#000">.</span><span style="color:#836c28">switchOn</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">okSwitch</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#177500">// Cosa facciamo se abbiamo effettivamente acceso? Dipende dalla strategia
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>	<span style="color:#a90d91">protected</span> <span style="color:#a90d91">abstract</span> <span style="color:#a90d91">void</span> <span style="color:#000">okSwitch</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#177500">/* Strategia per riconoscere se la lamp è esaurita */</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">abstract</span> <span style="color:#a90d91">boolean</span> <span style="color:#000">isOver</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#000">String</span> <span style="color:#000">toString</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#c41a16">"Over: "</span> <span style="color:#000">+</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">isOver</span><span style="color:#000">()</span> <span style="color:#000">+</span> 
+</span></span><span style="display:flex;"><span>		       <span style="color:#c41a16">", switchedOn: "</span>	<span style="color:#000">+</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">isSwitchedOn</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></section><section>
+<h2 id="unlimitedlamp"><code>UnlimitedLamp</code></h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#177500">/* Non si esaurisce mai */</span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UnlimitedLamp</span> <span style="color:#a90d91">extends</span> <span style="color:#000">LimitedLamp</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#177500">/* Nessuna informazione extra da tenere */</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#000">UnlimitedLamp</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">super</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#177500">/* Allo switchOn.. non faccio nulla */</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">protected</span> <span style="color:#a90d91">void</span> <span style="color:#000">okSwitch</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#177500">/* Non è mai esaurita */</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">boolean</span> <span style="color:#000">isOver</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#a90d91">false</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></section><section>
+<h2 id="countdownlamp"><code>CountdownLamp</code></h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#177500">/* Si esaurisce all'n-esima accensione */</span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">CountdownLamp</span> <span style="color:#a90d91">extends</span> <span style="color:#000">LimitedLamp</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#177500">/* Quanti switch mancano */</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">private</span> <span style="color:#a90d91">int</span> <span style="color:#000">countdown</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#000">CountdownLamp</span><span style="color:#000">(</span><span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">countdown</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">super</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">countdown</span> <span style="color:#000">=</span> <span style="color:#000">countdown</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#177500">/* Allo switchOn.. decremento il count */</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">protected</span> <span style="color:#a90d91">void</span> <span style="color:#000">okSwitch</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">countdown</span><span style="color:#000">--;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#177500">/* Finito il count.. lamp esaurita */</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">boolean</span> <span style="color:#000">isOver</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">countdown</span> <span style="color:#000">==</span> <span style="color:#000">0</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></section><section>
+<h2 id="expirationtimelamp"><code>ExpirationTimeLamp</code></h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.Date</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#177500">/* Si esaurisce dopo un certo tempo (reale) dopo la prima accensione */</span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">ExpirationTimeLamp</span> <span style="color:#a90d91">extends</span> <span style="color:#000">LimitedLamp</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#177500">/* Tengo il momento dell'accensione e la durata */</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">private</span> <span style="color:#000">Date</span> <span style="color:#000">firstSwitchDate</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">private</span> <span style="color:#a90d91">long</span> <span style="color:#000">duration</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#000">ExpirationTimeLamp</span><span style="color:#000">(</span><span style="color:#a90d91">final</span> <span style="color:#a90d91">long</span> <span style="color:#000">duration</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">super</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">duration</span> <span style="color:#000">=</span> <span style="color:#000">duration</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">firstSwitchDate</span> <span style="color:#000">=</span> <span style="color:#a90d91">null</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#177500">/* Alla prima accensione, registro la data */</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">protected</span> <span style="color:#a90d91">void</span> <span style="color:#000">okSwitch</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">if</span> <span style="color:#000">(</span><span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">firstSwitchDate</span> <span style="color:#000">==</span> <span style="color:#a90d91">null</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">firstSwitchDate</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">java</span><span style="color:#000">.</span><span style="color:#836c28">util</span><span style="color:#000">.</span><span style="color:#836c28">Date</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#177500">/* Esaurita se è passato troppo tempo */</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">boolean</span> <span style="color:#000">isOver</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">firstSwitchDate</span> <span style="color:#000">!=</span> <span style="color:#a90d91">null</span> <span style="color:#000">&amp;&amp;</span>
+</span></span><span style="display:flex;"><span>		   <span style="color:#000">(</span><span style="color:#a90d91">new</span> <span style="color:#000">Date</span><span style="color:#000">().</span><span style="color:#836c28">getTime</span><span style="color:#000">()</span> <span style="color:#000">-</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">firstSwitchDate</span><span style="color:#000">.</span><span style="color:#836c28">getTime</span><span style="color:#000">()</span> 
+</span></span><span style="display:flex;"><span>				   <span style="color:#000">&gt;=</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">duration</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></section><section>
+<h2 id="uselamps"><code>UseLamps</code></h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseLamps</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#177500">// clausola throws Exception qui sotto necessaria!!
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span><span style="color:#000">(</span><span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">s</span><span style="color:#000">)</span> <span style="color:#a90d91">throws</span> <span style="color:#000">Exception</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">LimitedLamp</span> <span style="color:#000">lamp</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">UnlimitedLamp</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">lamp</span><span style="color:#000">.</span><span style="color:#836c28">switchOn</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#c41a16">"ul| "</span> <span style="color:#000">+</span> <span style="color:#000">lamp</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">for</span> <span style="color:#000">(</span><span style="color:#a90d91">int</span> <span style="color:#000">i</span> <span style="color:#000">=</span> <span style="color:#000">0</span><span style="color:#000">;</span> <span style="color:#000">i</span> <span style="color:#000">&lt;</span> <span style="color:#000">1000</span><span style="color:#000">;</span> <span style="color:#000">i</span><span style="color:#000">++)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#000">lamp</span><span style="color:#000">.</span><span style="color:#836c28">switchOff</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#000">lamp</span><span style="color:#000">.</span><span style="color:#836c28">switchOn</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#c41a16">"ul| "</span> <span style="color:#000">+</span> <span style="color:#000">lamp</span><span style="color:#000">);</span> <span style="color:#177500">// non si è esaurita
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">lamp</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">CountdownLamp</span><span style="color:#000">(</span><span style="color:#000">5</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">for</span> <span style="color:#000">(</span><span style="color:#a90d91">int</span> <span style="color:#000">i</span> <span style="color:#000">=</span> <span style="color:#000">0</span><span style="color:#000">;</span> <span style="color:#000">i</span> <span style="color:#000">&lt;</span> <span style="color:#000">4</span><span style="color:#000">;</span> <span style="color:#000">i</span><span style="color:#000">++)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#000">lamp</span><span style="color:#000">.</span><span style="color:#836c28">switchOn</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#000">lamp</span><span style="color:#000">.</span><span style="color:#836c28">switchOff</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#c41a16">"cl| "</span> <span style="color:#000">+</span> <span style="color:#000">lamp</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">lamp</span><span style="color:#000">.</span><span style="color:#836c28">switchOn</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#c41a16">"cl| "</span> <span style="color:#000">+</span> <span style="color:#000">lamp</span><span style="color:#000">);</span> <span style="color:#177500">// al quinto switch si esaurisce
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">lamp</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">ExpirationTimeLamp</span><span style="color:#000">(</span><span style="color:#000">1000</span><span style="color:#000">);</span> <span style="color:#177500">// 1 sec
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>        <span style="color:#000">lamp</span><span style="color:#000">.</span><span style="color:#836c28">switchOn</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#c41a16">"el| "</span> <span style="color:#000">+</span> <span style="color:#000">lamp</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">Thread</span><span style="color:#000">.</span><span style="color:#836c28">sleep</span><span style="color:#000">(</span><span style="color:#000">10000</span><span style="color:#000">);</span> <span style="color:#177500">// attendo 1.1 secs
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>        <span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#c41a16">"el| "</span> <span style="color:#000">+</span> <span style="color:#000">lamp</span><span style="color:#000">);</span> <span style="color:#177500">// dopo 1.1 secs si è esaurita
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></section><section>
+<h2 id="classi-astratte-vs-interfacce">Classi astratte vs interfacce</h2>
+<ul>
+<li>Due versioni quasi equivalenti</li>
+<li>Unica differenza, ereditarietà multipla per le interfacce</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#177500">/* Versione interfaccia */</span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">interface</span> <span style="color:#3f6e75">Counter</span><span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">void</span> <span style="color:#000">increment</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">int</span> <span style="color:#000">getValue</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span> 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#177500">/* Versione classe astratta */</span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">abstract</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Counter</span><span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">abstract</span> <span style="color:#a90d91">void</span> <span style="color:#000">increment</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">abstract</span> <span style="color:#a90d91">int</span> <span style="color:#000">getValue</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span> 
+</span></span></code></pre></div></section><section>
+<h2 id="wrap-up-su-ereditarietà">Wrap-up su ereditarietà</h2>
+<h3 id="il-caso-più-generale">Il caso più generale:</h3>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">C</span> <span style="color:#a90d91">extends</span> <span style="color:#000">D</span> <span style="color:#a90d91">implements</span> <span style="color:#000">I</span><span style="color:#000">,</span> <span style="color:#000">J</span><span style="color:#000">,</span> <span style="color:#000">K</span><span style="color:#000">,</span> <span style="color:#000">L</span> <span style="color:#000">{</span> <span style="color:#000">...</span> <span style="color:#000">}</span>
+</span></span></code></pre></div><h3 id="cosa-devepuò-fare-la-classe-c">Cosa deve/può fare la classe <code>C</code></h3>
+<ul>
+<li>deve implementare tutti i metodi dichiarati in <code>I,J,K,L</code> e super-interfacce</li>
+<li>può fare overriding dei metodi (non finali) definiti in <code>D</code> e superclassi</li>
+</ul>
+<h3 id="classe-astratta">Classe astratta:</h3>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">abstract</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">CA</span> <span style="color:#a90d91">extends</span> <span style="color:#000">D</span> <span style="color:#a90d91">implements</span> <span style="color:#000">I</span><span style="color:#000">,</span> <span style="color:#000">J</span><span style="color:#000">,</span> <span style="color:#000">K</span><span style="color:#000">,</span> <span style="color:#000">L</span> <span style="color:#000">{</span> <span style="color:#000">...</span> <span style="color:#000">}</span>
+</span></span></code></pre></div><h3 id="cosa-devepuò-fare-la-classe-ca">Cosa deve/può fare la classe <code>CA</code></h3>
+<ul>
+<li>non è tenuta a implementare alcun metodo</li>
+<li>può implementare qualche metodo per definire un comportamento parziale</li>
+</ul>
+</section><section>
+<h1 id="autoboxing-dei-tipi-primitivi-e-argomenti-variabili">Autoboxing dei tipi primitivi, e argomenti variabili</h1>
+</section><section>
+<h2 id="autoboxing-dei-tipi-primitivi">Autoboxing dei tipi primitivi</h2>
+<h3 id="già-conosciamo-i-wrapper-dei-tipi-primitivi">Già conosciamo i Wrapper dei tipi primitivi</h3>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#000">Integer</span> <span style="color:#000">i</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Integer</span><span style="color:#000">(</span><span style="color:#000">10</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">Double</span>  <span style="color:#000">d</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Double</span><span style="color:#000">(</span><span style="color:#000">10</span><span style="color:#000">.</span><span style="color:#836c28">5</span><span style="color:#000">);</span>
+</span></span></code></pre></div><p>..ossia, ogni valore primitivo può essere “boxed” in un oggetto</p>
+<h3 id="autoboxing">Autoboxing</h3>
+<ul>
+<li>Un meccanismo di Java per supportare l’equivalenza fra tipi primitivi e loro Wrapper</li>
+<li>Due meccanismi:
+<ul>
+<li>Se si trova un primitivo dove ci si attende un oggetto, se ne fa il <strong>boxing</strong></li>
+<li>Se si trova un wrapper dove ci si attende un primitivo, si fa il <strong>de-boxing</strong></li>
+</ul>
+</li>
+</ul>
+<h3 id="risultato">Risultato</h3>
+<ul>
+<li>Si simula meglio l’idea “Everything is an Object”</li>
+<li>Anche i tipi primitivi sono usabili ad esempio con <code>Object[]</code></li>
+</ul>
+</section><section>
+<h2 id="uso-dellautoboxing">Uso dell’autoboxing</h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#177500">/* Showcase dell'autoboxing */</span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Boxing</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span><span style="color:#000">(</span><span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">s</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">Object</span><span style="color:#000">[]</span> <span style="color:#000">os</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Object</span><span style="color:#000">[</span><span style="color:#000">5</span><span style="color:#000">];</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">os</span><span style="color:#000">[</span><span style="color:#000">0</span><span style="color:#000">]</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Object</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">os</span><span style="color:#000">[</span><span style="color:#000">1</span><span style="color:#000">]</span> <span style="color:#000">=</span> <span style="color:#000">5</span><span style="color:#000">;</span> <span style="color:#177500">// equivale a os[1]=new Integer(5);
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#000">os</span><span style="color:#000">[</span><span style="color:#000">2</span><span style="color:#000">]</span> <span style="color:#000">=</span> <span style="color:#000">10</span><span style="color:#000">;</span> <span style="color:#177500">// equivale a os[2]=new Integer(10);
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#000">os</span><span style="color:#000">[</span><span style="color:#000">3</span><span style="color:#000">]</span> <span style="color:#000">=</span> <span style="color:#a90d91">true</span><span style="color:#000">;</span> <span style="color:#177500">// equivale a os[3]=new Boolean(true);
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#000">os</span><span style="color:#000">[</span><span style="color:#000">4</span><span style="color:#000">]</span> <span style="color:#000">=</span> <span style="color:#000">20</span><span style="color:#000">.</span><span style="color:#836c28">5</span><span style="color:#000">;</span> <span style="color:#177500">// equivale a os[4]=new Double(20.5);
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#a90d91">final</span> <span style="color:#000">Integer</span><span style="color:#000">[]</span> <span style="color:#000">is</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Integer</span><span style="color:#000">[]</span> <span style="color:#000">{</span> <span style="color:#000">10</span><span style="color:#000">,</span> <span style="color:#000">20</span><span style="color:#000">,</span> <span style="color:#000">30</span><span style="color:#000">,</span> <span style="color:#000">40</span> <span style="color:#000">};</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">i</span> <span style="color:#000">=</span> <span style="color:#000">is</span><span style="color:#000">[</span><span style="color:#000">0</span><span style="color:#000">]</span> <span style="color:#000">+</span> <span style="color:#000">is</span><span style="color:#000">[</span><span style="color:#000">1</span><span style="color:#000">]</span> <span style="color:#000">+</span> <span style="color:#000">is</span><span style="color:#000">[</span><span style="color:#000">2</span><span style="color:#000">]</span> <span style="color:#000">+</span> <span style="color:#000">is</span><span style="color:#000">[</span><span style="color:#000">3</span><span style="color:#000">];</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#177500">// equivale a: is[0].intValue()+ is[1].intValue()+..
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#177500">// non funzionerebbe se 'is' avesse tipo Object[]..
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#c41a16">"Somma: "</span> <span style="color:#000">+</span> <span style="color:#000">i</span><span style="color:#000">);</span> <span style="color:#177500">// 100
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></section><section>
+<h2 id="variable-arguments">Variable arguments</h2>
+<h3 id="a-volte-è-utile-che-i-metodi-abbiano-un-numero-variabile-di-argomenti">A volte è utile che i metodi abbiano un numero variabile di argomenti</h3>
+<ul>
+<li><code>int i=sum(10,20,30,40,50,60,70);</code></li>
+<li><code>printAll(10,20,3.5,new Object());</code></li>
+<li>prima di Java 5 si simulava passando un unico array</li>
+</ul>
+<h3 id="variable-arguments-1">Variable arguments</h3>
+<ul>
+<li>L’ultimo (o unico) argomento di un metodo può essere del tipo “<code>Type... argname</code>”
+<ul>
+<li>p.e. <code>void m(int a, float b, Object... args) { ... }</code></li>
+</ul>
+</li>
+<li>Nel body del metodo, <code>argname</code> è trattato come un <code>Type[]</code></li>
+<li>Chi chiama il metodo, invece che passare un array, passa una lista di argomenti di tipo <code>Type</code></li>
+<li>Funziona automaticamente con polimorfismo, autoboxing, <code>instanceof</code>, …</li>
+</ul>
+</section><section>
+<h2 id="uso-dei-variable-arguments">Uso dei variable arguments</h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">VarArgs</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#177500">// somma un numero variabile di Integer
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">int</span> <span style="color:#000">sum</span><span style="color:#000">(</span><span style="color:#a90d91">final</span> <span style="color:#000">Integer</span><span style="color:#000">...</span> <span style="color:#000">args</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">int</span> <span style="color:#000">sum</span> <span style="color:#000">=</span> <span style="color:#000">0</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">for</span> <span style="color:#000">(</span><span style="color:#a90d91">int</span> <span style="color:#000">i</span> <span style="color:#000">:</span> <span style="color:#000">args</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#000">sum</span> <span style="color:#000">=</span> <span style="color:#000">sum</span> <span style="color:#000">+</span> <span style="color:#000">i</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#000">sum</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#177500">// stampa il contenuto degli argomenti, se meno di 10
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">printAll</span><span style="color:#000">(</span><span style="color:#a90d91">final</span> <span style="color:#000">String</span> <span style="color:#000">start</span><span style="color:#000">,</span> <span style="color:#a90d91">final</span> <span style="color:#000">Object</span><span style="color:#000">...</span> <span style="color:#000">args</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">start</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">if</span> <span style="color:#000">(</span><span style="color:#000">args</span><span style="color:#000">.</span><span style="color:#836c28">length</span> <span style="color:#000">&lt;</span> <span style="color:#000">10</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#a90d91">for</span> <span style="color:#000">(</span><span style="color:#a90d91">final</span> <span style="color:#000">Object</span> <span style="color:#000">o</span> <span style="color:#000">:</span> <span style="color:#000">args</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>				<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">o</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span><span style="color:#000">(</span><span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">s</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">sum</span><span style="color:#000">(</span><span style="color:#000">10</span><span style="color:#000">,</span> <span style="color:#000">20</span><span style="color:#000">,</span> <span style="color:#000">30</span><span style="color:#000">,</span> <span style="color:#000">40</span><span style="color:#000">,</span> <span style="color:#000">50</span><span style="color:#000">,</span> <span style="color:#000">60</span><span style="color:#000">,</span> <span style="color:#000">70</span><span style="color:#000">,</span> <span style="color:#000">80</span><span style="color:#000">));</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">printAll</span><span style="color:#000">(</span><span style="color:#c41a16">"inizio"</span><span style="color:#000">,</span> <span style="color:#000">1</span><span style="color:#000">,</span> <span style="color:#000">2</span><span style="color:#000">,</span> <span style="color:#000">3</span><span style="color:#000">.</span><span style="color:#836c28">2</span><span style="color:#000">,</span> <span style="color:#a90d91">true</span><span style="color:#000">,</span> <span style="color:#a90d91">new</span> <span style="color:#a90d91">int</span><span style="color:#000">[]</span> <span style="color:#000">{</span> <span style="color:#000">10</span> <span style="color:#000">},</span> <span style="color:#a90d91">new</span> <span style="color:#000">Object</span><span style="color:#000">());</span>
+</span></span><span style="display:flex;"><span>		
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">format</span><span style="color:#000">(</span><span style="color:#c41a16">"%d %d\n"</span><span style="color:#000">,</span> <span style="color:#000">10</span><span style="color:#000">,</span> <span style="color:#000">20</span><span style="color:#000">);</span> <span style="color:#177500">// C-like printf
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></section><section>
+<h2 id="preview-del-prossimo-laboratorio">Preview del prossimo laboratorio</h2>
+<h3 id="obbiettivi">Obbiettivi</h3>
+<p>Familiarizzare con:</p>
+<ul>
+<li>Estensione delle classi e corrsipondente polimorfismo</li>
+<li>Classi astratte</li>
+<li>Tipi a run-time e boxing</li>
+</ul>
+</section>
+
+  
+
+
+</div>
+      
+
+    </div>
+<script type="text/javascript" src="/reveal-hugo/object-assign.js"></script>
+
+<a href="/reveal-js/dist/print/" id="print-location" style="display: none;"></a>
+
+<script type="application/json" id="reveal-hugo-site-params">{"custom_theme":"custom-theme.scss","custom_theme_compile":true,"custom_theme_options":{"enablesourcemap":true,"targetpath":"css/custom-theme.css"},"height":"900","highlight_theme":"default","history":true,"mermaid":[{"startOnLoad":false}],"slide_number":true,"theme":"white","transition":"slide","transition_speed":"fast","width":"1440"}</script>
+<script type="application/json" id="reveal-hugo-page-params">null</script>
+
+<script src="/reveal-js/dist/reveal.js"></script>
+
+
+  
+  
+  <script type="text/javascript" src="/reveal-js/plugin/markdown/markdown.js"></script>
+  
+  <script type="text/javascript" src="/reveal-js/plugin/highlight/highlight.js"></script>
+  
+  <script type="text/javascript" src="/reveal-js/plugin/zoom/zoom.js"></script>
+  
+  <script type="text/javascript" src="/reveal-js/plugin/notes/notes.js"></script>
+  
+  
+  <script type="text/javascript" src="/reveal-js/plugin/notes/notes.js"></script>
+
+
+
+
+<script type="text/javascript">
+  
+  
+  function camelize(map) {
+    if (map) {
+      Object.keys(map).forEach(function(k) {
+        newK = k.replace(/(\_\w)/g, function(m) { return m[1].toUpperCase() });
+        if (newK != k) {
+          map[newK] = map[k];
+          delete map[k];
+        }
+      });
+    }
+    return map;
+  }
+  
+  var revealHugoDefaults = { center: true, controls: true, history: true, progress: true, transition: "slide" };
+
+  var revealHugoPlugins = { 
+    plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealZoom ]
+   };
+  var revealHugoSiteParams = JSON.parse(document.getElementById('reveal-hugo-site-params').innerHTML);
+  var revealHugoPageParams = JSON.parse(document.getElementById('reveal-hugo-page-params').innerHTML);
+  
+  var options = Object.assign({},
+    camelize(revealHugoDefaults),
+    camelize(revealHugoSiteParams),
+    camelize(revealHugoPageParams),
+    camelize(revealHugoPlugins));
+  Reveal.initialize(options);
+</script>
+
+
+
+
+
+
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@9.1.6/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({"startOnLoad":false});
+
+    let render = (event) => {
+      let mermaidElems = event.currentSlide.querySelectorAll('.mermaid');
+      if (!mermaidElems.length){
+          return
+      }
+      mermaidElems.forEach(mermaidElem => {
+          let processed = mermaidElem.getAttribute('data-processed');
+          if (!processed){
+              
+              mermaid.init(undefined, mermaidElem);
+          }
+      });
+    };
+    Reveal.addEventListener('slidechanged', render);
+    Reveal.addEventListener('ready', render);
+  </script>
+
+    <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+</script>
+
+<script type="text/javascript" id="MathJax-script" async="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+</script>
+
+    
+  
+
+</body></html>
