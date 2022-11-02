@@ -51,7 +51,8 @@ Mirko Viroli, che ringrazio.</p>
 <h3 id="argomenti">Argomenti</h3>
 <ul>
 <li><em>Polimorfismo inclusivo</em> con le classi</li>
-<li>Layout oggetti in memoria</li>
+<li><em>Layout in memoria</em> degli oggetti</li>
+<li>Il concetto (e il problema) dell’<em>ereditarietà multipla</em></li>
 <li><em>Autoboxing</em> dei tipi primitivi</li>
 <li>Tipi a run-time (cast, <code>instanceof</code>)</li>
 <li><em>Classi astratte</em></li>
@@ -99,16 +100,20 @@ Mirko Viroli, che ringrazio.</p>
 </ul>
 <div class="container">
 <div class="col">
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">D</span> <span style="color:#000">{</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#000">C</span> <span style="color:#000">c</span><span style="color:#000">;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">D</span><span style="color:#000">(</span><span style="color:#000">C</span> <span style="color:#000">c</span><span style="color:#000">)</span> <span style="color:#000">{</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">c</span> <span style="color:#000">=</span> <span style="color:#000">c</span><span style="color:#000">;</span> <span style="color:#000">}</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">C</span> <span style="color:#000">{</span> <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">foo</span><span style="color:#000">()</span> <span style="color:#000">{</span> <span style="color:#177500">/*...*/</span> <span style="color:#000">}</span> <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">D</span> <span style="color:#000">{</span> <span style="color:#177500">// rappresenta un generico "contesto"
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#000">C</span> <span style="color:#000">c</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">m</span><span style="color:#000">(</span><span style="color:#000">C</span> <span style="color:#000">c</span><span style="color:#000">)</span> <span style="color:#000">{</span> <span style="color:#000">c</span><span style="color:#000">.</span><span style="color:#836c28">foo</span><span style="color:#000">();</span> <span style="color:#000">}</span>
 </span></span><span style="display:flex;"><span><span style="color:#000">}</span>
 </span></span></code></pre></div></div>
 <div class="col">
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">C</span> <span style="color:#000">{</span> <span style="color:#000">}</span>
-</span></span><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">C1</span> <span style="color:#a90d91">extends</span> <span style="color:#000">C</span> <span style="color:#000">{</span> <span style="color:#000">}</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">C1</span> <span style="color:#a90d91">extends</span> <span style="color:#000">C</span> <span style="color:#000">{</span> <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">C2</span> <span style="color:#a90d91">extends</span> <span style="color:#000">C</span> <span style="color:#000">{</span> <span style="color:#000">}</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a90d91">new</span> <span style="color:#000">D</span><span style="color:#000">(</span><span style="color:#a90d91">new</span> <span style="color:#000">C1</span><span style="color:#000">());</span> <span style="color:#177500">// OK
+</span></span><span style="display:flex;"><span><span style="color:#000">D</span> <span style="color:#000">d</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">D</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">d</span><span style="color:#000">.</span><span style="color:#836c28">c</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">C1</span><span style="color:#000">();</span> <span style="color:#177500">// OK
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#000">d</span><span style="color:#000">.</span><span style="color:#836c28">m</span><span style="color:#000">(</span><span style="color:#a90d91">new</span> <span style="color:#000">C2</span><span style="color:#000">());</span>  <span style="color:#177500">// OK
 </span></span></span></code></pre></div></div></div>
 <h3 id="le-sottoclassi-di-c">Le sottoclassi di <code>C</code></h3>
 <p>A tutti gli effetti, gli oggetti delle sottoclassi di <code>C</code> sono <em>compatibili</em> con gli oggetti della classe <code>C</code></p>
@@ -136,7 +141,7 @@ Mirko Viroli, che ringrazio.</p>
 </li>
 </ul>
 <h3 id="conseguenze-se-la-classe-c-è-sottoclasse-di-a">Conseguenze: se la classe <code>C</code> è sottoclasse di <code>A</code>…</h3>
-<p>Allora un oggetto di <code>C</code> è simile ad un oggetto di <code>A</code>, ha solo <em>informazioni aggiuntive in fondo</em>, e questo semplifica la sostituibilità!</p>
+<p>Allora un oggetto di <code>C</code> è simile ad un oggetto di <code>A</code>: ha solo <em>informazioni aggiuntive in fondo</em>, e questo semplifica la sostituibilità!</p>
 </section><section>
 <h2 id="esempio-applicazione-polimorfismo-fra-classi----uml">Esempio applicazione polimorfismo fra classi – UML</h2>
 <p><img src="imgs/uml-person.png" alt=""></p>
@@ -249,8 +254,12 @@ Mirko Viroli, che ringrazio.</p>
 <ul>
 <li><em>NON</em> è possibile in Java dichiarare: <code>class C extends D1, D2, ... { ... }</code>
 <ul>
-<li>si creerebbero problemi se <code>D1</code> e <code>D2</code> avessero proprietà comuni (cf. <em>Triangle Problem</em> e <em>Diamond Problem</em>)</li>
-<li>diventerebbe complicato gestire la struttura in memoria dell’oggetto (cf. virtual table)</li>
+<li>si creerebbero problemi se <code>D1</code> e <code>D2</code> avessero proprietà comuni (cf. <em>Triangle Problem</em> e <em>Diamond Problem</em>)
+<ul>
+<li>ad es., quale sarebbe l’implementazione ereditata?</li>
+</ul>
+</li>
+<li>diventerebbe complicato gestire la struttura in memoria dell’oggetto (cf. vtable)</li>
 </ul>
 </li>
 <li>Con le interfacce non ci sono questi problemi, risultato:
@@ -309,8 +318,8 @@ Mirko Viroli, che ringrazio.</p>
 <h2 id="everything-is-an-object">Everything is an <code>Object</code></h2>
 <h3 id="perché-avere-una-radice-comune-per-tutte-le-classi">Perché avere una radice comune per tutte le classi?</h3>
 <ul>
-<li>Consente di fattorizzare lì comportamento comune</li>
-<li>Consente la costruzione di funzionalità che lavorano su qualunque oggetto</li>
+<li>Consente di fattorizzare lì il <em>comportamento comune ad ogni oggetto</em></li>
+<li>Consente la costruzione di <em>funzionalità che lavorano su qualunque oggetto</em></li>
 </ul>
 <h3 id="esempi-di-applicazione">Esempi di applicazione:</h3>
 <ul>
@@ -488,12 +497,12 @@ Integer i3 = (Integer) o; // ClassCastException
 </ul>
 <h3 id="classi-astratte-1">Classi astratte</h3>
 <ul>
-<li>Sono usate per descrivere classi dal comportamento parziale, ossia in cui alcuni metodi sono dicharati ma non implementati</li>
-<li>Tali classi non sono istanziabili (l’operatore <code>new</code> non può essere usato)</li>
+<li>Le <strong>classi astratte</strong> sono usate per descrivere classi dal <em>comportamento parziale</em> (ossia, in cui alcuni metodi sono dicharati ma non implementati)</li>
+<li>Tali classi <em>non sono istanziabili</em> (l’operatore <code>new</code> non può essere usato)</li>
 <li>Possono essere estese e ivi completate, da cui la generazione di oggetti</li>
 </ul>
 <h3 id="tipica-applicazione-pattern-template-method">Tipica applicazione: pattern <em>Template Method</em></h3>
-<p>Serve a dichiare uno schema di strategia con un metodo che definisce un comportamente comune (spesso <code>final</code>), ma che usa metodi da concretizzare in sottoclassi</p>
+<p>Serve a dichiare uno <em>schema di strategia</em> con un <strong>metodo “template”</strong> (spesso <code>final</code>) che definisce un comportamento comune, <em>basato su metodi astratti</em> da concretizzare in sottoclassi</p>
 </section><section>
 <h2 id="classi-astratte-2">Classi astratte</h2>
 <h3 id="una-classe-astratta">Una classe astratta:</h3>
@@ -509,12 +518,15 @@ Integer i3 = (Integer) o; // ClassCastException
 </ul>
 <h3 id="altri-aspetti">Altri aspetti</h3>
 <ul>
-<li>può definire campi, costruttori, metodi, concreti e non</li>
+<li>può definire campi, costruttori, metodi, concreti e non
+<ul>
 <li>…deve definire con cura il loro livello d’accesso</li>
+</ul>
+</li>
 <li>può estendere da una classe astratta o non astratta</li>
 <li>può implementare interfacce, senza essere tenuta ad ottemperarne il contratto
 <ul>
-<li>se non implementati, i metodi dell’interfaccia implementata sono astratti</li>
+<li>i metodi dell’interfaccia implementata, se non implementati, sono astratti</li>
 </ul>
 </li>
 <li><em>chi estende una classe astratta può essere non-astratto solo se concretizza/implementa tutti i metodi astratti</em></li>
@@ -536,11 +548,11 @@ Integer i3 = (Integer) o; // ClassCastException
 <ul>
 <li>Un uso accurato di <code>abstract</code>, <code>final</code>, e <code>protected</code></li>
 <li>Daremo tre possibili specializzazioni per una <code>LimitedLamp</code>
-<ul>
+<ol>
 <li>che non si esaurisce mai</li>
 <li>che si esaurisce all’n-esima accensione</li>
 <li>che si esaurisce dopo un certo tempo dalla prima accensione</li>
-</ul>
+</ol>
 </li>
 </ul>
 </section><section>
@@ -576,10 +588,9 @@ Integer i3 = (Integer) o; // ClassCastException
 </span></span><span style="display:flex;"><span>		<span style="color:#a90d91">super</span><span style="color:#000">();</span>
 </span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#177500">/* Questo metodo è finale: 
-</span></span></span><span style="display:flex;"><span><span style="color:#177500">	 * - regola la coerenza con okSwitch() e isOver() */</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">void</span> <span style="color:#000">switchOn</span><span style="color:#000">()</span> <span style="color:#000">{</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">if</span> <span style="color:#000">(!</span><span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">isSwitchedOn</span><span style="color:#000">()</span> <span style="color:#000">&amp;&amp;</span> <span style="color:#000">!</span><span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">isOver</span><span style="color:#000">())</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#177500">/* Questo metodo è finale: regola la coerenza con okSwitch() e isOver() */</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">void</span> <span style="color:#000">switchOn</span><span style="color:#000">()</span> <span style="color:#000">{</span> <span style="color:#177500">// TEMPLATE METHOD
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#a90d91">if</span> <span style="color:#000">(!</span><span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">isSwitchedOn</span><span style="color:#000">()</span> <span style="color:#000">&amp;&amp;</span> <span style="color:#000">!</span><span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">isOver</span><span style="color:#000">())</span> <span style="color:#000">{</span>
 </span></span><span style="display:flex;"><span>			<span style="color:#a90d91">super</span><span style="color:#000">.</span><span style="color:#836c28">switchOn</span><span style="color:#000">();</span>
 </span></span><span style="display:flex;"><span>			<span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">okSwitch</span><span style="color:#000">();</span>
 </span></span><span style="display:flex;"><span>		<span style="color:#000">}</span>
@@ -592,8 +603,7 @@ Integer i3 = (Integer) o; // ClassCastException
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">abstract</span> <span style="color:#a90d91">boolean</span> <span style="color:#000">isOver</span><span style="color:#000">();</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#000">String</span> <span style="color:#000">toString</span><span style="color:#000">()</span> <span style="color:#000">{</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#c41a16">"Over: "</span> <span style="color:#000">+</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">isOver</span><span style="color:#000">()</span> <span style="color:#000">+</span> 
-</span></span><span style="display:flex;"><span>		       <span style="color:#c41a16">", switchedOn: "</span>	<span style="color:#000">+</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">isSwitchedOn</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#c41a16">"Over: "</span> <span style="color:#000">+</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">isOver</span><span style="color:#000">()</span> <span style="color:#000">+</span> <span style="color:#c41a16">", switchedOn: "</span>	<span style="color:#000">+</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">isSwitchedOn</span><span style="color:#000">();</span>
 </span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
 </span></span><span style="display:flex;"><span><span style="color:#000">}</span>
 </span></span></code></pre></div></section><section>
@@ -702,16 +712,16 @@ Integer i3 = (Integer) o; // ClassCastException
 <h2 id="classi-astratte-vs-interfacce">Classi astratte vs interfacce</h2>
 <ul>
 <li>Due versioni quasi equivalenti</li>
-<li>Unica differenza, ereditarietà multipla per le interfacce</li>
+<li>Unica differenza: ereditarietà singola per classi, ereditarietà multipla per le interfacce</li>
 </ul>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#177500">/* Versione interfaccia */</span>
-</span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">interface</span> <span style="color:#3f6e75">Counter</span><span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">interface</span> <span style="color:#3f6e75">Counter</span> <span style="color:#000">{</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">void</span> <span style="color:#000">increment</span><span style="color:#000">();</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">int</span> <span style="color:#000">getValue</span><span style="color:#000">();</span>
 </span></span><span style="display:flex;"><span><span style="color:#000">}</span> 
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#177500">/* Versione classe astratta */</span>
-</span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">abstract</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Counter</span><span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">abstract</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Counter</span> <span style="color:#000">{</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">abstract</span> <span style="color:#a90d91">void</span> <span style="color:#000">increment</span><span style="color:#000">();</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">abstract</span> <span style="color:#a90d91">int</span> <span style="color:#000">getValue</span><span style="color:#000">();</span>
 </span></span><span style="display:flex;"><span><span style="color:#000">}</span> 
@@ -738,7 +748,7 @@ Integer i3 = (Integer) o; // ClassCastException
 <h3 id="già-conosciamo-i-wrapper-dei-tipi-primitivi">Già conosciamo i Wrapper dei tipi primitivi</h3>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#000">Integer</span> <span style="color:#000">i</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Integer</span><span style="color:#000">(</span><span style="color:#000">10</span><span style="color:#000">);</span>
 </span></span><span style="display:flex;"><span><span style="color:#000">Double</span>  <span style="color:#000">d</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Double</span><span style="color:#000">(</span><span style="color:#000">10</span><span style="color:#000">.</span><span style="color:#836c28">5</span><span style="color:#000">);</span>
-</span></span></code></pre></div><p>..ossia, ogni valore primitivo può essere “boxed” in un oggetto</p>
+</span></span></code></pre></div><p>..ossia, ogni valore primitivo può essere “impacchettato” (“boxed”) in un oggetto</p>
 <h3 id="autoboxing">Autoboxing</h3>
 <ul>
 <li>Un meccanismo di Java per supportare l’equivalenza fra tipi primitivi e loro Wrapper</li>
@@ -775,18 +785,17 @@ Integer i3 = (Integer) o; // ClassCastException
 </span></span></code></pre></div></section><section>
 <h2 id="variable-arguments">Variable arguments</h2>
 <h3 id="a-volte-è-utile-che-i-metodi-abbiano-un-numero-variabile-di-argomenti">A volte è utile che i metodi abbiano un numero variabile di argomenti</h3>
-<ul>
-<li><code>int i=sum(10,20,30,40,50,60,70);</code></li>
-<li><code>printAll(10,20,3.5,new Object());</code></li>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">int</span> <span style="color:#000">i</span> <span style="color:#000">=</span> <span style="color:#000">sum</span><span style="color:#000">(</span><span style="color:#000">10</span><span style="color:#000">,</span> <span style="color:#000">20</span><span style="color:#000">,</span> <span style="color:#000">30</span><span style="color:#000">,</span> <span style="color:#000">40</span><span style="color:#000">,</span> <span style="color:#000">50</span><span style="color:#000">,</span> <span style="color:#000">60</span><span style="color:#000">,</span> <span style="color:#000">70</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">printAll</span><span style="color:#000">(</span><span style="color:#000">10</span><span style="color:#000">,</span> <span style="color:#000">20</span><span style="color:#000">,</span> <span style="color:#000">3</span><span style="color:#000">.</span><span style="color:#836c28">5</span><span style="color:#000">,</span> <span style="color:#a90d91">new</span> <span style="color:#000">Object</span><span style="color:#000">());</span>
+</span></span></code></pre></div><ul>
 <li>prima di Java 5 si simulava passando un unico array</li>
 </ul>
 <h3 id="variable-arguments-1">Variable arguments</h3>
 <ul>
-<li>L’ultimo (o unico) argomento di un metodo può essere del tipo “<code>Type... argname</code>”
-<ul>
-<li>p.e. <code>void m(int a, float b, Object... args) { ... }</code></li>
+<li>L’ultimo (o unico) argomento di un metodo può essere del tipo “<code>Type... argname</code>”</li>
 </ul>
-</li>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">void</span> <span style="color:#000">m</span><span style="color:#000">(</span><span style="color:#a90d91">int</span> <span style="color:#000">a</span><span style="color:#000">,</span> <span style="color:#a90d91">float</span> <span style="color:#000">b</span><span style="color:#000">,</span> <span style="color:#000">Object</span><span style="color:#000">...</span> <span style="color:#000">argname</span><span style="color:#000">)</span> <span style="color:#000">{</span> <span style="color:#000">...</span> <span style="color:#000">}</span>
+</span></span></code></pre></div><ul>
 <li>Nel body del metodo, <code>argname</code> è trattato come un <code>Type[]</code></li>
 <li>Chi chiama il metodo, invece che passare un array, passa una lista di argomenti di tipo <code>Type</code></li>
 <li>Funziona automaticamente con polimorfismo, autoboxing, <code>instanceof</code>, …</li>
@@ -821,11 +830,286 @@ Integer i3 = (Integer) o; // ClassCastException
 </span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>	<span style="color:#000">}</span>
 </span></span><span style="display:flex;"><span><span style="color:#000">}</span>
 </span></span></code></pre></div></section><section>
+<h1 id="alcuni-pattern-basati-sulle-classe-astratte">Alcuni pattern basati sulle classe astratte</h1>
+</section><section>
+<h2 id="pattern-template-method-comportamentale-su-classi">Pattern <strong>Template Method</strong>: comportamentale, su classi</h2>
+<h3 id="intentomotivazione">Intento/motivazione</h3>
+<p>Definisce lo scheletro (template) di un algoritmo (o comportamento), lasciando l’indicazione di alcuni suoi aspetti alle sottoclassi.</p>
+<h3 id="esempi">Esempi</h3>
+<ul>
+<li>Definizione della logica di accensione (<code>switchOn</code>) di una lampadina (<code>Lamp</code>)</li>
+<li>Un comparatore può fornire metodi template per capire se un oggetto è minore/maggiore/uguale di un altro, sulla base di un metodo astratto <code>int compareTo(T a, T b)</code></li>
+<li>In un input stream (<code>InputStream</code>), i vari metodi di lettura sono dei Template Method: dipendono dall’implementazione del solo concetto di lettura di un <code>int</code></li>
+</ul>
+<!--
+* Implementazione del pattern **Factory Method**: il metodo template usa un factory method per definire un comportamento astraendo dall'implementazione specifica di uno o più oggetti coinvolti
+* In un input stream (`InputStream`), i vari metodi di lettura sono dei Template Method: dipendono dall'implementazione del solo concetto di lettura di un `int`
+	%*  Similmente, i metodi di `AbstractSet` tranne `size()` e `iterator()`
+	*  Le interfacce funzionali con metodi di default che chiamano l'astratto
+    }}
+-->
+<h3 id="soluzione-1">Soluzione</h3>
+<ul>
+<li>L’algoritmo è realizzato attraverso un <strong>metodo template</strong> che <em>realizza un algoritmo chiamando metodi astratti/da specializzare</em> quando servono gli aspetti non noti a priori</li>
+<li>Una sottoclasse fornisce l’implementazione dei metodi astratti</li>
+</ul>
+<!--
+* L'algoritmo è realizzato attraverso un metodo non astratto (il template method) di una classe astratta
+* Questo realizza l'algoritmo, chiamando metodi astratti quando servono gli aspetti non noti a priori
+* Una sottoclasse fornisce l'implementazione dei metodi astratti
+-->
+</section><section>
+<!-- ![](imgs/template_method.jpg) -->
+<div class="container">
+<div class="col">
+<div class="mermaid" data-processed="true" pre-rendered="true"><svg aria-labelledby="chart-title-mermaid-1667403346441 chart-desc-mermaid-1667403346441" role="img" viewBox="0 0 159.953125 290" style="max-width: 159.953125px;" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" width="100%" id="mermaid-1667403346441"><title id="chart-title-mermaid-1667403346441"></title><desc id="chart-desc-mermaid-1667403346441"></desc><style>#mermaid-1667403346441 {font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:16px;fill:#333;}#mermaid-1667403346441 .error-icon{fill:#552222;}#mermaid-1667403346441 .error-text{fill:#552222;stroke:#552222;}#mermaid-1667403346441 .edge-thickness-normal{stroke-width:2px;}#mermaid-1667403346441 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-1667403346441 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-1667403346441 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-1667403346441 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-1667403346441 .marker{fill:#333333;stroke:#333333;}#mermaid-1667403346441 .marker.cross{stroke:#333333;}#mermaid-1667403346441 svg{font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:16px;}#mermaid-1667403346441 g.classGroup text{fill:#9370DB;fill:#131300;stroke:none;font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:10px;}#mermaid-1667403346441 g.classGroup text .title{font-weight:bolder;}#mermaid-1667403346441 .nodeLabel,#mermaid-1667403346441 .edgeLabel{color:#131300;}#mermaid-1667403346441 .edgeLabel .label rect{fill:#ECECFF;}#mermaid-1667403346441 .label text{fill:#131300;}#mermaid-1667403346441 .edgeLabel .label span{background:#ECECFF;}#mermaid-1667403346441 .classTitle{font-weight:bolder;}#mermaid-1667403346441 .node rect,#mermaid-1667403346441 .node circle,#mermaid-1667403346441 .node ellipse,#mermaid-1667403346441 .node polygon,#mermaid-1667403346441 .node path{fill:#ECECFF;stroke:#9370DB;stroke-width:1px;}#mermaid-1667403346441 .divider{stroke:#9370DB;stroke:1;}#mermaid-1667403346441 g.clickable{cursor:pointer;}#mermaid-1667403346441 g.classGroup rect{fill:#ECECFF;stroke:#9370DB;}#mermaid-1667403346441 g.classGroup line{stroke:#9370DB;stroke-width:1;}#mermaid-1667403346441 .classLabel .box{stroke:none;stroke-width:0;fill:#ECECFF;opacity:0.5;}#mermaid-1667403346441 .classLabel .label{fill:#9370DB;font-size:10px;}#mermaid-1667403346441 .relation{stroke:#333333;stroke-width:1;fill:none;}#mermaid-1667403346441 .dashed-line{stroke-dasharray:3;}#mermaid-1667403346441 #compositionStart,#mermaid-1667403346441 .composition{fill:#333333!important;stroke:#333333!important;stroke-width:1;}#mermaid-1667403346441 #compositionEnd,#mermaid-1667403346441 .composition{fill:#333333!important;stroke:#333333!important;stroke-width:1;}#mermaid-1667403346441 #dependencyStart,#mermaid-1667403346441 .dependency{fill:#333333!important;stroke:#333333!important;stroke-width:1;}#mermaid-1667403346441 #dependencyStart,#mermaid-1667403346441 .dependency{fill:#333333!important;stroke:#333333!important;stroke-width:1;}#mermaid-1667403346441 #extensionStart,#mermaid-1667403346441 .extension{fill:#333333!important;stroke:#333333!important;stroke-width:1;}#mermaid-1667403346441 #extensionEnd,#mermaid-1667403346441 .extension{fill:#333333!important;stroke:#333333!important;stroke-width:1;}#mermaid-1667403346441 #aggregationStart,#mermaid-1667403346441 .aggregation{fill:#ECECFF!important;stroke:#333333!important;stroke-width:1;}#mermaid-1667403346441 #aggregationEnd,#mermaid-1667403346441 .aggregation{fill:#ECECFF!important;stroke:#333333!important;stroke-width:1;}#mermaid-1667403346441 #lollipopStart,#mermaid-1667403346441 .lollipop{fill:#ECECFF!important;stroke:#333333!important;stroke-width:1;}#mermaid-1667403346441 #lollipopEnd,#mermaid-1667403346441 .lollipop{fill:#ECECFF!important;stroke:#333333!important;stroke-width:1;}#mermaid-1667403346441 .edgeTerminals{font-size:11px;}#mermaid-1667403346441 :root{--mermaid-font-family:"trebuchet ms",verdana,arial,sans-serif;}</style><g><defs><marker orient="auto" markerHeight="240" markerWidth="190" refY="7" refX="0" class="marker aggregation classDiagram" id="classDiagram-aggregationStart"><path d="M 18,7 L9,13 L1,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="28" markerWidth="20" refY="7" refX="19" class="marker aggregation classDiagram" id="classDiagram-aggregationEnd"><path d="M 18,7 L9,13 L1,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="240" markerWidth="190" refY="7" refX="0" class="marker extension classDiagram" id="classDiagram-extensionStart"><path d="M 1,7 L18,13 V 1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="28" markerWidth="20" refY="7" refX="19" class="marker extension classDiagram" id="classDiagram-extensionEnd"><path d="M 1,1 V 13 L18,7 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="240" markerWidth="190" refY="7" refX="0" class="marker composition classDiagram" id="classDiagram-compositionStart"><path d="M 18,7 L9,13 L1,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="28" markerWidth="20" refY="7" refX="19" class="marker composition classDiagram" id="classDiagram-compositionEnd"><path d="M 18,7 L9,13 L1,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="240" markerWidth="190" refY="7" refX="0" class="marker dependency classDiagram" id="classDiagram-dependencyStart"><path d="M 5,7 L9,13 L1,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="28" markerWidth="20" refY="7" refX="19" class="marker dependency classDiagram" id="classDiagram-dependencyEnd"><path d="M 18,7 L9,13 L14,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="240" markerWidth="190" refY="7" refX="0" class="marker lollipop classDiagram" id="classDiagram-lollipopStart"><circle r="6" cy="7" cx="6" fill="white" stroke="black"></circle></marker></defs><g class="root"><g class="clusters"></g><g class="edgePaths"><path marker-start="url(#classDiagram-extensionStart)" style="fill:none" class="edge-pattern-solid relation" id="id1" d="M79.9765625,131L79.9765625,135.16666666666666C79.9765625,139.33333333333334,79.9765625,147.66666666666666,79.9765625,156C79.9765625,164.33333333333334,79.9765625,172.66666666666666,79.9765625,176.83333333333334L79.9765625,181"></path></g><g class="edgeLabels"><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="edgeLabel"></span></div></foreignObject></g></g></g><g class="nodes"><g transform="translate(79.9765625, 69.5)" id="classid-AbstractClass-0" class="node default"><rect height="123" width="143.953125" y="-61.5" x="-71.9765625" class="outer title-state"></rect><line y2="-31.5" y1="-31.5" x2="71.9765625" x1="-71.9765625" class="divider"></line><line y2="-15.5" y1="-15.5" x2="71.9765625" x1="-71.9765625" class="divider"></line><g class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel"></span></div></foreignObject><foreignObject transform="translate( -53.8046875, -54)" height="18" width="107.609375" class="classTitle"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">AbstractClass</span></div></foreignObject><foreignObject transform="translate( -64.4765625, -8)" height="18" width="128.953125"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">TemplateMethod()</span></div></foreignObject><foreignObject transform="translate( -64.4765625, 14)" height="18" width="102.234375"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">PrimitiveOp1()</span></div></foreignObject><foreignObject transform="translate( -64.4765625, 36)" height="18" width="102.234375"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">PrimitiveOp2()</span></div></foreignObject></g></g><g transform="translate(79.9765625, 231.5)" id="classid-ConcreteClass-1" class="node default"><rect height="101" width="127.046875" y="-50.5" x="-63.5234375" class="outer title-state"></rect><line y2="-20.5" y1="-20.5" x2="63.5234375" x1="-63.5234375" class="divider"></line><line y2="-4.5" y1="-4.5" x2="63.5234375" x1="-63.5234375" class="divider"></line><g class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel"></span></div></foreignObject><foreignObject transform="translate( -56.0234375, -43)" height="18" width="112.046875" class="classTitle"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">ConcreteClass</span></div></foreignObject><foreignObject transform="translate( -56.0234375, 3)" height="18" width="102.234375"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">PrimitiveOp1()</span></div></foreignObject><foreignObject transform="translate( -56.0234375, 25)" height="18" width="102.234375"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">PrimitiveOp2()</span></div></foreignObject></g></g></g></g></g></svg></div>
+
+</div>
+<div class="col">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">abstract</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">AbstractClass</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">TemplateMethod</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#177500">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>        <span style="color:#000">PrimitiveOp1</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#177500">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>        <span style="color:#000">PrimitiveOp2</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#177500">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">abstract</span> <span style="color:#a90d91">void</span> <span style="color:#000">PrimitiveOp1</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">abstract</span> <span style="color:#a90d91">void</span> <span style="color:#000">PrimitiveOp2</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">ConcreteClass</span> <span style="color:#a90d91">extends</span> <span style="color:#000">AbstractClass</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">PrimitiveOp1</span><span style="color:#000">()</span> <span style="color:#000">{</span> <span style="color:#177500">/* ... */</span> <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">PrimitiveOp2</span><span style="color:#000">()</span> <span style="color:#000">{</span> <span style="color:#177500">/* ... */</span> <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></div></div>
+</section><section>
+<!--
+
+## Template Method: Una estensione di `InputStream`
+
+
+
+```java
+import java.io.*;
+import java.util.*;
+
+public class UseRandomInputStream {
+
+	public static void main(String[] args) throws IOException {
+		
+		// Il metodo InputStream.read(byte[]) è un Template Method
+		// Dipende dall'implementazione (non nota) di InputStream.read()
+		
+		// Creo una sottoclasse in cui concretizzo read()
+		InputStream	input = new InputStream(){ // Uno stream ad-hoc
+			int ct = 0;
+			public int read() throws IOException {
+				return ct++;
+			}
+		};
+		
+		// Ora provo InputStream.read(byte[]) e lo trovo concretizzato
+		final byte[] b = new byte[100];
+		input.read(b);
+		System.out.println(Arrays.toString(b));
+		// [0,1,2,3,4,5,6,..]
+	}
+}
+
+```
+
+
+---
+
+-->
+<h2 id="template-method-esempio-bankaccount">Template Method: esempio <code>BankAccount</code></h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">abstract</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">BankAccount</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">private</span> <span style="color:#a90d91">int</span> <span style="color:#000">amount</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#000">BankAccount</span><span style="color:#000">(</span><span style="color:#a90d91">int</span> <span style="color:#000">amount</span><span style="color:#000">){</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">amount</span> <span style="color:#000">=</span> <span style="color:#000">amount</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">abstract</span> <span style="color:#a90d91">int</span> <span style="color:#000">operationFee</span><span style="color:#000">();</span> <span style="color:#177500">// costo bancario operazione
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>	
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">int</span> <span style="color:#000">getAmount</span><span style="color:#000">(){</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">amount</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">withdraw</span><span style="color:#000">(</span><span style="color:#a90d91">int</span> <span style="color:#000">n</span><span style="color:#000">){</span>	<span style="color:#177500">// template method
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">amount</span> <span style="color:#000">=</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">amount</span> <span style="color:#000">-</span> <span style="color:#000">n</span> <span style="color:#000">-</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">operationFee</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span><span style="color:#000">(</span><span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span><span style="color:#000">){</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">BankAccount</span> <span style="color:#000">b</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">BankAccount</span><span style="color:#000">(</span><span style="color:#000">100</span><span style="color:#000">){</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#a90d91">public</span> <span style="color:#a90d91">int</span> <span style="color:#000">operationFee</span><span style="color:#000">(){</span> <span style="color:#a90d91">return</span> <span style="color:#000">1</span><span style="color:#000">;</span> <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">};</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">b</span><span style="color:#000">.</span><span style="color:#836c28">withdraw</span><span style="color:#000">(</span><span style="color:#000">20</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">b</span><span style="color:#000">.</span><span style="color:#836c28">getAmount</span><span style="color:#000">());</span> <span style="color:#177500">// 79
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></section><section>
+<h2 id="pattern-decorator-strutturale-su-oggetti">Pattern <strong>Decorator</strong>: strutturale, su oggetti</h2>
+<h3 id="intentomotivazione-1">Intento/motivazione</h3>
+<p>Aggiunge ad un oggetto ulteriori responsabilità, dinamicamente, e in modo più flessibile (e componibile) rispetto all’ereditarietà.</p>
+<h3 id="esempi-1">Esempi</h3>
+<ul>
+<li>Aggiungere una barra di scorrimento ad un pannello</li>
+<li>Ottenere uno stream ordered da uno unordered</li>
+</ul>
+<!--
+*  Aggiungere (in modo componibile) la gestione "buffered" ad uno stream
+-->    
+<h3 id="soluzione-2">Soluzione</h3>
+<ul>
+<li>La classe base viene estesa con una nuova classe che è anche wrapper di un oggetto della classe base</li>
+<li>Uno o più metodi potrebbero delegare semplicemente all’oggetto wrappato, altri modificare opportunamente, altri essere aggiuntivi</li>
+<li>$\Rightarrow$ può essere visto come variante dello strategy (in cui la strategia è la realizzazione base del comportamento), e potrebbe includere dei template method</li>
+</ul>
+</section><section>
+<h2 id="decorator-uml">Decorator: UML</h2>
+<p><img src="imgs/decorator.jpg" alt=""></p>
+</section><section>
+<h2 id="esempio-di-problema">Esempio di problema</h2>
+<h3 id="data-la-seguente-interfaccia-pizza">Data la seguente interfaccia <code>Pizza</code>..</h3>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">interface</span> <span style="color:#3f6e75">Pizza</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">int</span> <span style="color:#000">getCost</span><span style="color:#000">();</span> <span style="color:#177500">// prezzo in centesimi di euro
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>	<span style="color:#000">String</span> <span style="color:#000">getIngredients</span><span style="color:#000">();</span> <span style="color:#177500">// lista di ingredienti a menù
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#000">}</span>
+</span></span></code></pre></div><h3 id="realizzare-le-seguenti-astrazioni">Realizzare le seguenti astrazioni</h3>
+<ul>
+<li>Margherita (6.50 euro, ingredienti: pomodoro + mozzarella)</li>
+<li>Aggiunta Salsiccia (1.50 euro), anche doppia o tripla eccetera</li>
+<li>Aggiunta Funghi (1 euro), anche doppia o tripla eccetera</li>
+<li>Pizza senza glutine (+10% costo)</li>
+</ul>
+<h3 id="forniamo-la-soluzione-col-decoratore-tipica-del-concetto-di-ingrediente">Forniamo la soluzione col decoratore (tipica del concetto di “ingrediente”)</h3>
+<ul>
+<li>Classe concreta <code>Margherita</code></li>
+<li>Decoratore astratto <code>IngredientDecorator</code></li>
+<li>Specializzazioni <code>Salsiccia</code>, <code>Funghi</code> e <code>GlutenFree</code></li>
+</ul>
+</section><section>
+<h2 id="funzionalità-di-testing">Funzionalità di testing</h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>	<span style="color:#000">@Test</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">test</span><span style="color:#000">(){</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">Pizza</span> <span style="color:#000">p1</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Mushrooms</span><span style="color:#000">(</span><span style="color:#a90d91">new</span> <span style="color:#000">Sausage</span><span style="color:#000">(</span><span style="color:#a90d91">new</span> <span style="color:#000">Margherita</span><span style="color:#000">()));</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">Pizza</span> <span style="color:#000">p2</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Margherita</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">Pizza</span> <span style="color:#000">p3</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Sausage</span><span style="color:#000">(</span><span style="color:#a90d91">new</span> <span style="color:#000">Sausage</span><span style="color:#000">(</span><span style="color:#a90d91">new</span> <span style="color:#000">Margherita</span><span style="color:#000">()));</span> <span style="color:#177500">// Ingrediente usato due volte (ossia doppio)
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#000">Pizza</span> <span style="color:#000">p4</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">GlutFree</span><span style="color:#000">(</span><span style="color:#a90d91">new</span> <span style="color:#000">Sausage</span><span style="color:#000">(</span><span style="color:#a90d91">new</span> <span style="color:#000">Sausage</span><span style="color:#000">(</span><span style="color:#a90d91">new</span> <span style="color:#000">Margherita</span><span style="color:#000">())));</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#177500">// stampe di comodo
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">p1</span><span style="color:#000">.</span><span style="color:#836c28">getCost</span><span style="color:#000">()+</span><span style="color:#c41a16">" "</span><span style="color:#000">+</span><span style="color:#000">p1</span><span style="color:#000">.</span><span style="color:#836c28">getIngredients</span><span style="color:#000">());</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">p2</span><span style="color:#000">.</span><span style="color:#836c28">getCost</span><span style="color:#000">()+</span><span style="color:#c41a16">" "</span><span style="color:#000">+</span><span style="color:#000">p2</span><span style="color:#000">.</span><span style="color:#836c28">getIngredients</span><span style="color:#000">());</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">p3</span><span style="color:#000">.</span><span style="color:#836c28">getCost</span><span style="color:#000">()+</span><span style="color:#c41a16">" "</span><span style="color:#000">+</span><span style="color:#000">p3</span><span style="color:#000">.</span><span style="color:#836c28">getIngredients</span><span style="color:#000">());</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">p4</span><span style="color:#000">.</span><span style="color:#836c28">getCost</span><span style="color:#000">()+</span><span style="color:#c41a16">" "</span><span style="color:#000">+</span><span style="color:#000">p4</span><span style="color:#000">.</span><span style="color:#836c28">getIngredients</span><span style="color:#000">());</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#177500">// test correttezza di costi e stringhe
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#000">assertEquals</span><span style="color:#000">(</span><span style="color:#000">p1</span><span style="color:#000">.</span><span style="color:#836c28">getCost</span><span style="color:#000">(),</span><span style="color:#000">900</span><span style="color:#000">);</span> <span style="color:#177500">// 6.50 + 1.00 + 1.50
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#000">assertEquals</span><span style="color:#000">(</span><span style="color:#000">p2</span><span style="color:#000">.</span><span style="color:#836c28">getCost</span><span style="color:#000">(),</span><span style="color:#000">650</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">assertEquals</span><span style="color:#000">(</span><span style="color:#000">p3</span><span style="color:#000">.</span><span style="color:#836c28">getCost</span><span style="color:#000">(),</span><span style="color:#000">950</span><span style="color:#000">);</span> <span style="color:#177500">// 6.50 + 1.50 + 1.50
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#000">assertEquals</span><span style="color:#000">(</span><span style="color:#000">p4</span><span style="color:#000">.</span><span style="color:#836c28">getCost</span><span style="color:#000">(),</span><span style="color:#000">1045</span><span style="color:#000">);</span><span style="color:#177500">// (6.50 + 1.50 + 1.50) + 10%
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#000">assertEquals</span><span style="color:#000">(</span><span style="color:#000">p1</span><span style="color:#000">.</span><span style="color:#836c28">getIngredients</span><span style="color:#000">(),</span><span style="color:#c41a16">"Tomato, Mozzarella, Sausage, Mushrooms"</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">assertEquals</span><span style="color:#000">(</span><span style="color:#000">p2</span><span style="color:#000">.</span><span style="color:#836c28">getIngredients</span><span style="color:#000">(),</span><span style="color:#c41a16">"Tomato, Mozzarella"</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">assertEquals</span><span style="color:#000">(</span><span style="color:#000">p3</span><span style="color:#000">.</span><span style="color:#836c28">getIngredients</span><span style="color:#000">(),</span><span style="color:#c41a16">"Tomato, Mozzarella, Sausage, Sausage"</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">assertEquals</span><span style="color:#000">(</span><span style="color:#000">p4</span><span style="color:#000">.</span><span style="color:#836c28">getIngredients</span><span style="color:#000">(),</span><span style="color:#c41a16">"[GF] Tomato, Mozzarella, Sausage, Sausage"</span><span style="color:#000">);</span>	
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></section><section>
+<h2 id="classe-margherita">Classe <code>Margherita</code></h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#177500">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"> * This is the basic Pizza of all
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"> */</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Margherita</span> <span style="color:#a90d91">implements</span> <span style="color:#000">Pizza</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">int</span> <span style="color:#000">getCost</span><span style="color:#000">(){</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#000">650</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#000">String</span> <span style="color:#000">getIngredients</span><span style="color:#000">(){</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#c41a16">"Tomato, Mozzarella"</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></section><section>
+<h2 id="classe-ingredientdecorator">Classe <code>IngredientDecorator</code></h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">abstract</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">IngredientDecorator</span> <span style="color:#a90d91">implements</span> <span style="color:#000">Pizza</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">protected</span> <span style="color:#a90d91">final</span> <span style="color:#000">Pizza</span> <span style="color:#000">decorated</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">protected</span> <span style="color:#000">IngredientDecorator</span><span style="color:#000">(</span><span style="color:#000">Pizza</span> <span style="color:#000">decorated</span><span style="color:#000">){</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">decorated</span> <span style="color:#000">=</span> <span style="color:#000">decorated</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">int</span> <span style="color:#000">getCost</span><span style="color:#000">(){</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">decorated</span><span style="color:#000">.</span><span style="color:#836c28">getCost</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#000">String</span> <span style="color:#000">getIngredients</span><span style="color:#000">(){</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">decorated</span><span style="color:#000">.</span><span style="color:#836c28">getIngredients</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></section><section>
+<h2 id="classe-basicingredient">Classe <code>BasicIngredient</code></h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">BasicIngredient</span> <span style="color:#a90d91">extends</span> <span style="color:#000">IngredientDecorator</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#000">String</span> <span style="color:#000">name</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">cost</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#000">BasicIngredient</span><span style="color:#000">(</span><span style="color:#000">String</span> <span style="color:#000">name</span><span style="color:#000">,</span> <span style="color:#a90d91">int</span> <span style="color:#000">cost</span><span style="color:#000">,</span><span style="color:#000">Pizza</span> <span style="color:#000">p</span><span style="color:#000">){</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">super</span><span style="color:#000">(</span><span style="color:#000">p</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">name</span> <span style="color:#000">=</span> <span style="color:#000">name</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">cost</span> <span style="color:#000">=</span> <span style="color:#000">cost</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">int</span> <span style="color:#000">getCost</span><span style="color:#000">(){</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#a90d91">super</span><span style="color:#000">.</span><span style="color:#836c28">getCost</span><span style="color:#000">()</span> <span style="color:#000">+</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">cost</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#000">String</span> <span style="color:#000">getIngredients</span><span style="color:#000">(){</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#a90d91">super</span><span style="color:#000">.</span><span style="color:#836c28">getIngredients</span><span style="color:#000">()</span> <span style="color:#000">+</span> <span style="color:#c41a16">", "</span> <span style="color:#000">+</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">name</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></section><section>
+<h2 id="classi-per-gli-ingredienti">Classi per gli ingredienti..</h2>
+<div class="container">
+<div class="col">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Sausage</span> <span style="color:#a90d91">extends</span> <span style="color:#000">BasicIngredient</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#000">Sausage</span><span style="color:#000">(</span><span style="color:#000">Pizza</span> <span style="color:#000">p</span><span style="color:#000">){</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">super</span><span style="color:#000">(</span><span style="color:#c41a16">"Sausage"</span><span style="color:#000">,</span> <span style="color:#000">150</span><span style="color:#000">,</span> <span style="color:#000">p</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>	
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Mushrooms</span> <span style="color:#a90d91">extends</span> <span style="color:#000">BasicIngredient</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#000">Mushrooms</span><span style="color:#000">(</span><span style="color:#000">Pizza</span> <span style="color:#000">p</span><span style="color:#000">){</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">super</span><span style="color:#000">(</span><span style="color:#c41a16">"Mushrooms"</span><span style="color:#000">,</span> <span style="color:#000">100</span><span style="color:#000">,</span> <span style="color:#000">p</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>	
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></div>
+<div class="col">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">GlutFree</span> <span style="color:#a90d91">extends</span> <span style="color:#000">IngredientDecorator</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#000">GlutFree</span><span style="color:#000">(</span><span style="color:#000">Pizza</span> <span style="color:#000">p</span><span style="color:#000">){</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">super</span><span style="color:#000">(</span><span style="color:#000">p</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">int</span> <span style="color:#000">getCost</span><span style="color:#000">(){</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#000">(</span><span style="color:#a90d91">int</span><span style="color:#000">)(</span><span style="color:#a90d91">super</span><span style="color:#000">.</span><span style="color:#836c28">getCost</span><span style="color:#000">()</span> <span style="color:#000">*</span> <span style="color:#000">1</span><span style="color:#000">.</span><span style="color:#836c28">1</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#000">String</span> <span style="color:#000">getIngredients</span><span style="color:#000">(){</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#c41a16">"[GF] "</span><span style="color:#000">+</span><span style="color:#a90d91">super</span><span style="color:#000">.</span><span style="color:#836c28">getIngredients</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></div></div>
+</section><section>
 <h2 id="preview-del-prossimo-laboratorio">Preview del prossimo laboratorio</h2>
 <h3 id="obbiettivi">Obbiettivi</h3>
 <p>Familiarizzare con:</p>
 <ul>
-<li>Estensione delle classi e corrsipondente polimorfismo</li>
+<li>Estensione delle classi e corrispondente polimorfismo</li>
 <li>Classi astratte</li>
 <li>Tipi a run-time e boxing</li>
 </ul>
