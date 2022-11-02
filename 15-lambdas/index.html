@@ -1,0 +1,956 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="utf-8">
+<title>Progettazione e Sviluppo del Software</title>
+<meta name="description" content="Progettazione e Sviluppo del Software, Tecnologie dei Sistemi Informatici">
+<meta name="author" content="Danilo Pianini">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="/reveal-js/dist/reset.css">
+<link rel="stylesheet" href="/reveal-js/dist/reveal.css">
+  <link rel="stylesheet" href="/css/custom-theme.min.b14bd2cb8ebd9f5aadd1914151911df5ab7b2264253b1df19c307933796d5e56.css" id="theme"><link rel="stylesheet" href="/highlight-js/default.min.css">
+    
+<link rel="stylesheet" href="https://gitcdn.link/repo/DanySK/css-blur-animation/master/blur.css">
+<link href="https://fonts.googleapis.com/css?family=Roboto Mono" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Oxygen Mono" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Ubuntu Mono" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+
+  </head>
+  <body>
+    
+    <div class="reveal">
+      <div class="slides">
+  
+
+    <section><h1 id="lambda-e-funzioni-first-class">Lambda e funzioni first-class</h1>
+<!-- <h4 id="progettazione-e-sviluppo-del-software">Progettazione e Sviluppo del Software</h4>
+<h4 id="cdl-tecnologie-dei-sistemi-informatici">C.D.L. Tecnologie dei Sistemi Informatici</h4>
+<h3 id="roberto-casadei-----robycasadeiuniboitmailtorobycasadeiuniboit"><a href="mailto:roby.casadei@unibo.it">Roberto Casadei &mdash; <code>roby.casadei@unibo.it</code></a></h3>
+<h3 id="danilo-pianini-----danilopianiniuniboitmailtodanilopianiniuniboit"><a href="mailto:danilo.pianini@unibo.it">Danilo Pianini &mdash; <code>danilo.pianini@unibo.it</code></a></h3>
+<p><a href="?print-pdf&amp;pdfSeparateFragments=false"><i class="fa fa-print" aria-hidden="true"></i> versione stampabile</a></p>
+</section><section> -->
+<h4 id="progettazione-e-sviluppo-del-software">Progettazione e Sviluppo del Software</h4>
+<h4 id="cdl-tecnologie-dei-sistemi-informatici">C.D.L. Tecnologie dei Sistemi Informatici</h4>
+<h3 id="roberto-casadei-----robycasadeiuniboitmailtorobycasadeiuniboit"><a href="mailto:roby.casadei@unibo.it">Roberto Casadei — <code>roby.casadei@unibo.it</code></a></h3>
+<h3 id="danilo-pianini-----danilopianiniuniboitmailtodanilopianiniuniboit"><a href="mailto:danilo.pianini@unibo.it">Danilo Pianini — <code>danilo.pianini@unibo.it</code></a></h3>
+<p><a href="?print-pdf&amp;pdfSeparateFragments=false"><i class="fa fa-print" aria-hidden="true"></i> versione stampabile</a></p>
+</section><section>
+<h2 id="nota">Nota</h2>
+<ul>
+<li>
+<p>Questo materiale è ampiamente basato su quello realizzato dal Prof.
+Mirko Viroli, che ringrazio.</p>
+</li>
+<li>
+<p>Ogni errore riscontratovi è esclusiva responsabilità degli autori di questo documento.</p>
+</li>
+</ul>
+</section><section>
+<h2 id="outline">Outline</h2>
+<h3 id="goal-della-lezione">Goal della lezione</h3>
+<ul>
+<li>Illustrare il concetto di lambda</li>
+<li>Dettagliare il supporto alle lambda in Java 8</li>
+</ul>
+<h3 id="argomenti">Argomenti</h3>
+<pre><code>*  Lambda expressions
+*  Functional interfaces
+*  Altri usi nell'API
+</code></pre>
+</section><section>
+<h1 id="introduzione-alle-lambda">Introduzione alle lambda</h1>
+</section><section>
+<h2 id="le-novità-di-java-8">Le novità di Java 8</h2>
+<h3 id="una-release-molto-attesa-che-rincorre-c-e-scala">Una release molto attesa, che “rincorre” C# e Scala</h3>
+<pre><code>*  Molte funzionalità rimandate da Java 7
+*  Java 8 disponibile dall'estate 2014
+*  Principale novità: lambda (ossia uno degli elementi fondamentali dello stile di programmazione funzionale)
+*  Le lambda portano ad uno stile più elegante e astratto di programmazione
+*  In Java, portano a codice più compatto e chiaro in certe situazioni
+*  Impatta alcuni aspetti di linguaggio
+*  Impatta varie librerie
+</code></pre>
+<h3 id="risorse">Risorse</h3>
+<pre><code>*  Libri: R.Warburton, Java 8 Lambdas
+*  Tutorial in rete: {\footnotesize `http://www.techempower.com/blog/2013/03/26/everything-about-java-8/`}
+*  Specification: {\footnotesize `dlsmith/jsr335-0.6.1/`}
+</code></pre>
+</section><section>
+<h2 id="preview-1-strategie-funzionali">Preview 1: strategie funzionali</h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">FirstComparable</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span><span style="color:#000">(</span><span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">Persona</span><span style="color:#000">&gt;</span> <span style="color:#000">list</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">ArrayList</span><span style="color:#000">&lt;</span><span style="color:#000">Persona</span><span style="color:#000">&gt;();</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">list</span><span style="color:#000">.</span><span style="color:#836c28">add</span><span style="color:#000">(</span><span style="color:#a90d91">new</span> <span style="color:#000">Persona</span><span style="color:#000">(</span><span style="color:#c41a16">"Mario"</span><span style="color:#000">,</span><span style="color:#000">1960</span><span style="color:#000">,</span><span style="color:#a90d91">true</span><span style="color:#000">));</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">list</span><span style="color:#000">.</span><span style="color:#836c28">add</span><span style="color:#000">(</span><span style="color:#a90d91">new</span> <span style="color:#000">Persona</span><span style="color:#000">(</span><span style="color:#c41a16">"Gino"</span><span style="color:#000">,</span><span style="color:#000">1970</span><span style="color:#000">,</span><span style="color:#a90d91">false</span><span style="color:#000">));</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">list</span><span style="color:#000">.</span><span style="color:#836c28">add</span><span style="color:#000">(</span><span style="color:#a90d91">new</span> <span style="color:#000">Persona</span><span style="color:#000">(</span><span style="color:#c41a16">"Rino"</span><span style="color:#000">,</span><span style="color:#000">1951</span><span style="color:#000">,</span><span style="color:#a90d91">true</span><span style="color:#000">));</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">list</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>		
+</span></span><span style="display:flex;"><span>		<span style="color:#177500">// Without lambdas
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#000">Collections</span><span style="color:#000">.</span><span style="color:#836c28">sort</span><span style="color:#000">(</span><span style="color:#000">list</span><span style="color:#000">,</span> <span style="color:#a90d91">new</span> <span style="color:#000">Comparator</span><span style="color:#000">&lt;</span><span style="color:#000">Persona</span><span style="color:#000">&gt;(){</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#a90d91">public</span> <span style="color:#a90d91">int</span> <span style="color:#000">compare</span><span style="color:#000">(</span><span style="color:#000">Persona</span> <span style="color:#000">o1</span><span style="color:#000">,</span> <span style="color:#000">Persona</span> <span style="color:#000">o2</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>				<span style="color:#a90d91">return</span> <span style="color:#000">o1</span><span style="color:#000">.</span><span style="color:#836c28">getAnno</span><span style="color:#000">()</span> <span style="color:#000">-</span> <span style="color:#000">o2</span><span style="color:#000">.</span><span style="color:#836c28">getAnno</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">});</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">list</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>		
+</span></span><span style="display:flex;"><span>		<span style="color:#177500">// With lambdas
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#000">Collections</span><span style="color:#000">.</span><span style="color:#836c28">sort</span><span style="color:#000">(</span><span style="color:#000">list</span><span style="color:#000">,</span> <span style="color:#000">(</span><span style="color:#000">o1</span><span style="color:#000">,</span><span style="color:#000">o2</span><span style="color:#000">)</span> <span style="color:#000">-&gt;</span> <span style="color:#000">o2</span><span style="color:#000">.</span><span style="color:#836c28">getAnno</span><span style="color:#000">()</span> <span style="color:#000">-</span> <span style="color:#000">o1</span><span style="color:#000">.</span><span style="color:#836c28">getAnno</span><span style="color:#000">());</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">list</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></section><section>
+<h2 id="handler-eventi-senza-lambda">Handler eventi senza lambda</h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseButtonEvents</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span><span style="color:#000">(</span><span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">JButton</span> <span style="color:#000">b1</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">JButton</span><span style="color:#000">(</span><span style="color:#c41a16">"Say Hello"</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">b1</span><span style="color:#000">.</span><span style="color:#836c28">addActionListener</span><span style="color:#000">(</span><span style="color:#a90d91">new</span> <span style="color:#000">ActionListener</span><span style="color:#000">(){</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">actionPerformed</span><span style="color:#000">(</span><span style="color:#000">ActionEvent</span> <span style="color:#000">e</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>				<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#c41a16">"Hello!! "</span><span style="color:#000">+</span><span style="color:#000">e</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">});</span> <span style="color:#177500">// Uso una inner class anonima..
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">JButton</span> <span style="color:#000">b2</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">JButton</span><span style="color:#000">(</span><span style="color:#c41a16">"Quit"</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">b2</span><span style="color:#000">.</span><span style="color:#836c28">addActionListener</span><span style="color:#000">(</span><span style="color:#a90d91">new</span> <span style="color:#000">ActionListener</span><span style="color:#000">(){</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">actionPerformed</span><span style="color:#000">(</span><span style="color:#000">ActionEvent</span> <span style="color:#000">e</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>				<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#c41a16">"Quitting.."</span><span style="color:#000">+</span><span style="color:#000">e</span><span style="color:#000">);</span> 
+</span></span><span style="display:flex;"><span>				<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">exit</span><span style="color:#000">(</span><span style="color:#000">0</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">});</span> <span style="color:#177500">// Uso una inner class anonima..
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">JFrame</span> <span style="color:#000">frame</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">JFrame</span><span style="color:#000">(</span><span style="color:#c41a16">"Events Example"</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">frame</span><span style="color:#000">.</span><span style="color:#836c28">setSize</span><span style="color:#000">(</span><span style="color:#000">320</span><span style="color:#000">,</span> <span style="color:#000">200</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">frame</span><span style="color:#000">.</span><span style="color:#836c28">getContentPane</span><span style="color:#000">().</span><span style="color:#836c28">setLayout</span><span style="color:#000">(</span><span style="color:#a90d91">new</span> <span style="color:#000">FlowLayout</span><span style="color:#000">());</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">frame</span><span style="color:#000">.</span><span style="color:#836c28">getContentPane</span><span style="color:#000">().</span><span style="color:#836c28">add</span><span style="color:#000">(</span><span style="color:#000">b1</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">frame</span><span style="color:#000">.</span><span style="color:#836c28">getContentPane</span><span style="color:#000">().</span><span style="color:#836c28">add</span><span style="color:#000">(</span><span style="color:#000">b2</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">frame</span><span style="color:#000">.</span><span style="color:#836c28">setVisible</span><span style="color:#000">(</span><span style="color:#a90d91">true</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></section><section>
+<h2 id="preview-2-handler-eventi-con-le-lambda">Preview 2: handler eventi con le lambda</h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseButtonEventsWithLambda</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span><span style="color:#000">(</span><span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">JButton</span> <span style="color:#000">b1</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">JButton</span><span style="color:#000">(</span><span style="color:#c41a16">"Say Hello"</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#177500">// lambda con single-expression body
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#000">b1</span><span style="color:#000">.</span><span style="color:#836c28">addActionListener</span><span style="color:#000">(</span> <span style="color:#000">e</span> <span style="color:#000">-&gt;</span> <span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#c41a16">"Hello!!"</span><span style="color:#000">+</span><span style="color:#000">e</span><span style="color:#000">));</span>
+</span></span><span style="display:flex;"><span>		
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">JButton</span> <span style="color:#000">b2</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">JButton</span><span style="color:#000">(</span><span style="color:#c41a16">"Quit"</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#177500">// lambda con body
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#000">b2</span><span style="color:#000">.</span><span style="color:#836c28">addActionListener</span><span style="color:#000">(</span> <span style="color:#000">e</span> <span style="color:#000">-&gt;</span> <span style="color:#000">{</span> 
+</span></span><span style="display:flex;"><span>			<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#c41a16">"Quitting.."</span><span style="color:#000">+</span><span style="color:#000">e</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">exit</span><span style="color:#000">(</span><span style="color:#000">0</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">});</span>
+</span></span><span style="display:flex;"><span>		
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">JFrame</span> <span style="color:#000">frame</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">JFrame</span><span style="color:#000">(</span><span style="color:#c41a16">"Events Example"</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">frame</span><span style="color:#000">.</span><span style="color:#836c28">setSize</span><span style="color:#000">(</span><span style="color:#000">320</span><span style="color:#000">,</span> <span style="color:#000">200</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">frame</span><span style="color:#000">.</span><span style="color:#836c28">getContentPane</span><span style="color:#000">().</span><span style="color:#836c28">setLayout</span><span style="color:#000">(</span><span style="color:#a90d91">new</span> <span style="color:#000">FlowLayout</span><span style="color:#000">());</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">frame</span><span style="color:#000">.</span><span style="color:#836c28">getContentPane</span><span style="color:#000">().</span><span style="color:#836c28">add</span><span style="color:#000">(</span><span style="color:#000">b1</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">frame</span><span style="color:#000">.</span><span style="color:#836c28">getContentPane</span><span style="color:#000">().</span><span style="color:#836c28">add</span><span style="color:#000">(</span><span style="color:#000">b2</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">frame</span><span style="color:#000">.</span><span style="color:#836c28">setVisible</span><span style="color:#000">(</span><span style="color:#a90d91">true</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></section><section>
+<h2 id="preview-3-iterazioni-dichiarative-con-gli-__stream__">Preview 3: iterazioni “dichiarative” con gli <em><strong>stream</strong></em></h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">FirstStream</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span><span style="color:#000">(</span><span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> <span style="color:#000">list</span> <span style="color:#000">=</span> <span style="color:#000">List</span><span style="color:#000">.</span><span style="color:#836c28">of</span><span style="color:#000">(</span><span style="color:#000">10</span><span style="color:#000">,</span><span style="color:#000">20</span><span style="color:#000">,</span><span style="color:#000">30</span><span style="color:#000">,</span><span style="color:#000">40</span><span style="color:#000">,</span><span style="color:#000">50</span><span style="color:#000">,</span><span style="color:#000">60</span><span style="color:#000">,</span><span style="color:#000">70</span><span style="color:#000">,</span><span style="color:#000">80</span><span style="color:#000">,</span><span style="color:#000">90</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>		
+</span></span><span style="display:flex;"><span>		<span style="color:#177500">// for each element, pass it to method println of System.out
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#000">list</span><span style="color:#000">.</span><span style="color:#836c28">stream</span><span style="color:#000">().</span><span style="color:#836c28">forEach</span><span style="color:#000">(</span><span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">::</span><span style="color:#000">println</span><span style="color:#000">);</span> <span style="color:#177500">//"10" \n "20" \n "30"
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>
+</span></span><span style="display:flex;"><span>		<span style="color:#177500">// Filter and print
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#000">list</span><span style="color:#000">.</span><span style="color:#836c28">stream</span><span style="color:#000">().</span><span style="color:#836c28">filter</span><span style="color:#000">(</span><span style="color:#000">i</span><span style="color:#000">-&gt;</span><span style="color:#000">i</span><span style="color:#000">&gt;</span><span style="color:#000">60</span><span style="color:#000">).</span><span style="color:#836c28">forEach</span><span style="color:#000">(</span><span style="color:#000">i</span> <span style="color:#000">-&gt;</span> <span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">print</span><span style="color:#000">(</span><span style="color:#000">i</span><span style="color:#000">+</span><span style="color:#c41a16">" "</span><span style="color:#000">));</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#c41a16">""</span><span style="color:#000">);</span> <span style="color:#177500">//"70 80 90 "
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		
+</span></span><span style="display:flex;"><span>		<span style="color:#177500">// Map and print
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#000">list</span><span style="color:#000">.</span><span style="color:#836c28">stream</span><span style="color:#000">().</span><span style="color:#836c28">map</span><span style="color:#000">(</span><span style="color:#000">i</span><span style="color:#000">-&gt;</span><span style="color:#000">i</span><span style="color:#000">+</span><span style="color:#c41a16">" "</span><span style="color:#000">).</span><span style="color:#836c28">forEach</span><span style="color:#000">(</span><span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">::</span><span style="color:#000">print</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#c41a16">""</span><span style="color:#000">);</span> <span style="color:#177500">//"10 20 .. 70 80 90 "
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		
+</span></span><span style="display:flex;"><span>		<span style="color:#177500">// Map-reduce and print the resulting string
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#a90d91">final</span> <span style="color:#000">String</span> <span style="color:#000">s</span> <span style="color:#000">=</span> <span style="color:#000">list</span><span style="color:#000">.</span><span style="color:#836c28">stream</span><span style="color:#000">().</span><span style="color:#836c28">map</span><span style="color:#000">(</span><span style="color:#000">i</span><span style="color:#000">-&gt;</span><span style="color:#000">i</span><span style="color:#000">+</span><span style="color:#c41a16">"|"</span><span style="color:#000">).</span><span style="color:#836c28">reduce</span><span style="color:#000">((</span><span style="color:#000">x</span><span style="color:#000">,</span><span style="color:#000">y</span><span style="color:#000">)</span> <span style="color:#000">-&gt;</span> <span style="color:#000">x</span><span style="color:#000">+</span><span style="color:#000">y</span><span style="color:#000">).</span><span style="color:#836c28">get</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">s</span><span style="color:#000">);</span> <span style="color:#177500">//"10|20|..|70|80|90|"		
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></section><section>
+<h1 id="lambda-expressions">Lambda expressions</h1>
+</section><section>
+<h2 id="elementi-delle-lambda-expression">Elementi delle lambda expression</h2>
+<h3 id="che-cosè-una-lambda">Che cos’è una lambda</h3>
+<pre><code>*  è una funzione (anonima) con accesso ad uno scope locale
+*  è applicabile a certi input, e dà un risultato (oppure `void`)
+*  per calcolare il risultato potrebbe usare qualche variabile nello scope in cui è definita
+*  la lambda è usabile come "valore" (quindi, come dato), ossia è passabile a metodi, altre funzioni, o memorizzata in variabili/campi
+*  ossia si può "passare" del "codice"
+</code></pre>
+<h3 id="caratteristica-specifica-di-java">Caratteristica specifica di Java</h3>
+<pre><code>*  come vedremo, una lambda è un oggetto, e il suo tipo è sempre quello di una `interface` detta "funzionale"
+*  metodi statici o istanza possono essere usati a mo' di lambda (chiamati "method reference", perché sono interpretabili come funzioni (come i `delegate` di `C\#`)
+</code></pre>
+</section><section>
+<h2 id="come-si-esprime-una-lambda">Come si esprime una lambda</h2>
+<h3 id="sintassi-possibili">Sintassi possibili</h3>
+<pre><code>*  `{&lt;body&gt;\}`
+*  `{&lt;body&gt;\}`
+*  `{&lt;body&gt;\}`
+*  `(T1 x1,..,Tn xn) -&gt; &lt;exp&gt;`
+*  `(x1,..,xn) -&gt; &lt;exp&gt;`
+*  `x -&gt; &lt;exp&gt;`
+*  .. oppure un "method reference"
+</code></pre>
+<h3 id="ossia">Ossia:</h3>
+<pre><code>*  Per gli argomenti si può esprimere un tipo o può essere inferito
+*  Con un argomento, le parentesi tonde sono omettibili
+*  Il body può essere direttamente una singola espressione/istruzione
+</code></pre>
+</section><section>
+<h2 id="esempi-di-lambda"><code>Esempi di Lambda</code></h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">AllLambdas</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">private</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">int</span> <span style="color:#000">mycompare</span><span style="color:#000">(</span><span style="color:#a90d91">final</span> <span style="color:#000">String</span> <span style="color:#000">a</span><span style="color:#000">,</span> <span style="color:#a90d91">final</span> <span style="color:#000">String</span> <span style="color:#000">b</span><span style="color:#000">)</span> <span style="color:#000">{</span> 
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#000">a</span><span style="color:#000">.</span><span style="color:#836c28">compareTo</span><span style="color:#000">(</span><span style="color:#000">b</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span><span style="color:#000">(</span><span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">String</span><span style="color:#000">&gt;</span> <span style="color:#000">list</span> <span style="color:#000">=</span> <span style="color:#000">Arrays</span><span style="color:#000">.</span><span style="color:#836c28">asList</span><span style="color:#000">(</span><span style="color:#c41a16">"a"</span><span style="color:#000">,</span> <span style="color:#c41a16">"bb"</span><span style="color:#000">,</span> <span style="color:#c41a16">"c"</span><span style="color:#000">,</span> <span style="color:#c41a16">"ddd"</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">Collections</span><span style="color:#000">.</span><span style="color:#836c28">sort</span><span style="color:#000">(</span><span style="color:#000">list</span><span style="color:#000">,</span> <span style="color:#000">(</span><span style="color:#000">String</span> <span style="color:#000">a</span><span style="color:#000">,</span> <span style="color:#000">String</span> <span style="color:#000">b</span><span style="color:#000">)</span> <span style="color:#000">-&gt;</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#a90d91">return</span> <span style="color:#000">a</span><span style="color:#000">.</span><span style="color:#836c28">length</span><span style="color:#000">()</span> <span style="color:#000">-</span> <span style="color:#000">b</span><span style="color:#000">.</span><span style="color:#836c28">length</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">});</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">list</span><span style="color:#000">);</span> <span style="color:#177500">// [a, c, bb, ddd]
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">Collections</span><span style="color:#000">.</span><span style="color:#836c28">sort</span><span style="color:#000">(</span><span style="color:#000">list</span><span style="color:#000">,</span> <span style="color:#000">(</span><span style="color:#000">a</span><span style="color:#000">,</span> <span style="color:#000">b</span><span style="color:#000">)</span> <span style="color:#000">-&gt;</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#a90d91">return</span> <span style="color:#000">a</span><span style="color:#000">.</span><span style="color:#836c28">length</span><span style="color:#000">()</span> <span style="color:#000">-</span> <span style="color:#000">b</span><span style="color:#000">.</span><span style="color:#836c28">length</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">});</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">list</span><span style="color:#000">);</span> <span style="color:#177500">// [a, c, bb, ddd]
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">Collections</span><span style="color:#000">.</span><span style="color:#836c28">sort</span><span style="color:#000">(</span><span style="color:#000">list</span><span style="color:#000">,</span> <span style="color:#000">(</span><span style="color:#000">String</span> <span style="color:#000">a</span><span style="color:#000">,</span> <span style="color:#000">String</span> <span style="color:#000">b</span><span style="color:#000">)</span> <span style="color:#000">-&gt;</span> <span style="color:#000">a</span><span style="color:#000">.</span><span style="color:#836c28">length</span><span style="color:#000">()</span> <span style="color:#000">-</span> <span style="color:#000">b</span><span style="color:#000">.</span><span style="color:#836c28">length</span><span style="color:#000">());</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">list</span><span style="color:#000">);</span> <span style="color:#177500">// [a, c, bb, ddd]
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">Collections</span><span style="color:#000">.</span><span style="color:#836c28">sort</span><span style="color:#000">(</span><span style="color:#000">list</span><span style="color:#000">,</span> <span style="color:#000">(</span><span style="color:#000">a</span><span style="color:#000">,</span> <span style="color:#000">b</span><span style="color:#000">)</span> <span style="color:#000">-&gt;</span> <span style="color:#000">a</span><span style="color:#000">.</span><span style="color:#836c28">length</span><span style="color:#000">()</span> <span style="color:#000">-</span> <span style="color:#000">b</span><span style="color:#000">.</span><span style="color:#836c28">length</span><span style="color:#000">());</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">list</span><span style="color:#000">);</span> <span style="color:#177500">// [a, c, bb, ddd]
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">Collections</span><span style="color:#000">.</span><span style="color:#836c28">sort</span><span style="color:#000">(</span><span style="color:#000">list</span><span style="color:#000">,</span> <span style="color:#000">(</span><span style="color:#000">a</span><span style="color:#000">,</span> <span style="color:#000">b</span><span style="color:#000">)</span> <span style="color:#000">-&gt;</span> <span style="color:#000">mycompare</span><span style="color:#000">(</span><span style="color:#000">a</span><span style="color:#000">,</span> <span style="color:#000">b</span><span style="color:#000">));</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">list</span><span style="color:#000">);</span> <span style="color:#177500">// [a, c, bb, ddd]
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></section><section>
+<h2 id="come-si-esprime-una-lambda-method-references">Come si esprime una lambda: method references</h2>
+<h3 id="sintassi-possibili-1">Sintassi possibili</h3>
+<pre><code>*  `&lt;class&gt;::&lt;static-method&gt;`{
+</code></pre>
+<ul>
+<li>sta per <code>(x1,..,xn)-&gt; &lt;class&gt;.&lt;static-method&gt;(x1,..,xn)</code>
+}
+<ul>
+<li><code>&lt;class&gt;::&lt;instance-method&gt;</code>{</li>
+</ul>
+</li>
+<li>sta per <code>(x1,x2,..,xn)-&gt; x1.&lt;instance-method&gt;(x2,..,xn)</code>
+}
+<ul>
+<li><code>&lt;obj&gt;::&lt;method&gt;</code>{</li>
+</ul>
+</li>
+<li>sta per <code>(x1,..,xn)-&gt; &lt;obj&gt;.&lt;method&gt;(x1,..,xn)</code>
+}
+<ul>
+<li><code>&lt;class&gt;::new</code>{</li>
+</ul>
+</li>
+<li>sta per <code>(x1,..,xn)-&gt; new &lt;class&gt;(x1,..,xn)</code>
+}</li>
+</ul>
+<h3 id="ossia-1">Ossia:</h3>
+<pre><code>*  Descrivibile come metodo (statico o non), o costruttore..
+*  Usabile "naturalmente" (e opzionalmente) quando la lambda non fa altro che chiamare un metodo usando "banalmente" i suoi input e restituendo il suo "output"
+</code></pre>
+</section><section>
+<h2 id="esempi-di-method-reference-casi-123"><code>Esempi di Method Reference (casi 1,2,3)</code></h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">AllLambdas2</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">private</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">int</span> <span style="color:#000">staticMyCompare</span><span style="color:#000">(</span><span style="color:#a90d91">final</span> <span style="color:#000">String</span> <span style="color:#000">a</span><span style="color:#000">,</span> <span style="color:#a90d91">final</span> <span style="color:#000">String</span> <span style="color:#000">b</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#000">a</span><span style="color:#000">.</span><span style="color:#836c28">compareTo</span><span style="color:#000">(</span><span style="color:#000">b</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">private</span> <span style="color:#a90d91">int</span> <span style="color:#000">instanceMyCompare</span><span style="color:#000">(</span><span style="color:#a90d91">final</span> <span style="color:#000">String</span> <span style="color:#000">a</span><span style="color:#000">,</span> <span style="color:#a90d91">final</span> <span style="color:#000">String</span> <span style="color:#000">b</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#000">b</span><span style="color:#000">.</span><span style="color:#836c28">compareTo</span><span style="color:#000">(</span><span style="color:#000">a</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span><span style="color:#000">(</span><span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">String</span><span style="color:#000">&gt;</span> <span style="color:#000">list</span> <span style="color:#000">=</span> <span style="color:#000">Arrays</span><span style="color:#000">.</span><span style="color:#836c28">asList</span><span style="color:#000">(</span><span style="color:#c41a16">"a"</span><span style="color:#000">,</span> <span style="color:#c41a16">"bb"</span><span style="color:#000">,</span> <span style="color:#c41a16">"c"</span><span style="color:#000">,</span> <span style="color:#c41a16">"ddd"</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">AllLambdas2</span> <span style="color:#000">objAL</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">AllLambdas2</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">Collections</span><span style="color:#000">.</span><span style="color:#836c28">sort</span><span style="color:#000">(</span><span style="color:#000">list</span><span style="color:#000">,</span> <span style="color:#000">(</span><span style="color:#000">x</span><span style="color:#000">,</span><span style="color:#000">y</span><span style="color:#000">)</span> <span style="color:#000">-&gt;</span> <span style="color:#000">staticMyCompare</span><span style="color:#000">(</span><span style="color:#000">x</span><span style="color:#000">,</span><span style="color:#000">y</span><span style="color:#000">));</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">Collections</span><span style="color:#000">.</span><span style="color:#836c28">sort</span><span style="color:#000">(</span><span style="color:#000">list</span><span style="color:#000">,</span> <span style="color:#000">AllLambdas2</span><span style="color:#000">::</span><span style="color:#000">staticMyCompare</span><span style="color:#000">);</span>  <span style="color:#177500">// same as above
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">list</span><span style="color:#000">);</span> <span style="color:#177500">// [a, bb, c, ddd]
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">Collections</span><span style="color:#000">.</span><span style="color:#836c28">sort</span><span style="color:#000">(</span><span style="color:#000">list</span><span style="color:#000">,</span> <span style="color:#000">(</span><span style="color:#000">x</span><span style="color:#000">,</span><span style="color:#000">y</span><span style="color:#000">)</span> <span style="color:#000">-&gt;</span> <span style="color:#000">objAL</span><span style="color:#000">.</span><span style="color:#836c28">instanceMyCompare</span><span style="color:#000">(</span><span style="color:#000">x</span><span style="color:#000">,</span> <span style="color:#000">y</span><span style="color:#000">));</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">Collections</span><span style="color:#000">.</span><span style="color:#836c28">sort</span><span style="color:#000">(</span><span style="color:#000">list</span><span style="color:#000">,</span> <span style="color:#000">objAL</span><span style="color:#000">::</span><span style="color:#000">instanceMyCompare</span><span style="color:#000">);</span>  <span style="color:#177500">// same as above
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">list</span><span style="color:#000">);</span> <span style="color:#177500">// [ddd, c, bb, a]
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		
+</span></span><span style="display:flex;"><span>		<span style="color:#000">Collections</span><span style="color:#000">.</span><span style="color:#836c28">sort</span><span style="color:#000">(</span><span style="color:#000">list</span><span style="color:#000">,</span> <span style="color:#000">(</span><span style="color:#000">x</span><span style="color:#000">,</span><span style="color:#000">y</span><span style="color:#000">)</span> <span style="color:#000">-&gt;</span> <span style="color:#000">x</span><span style="color:#000">.</span><span style="color:#836c28">compareTo</span><span style="color:#000">(</span><span style="color:#000">y</span><span style="color:#000">));</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">Collections</span><span style="color:#000">.</span><span style="color:#836c28">sort</span><span style="color:#000">(</span><span style="color:#000">list</span><span style="color:#000">,</span> <span style="color:#000">String</span><span style="color:#000">::</span><span style="color:#000">compareTo</span><span style="color:#000">);</span>  <span style="color:#177500">// same as above
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">list</span><span style="color:#000">);</span> <span style="color:#177500">// [ddd, c, bb, a]
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></section><section>
+<h2 id="dove-si-può-usare-una-lambda">Dove si può usare una lambda?</h2>
+<h3 id="definizione-di-interfaccia-funzionale-def-non-definitiva">Definizione di interfaccia “funzionale” (def. non definitiva)</h3>
+<ul>
+<li>E’ una <code>interface</code> con un singolo metodo</li>
+</ul>
+<h3 id="quale-tipo-è-compatibile-con-una-lambda">Quale tipo è compatibile con una lambda?</h3>
+<pre><code>*  Una lambda può essere passata dove ci si attende un oggetto che implementi una interfaccia funzionale
+*  C'è compatibilità se i tipi in input/output della lambda (inferiti o non) sono compatibili con quelli dell'unico metodo dell'interfaccia
+</code></pre>
+<h3 id="motivazione">Motivazione:</h3>
+<pre><code>*  Di fatto, il compilatore traduce la lambda nella creazione di un oggetto di una classe anonima che implementa l'interfaccia funzionale
+*  Uno specifico opcode a livello di bytecode evita di costruirsi effettivamente un `.class` per ogni lambda
+</code></pre>
+</section><section>
+<h2 id="generazione-automatica-della-classe-anonima">Generazione automatica della classe anonima</h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">FirstComparable2</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span><span style="color:#000">(</span><span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">Persona</span><span style="color:#000">&gt;</span> <span style="color:#000">list</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">ArrayList</span><span style="color:#000">&lt;</span><span style="color:#000">Persona</span><span style="color:#000">&gt;();</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">list</span><span style="color:#000">.</span><span style="color:#836c28">add</span><span style="color:#000">(</span><span style="color:#a90d91">new</span> <span style="color:#000">Persona</span><span style="color:#000">(</span><span style="color:#c41a16">"Mario"</span><span style="color:#000">,</span><span style="color:#000">1960</span><span style="color:#000">,</span><span style="color:#a90d91">true</span><span style="color:#000">));</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">list</span><span style="color:#000">.</span><span style="color:#836c28">add</span><span style="color:#000">(</span><span style="color:#a90d91">new</span> <span style="color:#000">Persona</span><span style="color:#000">(</span><span style="color:#c41a16">"Gino"</span><span style="color:#000">,</span><span style="color:#000">1970</span><span style="color:#000">,</span><span style="color:#a90d91">false</span><span style="color:#000">));</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">list</span><span style="color:#000">.</span><span style="color:#836c28">add</span><span style="color:#000">(</span><span style="color:#a90d91">new</span> <span style="color:#000">Persona</span><span style="color:#000">(</span><span style="color:#c41a16">"Rino"</span><span style="color:#000">,</span><span style="color:#000">1951</span><span style="color:#000">,</span><span style="color:#a90d91">true</span><span style="color:#000">));</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">list</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>		
+</span></span><span style="display:flex;"><span>		<span style="color:#177500">// Sorting with a lambda
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#000">Collections</span><span style="color:#000">.</span><span style="color:#836c28">sort</span><span style="color:#000">(</span><span style="color:#000">list</span><span style="color:#000">,</span> <span style="color:#000">(</span><span style="color:#000">p1</span><span style="color:#000">,</span><span style="color:#000">p2</span><span style="color:#000">)</span> <span style="color:#000">-&gt;</span> <span style="color:#000">p2</span><span style="color:#000">.</span><span style="color:#836c28">getAnno</span><span style="color:#000">()-</span><span style="color:#000">p1</span><span style="color:#000">.</span><span style="color:#836c28">getAnno</span><span style="color:#000">());</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">list</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>		
+</span></span><span style="display:flex;"><span>		<span style="color:#177500">// Nota che sort richiede un Comparator&lt;Persona&gt;, che ha il solo metodo: 
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#177500">// 		int compare(Persona p1, Persona p2)
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#177500">// Quindi il codice equivalente generato da javac è:
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#000">Collections</span><span style="color:#000">.</span><span style="color:#836c28">sort</span><span style="color:#000">(</span><span style="color:#000">list</span><span style="color:#000">,</span> <span style="color:#a90d91">new</span> <span style="color:#000">Comparator</span><span style="color:#000">&lt;</span><span style="color:#000">Persona</span><span style="color:#000">&gt;(){</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#a90d91">public</span> <span style="color:#a90d91">int</span> <span style="color:#000">compare</span><span style="color:#000">(</span><span style="color:#000">Persona</span> <span style="color:#000">p1</span><span style="color:#000">,</span> <span style="color:#000">Persona</span> <span style="color:#000">p2</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>				<span style="color:#a90d91">return</span> <span style="color:#000">p2</span><span style="color:#000">.</span><span style="color:#836c28">getAnno</span><span style="color:#000">()-</span><span style="color:#000">p1</span><span style="color:#000">.</span><span style="color:#836c28">getAnno</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">});</span>
+</span></span><span style="display:flex;"><span>		
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">list</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></section><section>
+<h2 id="esempio-funzione-riusabile-di-filtraggio">Esempio: funzione riusabile di filtraggio</h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">interface</span> <span style="color:#3f6e75">Filter</span><span style="color:#000">&lt;</span><span style="color:#000">X</span><span style="color:#000">&gt;</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#177500">// Does element x pass the filter?
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>	<span style="color:#a90d91">boolean</span> <span style="color:#000">applyFilter</span><span style="color:#000">(</span><span style="color:#000">X</span> <span style="color:#000">x</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">FilterUtility</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#000">&lt;</span><span style="color:#000">X</span><span style="color:#000">&gt;</span> <span style="color:#000">Set</span><span style="color:#000">&lt;</span><span style="color:#000">X</span><span style="color:#000">&gt;</span> <span style="color:#000">filterAll</span><span style="color:#000">(</span><span style="color:#000">Collection</span><span style="color:#000">&lt;</span><span style="color:#000">X</span><span style="color:#000">&gt;</span> <span style="color:#000">set</span><span style="color:#000">,</span> <span style="color:#000">Filter</span><span style="color:#000">&lt;</span><span style="color:#000">X</span><span style="color:#000">&gt;</span> <span style="color:#000">filter</span><span style="color:#000">){</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">Set</span><span style="color:#000">&lt;</span><span style="color:#000">X</span><span style="color:#000">&gt;</span> <span style="color:#000">newSet</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">HashSet</span><span style="color:#000">&lt;&gt;();</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">for</span> <span style="color:#000">(</span><span style="color:#a90d91">final</span> <span style="color:#000">X</span> <span style="color:#000">x</span><span style="color:#000">:</span> <span style="color:#000">set</span><span style="color:#000">){</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#a90d91">if</span> <span style="color:#000">(</span><span style="color:#000">filter</span><span style="color:#000">.</span><span style="color:#836c28">applyFilter</span><span style="color:#000">(</span><span style="color:#000">x</span><span style="color:#000">)){</span>
+</span></span><span style="display:flex;"><span>				<span style="color:#000">newSet</span><span style="color:#000">.</span><span style="color:#836c28">add</span><span style="color:#000">(</span><span style="color:#000">x</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#000">newSet</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span><span style="color:#000">(</span><span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> <span style="color:#000">ls</span> <span style="color:#000">=</span> <span style="color:#000">Arrays</span><span style="color:#000">.</span><span style="color:#836c28">asList</span><span style="color:#000">(</span><span style="color:#000">10</span><span style="color:#000">,</span><span style="color:#000">20</span><span style="color:#000">,</span><span style="color:#000">30</span><span style="color:#000">,</span><span style="color:#000">40</span><span style="color:#000">,</span><span style="color:#000">50</span><span style="color:#000">,</span><span style="color:#000">60</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>		
+</span></span><span style="display:flex;"><span>		<span style="color:#177500">// Nota che il nome del metodo in Filter non è mai menzionato qui
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">filterAll</span><span style="color:#000">(</span><span style="color:#000">ls</span><span style="color:#000">,</span><span style="color:#000">x</span> <span style="color:#000">-&gt;</span> <span style="color:#000">x</span><span style="color:#000">&gt;</span><span style="color:#000">20</span><span style="color:#000">));</span> <span style="color:#177500">// [30,40,50,60]
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">filterAll</span><span style="color:#000">(</span><span style="color:#000">ls</span><span style="color:#000">,</span><span style="color:#000">x</span> <span style="color:#000">-&gt;</span> <span style="color:#000">x</span><span style="color:#000">&gt;</span><span style="color:#000">20</span> <span style="color:#000">&amp;&amp;</span> <span style="color:#000">x</span><span style="color:#000">&lt;</span><span style="color:#000">60</span><span style="color:#000">));</span> <span style="color:#177500">// [30,40,50]
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">filterAll</span><span style="color:#000">(</span><span style="color:#000">ls</span><span style="color:#000">,</span><span style="color:#000">x</span> <span style="color:#000">-&gt;</span> <span style="color:#000">x</span><span style="color:#000">%</span><span style="color:#000">20</span><span style="color:#000">==</span><span style="color:#000">0</span><span style="color:#000">));</span> <span style="color:#177500">// [20,40,60]
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></section><section>
+<h2 id="lambda-che-accedono-al-loro-scope">Lambda che accedono al loro scope</h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">ChangeButton</span> <span style="color:#a90d91">extends</span> <span style="color:#000">JFrame</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">private</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">long</span> <span style="color:#000">serialVersionUID</span> <span style="color:#000">=</span> <span style="color:#000">148347709787601235L</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">private</span> <span style="color:#a90d91">int</span> <span style="color:#000">counter</span> <span style="color:#000">=</span> <span style="color:#000">0</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#000">ChangeButton</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">super</span><span style="color:#000">(</span><span style="color:#c41a16">"Changing button example"</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">JButton</span> <span style="color:#000">button</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">JButton</span><span style="color:#000">(</span><span style="color:#c41a16">"Val: "</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">button</span><span style="color:#000">.</span><span style="color:#836c28">addActionListener</span><span style="color:#000">(</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#000">e</span> <span style="color:#000">-&gt;</span> <span style="color:#000">button</span><span style="color:#000">.</span><span style="color:#836c28">setText</span><span style="color:#000">(</span><span style="color:#c41a16">"Val: "</span> <span style="color:#000">+</span> <span style="color:#000">ChangeButton</span><span style="color:#000">.</span><span style="color:#836c28">this</span><span style="color:#000">.</span><span style="color:#836c28">counter</span><span style="color:#000">++));</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#177500">// button è una variabile finale nel metodo
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#177500">// ChangeButton.this.counter è un campo nella enclosing instance
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>	
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">setSize</span><span style="color:#000">(</span><span style="color:#000">320</span><span style="color:#000">,</span> <span style="color:#000">200</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">getContentPane</span><span style="color:#000">().</span><span style="color:#836c28">setLayout</span><span style="color:#000">(</span><span style="color:#a90d91">new</span> <span style="color:#000">FlowLayout</span><span style="color:#000">());</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">getContentPane</span><span style="color:#000">().</span><span style="color:#836c28">add</span><span style="color:#000">(</span><span style="color:#000">button</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">setVisible</span><span style="color:#000">(</span><span style="color:#a90d91">true</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span><span style="color:#000">(</span><span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span><span style="color:#000">){</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">new</span> <span style="color:#000">ChangeButton</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></section><section>
+<h2 id="metodi-default-nelle-interfacce">Metodi <code>default</code> nelle interfacce</h2>
+<h3 id="da-java-8-è-possibile-fornire-implementazioni-ai-metodi-delle-interface">Da Java 8 è possibile fornire implementazioni ai metodi delle <code>interface</code></h3>
+<pre><code>*  sintassi: `{ ... default int m()\{...\}\}`
+*  significato: non è necessario implementarli nelle sottoclassi
+*  .. è possibile avere anche metodi statici
+</code></pre>
+<h3 id="utilità">Utilità</h3>
+<pre><code>*  consente di aggiungere metodi a interfacce senza rompere la compatibilità con classi esistenti che le implementano
+*  fornire "behaviour" ereditabile in modalità multipla
+*  costruire più facilmente interfacce funzionali: *__queste devono in effetti avere un unico metodo senza default__*
+*  consente di realizzare il patter template method solo con interfacce
+</code></pre>
+<h3 id="esempi-di-interfacce-con-metodi-di-default">Esempi di interfacce con metodi di default</h3>
+<pre><code>*  `Iterable`, `Iterator`, `Collection`, `Comparator`
+</code></pre>
+</section><section>
+<h2 id="esempio-simpleiterator">Esempio <code>SimpleIterator</code></h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">interface</span> <span style="color:#3f6e75">SimpleIterator</span><span style="color:#000">&lt;</span><span style="color:#000">X</span><span style="color:#000">&gt;</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">X</span> <span style="color:#000">getNext</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">default</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">X</span><span style="color:#000">&gt;</span> <span style="color:#000">getListOfNext</span><span style="color:#000">(</span><span style="color:#a90d91">int</span> <span style="color:#000">n</span><span style="color:#000">){</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">X</span><span style="color:#000">&gt;</span> <span style="color:#000">l</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">LinkedList</span><span style="color:#000">&lt;&gt;();</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">for</span> <span style="color:#000">(</span><span style="color:#a90d91">int</span> <span style="color:#000">i</span> <span style="color:#000">=</span> <span style="color:#000">0</span><span style="color:#000">;</span> <span style="color:#000">i</span> <span style="color:#000">&lt;</span> <span style="color:#000">n</span><span style="color:#000">;</span> <span style="color:#000">i</span><span style="color:#000">++){</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#000">l</span><span style="color:#000">.</span><span style="color:#836c28">add</span><span style="color:#000">(</span><span style="color:#000">getNext</span><span style="color:#000">());</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#000">l</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseSimpleIterator</span> <span style="color:#000">{</span>	
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span><span style="color:#000">(</span><span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span><span style="color:#000">){</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">Counter</span> <span style="color:#000">c</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Counter</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">SimpleIterator</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> <span style="color:#000">si</span> <span style="color:#000">=</span> 
+</span></span><span style="display:flex;"><span>				<span style="color:#000">()</span> <span style="color:#000">-&gt;</span> <span style="color:#000">{</span><span style="color:#000">c</span><span style="color:#000">.</span><span style="color:#836c28">inc</span><span style="color:#000">();</span> <span style="color:#a90d91">return</span> <span style="color:#000">c</span><span style="color:#000">.</span><span style="color:#836c28">getValue</span><span style="color:#000">();};</span>
+</span></span><span style="display:flex;"><span>		
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">si</span><span style="color:#000">.</span><span style="color:#836c28">getNext</span><span style="color:#000">());</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">si</span><span style="color:#000">.</span><span style="color:#836c28">getListOfNext</span><span style="color:#000">(</span><span style="color:#000">20</span><span style="color:#000">));</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></section><section>
+<h2 id="annotazione-functionalinterface">Annotazione <code>@FunctionalInterface</code></h2>
+<h3 id="uso">Uso</h3>
+<pre><code>*  da usare opzionalmente per interfacce funzionali
+*  il compilatore la usa per assicurarsi che l'interfaccia sia funzionale, ossia che vi sia un solo metodo "astratto"
+*  nella Java API viene usata spesso
+</code></pre>
+<h3 id="nota">Nota</h3>
+<pre><code>*  le annotazioni sono usate per vari scopi, ad esempio per indicare al compilatore di fare ulteriori controlli   
+</code></pre>
+</section><section>
+<h2 id="esempio-simpleiterator-1">Esempio <code>SimpleIterator</code></h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#000">@FunctionalInterface</span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">interface</span> <span style="color:#3f6e75">SimpleIterator2</span><span style="color:#000">&lt;</span><span style="color:#000">X</span><span style="color:#000">&gt;</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">X</span> <span style="color:#000">getNext</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">default</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">X</span><span style="color:#000">&gt;</span> <span style="color:#000">getListOfNext</span><span style="color:#000">(</span><span style="color:#a90d91">int</span> <span style="color:#000">n</span><span style="color:#000">){</span> <span style="color:#177500">// template method
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#a90d91">final</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">X</span><span style="color:#000">&gt;</span> <span style="color:#000">l</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">LinkedList</span><span style="color:#000">&lt;&gt;();</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">for</span> <span style="color:#000">(</span><span style="color:#a90d91">int</span> <span style="color:#000">i</span> <span style="color:#000">=</span> <span style="color:#000">0</span><span style="color:#000">;</span> <span style="color:#000">i</span> <span style="color:#000">&lt;</span> <span style="color:#000">n</span><span style="color:#000">;</span> <span style="color:#000">i</span><span style="color:#000">++){</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#000">l</span><span style="color:#000">.</span><span style="color:#836c28">add</span><span style="color:#000">(</span><span style="color:#000">getNext</span><span style="color:#000">());</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#000">l</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></section><section>
+<h1 id="lambda-expressions-nellapi-di-java">Lambda expressions nell’API di Java</h1>
+</section><section>
+<h2 id="interfacce-funzionali-di-libreria----package-javautilfunction">Interfacce funzionali di libreria – package <code>java.util.function</code></h2>
+<h3 id="perché-scriversi-una-nuova-interfaccia-funzionale-alloccorrenza">Perché scriversi una nuova interfaccia funzionale all’occorrenza?</h3>
+<pre><code>  *  Lo si fa solo per rappresentare concetti specifici del dominio
+  *  Lo si fa se ha metodi default aggiuntivi
+</code></pre>
+<h3 id="in-javautilfunction-vengono-fornite-varie-interfacce-general-purpose">In <code>java.util.function</code> vengono fornite varie interfacce “general purpose”</h3>
+<pre><code>  *  Sono tutte funzionali
+  *  Hanno metodi aggiuntivi default di cui non ci occupiamo
+  *  Hanno un metodo "astratto" chiamato, a seconda: &lt;br&gt; `apply`, `accept`, `test` o `get`
+</code></pre>
+</section><section>
+<h2 id="package-javautilfunction">Package <code>java.util.function</code></h2>
+<h3 id="interfacce-base">Interfacce base</h3>
+<ul>
+<li><code>Consumer&lt;T&gt;</code>: <code>accept:(T)-&gt;void</code></li>
+<li><code>Function&lt;T,R&gt;</code>: <code>apply:(T)-&gt;R</code></li>
+<li><code>Predicate&lt;T&gt;</code>: <code>test:(T)-&gt;boolean</code></li>
+<li><code>Supplier&lt;T&gt;</code>: <code>get:()-&gt;T</code></li>
+<li><code>UnaryOperator&lt;T&gt;</code>: <code>apply:(T)-&gt;T</code>
+<ul>
+<li><code>BiConsumer&lt;T,U&gt;</code>: <code>accept:(T,U)-&gt;void</code></li>
+</ul>
+</li>
+<li><code>BiFunction&lt;T,U,R&gt;</code>:	<code>apply:(T,U)-&gt;R</code></li>
+<li><code>BinaryOperator&lt;T&gt;</code>: 	<code>apply:(T,T)-&gt;T</code></li>
+<li><code>BiPredicate&lt;T,U&gt;</code>: <code>test:(T,U)-&gt;boolean</code></li>
+<li><code>java.lang.Runnable</code>: <code>run:()-&gt;void</code></li>
+</ul>
+<h3 id="altre-interfacce-usano-i-tipi-primitivi-senza-boxing">Altre interfacce (usano i tipi primitivi senza boxing)</h3>
+<ul>
+<li><code>BooleanSupplier</code>: <code>get:()-&gt;boolean</code></li>
+<li><code>IntConsumer</code>: <code>accept:(int)-&gt;void</code></li>
+<li>…</li>
+</ul>
+</section><section>
+<h2 id="esempio-funzione-riusabile-di-filtraggio-via-predicate">Esempio: funzione riusabile di filtraggio via <code>Predicate</code></h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.*</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.function.Predicate</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">FilterUtility2</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#000">&lt;</span><span style="color:#000">X</span><span style="color:#000">&gt;</span> <span style="color:#000">Set</span><span style="color:#000">&lt;</span><span style="color:#000">X</span><span style="color:#000">&gt;</span> <span style="color:#000">filterAll</span><span style="color:#000">(</span><span style="color:#000">Collection</span><span style="color:#000">&lt;</span><span style="color:#000">X</span><span style="color:#000">&gt;</span> <span style="color:#000">set</span><span style="color:#000">,</span><span style="color:#000">Predicate</span><span style="color:#000">&lt;</span><span style="color:#000">X</span><span style="color:#000">&gt;</span> <span style="color:#000">filter</span><span style="color:#000">){</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">Set</span><span style="color:#000">&lt;</span><span style="color:#000">X</span><span style="color:#000">&gt;</span> <span style="color:#000">newSet</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">HashSet</span><span style="color:#000">&lt;&gt;();</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">for</span> <span style="color:#000">(</span><span style="color:#a90d91">final</span> <span style="color:#000">X</span> <span style="color:#000">x</span><span style="color:#000">:</span> <span style="color:#000">set</span><span style="color:#000">){</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#a90d91">if</span> <span style="color:#000">(</span><span style="color:#000">filter</span><span style="color:#000">.</span><span style="color:#836c28">test</span><span style="color:#000">(</span><span style="color:#000">x</span><span style="color:#000">)){</span>
+</span></span><span style="display:flex;"><span>				<span style="color:#000">newSet</span><span style="color:#000">.</span><span style="color:#836c28">add</span><span style="color:#000">(</span><span style="color:#000">x</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#000">newSet</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span><span style="color:#000">(</span><span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> <span style="color:#000">ls</span> <span style="color:#000">=</span> <span style="color:#000">Arrays</span><span style="color:#000">.</span><span style="color:#836c28">asList</span><span style="color:#000">(</span><span style="color:#000">10</span><span style="color:#000">,</span><span style="color:#000">20</span><span style="color:#000">,</span><span style="color:#000">30</span><span style="color:#000">,</span><span style="color:#000">40</span><span style="color:#000">,</span><span style="color:#000">50</span><span style="color:#000">,</span><span style="color:#000">60</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>		
+</span></span><span style="display:flex;"><span>		<span style="color:#177500">// Note that the name of the method in Filter is never mentioned here
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">filterAll</span><span style="color:#000">(</span><span style="color:#000">ls</span><span style="color:#000">,</span><span style="color:#000">x</span> <span style="color:#000">-&gt;</span> <span style="color:#000">x</span><span style="color:#000">&gt;</span><span style="color:#000">20</span><span style="color:#000">));</span> <span style="color:#177500">// [30,40,50,60]
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">filterAll</span><span style="color:#000">(</span><span style="color:#000">ls</span><span style="color:#000">,</span><span style="color:#000">x</span> <span style="color:#000">-&gt;</span> <span style="color:#000">x</span><span style="color:#000">&gt;</span><span style="color:#000">20</span> <span style="color:#000">&amp;&amp;</span> <span style="color:#000">x</span><span style="color:#000">&lt;</span><span style="color:#000">60</span><span style="color:#000">));</span> <span style="color:#177500">// [30,40,50]
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">filterAll</span><span style="color:#000">(</span><span style="color:#000">ls</span><span style="color:#000">,</span><span style="color:#000">x</span> <span style="color:#000">-&gt;</span> <span style="color:#000">x</span><span style="color:#000">%</span><span style="color:#000">20</span><span style="color:#000">==</span><span style="color:#000">0</span><span style="color:#000">));</span> <span style="color:#177500">// [20,40,60]
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></section><section>
+<h2 id="esempio-comandi-programmati-via-runnable">Esempio: comandi “programmati” via <code>Runnable</code></h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">RunnableUtility</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">private</span>  <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">iterate</span><span style="color:#000">(</span><span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">howMany</span><span style="color:#000">,</span> <span style="color:#a90d91">final</span> <span style="color:#000">Runnable</span> <span style="color:#000">r</span><span style="color:#000">){</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">for</span> <span style="color:#000">(</span><span style="color:#a90d91">int</span> <span style="color:#000">i</span> <span style="color:#000">=</span> <span style="color:#000">0</span><span style="color:#000">;</span> <span style="color:#000">i</span> <span style="color:#000">&lt;</span> <span style="color:#000">howMany</span><span style="color:#000">;</span> <span style="color:#000">i</span><span style="color:#000">++){</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#000">r</span><span style="color:#000">.</span><span style="color:#836c28">run</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">private</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">batchExecution</span><span style="color:#000">(</span><span style="color:#a90d91">final</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">Runnable</span><span style="color:#000">&gt;</span> <span style="color:#000">list</span><span style="color:#000">){</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">for</span> <span style="color:#000">(</span><span style="color:#a90d91">final</span> <span style="color:#000">Runnable</span> <span style="color:#000">r</span><span style="color:#000">:</span> <span style="color:#000">list</span><span style="color:#000">){</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#000">r</span><span style="color:#000">.</span><span style="color:#836c28">run</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span><span style="color:#000">(</span><span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">iterate</span><span style="color:#000">(</span><span style="color:#000">10</span><span style="color:#000">,()-&gt;</span> <span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#c41a16">"ok"</span><span style="color:#000">));</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">Runnable</span><span style="color:#000">&gt;</span> <span style="color:#000">list</span><span style="color:#000">=</span><span style="color:#000">Arrays</span><span style="color:#000">.</span><span style="color:#836c28">asList</span><span style="color:#000">(</span> 
+</span></span><span style="display:flex;"><span>				<span style="color:#000">()-&gt;</span><span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#c41a16">"a"</span><span style="color:#000">),</span>
+</span></span><span style="display:flex;"><span>				<span style="color:#000">()-&gt;</span><span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#c41a16">"b"</span><span style="color:#000">),</span>
+</span></span><span style="display:flex;"><span>				<span style="color:#000">()-&gt;</span><span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#c41a16">"c"</span><span style="color:#000">),</span>
+</span></span><span style="display:flex;"><span>				<span style="color:#000">()-&gt;</span><span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">exit</span><span style="color:#000">(</span><span style="color:#000">0</span><span style="color:#000">)</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">);</span> <span style="color:#177500">// Inferenza su asList automatica!
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#000">batchExecution</span><span style="color:#000">(</span><span style="color:#000">list</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></section><section>
+<h2 id="motivazioni-e-vantaggi-nelluso-delle-lambda-in-java">Motivazioni e vantaggi nell’uso delle lambda in Java</h2>
+<h3 id="elementi-di-programmazione-funzionale-in-java">Elementi di programmazione funzionale in Java</h3>
+<pre><code>*  Le lambda consentono di aggiungere certe funzionalità della programmazione funzionale in Java, creando quindi una contaminazione OO + funzionale
+*  Il principale uso è quello che concerne la creazione di funzionalità (metodi) ad alto riuso -- ad esempio `filterAll`
+*  Tali metodi possono prendere in ingresso funzioni, passate con sintassi semplificata rispetto a quella delle classi anonime, rendendo più "naturale" e agevole l'uso di questo meccanismo
+</code></pre>
+<h3 id="miglioramento-alle-api-di-java">Miglioramento alle API di Java</h3>
+<pre><code>*  Concetto di Stream e sue manipolazioni, per lavorare su dati sequenziali (collezioni, file,..)
+*  Facilitare la costruzioni di software "parallelo" (multicore)
+*  Supporto più diretto ad alcuni pattern: Command, Strategy, Observer
+*  Alcune migliorie "varie" nelle API
+</code></pre>
+</section><section>
+<h2 id="goal-delle-lambda-in-una-frase">Goal delle lambda, in una frase</h2>
+<p>\huge Realizzare “più algoritmi possibili su sequenze” in una sola istruzione</p>
+</section><section>
+<h2 id="nuove-interfacce-iterator-e-iterable">“Nuove” interfacce <code>Iterator</code> e <code>Iterable</code></h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">interface</span> <span style="color:#3f6e75">Iterable</span><span style="color:#000">&lt;</span><span style="color:#000">T</span><span style="color:#000">&gt;</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">Iterator</span><span style="color:#000">&lt;</span><span style="color:#000">T</span><span style="color:#000">&gt;</span> <span style="color:#000">iterator</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">default</span> <span style="color:#a90d91">void</span> <span style="color:#000">forEach</span><span style="color:#000">(</span><span style="color:#000">Consumer</span><span style="color:#000">&lt;?</span> <span style="color:#a90d91">super</span> <span style="color:#000">T</span><span style="color:#000">&gt;</span> <span style="color:#000">action</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">Objects</span><span style="color:#000">.</span><span style="color:#836c28">requireNonNull</span><span style="color:#000">(</span><span style="color:#000">action</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">for</span> <span style="color:#000">(</span><span style="color:#000">T</span> <span style="color:#000">t</span> <span style="color:#000">:</span> <span style="color:#a90d91">this</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#000">action</span><span style="color:#000">.</span><span style="color:#836c28">accept</span><span style="color:#000">(</span><span style="color:#000">t</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">default</span> <span style="color:#000">Spliterator</span><span style="color:#000">&lt;</span><span style="color:#000">T</span><span style="color:#000">&gt;</span> <span style="color:#000">spliterator</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">return</span> <span style="color:#000">Spliterators</span><span style="color:#000">.</span><span style="color:#836c28">spliteratorUnknownSize</span><span style="color:#000">(</span><span style="color:#000">iterator</span><span style="color:#000">(),</span> <span style="color:#000">0</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">interface</span> <span style="color:#3f6e75">Iterator</span><span style="color:#000">&lt;</span><span style="color:#000">E</span><span style="color:#000">&gt;</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">boolean</span> <span style="color:#000">hasNext</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">E</span> <span style="color:#000">next</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">default</span> <span style="color:#a90d91">void</span> <span style="color:#000">remove</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">throw</span> <span style="color:#a90d91">new</span> <span style="color:#000">UnsupportedOperationException</span><span style="color:#000">(</span><span style="color:#c41a16">"remove"</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">default</span> <span style="color:#a90d91">void</span> <span style="color:#000">forEachRemaining</span><span style="color:#000">(</span><span style="color:#000">Consumer</span><span style="color:#000">&lt;?</span> <span style="color:#a90d91">super</span> <span style="color:#000">E</span><span style="color:#000">&gt;</span> <span style="color:#000">action</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">Objects</span><span style="color:#000">.</span><span style="color:#836c28">requireNonNull</span><span style="color:#000">(</span><span style="color:#000">action</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">while</span> <span style="color:#000">(</span><span style="color:#000">hasNext</span><span style="color:#000">())</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#000">action</span><span style="color:#000">.</span><span style="color:#836c28">accept</span><span style="color:#000">(</span><span style="color:#000">next</span><span style="color:#000">());</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></section><section>
+<h2 id="uso-delle-nuove-interfacce-iterator-e-iterable">Uso delle “nuove” interfacce <code>Iterator</code> e <code>Iterable</code></h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseIterators</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#177500">// Uso ancor più compatto del for-each, e sue varianti..
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span><span style="color:#000">(</span><span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> <span style="color:#000">list</span> <span style="color:#000">=</span> <span style="color:#000">Arrays</span><span style="color:#000">.</span><span style="color:#836c28">asList</span><span style="color:#000">(</span><span style="color:#000">10</span><span style="color:#000">,</span><span style="color:#000">20</span><span style="color:#000">,</span><span style="color:#000">30</span><span style="color:#000">,</span><span style="color:#000">40</span><span style="color:#000">,</span><span style="color:#000">50</span><span style="color:#000">,</span><span style="color:#000">60</span><span style="color:#000">,</span><span style="color:#000">70</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">list</span><span style="color:#000">.</span><span style="color:#836c28">forEach</span><span style="color:#000">(</span><span style="color:#000">x</span> <span style="color:#000">-&gt;</span> <span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">print</span><span style="color:#000">(</span><span style="color:#000">x</span><span style="color:#000">+</span><span style="color:#c41a16">" "</span><span style="color:#000">));</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>		
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">Collection</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> <span style="color:#000">coll</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">HashSet</span><span style="color:#000">&lt;&gt;();</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">list</span><span style="color:#000">.</span><span style="color:#836c28">forEach</span><span style="color:#000">(</span><span style="color:#000">x</span> <span style="color:#000">-&gt;</span> <span style="color:#000">coll</span><span style="color:#000">.</span><span style="color:#836c28">add</span><span style="color:#000">(</span><span style="color:#000">x</span><span style="color:#000">));</span> <span style="color:#177500">// list.forEach(coll::add);
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">coll</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>		
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">Iterator</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> <span style="color:#000">it</span> <span style="color:#000">=</span> <span style="color:#000">list</span><span style="color:#000">.</span><span style="color:#836c28">iterator</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">it</span><span style="color:#000">.</span><span style="color:#836c28">next</span><span style="color:#000">()+</span><span style="color:#c41a16">" "</span><span style="color:#000">+</span><span style="color:#000">it</span><span style="color:#000">.</span><span style="color:#836c28">next</span><span style="color:#000">());</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">it</span><span style="color:#000">.</span><span style="color:#836c28">forEachRemaining</span><span style="color:#000">(</span> <span style="color:#000">x</span> <span style="color:#000">-&gt;</span> <span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">print</span><span style="color:#000">(</span><span style="color:#000">x</span><span style="color:#000">+</span><span style="color:#c41a16">" "</span><span style="color:#000">));</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>		
+</span></span><span style="display:flex;"><span>		<span style="color:#177500">// Nota: Iterable è una interfaccia funzionale..
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#a90d91">final</span> <span style="color:#000">Iterable</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> <span style="color:#000">iterable</span> <span style="color:#000">=</span> <span style="color:#000">()</span> <span style="color:#000">-&gt;</span> <span style="color:#000">list</span><span style="color:#000">.</span><span style="color:#836c28">iterator</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">for</span> <span style="color:#000">(</span><span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">i</span><span style="color:#000">:</span> <span style="color:#000">iterable</span><span style="color:#000">){</span> <span style="color:#177500">// One of my last uses of "for" :) 
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>			<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">print</span><span style="color:#000">(</span><span style="color:#000">i</span><span style="color:#000">+</span><span style="color:#c41a16">" "</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">for</span> <span style="color:#000">(</span><span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">i</span><span style="color:#000">:</span> <span style="color:#000">(</span><span style="color:#000">Iterable</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;)()-&gt;</span><span style="color:#000">list</span><span style="color:#000">.</span><span style="color:#836c28">iterator</span><span style="color:#000">()){</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">print</span><span style="color:#000">(</span><span style="color:#000">i</span><span style="color:#000">+</span><span style="color:#c41a16">" "</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></section><section>
+<h2 id="interfaccia-javautilmap----metodi-aggiuntivi">Interfaccia <code>java.util.Map</code> – metodi aggiuntivi</h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">interface</span> <span style="color:#3f6e75">Map</span><span style="color:#000">&lt;</span><span style="color:#000">K</span><span style="color:#000">,</span><span style="color:#000">V</span><span style="color:#000">&gt;</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">...</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">default</span> <span style="color:#000">V</span> <span style="color:#000">getOrDefault</span><span style="color:#000">(</span><span style="color:#000">Object</span> <span style="color:#000">key</span><span style="color:#000">,</span> <span style="color:#000">V</span> <span style="color:#000">defaultValue</span><span style="color:#000">)</span> <span style="color:#000">{..}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">default</span> <span style="color:#a90d91">void</span> <span style="color:#000">forEach</span><span style="color:#000">(</span><span style="color:#000">BiConsumer</span><span style="color:#000">&lt;?</span> <span style="color:#a90d91">super</span> <span style="color:#000">K</span><span style="color:#000">,</span> <span style="color:#000">?</span> <span style="color:#a90d91">super</span> <span style="color:#000">V</span><span style="color:#000">&gt;</span> <span style="color:#000">action</span><span style="color:#000">)</span> <span style="color:#000">{..}</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">default</span> <span style="color:#a90d91">void</span> <span style="color:#000">replaceAll</span><span style="color:#000">(</span><span style="color:#000">BiFunction</span><span style="color:#000">&lt;?</span> <span style="color:#a90d91">super</span> <span style="color:#000">K</span><span style="color:#000">,</span> <span style="color:#000">?</span> <span style="color:#a90d91">super</span> <span style="color:#000">V</span><span style="color:#000">,</span> <span style="color:#000">?</span> <span style="color:#a90d91">extends</span> <span style="color:#000">V</span><span style="color:#000">&gt;</span> <span style="color:#000">function</span><span style="color:#000">)</span> <span style="color:#000">{..}</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">default</span> <span style="color:#000">V</span> <span style="color:#000">putIfAbsent</span><span style="color:#000">(</span><span style="color:#000">K</span> <span style="color:#000">key</span><span style="color:#000">,</span> <span style="color:#000">V</span> <span style="color:#000">value</span><span style="color:#000">)</span> <span style="color:#000">{..}</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">default</span> <span style="color:#a90d91">boolean</span> <span style="color:#000">remove</span><span style="color:#000">(</span><span style="color:#000">Object</span> <span style="color:#000">key</span><span style="color:#000">,</span> <span style="color:#000">Object</span> <span style="color:#000">value</span><span style="color:#000">)</span> <span style="color:#000">{..}</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">default</span> <span style="color:#a90d91">boolean</span> <span style="color:#000">replace</span><span style="color:#000">(</span><span style="color:#000">K</span> <span style="color:#000">key</span><span style="color:#000">,</span> <span style="color:#000">V</span> <span style="color:#000">oldValue</span><span style="color:#000">,</span> <span style="color:#000">V</span> <span style="color:#000">newValue</span><span style="color:#000">)</span> <span style="color:#000">{..}</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">default</span> <span style="color:#000">V</span> <span style="color:#000">replace</span><span style="color:#000">(</span><span style="color:#000">K</span> <span style="color:#000">key</span><span style="color:#000">,</span> <span style="color:#000">V</span> <span style="color:#000">value</span><span style="color:#000">)</span> <span style="color:#000">{..}</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">default</span> <span style="color:#000">V</span> <span style="color:#000">computeIfAbsent</span><span style="color:#000">(</span><span style="color:#000">K</span> <span style="color:#000">key</span><span style="color:#000">,</span> <span style="color:#000">Function</span><span style="color:#000">&lt;?</span> <span style="color:#a90d91">super</span> <span style="color:#000">K</span><span style="color:#000">,</span> <span style="color:#000">?</span> <span style="color:#a90d91">extends</span> <span style="color:#000">V</span><span style="color:#000">&gt;</span> <span style="color:#000">mappingFunction</span><span style="color:#000">)</span> <span style="color:#000">{..}</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">default</span> <span style="color:#000">V</span> <span style="color:#000">computeIfPresent</span><span style="color:#000">(</span><span style="color:#000">K</span> <span style="color:#000">key</span><span style="color:#000">,</span> <span style="color:#000">BiFunction</span><span style="color:#000">&lt;?</span> <span style="color:#a90d91">super</span> <span style="color:#000">K</span><span style="color:#000">,</span> <span style="color:#000">?</span> <span style="color:#a90d91">super</span> <span style="color:#000">V</span><span style="color:#000">,</span> <span style="color:#000">?</span> <span style="color:#a90d91">extends</span> <span style="color:#000">V</span><span style="color:#000">&gt;</span> <span style="color:#000">remappingFunction</span><span style="color:#000">)</span> <span style="color:#000">{..}</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">default</span> <span style="color:#000">V</span> <span style="color:#000">compute</span><span style="color:#000">(</span><span style="color:#000">K</span> <span style="color:#000">key</span><span style="color:#000">,</span> <span style="color:#000">BiFunction</span><span style="color:#000">&lt;?</span> <span style="color:#a90d91">super</span> <span style="color:#000">K</span><span style="color:#000">,</span> <span style="color:#000">?</span> <span style="color:#a90d91">super</span> <span style="color:#000">V</span><span style="color:#000">,</span> <span style="color:#000">?</span> <span style="color:#a90d91">extends</span> <span style="color:#000">V</span><span style="color:#000">&gt;</span> <span style="color:#000">remappingFunction</span><span style="color:#000">)</span> <span style="color:#000">{..}</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">default</span> <span style="color:#000">V</span> <span style="color:#000">merge</span><span style="color:#000">(</span><span style="color:#000">K</span> <span style="color:#000">key</span><span style="color:#000">,</span> <span style="color:#000">V</span> <span style="color:#000">value</span><span style="color:#000">,</span> <span style="color:#000">BiFunction</span><span style="color:#000">&lt;?</span> <span style="color:#a90d91">super</span> <span style="color:#000">V</span><span style="color:#000">,</span> <span style="color:#000">?</span> <span style="color:#a90d91">super</span> <span style="color:#000">V</span><span style="color:#000">,</span> <span style="color:#000">?</span> <span style="color:#a90d91">extends</span> <span style="color:#000">V</span><span style="color:#000">&gt;</span> <span style="color:#000">remappingFunction</span><span style="color:#000">)</span> <span style="color:#000">{..}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></section><section>
+<h2 id="uso-delle-nuova-interfacce-map">Uso delle “nuova” interfacce <code>Map</code></h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseMap</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span><span style="color:#000">(</span><span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">Map</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">,</span><span style="color:#000">String</span><span style="color:#000">&gt;</span> <span style="color:#000">map</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">HashMap</span><span style="color:#000">&lt;&gt;();</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">map</span><span style="color:#000">.</span><span style="color:#836c28">put</span><span style="color:#000">(</span><span style="color:#000">10</span><span style="color:#000">,</span><span style="color:#c41a16">"a"</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">map</span><span style="color:#000">.</span><span style="color:#836c28">put</span><span style="color:#000">(</span><span style="color:#000">20</span><span style="color:#000">,</span><span style="color:#c41a16">"bb"</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">map</span><span style="color:#000">.</span><span style="color:#836c28">put</span><span style="color:#000">(</span><span style="color:#000">30</span><span style="color:#000">,</span><span style="color:#c41a16">"ccc"</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>		
+</span></span><span style="display:flex;"><span>		<span style="color:#000">map</span><span style="color:#000">.</span><span style="color:#836c28">forEach</span><span style="color:#000">((</span><span style="color:#000">k</span><span style="color:#000">,</span><span style="color:#000">v</span><span style="color:#000">)</span> <span style="color:#000">-&gt;</span> <span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">k</span><span style="color:#000">+</span><span style="color:#c41a16">" "</span><span style="color:#000">+</span><span style="color:#000">v</span><span style="color:#000">));</span>
+</span></span><span style="display:flex;"><span>		
+</span></span><span style="display:flex;"><span>		<span style="color:#000">map</span><span style="color:#000">.</span><span style="color:#836c28">replaceAll</span><span style="color:#000">(</span> <span style="color:#000">(</span><span style="color:#000">k</span><span style="color:#000">,</span><span style="color:#000">v</span><span style="color:#000">)</span> <span style="color:#000">-&gt;</span> <span style="color:#000">v</span><span style="color:#000">+</span><span style="color:#000">k</span><span style="color:#000">);</span> <span style="color:#177500">// nuovi valori
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">map</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#177500">// {20=bb20, 10=a10, 30=ccc30}
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		
+</span></span><span style="display:flex;"><span>		<span style="color:#000">map</span><span style="color:#000">.</span><span style="color:#836c28">merge</span><span style="color:#000">(</span><span style="color:#000">5</span><span style="color:#000">,</span><span style="color:#c41a16">"."</span><span style="color:#000">,</span> <span style="color:#000">String</span><span style="color:#000">::</span><span style="color:#000">concat</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">map</span><span style="color:#000">.</span><span style="color:#836c28">merge</span><span style="color:#000">(</span><span style="color:#000">10</span><span style="color:#000">,</span><span style="color:#c41a16">"."</span><span style="color:#000">,</span> <span style="color:#000">String</span><span style="color:#000">::</span><span style="color:#000">concat</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">map</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#177500">// {20=bb20, 5=., 10=a10., 30=ccc30}
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">map</span><span style="color:#000">.</span><span style="color:#836c28">getOrDefault</span><span style="color:#000">(</span><span style="color:#000">5</span><span style="color:#000">,</span> <span style="color:#c41a16">"no"</span><span style="color:#000">));</span> <span style="color:#177500">// "."
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">map</span><span style="color:#000">.</span><span style="color:#836c28">getOrDefault</span><span style="color:#000">(</span><span style="color:#000">6</span><span style="color:#000">,</span> <span style="color:#c41a16">"no"</span><span style="color:#000">));</span> <span style="color:#177500">// "no"
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></section><section>
+<h2 id="la-classe-optional">La classe <code>Optional</code></h2>
+<h3 id="il-problema-del-nullpointerexception">Il problema del <code>NullPointerException</code></h3>
+<pre><code>  *  è una eccezione particolarmente annosa (è ora la più frequente)
+  *  a volte è inevitable inizializzare a `null` campi/variabili, o tornare valori null.. ma poi si rischia di ritrovarsi l'eccezione in punti non aspettati
+  *  gestire l'assenza di una informazione con `null` è inappropriato!
+</code></pre>
+<h3 id="idea">Idea</h3>
+<pre><code>  *  la classe `Optional&lt;T&gt;` và usata ove ci si attende opzionalmente un oggetto di tipo `T`
+  *  un oggetto di `Optional&lt;T&gt;` è un wrapper di un `T`, ma potrebbe non contenere nulla, ossia è una collezione di 0 o 1 elemento di tipo `T` 
+  *  accedendovi con metodi quali `ifPresent()` o `orElse()` si bypassa il problema del `null`
+  *  c'è comunque un metodo `get()` che rilancia l'eccezione uncheked `NoSuchElementException`
+  *  purtroppo `Optional&lt;T&gt;` NON è serializzabile!
+</code></pre>
+</section><section>
+<h2 id="classe-javautiloptional">Classe <code>java.util.Optional</code></h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">package</span> <span style="color:#000">java.util</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Optional</span><span style="color:#000">&lt;</span><span style="color:#000">T</span><span style="color:#000">&gt;</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#177500">// metodi statici di costruzione 
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span><span style="color:#000">&lt;</span><span style="color:#000">T</span><span style="color:#000">&gt;</span> <span style="color:#000">Optional</span><span style="color:#000">&lt;</span><span style="color:#000">T</span><span style="color:#000">&gt;</span> <span style="color:#000">empty</span><span style="color:#000">()</span> <span style="color:#000">{..}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#000">&lt;</span><span style="color:#000">T</span><span style="color:#000">&gt;</span> <span style="color:#000">Optional</span><span style="color:#000">&lt;</span><span style="color:#000">T</span><span style="color:#000">&gt;</span> <span style="color:#000">of</span><span style="color:#000">(</span><span style="color:#000">T</span> <span style="color:#000">value</span><span style="color:#000">)</span> <span style="color:#000">{..}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#000">&lt;</span><span style="color:#000">T</span><span style="color:#000">&gt;</span> <span style="color:#000">Optional</span><span style="color:#000">&lt;</span><span style="color:#000">T</span><span style="color:#000">&gt;</span> <span style="color:#000">ofNullable</span><span style="color:#000">(</span><span style="color:#000">T</span> <span style="color:#000">value</span><span style="color:#000">)</span> <span style="color:#000">{..}</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#177500">// selettori
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#a90d91">public</span> <span style="color:#000">T</span> <span style="color:#000">get</span><span style="color:#000">()</span> <span style="color:#000">{..}</span> <span style="color:#177500">// throws NoSuchElementException on null
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">boolean</span> <span style="color:#000">isPresent</span><span style="color:#000">()</span> <span style="color:#000">{..}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">T</span> <span style="color:#000">orElse</span><span style="color:#000">(</span><span style="color:#000">T</span> <span style="color:#000">other</span><span style="color:#000">)</span> <span style="color:#000">{</span> <span style="color:#000">..</span> <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#177500">// uso di funzioni
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#a90d91">public</span> <span style="color:#000">T</span> <span style="color:#000">orElseGet</span><span style="color:#000">(</span><span style="color:#000">Supplier</span><span style="color:#000">&lt;?</span> <span style="color:#a90d91">extends</span> <span style="color:#000">T</span><span style="color:#000">&gt;</span> <span style="color:#000">other</span><span style="color:#000">)</span> <span style="color:#000">{..}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">&lt;</span><span style="color:#000">X</span> <span style="color:#a90d91">extends</span> <span style="color:#000">Throwable</span><span style="color:#000">&gt;</span> <span style="color:#000">T</span> <span style="color:#000">orElseThrow</span><span style="color:#000">(</span><span style="color:#000">Supplier</span><span style="color:#000">&lt;?</span> <span style="color:#a90d91">extends</span> <span style="color:#000">X</span><span style="color:#000">&gt;</span> <span style="color:#000">exceptionSupplier</span><span style="color:#000">)</span> <span style="color:#a90d91">throws</span> <span style="color:#000">X</span> <span style="color:#000">{..}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">ifPresent</span><span style="color:#000">(</span><span style="color:#000">Consumer</span><span style="color:#000">&lt;?</span> <span style="color:#a90d91">super</span> <span style="color:#000">T</span><span style="color:#000">&gt;</span> <span style="color:#000">consumer</span><span style="color:#000">)</span> <span style="color:#000">{..}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">Optional</span><span style="color:#000">&lt;</span><span style="color:#000">T</span><span style="color:#000">&gt;</span> <span style="color:#000">filter</span><span style="color:#000">(</span><span style="color:#000">Predicate</span><span style="color:#000">&lt;?</span> <span style="color:#a90d91">super</span> <span style="color:#000">T</span><span style="color:#000">&gt;</span> <span style="color:#000">predicate</span><span style="color:#000">)</span> <span style="color:#000">{..}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">&lt;</span><span style="color:#000">U</span><span style="color:#000">&gt;</span> <span style="color:#000">Optional</span><span style="color:#000">&lt;</span><span style="color:#000">U</span><span style="color:#000">&gt;</span> <span style="color:#000">map</span><span style="color:#000">(</span><span style="color:#000">Function</span><span style="color:#000">&lt;?</span> <span style="color:#a90d91">super</span> <span style="color:#000">T</span><span style="color:#000">,</span> <span style="color:#000">?</span> <span style="color:#a90d91">extends</span> <span style="color:#000">U</span><span style="color:#000">&gt;</span> <span style="color:#000">mapper</span><span style="color:#000">)</span> <span style="color:#000">{..}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span><span style="color:#000">&lt;</span><span style="color:#000">U</span><span style="color:#000">&gt;</span> <span style="color:#000">Optional</span><span style="color:#000">&lt;</span><span style="color:#000">U</span><span style="color:#000">&gt;</span> <span style="color:#000">flatMap</span><span style="color:#000">(</span><span style="color:#000">Function</span><span style="color:#000">&lt;?</span> <span style="color:#a90d91">super</span> <span style="color:#000">T</span><span style="color:#000">,</span> <span style="color:#000">Optional</span><span style="color:#000">&lt;</span><span style="color:#000">U</span><span style="color:#000">&gt;&gt;</span> <span style="color:#000">mapper</span><span style="color:#000">)</span> <span style="color:#000">{..}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span> 
+</span></span></code></pre></div></section><section>
+<h2 id="useoptional"><code>UseOptional</code></h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseOptional</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span><span style="color:#000">(</span><span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">String</span> <span style="color:#000">s</span> <span style="color:#000">=</span> <span style="color:#000">Math</span><span style="color:#000">.</span><span style="color:#836c28">random</span><span style="color:#000">()</span> <span style="color:#000">&gt;</span> <span style="color:#000">0</span><span style="color:#000">.</span><span style="color:#836c28">5</span> <span style="color:#000">?</span> <span style="color:#c41a16">"high value"</span> <span style="color:#000">:</span> <span style="color:#a90d91">null</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#177500">//Optional&lt;String&gt; opt = Optional.ofNullable(s);
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#000">Optional</span><span style="color:#000">&lt;</span><span style="color:#000">String</span><span style="color:#000">&gt;</span> <span style="color:#000">opt</span> <span style="color:#000">=</span> <span style="color:#000">s</span> <span style="color:#000">==</span> <span style="color:#a90d91">null</span> <span style="color:#000">?</span> <span style="color:#000">Optional</span><span style="color:#000">.</span><span style="color:#836c28">empty</span><span style="color:#000">()</span> <span style="color:#000">:</span> <span style="color:#000">Optional</span><span style="color:#000">.</span><span style="color:#836c28">of</span><span style="color:#000">(</span><span style="color:#000">s</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>		
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#c41a16">"present: "</span><span style="color:#000">+</span><span style="color:#000">opt</span><span style="color:#000">.</span><span style="color:#836c28">isPresent</span><span style="color:#000">());</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#c41a16">"orElse: "</span><span style="color:#000">+</span><span style="color:#000">opt</span><span style="color:#000">.</span><span style="color:#836c28">orElse</span><span style="color:#000">(</span><span style="color:#c41a16">"it is actually null"</span><span style="color:#000">));</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">try</span><span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#c41a16">"get: "</span><span style="color:#000">+</span><span style="color:#000">opt</span><span style="color:#000">.</span><span style="color:#836c28">get</span><span style="color:#000">());</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">}</span> <span style="color:#a90d91">catch</span> <span style="color:#000">(</span><span style="color:#000">Exception</span> <span style="color:#000">e</span><span style="color:#000">){</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#c41a16">"get failed.."</span><span style="color:#000">+</span><span style="color:#000">e</span><span style="color:#000">.</span><span style="color:#836c28">getClass</span><span style="color:#000">());</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>		
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">print</span><span style="color:#000">(</span><span style="color:#c41a16">"ifPresent.."</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">opt</span><span style="color:#000">.</span><span style="color:#836c28">ifPresent</span><span style="color:#000">(</span><span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">::</span><span style="color:#000">println</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></section><section>
+<h2 id="useoptional2"><code>UseOptional2</code></h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">Optional</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> <span style="color:#000">opt</span> <span style="color:#000">=</span> <span style="color:#000">Optional</span><span style="color:#000">.</span><span style="color:#836c28">of</span><span style="color:#000">(</span><span style="color:#000">10</span><span style="color:#000">);</span> 
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">Optional</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> <span style="color:#000">opt2</span> <span style="color:#000">=</span> <span style="color:#000">Optional</span><span style="color:#000">.</span><span style="color:#836c28">empty</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">opt</span><span style="color:#000">.</span><span style="color:#836c28">isPresent</span><span style="color:#000">());</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">opt2</span><span style="color:#000">.</span><span style="color:#836c28">isPresent</span><span style="color:#000">());</span>
+</span></span><span style="display:flex;"><span>		
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">if</span> <span style="color:#000">(</span><span style="color:#000">opt</span><span style="color:#000">.</span><span style="color:#836c28">isPresent</span><span style="color:#000">()){</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">opt</span><span style="color:#000">.</span><span style="color:#836c28">get</span><span style="color:#000">());</span> <span style="color:#177500">// 10
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#000">}</span> <span style="color:#a90d91">else</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">exit</span><span style="color:#000">(</span><span style="color:#000">0</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">opt</span><span style="color:#000">.</span><span style="color:#836c28">ifPresent</span><span style="color:#000">(</span><span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">::</span><span style="color:#000">println</span><span style="color:#000">);</span> <span style="color:#177500">// 10
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#000">opt2</span><span style="color:#000">.</span><span style="color:#836c28">ifPresent</span><span style="color:#000">(</span><span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">::</span><span style="color:#000">println</span><span style="color:#000">);</span> <span style="color:#177500">// nothing
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		
+</span></span><span style="display:flex;"><span>		<span style="color:#000">opt</span><span style="color:#000">.</span><span style="color:#836c28">map</span><span style="color:#000">(</span><span style="color:#000">x</span> <span style="color:#000">-&gt;</span> <span style="color:#000">x</span><span style="color:#000">+</span><span style="color:#000">1</span><span style="color:#000">).</span><span style="color:#836c28">ifPresent</span><span style="color:#000">(</span><span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">::</span><span style="color:#000">println</span><span style="color:#000">);</span> <span style="color:#177500">// 11
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#000">opt</span><span style="color:#000">.</span><span style="color:#836c28">map</span><span style="color:#000">(</span><span style="color:#000">x</span> <span style="color:#000">-&gt;</span> <span style="color:#000">x</span><span style="color:#000">+</span><span style="color:#c41a16">"1"</span><span style="color:#000">).</span><span style="color:#836c28">ifPresent</span><span style="color:#000">(</span><span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">::</span><span style="color:#000">println</span><span style="color:#000">);</span> <span style="color:#177500">// "101"
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		
+</span></span><span style="display:flex;"><span>		<span style="color:#177500">// Your first monad example!
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#000">Optional</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> <span style="color:#000">op3</span> <span style="color:#000">=</span> <span style="color:#000">opt</span><span style="color:#000">.</span><span style="color:#836c28">flatMap</span><span style="color:#000">(</span><span style="color:#000">x</span> <span style="color:#000">-&gt;</span> 
+</span></span><span style="display:flex;"><span>								<span style="color:#000">opt2</span><span style="color:#000">.</span><span style="color:#836c28">flatMap</span><span style="color:#000">(</span><span style="color:#000">y</span> <span style="color:#000">-&gt;</span>
+</span></span><span style="display:flex;"><span>								<span style="color:#000">opt2</span><span style="color:#000">.</span><span style="color:#836c28">flatMap</span><span style="color:#000">(</span><span style="color:#000">z</span> <span style="color:#000">-&gt;</span> <span style="color:#000">Optional</span><span style="color:#000">.</span><span style="color:#836c28">of</span><span style="color:#000">(</span><span style="color:#000">x</span><span style="color:#000">+</span><span style="color:#000">y</span><span style="color:#000">+</span><span style="color:#000">z</span><span style="color:#000">))));</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">op3</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>		
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">opt</span><span style="color:#000">.</span><span style="color:#836c28">orElseThrow</span><span style="color:#000">(()-&gt;</span><span style="color:#a90d91">new</span> <span style="color:#000">Exception</span><span style="color:#000">()));</span> <span style="color:#177500">// 10
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">opt2</span><span style="color:#000">.</span><span style="color:#836c28">orElseThrow</span><span style="color:#000">(()-&gt;</span><span style="color:#a90d91">new</span> <span style="color:#000">Exception</span><span style="color:#000">()));</span> <span style="color:#177500">// exc
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></section><section>
+<h2 id="useoptional3"><code>UseOptional3</code></h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseOptional3</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span><span style="color:#000">(</span><span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> <span style="color:#000">list</span> <span style="color:#000">=</span> <span style="color:#000">Arrays</span><span style="color:#000">.</span><span style="color:#836c28">asList</span><span style="color:#000">(</span><span style="color:#000">10</span><span style="color:#000">,</span><span style="color:#000">20</span><span style="color:#000">,</span><span style="color:#000">30</span><span style="color:#000">,</span><span style="color:#a90d91">null</span><span style="color:#000">,</span><span style="color:#a90d91">null</span><span style="color:#000">,</span><span style="color:#000">50</span><span style="color:#000">,</span><span style="color:#000">60</span><span style="color:#000">,</span><span style="color:#a90d91">null</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">list</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>		
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">Optional</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;&gt;</span> <span style="color:#000">olist</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">ArrayList</span><span style="color:#000">&lt;&gt;();</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">list</span><span style="color:#000">.</span><span style="color:#836c28">forEach</span><span style="color:#000">(</span><span style="color:#000">i</span> <span style="color:#000">-&gt;</span> <span style="color:#000">olist</span><span style="color:#000">.</span><span style="color:#836c28">add</span><span style="color:#000">(</span><span style="color:#000">Optional</span><span style="color:#000">.</span><span style="color:#836c28">ofNullable</span><span style="color:#000">(</span><span style="color:#000">i</span><span style="color:#000">)));</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">olist</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>		
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> <span style="color:#000">l2</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">ArrayList</span><span style="color:#000">&lt;&gt;();</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">olist</span><span style="color:#000">.</span><span style="color:#836c28">forEach</span><span style="color:#000">(</span><span style="color:#000">o</span> <span style="color:#000">-&gt;</span> <span style="color:#000">o</span><span style="color:#000">.</span><span style="color:#836c28">ifPresent</span><span style="color:#000">(</span><span style="color:#000">l2</span><span style="color:#000">::</span><span style="color:#000">add</span><span style="color:#000">));</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">l2</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>		
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">Optional</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;&gt;</span> <span style="color:#000">olist2</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">ArrayList</span><span style="color:#000">&lt;&gt;();</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">olist</span><span style="color:#000">.</span><span style="color:#836c28">forEach</span><span style="color:#000">(</span><span style="color:#000">o</span> <span style="color:#000">-&gt;</span> <span style="color:#000">olist2</span><span style="color:#000">.</span><span style="color:#836c28">add</span><span style="color:#000">(</span><span style="color:#000">o</span><span style="color:#000">.</span><span style="color:#836c28">filter</span><span style="color:#000">(</span><span style="color:#000">i</span> <span style="color:#000">-&gt;</span> <span style="color:#000">i</span><span style="color:#000">&lt;</span><span style="color:#000">60</span><span style="color:#000">)));</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">olist2</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>		
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">Optional</span><span style="color:#000">&lt;</span><span style="color:#000">String</span><span style="color:#000">&gt;&gt;</span> <span style="color:#000">olist3</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">ArrayList</span><span style="color:#000">&lt;&gt;();</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">olist</span><span style="color:#000">.</span><span style="color:#836c28">forEach</span><span style="color:#000">(</span><span style="color:#000">o</span> <span style="color:#000">-&gt;</span> <span style="color:#000">olist3</span><span style="color:#000">.</span><span style="color:#836c28">add</span><span style="color:#000">(</span><span style="color:#000">o</span><span style="color:#000">.</span><span style="color:#836c28">map</span><span style="color:#000">(</span><span style="color:#000">i</span> <span style="color:#000">-&gt;</span> <span style="color:#000">i</span><span style="color:#000">&lt;</span><span style="color:#000">40</span> <span style="color:#000">?</span> <span style="color:#c41a16">"small"</span> <span style="color:#000">:</span> <span style="color:#c41a16">"big"</span><span style="color:#000">)));</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">olist3</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></section><section>
+<h2 id="optional-per-campi-opzionali-e-manipolazioni-con-map"><code>Optional</code> per campi opzionali, e manipolazioni con <code>map</code></h2>
+<h3 id="come-evitare-il-nullpointerexception-in-una-applicazione">Come evitare il <code>NullPointerException</code> in una applicazione?</h3>
+<pre><code>  *  Non si menzioni mai il `null` nell'applicazione
+  *  Non si lascino variabili o campi non inizializzati
+  *  Si usi `Optional` per campi con contenuto opzionale, inizializzati a `Optional.empty`
+  *  I valori di `Optional` vengano manipolati in modo "dichiarativo" con i suoi metodi, ad esempio, `map`
+  * $\Rightarrow$ Il codice risultante sarà molto più espressivo
+</code></pre>
+<h3 id="inconveniente">Inconveniente:</h3>
+<pre><code>  *  e se non si può controllare che il caller di una classe non passi dei `null`?
+  *  si intercettino gli eventuali `null` in ingresso ad ogni metodo, ponendovi un rimedio che non sia il lancio di una eccezione unchecked
+  *  si usi `Objects.requireNonNull()`
+</code></pre>
+</section><section>
+<h2 id="person"><code>Person</code></h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Person</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#000">String</span> <span style="color:#000">name</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">private</span> <span style="color:#000">Optional</span><span style="color:#000">&lt;</span><span style="color:#000">Person</span><span style="color:#000">&gt;</span> <span style="color:#000">partner</span> <span style="color:#000">=</span> <span style="color:#000">Optional</span><span style="color:#000">.</span><span style="color:#836c28">empty</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#000">Person</span><span style="color:#000">(</span><span style="color:#a90d91">final</span> <span style="color:#000">String</span> <span style="color:#000">name</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">name</span> <span style="color:#000">=</span> <span style="color:#000">Objects</span><span style="color:#000">.</span><span style="color:#836c28">requireNonNull</span><span style="color:#000">(</span><span style="color:#000">name</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#000">String</span> <span style="color:#000">getName</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">name</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#000">Optional</span><span style="color:#000">&lt;</span><span style="color:#000">Person</span><span style="color:#000">&gt;</span> <span style="color:#000">getPartner</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">partner</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">setPartner</span><span style="color:#000">(</span><span style="color:#a90d91">final</span> <span style="color:#000">Person</span> <span style="color:#000">p</span><span style="color:#000">){</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">partner</span> <span style="color:#000">=</span> <span style="color:#000">Optional</span><span style="color:#000">.</span><span style="color:#836c28">of</span><span style="color:#000">(</span><span style="color:#000">Objects</span><span style="color:#000">.</span><span style="color:#836c28">requireNonNull</span><span style="color:#000">(</span><span style="color:#000">p</span><span style="color:#000">));</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">removePartner</span><span style="color:#000">(){</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">partner</span> <span style="color:#000">=</span> <span style="color:#000">Optional</span><span style="color:#000">.</span><span style="color:#836c28">empty</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#000">Optional</span><span style="color:#000">&lt;</span><span style="color:#000">String</span><span style="color:#000">&gt;</span> <span style="color:#000">getPartnerName</span><span style="color:#000">(){</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">partner</span><span style="color:#000">.</span><span style="color:#836c28">map</span><span style="color:#000">(</span><span style="color:#000">Person</span><span style="color:#000">::</span><span style="color:#000">getName</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></section><section>
+<h2 id="useperson"><code>UsePerson</code></h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UsePerson</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span><span style="color:#000">(</span><span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">Person</span> <span style="color:#000">p1</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Person</span><span style="color:#000">(</span><span style="color:#c41a16">"Mario"</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">Person</span> <span style="color:#000">p2</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Person</span><span style="color:#000">(</span><span style="color:#c41a16">"Gino"</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">p1</span><span style="color:#000">.</span><span style="color:#836c28">setPartner</span><span style="color:#000">(</span><span style="color:#000">p2</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>		
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">p1</span><span style="color:#000">.</span><span style="color:#836c28">getName</span><span style="color:#000">()+</span><span style="color:#c41a16">" "</span><span style="color:#000">+</span>
+</span></span><span style="display:flex;"><span>						   <span style="color:#000">p1</span><span style="color:#000">.</span><span style="color:#836c28">getPartner</span><span style="color:#000">().</span><span style="color:#836c28">isPresent</span><span style="color:#000">()+</span><span style="color:#c41a16">" "</span><span style="color:#000">+</span>
+</span></span><span style="display:flex;"><span>						   <span style="color:#000">p1</span><span style="color:#000">.</span><span style="color:#836c28">getPartnerName</span><span style="color:#000">());</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#177500">// Mario true Optional[Gino]
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">p2</span><span style="color:#000">.</span><span style="color:#836c28">getName</span><span style="color:#000">()+</span><span style="color:#c41a16">" "</span><span style="color:#000">+</span>
+</span></span><span style="display:flex;"><span>		                   <span style="color:#000">p2</span><span style="color:#000">.</span><span style="color:#836c28">getPartner</span><span style="color:#000">().</span><span style="color:#836c28">isPresent</span><span style="color:#000">()+</span><span style="color:#c41a16">" "</span><span style="color:#000">+</span>
+</span></span><span style="display:flex;"><span>		                   <span style="color:#000">p2</span><span style="color:#000">.</span><span style="color:#836c28">getPartnerName</span><span style="color:#000">());</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#177500">// Gino false Optional.empty
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></section><section>
+</section>
+
+  
+
+
+</div>
+      
+
+    </div>
+<script type="text/javascript" src="/reveal-hugo/object-assign.js"></script>
+
+<a href="/reveal-js/dist/print/" id="print-location" style="display: none;"></a>
+
+<script type="application/json" id="reveal-hugo-site-params">{"custom_theme":"custom-theme.scss","custom_theme_compile":true,"custom_theme_options":{"enablesourcemap":true,"targetpath":"css/custom-theme.css"},"height":"900","highlight_theme":"default","history":true,"mermaid":[{"startOnLoad":false}],"slide_number":true,"theme":"white","transition":"slide","transition_speed":"fast","width":"1440"}</script>
+<script type="application/json" id="reveal-hugo-page-params">null</script>
+
+<script src="/reveal-js/dist/reveal.js"></script>
+
+
+  
+  
+  <script type="text/javascript" src="/reveal-js/plugin/markdown/markdown.js"></script>
+  
+  <script type="text/javascript" src="/reveal-js/plugin/highlight/highlight.js"></script>
+  
+  <script type="text/javascript" src="/reveal-js/plugin/zoom/zoom.js"></script>
+  
+  <script type="text/javascript" src="/reveal-js/plugin/notes/notes.js"></script>
+  
+  
+  <script type="text/javascript" src="/reveal-js/plugin/notes/notes.js"></script>
+
+
+
+
+<script type="text/javascript">
+  
+  
+  function camelize(map) {
+    if (map) {
+      Object.keys(map).forEach(function(k) {
+        newK = k.replace(/(\_\w)/g, function(m) { return m[1].toUpperCase() });
+        if (newK != k) {
+          map[newK] = map[k];
+          delete map[k];
+        }
+      });
+    }
+    return map;
+  }
+  
+  var revealHugoDefaults = { center: true, controls: true, history: true, progress: true, transition: "slide" };
+
+  var revealHugoPlugins = { 
+    plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealZoom ]
+   };
+  var revealHugoSiteParams = JSON.parse(document.getElementById('reveal-hugo-site-params').innerHTML);
+  var revealHugoPageParams = JSON.parse(document.getElementById('reveal-hugo-page-params').innerHTML);
+  
+  var options = Object.assign({},
+    camelize(revealHugoDefaults),
+    camelize(revealHugoSiteParams),
+    camelize(revealHugoPageParams),
+    camelize(revealHugoPlugins));
+  Reveal.initialize(options);
+</script>
+
+
+
+
+
+
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@9.1.6/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({"startOnLoad":false});
+
+    let render = (event) => {
+      let mermaidElems = event.currentSlide.querySelectorAll('.mermaid');
+      if (!mermaidElems.length){
+          return
+      }
+      mermaidElems.forEach(mermaidElem => {
+          let processed = mermaidElem.getAttribute('data-processed');
+          if (!processed){
+              
+              mermaid.init(undefined, mermaidElem);
+          }
+      });
+    };
+    Reveal.addEventListener('slidechanged', render);
+    Reveal.addEventListener('ready', render);
+  </script>
+
+    <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+</script>
+
+<script type="text/javascript" id="MathJax-script" async="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+</script>
+
+    
+  
+
+</body></html>

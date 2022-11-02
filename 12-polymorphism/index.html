@@ -50,26 +50,36 @@ Mirko Viroli, che ringrazio.</p>
 </ul>
 <h3 id="argomenti">Argomenti</h3>
 <ul>
-<li>Polimorfismo inclusivo con le classi</li>
+<li><em>Polimorfismo inclusivo</em> con le classi</li>
 <li>Layout oggetti in memoria</li>
-<li>Autoboxing dei tipi primitivi</li>
+<li><em>Autoboxing</em> dei tipi primitivi</li>
 <li>Tipi a run-time (cast, <code>instanceof</code>)</li>
-<li>Classi astratte</li>
+<li><em>Classi astratte</em></li>
 </ul>
 </section><section>
 <h1 id="polimorfismo-inclusivo-con-le-classi">Polimorfismo inclusivo con le classi</h1>
 </section><section>
 <h2 id="ereditarietà-e-polimorfismo">Ereditarietà e polimorfismo</h2>
 <h3 id="ricordando-il-principio-di-sostituibilità">Ricordando il principio di sostituibilità</h3>
-<p>Se <code>B</code> è un sottotipo di <code>A</code> allora ogni oggetto di <code>B</code> può essere utilizzato (e “deve poter” essere utilizzabile) dove ci si attende un oggetto di <code>A</code></p>
-<h3 id="con-lereditarietà">Con l’ereditarietà</h3>
+<p>SE <code>B</code> è un <em>sottotipo</em> di <code>A</code></p>
+<p>ALLORA ogni oggetto di <code>B</code> può/“deve poter” essere utilizzabile dove ci si attende un oggetto di <code>A</code></p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">void</span> <span style="color:#000">m</span><span style="color:#000">(</span><span style="color:#000">A</span> <span style="color:#000">a</span><span style="color:#000">)</span> <span style="color:#000">{</span> <span style="color:#177500">/* ... */</span> <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">B</span> <span style="color:#000">b</span> <span style="color:#000">=</span> <span style="color:#177500">/* ... */</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000">A</span> <span style="color:#000">a</span> <span style="color:#000">=</span> <span style="color:#000">b</span><span style="color:#000">;</span> <span style="color:#177500">// OK
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#000">m</span><span style="color:#000">(</span><span style="color:#000">b</span><span style="color:#000">);</span>    <span style="color:#177500">// OK
+</span></span></span></code></pre></div><h3 id="con-lereditarietà">Con l’ereditarietà</h3>
 <ul>
-<li>Con la definizione: <code>class B extends A { ... }</code></li>
-<li>Gli oggetti della classe <code>B</code> rispondono a tutti i messaggi previsti dalla classe <code>A</code> (ed eventualmente a qualcuno in più)</li>
-<li>Quindi un oggetto della classe <code>B</code> potrebbe essere passato dove se ne aspetta uno della classe <code>A</code>, senza comportare problemi (di “typing”)</li>
+<li>Con la definizione: <code>class B extends A { ... }</code>
+<ul>
+<li><code>B</code> eredita tutti i membri (campi, metodi) di <code>A</code>, e non può restringerne la visibilità</li>
+</ul>
+</li>
+<li>Gli oggetti della classe <code>B</code> <em>rispondono a tutti i messaggi previsti dalla classe</em> <code>A</code> (ed eventualmente a qualcuno in più)</li>
+<li>$\to$ un oggetto di <code>B</code> può essere passato dove se ne aspetta uno di <code>A</code>, senza dare problemi (di “typing”)</li>
 </ul>
 <h3 id="conseguenza">Conseguenza:</h3>
-<p>Visto che è possibile, corretto, ed utile, allora in Java si considera <code>B</code> come un sottotipo di <code>A</code> a tutti gli effetti!</p>
+<p>Poiché è possibile, corretto, ed utile, allora in Java si considera <code>B</code> come un <em>sottotipo</em> di <code>A</code> a tutti gli effetti!</p>
 </section><section>
 <h2 id="polimorfismo-con-le-classi">Polimorfismo con le classi</h2>
 <p><img src="imgs/uml-poli.png" alt=""></p>
@@ -101,11 +111,11 @@ Mirko Viroli, che ringrazio.</p>
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">new</span> <span style="color:#000">D</span><span style="color:#000">(</span><span style="color:#a90d91">new</span> <span style="color:#000">C1</span><span style="color:#000">());</span> <span style="color:#177500">// OK
 </span></span></span></code></pre></div></div></div>
 <h3 id="le-sottoclassi-di-c">Le sottoclassi di <code>C</code></h3>
-<p>A tutti gli effetti, gli oggetti delle sottoclassi di <code>C</code> sono compatibili con gli oggetti della classe <code>C</code></p>
+<p>A tutti gli effetti, gli oggetti delle sottoclassi di <code>C</code> sono <em>compatibili</em> con gli oggetti della classe <code>C</code></p>
 <ul>
 <li>supportano lo <em>stesso contratto</em> (in generale, qualche operazione in più)</li>
 <li>hanno lo <em>stesso stato</em>, ovveto gli stessi campi definiti in <code>C</code> (in generale, qualcuno in più)</li>
-<li>hanno auspicabilmente un comportamento compatibile</li>
+<li>hanno <em>auspicabilmente un comportamento compatibile</em> (cf. “Principle of Least Surprise”)</li>
 </ul>
 </section><section>
 <h2 id="layout-oggetti-in-memoria">Layout oggetti in memoria</h2>
@@ -118,7 +128,7 @@ Mirko Viroli, che ringrazio.</p>
 <ul>
 <li>Indicazione di quale sia la <em>classe dell’oggetto</em> (runtime type information)</li>
 <li><em>Tabella dei puntatori ai metodi</em>, per supportare il late-binding</li>
-<li>I campi (privati) della classe <code>Object</code></li>
+<li>I campi <!-- (privati) --> della classe <code>Object</code></li>
 </ul>
 </li>
 <li>
@@ -126,7 +136,7 @@ Mirko Viroli, che ringrazio.</p>
 </li>
 </ul>
 <h3 id="conseguenze-se-la-classe-c-è-sottoclasse-di-a">Conseguenze: se la classe <code>C</code> è sottoclasse di <code>A</code>…</h3>
-<p>Allora un oggetto di <code>C</code> è simile ad un oggetto di <code>A</code>, ha solo <em>informazioni aggiuntive</em> in fondo, e questo semplifica la sostituibilità!</p>
+<p>Allora un oggetto di <code>C</code> è simile ad un oggetto di <code>A</code>, ha solo <em>informazioni aggiuntive in fondo</em>, e questo semplifica la sostituibilità!</p>
 </section><section>
 <h2 id="esempio-applicazione-polimorfismo-fra-classi----uml">Esempio applicazione polimorfismo fra classi – UML</h2>
 <p><img src="imgs/uml-person.png" alt=""></p>
@@ -227,20 +237,25 @@ Mirko Viroli, che ringrazio.</p>
 <h2 id="la-differenza-col-caso-del-polimorfismo-con-le-interfacce">La differenza col caso del polimorfismo con le interfacce</h2>
 <h3 id="polimorfismo-con-le-interfacce">Polimorfismo con le interfacce</h3>
 <ul>
-<li>La classe <code>D</code> usa una interfaccia <code>I</code>, non un’altra classe <code>C</code></li>
-<li>Si può assumere vi sia un certo contratto, ma non che vi sia uno specifico comportamento (quello di <code>C</code>) che sia stato eventualmente specializzato</li>
+<li>La classe <code>D</code> realizza una interfaccia <code>I</code>, ma non eredita da un’altra classe <code>C</code></li>
+<li>Si può assumere vi sia un certo <em>contratto</em>, ma non che vi sia uno specifico comportamento <!-- (quello di `C`) che sia stato eventualmente specializzato -->
+<ul>
+<li>Ad esempio, una classe che realizza l’interfaccia <code>Counter</code> può assumere vi sia un metodo <code>increment()</code>; mentre una classe che eredita da <code>LimitCounter</code> può assumere che <code>increment()</code> sia soggetto a un limite di incrementi unitari</li>
+</ul>
+</li>
+<li>E’ possibile realizzare più interfacce (cioè, supportare più contratti) ma non è possibile (in Java) estendere più classi</li>
 </ul>
 <h3 id="le-classi-non-consentono-ereditarietà-multipla-in-c-si">Le classi <em>non</em> consentono <em>“ereditarietà multipla”</em> (in C++ si)</h3>
 <ul>
 <li><em>NON</em> è possibile in Java dichiarare: <code>class C extends D1, D2, ... { ... }</code>
 <ul>
-<li>si creerebbero problemi se <code>D1</code> e <code>D2</code> avessero proprietà comuni</li>
-<li>diventerebbe complicato gestire la struttura in memoria dell’oggetto</li>
+<li>si creerebbero problemi se <code>D1</code> e <code>D2</code> avessero proprietà comuni (cf. <em>Triangle Problem</em> e <em>Diamond Problem</em>)</li>
+<li>diventerebbe complicato gestire la struttura in memoria dell’oggetto (cf. virtual table)</li>
 </ul>
 </li>
 <li>Con le interfacce non ci sono questi problemi, risultato:
 <ul>
-<li>è molto più semplice prendere una classe esistente e renderla compatibile con una interfaccia <code>I</code>, piuttosto che con una classe <code>C</code></li>
+<li>è molto più semplice prendere una classe esistente e renderla compatibile con una interfaccia <code>I</code>, piuttosto che renderla una specializzazione di una classe <code>C</code></li>
 </ul>
 </li>
 </ul>
