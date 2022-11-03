@@ -60,126 +60,206 @@ Mirko Viroli, che ringrazio.</p>
 <li>Istruzione <code>throw</code></li>
 <li>Costrutto <code>try-catch-finally</code></li>
 <li>Dichiarazioni <code>throws</code></li>
+<li>Esempi e Pattern MVC</li>
 </ul>
 </section><section>
 <h1 id="errori">Errori</h1>
 </section><section>
 <h2 id="errori-nei-programmi">Errori nei programmi</h2>
 <h3 id="errori-a-tempo-di-compilazione-compile-time">Errori a tempo di compilazione (compile-time)</h3>
-<pre><code>*  sono quelli più grossolani, sono intercettati dal compilatore
-*  quindi rientrano nella fase dell'implementazione, sono innocui
-*  un linguaggio con strong typing consente di identificarne molti a compile-time
-</code></pre>
+<ul>
+<li>sono quelli più grossolani, sono intercettati dal compilatore</li>
+<li>quindi rientrano nella fase dell’implementazione, sono innocui</li>
+<li>un linguaggio con strong typing consente di identificarne molti a compile-time</li>
+</ul>
 <h3 id="errori-a-tempo-di-esecuzione-run-time-leftarrow-oggetto-della-lezione">Errori a tempo di esecuzione (run-time) ($\Leftarrow$ oggetto della lezione)</h3>
-<pre><code>*  sono condizioni anomale dovute alla dinamica del sistema{
-
-  *  parametri anomali a funzioni, errori nell'uso delle risorse di sistema,..
-</code></pre>
-<p>}
-*  in genere è possibile (i) identificare/descrivere dove potrebbero accadere, (ii) intercettarli e (iii) gestirli prevedendo procedure di compensazione (rimedio al problema che le ha causate)
-*  alcuni linguaggi (come Java, non il C) forniscono costrutti per agevolarne la gestione</p>
+<ul>
+<li>sono condizioni anomale dovute alla dinamica del sistema
+<ul>
+<li>parametri anomali a funzioni, errori nell’uso delle risorse di sistema, …</li>
+</ul>
+</li>
+<li>in genere è possibile
+<ol>
+<li>identificare/descrivere dove potrebbero accadere,</li>
+<li>intercettarli e</li>
+<li>gestirli prevedendo procedure di compensazione (rimedio al problema che le ha causate)</li>
+</ol>
+</li>
+<li>alcuni linguaggi (come Java, non il C) forniscono costrutti per agevolarne la gestione</li>
+</ul>
 </section><section>
 <h2 id="errori-per-causa-interna-lanciati-dalla-jvm">Errori per causa interna: lanciati dalla JVM</h2>
-<p>\titledcode{Errore numerico}{code/Div.java}
-\titledcode{Overflow memoria}{code/Rec.java}
-\titledcode{Riferimento null}{code/Null.java}</p>
-</section><section>
+<p>Errore numerico</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">int</span> <span style="color:#000">divide</span><span style="color:#000">(</span><span style="color:#a90d91">int</span> <span style="color:#000">x</span><span style="color:#000">,</span> <span style="color:#a90d91">int</span> <span style="color:#000">y</span><span style="color:#000">){</span> <span style="color:#a90d91">return</span> <span style="color:#000">x</span><span style="color:#000">/</span><span style="color:#000">y</span><span style="color:#000">;</span> <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">...</span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">int</span> <span style="color:#000">z</span> <span style="color:#000">=</span> <span style="color:#000">divide</span><span style="color:#000">(</span><span style="color:#000">5</span><span style="color:#000">,</span><span style="color:#000">0</span><span style="color:#000">);</span> 
+</span></span><span style="display:flex;"><span><span style="color:#177500">// ERRORE: divisione per 0
+</span></span></span></code></pre></div><p>Overflow memoria</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">int</span> <span style="color:#000">f</span><span style="color:#000">(</span><span style="color:#a90d91">int</span> <span style="color:#000">i</span><span style="color:#000">){</span> <span style="color:#a90d91">return</span> <span style="color:#000">i</span><span style="color:#000">==</span><span style="color:#000">0</span> <span style="color:#000">?</span> <span style="color:#000">0</span> <span style="color:#000">:</span> <span style="color:#000">f</span><span style="color:#000">(</span><span style="color:#000">i</span><span style="color:#000">+</span><span style="color:#000">1</span><span style="color:#000">);</span> <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">...</span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">int</span> <span style="color:#000">n</span><span style="color:#000">=</span><span style="color:#000">f</span><span style="color:#000">(</span><span style="color:#000">1</span><span style="color:#000">);</span> 
+</span></span><span style="display:flex;"><span><span style="color:#177500">// ERRORE: out of (stack) memory 
+</span></span></span></code></pre></div><p>Riferimento null</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">int</span> <span style="color:#000">mysize</span><span style="color:#000">(</span><span style="color:#000">List</span><span style="color:#000">&lt;?&gt;</span> <span style="color:#000">l</span><span style="color:#000">){</span> <span style="color:#a90d91">return</span> <span style="color:#000">l</span><span style="color:#000">.</span><span style="color:#836c28">size</span><span style="color:#000">();</span> <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">...</span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">int</span> <span style="color:#000">n</span><span style="color:#000">=</span><span style="color:#000">mysize</span><span style="color:#000">(</span><span style="color:#a90d91">null</span><span style="color:#000">);</span> 
+</span></span><span style="display:flex;"><span><span style="color:#177500">// ERRORE: invocazione metodo size() su null 
+</span></span></span></code></pre></div></section><section>
 <h2 id="violazioni-di-contratto-duso-di-un-oggetto-librerie-java">Violazioni di contratto d’uso di un oggetto: librerie Java</h2>
-<p>\titledcode{Operazione non supportata}{code/Op.java}
-\titledcode{Elemento non disponibile}{code/NoElement.java}
-\titledcode{Formato illegale}{code/Format.java}</p>
-</section><section>
+<p>Operazione non supportata</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#000">Collections</span><span style="color:#000">.&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span><span style="color:#000">emptySet</span><span style="color:#000">().</span><span style="color:#836c28">add</span><span style="color:#000">(</span><span style="color:#000">1</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#177500">// UnsupportedOperationException
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#177500">/* ERRORE: emptySet() torna un Set immutabile
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">   deve essere impedita l'invocazione di add() */</span>
+</span></span></code></pre></div><p>Elemento non disponibile</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#000">Iterator</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> <span style="color:#000">i</span> <span style="color:#000">=</span> <span style="color:#000">Arrays</span><span style="color:#000">.</span><span style="color:#836c28">asList</span><span style="color:#000">(</span><span style="color:#000">1</span><span style="color:#000">,</span><span style="color:#000">2</span><span style="color:#000">).</span><span style="color:#836c28">iterator</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">i</span><span style="color:#000">.</span><span style="color:#836c28">next</span><span style="color:#000">();</span> 
+</span></span><span style="display:flex;"><span><span style="color:#000">i</span><span style="color:#000">.</span><span style="color:#836c28">next</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">i</span><span style="color:#000">.</span><span style="color:#836c28">next</span><span style="color:#000">();</span> <span style="color:#177500">// NoSuchElementException
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#177500">/* ERRORE: il contratto d'uso degli Iterator prevede di non
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">   invocare next() se hasNext() dà false */</span>
+</span></span></code></pre></div><p>Formato illegale</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#000">Integer</span><span style="color:#000">.</span><span style="color:#836c28">parseInt</span><span style="color:#000">(</span><span style="color:#c41a16">"10.4"</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#177500">// NumberFormatException
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#177500">/* ERRORE: parseInt() si aspetta una stringa che contenga,
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">   carattere per carattere, un intero valido */</span>
+</span></span></code></pre></div></section><section>
 <h2 id="violazioni-di-contratto-duso-di-un-oggetto-nostro-codice">Violazioni di contratto d’uso di un oggetto: nostro codice</h2>
-<p>\titledcode{Argomento errato}{code/Arg.java}
-\titledcode{Elemento non disponibile}{code/It.java}</p>
-</section><section>
+<p>Argomento errato</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">LampsRow</span><span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#000">SimpleLamp</span><span style="color:#000">[]</span> <span style="color:#000">row</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">LampsRow</span><span style="color:#000">(</span><span style="color:#a90d91">int</span> <span style="color:#000">size</span><span style="color:#000">){</span>
+</span></span><span style="display:flex;"><span>    	<span style="color:#a90d91">if</span> <span style="color:#000">(</span><span style="color:#000">size</span><span style="color:#000">&lt;</span><span style="color:#000">0</span><span style="color:#000">)</span> <span style="color:#000">{</span><span style="color:#a90d91">throw</span> <span style="color:#000">???;}</span> <span style="color:#177500">// lancio eccezione
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    	<span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">row</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">SimpleLamp</span><span style="color:#000">[</span><span style="color:#000">size</span><span style="color:#000">];</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">..</span>
+</span></span></code></pre></div><p>Elemento non disponibile</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">RangeIterator</span> <span style="color:#a90d91">implements</span> <span style="color:#000">Iterator</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">int</span> <span style="color:#000">current</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">int</span> <span style="color:#000">stop</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">Integer</span> <span style="color:#000">next</span><span style="color:#000">(){</span>
+</span></span><span style="display:flex;"><span>    	<span style="color:#a90d91">if</span> <span style="color:#000">(</span><span style="color:#000">current</span> <span style="color:#000">&gt;</span> <span style="color:#000">stop</span><span style="color:#000">)</span> <span style="color:#000">{</span> <span style="color:#a90d91">throw</span> <span style="color:#000">???}</span> <span style="color:#177500">// lancio eccezione
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    	<span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">current</span><span style="color:#000">++;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">..</span>
+</span></span></code></pre></div></section><section>
 <h2 id="limportanza-della-error-aware-programming">L’importanza della “error-aware programming”</h2>
 <h3 id="contratti">Contratti</h3>
-<pre><code>*  Molti oggetti richiedono determinate condizioni di lavoro (sequenze di chiamata, argomenti passati, aspettative d'uso di risorse computazionali)
-*  Al di fuori queste condizioni è necessario interrompere il lavoro e effettuare azioni correttive
-</code></pre>
+<ul>
+<li>Molti oggetti richiedono determinate <em>“condizioni di lavoro” (sequenze di chiamata, argomenti passati, aspettative d’uso di risorse computazionali)</em>
+<ul>
+<li>Al di fuori queste condizioni è necessario interrompere il lavoro e effettuare azioni correttive</li>
+</ul>
+</li>
+</ul>
 <h3 id="il-progettista-della-classe-deve">Il progettista della classe deve:</h3>
-<pre><code>*  identificare le condizioni di lavoro definite "normali"
-*  intercettare quando si esce da tali condizioni
-*  eventualmente segnalare l'avvenuto errore
-</code></pre>
+<ul>
+<li>identificare le condizioni di lavoro definite “normali”</li>
+<li>intercettare quando si esce da tali condizioni</li>
+<li>eventualmente segnalare l’avvenuto errore</li>
+</ul>
 <h3 id="il-cliente-a-sua-volta-progettista-di-un-altro-oggetto-deve">Il cliente (a sua volta progettista di un altro oggetto) deve:</h3>
-<pre><code>*  essere informato di come l'oggetto va usato
-*  intercettare gli errori e porvi rimedio con un \it{handler}
-</code></pre>
+<ul>
+<li>essere informato di come l’oggetto va usato</li>
+<li>intercettare gli errori e porvi rimedio con un <em>handler</em></li>
+</ul>
 </section><section>
 <h2 id="eccezioni-in-java">Eccezioni in Java</h2>
 <h3 id="riassunto-java-exceptions">Riassunto Java Exceptions</h3>
-<pre><code>*  Gli errori a run-time in Java sono rappresentati da oggetti della classe `java.lang.Throwable`. Vengono "lanciati":{
-
-  *  da esplicite istruzioni del tipo: `throw &lt;exception-object&gt;;`
-  *  o, direttamente dalla JVM per cause legate al "sistema operativo"
-</code></pre>
-<p>}
-*  Tali oggetti portano informazioni utili a capire la causa dell’errore
-*  Si può dichiarare se un metodo potrà lanciare una eccezione: <code>{..\}</code>
-*  Si può intercettare una eccezione e porvi rimedio: <code>{...\}</code></p>
-<p>{\large Tutti meccanismi che impareremo a progettare e implementare in questa lezione!}</p>
+<ul>
+<li>
+<p>Gli errori a run-time in Java sono rappresentati da oggetti della classe <code>java.lang.Throwable</code>. Vengono “lanciati”:</p>
+<ul>
+<li>da esplicite istruzioni del tipo: <code>throw &lt;exception-object&gt;;</code></li>
+<li>o, direttamente dalla JVM per cause legate al “sistema operativo”</li>
+</ul>
+</li>
+<li>
+<p>Tali oggetti portano informazioni utili a capire la causa dell’errore</p>
+</li>
+<li>
+<p>Si può dichiarare se un metodo potrà lanciare una eccezione: <code>&lt;meth-signature&gt; throws &lt;excep-class&gt; { .. }</code></p>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">void</span> <span style="color:#000">m</span><span style="color:#000">()</span> <span style="color:#a90d91">throws</span> <span style="color:#000">SomeException</span> <span style="color:#000">{</span> <span style="color:#000">...</span> <span style="color:#000">}</span>
+</span></span></code></pre></div><ul>
+<li>Si può intercettare una eccezione e porvi rimedio: <code>try { &lt;instructions&gt; } catch(&lt;excep-class&gt; &lt;var&gt;) { ... }</code></li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">try</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">m</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span> <span style="color:#a90d91">catch</span><span style="color:#000">(</span><span style="color:#000">SomeException</span><span style="color:#000">){</span> <span style="color:#000">...</span> <span style="color:#000">}</span>
+</span></span></code></pre></div><p><strong>Tutti meccanismi che impareremo a progettare e implementare in questa lezione!</strong></p>
 </section><section>
 <h2 id="tipologie-di-errori-in-java">Tipologie di errori in Java</h2>
-<h3 id="errori-javalangerror-e-sottoclassi">Errori: <code>java.lang.Error</code> e sottoclassi</h3>
-<pre><code>*  Dovute a un problema "serio" (e non risolvibile) interno alla JVM
-*  Di norma una applicazione non si deve preoccupare di intercettarli (non ci sarebbe molto di più da fare che interrompere l'esecuzione)
-</code></pre>
-<h3 id="eccezioni-unchecked-javalangruntimeexception-e-sottoclassi">Eccezioni unchecked: <code>java.lang.RuntimeException</code> e sottoclassi</h3>
-<pre><code>*  Causate da un bug nella programmazione
-*  Di norma una applicazione non si deve preoccupare di intercettarli (dovrebbero essere risolti tutti in fase di debugging del sistema)
-</code></pre>
-<h3 id="eccezioni-checked-i-javalangthrowable-tranne-le-precedenti">Eccezioni checked: i <code>java.lang.Throwable</code> tranne le precedenti</h3>
-<pre><code>*  Causate da un problema prevedibile ma non rimediabile a priori
-*  Le applicazione devono dichiarli esplicitamente, e vanno intercettati e gestiti esplicitamente
-</code></pre>
+<h3 id="errori-javalangerror-e-sottoclassi"><strong>Errori</strong>: <code>java.lang.Error</code> e sottoclassi</h3>
+<ul>
+<li>Dovute a un problema “serio” (e non risolvibile) interno alla JVM</li>
+<li><em>Di norma una applicazione non si deve preoccupare di intercettarli (non ci sarebbe molto di più da fare che interrompere l’esecuzione)</em></li>
+</ul>
+<h3 id="eccezioni-unchecked-javalangruntimeexception-e-sottoclassi"><strong>Eccezioni unchecked</strong>: <code>java.lang.RuntimeException</code> e sottoclassi</h3>
+<ul>
+<li>Causate da un bug nella programmazione</li>
+<li><em>Di norma una applicazione non si deve preoccupare di intercettarli (dovrebbero essere risolti tutti in fase di debugging del sistema)</em></li>
+</ul>
+<h3 id="eccezioni-checked-i-javalangthrowable-tranne-le-precedenti"><strong>Eccezioni checked</strong>: i <code>java.lang.Throwable</code> tranne le precedenti</h3>
+<ul>
+<li>Causate da un problema prevedibile ma non rimediabile a priori</li>
+<li><em>Le applicazione devono dichiarli esplicitamente, e vanno intercettati e gestiti esplicitamente</em></li>
+</ul>
 </section><section>
 <h2 id="tipologie-di-errori-in-java-uml">Tipologie di errori in Java: UML</h2>
-<p><img src="img/uml-throw.pdf" alt=""></p>
+<p><img src="imgs/uml-throw.png" alt=""></p>
 </section><section>
 <h2 id="usuale-gestione">Usuale gestione</h2>
 <h3 id="errori-1">Errori</h3>
-<pre><code>*  Nessuna gestione necessaria ("se capitano, capitano...")
-</code></pre>
+<ul>
+<li>Nessuna gestione necessaria (“se capitano, capitano…”)</li>
+</ul>
 <h3 id="eccezioni-unchecked">Eccezioni unchecked</h3>
-<pre><code>*  Si potrebbero dichiarare con un commento al codice
-*  Di norma si riusano le classi `java.lang.RuntimeException` del JDK, ossia non se ne definiscono di nuove tipologie
-*  Si lanciano con l'istruzione `throw`
-</code></pre>
+<ul>
+<li>Si potrebbero dichiarare con un commento al codice</li>
+<li>Di norma si riusano le classi <code>java.lang.RuntimeException</code> del JDK, ossia non se ne definiscono di nuove tipologie</li>
+<li>Si lanciano con l’istruzione <code>throw</code></li>
+</ul>
 <h3 id="eccezioni-checked">Eccezioni checked</h3>
-<pre><code>*  Vanno dichiarate nel metodo con la clausola `throws`
-*  La documentazione deve spiegare in quali casi vengono lanciate
-*  Vanno intercettate con l'istruzione `try-catch`
-*  Di norma si costruiscono sotto-classi ad-hoc di `Exception`
-</code></pre>
+<ul>
+<li>Vanno dichiarate nel metodo con la clausola <code>throws</code></li>
+<li>La documentazione deve spiegare in quali casi vengono lanciate</li>
+<li>Vanno intercettate con l’istruzione <code>try-catch</code></li>
+<li>Di norma si costruiscono sotto-classi ad-hoc di <code>Exception</code> (per modellare problemi “domain-specific”)</li>
+</ul>
 </section><section>
 <h2 id="errori-ed-eccezioni-unchecked-cosa-accade">Errori ed eccezioni unchecked: cosa accade</h2>
 <h3 id="quando-accadono-ossia-quando-vengono-lanciate">Quando accadono, ossia quando vengono lanciate..</h3>
-<pre><code>*  Causano l'interruzione dell'applicazione
-*  Comportano la scrittura su console di errore (`System.err`) di un messaggio che include lo *__StackTrace__* -- `Thread.dumpStack();`{
-
-  *  nota, solitamente `System.err` coincide con `System.out`
-</code></pre>
-<p>}
-*  Dal quale possiamo desumere la sequenza di chiamate e il punto del codice in cui si ha avuto il problema</p>
+<ul>
+<li>Causano l’interruzione dell’applicazione</li>
+<li>Comportano la scrittura su console di errore (<code>System.err</code>) di un messaggio che include lo <em><strong>StackTrace</strong></em> – <code>Thread.dumpStack();</code>
+<ul>
+<li>nota, solitamente <code>System.err</code> coincide con <code>System.out</code></li>
+</ul>
+</li>
+<li>Dal quale possiamo desumere la sequenza di chiamate e il punto del codice in cui si ha avuto il problema</li>
+</ul>
 <h3 id="errorieccezioni-unchecked-comuni-e-già-viste">Errori/eccezioni unchecked comuni e già viste</h3>
-<pre><code>*  `StackOverFlowError`: stack esaurito (ricorsione infinita?)
-*  `NullPointerException`, `ArrayStoreException`, `ClassCastException`, `ArrayIndexOutOfBoundsException`, `NumericException`, `OperationNotSupportedException`
-*  Altri andranno verificati sulla documentazione quando incontrati
-</code></pre>
+<ul>
+<li><code>StackOverFlowError</code>: stack esaurito (ricorsione infinita?)</li>
+<li><code>NullPointerException</code>, <code>ArrayStoreException</code>, <code>ClassCastException</code>, <code>ArrayIndexOutOfBoundsException</code>, <code>NumericException</code>, <code>OperationNotSupportedException</code></li>
+<li>Altri andranno verificati sulla documentazione quando incontrati</li>
+</ul>
 </section><section>
 <h2 id="esempio-di-stampa">Esempio di stampa</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UncheckedStackTrace</span><span style="color:#000">{</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span><span style="color:#000">(</span><span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span><span style="color:#000">){</span>
-</span></span><span style="display:flex;"><span>    	<span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span><span style="color:#000">[]</span> <span style="color:#000">a</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#a90d91">int</span><span style="color:#000">[]{</span><span style="color:#000">10</span><span style="color:#000">,</span><span style="color:#000">20</span><span style="color:#000">,</span><span style="color:#000">30</span><span style="color:#000">};</span>
-</span></span><span style="display:flex;"><span>    	<span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">b</span> <span style="color:#000">=</span> <span style="color:#000">accessArray</span><span style="color:#000">(</span><span style="color:#000">a</span><span style="color:#000">,</span><span style="color:#000">1</span><span style="color:#000">);</span> <span style="color:#177500">// OK
-</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    	<span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">c</span> <span style="color:#000">=</span> <span style="color:#000">accessArray</span><span style="color:#000">(</span><span style="color:#000">a</span><span style="color:#000">,</span><span style="color:#000">3</span><span style="color:#000">);</span> <span style="color:#177500">// Eccezione
-</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    	<span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">d</span> <span style="color:#000">=</span> <span style="color:#000">accessArray</span><span style="color:#000">(</span><span style="color:#000">a</span><span style="color:#000">,</span><span style="color:#000">5</span><span style="color:#000">);</span> <span style="color:#177500">// Eccezione
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UncheckedStackTrace</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span><span style="color:#000">(</span><span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span><span style="color:#000">[]</span> <span style="color:#000">a</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#a90d91">int</span><span style="color:#000">[]{</span><span style="color:#000">10</span><span style="color:#000">,</span><span style="color:#000">20</span><span style="color:#000">,</span><span style="color:#000">30</span><span style="color:#000">};</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">b</span> <span style="color:#000">=</span> <span style="color:#000">accessArray</span><span style="color:#000">(</span><span style="color:#000">a</span><span style="color:#000">,</span><span style="color:#000">1</span><span style="color:#000">);</span> <span style="color:#177500">// OK
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>        <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">c</span> <span style="color:#000">=</span> <span style="color:#000">accessArray</span><span style="color:#000">(</span><span style="color:#000">a</span><span style="color:#000">,</span><span style="color:#000">3</span><span style="color:#000">);</span> <span style="color:#177500">// Eccezione
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>        <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">d</span> <span style="color:#000">=</span> <span style="color:#000">accessArray</span><span style="color:#000">(</span><span style="color:#000">a</span><span style="color:#000">,</span><span style="color:#000">5</span><span style="color:#000">);</span> <span style="color:#177500">// Eccezione
 </span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#000">}</span>
 </span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">int</span> <span style="color:#000">accessArray</span><span style="color:#000">(</span><span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span><span style="color:#000">[]</span> <span style="color:#000">array</span><span style="color:#000">,</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">pos</span><span style="color:#000">){</span>
-</span></span><span style="display:flex;"><span>    	<span style="color:#a90d91">return</span> <span style="color:#000">array</span><span style="color:#000">[</span><span style="color:#000">pos</span><span style="color:#000">];</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">int</span> <span style="color:#000">accessArray</span><span style="color:#000">(</span><span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span><span style="color:#000">[]</span> <span style="color:#000">array</span><span style="color:#000">,</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">pos</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">return</span> <span style="color:#000">array</span><span style="color:#000">[</span><span style="color:#000">pos</span><span style="color:#000">];</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
 </span></span><span style="display:flex;"><span><span style="color:#000">}</span>
 </span></span><span style="display:flex;"><span>
@@ -191,15 +271,15 @@ Mirko Viroli, che ringrazio.</p>
 </span></span></span><span style="display:flex;"><span><span style="color:#177500">*/</span>
 </span></span></code></pre></div></section><section>
 <h2 id="listruzione-throw">L’istruzione <code>throw</code></h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UncheckedThrow</span><span style="color:#000">{</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span><span style="color:#000">(</span><span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span><span style="color:#000">){</span>
-</span></span><span style="display:flex;"><span>    	<span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span><span style="color:#000">[]</span> <span style="color:#000">a</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#a90d91">int</span><span style="color:#000">[]{</span><span style="color:#000">10</span><span style="color:#000">,</span><span style="color:#000">20</span><span style="color:#000">,</span><span style="color:#000">30</span><span style="color:#000">};</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UncheckedThrow</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span><span style="color:#000">(</span><span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>    	<span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span><span style="color:#000">[]</span> <span style="color:#000">a</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#a90d91">int</span><span style="color:#000">[]{</span> <span style="color:#000">10</span><span style="color:#000">,</span> <span style="color:#000">20</span><span style="color:#000">,</span> <span style="color:#000">30</span> <span style="color:#000">};</span>
 </span></span><span style="display:flex;"><span>    	<span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">b</span> <span style="color:#000">=</span> <span style="color:#000">accessArray</span><span style="color:#000">(</span><span style="color:#000">a</span><span style="color:#000">,</span><span style="color:#000">1</span><span style="color:#000">);</span> <span style="color:#177500">// OK
 </span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    	<span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">c</span> <span style="color:#000">=</span> <span style="color:#000">accessArray</span><span style="color:#000">(</span><span style="color:#000">a</span><span style="color:#000">,</span><span style="color:#000">3</span><span style="color:#000">);</span> <span style="color:#177500">// Eccezione
 </span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#000">}</span>
 </span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">int</span> <span style="color:#000">accessArray</span><span style="color:#000">(</span><span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span><span style="color:#000">[]</span> <span style="color:#000">array</span><span style="color:#000">,</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">pos</span><span style="color:#000">){</span>
-</span></span><span style="display:flex;"><span>    	<span style="color:#a90d91">if</span> <span style="color:#000">(</span><span style="color:#000">pos</span> <span style="color:#000">&lt;</span> <span style="color:#000">0</span> <span style="color:#000">||</span> <span style="color:#000">pos</span> <span style="color:#000">&gt;=</span> <span style="color:#000">array</span><span style="color:#000">.</span><span style="color:#836c28">length</span><span style="color:#000">){</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">int</span> <span style="color:#000">accessArray</span><span style="color:#000">(</span><span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span><span style="color:#000">[]</span> <span style="color:#000">array</span><span style="color:#000">,</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">pos</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>    	<span style="color:#a90d91">if</span> <span style="color:#000">(</span><span style="color:#000">pos</span> <span style="color:#000">&lt;</span> <span style="color:#000">0</span> <span style="color:#000">||</span> <span style="color:#000">pos</span> <span style="color:#000">&gt;=</span> <span style="color:#000">array</span><span style="color:#000">.</span><span style="color:#836c28">length</span><span style="color:#000">)</span> <span style="color:#000">{</span>
 </span></span><span style="display:flex;"><span>    		<span style="color:#a90d91">final</span> <span style="color:#000">String</span> <span style="color:#000">msg</span> <span style="color:#000">=</span> <span style="color:#c41a16">"Accesso fuori dai limiti, in posizione "</span><span style="color:#000">+</span><span style="color:#000">pos</span><span style="color:#000">;</span>
 </span></span><span style="display:flex;"><span>    		<span style="color:#a90d91">throw</span> <span style="color:#a90d91">new</span> <span style="color:#000">java</span><span style="color:#000">.</span><span style="color:#836c28">lang</span><span style="color:#000">.</span><span style="color:#836c28">IllegalArgumentException</span><span style="color:#000">(</span><span style="color:#000">msg</span><span style="color:#000">);</span>
 </span></span><span style="display:flex;"><span>    	<span style="color:#000">}</span>
@@ -215,16 +295,16 @@ Mirko Viroli, che ringrazio.</p>
 </span></span></span><span style="display:flex;"><span><span style="color:#177500">*/</span>
 </span></span></code></pre></div></section><section>
 <h2 id="listruzione-throw-una-variante-equivalente">L’istruzione <code>throw</code>: una variante equivalente</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UncheckedThrow2</span><span style="color:#000">{</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span><span style="color:#000">(</span><span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span><span style="color:#000">){</span>
-</span></span><span style="display:flex;"><span>    	<span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span><span style="color:#000">[]</span> <span style="color:#000">a</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#a90d91">int</span><span style="color:#000">[]{</span><span style="color:#000">10</span><span style="color:#000">,</span><span style="color:#000">20</span><span style="color:#000">,</span><span style="color:#000">30</span><span style="color:#000">};</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UncheckedThrow2</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span><span style="color:#000">(</span><span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>    	<span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span><span style="color:#000">[]</span> <span style="color:#000">a</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#a90d91">int</span><span style="color:#000">[]</span> <span style="color:#000">{</span> <span style="color:#000">10</span><span style="color:#000">,</span> <span style="color:#000">20</span><span style="color:#000">,</span> <span style="color:#000">30</span> <span style="color:#000">};</span>
 </span></span><span style="display:flex;"><span>    	<span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">b</span> <span style="color:#000">=</span> <span style="color:#000">accessArray</span><span style="color:#000">(</span><span style="color:#000">a</span><span style="color:#000">,</span><span style="color:#000">1</span><span style="color:#000">);</span> <span style="color:#177500">// OK
 </span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    	<span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">c</span> <span style="color:#000">=</span> <span style="color:#000">accessArray</span><span style="color:#000">(</span><span style="color:#000">a</span><span style="color:#000">,</span><span style="color:#000">3</span><span style="color:#000">);</span> <span style="color:#177500">// Eccezione
 </span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#000">}</span>
 </span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">int</span> <span style="color:#000">accessArray</span><span style="color:#000">(</span><span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span><span style="color:#000">[]</span> <span style="color:#000">array</span><span style="color:#000">,</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">pos</span><span style="color:#000">){</span>
-</span></span><span style="display:flex;"><span>    	<span style="color:#a90d91">if</span> <span style="color:#000">(</span><span style="color:#000">pos</span> <span style="color:#000">&lt;</span> <span style="color:#000">0</span> <span style="color:#000">||</span> <span style="color:#000">pos</span> <span style="color:#000">&gt;=</span> <span style="color:#000">array</span><span style="color:#000">.</span><span style="color:#836c28">length</span><span style="color:#000">){</span>
-</span></span><span style="display:flex;"><span>    		<span style="color:#a90d91">final</span> <span style="color:#000">String</span> <span style="color:#000">msg</span> <span style="color:#000">=</span> <span style="color:#c41a16">"Accesso fuori dai limiti, in posizione "</span><span style="color:#000">+</span><span style="color:#000">pos</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">int</span> <span style="color:#000">accessArray</span><span style="color:#000">(</span><span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span><span style="color:#000">[]</span> <span style="color:#000">array</span><span style="color:#000">,</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">pos</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>    	<span style="color:#a90d91">if</span> <span style="color:#000">(</span><span style="color:#000">pos</span> <span style="color:#000">&lt;</span> <span style="color:#000">0</span> <span style="color:#000">||</span> <span style="color:#000">pos</span> <span style="color:#000">&gt;=</span> <span style="color:#000">array</span><span style="color:#000">.</span><span style="color:#836c28">length</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>    		<span style="color:#a90d91">final</span> <span style="color:#000">String</span> <span style="color:#000">msg</span> <span style="color:#000">=</span> <span style="color:#c41a16">"Accesso fuori dai limiti, in posizione "</span> <span style="color:#000">+</span> <span style="color:#000">pos</span><span style="color:#000">;</span>
 </span></span><span style="display:flex;"><span>    		<span style="color:#000">RuntimeException</span> <span style="color:#000">e</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">java</span><span style="color:#000">.</span><span style="color:#836c28">lang</span><span style="color:#000">.</span><span style="color:#836c28">IllegalArgumentException</span><span style="color:#000">(</span><span style="color:#000">msg</span><span style="color:#000">);</span>
 </span></span><span style="display:flex;"><span>    		<span style="color:#a90d91">throw</span> <span style="color:#000">e</span><span style="color:#000">;</span>
 </span></span><span style="display:flex;"><span>    	<span style="color:#000">}</span>
@@ -234,72 +314,128 @@ Mirko Viroli, che ringrazio.</p>
 </span></span></code></pre></div></section><section>
 <h2 id="listruzione-throw-1">L’istruzione <code>throw</code></h2>
 <h3 id="sintassi-generale">Sintassi generale</h3>
-<pre><code>`throw &lt;expression-that-evaluates-to-a-throwable&gt;;`
-</code></pre>
-<h3 id="casi-tipici">Casi tipici</h3>
-<pre><code>`throw new &lt;exception-class&gt;(&lt;message-string&gt;);`&lt;br&gt;
-`throw new &lt;exception-class&gt;(&lt;ad-hoc-args&gt;);`&lt;br&gt;
-`throw new &lt;exception-class&gt;();`&lt;br&gt;
-</code></pre>
-<h3 id="effetto">Effetto</h3>
-<pre><code>*  Si interrompe immediatamente l'esecuzione del metodo in cui ci si trova (se non dentro una `try-catch`, come vedremo dopo..)
-*  L'oggetto eccezione creato viene "riportato" al chiamante
-*  Ricorsivamente, si giunge al `main`, con la stampa su `System.err` (exception chaining)
-</code></pre>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">throw</span> <span style="color:#000">&lt;</span><span style="color:#000">expression</span><span style="color:#000">-</span><span style="color:#000">that</span><span style="color:#000">-</span><span style="color:#000">evaluates</span><span style="color:#000">-</span><span style="color:#000">to</span><span style="color:#000">-</span><span style="color:#000">a</span><span style="color:#000">-</span><span style="color:#000">throwable</span><span style="color:#000">&gt;;</span>
+</span></span></code></pre></div><h3 id="casi-tipici">Casi tipici</h3>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">throw</span> <span style="color:#a90d91">new</span> <span style="color:#000">&lt;</span><span style="color:#000">exception</span><span style="color:#000">-</span><span style="color:#000">class</span><span style="color:#000">&gt;(&lt;</span><span style="color:#000">message</span><span style="color:#000">-</span><span style="color:#000">string</span><span style="color:#000">&gt;);</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">throw</span> <span style="color:#a90d91">new</span> <span style="color:#000">&lt;</span><span style="color:#000">exception</span><span style="color:#000">-</span><span style="color:#000">class</span><span style="color:#000">&gt;(&lt;</span><span style="color:#000">ad</span><span style="color:#000">-</span><span style="color:#000">hoc</span><span style="color:#000">-</span><span style="color:#000">args</span><span style="color:#000">&gt;);</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">throw</span> <span style="color:#a90d91">new</span> <span style="color:#000">&lt;</span><span style="color:#000">exception</span><span style="color:#000">-</span><span style="color:#000">class</span><span style="color:#000">&gt;();</span>
+</span></span></code></pre></div><h3 id="effetto">Effetto</h3>
+<ul>
+<li>Si interrompe immediatamente l’esecuzione del metodo in cui ci si trova (se non dentro una <code>try-catch</code>, come vedremo dopo..)</li>
+<li>L’oggetto eccezione creato viene “riportato” al chiamante</li>
+<li>Ricorsivamente, si giunge al <code>main</code>, con la stampa su <code>System.err</code> (exception chaining)</li>
+</ul>
 </section><section>
-<p>\section[Es. <code>RangeIterator</code>]{Impl.corretta di <code>RangeIterator</code>}</p>
+<h1 id="implcorretta-di-rangeiterator">Impl.corretta di <code>RangeIterator</code></h1>
 <h2 id="riconsideriamo-limplementazione-di-rangeiterator">Riconsideriamo l’implementazione di <code>RangeIterator</code></h2>
 <h3 id="elementi-da-considerare">Elementi da considerare</h3>
-<pre><code>*  Controllare l'interfaccia `java.util.Iterator`
-*  Verificare la documentazione presente nel sorgente (ed in particolare, come si specificano le eccezioni lanciate)
-*  Il comando: `javadoc Iterator.java`
-*  La documentazione HTML prodotta
-*  Realizzazione e prova di `RangeIterator`
-</code></pre>
+<ul>
+<li>Controllare l’interfaccia <code>java.util.Iterator</code></li>
+<li>Verificare la documentazione presente nel sorgente (ed in particolare, come si specificano le eccezioni lanciate)</li>
+<li>Il comando: <code>javadoc Iterator.java</code></li>
+<li>La documentazione HTML prodotta</li>
+<li>Realizzazione e prova di <code>RangeIterator</code></li>
+</ul>
 </section><section>
 <h2 id="documentazione-di-iterator-header">Documentazione di <code>Iterator</code>: header</h2>
-<p>\sizedcode{\ssmall}{code/util/Iterator1.java}</p>
-</section><section>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#177500">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"> * Copyright (c) 1997, 2010, Oracle and/or its affiliates. All rights reserved.
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"> * .. informazioni generali della Oracle
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"> */</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">package</span> <span style="color:#000">java.util</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#177500">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"> * An iterator over a collection.  
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"> * .. descrizione generale della classe..
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"> *
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"> * &lt;p&gt;This interface is a member of the
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"> * &lt;a href="{@docRoot}/../technotes/guides/collections/index.html"&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"> * Java Collections Framework&lt;/a&gt;.
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"> *
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"> * @param &lt;E&gt; the type of elements returned by this iterator
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"> *
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"> * @author  Josh Bloch
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"> * @see Collection
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"> * @see ListIterator
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"> * @see Iterable
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"> * @since 1.2
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"> */</span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">interface</span> <span style="color:#3f6e75">Iterator</span><span style="color:#000">&lt;</span><span style="color:#000">E</span><span style="color:#000">&gt;</span> <span style="color:#000">{</span> <span style="color:#000">...</span>
+</span></span></code></pre></div></section><section>
 <h2 id="documentazione-di-iterator-next-e-hasnext">Documentazione di <code>Iterator</code>: <code>next()</code> e <code>hasNext()</code></h2>
-<p>\sizedcode{\ssmall}{code/util/Iterator2.java}</p>
-</section><section>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">interface</span> <span style="color:#3f6e75">Iterator</span><span style="color:#000">&lt;</span><span style="color:#000">E</span><span style="color:#000">&gt;</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#177500">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">     * Returns {@code true} if the iteration has more elements.
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">     * (In other words, returns {@code true} if {@link #next} would
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">     * return an element rather than throwing an exception.)
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">     *
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">     * @return {@code true} if the iteration has more elements
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">     */</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">boolean</span> <span style="color:#000">hasNext</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#177500">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">     * Returns the next element in the iteration.
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">     *
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">     * @return the next element in the iteration
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">     * @throws NoSuchElementException if the iteration has no more elements
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">     */</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">E</span> <span style="color:#000">next</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">...</span>
+</span></span></code></pre></div></section><section>
 <h2 id="documentazione-di-iterator-remove">Documentazione di <code>Iterator</code>: <code>remove()</code></h2>
-<p>\sizedcode{\ssmall}{code/util/Iterator3.java}</p>
-</section><section>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span>    <span style="color:#000">..</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#177500">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">     * Removes from the underlying collection the last element returned
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">     * by this iterator (optional operation).  This method can be called
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">     * only once per call to {@link #next}.  The behavior of an iterator
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">     * is unspecified if the underlying collection is modified while the
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">     * iteration is in progress in any way other than by calling this
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">     * method.
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">     *
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">     * @throws UnsupportedOperationException if the {@code remove}
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">     *         operation is not supported by this iterator
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">     *
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">     * @throws IllegalStateException if the {@code next} method has not
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">     *         yet been called, or the {@code remove} method has already
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">     *         been called after the last call to the {@code next}
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">     *         method
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">     */</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">void</span> <span style="color:#000">remove</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></section><section>
 <h2 id="documentazione-generata-pt1">Documentazione generata: pt1</h2>
-<p><img src="img/javadoc1.png" alt=""></p>
+<p><img src="imgs/javadoc1.png" alt=""></p>
 </section><section>
 <h2 id="documentazione-generata-pt2">Documentazione generata: pt2</h2>
-<p><img src="img/javadoc2.png" alt=""></p>
+<p><img src="imgs/javadoc2.png" alt=""></p>
 </section><section>
 <h2 id="realizzazione-di-rangeiterator">Realizzazione di <code>RangeIterator</code></h2>
-<pre><code>\vspace{-5pt}
-</code></pre>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">RangeIterator</span> <span style="color:#a90d91">implements</span> <span style="color:#000">java</span><span style="color:#000">.</span><span style="color:#836c28">util</span><span style="color:#000">.</span><span style="color:#836c28">Iterator</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;{</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">RangeIterator</span> <span style="color:#a90d91">implements</span> <span style="color:#000">java</span><span style="color:#000">.</span><span style="color:#836c28">util</span><span style="color:#000">.</span><span style="color:#836c28">Iterator</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> <span style="color:#000">{</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">final</span> <span style="color:#000">String</span> <span style="color:#000">MSG</span> <span style="color:#000">=</span> <span style="color:#c41a16">"start can't be bigger than stop"</span><span style="color:#000">;</span>    
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">int</span> <span style="color:#000">current</span><span style="color:#000">;</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">final</span> <span style="color:#a90d91">private</span> <span style="color:#a90d91">int</span> <span style="color:#000">stop</span><span style="color:#000">;</span>
 </span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">RangeIterator</span><span style="color:#000">(</span><span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">start</span><span style="color:#000">,</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">stop</span><span style="color:#000">){</span>
-</span></span><span style="display:flex;"><span>    	<span style="color:#a90d91">if</span> <span style="color:#000">(</span><span style="color:#000">start</span> <span style="color:#000">&gt;</span> <span style="color:#000">stop</span><span style="color:#000">){</span>	<span style="color:#177500">// parametri errati
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">RangeIterator</span><span style="color:#000">(</span><span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">start</span><span style="color:#000">,</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">stop</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>    	<span style="color:#a90d91">if</span> <span style="color:#000">(</span><span style="color:#000">start</span> <span style="color:#000">&gt;</span> <span style="color:#000">stop</span><span style="color:#000">)</span> <span style="color:#000">{</span>	<span style="color:#177500">// parametri errati
 </span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    	    <span style="color:#a90d91">throw</span> <span style="color:#a90d91">new</span> <span style="color:#000">java</span><span style="color:#000">.</span><span style="color:#836c28">lang</span><span style="color:#000">.</span><span style="color:#836c28">IllegalArgumentException</span><span style="color:#000">(</span><span style="color:#000">MSG</span><span style="color:#000">);</span> 
 </span></span><span style="display:flex;"><span>    	<span style="color:#000">}</span>
 </span></span><span style="display:flex;"><span>    	<span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">current</span> <span style="color:#000">=</span> <span style="color:#000">start</span><span style="color:#000">;</span>
 </span></span><span style="display:flex;"><span>    	<span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">stop</span> <span style="color:#000">=</span> <span style="color:#000">stop</span><span style="color:#000">;</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
 </span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">Integer</span> <span style="color:#000">next</span><span style="color:#000">(){</span>
-</span></span><span style="display:flex;"><span>    	<span style="color:#a90d91">if</span> <span style="color:#000">(!</span><span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">hasNext</span><span style="color:#000">()){</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">Integer</span> <span style="color:#000">next</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>    	<span style="color:#a90d91">if</span> <span style="color:#000">(!</span><span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">hasNext</span><span style="color:#000">())</span> <span style="color:#000">{</span>
 </span></span><span style="display:flex;"><span>    	    <span style="color:#a90d91">throw</span> <span style="color:#a90d91">new</span> <span style="color:#000">java</span><span style="color:#000">.</span><span style="color:#836c28">util</span><span style="color:#000">.</span><span style="color:#836c28">NoSuchElementException</span><span style="color:#000">();</span> 
 </span></span><span style="display:flex;"><span>    	<span style="color:#000">}</span>
 </span></span><span style="display:flex;"><span>    	<span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">current</span><span style="color:#000">++;</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
 </span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">boolean</span> <span style="color:#000">hasNext</span><span style="color:#000">(){</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">boolean</span> <span style="color:#000">hasNext</span><span style="color:#000">()</span> <span style="color:#000">{</span>
 </span></span><span style="display:flex;"><span>    	<span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">current</span> <span style="color:#000">&lt;=</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">stop</span><span style="color:#000">;</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
 </span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">remove</span><span style="color:#000">(){</span>	<span style="color:#177500">// non supportiamo remove
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">remove</span><span style="color:#000">()</span> <span style="color:#000">{</span>	<span style="color:#177500">// non supportiamo remove
 </span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    	<span style="color:#a90d91">throw</span> <span style="color:#a90d91">new</span> <span style="color:#000">UnsupportedOperationException</span><span style="color:#000">();</span> 
 </span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
 </span></span><span style="display:flex;"><span><span style="color:#000">}</span>
@@ -308,22 +444,27 @@ Mirko Viroli, che ringrazio.</p>
 </section><section>
 <h2 id="il-costrutto-try-catch">Il costrutto <code>try-catch</code></h2>
 <h3 id="sintassi-da-estendere-successivamente">Sintassi (da estendere successivamente)</h3>
-<pre><code>`{ &lt;body-maybe-throwing-an-exception&gt;\}` &lt;br&gt;
-~~~~`{ &lt;handler-body&gt;\}`&lt;br&gt;
-</code></pre>
-<h3 id="esempio">Esempio</h3>
-<pre><code>`{ RangeIterator r = new RangeIterator(a,b);\}` &lt;br&gt;
-~~~~`{ System.out.println(e);\}`&lt;br&gt;
-</code></pre>
-<h3 id="significato">Significato</h3>
-<pre><code>*  Se il body nella `try` lancia una eccezione del tipo specificato nella `catch`
-*  Allora si esegue il corrispondente handler, e non si ha la terminazione della applicazione
-*  Se non c'è eccezione si salta l'handler e si prosegue
-</code></pre>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">try</span> <span style="color:#000">{</span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#000">&lt;</span><span style="color:#000">body</span><span style="color:#000">-</span><span style="color:#000">maybe</span><span style="color:#000">-</span><span style="color:#000">throwing</span><span style="color:#000">-</span><span style="color:#000">an</span><span style="color:#000">-</span><span style="color:#000">exception</span><span style="color:#000">&gt;}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span> <span style="color:#a90d91">catch</span><span style="color:#000">(&lt;</span><span style="color:#000">throwable</span><span style="color:#000">-</span><span style="color:#000">class</span><span style="color:#000">&gt;</span> <span style="color:#000">&lt;</span><span style="color:#000">var</span><span style="color:#000">&gt;)</span> <span style="color:#000">{</span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#000">&lt;</span><span style="color:#000">handler</span><span style="color:#000">-</span><span style="color:#000">body</span><span style="color:#000">&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div><h3 id="esempio">Esempio</h3>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">try</span> <span style="color:#000">{</span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#000">RangeIterator</span> <span style="color:#000">r</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">RangeIterator</span><span style="color:#000">(</span><span style="color:#000">a</span><span style="color:#000">,</span><span style="color:#000">b</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span> <span style="color:#a90d91">catch</span><span style="color:#000">(</span><span style="color:#000">RuntimeException</span> <span style="color:#000">e</span><span style="color:#000">)</span> <span style="color:#000">{</span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">e</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div><h3 id="significato">Significato</h3>
+<ul>
+<li>Se il body nella <code>try</code> lancia una eccezione del tipo specificato nella <code>catch</code></li>
+<li>Allora si esegue il corrispondente handler, e non si ha la terminazione della applicazione</li>
+<li>Se non c’è eccezione si salta l’handler e si prosegue</li>
+</ul>
 </section><section>
 <h2 id="uso-della-rangeiterator-senza-try-catch">Uso della <code>RangeIterator</code> senza <code>try-catch</code></h2>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseRange</span><span style="color:#000">{</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span><span style="color:#000">(</span><span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span><span style="color:#000">){</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span><span style="color:#000">(</span><span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span><span style="color:#000">)</span> <span style="color:#000">{</span>
 </span></span><span style="display:flex;"><span>    	<span style="color:#177500">// args tiene inizio e fine, passate da line di comando
 </span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    	<span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">a</span> <span style="color:#000">=</span> <span style="color:#000">Integer</span><span style="color:#000">.</span><span style="color:#836c28">parseInt</span><span style="color:#000">(</span><span style="color:#000">args</span><span style="color:#000">[</span><span style="color:#000">0</span><span style="color:#000">]);</span> <span style="color:#177500">// "5"
 </span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    	<span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">b</span> <span style="color:#000">=</span> <span style="color:#000">Integer</span><span style="color:#000">.</span><span style="color:#836c28">parseInt</span><span style="color:#000">(</span><span style="color:#000">args</span><span style="color:#000">[</span><span style="color:#000">1</span><span style="color:#000">]);</span> <span style="color:#177500">// "10"
@@ -349,98 +490,139 @@ Mirko Viroli, che ringrazio.</p>
 </span></span><span style="display:flex;"><span><span style="color:#177500">/* Esecuzione: java UseRange 5 3
 </span></span></span><span style="display:flex;"><span><span style="color:#177500">   risultato:  IllegalArgumentException */</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#000">/*</span> <span style="color:#000">Esecuzione</span><span style="color:#000">:</span> <span style="color:#000">java</span> <span style="color:#000">UseRange</span> <span style="color:#000">3</span> <span style="color:#000">4</span>
+</span></span><span style="display:flex;"><span><span style="color:#177500">/* Esecuzione: java UseRange 3 4
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">   risultato:  NoSuchElementException */</span> 	
 </span></span></code></pre></div></section><section>
 <h2 id="uso-della-rangeiterator-con-try-catch">Uso della <code>RangeIterator</code> con <code>try-catch</code></h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseRange2</span><span style="color:#000">{</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span><span style="color:#000">(</span><span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">s</span><span style="color:#000">){</span>
-</span></span><span style="display:flex;"><span>    	<span style="color:#000">RangeIterator</span> <span style="color:#000">r</span> <span style="color:#000">=</span> <span style="color:#a90d91">null</span><span style="color:#000">;</span> <span style="color:#177500">// va creata fuori dal try..
-</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    	<span style="color:#a90d91">try</span><span style="color:#000">{</span>
-</span></span><span style="display:flex;"><span>    		<span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">a</span> <span style="color:#000">=</span> <span style="color:#000">Integer</span><span style="color:#000">.</span><span style="color:#836c28">parseInt</span><span style="color:#000">(</span><span style="color:#000">s</span><span style="color:#000">[</span><span style="color:#000">0</span><span style="color:#000">]);</span>
-</span></span><span style="display:flex;"><span>    		<span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">b</span> <span style="color:#000">=</span> <span style="color:#000">Integer</span><span style="color:#000">.</span><span style="color:#836c28">parseInt</span><span style="color:#000">(</span><span style="color:#000">s</span><span style="color:#000">[</span><span style="color:#000">1</span><span style="color:#000">]);</span>
-</span></span><span style="display:flex;"><span>    	    <span style="color:#000">r</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">RangeIterator</span><span style="color:#000">(</span><span style="color:#000">a</span><span style="color:#000">,</span><span style="color:#000">b</span><span style="color:#000">);</span>
-</span></span><span style="display:flex;"><span>    	<span style="color:#000">}</span> <span style="color:#a90d91">catch</span> <span style="color:#000">(</span><span style="color:#000">Exception</span> <span style="color:#000">e</span><span style="color:#000">){</span> <span style="color:#177500">// catturo una qualsiasi Exception
-</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    	    <span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#c41a16">"Argomenti errati!"</span><span style="color:#000">);</span>
-</span></span><span style="display:flex;"><span>    	    <span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">e</span><span style="color:#000">);</span>
-</span></span><span style="display:flex;"><span>    	    <span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">exit</span><span style="color:#000">(</span><span style="color:#000">1</span><span style="color:#000">);</span> <span style="color:#177500">// abnormal termination
-</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    	<span style="color:#000">}</span>
-</span></span><span style="display:flex;"><span>    	<span style="color:#a90d91">try</span><span style="color:#000">{</span>
-</span></span><span style="display:flex;"><span>    	    <span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">print</span><span style="color:#000">(</span><span style="color:#000">r</span><span style="color:#000">.</span><span style="color:#836c28">next</span><span style="color:#000">()+</span><span style="color:#c41a16">" "</span><span style="color:#000">);</span>
-</span></span><span style="display:flex;"><span>    	    <span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">print</span><span style="color:#000">(</span><span style="color:#000">r</span><span style="color:#000">.</span><span style="color:#836c28">next</span><span style="color:#000">()+</span><span style="color:#c41a16">" "</span><span style="color:#000">);</span>
-</span></span><span style="display:flex;"><span>    	    <span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">r</span><span style="color:#000">.</span><span style="color:#836c28">next</span><span style="color:#000">());</span>
-</span></span><span style="display:flex;"><span>    	<span style="color:#000">}</span> <span style="color:#a90d91">catch</span> <span style="color:#000">(</span><span style="color:#000">java</span><span style="color:#000">.</span><span style="color:#836c28">util</span><span style="color:#000">.</span><span style="color:#836c28">NoSuchElementException</span> <span style="color:#000">e</span><span style="color:#000">){</span>
-</span></span><span style="display:flex;"><span>    	    <span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#c41a16">"Iterazione non corretta.."</span><span style="color:#000">);</span>
-</span></span><span style="display:flex;"><span>    	    <span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">e</span><span style="color:#000">);</span>
-</span></span><span style="display:flex;"><span>    	    <span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">exit</span><span style="color:#000">(</span><span style="color:#000">1</span><span style="color:#000">);</span> <span style="color:#177500">// abnormal termination
-</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    	<span style="color:#000">}</span>
-</span></span><span style="display:flex;"><span>    	<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">exit</span><span style="color:#000">(</span><span style="color:#000">0</span><span style="color:#000">);</span> <span style="color:#177500">// ok termination
-</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#000">}</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseRange2</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span><span style="color:#000">(</span><span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">s</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">RangeIterator</span> <span style="color:#000">r</span> <span style="color:#000">=</span> <span style="color:#a90d91">null</span><span style="color:#000">;</span> <span style="color:#177500">// va creata fuori dal try..
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#a90d91">try</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">a</span> <span style="color:#000">=</span> <span style="color:#000">Integer</span><span style="color:#000">.</span><span style="color:#836c28">parseInt</span><span style="color:#000">(</span><span style="color:#000">s</span><span style="color:#000">[</span><span style="color:#000">0</span><span style="color:#000">]);</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">b</span> <span style="color:#000">=</span> <span style="color:#000">Integer</span><span style="color:#000">.</span><span style="color:#836c28">parseInt</span><span style="color:#000">(</span><span style="color:#000">s</span><span style="color:#000">[</span><span style="color:#000">1</span><span style="color:#000">]);</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#000">r</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">RangeIterator</span><span style="color:#000">(</span><span style="color:#000">a</span><span style="color:#000">,</span> <span style="color:#000">b</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">}</span> <span style="color:#a90d91">catch</span> <span style="color:#000">(</span><span style="color:#000">Exception</span> <span style="color:#000">e</span><span style="color:#000">)</span> <span style="color:#000">{</span> <span style="color:#177500">// catturo una qualsiasi Exception
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>			<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#c41a16">"Argomenti errati!"</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">e</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">exit</span><span style="color:#000">(</span><span style="color:#000">1</span><span style="color:#000">);</span> <span style="color:#177500">// abnormal termination
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">try</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">print</span><span style="color:#000">(</span><span style="color:#000">r</span><span style="color:#000">.</span><span style="color:#836c28">next</span><span style="color:#000">()</span> <span style="color:#000">+</span> <span style="color:#c41a16">" "</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">print</span><span style="color:#000">(</span><span style="color:#000">r</span><span style="color:#000">.</span><span style="color:#836c28">next</span><span style="color:#000">()</span> <span style="color:#000">+</span> <span style="color:#c41a16">" "</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">r</span><span style="color:#000">.</span><span style="color:#836c28">next</span><span style="color:#000">());</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">}</span> <span style="color:#a90d91">catch</span> <span style="color:#000">(</span><span style="color:#000">java</span><span style="color:#000">.</span><span style="color:#836c28">util</span><span style="color:#000">.</span><span style="color:#836c28">NoSuchElementException</span> <span style="color:#000">e</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#c41a16">"Iterazione non corretta.."</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">e</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">exit</span><span style="color:#000">(</span><span style="color:#000">1</span><span style="color:#000">);</span> <span style="color:#177500">// abnormal termination
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">exit</span><span style="color:#000">(</span><span style="color:#000">0</span><span style="color:#000">);</span> <span style="color:#177500">// ok termination
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>	<span style="color:#000">}</span>
 </span></span><span style="display:flex;"><span><span style="color:#000">}</span>
 </span></span></code></pre></div></section><section>
 <h2 id="il-costrutto-try-catch-finally">Il costrutto <code>try-catch-finally</code></h2>
 <h3 id="sintassi-generale-1">Sintassi generale</h3>
-<pre><code>`{ &lt;body-maybe-throwing-an-exception&gt;\}` &lt;br&gt;
-~~~~`{ &lt;handler-body&gt;\}`&lt;br&gt;
-~~~~`{ &lt;handler-body&gt;\}`&lt;br&gt;
-~~~~...&lt;br&gt;
-~~~~`{ &lt;handler-body&gt;\}`&lt;br&gt;
-~~~~` // clausola finale opzionale`&lt;br&gt;
-</code></pre>
-<h3 id="significato-1">Significato</h3>
-<pre><code>*  Se il body nella `try` lancia una eccezione
-*  La prima `catch` pertinente esegue l'handler (non ci possono essere sovrapposizioni!)
-*  Poi si eseguirà anche il `completion-body`
-*  Il body nella `finally` sarà comunque eseguito!
-</code></pre>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">try</span> <span style="color:#000">{</span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#000">&lt;</span><span style="color:#000">body</span><span style="color:#000">-</span><span style="color:#000">maybe</span><span style="color:#000">-</span><span style="color:#000">throwing</span><span style="color:#000">-</span><span style="color:#000">an</span><span style="color:#000">-</span><span style="color:#000">exception</span><span style="color:#000">&gt;}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span> <span style="color:#a90d91">catch</span><span style="color:#000">(&lt;</span><span style="color:#000">throwable</span><span style="color:#000">-</span><span style="color:#000">class</span><span style="color:#000">&gt;</span> <span style="color:#000">&lt;</span><span style="color:#000">var</span><span style="color:#000">&gt;)</span> <span style="color:#000">{</span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#000">&lt;</span><span style="color:#000">handler</span><span style="color:#000">-</span><span style="color:#000">body</span><span style="color:#000">&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span> <span style="color:#a90d91">catch</span><span style="color:#000">(&lt;</span><span style="color:#000">throwable</span><span style="color:#000">-</span><span style="color:#000">class</span><span style="color:#000">&gt;</span> <span style="color:#000">&lt;</span><span style="color:#000">var</span><span style="color:#000">&gt;)</span> <span style="color:#000">{</span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#000">&lt;</span><span style="color:#000">handler</span><span style="color:#000">-</span><span style="color:#000">body</span><span style="color:#000">&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span> <span style="color:#a90d91">catch</span><span style="color:#000">(&lt;</span><span style="color:#000">throwable</span><span style="color:#000">-</span><span style="color:#000">class</span><span style="color:#000">&gt;</span> <span style="color:#000">&lt;</span><span style="color:#000">var</span><span style="color:#000">&gt;)</span> <span style="color:#000">{</span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#000">&lt;</span><span style="color:#000">handler</span><span style="color:#000">-</span><span style="color:#000">body</span><span style="color:#000">&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span> <span style="color:#a90d91">finally</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">&lt;</span><span style="color:#000">completion</span><span style="color:#000">-</span><span style="color:#000">body</span><span style="color:#000">&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div><h3 id="significato-1">Significato</h3>
+<ul>
+<li>Se il body nella <code>try</code> lancia una eccezione</li>
+<li>La prima <code>catch</code> pertinente esegue l’handler (non ci possono essere sovrapposizioni!)</li>
+<li>Poi si eseguirà anche il <code>completion-body</code></li>
+<li>Il body nella <code>finally</code> sarà comunque eseguito!</li>
+</ul>
 </section><section>
 <h2 id="catch-multipli-e-finally"><code>catch</code> multipli e <code>finally</code></h2>
-<p>\sizedcode{\scriptsize}{code/classes/UseRange3.java}</p>
-</section><section>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseRange3</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span><span style="color:#000">(</span><span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">s</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">RangeIterator</span> <span style="color:#000">r</span> <span style="color:#000">=</span> <span style="color:#a90d91">null</span><span style="color:#000">;</span> <span style="color:#177500">// creabile anche dentro al try..
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#a90d91">try</span> <span style="color:#000">{</span> <span style="color:#177500">// attenzione alla formattazione di questo esempio!
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>			<span style="color:#a90d91">int</span> <span style="color:#000">a</span> <span style="color:#000">=</span> <span style="color:#000">Integer</span><span style="color:#000">.</span><span style="color:#836c28">parseInt</span><span style="color:#000">(</span><span style="color:#000">s</span><span style="color:#000">[</span><span style="color:#000">0</span><span style="color:#000">]);</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#a90d91">int</span> <span style="color:#000">b</span> <span style="color:#000">=</span> <span style="color:#000">Integer</span><span style="color:#000">.</span><span style="color:#836c28">parseInt</span><span style="color:#000">(</span><span style="color:#000">s</span><span style="color:#000">[</span><span style="color:#000">1</span><span style="color:#000">]);</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#000">r</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">RangeIterator</span><span style="color:#000">(</span><span style="color:#000">a</span><span style="color:#000">,</span> <span style="color:#000">b</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">print</span><span style="color:#000">(</span><span style="color:#000">r</span><span style="color:#000">.</span><span style="color:#836c28">next</span><span style="color:#000">()</span> <span style="color:#000">+</span> <span style="color:#c41a16">" "</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">print</span><span style="color:#000">(</span><span style="color:#000">r</span><span style="color:#000">.</span><span style="color:#836c28">next</span><span style="color:#000">()</span> <span style="color:#000">+</span> <span style="color:#c41a16">" "</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">r</span><span style="color:#000">.</span><span style="color:#836c28">next</span><span style="color:#000">());</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">}</span> <span style="color:#a90d91">catch</span> <span style="color:#000">(</span><span style="color:#000">ArrayIndexOutOfBoundsException</span> <span style="color:#000">e</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#c41a16">"Servono almeno due argomenti!"</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">}</span> <span style="color:#a90d91">catch</span> <span style="color:#000">(</span><span style="color:#000">NumberFormatException</span> <span style="color:#000">e</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#c41a16">"Servono argomenti interi!"</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">}</span> <span style="color:#a90d91">catch</span> <span style="color:#000">(</span><span style="color:#000">IllegalArgumentException</span> <span style="color:#000">e</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">e</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">}</span> <span style="color:#a90d91">catch</span> <span style="color:#000">(</span><span style="color:#000">Exception</span> <span style="color:#000">e</span><span style="color:#000">)</span> <span style="color:#000">{</span> <span style="color:#177500">// ogni altra eccezione
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>			<span style="color:#a90d91">throw</span> <span style="color:#000">e</span><span style="color:#000">;</span> <span style="color:#177500">// rilancio l'eccezione
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#000">}</span> <span style="color:#a90d91">finally</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#177500">// questo codice comunque eseguito
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>			<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#c41a16">"bye bye.."</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></section><section>
 <h2 id="spiegazione">Spiegazione</h2>
 <h3 id="come-funziona-la-finally">Come funziona la <code>finally</code>?</h3>
-<pre><code>*  garantisce che il codice nel suo handler sarà sicuramente eseguito
-*  ..sia se ho avuto eccezione
-*  ..sia se non ho avuto eccezione
-*  ..sia se uno degli handler delle catch ha generato eccezione
-</code></pre>
+<ul>
+<li>garantisce che il codice nel suo handler sarà sicuramente eseguito</li>
+<li>… sia se ho avuto eccezione</li>
+<li>… sia se non ho avuto eccezione</li>
+<li>… sia se uno degli handler delle catch ha generato eccezione</li>
+</ul>
 <h3 id="a-cosa-serve">A cosa serve?</h3>
-<pre><code>*  in genere contiene del codice di cleanup che deve comunque essere eseguito
-*  rilascio risorse, chiusura file, stampa messaggi, etc..
-</code></pre>
+<ul>
+<li>in genere contiene del codice di cleanup che deve comunque essere eseguito</li>
+<li>rilascio risorse, chiusura file, stampa messaggi, etc..</li>
+</ul>
 <h3 id="vedremo-la-prossima-settimana-il-costrutto-chiamato-try-with-resources">Vedremo la prossima settimana il costrutto chiamato <code>try</code>-with-resources</h3>
-<pre><code>*  consente di non esprimere il `finally`
-</code></pre>
+<ul>
+<li>consente di non esprimere il <code>finally</code></li>
+</ul>
 </section><section>
-<p>\section[Creare eccezioni]{Creazione e rilancio eccezioni}</p>
+<h1 id="creazione-e-rilancio-di-eccezioni">Creazione e rilancio di eccezioni</h1>
 <h2 id="creazione-di-una-nuova-classe-di-eccezioni">Creazione di una nuova classe di eccezioni</h2>
 <h3 id="nuove-eccezioni">Nuove eccezioni</h3>
-<pre><code>*  Un sistema potrebbe richiedere nuovi tipi di eccezioni, che rappresentano eventi specifici collegati al dominio applicativo{
-
-  *  Persona già presente (in un archivio cittadini)
-  *  Lampadina esaurita (in una applicazione domotica)
-</code></pre>
-<p>}
-*  Semplicemente si fa una estensione di <code>Exception</code> o <code>RuntimeException</code>{</p>
-<pre><code>  *  a seconda che la si voglia checked o unchecked
-  *  per il momento stiamo considerando solo le unchecked
-</code></pre>
-<p>}
-*  Non vi sono particolari metodi da ridefinire di solito
-*  Solo ricordarsi di chiamare correttamente il costruttore del padre
-*  Se si vuole incorporare una descrizione articolata della causa dell’eccezione, la si può inserire nei campi dell’oggetto tramite il costruttore o metodi setter..</p>
+<ul>
+<li>
+<p>Un sistema potrebbe richiedere nuovi tipi di eccezioni, che rappresentano eventi specifici collegati al dominio applicativo</p>
+<ul>
+<li>Persona già presente (in un archivio cittadini)</li>
+<li>Lampadina esaurita (in una applicazione domotica)</li>
+</ul>
+</li>
+<li>
+<p>Semplicemente si fa una estensione di <code>Exception</code> o <code>RuntimeException</code></p>
+<ul>
+<li>a seconda che la si voglia checked o unchecked</li>
+<li>per il momento stiamo considerando solo le unchecked</li>
+</ul>
+</li>
+<li>
+<p>Non vi sono particolari metodi da ridefinire di solito</p>
+<ul>
+<li>Solo <em>ricordarsi di chiamare correttamente il costruttore del padre</em></li>
+<li>Se si vuole incorporare una descrizione articolata della <em>causa dell’eccezione</em>, la si può inserire nei campi dell’oggetto tramite il costruttore o metodi setter..</li>
+</ul>
+</li>
+</ul>
 </section><section>
 <h2 id="esempio-myexception">Esempio: <code>MyException</code></h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">MyException</span> <span style="color:#a90d91">extends</span> <span style="color:#000">RuntimeException</span><span style="color:#000">{</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">MyException</span> <span style="color:#a90d91">extends</span> <span style="color:#000">RuntimeException</span> <span style="color:#000">{</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#177500">// tengo traccia degli argomenti che hanno causato il problema
 </span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span><span style="color:#000">;</span>
 </span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">MyException</span><span style="color:#000">(</span><span style="color:#a90d91">final</span> <span style="color:#000">String</span> <span style="color:#000">s</span><span style="color:#000">,</span> <span style="color:#a90d91">final</span> <span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span><span style="color:#000">){</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">MyException</span><span style="color:#000">(</span><span style="color:#a90d91">final</span> <span style="color:#000">String</span> <span style="color:#000">s</span><span style="color:#000">,</span> <span style="color:#a90d91">final</span> <span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span><span style="color:#000">)</span> <span style="color:#000">{</span>
 </span></span><span style="display:flex;"><span>    	<span style="color:#a90d91">super</span><span style="color:#000">(</span><span style="color:#000">s</span><span style="color:#000">);</span>
 </span></span><span style="display:flex;"><span>    	<span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">args</span> <span style="color:#000">=</span> <span style="color:#000">args</span><span style="color:#000">;</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
 </span></span><span style="display:flex;"><span>    
 </span></span><span style="display:flex;"><span>    <span style="color:#177500">// modifico la toString per evidenziare this.args
-</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#a90d91">public</span> <span style="color:#000">String</span> <span style="color:#000">toString</span><span style="color:#000">(){</span>
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#a90d91">public</span> <span style="color:#000">String</span> <span style="color:#000">toString</span><span style="color:#000">()</span> <span style="color:#000">{</span>
 </span></span><span style="display:flex;"><span>    	<span style="color:#000">String</span> <span style="color:#000">str</span> <span style="color:#000">=</span> <span style="color:#c41a16">"Stato argomenti: "</span><span style="color:#000">;</span>
 </span></span><span style="display:flex;"><span>    	<span style="color:#000">str</span> <span style="color:#000">=</span> <span style="color:#000">str</span> <span style="color:#000">+</span> <span style="color:#000">java</span><span style="color:#000">.</span><span style="color:#836c28">util</span><span style="color:#000">.</span><span style="color:#836c28">Arrays</span><span style="color:#000">.</span><span style="color:#836c28">toString</span><span style="color:#000">(</span><span style="color:#000">args</span><span style="color:#000">);</span>
 </span></span><span style="display:flex;"><span>    	<span style="color:#000">str</span> <span style="color:#000">=</span> <span style="color:#000">str</span> <span style="color:#000">+</span> <span style="color:#c41a16">"\n"</span> <span style="color:#000">+</span> <span style="color:#a90d91">super</span><span style="color:#000">.</span><span style="color:#836c28">toString</span><span style="color:#000">();</span>
@@ -449,49 +631,57 @@ Mirko Viroli, che ringrazio.</p>
 </span></span><span style="display:flex;"><span><span style="color:#000">}</span>
 </span></span></code></pre></div></section><section>
 <h2 id="esempio-usemyexception">Esempio: <code>UseMyException</code></h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseMyException</span><span style="color:#000">{</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span><span style="color:#000">(</span><span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">s</span><span style="color:#000">){</span>
-</span></span><span style="display:flex;"><span>    	<span style="color:#a90d91">try</span><span style="color:#000">{</span> <span style="color:#177500">// attenzione alla formattazione di questo esempio!
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseMyException</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span><span style="color:#000">(</span><span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">s</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>    	<span style="color:#a90d91">try</span> <span style="color:#000">{</span> <span style="color:#177500">// attenzione alla formattazione di questo esempio!
 </span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    		<span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">a</span> <span style="color:#000">=</span> <span style="color:#000">Integer</span><span style="color:#000">.</span><span style="color:#836c28">parseInt</span><span style="color:#000">(</span><span style="color:#000">s</span><span style="color:#000">[</span><span style="color:#000">0</span><span style="color:#000">]);</span>
 </span></span><span style="display:flex;"><span>    		<span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">b</span> <span style="color:#000">=</span> <span style="color:#000">Integer</span><span style="color:#000">.</span><span style="color:#836c28">parseInt</span><span style="color:#000">(</span><span style="color:#000">s</span><span style="color:#000">[</span><span style="color:#000">1</span><span style="color:#000">]);</span>
-</span></span><span style="display:flex;"><span>    		<span style="color:#a90d91">final</span> <span style="color:#000">RangeIterator</span> <span style="color:#000">r</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">RangeIterator</span><span style="color:#000">(</span><span style="color:#000">a</span><span style="color:#000">,</span><span style="color:#000">b</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>    		<span style="color:#a90d91">final</span> <span style="color:#000">RangeIterator</span> <span style="color:#000">r</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">RangeIterator</span><span style="color:#000">(</span><span style="color:#000">a</span><span style="color:#000">,</span> <span style="color:#000">b</span><span style="color:#000">);</span>
 </span></span><span style="display:flex;"><span>    		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">print</span><span style="color:#000">(</span><span style="color:#000">r</span><span style="color:#000">.</span><span style="color:#836c28">next</span><span style="color:#000">()+</span><span style="color:#c41a16">" "</span><span style="color:#000">);</span>
 </span></span><span style="display:flex;"><span>    		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">print</span><span style="color:#000">(</span><span style="color:#000">r</span><span style="color:#000">.</span><span style="color:#836c28">next</span><span style="color:#000">()+</span><span style="color:#c41a16">" "</span><span style="color:#000">);</span>
 </span></span><span style="display:flex;"><span>    		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">r</span><span style="color:#000">.</span><span style="color:#836c28">next</span><span style="color:#000">());</span>
-</span></span><span style="display:flex;"><span>    	<span style="color:#000">}</span> <span style="color:#a90d91">catch</span> <span style="color:#000">(</span><span style="color:#000">Exception</span> <span style="color:#000">e</span><span style="color:#000">){</span>
-</span></span><span style="display:flex;"><span>    		<span style="color:#a90d91">final</span> <span style="color:#000">String</span> <span style="color:#000">str</span> <span style="color:#000">=</span> <span style="color:#c41a16">"Rilancio di: "</span><span style="color:#000">+</span><span style="color:#000">e</span><span style="color:#000">;</span>
-</span></span><span style="display:flex;"><span>    		<span style="color:#000">RuntimeException</span> <span style="color:#000">e2</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">MyException</span><span style="color:#000">(</span><span style="color:#000">str</span><span style="color:#000">,</span><span style="color:#000">s</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>    	<span style="color:#000">}</span> <span style="color:#a90d91">catch</span> <span style="color:#000">(</span><span style="color:#000">Exception</span> <span style="color:#000">e</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>    		<span style="color:#a90d91">final</span> <span style="color:#000">String</span> <span style="color:#000">str</span> <span style="color:#000">=</span> <span style="color:#c41a16">"Rilancio di: "</span> <span style="color:#000">+</span> <span style="color:#000">e</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>    		<span style="color:#000">RuntimeException</span> <span style="color:#000">e2</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">MyException</span><span style="color:#000">(</span><span style="color:#000">str</span><span style="color:#000">,</span> <span style="color:#000">s</span><span style="color:#000">);</span>
 </span></span><span style="display:flex;"><span>    		<span style="color:#a90d91">throw</span> <span style="color:#000">e2</span><span style="color:#000">;</span>
 </span></span><span style="display:flex;"><span>    	<span style="color:#000">}</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
 </span></span><span style="display:flex;"><span><span style="color:#000">}</span>
 </span></span><span style="display:flex;"><span><span style="color:#177500">/* Esempio: java UseMyException 10 13.1
 </span></span></span><span style="display:flex;"><span><span style="color:#177500">Exception in thread "main" Stato argomenti: [10, 13.1]
-</span></span></span><span style="display:flex;"><span><span style="color:#177500">it.unibo.apice.oop.p13exceptions.classes.MyException: Rilancio di: java.lang.NumberFormatException: For input string: "13.1"
-</span></span></span><span style="display:flex;"><span><span style="color:#177500">	at it.unibo.apice.oop.p13exceptions.classes.UseMyException.main(UseMyException.java:14)
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">it.unibo.exceptions.classes.MyException: 
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">    Rilancio di: java.lang.NumberFormatException: For input string: "13.1"
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">	at it.unibo.exceptions.classes.UseMyException.main(UseMyException.java:14)
 </span></span></span><span style="display:flex;"><span><span style="color:#177500">*/</span>
 </span></span></code></pre></div></section><section>
-<p>\section[Definire eccezioni]{Dichiarazione eccezioni checked}</p>
+<h1 id="dichiarazione-eccezioni-checked">Dichiarazione eccezioni checked</h1>
 <h2 id="checked-vs-unchecked">Checked vs Unchecked</h2>
 <h3 id="unchecked-runtimeexception-o-sottoclassi">Unchecked: <code>RuntimeException</code> o sottoclassi</h3>
-<pre><code>*  Quelle viste finora, dovute ad un bug di programmazione
-*  Quindi sono da catturare opzionalmente, perché rimediabili
-* $\Rightarrow$ ..le linee guida più moderne le sconsigliano
-</code></pre>
+<ul>
+<li>Quelle viste finora, dovute ad un bug di programmazione</li>
+<li>Quindi sono da catturare opzionalmente, perché rimediabili</li>
+<li>$\Rightarrow$ ..le linee guida più moderne le sconsigliano</li>
+</ul>
 <h3 id="checked-exception-o-sottoclassi-ma-non-di-runtimeexception">Checked: <code>Exception</code> o sottoclassi ma non di <code>RuntimeException</code></h3>
-<pre><code>*  Rappresentano errori non riconducibili ad una scorretta programmazione, ma ad eventi abbastanza comuni anche nel sistema una volta installato e funzionante
-{
-
-  *  Funzionamento non normale, ma non tale da interrompere l'applicazione (p.e., l'utente fornisce un input errato inavvertitamente)
-  *  Un problema con l'interazione col S.O. (p.e., file inesistente)
-</code></pre>
-<p>}
-*  I metodi che le lanciano lo <em><strong>devono</strong></em> dichiararle esplicitamente (<code>throws</code>)
-*  Chi chiama tali metodi <em><strong>deve</strong></em> obbligatoriamente gestirle{</p>
-<pre><code>  *  o catturandole con un `try-catch`
-  *  o rilanciandole al chiamante con la `throws` 
-</code></pre>
-<p>}</p>
+<ul>
+<li>
+<p>Rappresentano errori non riconducibili ad una scorretta programmazione, ma ad eventi abbastanza comuni anche nel sistema una volta installato e funzionante</p>
+<ul>
+<li>Funzionamento non normale, ma non tale da interrompere l’applicazione (p.e., l’utente fornisce un input errato inavvertitamente)</li>
+<li>Un problema con l’interazione col S.O. (p.e., file inesistente)</li>
+</ul>
+</li>
+<li>
+<p>I metodi che le lanciano lo <em><strong>devono</strong></em> dichiararle esplicitamente (<code>throws</code>)</p>
+</li>
+<li>
+<p>Chi chiama tali metodi <em><strong>deve</strong></em> obbligatoriamente gestirle</p>
+<ul>
+<li>o catturandole con un <code>try-catch</code></li>
+<li>o rilanciandole al chiamante con la <code>throws</code></li>
+</ul>
+</li>
+</ul>
 </section><section>
 <h2 id="una-eccezione-checked-ioexception-e-input-da-tastiera">Una eccezione checked: <code>IOException</code> e input da tastiera</h2>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.io.*</span><span style="color:#000">;</span>
@@ -579,25 +769,33 @@ Mirko Viroli, che ringrazio.</p>
 </span></span></span><span style="display:flex;"><span><span style="color:#177500"> * l'I/O, come le stampe formattate tipo printf
 </span></span></span><span style="display:flex;"><span><span style="color:#177500"> */</span>
 </span></span></code></pre></div></section><section>
-<p>\section[Esempio]{Applicazione domotica con eccezioni}</p>
+<h1 id="esempio-applicazione-domotica-con-eccezioni">Esempio: applicazione domotica con eccezioni</h1>
 <h2 id="requirements">Requirements</h2>
-<pre><code>*  Una fila di $n$ `Device` con tempo di vita limitato
-*  Il sistema dovrà supportare in futuro diverse politiche di fine-vita dei device
-*  Il fine-vita viene rilevato al tentativo di accensione, ed è segnalato da una eccezione checked
-*  Esistono comandi per accendere e spegnere tutti i device
-*  Il sistema dovrà essere a prova di qualunque eccezione
-</code></pre>
+<ul>
+<li>Una fila di $n$ <code>Device</code> con tempo di vita limitato</li>
+<li>Il sistema dovrà supportare in futuro diverse politiche di fine-vita dei device</li>
+<li><em>Il fine-vita viene rilevato al tentativo di accensione, ed è segnalato da una eccezione checked</em></li>
+<li>Esistono comandi per accendere e spegnere tutti i device</li>
+<li>Il sistema dovrà essere a prova di qualunque eccezione</li>
+</ul>
 </section><section>
 <h2 id="uml-modellazione-device">UML: Modellazione <code>Device</code></h2>
-<p><img src="img/uml-device.pdf" alt=""></p>
+<p><img src="imgs/uml-device.png" alt=""></p>
 </section><section>
 <h2 id="interfaccia-device">Interfaccia <code>Device</code></h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span>	 <span style="color:#000">*</span> <span style="color:#000">Switches</span> <span style="color:#000">On</span> <span style="color:#000">the</span> <span style="color:#000">Device</span><span style="color:#000">.</span> <span style="color:#000">It</span> <span style="color:#000">does</span> <span style="color:#000">nothing</span> <span style="color:#a90d91">if</span> <span style="color:#000">it</span> <span style="color:#000">is</span> <span style="color:#000">already</span> <span style="color:#000">switched</span> <span style="color:#000">on</span><span style="color:#000">.</span> 
-</span></span><span style="display:flex;"><span>	 <span style="color:#000">*</span> <span style="color:#000">If</span> <span style="color:#000">already</span> <span style="color:#000">over</span> <span style="color:#000">or</span> <span style="color:#000">becoming</span> <span style="color:#000">over</span> <span style="color:#000">it</span> <span style="color:#000">goes</span> <span style="color:#000">over</span> <span style="color:#000">and</span> <span style="color:#000">off</span><span style="color:#000">.</span>
-</span></span><span style="display:flex;"><span>	 <span style="color:#000">*</span> 
-</span></span><span style="display:flex;"><span>	 <span style="color:#000">*</span> <span style="color:#000">@throws</span> <span style="color:#000">DeviceIsOverException</span>
-</span></span><span style="display:flex;"><span>	 <span style="color:#000">*</span>             <span style="color:#a90d91">if</span> <span style="color:#000">it</span> <span style="color:#000">ends</span> <span style="color:#000">up</span> <span style="color:#000">off</span>
-</span></span><span style="display:flex;"><span>	 <span style="color:#000">*/</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">interface</span> <span style="color:#3f6e75">Device</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#177500">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">	 * Switches Off the Device. It does nothing if it is already switched off.
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">	 */</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">void</span> <span style="color:#000">off</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#177500">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">	 * Switches On the Device. It does nothing if it is already switched on. 
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">	 * If already over or becoming over it goes over and off.
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">	 * 
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">	 * @throws DeviceIsOverException
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">	 *             if it ends up off
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">	 */</span>
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">void</span> <span style="color:#000">on</span><span style="color:#000">()</span> <span style="color:#a90d91">throws</span> <span style="color:#000">DeviceIsOverException</span><span style="color:#000">;</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>	<span style="color:#177500">/**
@@ -612,8 +810,12 @@ Mirko Viroli, che ringrazio.</p>
 </span></span><span style="display:flex;"><span><span style="color:#000">}</span>
 </span></span></code></pre></div></section><section>
 <h2 id="eccezione-deviceisoverexception">Eccezione <code>DeviceIsOverException</code></h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span>	 <span style="color:#000">*</span> <span style="color:#000">Reported</span> <span style="color:#a90d91">for</span> <span style="color:#000">clarity</span><span style="color:#000">,</span> <span style="color:#000">not</span> <span style="color:#000">really</span> <span style="color:#000">needed</span>
-</span></span><span style="display:flex;"><span>	 <span style="color:#000">*/</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">DeviceIsOverException</span> <span style="color:#a90d91">extends</span> <span style="color:#000">Exception</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#000">Device</span> <span style="color:#000">device</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#177500">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">	 * Reported for clarity, not really needed
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">	 */</span>
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#000">DeviceIsOverException</span><span style="color:#000">(</span><span style="color:#a90d91">final</span> <span style="color:#000">Device</span> <span style="color:#000">device</span><span style="color:#000">)</span> <span style="color:#000">{</span>
 </span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">device</span> <span style="color:#000">=</span> <span style="color:#000">device</span><span style="color:#000">;</span>
 </span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
@@ -649,11 +851,12 @@ Mirko Viroli, che ringrazio.</p>
 </span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>	<span style="color:#000">}</span>
 </span></span></code></pre></div></section><section>
 <h2 id="abstractdevice-pt2"><code>AbstractDevice</code>, pt2</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span>	 <span style="color:#000">*</span> <span style="color:#000">It</span> <span style="color:#000">makes</span> <span style="color:#000">sure</span> <span style="color:#000">we</span> <span style="color:#000">call</span> <span style="color:#000">onFails</span><span style="color:#000">()</span> <span style="color:#000">properly</span><span style="color:#000">,</span> <span style="color:#000">and</span> <span style="color:#000">over</span> <span style="color:#000">and</span> <span style="color:#000">off</span> <span style="color:#000">are</span>
-</span></span><span style="display:flex;"><span>	 <span style="color:#000">*</span> <span style="color:#000">consistently</span> <span style="color:#000">changed</span><span style="color:#000">.</span>
-</span></span><span style="display:flex;"><span>	 <span style="color:#000">*</span> 
-</span></span><span style="display:flex;"><span>	 <span style="color:#000">*</span> <span style="color:#000">@see</span> <span style="color:#000">safedevices</span><span style="color:#000">.</span><span style="color:#836c28">Device</span><span style="color:#000">#</span><span style="color:#000">on</span><span style="color:#000">()</span>
-</span></span><span style="display:flex;"><span>	 <span style="color:#000">*/</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span>	<span style="color:#177500">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">	 * It makes sure we call onFails() properly, and over and off are
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">	 * consistently changed.
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">	 * 
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">	 * @see safedevices.Device#on()
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">	 */</span>
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">final</span> <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">on</span><span style="color:#000">()</span> <span style="color:#a90d91">throws</span> <span style="color:#000">DeviceIsOverException</span> <span style="color:#000">{</span>
 </span></span><span style="display:flex;"><span>		<span style="color:#a90d91">if</span> <span style="color:#000">(!</span><span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">on</span><span style="color:#000">)</span> <span style="color:#000">{</span> <span style="color:#177500">// is this a real switch-on?
 </span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>			<span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">over</span> <span style="color:#000">=</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">onFails</span><span style="color:#000">();</span> <span style="color:#177500">// is it over?
@@ -731,9 +934,10 @@ Mirko Viroli, che ringrazio.</p>
 </span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
 </span></span></code></pre></div></section><section>
 <h2 id="devicerow-selettori-e-alloff"><code>DeviceRow</code>: Selettori e <code>allOff()</code></h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span>	 <span style="color:#000">*</span> <span style="color:#000">@param</span> <span style="color:#000">index</span> <span style="color:#000">is</span> <span style="color:#000">the</span> <span style="color:#000">position</span> <span style="color:#000">of</span> <span style="color:#000">the</span> <span style="color:#000">device</span> <span style="color:#000">to</span> <span style="color:#000">get</span>
-</span></span><span style="display:flex;"><span>	 <span style="color:#000">*</span> <span style="color:#000">@return</span> <span style="color:#000">the</span> <span style="color:#000">device</span>
-</span></span><span style="display:flex;"><span>	 <span style="color:#000">*/</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span>	<span style="color:#177500">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">	 * @param index is the position of the device to get
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">	 * @return the device
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">	 */</span>
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#000">Device</span> <span style="color:#000">getDevice</span><span style="color:#000">(</span><span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">index</span><span style="color:#000">)</span> <span style="color:#000">{</span>
 </span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">list</span><span style="color:#000">.</span><span style="color:#836c28">get</span><span style="color:#000">(</span><span style="color:#000">index</span><span style="color:#000">);</span>
 </span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
@@ -753,14 +957,13 @@ Mirko Viroli, che ringrazio.</p>
 </span></span><span style="display:flex;"><span>			<span style="color:#000">d</span><span style="color:#000">.</span><span style="color:#836c28">off</span><span style="color:#000">();</span>
 </span></span><span style="display:flex;"><span>		<span style="color:#000">}</span>
 </span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#000">/**</span>
 </span></span></code></pre></div></section><section>
 <h2 id="devicerow-allon-e-tostring"><code>DeviceRow</code>: <code>allOn()</code> e <code>toString()</code></h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span>	 <span style="color:#000">*</span> <span style="color:#000">Switches</span> <span style="color:#000">all</span> <span style="color:#000">devices</span> <span style="color:#000">on</span><span style="color:#000">,</span> <span style="color:#000">no</span> <span style="color:#000">matter</span> <span style="color:#000">whether</span> <span style="color:#000">one</span> <span style="color:#000">fails</span><span style="color:#000">.</span>
-</span></span><span style="display:flex;"><span>	 <span style="color:#000">*</span> 
-</span></span><span style="display:flex;"><span>	 <span style="color:#000">*</span> <span style="color:#000">@throws</span> <span style="color:#000">the</span> <span style="color:#000">last</span> <span style="color:#000">DeviceIsOverException</span> <span style="color:#000">raised</span><span style="color:#000">,</span> <span style="color:#a90d91">if</span> <span style="color:#000">any</span>
-</span></span><span style="display:flex;"><span>	 <span style="color:#000">*/</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span>	<span style="color:#177500">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">	 * Switches all devices on, no matter whether one fails.
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">	 * 
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">	 * @throws the last DeviceIsOverException raised, if any
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">	 */</span>
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">allOn</span><span style="color:#000">()</span> <span style="color:#a90d91">throws</span> <span style="color:#000">DeviceIsOverException</span> <span style="color:#000">{</span>
 </span></span><span style="display:flex;"><span>		<span style="color:#000">DeviceIsOverException</span> <span style="color:#000">e</span> <span style="color:#000">=</span> <span style="color:#a90d91">null</span><span style="color:#000">;</span>
 </span></span><span style="display:flex;"><span>		<span style="color:#a90d91">for</span> <span style="color:#000">(</span><span style="color:#a90d91">final</span> <span style="color:#000">Device</span> <span style="color:#000">d</span> <span style="color:#000">:</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">list</span><span style="color:#000">)</span> <span style="color:#000">{</span>
@@ -809,39 +1012,51 @@ Mirko Viroli, che ringrazio.</p>
 </span></span></code></pre></div></section><section>
 <h2 id="una-applicazione-completa">Una applicazione completa</h2>
 <h3 id="elementi-aggiuntivi">Elementi aggiuntivi</h3>
-<pre><code>*  Vi dovrà essere una interazione con l'utente
-*  Potrà da console fornire i comandi: `+N`, `-N`, `+all`, `-all`, `exit`
-*  ..e vedere direttamente l'effetto che hanno sul `DeviceRow`
-*  (è un prodromo di applicazione con GUI..)
-</code></pre>
+<ul>
+<li>Vi dovrà essere una interazione con l’utente</li>
+<li>Potrà da console fornire i comandi: <code>+N</code>, <code>-N</code>, <code>+all</code>, <code>-all</code>, <code>exit</code></li>
+<li>..e vedere direttamente l’effetto che hanno sul <code>DeviceRow</code></li>
+<li>(è un prodromo di applicazione con GUI..)</li>
+</ul>
 <h3 id="un-problema-architetturale">Un problema architetturale</h3>
-<pre><code>*  come allestire una applicazione con interazione con l'utente?
-</code></pre>
+<ul>
+<li>come allestire una applicazione con interazione con l’utente?</li>
+</ul>
 </section><section>
-<h2 id="il-pattern-architetturale-mvc">Il pattern architetturale MVC</h2>
+<h2 id="il-pattern-architetturale-mvc-model---view---controller">Il pattern architetturale <strong>MVC (Model - View - Controller)</strong></h2>
 <h3 id="mvc----divide-lapplicazione-in-3-parti">MVC – divide l’applicazione in 3 parti</h3>
-<pre><code>*  `Model`: modello OO del dominio applicativo del sistema
-*  `View`: gestisce le interazioni con l'utente (in futuro una GUI)
-*  `Controller`: gestisce il coordinamento fra Model e View
-</code></pre>
+<ul>
+<li><code>Model</code>: modello OO del dominio applicativo del sistema</li>
+<li><code>View</code>: gestisce le interazioni con l’utente (in futuro una GUI)</li>
+<li><code>Controller</code>: gestisce il coordinamento fra Model e View</li>
+</ul>
 <h3 id="applicazione-domotica">Applicazione (domotica)</h3>
-<pre><code>*  `Model`{
-
-*  Un wrapper per un `DeviceRow`
-</code></pre>
-<p>}
-*  <code>View</code>{</p>
-<pre><code>  *  Implementata da un `ConsoleView` che lavora con la Console
-</code></pre>
-<p>}
-*  <code>Controller</code>{</p>
-<pre><code>*  Utilizza un `CommandExecutor` che "processa" i comandi da tastiera
-</code></pre>
-<p>}
-* $\Rightarrow$ <code>View</code> e <code>Model</code> nascoste da interfacce, per supportare un buon disaccoppiamento</p>
+<ul>
+<li>
+<p><code>Model</code></p>
+<ul>
+<li>Un wrapper per un <code>DeviceRow</code></li>
+</ul>
+</li>
+<li>
+<p><code>View</code></p>
+<ul>
+<li>Implementata da un <code>ConsoleView</code> che lavora con la Console</li>
+</ul>
+</li>
+<li>
+<p><code>Controller</code></p>
+<ul>
+<li>Utilizza un <code>CommandExecutor</code> che “processa” i comandi da tastiera</li>
+</ul>
+</li>
+<li>
+<p>$\Rightarrow$ <code>View</code> e <code>Model</code> nascoste da interfacce, per supportare un buon disaccoppiamento</p>
+</li>
+</ul>
 </section><section>
 <h2 id="uml-design-generale">UML: Design generale</h2>
-<p><img src="img/dia.jpg" alt=""></p>
+<p><img src="imgs/dia.jpg" alt=""></p>
 </section><section>
 <h2 id="controller-pt1"><code>Controller</code>, pt1</h2>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#177500">/**
@@ -865,13 +1080,13 @@ Mirko Viroli, che ringrazio.</p>
 </span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">executor</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">SimpleCommandExecutor</span><span style="color:#000">();</span>
 </span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">executor</span><span style="color:#000">.</span><span style="color:#836c28">setDeviceRow</span><span style="color:#000">(</span><span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">model</span><span style="color:#000">.</span><span style="color:#836c28">getDeviceRow</span><span style="color:#000">());</span>
 </span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#177500">/**
-</span></span></span><span style="display:flex;"><span><span style="color:#177500">	 * This method implements the main loop of the program 
-</span></span></span><span style="display:flex;"><span><span style="color:#177500">	 */</span>
 </span></span></code></pre></div></section><section>
 <h2 id="controller-pt2"><code>Controller</code>, pt2</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span>		<span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">view</span><span style="color:#000">.</span><span style="color:#836c28">setLogString</span><span style="color:#000">(</span><span style="color:#000">START</span><span style="color:#000">);</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span>	<span style="color:#177500">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">	 * This method implements the main loop of the program 
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">	 */</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">start</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">view</span><span style="color:#000">.</span><span style="color:#836c28">setLogString</span><span style="color:#000">(</span><span style="color:#000">START</span><span style="color:#000">);</span>
 </span></span><span style="display:flex;"><span>		<span style="color:#a90d91">while</span> <span style="color:#000">(</span><span style="color:#a90d91">true</span><span style="color:#000">)</span> <span style="color:#000">{</span>
 </span></span><span style="display:flex;"><span>			<span style="color:#a90d91">try</span> <span style="color:#000">{</span>
 </span></span><span style="display:flex;"><span>				<span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">view</span><span style="color:#000">.</span><span style="color:#836c28">setRowStatus</span><span style="color:#000">(</span><span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">model</span><span style="color:#000">.</span><span style="color:#836c28">getDeviceRow</span><span style="color:#000">().</span><span style="color:#836c28">toString</span><span style="color:#000">());</span>
@@ -906,10 +1121,7 @@ Mirko Viroli, che ringrazio.</p>
 </span></span></code></pre></div></section><section>
 <h2 id="interfaccia-e-implementazione-model">Interfaccia e implementazione <code>Model</code></h2>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#177500">/**
-</span></span></span><span style="display:flex;"><span><span style="color:#177500"> * @author Mirko Viroli
-</span></span></span><span style="display:flex;"><span><span style="color:#177500"> * 
 </span></span></span><span style="display:flex;"><span><span style="color:#177500"> * The interface over the Model as of MVC
-</span></span></span><span style="display:flex;"><span><span style="color:#177500"> *
 </span></span></span><span style="display:flex;"><span><span style="color:#177500"> */</span>
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">interface</span> <span style="color:#3f6e75">Model</span> <span style="color:#000">{</span>
 </span></span><span style="display:flex;"><span>	
@@ -918,7 +1130,11 @@ Mirko Viroli, che ringrazio.</p>
 </span></span></span><span style="display:flex;"><span><span style="color:#177500">	 */</span>
 </span></span><span style="display:flex;"><span>	<span style="color:#000">DeviceRow</span> <span style="color:#000">getDeviceRow</span><span style="color:#000">();</span> 
 </span></span><span style="display:flex;"><span><span style="color:#000">}</span>
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span>	<span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#000">DeviceRow</span> <span style="color:#000">row</span><span style="color:#000">;</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#177500">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"> * A simple wrapper implementing the model
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"> */</span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">DeviceRowModel</span> <span style="color:#a90d91">implements</span> <span style="color:#000">Model</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#000">DeviceRow</span> <span style="color:#000">row</span><span style="color:#000">;</span>
 </span></span><span style="display:flex;"><span>	
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#000">DeviceRowModel</span><span style="color:#000">(</span><span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">size</span><span style="color:#000">){</span>
 </span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">row</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">DeviceRow</span><span style="color:#000">(</span><span style="color:#000">size</span><span style="color:#000">);</span>
@@ -957,7 +1173,9 @@ Mirko Viroli, che ringrazio.</p>
 </span></span><span style="display:flex;"><span><span style="color:#000">}</span>
 </span></span></code></pre></div></section><section>
 <h2 id="consoleview-pt1"><code>ConsoleView</code>, pt1</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#177500">/**
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.io.*</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#177500">/**
 </span></span></span><span style="display:flex;"><span><span style="color:#177500"> * This class provides an implementation of the View simply using the console
 </span></span></span><span style="display:flex;"><span><span style="color:#177500"> */</span>
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">ConsoleView</span> <span style="color:#a90d91">implements</span> <span style="color:#000">View</span> <span style="color:#000">{</span>
@@ -978,12 +1196,12 @@ Mirko Viroli, che ringrazio.</p>
 </span></span><span style="display:flex;"><span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">rowString</span><span style="color:#000">);</span>
 </span></span><span style="display:flex;"><span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">logString</span><span style="color:#000">);</span>
 </span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">setRowStatus</span><span style="color:#000">(</span><span style="color:#a90d91">final</span> <span style="color:#000">String</span> <span style="color:#000">s</span><span style="color:#000">)</span> <span style="color:#000">{</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">rowString</span> <span style="color:#000">=</span> <span style="color:#000">s</span><span style="color:#000">;</span>
 </span></span></code></pre></div></section><section>
 <h2 id="consoleview-pt2"><code>ConsoleView</code>, pt2</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span>	<span style="color:#000">}</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">setRowStatus</span><span style="color:#000">(</span><span style="color:#a90d91">final</span> <span style="color:#000">String</span> <span style="color:#000">s</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">rowString</span> <span style="color:#000">=</span> <span style="color:#000">s</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">setLogString</span><span style="color:#000">(</span><span style="color:#a90d91">final</span> <span style="color:#000">String</span> <span style="color:#000">s</span><span style="color:#000">)</span> <span style="color:#000">{</span>
 </span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">logString</span> <span style="color:#000">=</span> <span style="color:#000">s</span><span style="color:#000">;</span>
@@ -1021,8 +1239,9 @@ Mirko Viroli, che ringrazio.</p>
 </span></span><span style="display:flex;"><span><span style="color:#000">}</span>
 </span></span></code></pre></div></section><section>
 <h2 id="simplecommandexecutor-pt1"><code>SimpleCommandExecutor</code>, pt1</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span> <span style="color:#000">*</span> <span style="color:#000">Implements</span> <span style="color:#000">a</span> <span style="color:#000">CommandExecutor</span><span style="color:#000">,</span> <span style="color:#000">encapsulating</span> <span style="color:#000">all</span> <span style="color:#000">corresponding</span> <span style="color:#000">design</span> <span style="color:#000">choices</span>  
-</span></span><span style="display:flex;"><span> <span style="color:#000">*/</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#177500">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"> * Implements a CommandExecutor, encapsulating all corresponding design choices  
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"> */</span>
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">SimpleCommandExecutor</span> <span style="color:#a90d91">implements</span> <span style="color:#000">CommandExecutor</span><span style="color:#000">{</span>
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">private</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">final</span> <span style="color:#000">String</span> <span style="color:#000">ON</span> <span style="color:#000">=</span> <span style="color:#c41a16">"+"</span><span style="color:#000">;</span> 
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">private</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">final</span> <span style="color:#000">String</span> <span style="color:#000">OFF</span> <span style="color:#000">=</span> <span style="color:#c41a16">"-"</span><span style="color:#000">;</span>
@@ -1041,14 +1260,14 @@ Mirko Viroli, che ringrazio.</p>
 </span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">row</span> <span style="color:#000">=</span> <span style="color:#000">row</span><span style="color:#000">;</span>
 </span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
 </span></span><span style="display:flex;"><span>	
-</span></span><span style="display:flex;"><span>	<span style="color:#000">/**</span>
-</span></span><span style="display:flex;"><span>	 <span style="color:#000">*</span> <span style="color:#000">@param</span> <span style="color:#000">s</span> <span style="color:#000">is</span> <span style="color:#000">the</span> <span style="color:#000">String</span> <span style="color:#000">command</span> <span style="color:#000">to</span> <span style="color:#000">interpret</span> <span style="color:#000">and</span> <span style="color:#000">execute</span>
 </span></span></code></pre></div></section><section>
 <h2 id="simplecommandexecutor-pt2"><code>SimpleCommandExecutor</code>, pt2</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span>	 <span style="color:#000">*</span> <span style="color:#000">@throws</span> <span style="color:#000">ExitCommandException</span>
-</span></span><span style="display:flex;"><span>	 <span style="color:#000">*</span> <span style="color:#000">@throws</span> <span style="color:#000">CommandNotRecognisedException</span>
-</span></span><span style="display:flex;"><span>	 <span style="color:#000">*</span> <span style="color:#000">@throws</span> <span style="color:#000">DeviceIsOverException</span>
-</span></span><span style="display:flex;"><span>	 <span style="color:#000">*/</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span>	<span style="color:#177500">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">	 * @param s is the String command to interpret and execute
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">	 * @throws ExitCommandException
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">	 * @throws CommandNotRecognisedException
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">	 * @throws DeviceIsOverException
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">	 */</span>
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">exec</span><span style="color:#000">(</span><span style="color:#a90d91">final</span> <span style="color:#000">String</span> <span style="color:#000">s</span><span style="color:#000">)</span> <span style="color:#a90d91">throws</span> <span style="color:#000">ExitCommandException</span><span style="color:#000">,</span> 
 </span></span><span style="display:flex;"><span>	                                  <span style="color:#000">CommandNotRecognisedException</span><span style="color:#000">,</span> 
 </span></span><span style="display:flex;"><span>	                                  <span style="color:#000">DeviceIsOverException</span> <span style="color:#000">{</span>
@@ -1068,11 +1287,11 @@ Mirko Viroli, che ringrazio.</p>
 </span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#a90d91">false</span><span style="color:#000">;</span>
 </span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
 </span></span><span style="display:flex;"><span>	
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">private</span> <span style="color:#a90d91">boolean</span> <span style="color:#000">processOffAll</span><span style="color:#000">(</span><span style="color:#a90d91">final</span> <span style="color:#000">String</span> <span style="color:#000">s</span><span style="color:#000">){</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">if</span> <span style="color:#000">(</span><span style="color:#000">s</span><span style="color:#000">.</span><span style="color:#836c28">equals</span><span style="color:#000">(</span><span style="color:#000">OFFALL</span><span style="color:#000">)){</span>
 </span></span></code></pre></div></section><section>
 <h2 id="simplecommandexecutor-pt3"><code>SimpleCommandExecutor</code>, pt3</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span>			<span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">row</span><span style="color:#000">.</span><span style="color:#836c28">allOff</span><span style="color:#000">();</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span>	<span style="color:#a90d91">private</span> <span style="color:#a90d91">boolean</span> <span style="color:#000">processOffAll</span><span style="color:#000">(</span><span style="color:#a90d91">final</span> <span style="color:#000">String</span> <span style="color:#000">s</span><span style="color:#000">){</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">if</span> <span style="color:#000">(</span><span style="color:#000">s</span><span style="color:#000">.</span><span style="color:#836c28">equals</span><span style="color:#000">(</span><span style="color:#000">OFFALL</span><span style="color:#000">)){</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">row</span><span style="color:#000">.</span><span style="color:#836c28">allOff</span><span style="color:#000">();</span>
 </span></span><span style="display:flex;"><span>			<span style="color:#a90d91">return</span> <span style="color:#a90d91">true</span><span style="color:#000">;</span>
 </span></span><span style="display:flex;"><span>		<span style="color:#000">}</span>
 </span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#a90d91">false</span><span style="color:#000">;</span>
@@ -1086,12 +1305,12 @@ Mirko Viroli, che ringrazio.</p>
 </span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#a90d91">false</span><span style="color:#000">;</span>
 </span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
 </span></span><span style="display:flex;"><span>	
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">private</span> <span style="color:#a90d91">boolean</span> <span style="color:#000">processOn</span><span style="color:#000">(</span><span style="color:#a90d91">final</span> <span style="color:#000">String</span> <span style="color:#000">s</span><span style="color:#000">)</span> 
-</span></span><span style="display:flex;"><span>			<span style="color:#a90d91">throws</span> <span style="color:#000">CommandNotRecognisedException</span><span style="color:#000">,</span>
-</span></span><span style="display:flex;"><span>			       <span style="color:#000">DeviceIsOverException</span> <span style="color:#000">{</span>
 </span></span></code></pre></div></section><section>
 <h2 id="simplecommandexecutor-pt4"><code>SimpleCommandExecutor</code>, pt4</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span>		<span style="color:#a90d91">if</span> <span style="color:#000">(</span><span style="color:#000">s</span><span style="color:#000">.</span><span style="color:#836c28">startsWith</span><span style="color:#000">(</span><span style="color:#000">ON</span><span style="color:#000">)){</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span>	<span style="color:#a90d91">private</span> <span style="color:#a90d91">boolean</span> <span style="color:#000">processOn</span><span style="color:#000">(</span><span style="color:#a90d91">final</span> <span style="color:#000">String</span> <span style="color:#000">s</span><span style="color:#000">)</span> 
+</span></span><span style="display:flex;"><span>			<span style="color:#a90d91">throws</span> <span style="color:#000">CommandNotRecognisedException</span><span style="color:#000">,</span>
+</span></span><span style="display:flex;"><span>			       <span style="color:#000">DeviceIsOverException</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">if</span> <span style="color:#000">(</span><span style="color:#000">s</span><span style="color:#000">.</span><span style="color:#836c28">startsWith</span><span style="color:#000">(</span><span style="color:#000">ON</span><span style="color:#000">)){</span>
 </span></span><span style="display:flex;"><span>			<span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">index</span> <span style="color:#000">=</span> <span style="color:#000">Integer</span><span style="color:#000">.</span><span style="color:#836c28">parseInt</span><span style="color:#000">(</span><span style="color:#000">s</span><span style="color:#000">.</span><span style="color:#836c28">substring</span><span style="color:#000">(</span><span style="color:#000">ON</span><span style="color:#000">.</span><span style="color:#836c28">length</span><span style="color:#000">()));</span>
 </span></span><span style="display:flex;"><span>			<span style="color:#a90d91">if</span> <span style="color:#000">(</span><span style="color:#000">index</span> <span style="color:#000">&lt;</span> <span style="color:#000">0</span> <span style="color:#000">||</span> <span style="color:#000">index</span> <span style="color:#000">&gt;=</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">row</span><span style="color:#000">.</span><span style="color:#836c28">getSize</span><span style="color:#000">()){</span>
 </span></span><span style="display:flex;"><span>				<span style="color:#a90d91">throw</span> <span style="color:#a90d91">new</span> <span style="color:#000">CommandNotRecognisedException</span><span style="color:#000">(</span><span style="color:#000">ERROR_OUTOFRANGE</span><span style="color:#000">);</span>
@@ -1119,25 +1338,31 @@ Mirko Viroli, che ringrazio.</p>
 </span></span></code></pre></div></section><section>
 <h2 id="note-su-questa-progettazione">Note su questa progettazione</h2>
 <h3 id="complessivamente">Complessivamente</h3>
-<pre><code>*  è lungi dall'essere ottimale
-*  è un primo passo verso l'idea di "buon progetto"
-</code></pre>
+<ul>
+<li>è lungi dall’essere ottimale</li>
+<li>è un primo passo verso l’idea di “buon progetto”</li>
+</ul>
 <h3 id="aspetti-positivi">Aspetti positivi</h3>
-<pre><code>*  Suddivisione base secondo logica MVC
-*  M e V "nascosti" da interfacce, favorendo disaccoppiamento
-</code></pre>
+<ul>
+<li>Suddivisione base secondo logica MVC</li>
+<li>M e V “nascosti” da interfacce, favorendo disaccoppiamento</li>
+</ul>
 <h3 id="aspetti-da-migliorare----ve-ne-sono-sempre">Aspetti da migliorare – ve ne sono sempre!!</h3>
-<pre><code>*  `Controller` contiene elementi relativi all'interazione con l'utente{
-
-  *  sarebbero da astrarre in chiamate di metodo da fare sulla `View`
-</code></pre>
-<p>}
-*  <code>CommandExecutor</code> contiene due logiche, e non andrebbe bene:{</p>
-<pre><code>  *  riconoscimento della stringa in input (da gestire nella `View`)
-  *  conseguente esecuzione del comando
-</code></pre>
-<p>}</p>
-</section><section>
+<ul>
+<li>
+<p><code>Controller</code> contiene elementi relativi all’interazione con l’utente</p>
+<ul>
+<li>sarebbero da astrarre in chiamate di metodo da fare sulla <code>View</code></li>
+</ul>
+</li>
+<li>
+<p><code>CommandExecutor</code> contiene due logiche, e non andrebbe bene:</p>
+<ul>
+<li>riconoscimento della stringa in input (da gestire nella <code>View</code>)</li>
+<li>conseguente esecuzione del comando</li>
+</ul>
+</li>
+</ul>
 </section>
 
   
