@@ -18,6 +18,9 @@ jobs:
     steps:
       - name: Checkout the pdf creation script
         uses: actions/checkout@v3.0.2
+        with:
+          fetch-depth: 0
+          submodules: recursive
       - name: Checkout gh-pages
         uses: actions/checkout@v3.0.2
         with:
@@ -31,7 +34,9 @@ jobs:
         id: version-compute
         run: echo "::set-output name=version::${{ steps.commit-counter.outputs.commits }}.$(date +"%Y.%-m%d")"
       - name: Setup Ruby
-        uses: ruby/setup-ruby@v1.116.0
+        uses: ruby/setup-ruby@v1.120.0
+        with:
+          working-directory: shared-slides
       - name: Setup Chrome
         uses: browser-actions/setup-chrome@latest
         with:
@@ -39,7 +44,7 @@ jobs:
       - name: Install pdfinfo
         run: sudo apt-get install -y poppler-utils
       - name: Make the pdfs
-        run: ./makepdfs.rb pages
+        run: shared-slides/makepdfs.rb pages
       - name: Deliver the pdfs
         uses: ncipollo/release-action@v1.10.0
         with:
