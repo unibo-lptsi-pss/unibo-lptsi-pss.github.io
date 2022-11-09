@@ -56,15 +56,12 @@ Mirko Viroli, che ringrazio.</p>
 </ul>
 <h3 id="argomenti">Argomenti</h3>
 <ul>
-<li>Presentazione Java Collections Framework</li>
+<li>Presentazione <em>Java Collections Framework</em></li>
 <li>Iteratori e foreach</li>
-<li>Collezioni, Liste e Set</li>
+<li>Collezioni, Set, e Liste</li>
 <li><code>HashSet</code> e <code>TreeSet</code></li>
 <li><code>ArrayList</code> e <code>LinkedList</code></li>
 <li>Funzioni di utilità in <code>Arrays</code> e <code>Collections</code></li>
-<li>Il problema della type-erasure</li>
-<li>Polimorfismo vincolato</li>
-<li>Approfondimento sulle Wildcards</li>
 <li>Implementazioni di <code>List</code> e <code>Map</code></li>
 </ul>
 </section><section>
@@ -103,24 +100,20 @@ Mirko Viroli, che ringrazio.</p>
 </ul>
 <h3 id="due-tipi-di-collection-ognuna-con-varie-incarnazioni">Due tipi di collection, ognuna con varie incarnazioni</h3>
 <ul>
-<li><code>Collection</code> – contenitore di elementi atomici
-<ul>
-<li>3 sottotipi</li>
-</ul>
-</li>
-</ul>
+<li><code>Collection</code> – contenitore di elementi atomici; 3 sottotipi di collezioni
 <ol>
 <li><code>List</code> (sequenze)</li>
 <li><code>Set</code> (no duplicazioni)</li>
-<li><code>Queue</code></li>
+<li><code>Queue</code> (per tenere elenti da processare, in vario ordine, e.g., FIFO, LIFO, a priorità etc.)</li>
 </ol>
-<ul>
+</li>
 <li><code>Map</code> – contenitore di coppie chiave-valore</li>
 </ul>
 <h3 id="interfacceclassi-di-interesse">Interfacce/classi di interesse:</h3>
 <ul>
-<li>Interfacce: <code>Collection</code>, <code>List</code>, <code>Set</code>, <code>Iterator</code>, <code>Comparable</code></li>
-<li>Classi collection: <code>ArrayList</code>, <code>LinkedList</code>, <code>HashSet</code>, <code>HashMap</code></li>
+<li>Interfacce: <code>Collection</code>, <code>List</code>, <code>Set</code>, <code>Map</code>, <code>Queue</code>, <code>Iterator</code>, <code>Comparable</code></li>
+<li>Classi astratte: <code>AbstractList</code>, <code>AbstractSet</code>, <code>AbstractMap</code></li>
+<li>Classi collection: <code>ArrayList</code>, <code>LinkedList</code>, <code>HashSet</code>, <code>HashMap</code>, <code>PriorityQueue</code></li>
 <li>Classi con funzionalità: <code>Collections</code>, <code>Arrays</code></li>
 </ul>
 </section><section>
@@ -151,8 +144,8 @@ Mirko Viroli, che ringrazio.</p>
 </ul>
 <h3 id="iterable-e-iterator"><code>Iterable</code> e <code>Iterator</code></h3>
 <ul>
-<li>L’interfaccia <code>Iterable</code> ha un metodo per generare e restituire un (nuovo) <code>Iterator</code></li>
-<li>Un iteratore è un oggetto con metodi <code>next()</code>, <code>hasNext()</code> (e <code>remove()</code>)</li>
+<li>L’interfaccia <code>Iterable</code> (contratto degli oggetti <em>iterabili</em>) ha un metodo per generare e restituire un (nuovo) <code>Iterator</code></li>
+<li>Un <em>iteratore</em> è un oggetto con metodi <code>next()</code>, <code>hasNext()</code> (e <code>remove()</code>)</li>
 <li>Dato l’oggetto <code>coll</code> che implementa <code>Iterable&lt;T&gt;</code> allora il foreach diventa:</li>
 </ul>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">for</span><span style="color:#000">(</span><span style="color:#000">T</span> <span style="color:#000">element</span><span style="color:#000">:</span> <span style="color:#000">coll</span><span style="color:#000">)</span> <span style="color:#000">{</span> <span style="color:#000">...</span> <span style="color:#000">}</span>
@@ -184,8 +177,8 @@ Mirko Viroli, che ringrazio.</p>
 </section><section>
 <h2 id="esempio-di-iterable-ad-hoc-e-suo-uso">Esempio di iterable ad-hoc, e suo uso</h2>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Range</span> <span style="color:#a90d91">implements</span> <span style="color:#000">Iterable</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> <span style="color:#000">{</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">start</span><span style="color:#000">;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">stop</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">start</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">stop</span><span style="color:#000">;</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">Range</span><span style="color:#000">(</span><span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">start</span><span style="color:#000">,</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">stop</span><span style="color:#000">)</span> <span style="color:#000">{</span>
 </span></span><span style="display:flex;"><span>        <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">start</span> <span style="color:#000">=</span> <span style="color:#000">start</span><span style="color:#000">;</span>
@@ -193,7 +186,7 @@ Mirko Viroli, che ringrazio.</p>
 </span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">java</span><span style="color:#000">.</span><span style="color:#836c28">util</span><span style="color:#000">.</span><span style="color:#836c28">Iterator</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> <span style="color:#000">iterator</span><span style="color:#000">()</span> <span style="color:#000">{</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">return</span> <span style="color:#a90d91">new</span> <span style="color:#000">RangeIterator</span><span style="color:#000">(</span><span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">start</span><span style="color:#000">,</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">stop</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">return</span> <span style="color:#a90d91">new</span> <span style="color:#000">RangeIterator</span><span style="color:#000">(</span><span style="color:#a90d91">this</span><span style="color:#000">);</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
 </span></span><span style="display:flex;"><span><span style="color:#000">}</span>
 </span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseRange</span> <span style="color:#000">{</span>
@@ -210,9 +203,9 @@ Mirko Viroli, che ringrazio.</p>
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">int</span> <span style="color:#000">current</span><span style="color:#000">;</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">stop</span><span style="color:#000">;</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">RangeIterator</span><span style="color:#000">(</span><span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">start</span><span style="color:#000">,</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">stop</span><span style="color:#000">)</span> <span style="color:#000">{</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">current</span> <span style="color:#000">=</span> <span style="color:#000">start</span><span style="color:#000">;</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">stop</span> <span style="color:#000">=</span> <span style="color:#000">stop</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">RangeIterator</span><span style="color:#000">(</span><span style="color:#a90d91">final</span> <span style="color:#000">Range</span> <span style="color:#000">range</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">current</span> <span style="color:#000">=</span> <span style="color:#000">range</span><span style="color:#000">.</span><span style="color:#836c28">start</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">stop</span> <span style="color:#000">=</span> <span style="color:#000">range</span><span style="color:#000">.</span><span style="color:#836c28">stop</span><span style="color:#000">;</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">Integer</span> <span style="color:#000">next</span><span style="color:#000">()</span> <span style="color:#000">{</span>
@@ -262,23 +255,23 @@ Mirko Viroli, che ringrazio.</p>
 <h3 id="assunzioni">Assunzioni</h3>
 <ul>
 <li>
-<p>Definisce operazioni base valide per tutte le collezioni</p>
+<p>Definisce <em>operazioni base</em> valide per tutte le collezioni</p>
 </li>
 <li>
-<p>Assume implicitamente che ogni collezione abbia due costruttori</p>
+<p>Assume implicitamente che ogni collezione abbia <em>due costruttori</em></p>
 <ul>
-<li>Senza argomenti, che genera una collezione vuota</li>
-<li>Che accetta un <code>Collection</code>, dal quale prende tutti gli elementi</li>
+<li><em>Senza argomenti</em>, che genera una collezione vuota</li>
+<li><em>Che accetta una <code>Collection</code></em>, dal quale prende tutti gli elementi</li>
 </ul>
 </li>
 <li>
-<p>Le operazioni di modifica sono tutte “opzionali”</p>
+<p>Le operazioni di <em>modifica</em> sono tutte <em>“opzionali”</em></p>
 <ul>
 <li>potrebbero lanciare un <code>UnsupportedOperationException</code></li>
 </ul>
 </li>
 <li>
-<p>Tutte le operazioni di ricerca lavorano sulla base del metodo <code>Object.equals()</code> da chiamare sugli elementi</p>
+<p>Tutte le operazioni di <em>ricerca</em> lavorano sulla base del metodo <code>Object.equals()</code> da chiamare sugli elementi</p>
 <ul>
 <li>questo metodo accetta un <code>Object</code>, influendo su alcuni metodi di <code>Collection</code></li>
 </ul>
@@ -311,6 +304,10 @@ Mirko Viroli, che ringrazio.</p>
 </span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#000">}</span>
 </span></span></code></pre></div></section><section>
 <h2 id="usare-le-collezioni">Usare le collezioni</h2>
+<ul>
+<li>Nota: invocazione metodi dell’interfaccia <code>Collection</code></li>
+<li>Interazione con array via ad es. <code>Arrays.asList()</code> e <code>Collection.toArray()</code></li>
+</ul>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseCollection</span> <span style="color:#000">{</span>
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span><span style="color:#000">(</span><span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">s</span><span style="color:#000">)</span> <span style="color:#000">{</span>
 </span></span><span style="display:flex;"><span>		<span style="color:#177500">// Uso una incarnazione, ma poi lavoro sull'interfaccia
@@ -337,6 +334,9 @@ Mirko Viroli, che ringrazio.</p>
 </span></span><span style="display:flex;"><span><span style="color:#000">}</span>
 </span></span></code></pre></div></section><section>
 <h2 id="creare-collezioni-immutabili----java-9">Creare collezioni (immutabili) – Java 9+</h2>
+<ul>
+<li>Metodi statici factory <code>.of(...)</code> e <code>.copyOf(c)</code> su <code>List</code>, <code>Set</code>, …</li>
+</ul>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseFactories</span> <span style="color:#000">{</span>
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span><span style="color:#000">(</span><span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">s</span><span style="color:#000">)</span> <span style="color:#000">{</span>
 </span></span><span style="display:flex;"><span>		<span style="color:#177500">// Metodi statici di creazione per Set e List immutabili
@@ -358,7 +358,7 @@ Mirko Viroli, che ringrazio.</p>
 <h3 id="set"><code>Set</code></h3>
 <ul>
 <li>
-<p>Rappresenta collezioni senza duplicati</p>
+<p>Rappresenta collezioni <em>senza duplicati</em></p>
 <ul>
 <li>nessuna coppia di elementi porta <code>Object.equals()</code> a dare <code>true</code></li>
 <li>non vi sono due elementi <code>null</code></li>
@@ -373,9 +373,9 @@ Mirko Viroli, che ringrazio.</p>
 </ul>
 <h3 id="list"><code>List</code></h3>
 <ul>
-<li>Rappresenta sequenze di elementi</li>
-<li>Ha metodi per accedere ad un elemento per posizione (0-based)</li>
-<li>Andrebbe scandito via iteratore/foreach, non con indici incrementali</li>
+<li>Rappresenta <em>sequenze di elementi</em></li>
+<li>Ha metodi per accedere ad un elemento per <em>posizione</em> (0-based)</li>
+<li><em>Andrebbe scandito via iteratore/foreach</em>, non con indici incrementali</li>
 <li>Fornisce un list-iterator che consente varie operazioni aggiuntive</li>
 </ul>
 <p>La scelta fra queste due tipologie non dipende da motivi di performance, ma da quale modello di collezione serva!</p>
@@ -505,7 +505,7 @@ Mirko Viroli, che ringrazio.</p>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#000">Iterator</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> <span style="color:#000">iterator</span><span style="color:#000">()</span> <span style="color:#000">{</span>
 </span></span><span style="display:flex;"><span>		<span style="color:#177500">// Il RangeIterator già visto...
-</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#a90d91">return</span> <span style="color:#a90d91">new</span> <span style="color:#000">RangeIterator</span><span style="color:#000">(</span><span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">start</span><span style="color:#000">,</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">stop</span><span style="color:#000">);</span>
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#a90d91">return</span> <span style="color:#a90d91">new</span> <span style="color:#000">RangeIterator</span><span style="color:#000">(</span><span style="color:#a90d91">new</span> <span style="color:#000">Range</span><span style="color:#000">(</span><span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">start</span><span style="color:#000">,</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">stop</span><span style="color:#000">));</span>
 </span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
 </span></span><span style="display:flex;"><span><span style="color:#000">}</span>
 </span></span></code></pre></div></section><section>
@@ -540,7 +540,7 @@ Mirko Viroli, che ringrazio.</p>
 <h3 id="approccio-1-hashset">Approccio 1: <code>HashSet</code></h3>
 <p>Si usa il metodo <code>Object.hashCode()</code> come funzione di <em><strong>hash</strong></em>, usata per posizionare gli elementi in uno store di elevate dimensioni</p>
 <h3 id="approccio-2-treeset">Approccio 2: <code>TreeSet</code></h3>
-<p>Specializzazione di <code>SortedSet</code> e di <code>NavigableSet</code>. Gli elementi sono ordinati, e quindi organizzabili in un albero (red-black tree) per avere accesso in tempo logaritmico</p>
+<p>Specializzazione di <code>SortedSet</code> e di <code>NavigableSet</code>. Gli elementi sono ordinati, e quindi organizzabili in un albero (<em>red-black tree</em>, un albero binario auto-bilanciante) per avere accesso in tempo logaritmico</p>
 </section><section>
 <h2 id="hashset"><code>HashSet</code></h2>
 <h3 id="idea-di-base-tecnica-di-hashing-via-objecthashcode">Idea di base: tecnica di hashing (via <code>Object.hashCode()</code>)</h3>
