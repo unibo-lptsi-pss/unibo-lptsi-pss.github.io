@@ -951,7 +951,30 @@ Mirko Viroli, che ringrazio.</p>
 </span></span><span style="display:flex;"><span>		<span style="color:#177500">// var vd2 = toIntVector(new Vector&lt;String&gt;()); // ERROR: method not applicable
 </span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>	<span style="color:#000">}</span>
 </span></span><span style="display:flex;"><span><span style="color:#000">}</span>
-</span></span></code></pre></div></section>
+</span></span></code></pre></div></section><section>
+<h2 id="esempio-wildcard-3-bounded-limitazioni">Esempio Wildcard 3 (bounded, limitazioni)</h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Wildcard3</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#177500">// Le wildcard pongono limiti sulle operazioni eseguibili
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">addElementToVector</span><span style="color:#000">(</span><span style="color:#000">Vector</span><span style="color:#000">&lt;?</span> <span style="color:#a90d91">extends</span> <span style="color:#000">Number</span><span style="color:#000">&gt;</span> <span style="color:#000">vec</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#177500">// Per Vector&lt;T&gt; covariante non possiamo invocare metodi che accettano T in input.. 
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#000">Number</span> <span style="color:#000">n</span> <span style="color:#000">=</span> <span style="color:#000">vec</span><span style="color:#000">.</span><span style="color:#836c28">getElementAt</span><span style="color:#000">(</span><span style="color:#000">0</span><span style="color:#000">);</span> <span style="color:#177500">// questo è ok
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#000">Number</span> <span style="color:#000">toAdd</span> <span style="color:#000">=</span> <span style="color:#000">n</span><span style="color:#000">.</span><span style="color:#836c28">doubleValue</span><span style="color:#000">()</span> <span style="color:#000">+</span> <span style="color:#000">1</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#177500">// vec.addElement(toAdd); // ERROR!
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#000">Number</span> <span style="color:#000">returnFirstNumber</span><span style="color:#000">(</span><span style="color:#000">Vector</span><span style="color:#000">&lt;?</span> <span style="color:#a90d91">super</span> <span style="color:#000">Integer</span><span style="color:#000">&gt;</span> <span style="color:#000">vec</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#177500">// Per Vector&lt;T&gt; contravariante non possiamo invocare metodi che restituiscono T in output.. 
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#000">vec</span><span style="color:#000">.</span><span style="color:#836c28">addElement</span><span style="color:#000">(</span><span style="color:#000">Integer</span><span style="color:#000">.</span><span style="color:#836c28">valueOf</span><span style="color:#000">(</span><span style="color:#000">7</span><span style="color:#000">));</span> <span style="color:#177500">// questo è ok
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#000">Number</span> <span style="color:#000">out</span> <span style="color:#000">=</span> <span style="color:#a90d91">null</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#177500">// out = vec.getElementAt(0); // ERROR!
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#a90d91">return</span> <span style="color:#000">out</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div><ul>
+<li><code>Vector&lt;? extends Number&gt;</code> si può leggere come “<code>Vector</code> che può fornire ma non accettare <code>Number</code>” (cf. in C# dove la keyword <code>out</code> è usata per specificare parametri di tipo covarianti)</li>
+<li><code>Vector&lt;? super Number&gt;</code> si può leggere come “<code>Vector</code> che può accettare ma non fornire <code>Number</code>” (cf. in C# dove la keyword <code>in</code> è usata per specificare parametri di tipo controvarianti)</li>
+</ul>
+</section>
 
   
 
