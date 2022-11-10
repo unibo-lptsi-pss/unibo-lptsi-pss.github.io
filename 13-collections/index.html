@@ -701,8 +701,8 @@ Mirko Viroli, che ringrazio.</p>
 <h2 id="treesete"><code>TreeSet&lt;E&gt;</code></h2>
 <h3 id="specializzazione-navigableset-e-sortedset">Specializzazione <code>NavigableSet</code> (e <code>SortedSet</code>)</h3>
 <ul>
-<li>Assume che esista un ordine fra gli elementi</li>
-<li>Quindi ogni elemento ha una sua posizione nell’elenco</li>
+<li>Assume che esista un <em>ordine totale</em> fra gli elementi</li>
+<li>Quindi ogni elemento ha una sua <em>posizione</em> nell’elenco</li>
 <li>Questo consente l’approccio dicotomico alla ricerca</li>
 <li>Consente funzioni addizionali, come le iterazioni in un intervallo</li>
 </ul>
@@ -767,6 +767,11 @@ Mirko Viroli, che ringrazio.</p>
 </span></span><span style="display:flex;"><span><span style="color:#000">}</span>
 </span></span></code></pre></div></section><section>
 <h2 id="interfacce-sortedset-e-navigableset">Interfacce <code>SortedSet</code> e <code>NavigableSet</code></h2>
+<div class="smaller">
+<ul>
+<li><code>SortedSet</code>: un set con ordinamento totale degli elementi, e quindi può rispondere a messaggi come <code>first()</code>, <code>last()</code>, <code>subset(from,to)</code>, <code>headSet(e)</code>/<code>tailSet(e)</code> che restituiscono una vista del set con gli elementi più piccoli/grandi di <code>e</code></li>
+<li><code>NavigableSet</code>: un <code>SortedSet</code> con metodi di “navigazione” (che riportano l’elemento più vicino, dal basso o dall’alto, a uno dato; ad es: <code>ceiling(e)</code>, <code>floor(e)</code>, <code>higher(e)</code>, <code>lower(e)</code>), ed <code>descendingSet()</code> che inverte l’ordine</li>
+</ul>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">interface</span> <span style="color:#3f6e75">SortedSet</span><span style="color:#000">&lt;</span><span style="color:#000">E</span><span style="color:#000">&gt;</span> <span style="color:#a90d91">extends</span> <span style="color:#000">Set</span><span style="color:#000">&lt;</span><span style="color:#000">E</span><span style="color:#000">&gt;</span> <span style="color:#000">{</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#000">Comparator</span><span style="color:#000">&lt;?</span> <span style="color:#a90d91">super</span> <span style="color:#000">E</span><span style="color:#000">&gt;</span> <span style="color:#000">comparator</span><span style="color:#000">();</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#000">SortedSet</span><span style="color:#000">&lt;</span><span style="color:#000">E</span><span style="color:#000">&gt;</span> <span style="color:#000">subSet</span><span style="color:#000">(</span><span style="color:#000">E</span> <span style="color:#000">fromElement</span><span style="color:#000">,</span> <span style="color:#000">E</span> <span style="color:#000">toElement</span><span style="color:#000">);</span>
@@ -789,7 +794,8 @@ Mirko Viroli, che ringrazio.</p>
 </span></span><span style="display:flex;"><span>    <span style="color:#000">NavigableSet</span><span style="color:#000">&lt;</span><span style="color:#000">E</span><span style="color:#000">&gt;</span> <span style="color:#000">headSet</span><span style="color:#000">(</span><span style="color:#000">E</span> <span style="color:#000">toElement</span><span style="color:#000">,</span> <span style="color:#a90d91">boolean</span> <span style="color:#000">inclusive</span><span style="color:#000">);</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#000">NavigableSet</span><span style="color:#000">&lt;</span><span style="color:#000">E</span><span style="color:#000">&gt;</span> <span style="color:#000">tailSet</span><span style="color:#000">(</span><span style="color:#000">E</span> <span style="color:#000">fromElement</span><span style="color:#000">,</span> <span style="color:#a90d91">boolean</span> <span style="color:#000">inclusive</span><span style="color:#000">);</span>
 </span></span><span style="display:flex;"><span><span style="color:#000">}</span>
-</span></span></code></pre></div></section><section>
+</span></span></code></pre></div><div class="smaller">
+</div></div></section><section>
 <h2 id="usetreesetpersona-comparazione-interna"><code>UseTreeSetPersona</code>: comparazione interna</h2>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseTreeSetPersona</span> <span style="color:#000">{</span>
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span><span style="color:#000">(</span><span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">s</span><span style="color:#000">)</span> <span style="color:#000">{</span>
@@ -852,7 +858,10 @@ Mirko Viroli, che ringrazio.</p>
 </span></span><span style="display:flex;"><span>				<span style="color:#000">:</span> <span style="color:#000">o1</span><span style="color:#000">.</span><span style="color:#836c28">getNome</span><span style="color:#000">().</span><span style="color:#836c28">compareTo</span><span style="color:#000">(</span><span style="color:#000">o2</span><span style="color:#000">.</span><span style="color:#836c28">getNome</span><span style="color:#000">());</span>
 </span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
 </span></span><span style="display:flex;"><span><span style="color:#000">}</span>
-</span></span></code></pre></div></section><section>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#177500">// Attenzione sull'uso della sottrazione per la compareTo fra interi
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#000">Integer</span><span style="color:#000">.</span><span style="color:#836c28">MAX_VALUE</span> <span style="color:#000">-</span> <span style="color:#000">Integer</span><span style="color:#000">.</span><span style="color:#836c28">MIN_VALUE</span> <span style="color:#177500">// -1
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#000">Integer</span><span style="color:#000">.</span><span style="color:#836c28">valueOf</span><span style="color:#000">(</span><span style="color:#000">Integer</span><span style="color:#000">.</span><span style="color:#836c28">MAX_VALUE</span><span style="color:#000">).</span><span style="color:#836c28">compareTo</span><span style="color:#000">(</span><span style="color:#000">Integer</span><span style="color:#000">.</span><span style="color:#836c28">MIN_VALUE</span><span style="color:#000">)</span> <span style="color:#177500">// 1
+</span></span></span></code></pre></div></section><section>
 <h2 id="usetreesetpersona2-comparazione-esterna"><code>UseTreeSetPersona2</code>: comparazione esterna</h2>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.*</span><span style="color:#000">;</span>
 </span></span><span style="display:flex;"><span>
@@ -874,7 +883,7 @@ Mirko Viroli, che ringrazio.</p>
 </span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
 </span></span><span style="display:flex;"><span><span style="color:#000">}</span>
 </span></span></code></pre></div></section><section>
-<h2 id="perché-il-tipo-comparator-super-e">Perché il tipo <code>Comparator&lt;? super E&gt;</code></h2>
+<h2 id="perché-il-tipo-comparator-super-e-approfondimento">Perché il tipo <code>Comparator&lt;? super E&gt;</code> (Approfondimento)</h2>
 <p>Data una classe <code>SortedSet&lt;E&gt;</code> il suo comparatore ha tipo <code>Comparator&lt;? super E&gt;</code>, perché non semplicemente <code>Comparator&lt;E&gt;</code>?</p>
 <h3 id="è-corretto">È corretto</h3>
 <ul>
@@ -942,12 +951,13 @@ Mirko Viroli, che ringrazio.</p>
 </span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">arc</span><span style="color:#000">.</span><span style="color:#836c28">allMarried</span><span style="color:#000">());</span> <span style="color:#177500">// [Bianchi,Verdi]
 </span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>	<span style="color:#000">}</span>
 </span></span><span style="display:flex;"><span><span style="color:#000">}</span>
-</span></span></code></pre></div><h1 id="implementazioni-di-list">Implementazioni di <code>List</code></h1>
+</span></span></code></pre></div></section><section>
+<h1 id="implementazioni-di-list">Implementazioni di <code>List</code></h1>
 </section><section>
-<h2 id="implementazione-collezioni----uml-1">Implementazione collezioni – UML</h2>
+<h2 id="implementazione-collezioni----uml">Implementazione collezioni – UML</h2>
 <p><img src="imgs/uml-abs.png" alt=""></p>
 </section><section>
-<h2 id="list-1"><code>List</code></h2>
+<h2 id="list"><code>List</code></h2>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">interface</span> <span style="color:#3f6e75">List</span><span style="color:#000">&lt;</span><span style="color:#000">E</span><span style="color:#000">&gt;</span> <span style="color:#a90d91">extends</span> <span style="color:#000">Collection</span><span style="color:#000">&lt;</span><span style="color:#000">E</span><span style="color:#000">&gt;</span> <span style="color:#000">{</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#177500">// Additional Bulk Operations 
 </span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#177500">// aggiunge gli elementi in pos. index
@@ -1373,15 +1383,16 @@ Mirko Viroli, che ringrazio.</p>
 <li>Realizzare i vari metodi</li>
 <li>Controllare i casi particolari</li>
 </ul>
-</section>
+</section></div>
+</div>
 
   
 
 
-</div>
+
       
 
-    </div>
+    
 <script type="text/javascript" src="/reveal-hugo/object-assign.js"></script>
 
 <a href="/reveal-js/dist/print/" id="print-location" style="display: none;"></a>
