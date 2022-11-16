@@ -24,12 +24,6 @@
   
 
     <section><h1 id="inputoutput">Input/Output</h1>
-<!-- <h4 id="progettazione-e-sviluppo-del-software">Progettazione e Sviluppo del Software</h4>
-<h4 id="cdl-tecnologie-dei-sistemi-informatici">C.D.L. Tecnologie dei Sistemi Informatici</h4>
-<h3 id="roberto-casadei-----robycasadeiuniboitmailtorobycasadeiuniboit"><a href="mailto:roby.casadei@unibo.it">Roberto Casadei &mdash; <code>roby.casadei@unibo.it</code></a></h3>
-<h3 id="danilo-pianini-----danilopianiniuniboitmailtodanilopianiniuniboit"><a href="mailto:danilo.pianini@unibo.it">Danilo Pianini &mdash; <code>danilo.pianini@unibo.it</code></a></h3>
-<p><a href="?print-pdf&amp;pdfSeparateFragments=false"><i class="fa fa-print" aria-hidden="true"></i> versione stampabile</a></p>
-</section><section> -->
 <h4 id="progettazione-e-sviluppo-del-software">Progettazione e Sviluppo del Software</h4>
 <h4 id="cdl-tecnologie-dei-sistemi-informatici">C.D.L. Tecnologie dei Sistemi Informatici</h4>
 <h3 id="roberto-casadei-----robycasadeiuniboitmailtorobycasadeiuniboit"><a href="mailto:roby.casadei@unibo.it">Roberto Casadei — <code>roby.casadei@unibo.it</code></a></h3>
@@ -58,37 +52,34 @@ Mirko Viroli, che ringrazio.</p>
 <ul>
 <li>Classi per gestire file</li>
 <li>Classi per gestire Stream (di input/output)</li>
-<li>Serializzazione di oggetti</li>
 <li>Classi per gestire file di testo</li>
 <li>Pattern Decorator</li>
 </ul>
 </section><section>
 <h2 id="il-problema-dellinputoutput">Il problema dell’Input/Output</h2>
 <h3 id="uno-dei-problemi-fondamentali-per-un-sistema-operativo">Uno dei problemi fondamentali per un sistema operativo</h3>
-<pre><code>*  Gestire le comunicazioni fra CPU e dispositivi affacciati sul BUS{
-
-*  Console, tastiera, mouse, dischi, rete, sensori, schermo
-</code></pre>
-<p>}
-*  Vi sono varie modalità di interazione possibili{</p>
-<pre><code>*  sequenziale, random-access, buffered, per carattere/linea/byte/oggetto
-</code></pre>
-<p>}
-*  I sistemi operativi offrono vari meccanismi{</p>
-<pre><code>*  file, I/O control interface, socket per il networking, video driver
-</code></pre>
-<p>}</p>
+<ul>
+<li>Gestire le comunicazioni fra CPU e dispositivi affacciati sul BUS</li>
+<li>Console, tastiera, mouse, dischi, rete, sensori, schermo</li>
+<li>Vi sono varie modalità di interazione possibili
+<ul>
+<li>sequenziale, random-access, buffered, per carattere/linea/byte/oggetto</li>
+</ul>
+</li>
+<li>I sistemi operativi offrono vari meccanismi
+<ul>
+<li>file, I/O control interface, socket per il networking, video driver</li>
+</ul>
+</li>
+</ul>
 <h3 id="la-libreria-javaio">La libreria <code>java.io.*</code></h3>
-<pre><code>*  Fornisce i concetti di File e Stream di dati
-*  Consente una gestione flessibile dei vari aspetti
-*  È estesa con la libreria `java.nio`, che vedremo poi
-*  È la base di librerie avanzate (networking,..), anche non-JDK (JSON,..)
-*  I/O con l'utente in ambiente a finestre è realizzato con le GUI
-</code></pre>
-</section><section>
-<h2 id="la-libreria-javaio-1">La libreria <code>java.io</code></h2>
-<pre><code>![](img/io.png)
-</code></pre>
+<ul>
+<li>Fornisce i concetti di File e Stream di dati</li>
+<li>Consente una gestione flessibile dei vari aspetti</li>
+<li>È estesa con la libreria <code>java.nio</code></li>
+<li>È la base di librerie avanzate (networking,..), anche di terze parti (Jackson, Gson, …)</li>
+<li>I/O con l’utente in ambiente a finestre è realizzato con le GUI</li>
+</ul>
 </section><section>
 <h2 id="i-macro-elementi-della-libreria">I macro-elementi della libreria</h2>
 <h3 id="outline-della-lezione">Outline della lezione</h3>
@@ -260,7 +251,7 @@ Il concetto di *__input/output-stream__* è usato come astrazione unificante
 <h2 id="overview-sugli-inputstream-e-outputstream-in-java">Overview sugli <code>InputStream</code> e <code>OutputStream</code> in Java</h2>
 <h3 id="inputstream-e-outputstream"><code>InputStream</code> e <code>OutputStream</code></h3>
 <pre><code>*  Stream = flusso (di dati)
-*  Di base, gestiscono flussi binari (di `byte`) leggibili vs. scrivibili 
+*  Di base, gestiscono flussi binari (di `byte`) leggibili vs. scrivibili
 *  Sono classi astratte (e non interfacce..)
 *  Possono essere specializzate da "sottoclassi" e "decorazioni", tra cui{
 
@@ -308,7 +299,7 @@ Il concetto di *__input/output-stream__* è usato come astrazione unificante
 <h2 id="il-costrutto-try-with-resources">Il costrutto <code>try-with-resources</code></h2>
 <h3 id="costrutto-try-with-resources">Costrutto <code>try-with-resources</code></h3>
 <pre><code>  *  vuole la creazione di un `java.lang.AutoCloseable` come primo argomento
-  *  ne assicura la chiusura 
+  *  ne assicura la chiusura
   *  si possono opzionalmente aggiungere delle `catch` di eccezioni
   *  andrebbe sempre usato..
 </code></pre>
@@ -660,13 +651,13 @@ Il concetto di *__input/output-stream__* è usato come astrazione unificante
 <h2 id="file-ed-encoding">File ed encoding</h2>
 <h3 id="il-contenuto-dei-file">Il contenuto dei file</h3>
 <pre><code>  Supponiamo utilizziate un `DataOutputStream` per scrivere in sequenza i numeri da 0 a 20 (escluso)
-    
+
 
         *  Che cosa avete realmente scritto?
         *  avete scritto i byte da zero a 19
         *  In esadecimale, `0x000102030405060708090A0B0C0D0E0F10111213`
         *  **Non** avete scritto il testo `012345678910111213141516171819`
-    
+
 
 
 
@@ -674,11 +665,11 @@ Il concetto di *__input/output-stream__* è usato come astrazione unificante
 
     *  I file sono sequenze di byte
     *  Per fare input/output occorre stabilire:
-    
+
 
       *  Una conversione dalla struttura dati che stiamo manipolando a sequenza di byte (encoding)
       *  Una conversione da sequenza di byte a struttura dati (decoding)
-    
+
 
     *  I `Data-Stream` offrono encoding e decoding per tipi primitivi
     *  Come trattare strutture dati più articolate?
@@ -1005,7 +996,7 @@ Il concetto di *__input/output-stream__* è usato come astrazione unificante
 <h2 id="note-sulla-serializzazione-java">Note sulla serializzazione Java</h2>
 <h3 id="raramente-utilizzata-in-applicazioni-vere">Raramente utilizzata in applicazioni “vere”</h3>
 <pre><code>    Applicazioni vere tendono a non utilizzare `Object`(`In`/`Out`)`putStream`:
-    
+
 
         *  Nessuna standardizzazione
         *  Poco efficiente in termini di spazio
@@ -1015,7 +1006,7 @@ Il concetto di *__input/output-stream__* è usato come astrazione unificante
 </code></pre>
 <h3 id="importanza-di-serializable">Importanza di <code>Serializable</code></h3>
 <pre><code>    Approcci diversi alla serializzazione spesso:
-    
+
 
         *  Serializzano oggetti `Serializable` con campi `Serializable` e non `transient` (deve valere ricorsivamente)
         *  Prevedono sistemi custom per la serializzazione di oggetti diversi
@@ -1104,7 +1095,7 @@ Il concetto di *__input/output-stream__* è usato come astrazione unificante
 <pre><code>  *  Problema comune a tutti i meccanismi finora visti
   *  Esistono standard per scrivere oggetti in formato testuale
   *  Problema da risolvere in due fasi:
-  
+
 
     *  Conversione da oggetto a stringa di testo e viceversa
     *  Conversione da stringa di testo a file e viceversa
@@ -1117,20 +1108,20 @@ Il concetto di *__input/output-stream__* è usato come astrazione unificante
 </code></pre>
 <h3 id="alcuni-formati-standard-per-la-conversione-di-oggetti-in-testo">(Alcuni) Formati standard per la conversione di oggetti in testo</h3>
 <pre><code>  *  JavaScript Object Notation -- JSON (RFC 7159)
-  
+
 
     *  Nato in seno a JavaScript (che non c'entra nulla con Java)
     *  Molto usato nel web
-  
+
 
   *  Tom's Obvious, Minimal Language -- TOML
-  
+
 
     *  Particolarmente indicato per file di configurazione
-  
+
 
   *  YAML Ain't Markup Language -- YAML
-  
+
 
     *  Superset di JSON dalla versione 1.2
     *  Supporto per funzioni avanzate (e.g. anchoring)
@@ -1142,31 +1133,31 @@ Il concetto di *__input/output-stream__* è usato come astrazione unificante
 <p>Nota: importante anche per la rappr. <strong>in memoria</strong> dei caratteri</p>
 <h3 id="text-encoding">Text Encoding</h3>
 <pre><code>    *  ASCII (RFC 20)
-    
+
 
       *  l'encoding che usa il linguaggio C per i `char`
       *  1 byte per carattere (massimo 256 caratteri)
-    
+
 
     *  UTF-8 (RFC 3629)
-    
+
 
       *  Standard di fatto sul web, encoding di default in Linux
       *  encoding da usare per i sorgenti di codice
       *  da 1 a 4 byte per carattere
       *  Codifica 1.112.064 simboli
-    
+
 
     *  UTF-16 (RFC 2781)
-    
+
 
       *  Encoding in memoria delle `String` in Java
       *  2 o 4 byte per carattere
       *  Codifica 1.112.064 simboli
-    
+
 
     *  ISO Latin (ISO/IEC 8859-1:1998)
-    
+
 
       *  Encoding di default del testo in Windows
 </code></pre>
@@ -1177,7 +1168,7 @@ Il concetto di *__input/output-stream__* è usato come astrazione unificante
 *  Gli "stream di testo" hanno problematiche diverse:{
 
     *  sono sequenze di caratteri
-    *  la codifica (UTF-8, UTF-16, ASCII) potrebbe variare 
+    *  la codifica (UTF-8, UTF-16, ASCII) potrebbe variare
     *  la codifica potrebbe dettare anche i codici speciali di "a capo" etc.
 </code></pre>
 <p>}
