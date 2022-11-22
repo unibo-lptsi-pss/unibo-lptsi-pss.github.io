@@ -65,17 +65,16 @@ Mirko Viroli, che ringrazio.</p>
 </section><section>
 <h1 id="classi-innestate-statiche">Classi innestate statiche</h1>
 </section><section>
-<p>frametitle{Classi innestate statiche – idea e terminologia}</p>
+<h2 id="classi-innestate-statiche----idea-e-terminologia">Classi innestate statiche – idea e terminologia</h2>
 <h3 id="principali-elementi">Principali elementi</h3>
-<pre><code>*  Dentro una classe `A`, chiamata *__outer__* è possibile innestare la definizione di un'altra classe `B`, chiamata *__innestata (statica)__* -- in inglese, *__static nested__*
-*  `B` viene quindi vista come se fosse una proprietà `statica` di `A` (richiamabile via `A`, come: tipo, per le `new` e le chiamate statiche)
-</code></pre>
+<ul>
+<li>Dentro una classe <code>A</code>, chiamata <em><strong>outer</strong></em> è possibile innestare la definizione di un’altra classe <code>B</code>, chiamata <em><strong>innestata (statica)</strong></em> – in inglese, <em><strong>static nested</strong></em></li>
+<li><code>B</code> viene quindi vista come se fosse una proprietà <code>statica</code> di <code>A</code> (richiamabile via <code>A</code>, come: tipo, per le <code>new</code> e le chiamate statiche)</li>
+</ul>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#177500">// situazione di partenza
 </span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">A</span> <span style="color:#000">{...}</span>
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">B</span> <span style="color:#000">{...}</span>
-</span></span><span style="display:flex;"><span><span style="color:#000">\</span><span style="color:#000">end</span><span style="color:#000">{</span><span style="color:#000">lstlisting</span><span style="color:#000">}</span>
-</span></span><span style="display:flex;"><span><span style="color:#000">\</span><span style="color:#000">begin</span><span style="color:#000">{</span><span style="color:#000">lstlisting</span><span style="color:#000">}</span>
-</span></span><span style="display:flex;"><span><span style="color:#177500">// modifica, usando le inner class
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#177500">// modifica, usando le inner class
 </span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">A</span> <span style="color:#000">{</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#000">...</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">static</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">B</span> <span style="color:#000">{</span> <span style="color:#000">..</span> <span style="color:#000">}</span>
@@ -83,25 +82,26 @@ Mirko Viroli, che ringrazio.</p>
 </span></span></code></pre></div></section><section>
 <h2 id="classi-innestate-statiche----casistica">Classi innestate statiche – casistica</h2>
 <h3 id="possibilità-di-innestamento">Possibilità di innestamento</h3>
-<pre><code>*  Anche una interfaccia può fungere da `Outer`
-*  Si possono innestare anche interfacce
-*  Il nesting può essere multiplo e/o multilivello
-*  L'accesso alle classi/interfacce innestate statiche avviene con sintassi `Outer.A`, `Outer.B`, `Outer.I`, `Outer.A.C`
-</code></pre>
+<ul>
+<li>Anche una interfaccia può fungere da <code>Outer</code></li>
+<li>Si possono innestare anche interfacce</li>
+<li>Il nesting può essere multiplo e/o <em>multilivello</em></li>
+<li>L’accesso alle classi/interfacce innestate statiche avviene con sintassi <code>Outer.A</code>, <code>Outer.B</code>, <code>Outer.I</code>, <code>Outer.A.C</code></li>
+</ul>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">Outer</span> <span style="color:#000">{</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#000">...</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">static</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">A</span> <span style="color:#000">{</span> <span style="color:#000">..</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">C</span><span style="color:#000">{..}</span> <span style="color:#000">..}</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">static</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">B</span> <span style="color:#000">{..}</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">interface</span> <span style="color:#3f6e75">I</span> <span style="color:#000">{..}</span> <span style="color:#177500">// static è implicito
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">static</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">A</span> <span style="color:#000">{</span> <span style="color:#000">...</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">C</span> <span style="color:#000">{</span> <span style="color:#000">...</span> <span style="color:#000">}</span> <span style="color:#000">...</span> <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">static</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">B</span> <span style="color:#000">{</span> <span style="color:#000">...</span> <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">interface</span> <span style="color:#3f6e75">I</span> <span style="color:#000">{</span> <span style="color:#000">...</span> <span style="color:#000">}</span> <span style="color:#177500">// static è implicito
 </span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#000">}</span>
 </span></span></code></pre></div></section><section>
 <h2 id="classi-innestate-statiche----accesso">Classi innestate statiche – accesso</h2>
 <h3 id="uso">Uso</h3>
 <ul>
-<li>L’accesso alle classi/interfacce innestate statiche avviene con sintassi <code>Outer.StaticNested</code></li>
+<li>L’accesso alle classi/interfacce innestate statiche avviene con sintassi <code>Outer.StaticNested</code> (ovvero, come se fosse un membro della classe)</li>
 <li>Da dentro <code>Outer</code> si può accedere anche direttamente con <code>StaticNested</code></li>
 <li>L’accesso da fuori <code>Outer</code> di <code>StaticNested</code> segue le regole del suo modificatore d’accesso</li>
-<li>Esterna e interna si vedono a vicenda anche le proprietà <code>private</code></li>
+<li><em>Esterna e interna si vedono a vicenda anche le proprietà <code>private</code></em></li>
 </ul>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">Outer</span> <span style="color:#000">{</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#000">...</span>
@@ -116,11 +116,13 @@ Mirko Viroli, che ringrazio.</p>
 <h3 id="una-necessità-generale">Una necessità generale</h3>
 <p>Vi sono situazioni in cui per risolvere un singolo problema è opportuno generare più classi, e non si vuole affiancarle solo come classi dello stesso package</p>
 <h3 id="almeno-tre-motivazioni-non-necessariamente-contemporanee">Almeno tre motivazioni (non necessariamente contemporanee)</h3>
+<ol>
+<li><em>Evitare il proliferare di classi</em> in un package, specialmente quando solo una di queste debba essere pubblica</li>
+<li>Migliorare l’<em>incapsulamento</em>, con un meccanismo per consentire un accesso locale anche a proprietà <code>private</code></li>
+<li>Migliorare la <em>leggibilità</em>, inserendo classi là dove serve (con <em>nomi qualificati</em>, quindi più espressivi)</li>
+</ol>
 <ul>
-<li>Evitare il proliferare di classi in un package, specialmente quando solo una di queste debba essere pubblica</li>
-<li>Migliorare l’incapsulamento, con un meccanismo per consentire un accesso locale anche a proprietà <code>private</code></li>
-<li>Migliorare la leggibilità, inserendo classi là dove serve (con nomi qualificati, quindi più espressivi)</li>
-<li>..meglio comunque non abusare di questo meccanismo</li>
+<li>… meglio comunque non abusare di questo meccanismo</li>
 </ul>
 </section><section>
 <h2 id="caso-1">Caso 1</h2>
@@ -144,7 +146,6 @@ Mirko Viroli, che ringrazio.</p>
 </section><section>
 <h2 id="classe-counter-e-specializzazioni-innestate-12">Classe <code>Counter</code> e specializzazioni innestate (1/2)</h2>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Counter</span> <span style="color:#000">{</span>
-</span></span><span style="display:flex;"><span>	
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">private</span> <span style="color:#a90d91">int</span> <span style="color:#000">value</span><span style="color:#000">;</span> <span style="color:#177500">// o protected..
 </span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#000">Counter</span><span style="color:#000">(</span><span style="color:#a90d91">int</span> <span style="color:#000">initialValue</span><span style="color:#000">)</span> <span style="color:#000">{</span>
@@ -158,34 +159,34 @@ Mirko Viroli, che ringrazio.</p>
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">int</span> <span style="color:#000">getValue</span><span style="color:#000">()</span> <span style="color:#000">{</span>
 </span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">value</span><span style="color:#000">;</span>
 </span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
-</span></span><span style="display:flex;"><span>	
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Multi</span> <span style="color:#a90d91">extends</span> <span style="color:#000">Counter</span><span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Multi</span> <span style="color:#a90d91">extends</span> <span style="color:#000">Counter</span> <span style="color:#000">{</span>
 </span></span><span style="display:flex;"><span>	    <span style="color:#000">...</span> <span style="color:#177500">// solito codice
 </span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>	<span style="color:#000">}</span>
-</span></span><span style="display:flex;"><span>	
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Bidirectional</span> <span style="color:#a90d91">extends</span> <span style="color:#000">Counter</span><span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Bidirectional</span> <span style="color:#a90d91">extends</span> <span style="color:#000">Counter</span> <span style="color:#000">{</span>
 </span></span><span style="display:flex;"><span>	    <span style="color:#000">...</span> <span style="color:#177500">// solito codice
 </span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>	<span style="color:#000">}</span>
 </span></span><span style="display:flex;"><span><span style="color:#000">}</span>
 </span></span></code></pre></div></section><section>
 <h2 id="classe-counter-e-specializzazioni-innestate-22">Classe <code>Counter</code> e specializzazioni innestate (2/2)</h2>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Counter</span> <span style="color:#000">{</span>
-</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>	<span style="color:#000">...</span>
 </span></span><span style="display:flex;"><span>	<span style="color:#177500">// Codice della classe senza modifiche..
-</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Multi</span> <span style="color:#a90d91">extends</span> <span style="color:#000">Counter</span><span style="color:#000">{</span>
-</span></span><span style="display:flex;"><span>	    
-</span></span><span style="display:flex;"><span>	    <span style="color:#a90d91">public</span> <span style="color:#000">Multi</span><span style="color:#000">(</span><span style="color:#a90d91">int</span> <span style="color:#000">initialValue</span><span style="color:#000">){</span>
-</span></span><span style="display:flex;"><span>	    	<span style="color:#a90d91">super</span><span style="color:#000">(</span><span style="color:#000">initialValue</span><span style="color:#000">);</span>
-</span></span><span style="display:flex;"><span>	    <span style="color:#000">}</span>
-</span></span><span style="display:flex;"><span>	   
-</span></span><span style="display:flex;"><span>	    <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">multiIncrement</span><span style="color:#000">(</span><span style="color:#a90d91">int</span> <span style="color:#000">n</span><span style="color:#000">){</span>
-</span></span><span style="display:flex;"><span>	    	<span style="color:#a90d91">for</span> <span style="color:#000">(</span><span style="color:#a90d91">int</span> <span style="color:#000">i</span><span style="color:#000">=</span><span style="color:#000">0</span><span style="color:#000">;</span><span style="color:#000">i</span><span style="color:#000">&lt;</span><span style="color:#000">n</span><span style="color:#000">;</span><span style="color:#000">i</span><span style="color:#000">++){</span>
-</span></span><span style="display:flex;"><span>	    	    <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">increment</span><span style="color:#000">();</span> 
-</span></span><span style="display:flex;"><span>	    	<span style="color:#000">}</span>
-</span></span><span style="display:flex;"><span>	    <span style="color:#000">}</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#000">...</span>	
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Multi</span> <span style="color:#a90d91">extends</span> <span style="color:#000">Counter</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">public</span> <span style="color:#000">Multi</span><span style="color:#000">(</span><span style="color:#a90d91">int</span> <span style="color:#000">initialValue</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#a90d91">super</span><span style="color:#000">(</span><span style="color:#000">initialValue</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">multiIncrement</span><span style="color:#000">(</span><span style="color:#a90d91">int</span> <span style="color:#000">n</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#a90d91">for</span> <span style="color:#000">(</span><span style="color:#a90d91">int</span> <span style="color:#000">i</span> <span style="color:#000">=</span> <span style="color:#000">0</span><span style="color:#000">;</span> <span style="color:#000">i</span> <span style="color:#000">&lt;</span> <span style="color:#000">n</span><span style="color:#000">;</span> <span style="color:#000">i</span><span style="color:#000">++)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>				<span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">increment</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}...</span>
+</span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Bidirectional</span> <span style="color:#a90d91">extends</span> <span style="color:#000">Counter</span><span style="color:#000">{</span>
 </span></span><span style="display:flex;"><span>	    <span style="color:#000">...</span> <span style="color:#177500">// solito codice
 </span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>	<span style="color:#000">}</span>
@@ -206,7 +207,7 @@ Mirko Viroli, che ringrazio.</p>
 </span></span><span style="display:flex;"><span><span style="color:#000">}</span>
 </span></span></code></pre></div></section><section>
 <h2 id="caso-2">Caso 2</h2>
-<h3 id="necessità-di-una-classe-separata-ai-fini-di-ereditaerità">Necessità di una classe separata ai fini di ereditaerità</h3>
+<h3 id="necessità-di-una-classe-separata-ai-fini-di-ereditarietà">Necessità di una classe separata ai fini di ereditarietà</h3>
 <p>In una classe potrebbero servire sotto-comportamenti che debbano:</p>
 <ul>
 <li>implementare una data interfaccia</li>
@@ -220,20 +221,20 @@ Mirko Viroli, che ringrazio.</p>
 <p>In tal caso spesso tale classe separata non deve essere visibile dall’esterno, quindi viene indicata come <code>private</code></p>
 </section><section>
 <h2 id="classe-range-e-suo-iteratore-12">Classe <code>Range</code> e suo iteratore (1/2)</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Range</span> <span style="color:#a90d91">implements</span> <span style="color:#000">Iterable</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;{</span>
-</span></span><span style="display:flex;"><span>    
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Range</span> <span style="color:#a90d91">implements</span> <span style="color:#000">Iterable</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">final</span> <span style="color:#a90d91">private</span> <span style="color:#a90d91">int</span> <span style="color:#000">start</span><span style="color:#000">;</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">final</span> <span style="color:#a90d91">private</span> <span style="color:#a90d91">int</span> <span style="color:#000">stop</span><span style="color:#000">;</span>
-</span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">Range</span><span style="color:#000">(</span><span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">start</span><span style="color:#000">,</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">stop</span><span style="color:#000">){</span>
-</span></span><span style="display:flex;"><span>    	<span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">start</span> <span style="color:#000">=</span> <span style="color:#000">start</span><span style="color:#000">;</span>
-</span></span><span style="display:flex;"><span>    	<span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">stop</span> <span style="color:#000">=</span> <span style="color:#000">stop</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">Range</span><span style="color:#000">(</span><span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">start</span><span style="color:#000">,</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">stop</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">start</span> <span style="color:#000">=</span> <span style="color:#000">start</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">stop</span> <span style="color:#000">=</span> <span style="color:#000">stop</span><span style="color:#000">;</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
-</span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">java</span><span style="color:#000">.</span><span style="color:#836c28">util</span><span style="color:#000">.</span><span style="color:#836c28">Iterator</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> <span style="color:#000">iterator</span><span style="color:#000">(){</span>
-</span></span><span style="display:flex;"><span>    	<span style="color:#a90d91">return</span> <span style="color:#a90d91">new</span> <span style="color:#000">Iterator</span><span style="color:#000">(</span><span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">start</span><span style="color:#000">,</span><span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">stop</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">java</span><span style="color:#000">.</span><span style="color:#836c28">util</span><span style="color:#000">.</span><span style="color:#836c28">Iterator</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> <span style="color:#000">iterator</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">return</span> <span style="color:#a90d91">new</span> <span style="color:#000">Iterator</span><span style="color:#000">(</span><span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">start</span><span style="color:#000">,</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">stop</span><span style="color:#000">);</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
-</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Iterator</span> 
 </span></span><span style="display:flex;"><span>              <span style="color:#a90d91">implements</span> <span style="color:#000">java</span><span style="color:#000">.</span><span style="color:#836c28">util</span><span style="color:#000">.</span><span style="color:#836c28">Iterator</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;{</span>
 </span></span><span style="display:flex;"><span>        <span style="color:#000">...</span>
@@ -241,28 +242,27 @@ Mirko Viroli, che ringrazio.</p>
 </span></span><span style="display:flex;"><span><span style="color:#000">}</span>
 </span></span></code></pre></div></section><section>
 <h2 id="classe-range-e-suo-iteratore-22">Classe <code>Range</code> e suo iteratore (2/2)</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Range</span> <span style="color:#a90d91">implements</span> <span style="color:#000">Iterable</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;{</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Range</span> <span style="color:#a90d91">implements</span> <span style="color:#000">Iterable</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> <span style="color:#000">{</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#000">...</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Iterator</span> 
-</span></span><span style="display:flex;"><span>              <span style="color:#a90d91">implements</span> <span style="color:#000">java</span><span style="color:#000">.</span><span style="color:#836c28">util</span><span style="color:#000">.</span><span style="color:#836c28">Iterator</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;{</span>
-</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>              <span style="color:#a90d91">implements</span> <span style="color:#000">java</span><span style="color:#000">.</span><span style="color:#836c28">util</span><span style="color:#000">.</span><span style="color:#836c28">Iterator</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> <span style="color:#000">{</span>
 </span></span><span style="display:flex;"><span>        <span style="color:#a90d91">private</span> <span style="color:#a90d91">int</span> <span style="color:#000">current</span><span style="color:#000">;</span>
 </span></span><span style="display:flex;"><span>        <span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">stop</span><span style="color:#000">;</span>
 </span></span><span style="display:flex;"><span>        
-</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">public</span> <span style="color:#000">Iterator</span><span style="color:#000">(</span><span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">start</span><span style="color:#000">,</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">stop</span><span style="color:#000">){</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">public</span> <span style="color:#000">Iterator</span><span style="color:#000">(</span><span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">start</span><span style="color:#000">,</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">stop</span><span style="color:#000">)</span> <span style="color:#000">{</span>
 </span></span><span style="display:flex;"><span>        	<span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">current</span> <span style="color:#000">=</span> <span style="color:#000">start</span><span style="color:#000">;</span>
 </span></span><span style="display:flex;"><span>        	<span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">stop</span> <span style="color:#000">=</span> <span style="color:#000">stop</span><span style="color:#000">;</span>
 </span></span><span style="display:flex;"><span>        <span style="color:#000">}</span>
 </span></span><span style="display:flex;"><span>        
-</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">public</span> <span style="color:#000">Integer</span> <span style="color:#000">next</span><span style="color:#000">(){</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">public</span> <span style="color:#000">Integer</span> <span style="color:#000">next</span><span style="color:#000">()</span> <span style="color:#000">{</span>
 </span></span><span style="display:flex;"><span>        	<span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">current</span><span style="color:#000">++;</span>
 </span></span><span style="display:flex;"><span>        <span style="color:#000">}</span>
 </span></span><span style="display:flex;"><span>        
-</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">public</span> <span style="color:#a90d91">boolean</span> <span style="color:#000">hasNext</span><span style="color:#000">(){</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">public</span> <span style="color:#a90d91">boolean</span> <span style="color:#000">hasNext</span><span style="color:#000">()</span> <span style="color:#000">{</span>
 </span></span><span style="display:flex;"><span>        	<span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">current</span> <span style="color:#000">&lt;=</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">stop</span><span style="color:#000">;</span>
 </span></span><span style="display:flex;"><span>        <span style="color:#000">}</span>
 </span></span><span style="display:flex;"><span>        
-</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">remove</span><span style="color:#000">(){}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">remove</span><span style="color:#000">()</span> <span style="color:#000">{</span> <span style="color:#000">}</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
 </span></span><span style="display:flex;"><span><span style="color:#000">}</span>
 </span></span></code></pre></div></section><section>
@@ -344,9 +344,10 @@ Mirko Viroli, che ringrazio.</p>
 </section><section>
 <h2 id="mapentry"><code>Map.Entry</code></h2>
 <h3 id="ruolo-di-mapentry">Ruolo di <code>Map.Entry</code></h3>
-<pre><code>*  Una mappa può essere vista come una collezione di coppie chiave-valore, ognuna incapsulata in un `Map.Entry`
-*  Quindi, una mappa è composta da un set di `Map.Entry`
-</code></pre>
+<ul>
+<li>Una mappa può essere vista come una collezione di coppie chiave-valore, ognuna incapsulata in un <code>Map.Entry</code></li>
+<li>Quindi, una mappa è composta da un set di <code>Map.Entry</code></li>
+</ul>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">interface</span> <span style="color:#3f6e75">Map</span><span style="color:#000">&lt;</span><span style="color:#000">K</span><span style="color:#000">,</span><span style="color:#000">V</span><span style="color:#000">&gt;</span> <span style="color:#000">{</span>
 </span></span><span style="display:flex;"><span>    
 </span></span><span style="display:flex;"><span>    <span style="color:#000">...</span>
@@ -544,7 +545,7 @@ Mirko Viroli, che ringrazio.</p>
 </span></span><span style="display:flex;"><span>			<span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">current</span> <span style="color:#000">&lt;=</span> <span style="color:#000">Range2</span><span style="color:#000">.</span><span style="color:#836c28">this</span><span style="color:#000">.</span><span style="color:#836c28">stop</span><span style="color:#000">;</span>
 </span></span><span style="display:flex;"><span>		<span style="color:#000">}</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">remove</span><span style="color:#000">()</span> <span style="color:#000">{}</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">remove</span><span style="color:#000">()</span> <span style="color:#000">{</span> <span style="color:#000">}</span>
 </span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
 </span></span><span style="display:flex;"><span><span style="color:#000">}</span>
 </span></span></code></pre></div></section><section>
@@ -553,106 +554,113 @@ Mirko Viroli, che ringrazio.</p>
 <h2 id="classi-locali----idea">Classi locali – idea</h2>
 <h3 id="principali-elementi-2">Principali elementi</h3>
 <ul>
-<li>Dentro un metodo di una classe <code>Outer</code>, è possibile innestare la definizione di un’altra classe <code>LocalClass</code>, senza indicazione <code>static</code>!</li>
+<li><em>Dentro un metodo</em> di una classe <code>Outer</code>, è possibile innestare la definizione di un’altra classe <code>LocalClass</code> <!-- , senza indicazione `static`! --></li>
 <li>La <code>LocalClass</code> è a tutti gli effetti una inner class (e quindi ha enclosing instance)</li>
 <li>In più, la <code>LocalClass</code> “vede” anche le variabili nello scope del metodo in cui è definita, <em><strong>usabili solo se final</strong></em>, o se “di fatto finali”</li>
 </ul>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">Outer</span> <span style="color:#000">{</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#177500">// ...
 </span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#a90d91">void</span> <span style="color:#000">m</span><span style="color:#000">(</span><span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">x</span><span style="color:#000">){</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">final</span> <span style="color:#000">String</span> <span style="color:#000">s</span><span style="color:#000">=..;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">final</span> <span style="color:#000">String</span> <span style="color:#000">s</span> <span style="color:#000">=</span> <span style="color:#177500">/* ... */</span><span style="color:#000">;</span>
 </span></span><span style="display:flex;"><span>        <span style="color:#a90d91">class</span> <span style="color:#3f6e75">LocalClass</span> <span style="color:#000">{</span> <span style="color:#177500">// Nota.. non è static!
-</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>        <span style="color:#177500">// ... // può usare Outer.this, s e x
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>            <span style="color:#177500">// ... può usare Outer.this, s e x
 </span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>        <span style="color:#000">}</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#000">LocalClass</span> <span style="color:#000">c</span><span style="color:#000">=</span><span style="color:#a90d91">new</span> <span style="color:#000">LocalClass</span><span style="color:#000">(...);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">LocalClass</span> <span style="color:#000">c</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">LocalClass</span><span style="color:#000">(...);</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
 </span></span><span style="display:flex;"><span><span style="color:#000">}</span>
 </span></span></code></pre></div></section><section>
 <h2 id="range-tramite-classe-locale"><code>Range</code> tramite classe locale</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Range3</span> <span style="color:#a90d91">implements</span> <span style="color:#000">Iterable</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> <span style="color:#000">{</span>    
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Range3</span> <span style="color:#a90d91">implements</span> <span style="color:#000">Iterable</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> <span style="color:#000">{</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">start</span><span style="color:#000">;</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">stop</span><span style="color:#000">;</span>
-</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">Range3</span><span style="color:#000">(</span><span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">start</span><span style="color:#000">,</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">stop</span><span style="color:#000">)</span> <span style="color:#000">{</span>
-</span></span><span style="display:flex;"><span>    	<span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">start</span> <span style="color:#000">=</span> <span style="color:#000">start</span><span style="color:#000">;</span>
-</span></span><span style="display:flex;"><span>    	<span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">stop</span> <span style="color:#000">=</span> <span style="color:#000">stop</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">start</span> <span style="color:#000">=</span> <span style="color:#000">start</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">stop</span> <span style="color:#000">=</span> <span style="color:#000">stop</span><span style="color:#000">;</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
-</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">java</span><span style="color:#000">.</span><span style="color:#836c28">util</span><span style="color:#000">.</span><span style="color:#836c28">Iterator</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> <span style="color:#000">iterator</span><span style="color:#000">()</span> <span style="color:#000">{</span>
-</span></span><span style="display:flex;"><span>    	<span style="color:#a90d91">class</span> <span style="color:#3f6e75">Iterator</span> <span style="color:#a90d91">implements</span> <span style="color:#000">java</span><span style="color:#000">.</span><span style="color:#836c28">util</span><span style="color:#000">.</span><span style="color:#836c28">Iterator</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Iterator</span> <span style="color:#a90d91">implements</span> <span style="color:#000">java</span><span style="color:#000">.</span><span style="color:#836c28">util</span><span style="color:#000">.</span><span style="color:#836c28">Iterator</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> <span style="color:#000">{</span>
 </span></span><span style="display:flex;"><span>            <span style="color:#a90d91">private</span> <span style="color:#a90d91">int</span> <span style="color:#000">current</span><span style="color:#000">;</span>
-</span></span><span style="display:flex;"><span>            
-</span></span><span style="display:flex;"><span>            <span style="color:#a90d91">public</span> <span style="color:#000">Iterator</span><span style="color:#000">(){</span>
-</span></span><span style="display:flex;"><span>            	<span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">current</span> <span style="color:#000">=</span> <span style="color:#000">Range3</span><span style="color:#000">.</span><span style="color:#836c28">this</span><span style="color:#000">.</span><span style="color:#836c28">start</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#a90d91">public</span> <span style="color:#000">Iterator</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">current</span> <span style="color:#000">=</span> <span style="color:#000">Range3</span><span style="color:#000">.</span><span style="color:#836c28">this</span><span style="color:#000">.</span><span style="color:#836c28">start</span><span style="color:#000">;</span>
 </span></span><span style="display:flex;"><span>            <span style="color:#000">}</span>
-</span></span><span style="display:flex;"><span>            
-</span></span><span style="display:flex;"><span>            <span style="color:#a90d91">public</span> <span style="color:#000">Integer</span> <span style="color:#000">next</span><span style="color:#000">(){</span>
-</span></span><span style="display:flex;"><span>            	<span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">current</span><span style="color:#000">++;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#a90d91">public</span> <span style="color:#000">Integer</span> <span style="color:#000">next</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">current</span><span style="color:#000">++;</span>
 </span></span><span style="display:flex;"><span>            <span style="color:#000">}</span>
-</span></span><span style="display:flex;"><span>            
-</span></span><span style="display:flex;"><span>            <span style="color:#a90d91">public</span> <span style="color:#a90d91">boolean</span> <span style="color:#000">hasNext</span><span style="color:#000">(){</span>
-</span></span><span style="display:flex;"><span>            	<span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">current</span> <span style="color:#000">&lt;=</span> <span style="color:#000">Range3</span><span style="color:#000">.</span><span style="color:#836c28">this</span><span style="color:#000">.</span><span style="color:#836c28">stop</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#a90d91">public</span> <span style="color:#a90d91">boolean</span> <span style="color:#000">hasNext</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">current</span> <span style="color:#000">&lt;=</span> <span style="color:#000">Range3</span><span style="color:#000">.</span><span style="color:#836c28">this</span><span style="color:#000">.</span><span style="color:#836c28">stop</span><span style="color:#000">;</span>
 </span></span><span style="display:flex;"><span>            <span style="color:#000">}</span>
-</span></span><span style="display:flex;"><span>            
-</span></span><span style="display:flex;"><span>            <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">remove</span><span style="color:#000">(){</span> <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">remove</span><span style="color:#000">()</span> <span style="color:#000">{</span> <span style="color:#000">}</span>
 </span></span><span style="display:flex;"><span>        <span style="color:#000">}</span>
-</span></span><span style="display:flex;"><span>    	<span style="color:#a90d91">return</span> <span style="color:#a90d91">new</span> <span style="color:#000">Iterator</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">return</span> <span style="color:#a90d91">new</span> <span style="color:#000">Iterator</span><span style="color:#000">();</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
 </span></span><span style="display:flex;"><span><span style="color:#000">}</span>
 </span></span></code></pre></div></section><section>
 <h2 id="classi-locali----motivazioni">Classi locali – motivazioni</h2>
 <h3 id="perché-usare-una-classe-locale-invece-di-una-inner-class">Perché usare una classe locale invece di una inner class</h3>
 <ul>
-<li>Tale classe è necessaria solo dentro ad un metodo, e lì la si vuole confinare</li>
+<li>Tale classe è <em>necessaria solo dentro ad un metodo, e lì la si vuole confinare</em></li>
 <li>È eventualmente utile accedere anche alle variabili del metodo</li>
 </ul>
 <h3 id="pragmaticamente">Pragmaticamente</h3>
 <ul>
-<li>Mai viste usarle.. si usano invece le classi anonime..</li>
+<li>Mai viste usarle.. si usano invece le <em>classi anonime</em>…</li>
 </ul>
 </section><section>
 <h1 id="classi-anonime">Classi anonime</h1>
 </section><section>
 <h2 id="classi-anonime----idea">Classi anonime – idea</h2>
 <h3 id="principali-elementi-3">Principali elementi</h3>
-<pre><code>*  Con una variante dell'istruzione `new`, è possibile innestare la definizione di un'altra classe senza indicarne il nome
-*  In tale definizione non possono comparire costruttori
-*  Viene creata al volo una classe locale, e da lì se ne crea un oggetto
-*  Tale oggetto, come per le classi locali, ha enclosing instance e "vede" anche le variabili *__final__* (o di fatto finali) nello scope del metodo in cui è definita
-</code></pre>
+<ul>
+<li>Con una variante dell’istruzione <code>new</code>, è possibile innestare la definizione di un’altra classe senza indicarne il nome
+<ul>
+<li>In tale definizione non possono comparire costruttori</li>
+</ul>
+</li>
+<li>Viene creata al volo una classe locale, e da lì se ne crea un oggetto
+<ul>
+<li>Tale oggetto, come per le classi locali, ha enclosing instance e “vede” anche le variabili <em><strong>final</strong></em> (o di fatto finali) nello scope del metodo in cui è definita</li>
+</ul>
+</li>
+</ul>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">C</span> <span style="color:#000">{</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#177500">// ...
-</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#000">Object</span> <span style="color:#000">m</span><span style="color:#000">(</span><span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">x</span><span style="color:#000">){</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">return</span> <span style="color:#a90d91">new</span> <span style="color:#000">Object</span><span style="color:#000">(){</span>
-</span></span><span style="display:flex;"><span>             <span style="color:#a90d91">public</span> <span style="color:#000">String</span> <span style="color:#000">toString</span><span style="color:#000">(){</span> <span style="color:#a90d91">return</span> <span style="color:#c41a16">"Valgo "</span><span style="color:#000">+</span><span style="color:#000">x</span><span style="color:#000">;</span> <span style="color:#000">}</span>
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#000">Object</span> <span style="color:#000">m</span><span style="color:#000">(</span><span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">x</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">return</span> <span style="color:#a90d91">new</span> <span style="color:#000">Object</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>             <span style="color:#a90d91">public</span> <span style="color:#000">String</span> <span style="color:#000">toString</span><span style="color:#000">()</span> <span style="color:#000">{</span> <span style="color:#a90d91">return</span> <span style="color:#c41a16">"Valgo "</span> <span style="color:#000">+</span> <span style="color:#000">x</span><span style="color:#000">;</span> <span style="color:#000">}</span>
 </span></span><span style="display:flex;"><span>        <span style="color:#000">}</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
 </span></span><span style="display:flex;"><span><span style="color:#000">}</span>
 </span></span></code></pre></div></section><section>
 <h2 id="range-tramite-classe-anonima----la-soluzione-ottimale"><code>Range</code> tramite classe anonima – la soluzione ottimale</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Range4</span> <span style="color:#a90d91">implements</span> <span style="color:#000">Iterable</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> <span style="color:#000">{</span>    
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Range4</span> <span style="color:#a90d91">implements</span> <span style="color:#000">Iterable</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> <span style="color:#000">{</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">start</span><span style="color:#000">;</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">stop</span><span style="color:#000">;</span>
-</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">Range4</span><span style="color:#000">(</span><span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">start</span><span style="color:#000">,</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">stop</span><span style="color:#000">)</span> <span style="color:#000">{</span>
-</span></span><span style="display:flex;"><span>    	<span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">start</span> <span style="color:#000">=</span> <span style="color:#000">start</span><span style="color:#000">;</span>
-</span></span><span style="display:flex;"><span>    	<span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">stop</span> <span style="color:#000">=</span> <span style="color:#000">stop</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">start</span> <span style="color:#000">=</span> <span style="color:#000">start</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">stop</span> <span style="color:#000">=</span> <span style="color:#000">stop</span><span style="color:#000">;</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
-</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">java</span><span style="color:#000">.</span><span style="color:#836c28">util</span><span style="color:#000">.</span><span style="color:#836c28">Iterator</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> <span style="color:#000">iterator</span><span style="color:#000">()</span> <span style="color:#000">{</span>
-</span></span><span style="display:flex;"><span>    	<span style="color:#a90d91">return</span> <span style="color:#a90d91">new</span> <span style="color:#000">java</span><span style="color:#000">.</span><span style="color:#836c28">util</span><span style="color:#000">.</span><span style="color:#836c28">Iterator</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">return</span> <span style="color:#a90d91">new</span> <span style="color:#000">java</span><span style="color:#000">.</span><span style="color:#836c28">util</span><span style="color:#000">.</span><span style="color:#836c28">Iterator</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;()</span> <span style="color:#000">{</span>
 </span></span><span style="display:flex;"><span>            <span style="color:#177500">// Non ci può essere costruttore!
 </span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>            <span style="color:#a90d91">private</span> <span style="color:#a90d91">int</span> <span style="color:#000">current</span> <span style="color:#000">=</span> <span style="color:#000">start</span><span style="color:#000">;</span> <span style="color:#177500">// o anche Range4.this.start
-</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>            
-</span></span><span style="display:flex;"><span>            <span style="color:#a90d91">public</span> <span style="color:#000">Integer</span> <span style="color:#000">next</span><span style="color:#000">(){</span>
-</span></span><span style="display:flex;"><span>            	<span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">current</span><span style="color:#000">++;</span>
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>
+</span></span><span style="display:flex;"><span>            <span style="color:#a90d91">public</span> <span style="color:#000">Integer</span> <span style="color:#000">next</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">current</span><span style="color:#000">++;</span>
 </span></span><span style="display:flex;"><span>            <span style="color:#000">}</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>            <span style="color:#a90d91">public</span> <span style="color:#a90d91">boolean</span> <span style="color:#000">hasNext</span><span style="color:#000">(){</span>
-</span></span><span style="display:flex;"><span>            	<span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">current</span> <span style="color:#000">&lt;=</span> <span style="color:#000">stop</span><span style="color:#000">;</span> <span style="color:#177500">// o anche Range4.this.stop
+</span></span><span style="display:flex;"><span>            <span style="color:#a90d91">public</span> <span style="color:#a90d91">boolean</span> <span style="color:#000">hasNext</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">current</span> <span style="color:#000">&lt;=</span> <span style="color:#000">stop</span><span style="color:#000">;</span> <span style="color:#177500">// o anche Range4.this.stop
 </span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>            <span style="color:#000">}</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>            <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">remove</span><span style="color:#000">(){</span> <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">remove</span><span style="color:#000">()</span> <span style="color:#000">{</span> <span style="color:#000">}</span>
 </span></span><span style="display:flex;"><span>        <span style="color:#000">};</span> <span style="color:#177500">// questo è il ; del return!!
 </span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#000">}</span>
 </span></span><span style="display:flex;"><span><span style="color:#000">}</span>
@@ -668,19 +676,19 @@ Mirko Viroli, che ringrazio.</p>
 <h2 id="altro-esempio-classe-anonima-da--comparable">Altro esempio: classe anonima da  <code>Comparable</code></h2>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseSort</span> <span style="color:#000">{</span>
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span><span style="color:#000">(</span><span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span><span style="color:#000">)</span> <span style="color:#000">{</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> <span style="color:#000">list</span> <span style="color:#000">=</span> <span style="color:#000">Arrays</span><span style="color:#000">.</span><span style="color:#836c28">asList</span><span style="color:#000">(</span><span style="color:#000">10</span><span style="color:#000">,</span><span style="color:#000">40</span><span style="color:#000">,</span><span style="color:#000">7</span><span style="color:#000">,</span><span style="color:#000">57</span><span style="color:#000">,</span><span style="color:#000">13</span><span style="color:#000">,</span><span style="color:#000">19</span><span style="color:#000">,</span><span style="color:#000">21</span><span style="color:#000">,</span><span style="color:#000">35</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> <span style="color:#000">list</span> <span style="color:#000">=</span> <span style="color:#000">Arrays</span><span style="color:#000">.</span><span style="color:#836c28">asList</span><span style="color:#000">(</span><span style="color:#000">10</span><span style="color:#000">,</span> <span style="color:#000">40</span><span style="color:#000">,</span> <span style="color:#000">7</span><span style="color:#000">,</span> <span style="color:#000">57</span><span style="color:#000">,</span> <span style="color:#000">13</span><span style="color:#000">,</span> <span style="color:#000">19</span><span style="color:#000">,</span> <span style="color:#000">21</span><span style="color:#000">,</span> <span style="color:#000">35</span><span style="color:#000">);</span>
 </span></span><span style="display:flex;"><span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">list</span><span style="color:#000">);</span>
 </span></span><span style="display:flex;"><span>		<span style="color:#177500">// classe anonima a partire da una interfaccia
-</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#000">Collections</span><span style="color:#000">.</span><span style="color:#836c28">sort</span><span style="color:#000">(</span><span style="color:#000">list</span><span style="color:#000">,</span><span style="color:#a90d91">new</span> <span style="color:#000">Comparator</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;()</span> <span style="color:#000">{</span>
-</span></span><span style="display:flex;"><span>			<span style="color:#a90d91">public</span> <span style="color:#a90d91">int</span> <span style="color:#000">compare</span><span style="color:#000">(</span><span style="color:#000">Integer</span> <span style="color:#000">a</span><span style="color:#000">,</span><span style="color:#000">Integer</span> <span style="color:#000">b</span><span style="color:#000">){</span>
-</span></span><span style="display:flex;"><span>				<span style="color:#a90d91">return</span> <span style="color:#000">a</span><span style="color:#000">-</span><span style="color:#000">b</span><span style="color:#000">;</span>
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#000">Collections</span><span style="color:#000">.</span><span style="color:#836c28">sort</span><span style="color:#000">(</span><span style="color:#000">list</span><span style="color:#000">,</span> <span style="color:#a90d91">new</span> <span style="color:#000">Comparator</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#a90d91">public</span> <span style="color:#a90d91">int</span> <span style="color:#000">compare</span><span style="color:#000">(</span><span style="color:#000">Integer</span> <span style="color:#000">a</span><span style="color:#000">,</span> <span style="color:#000">Integer</span> <span style="color:#000">b</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>				<span style="color:#a90d91">return</span> <span style="color:#000">Integer</span><span style="color:#000">.</span><span style="color:#836c28">compare</span><span style="color:#000">(</span><span style="color:#000">a</span><span style="color:#000">,</span> <span style="color:#000">b</span><span style="color:#000">);</span>
 </span></span><span style="display:flex;"><span>			<span style="color:#000">}</span>
 </span></span><span style="display:flex;"><span>		<span style="color:#000">});</span>
 </span></span><span style="display:flex;"><span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">list</span><span style="color:#000">);</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>		<span style="color:#000">Collections</span><span style="color:#000">.</span><span style="color:#836c28">sort</span><span style="color:#000">(</span><span style="color:#000">list</span><span style="color:#000">,</span><span style="color:#a90d91">new</span> <span style="color:#000">Comparator</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;()</span> <span style="color:#000">{</span>
-</span></span><span style="display:flex;"><span>			<span style="color:#a90d91">public</span> <span style="color:#a90d91">int</span> <span style="color:#000">compare</span><span style="color:#000">(</span><span style="color:#000">Integer</span> <span style="color:#000">a</span><span style="color:#000">,</span><span style="color:#000">Integer</span> <span style="color:#000">b</span><span style="color:#000">)</span> <span style="color:#000">{</span>
-</span></span><span style="display:flex;"><span>				<span style="color:#a90d91">return</span> <span style="color:#000">b</span><span style="color:#000">-</span><span style="color:#000">a</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">Collections</span><span style="color:#000">.</span><span style="color:#836c28">sort</span><span style="color:#000">(</span><span style="color:#000">list</span><span style="color:#000">,</span> <span style="color:#a90d91">new</span> <span style="color:#000">Comparator</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#a90d91">public</span> <span style="color:#a90d91">int</span> <span style="color:#000">compare</span><span style="color:#000">(</span><span style="color:#000">Integer</span> <span style="color:#000">a</span><span style="color:#000">,</span> <span style="color:#000">Integer</span> <span style="color:#000">b</span><span style="color:#000">)</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>				<span style="color:#a90d91">return</span> <span style="color:#000">Integer</span><span style="color:#000">.</span><span style="color:#836c28">compare</span><span style="color:#000">(</span><span style="color:#000">b</span><span style="color:#000">,</span> <span style="color:#000">a</span><span style="color:#000">);</span>
 </span></span><span style="display:flex;"><span>			<span style="color:#000">}</span>
 </span></span><span style="display:flex;"><span>		<span style="color:#000">});</span>
 </span></span><span style="display:flex;"><span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">list</span><span style="color:#000">);</span>
@@ -696,13 +704,13 @@ Mirko Viroli, che ringrazio.</p>
 </ul>
 <h3 id="se-deve-essere-invisibile-da-fuori">Se deve essere invisibile da fuori</h3>
 <ul>
-<li>Si sceglie uno dei quattro casi a seconda della visibilità che la inner class deve avere/dare{
-<ul>
-<li>static nested class: solo parte statica</li>
-<li>inner class: anche enclosing class, accessibile ovunque dall’outer</li>
-<li>local class: anche argomenti/variabili, accessibile da un solo metodo</li>
-<li>anonymous class: per creare un oggetto, senza un nuovo costruttore</li>
-</ul>
+<li>Si sceglie uno dei quattro casi a seconda della visibilità che la inner class deve avere/dare
+<ol>
+<li><em>static nested class</em>: solo parte statica</li>
+<li><em>inner class</em>: anche enclosing class, accessibile ovunque dall’outer</li>
+<li><em>local class</em>: anche argomenti/variabili, accessibile da un solo metodo</li>
+<li><em>anonymous class</em>: per creare un oggetto, senza un nuovo costruttore</li>
+</ol>
 </li>
 </ul>
 </section><section>
@@ -715,13 +723,13 @@ Mirko Viroli, che ringrazio.</p>
 </ul>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseSortLambda</span> <span style="color:#000">{</span>
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span><span style="color:#000">(</span><span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span><span style="color:#000">)</span> <span style="color:#000">{</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> <span style="color:#000">list</span> <span style="color:#000">=</span> <span style="color:#000">Arrays</span><span style="color:#000">.</span><span style="color:#836c28">asList</span><span style="color:#000">(</span><span style="color:#000">10</span><span style="color:#000">,</span><span style="color:#000">40</span><span style="color:#000">,</span><span style="color:#000">7</span><span style="color:#000">,</span><span style="color:#000">57</span><span style="color:#000">,</span><span style="color:#000">13</span><span style="color:#000">,</span><span style="color:#000">19</span><span style="color:#000">,</span><span style="color:#000">21</span><span style="color:#000">,</span><span style="color:#000">35</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> <span style="color:#000">list</span> <span style="color:#000">=</span> <span style="color:#000">Arrays</span><span style="color:#000">.</span><span style="color:#836c28">asList</span><span style="color:#000">(</span><span style="color:#000">10</span><span style="color:#000">,</span> <span style="color:#000">40</span><span style="color:#000">,</span> <span style="color:#000">7</span><span style="color:#000">,</span> <span style="color:#000">57</span><span style="color:#000">,</span> <span style="color:#000">13</span><span style="color:#000">,</span> <span style="color:#000">19</span><span style="color:#000">,</span> <span style="color:#000">21</span><span style="color:#000">,</span> <span style="color:#000">35</span><span style="color:#000">);</span>
 </span></span><span style="display:flex;"><span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">list</span><span style="color:#000">);</span>
 </span></span><span style="display:flex;"><span>		<span style="color:#177500">// classe anonima a partire da una interfaccia
-</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#000">Collections</span><span style="color:#000">.</span><span style="color:#836c28">sort</span><span style="color:#000">(</span><span style="color:#000">list</span><span style="color:#000">,(</span><span style="color:#000">a</span><span style="color:#000">,</span><span style="color:#000">b</span><span style="color:#000">)-&gt;</span><span style="color:#000">a</span><span style="color:#000">-</span><span style="color:#000">b</span><span style="color:#000">);</span>
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#000">Collections</span><span style="color:#000">.</span><span style="color:#836c28">sort</span><span style="color:#000">(</span><span style="color:#000">list</span><span style="color:#000">,</span> <span style="color:#000">(</span><span style="color:#000">a</span><span style="color:#000">,</span> <span style="color:#000">b</span><span style="color:#000">)</span> <span style="color:#000">-&gt;</span> <span style="color:#000">Integer</span><span style="color:#000">.</span><span style="color:#836c28">compare</span><span style="color:#000">(</span><span style="color:#000">a</span><span style="color:#000">,</span> <span style="color:#000">b</span><span style="color:#000">));</span>
 </span></span><span style="display:flex;"><span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">list</span><span style="color:#000">);</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>		<span style="color:#000">Collections</span><span style="color:#000">.</span><span style="color:#836c28">sort</span><span style="color:#000">(</span><span style="color:#000">list</span><span style="color:#000">,(</span><span style="color:#000">a</span><span style="color:#000">,</span><span style="color:#000">b</span><span style="color:#000">)-&gt;</span><span style="color:#000">b</span><span style="color:#000">-</span><span style="color:#000">a</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">Collections</span><span style="color:#000">.</span><span style="color:#836c28">sort</span><span style="color:#000">(</span><span style="color:#000">list</span><span style="color:#000">,</span> <span style="color:#000">(</span><span style="color:#000">a</span><span style="color:#000">,</span> <span style="color:#000">b</span><span style="color:#000">)</span> <span style="color:#000">-&gt;</span> <span style="color:#000">Integer</span><span style="color:#000">.</span><span style="color:#836c28">compare</span><span style="color:#000">(</span><span style="color:#000">b</span><span style="color:#000">,</span> <span style="color:#000">a</span><span style="color:#000">));</span>
 </span></span><span style="display:flex;"><span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">list</span><span style="color:#000">);</span>
 </span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
 </span></span><span style="display:flex;"><span><span style="color:#000">}</span>
@@ -837,7 +845,9 @@ Mirko Viroli, che ringrazio.</p>
 </span></span><span style="display:flex;"><span>    <span style="color:#000">}</span> 
 </span></span></code></pre></div></section><section>
 <h2 id="soluzione-alternativa-persona-22">Soluzione alternativa <code>Persona</code>: 2/2</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span>	<span style="color:#000">}</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#000">String</span> <span style="color:#000">toString</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#c41a16">"["</span> <span style="color:#000">+</span> <span style="color:#000">nome</span> <span style="color:#000">+</span> <span style="color:#c41a16">","</span> <span style="color:#000">+</span> <span style="color:#000">cognome</span> <span style="color:#000">+</span> <span style="color:#c41a16">","</span>	<span style="color:#000">+</span> <span style="color:#000">nomeRegione</span><span style="color:#000">(</span><span style="color:#000">regione</span><span style="color:#000">)</span> <span style="color:#000">+</span> <span style="color:#c41a16">"]"</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">boolean</span> <span style="color:#000">isIsolano</span><span style="color:#000">(){</span>
 </span></span><span style="display:flex;"><span>		<span style="color:#177500">// Confronto veloce!!
@@ -863,15 +873,15 @@ Mirko Viroli, che ringrazio.</p>
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.List</span><span style="color:#000">;</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UsePersona</span> <span style="color:#000">{</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span><span style="color:#000">(</span><span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span><span style="color:#000">){</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#000">ArrayList</span><span style="color:#000">&lt;</span><span style="color:#000">Persona</span><span style="color:#000">&gt;</span> <span style="color:#000">list</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">ArrayList</span><span style="color:#000">&lt;&gt;();</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#000">list</span><span style="color:#000">.</span><span style="color:#836c28">add</span><span style="color:#000">(</span><span style="color:#a90d91">new</span> <span style="color:#000">Persona</span><span style="color:#000">(</span><span style="color:#c41a16">"Mario"</span><span style="color:#000">,</span><span style="color:#c41a16">"Rossi"</span><span style="color:#000">,</span><span style="color:#000">Persona</span><span style="color:#000">.</span><span style="color:#836c28">EMILIA_ROMAGNA</span><span style="color:#000">));</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#000">list</span><span style="color:#000">.</span><span style="color:#836c28">add</span><span style="color:#000">(</span><span style="color:#a90d91">new</span> <span style="color:#000">Persona</span><span style="color:#000">(</span><span style="color:#c41a16">"Gino"</span><span style="color:#000">,</span><span style="color:#c41a16">"Bianchi"</span><span style="color:#000">,</span><span style="color:#000">3</span><span style="color:#000">));</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#000">list</span><span style="color:#000">.</span><span style="color:#836c28">add</span><span style="color:#000">(</span><span style="color:#a90d91">new</span> <span style="color:#000">Persona</span><span style="color:#000">(</span><span style="color:#c41a16">"Carlo"</span><span style="color:#000">,</span><span style="color:#c41a16">"Verdi"</span><span style="color:#000">,</span><span style="color:#000">Persona</span><span style="color:#000">.</span><span style="color:#836c28">LOMBARDIA</span><span style="color:#000">));</span> 
-</span></span><span style="display:flex;"><span>		<span style="color:#177500">// Non si hanno errori sulle stringhe
-</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#177500">// Non si può prevenire l'uso diretto di interi..
-</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>		<span style="color:#000">...</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span><span style="color:#000">(</span><span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span><span style="color:#000">){</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">ArrayList</span><span style="color:#000">&lt;</span><span style="color:#000">Persona</span><span style="color:#000">&gt;</span> <span style="color:#000">list</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">ArrayList</span><span style="color:#000">&lt;&gt;();</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">list</span><span style="color:#000">.</span><span style="color:#836c28">add</span><span style="color:#000">(</span><span style="color:#a90d91">new</span> <span style="color:#000">Persona</span><span style="color:#000">(</span><span style="color:#c41a16">"Mario"</span><span style="color:#000">,</span><span style="color:#c41a16">"Rossi"</span><span style="color:#000">,</span><span style="color:#000">Persona</span><span style="color:#000">.</span><span style="color:#836c28">EMILIA_ROMAGNA</span><span style="color:#000">));</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">list</span><span style="color:#000">.</span><span style="color:#836c28">add</span><span style="color:#000">(</span><span style="color:#a90d91">new</span> <span style="color:#000">Persona</span><span style="color:#000">(</span><span style="color:#c41a16">"Gino"</span><span style="color:#000">,</span><span style="color:#c41a16">"Bianchi"</span><span style="color:#000">,</span><span style="color:#000">3</span><span style="color:#000">));</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">list</span><span style="color:#000">.</span><span style="color:#836c28">add</span><span style="color:#000">(</span><span style="color:#a90d91">new</span> <span style="color:#000">Persona</span><span style="color:#000">(</span><span style="color:#c41a16">"Carlo"</span><span style="color:#000">,</span><span style="color:#c41a16">"Verdi"</span><span style="color:#000">,</span><span style="color:#000">Persona</span><span style="color:#000">.</span><span style="color:#836c28">LOMBARDIA</span><span style="color:#000">));</span> 
+</span></span><span style="display:flex;"><span>        <span style="color:#177500">// Non si hanno errori sulle stringhe
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>        <span style="color:#177500">// Non si può prevenire l'uso diretto di interi..
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>        <span style="color:#000">...</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">}</span>
 </span></span><span style="display:flex;"><span><span style="color:#000">}</span>
 </span></span></code></pre></div></section><section>
 <h2 id="discussione">Discussione</h2>
@@ -887,7 +897,7 @@ Mirko Viroli, che ringrazio.</p>
 <li>Può comportare comunque errori, anche se più difficilmente</li>
 <li>L’uso delle costante è un poco dispersivo</li>
 </ul>
-<h3 id="altri-approcci-uso-di-classi-diverse-per-ogni-valore">altri approcci: uso di classi diverse per ogni valore</h3>
+<h3 id="altri-approcci-uso-di-classi-diverse-per-ogni-valore">Altri approcci: uso di classi diverse per ogni valore</h3>
 <ul>
 <li>Impraticabile con un numero molto elevato di valori</li>
 <li>Comunque molto prolisso in termini di quantità di codice</li>
@@ -955,8 +965,11 @@ Mirko Viroli, che ringrazio.</p>
 </ul>
 <h3 id="unica-precauzione">Unica precauzione</h3>
 <ul>
-<li>Andrebbero usate per insiemi di valori che difficilmente cambieranno in futuro</li>
-<li>Difficile modificare il codice successivamente</li>
+<li>Andrebbero usate <em>per insiemi di valori che difficilmente cambieranno in futuro</em>
+<ul>
+<li>Difficile modificare il codice successivamente (!)</li>
+</ul>
+</li>
 </ul>
 </section><section>
 <h2 id="enum-regione"><code>enum Regione</code></h2>

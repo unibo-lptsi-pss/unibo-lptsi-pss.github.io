@@ -51,31 +51,37 @@ Mirko Viroli, che ringrazio.</p>
 <h3 id="goal-della-lezione">Goal della lezione</h3>
 <ul>
 <li>Illustrare il concetto di lambda</li>
-<li>Dettagliare il supporto alle lambda in Java 8</li>
+<li>Dettagliare il supporto alle lambda in Java</li>
 </ul>
 <h3 id="argomenti">Argomenti</h3>
-<pre><code>*  Lambda expressions
-*  Functional interfaces
-*  Altri usi nell'API
-</code></pre>
+<ul>
+<li>Espressioni lambda</li>
+<li>Interfacce funzionali</li>
+<li>Altri usi nell’API</li>
+</ul>
 </section><section>
 <h1 id="introduzione-alle-lambda">Introduzione alle lambda</h1>
 </section><section>
 <h2 id="le-novità-di-java-8">Le novità di Java 8</h2>
 <h3 id="una-release-molto-attesa-che-rincorre-c-e-scala">Una release molto attesa, che “rincorre” C# e Scala</h3>
-<pre><code>*  Molte funzionalità rimandate da Java 7
-*  Java 8 disponibile dall'estate 2014
-*  Principale novità: lambda (ossia uno degli elementi fondamentali dello stile di programmazione funzionale)
-*  Le lambda portano ad uno stile più elegante e astratto di programmazione
-*  In Java, portano a codice più compatto e chiaro in certe situazioni
-*  Impatta alcuni aspetti di linguaggio
-*  Impatta varie librerie
-</code></pre>
+<ul>
+<li>Molte funzionalità rimandate da Java 7</li>
+<li><em>Java 8</em> disponibile dall’estate 2014</li>
+<li>Principale novità: <em>lambda</em> (ossia uno degli elementi fondamentali dello stile di <em>programmazione funzionale</em>)
+<ul>
+<li>Le lambda portano ad uno stile più elegante e astratto di programmazione</li>
+<li>In Java, portano a codice più compatto e chiaro in certe situazioni</li>
+<li>Impatta alcuni aspetti di linguaggio</li>
+<li>Impatta varie librerie</li>
+</ul>
+</li>
+</ul>
 <h3 id="risorse">Risorse</h3>
-<pre><code>*  Libri: R.Warburton, Java 8 Lambdas
-*  Tutorial in rete: {\footnotesize `http://www.techempower.com/blog/2013/03/26/everything-about-java-8/`}
-*  Specification: {\footnotesize `dlsmith/jsr335-0.6.1/`}
-</code></pre>
+<ul>
+<li>Libri: R.Warburton, Java 8 Lambdas</li>
+<li><a href="http://www.techempower.com/blog/2013/03/26/everything-about-java-8/">Un tutorial in rete</a></li>
+<li><a href="http://cr.openjdk.java.net/~dlsmith/jsr335/jsr335-final/">Java Specification Request (JSR)-335: Lambda Expressions for the Java Programming Language</a></li>
+</ul>
 </section><section>
 <h2 id="preview-1-strategie-funzionali">Preview 1: strategie funzionali</h2>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">FirstComparable</span> <span style="color:#000">{</span>
@@ -176,32 +182,36 @@ Mirko Viroli, che ringrazio.</p>
 </section><section>
 <h2 id="elementi-delle-lambda-expression">Elementi delle lambda expression</h2>
 <h3 id="che-cosè-una-lambda">Che cos’è una lambda</h3>
-<pre><code>*  è una funzione (anonima) con accesso ad uno scope locale
-*  è applicabile a certi input, e dà un risultato (oppure `void`)
-*  per calcolare il risultato potrebbe usare qualche variabile nello scope in cui è definita
-*  la lambda è usabile come "valore" (quindi, come dato), ossia è passabile a metodi, altre funzioni, o memorizzata in variabili/campi
-*  ossia si può "passare" del "codice"
-</code></pre>
+<ul>
+<li>è una funzione (anonima) con accesso ad uno scope locale</li>
+<li>è applicabile a certi input, e dà un risultato (oppure <code>void</code>)</li>
+<li>per calcolare il risultato potrebbe usare qualche variabile nello scope in cui è definita</li>
+<li>la lambda è usabile come “valore” (quindi, come dato), ossia è passabile a metodi, altre funzioni, o memorizzata in variabili/campi</li>
+<li>ossia si può “passare” del “codice”</li>
+</ul>
 <h3 id="caratteristica-specifica-di-java">Caratteristica specifica di Java</h3>
-<pre><code>*  come vedremo, una lambda è un oggetto, e il suo tipo è sempre quello di una `interface` detta "funzionale"
-*  metodi statici o istanza possono essere usati a mo' di lambda (chiamati "method reference", perché sono interpretabili come funzioni (come i `delegate` di `C\#`)
-</code></pre>
+<ul>
+<li>come vedremo, una lambda è un oggetto, e il suo tipo è sempre quello di una <code>interface</code> detta “funzionale”</li>
+<li>metodi statici o istanza possono essere usati a mo’ di lambda (chiamati “method reference”, perché sono interpretabili come funzioni (come i <code>delegate</code> di C#)</li>
+</ul>
 </section><section>
 <h2 id="come-si-esprime-una-lambda">Come si esprime una lambda</h2>
 <h3 id="sintassi-possibili">Sintassi possibili</h3>
-<pre><code>*  `{&lt;body&gt;\}`
-*  `{&lt;body&gt;\}`
-*  `{&lt;body&gt;\}`
-*  `(T1 x1,..,Tn xn) -&gt; &lt;exp&gt;`
-*  `(x1,..,xn) -&gt; &lt;exp&gt;`
-*  `x -&gt; &lt;exp&gt;`
-*  .. oppure un "method reference"
-</code></pre>
+<ul>
+<li><code>(T1 x1, ..., Tn xn) -&gt; { &lt;body&gt; }</code></li>
+<li><code>(x1, ..., xn) -&gt; { &lt;body&gt; }</code></li>
+<li><code>x -&gt; { &lt;body&gt; }</code></li>
+<li><code>(T1 x1,..,Tn xn) -&gt; &lt;exp&gt;</code></li>
+<li><code>(x1,..,xn) -&gt; &lt;exp&gt;</code></li>
+<li><code>x -&gt; &lt;exp&gt;</code></li>
+<li>.. oppure un “method reference” (si veda in seguito)</li>
+</ul>
 <h3 id="ossia">Ossia:</h3>
-<pre><code>*  Per gli argomenti si può esprimere un tipo o può essere inferito
-*  Con un argomento, le parentesi tonde sono omettibili
-*  Il body può essere direttamente una singola espressione/istruzione
-</code></pre>
+<ul>
+<li>Per gli argomenti si può esprimere un tipo o può essere inferito (<em>type inference</em>)</li>
+<li>Con un argomento, le parentesi tonde sono omettibili</li>
+<li>Il body può essere direttamente una singola espressione/istruzione</li>
+</ul>
 </section><section>
 <h2 id="esempi-di-lambda"><code>Esempi di Lambda</code></h2>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">AllLambdas</span> <span style="color:#000">{</span>
@@ -233,36 +243,35 @@ Mirko Viroli, che ringrazio.</p>
 </span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>	<span style="color:#000">}</span>
 </span></span><span style="display:flex;"><span><span style="color:#000">}</span>
 </span></span></code></pre></div></section><section>
-<h2 id="come-si-esprime-una-lambda-method-references">Come si esprime una lambda: method references</h2>
+<h2 id="come-si-esprime-una-lambda-i-method-reference">Come si esprime una lambda: i <strong>method reference</strong></h2>
 <h3 id="sintassi-possibili-1">Sintassi possibili</h3>
-<pre><code>*  `&lt;class&gt;::&lt;static-method&gt;`{
-</code></pre>
 <ul>
-<li>sta per <code>(x1,..,xn)-&gt; &lt;class&gt;.&lt;static-method&gt;(x1,..,xn)</code>
-}
+<li><code>&lt;class&gt;::&lt;static-method&gt;</code>
 <ul>
-<li><code>&lt;class&gt;::&lt;instance-method&gt;</code>{</li>
+<li>sta per <code>(x1, ..., xn) -&gt; &lt;class&gt;.&lt;static-method&gt;(x1, ..., xn)</code></li>
 </ul>
 </li>
-<li>sta per <code>(x1,x2,..,xn)-&gt; x1.&lt;instance-method&gt;(x2,..,xn)</code>
-}
+<li><code>&lt;class&gt;::&lt;instance-method&gt;</code>
 <ul>
-<li><code>&lt;obj&gt;::&lt;method&gt;</code>{</li>
+<li>sta per <code>(x1, ..., xn) -&gt; x1.&lt;instance-method&gt;(x2, ..., xn)</code></li>
 </ul>
 </li>
-<li>sta per <code>(x1,..,xn)-&gt; &lt;obj&gt;.&lt;method&gt;(x1,..,xn)</code>
-}
+<li><code>&lt;obj&gt;::&lt;method&gt;</code>
 <ul>
-<li><code>&lt;class&gt;::new</code>{</li>
+<li>sta per <code>(x1, ..., xn) -&gt; &lt;obj&gt;.&lt;method&gt;(x1, ..., xn)</code></li>
 </ul>
 </li>
-<li>sta per <code>(x1,..,xn)-&gt; new &lt;class&gt;(x1,..,xn)</code>
-}</li>
+<li><code>&lt;class&gt;::new</code>
+<ul>
+<li>sta per <code>(x1, ..., xn) -&gt; new &lt;class&gt;(x1, ..., xn)</code></li>
+</ul>
+</li>
 </ul>
 <h3 id="ossia-1">Ossia:</h3>
-<pre><code>*  Descrivibile come metodo (statico o non), o costruttore..
-*  Usabile "naturalmente" (e opzionalmente) quando la lambda non fa altro che chiamare un metodo usando "banalmente" i suoi input e restituendo il suo "output"
-</code></pre>
+<ul>
+<li>Descrivibile come metodo (statico o non), o costruttore..</li>
+<li>Usabile “naturalmente” (e opzionalmente) quando la lambda non fa altro che chiamare un metodo usando “banalmente” i suoi input e restituendo il suo “output”</li>
+</ul>
 </section><section>
 <h2 id="esempi-di-method-reference-casi-123"><code>Esempi di Method Reference (casi 1,2,3)</code></h2>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">AllLambdas2</span> <span style="color:#000">{</span>
@@ -298,13 +307,15 @@ Mirko Viroli, che ringrazio.</p>
 <li>E’ una <code>interface</code> con un singolo metodo</li>
 </ul>
 <h3 id="quale-tipo-è-compatibile-con-una-lambda">Quale tipo è compatibile con una lambda?</h3>
-<pre><code>*  Una lambda può essere passata dove ci si attende un oggetto che implementi una interfaccia funzionale
-*  C'è compatibilità se i tipi in input/output della lambda (inferiti o non) sono compatibili con quelli dell'unico metodo dell'interfaccia
-</code></pre>
+<ul>
+<li>Una lambda può essere passata dove ci si attende un oggetto che implementi una interfaccia funzionale</li>
+<li>C’è compatibilità se i tipi in input/output della lambda (inferiti o non) sono compatibili con quelli dell’unico metodo dell’interfaccia</li>
+</ul>
 <h3 id="motivazione">Motivazione:</h3>
-<pre><code>*  Di fatto, il compilatore traduce la lambda nella creazione di un oggetto di una classe anonima che implementa l'interfaccia funzionale
-*  Uno specifico opcode a livello di bytecode evita di costruirsi effettivamente un `.class` per ogni lambda
-</code></pre>
+<ul>
+<li>Di fatto, il compilatore traduce la lambda nella creazione di un oggetto di una classe anonima che implementa l’interfaccia funzionale</li>
+<li>Uno specifico opcode a livello di bytecode evita di costruirsi effettivamente un <code>.class</code> per ogni lambda</li>
+</ul>
 </section><section>
 <h2 id="generazione-automatica-della-classe-anonima">Generazione automatica della classe anonima</h2>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">FirstComparable2</span> <span style="color:#000">{</span>
@@ -385,19 +396,22 @@ Mirko Viroli, che ringrazio.</p>
 </span></span></code></pre></div></section><section>
 <h2 id="metodi-default-nelle-interfacce">Metodi <code>default</code> nelle interfacce</h2>
 <h3 id="da-java-8-è-possibile-fornire-implementazioni-ai-metodi-delle-interface">Da Java 8 è possibile fornire implementazioni ai metodi delle <code>interface</code></h3>
-<pre><code>*  sintassi: `{ ... default int m()\{...\}\}`
-*  significato: non è necessario implementarli nelle sottoclassi
-*  .. è possibile avere anche metodi statici
-</code></pre>
+<ul>
+<li>sintassi: <code>interface I { ... default int m(){ ... } }</code></li>
+<li>significato: non è necessario implementarli nelle sottoclassi</li>
+<li>.. è possibile avere anche metodi statici</li>
+</ul>
 <h3 id="utilità">Utilità</h3>
-<pre><code>*  consente di aggiungere metodi a interfacce senza rompere la compatibilità con classi esistenti che le implementano
-*  fornire "behaviour" ereditabile in modalità multipla
-*  costruire più facilmente interfacce funzionali: *__queste devono in effetti avere un unico metodo senza default__*
-*  consente di realizzare il patter template method solo con interfacce
-</code></pre>
+<ul>
+<li>consente di aggiungere metodi a interfacce senza rompere la compatibilità con classi esistenti che le implementano</li>
+<li>fornire “behaviour” ereditabile in modalità multipla</li>
+<li>costruire più facilmente interfacce funzionali: <em><strong>queste devono in effetti avere un unico metodo senza default</strong></em></li>
+<li>consente di realizzare il patter template method solo con interfacce</li>
+</ul>
 <h3 id="esempi-di-interfacce-con-metodi-di-default">Esempi di interfacce con metodi di default</h3>
-<pre><code>*  `Iterable`, `Iterator`, `Collection`, `Comparator`
-</code></pre>
+<ul>
+<li><code>Iterable</code>, <code>Iterator</code>, <code>Collection</code>, <code>Comparator</code></li>
+</ul>
 </section><section>
 <h2 id="esempio-simpleiterator">Esempio <code>SimpleIterator</code></h2>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">interface</span> <span style="color:#3f6e75">SimpleIterator</span><span style="color:#000">&lt;</span><span style="color:#000">X</span><span style="color:#000">&gt;</span> <span style="color:#000">{</span>
@@ -424,13 +438,15 @@ Mirko Viroli, che ringrazio.</p>
 </span></span></code></pre></div></section><section>
 <h2 id="annotazione-functionalinterface">Annotazione <code>@FunctionalInterface</code></h2>
 <h3 id="uso">Uso</h3>
-<pre><code>*  da usare opzionalmente per interfacce funzionali
-*  il compilatore la usa per assicurarsi che l'interfaccia sia funzionale, ossia che vi sia un solo metodo "astratto"
-*  nella Java API viene usata spesso
-</code></pre>
+<ul>
+<li>da usare opzionalmente per interfacce funzionali</li>
+<li>il compilatore la usa per assicurarsi che l’interfaccia sia funzionale, ossia che vi sia un solo metodo “astratto”</li>
+<li>nella Java API viene usata spesso</li>
+</ul>
 <h3 id="nota">Nota</h3>
-<pre><code>*  le annotazioni sono usate per vari scopi, ad esempio per indicare al compilatore di fare ulteriori controlli   
-</code></pre>
+<ul>
+<li>le annotazioni sono usate per vari scopi, ad esempio per indicare al compilatore di fare ulteriori controlli</li>
+</ul>
 </section><section>
 <h2 id="esempio-simpleiterator-1">Esempio <code>SimpleIterator</code></h2>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#000">@FunctionalInterface</span>
@@ -450,14 +466,16 @@ Mirko Viroli, che ringrazio.</p>
 </section><section>
 <h2 id="interfacce-funzionali-di-libreria----package-javautilfunction">Interfacce funzionali di libreria – package <code>java.util.function</code></h2>
 <h3 id="perché-scriversi-una-nuova-interfaccia-funzionale-alloccorrenza">Perché scriversi una nuova interfaccia funzionale all’occorrenza?</h3>
-<pre><code>  *  Lo si fa solo per rappresentare concetti specifici del dominio
-  *  Lo si fa se ha metodi default aggiuntivi
-</code></pre>
+<ul>
+<li>Lo si fa solo per rappresentare concetti specifici del dominio</li>
+<li>Lo si fa se ha metodi default aggiuntivi</li>
+</ul>
 <h3 id="in-javautilfunction-vengono-fornite-varie-interfacce-general-purpose">In <code>java.util.function</code> vengono fornite varie interfacce “general purpose”</h3>
-<pre><code>  *  Sono tutte funzionali
-  *  Hanno metodi aggiuntivi default di cui non ci occupiamo
-  *  Hanno un metodo "astratto" chiamato, a seconda: &lt;br&gt; `apply`, `accept`, `test` o `get`
-</code></pre>
+<ul>
+<li>Sono tutte funzionali</li>
+<li>Hanno metodi aggiuntivi default di cui non ci occupiamo</li>
+<li>Hanno un metodo “astratto” chiamato, a seconda: <br> <code>apply</code>, <code>accept</code>, <code>test</code> o <code>get</code></li>
+</ul>
 </section><section>
 <h2 id="package-javautilfunction">Package <code>java.util.function</code></h2>
 <h3 id="interfacce-base">Interfacce base</h3>
@@ -536,19 +554,21 @@ Mirko Viroli, che ringrazio.</p>
 </span></span></code></pre></div></section><section>
 <h2 id="motivazioni-e-vantaggi-nelluso-delle-lambda-in-java">Motivazioni e vantaggi nell’uso delle lambda in Java</h2>
 <h3 id="elementi-di-programmazione-funzionale-in-java">Elementi di programmazione funzionale in Java</h3>
-<pre><code>*  Le lambda consentono di aggiungere certe funzionalità della programmazione funzionale in Java, creando quindi una contaminazione OO + funzionale
-*  Il principale uso è quello che concerne la creazione di funzionalità (metodi) ad alto riuso -- ad esempio `filterAll`
-*  Tali metodi possono prendere in ingresso funzioni, passate con sintassi semplificata rispetto a quella delle classi anonime, rendendo più "naturale" e agevole l'uso di questo meccanismo
-</code></pre>
+<ul>
+<li>Le lambda consentono di aggiungere certe funzionalità della programmazione funzionale in Java, creando quindi una contaminazione OO + funzionale</li>
+<li>Il principale uso è quello che concerne la creazione di funzionalità (metodi) ad alto riuso – ad esempio <code>filterAll</code></li>
+<li>Tali metodi possono prendere in ingresso funzioni, passate con sintassi semplificata rispetto a quella delle classi anonime, rendendo più “naturale” e agevole l’uso di questo meccanismo</li>
+</ul>
 <h3 id="miglioramento-alle-api-di-java">Miglioramento alle API di Java</h3>
-<pre><code>*  Concetto di Stream e sue manipolazioni, per lavorare su dati sequenziali (collezioni, file,..)
-*  Facilitare la costruzioni di software "parallelo" (multicore)
-*  Supporto più diretto ad alcuni pattern: Command, Strategy, Observer
-*  Alcune migliorie "varie" nelle API
-</code></pre>
+<ul>
+<li>Concetto di Stream e sue manipolazioni, per lavorare su dati sequenziali (collezioni, file,..)</li>
+<li>Facilitare la costruzioni di software “parallelo” (multicore)</li>
+<li>Supporto più diretto ad alcuni pattern: Command, Strategy, Observer</li>
+<li>Alcune migliorie “varie” nelle API</li>
+</ul>
 </section><section>
 <h2 id="goal-delle-lambda-in-una-frase">Goal delle lambda, in una frase</h2>
-<p>\huge Realizzare “più algoritmi possibili su sequenze” in una sola istruzione</p>
+<p><strong>Realizzare “più algoritmi possibili su sequenze” in una sola istruzione</strong></p>
 </section><section>
 <h2 id="nuove-interfacce-iterator-e-iterable">“Nuove” interfacce <code>Iterator</code> e <code>Iterable</code></h2>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">interface</span> <span style="color:#3f6e75">Iterable</span><span style="color:#000">&lt;</span><span style="color:#000">T</span><span style="color:#000">&gt;</span> <span style="color:#000">{</span>
@@ -665,17 +685,19 @@ Mirko Viroli, che ringrazio.</p>
 </span></span></code></pre></div></section><section>
 <h2 id="la-classe-optional">La classe <code>Optional</code></h2>
 <h3 id="il-problema-del-nullpointerexception">Il problema del <code>NullPointerException</code></h3>
-<pre><code>  *  è una eccezione particolarmente annosa (è ora la più frequente)
-  *  a volte è inevitable inizializzare a `null` campi/variabili, o tornare valori null.. ma poi si rischia di ritrovarsi l'eccezione in punti non aspettati
-  *  gestire l'assenza di una informazione con `null` è inappropriato!
-</code></pre>
+<ul>
+<li>è una eccezione particolarmente annosa (è ora la più frequente)</li>
+<li>a volte è inevitable inizializzare a <code>null</code> campi/variabili, o tornare valori null.. ma poi si rischia di ritrovarsi l’eccezione in punti non aspettati</li>
+<li>gestire l’assenza di una informazione con <code>null</code> è inappropriato!</li>
+</ul>
 <h3 id="idea">Idea</h3>
-<pre><code>  *  la classe `Optional&lt;T&gt;` và usata ove ci si attende opzionalmente un oggetto di tipo `T`
-  *  un oggetto di `Optional&lt;T&gt;` è un wrapper di un `T`, ma potrebbe non contenere nulla, ossia è una collezione di 0 o 1 elemento di tipo `T` 
-  *  accedendovi con metodi quali `ifPresent()` o `orElse()` si bypassa il problema del `null`
-  *  c'è comunque un metodo `get()` che rilancia l'eccezione uncheked `NoSuchElementException`
-  *  purtroppo `Optional&lt;T&gt;` NON è serializzabile!
-</code></pre>
+<ul>
+<li>la classe <code>Optional&lt;T&gt;</code> và usata ove ci si attende opzionalmente un oggetto di tipo <code>T</code></li>
+<li>un oggetto di <code>Optional&lt;T&gt;</code> è un wrapper di un <code>T</code>, ma potrebbe non contenere nulla, ossia è una collezione di 0 o 1 elemento di tipo <code>T</code></li>
+<li>accedendovi con metodi quali <code>ifPresent()</code> o <code>orElse()</code> si bypassa il problema del <code>null</code></li>
+<li>c’è comunque un metodo <code>get()</code> che rilancia l’eccezione uncheked <code>NoSuchElementException</code></li>
+<li>purtroppo <code>Optional&lt;T&gt;</code> NON è serializzabile!</li>
+</ul>
 </section><section>
 <h2 id="classe-javautiloptional">Classe <code>java.util.Optional</code></h2>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">package</span> <span style="color:#000">java.util</span><span style="color:#000">;</span>
@@ -778,17 +800,19 @@ Mirko Viroli, che ringrazio.</p>
 </span></span></code></pre></div></section><section>
 <h2 id="optional-per-campi-opzionali-e-manipolazioni-con-map"><code>Optional</code> per campi opzionali, e manipolazioni con <code>map</code></h2>
 <h3 id="come-evitare-il-nullpointerexception-in-una-applicazione">Come evitare il <code>NullPointerException</code> in una applicazione?</h3>
-<pre><code>  *  Non si menzioni mai il `null` nell'applicazione
-  *  Non si lascino variabili o campi non inizializzati
-  *  Si usi `Optional` per campi con contenuto opzionale, inizializzati a `Optional.empty`
-  *  I valori di `Optional` vengano manipolati in modo "dichiarativo" con i suoi metodi, ad esempio, `map`
-  * $\Rightarrow$ Il codice risultante sarà molto più espressivo
-</code></pre>
+<ul>
+<li>Non si menzioni mai il <code>null</code> nell’applicazione</li>
+<li>Non si lascino variabili o campi non inizializzati</li>
+<li>Si usi <code>Optional</code> per campi con contenuto opzionale, inizializzati a <code>Optional.empty</code></li>
+<li>I valori di <code>Optional</code> vengano manipolati in modo “dichiarativo” con i suoi metodi, ad esempio, <code>map</code></li>
+<li>$\Rightarrow$ Il codice risultante sarà molto più espressivo</li>
+</ul>
 <h3 id="inconveniente">Inconveniente:</h3>
-<pre><code>  *  e se non si può controllare che il caller di una classe non passi dei `null`?
-  *  si intercettino gli eventuali `null` in ingresso ad ogni metodo, ponendovi un rimedio che non sia il lancio di una eccezione unchecked
-  *  si usi `Objects.requireNonNull()`
-</code></pre>
+<ul>
+<li>e se non si può controllare che il caller di una classe non passi dei <code>null</code>?</li>
+<li>si intercettino gli eventuali <code>null</code> in ingresso ad ogni metodo, ponendovi un rimedio che non sia il lancio di una eccezione unchecked</li>
+<li>si usi <code>Objects.requireNonNull()</code></li>
+</ul>
 </section><section>
 <h2 id="person"><code>Person</code></h2>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Person</span> <span style="color:#000">{</span>
