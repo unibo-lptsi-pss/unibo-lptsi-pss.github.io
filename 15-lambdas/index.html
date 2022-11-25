@@ -85,7 +85,6 @@ Mirko Viroli, che ringrazio.</p>
 <h2 id="da-classimetodi-alle-lambda-il-caso-dei-comparatori">Da classi/metodi alle lambda: il caso dei comparatori</h2>
 </section><section>
 <h3 id="comparatori-definiti-attraverso-classi">Comparatori definiti attraverso classi</h3>
-<div class="smaller">
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">FirstComparableBasic</span> <span style="color:#000">{</span>
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span><span style="color:#000">(</span><span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span><span style="color:#000">)</span> <span style="color:#000">{</span>
 </span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">Person</span><span style="color:#000">&gt;</span> <span style="color:#000">list</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">ArrayList</span><span style="color:#000">&lt;</span><span style="color:#000">Person</span><span style="color:#000">&gt;();</span>
@@ -118,8 +117,7 @@ Mirko Viroli, che ringrazio.</p>
 </span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#000">o1</span><span style="color:#000">.</span><span style="color:#836c28">getName</span><span style="color:#000">().</span><span style="color:#836c28">compareTo</span><span style="color:#000">(</span><span style="color:#000">o2</span><span style="color:#000">.</span><span style="color:#836c28">getName</span><span style="color:#000">());</span>
 </span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
 </span></span><span style="display:flex;"><span><span style="color:#000">}</span>
-</span></span></code></pre></div></div>
-</section><section>
+</span></span></code></pre></div></section><section>
 <h3 id="comparatori-definiti-attraverso-classi-innestate">Comparatori definiti attraverso classi innestate</h3>
 <ul>
 <li>Una <strong>classe innestata statica</strong> <code>B</code> (<em>static nested</em>) è definita all’interno di un’altra classe <code>A</code>
@@ -128,7 +126,6 @@ Mirko Viroli, che ringrazio.</p>
 </ul>
 </li>
 </ul>
-<div class="smaller">
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">FirstComparableNested</span> <span style="color:#000">{</span>
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span><span style="color:#000">(</span><span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span><span style="color:#000">)</span> <span style="color:#000">{</span>
 </span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">Person</span><span style="color:#000">&gt;</span> <span style="color:#000">list</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">ArrayList</span><span style="color:#000">&lt;</span><span style="color:#000">Person</span><span style="color:#000">&gt;();</span>
@@ -161,8 +158,7 @@ Mirko Viroli, che ringrazio.</p>
 </span></span><span style="display:flex;"><span>		<span style="color:#000">}</span>
 </span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
 </span></span><span style="display:flex;"><span><span style="color:#000">}</span>
-</span></span></code></pre></div></div>
-</section><section>
+</span></span></code></pre></div></section><section>
 <h3 id="comparatori-definiti-attraverso-classi-anonime">Comparatori definiti attraverso classi anonime</h3>
 <ul>
 <li>Una <strong>classe anonima</strong> è una classe definita “al volo” (senza fornirne dunque un nome) e immediatamente istanziata
@@ -172,7 +168,6 @@ Mirko Viroli, che ringrazio.</p>
 </ul>
 </li>
 </ul>
-<div class="smaller">
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">FirstComparableWithAnonymousClasses</span> <span style="color:#000">{</span>
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span><span style="color:#000">(</span><span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span><span style="color:#000">)</span> <span style="color:#000">{</span>
 </span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">Person</span><span style="color:#000">&gt;</span> <span style="color:#000">list</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">ArrayList</span><span style="color:#000">&lt;</span><span style="color:#000">Person</span><span style="color:#000">&gt;();</span>
@@ -202,8 +197,7 @@ Mirko Viroli, che ringrazio.</p>
 </span></span><span style="display:flex;"><span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">list</span><span style="color:#000">);</span>
 </span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
 </span></span><span style="display:flex;"><span><span style="color:#000">}</span>
-</span></span></code></pre></div></div>
-</section><section>
+</span></span></code></pre></div></section><section>
 <h3 id="comparatori-attraverso-lambda">Comparatori attraverso lambda</h3>
 <ul>
 <li>Una <strong>lambda</strong> è una <em>funzione anonima</em>, creata “al volo”
@@ -212,7 +206,6 @@ Mirko Viroli, che ringrazio.</p>
 </ul>
 </li>
 </ul>
-<div class="smaller">
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">FirstComparableWithLambdas</span> <span style="color:#000">{</span>
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span><span style="color:#000">(</span><span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span><span style="color:#000">)</span> <span style="color:#000">{</span>
 </span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">Person</span><span style="color:#000">&gt;</span> <span style="color:#000">list</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">ArrayList</span><span style="color:#000">&lt;</span><span style="color:#000">Person</span><span style="color:#000">&gt;();</span>
@@ -233,8 +226,7 @@ Mirko Viroli, che ringrazio.</p>
 </span></span><span style="display:flex;"><span>		<span style="color:#000">System</span><span style="color:#000">.</span><span style="color:#836c28">out</span><span style="color:#000">.</span><span style="color:#836c28">println</span><span style="color:#000">(</span><span style="color:#000">list</span><span style="color:#000">);</span>
 </span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
 </span></span><span style="display:flex;"><span><span style="color:#000">}</span>
-</span></span></code></pre></div></div>
-</section><section>
+</span></span></code></pre></div></section><section>
 <h1 id="lambda-expressions">Lambda expressions</h1>
 </section><section>
 <h2 id="elementi-delle-lambda-expression">Elementi delle lambda expression</h2>
@@ -570,7 +562,26 @@ Mirko Viroli, che ringrazio.</p>
 </span></span><span style="display:flex;"><span><span style="color:#000">assertFalse</span><span style="color:#000">(</span><span style="color:#000">p</span><span style="color:#000">.</span><span style="color:#836c28">test</span><span style="color:#000">(</span><span style="color:#c41a16">"abc"</span><span style="color:#000">));</span>
 </span></span><span style="display:flex;"><span><span style="color:#000">assertFalse</span><span style="color:#000">(</span><span style="color:#000">p</span><span style="color:#000">.</span><span style="color:#836c28">test</span><span style="color:#000">(</span><span style="color:#c41a16">"ABCDEFG"</span><span style="color:#000">));</span>
 </span></span><span style="display:flex;"><span><span style="color:#000">assertTrue</span><span style="color:#000">(</span><span style="color:#000">p</span><span style="color:#000">.</span><span style="color:#836c28">test</span><span style="color:#000">(</span><span style="color:#c41a16">"ABC"</span><span style="color:#000">));</span>
-</span></span></code></pre></div></section><section>
+</span></span></code></pre></div><!--
+
+---
+
+## Esempio: chiusure lessicali
+
+- Una *chiusura (lessicale)* o (in inglese) **closure** è una funzione che accede a simboli visibili nello scope
+    - Limitazione: le variabili nello scope referenziate in una lambda devono essere `final`
+
+```java
+import java.util.function.*;
+
+final int K = 10;
+Predicate<String> p = (s) -> s.length() > K;
+p.test("hello"); // false
+p.test("hello world"); // true
+```
+
+-->
+</section><section>
 <h2 id="motivazioni-e-vantaggi-nelluso-delle-lambda-in-java">Motivazioni e vantaggi nell’uso delle lambda in Java</h2>
 <h3 id="elementi-di-programmazione-funzionale-in-java">Elementi di <strong>programmazione funzionale</strong> in Java</h3>
 <ul>

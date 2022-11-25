@@ -54,7 +54,7 @@ Mirko Viroli, che ringrazio.</p>
 <p>Libreria Java per la creazione di GUI per Rich Applications multi-piattaforma</p>
 <ul>
 <li>Disponibile dal 2008 (v. 1.0 – 2.2) come libreria stand-alone</li>
-<li>Presente ``<em>stabilmente</em>’’ nel JDK da Java 8 (v. JavaFX 8)</li>
+<li>Presente “<em>stabilmente</em>” nel JDK da Java 8 (v. JavaFX 8)</li>
 <li><del>Introdotto ufficialmente in Java con l’idea di sostituire (gradualmente) Swing</del></li>
 <li>Torna ad essere una <em>libreria stand-alone da Java 11</em>:
 è opensource e parte del progetto OpenJDK – <a href="https://openjfx.io">https://openjfx.io</a></li>
@@ -64,7 +64,7 @@ Mirko Viroli, che ringrazio.</p>
 <p>Propone un look-and-feel personalizzabile</p>
 <ul>
 <li>La descrizione dello stile/aspetto dei componenti della GUI è separato dalla relativa implementazione</li>
-<li>Segue il pattern MVC</li>
+<li>Fornisce costrutti che promuovono il pattern MVC</li>
 </ul>
 </li>
 <li>
@@ -81,7 +81,7 @@ Mirko Viroli, che ringrazio.</p>
 <h3 id="fxml-e-css-per-lo-stile">FXML (e CSS per lo stile)</h3>
 <ul>
 <li><strong>FXML</strong> è un linguaggio dichiarativo per definire la GUI di un’applicazione JavaFX-based</li>
-<li>Il suo impiego non è indispensabile, ma fortemente consigliato per una buona <em>separation of concerns</em></li>
+<li>Il suo impiego non è indispensabile, ma fortemente consigliato per una buona <em>separazione dei concern</em></li>
 </ul>
 <h3 id="interoperabilità-bidirezionale-con-la-libreria-java-built-in-per-gui-swing">Interoperabilità bidirezionale con la libreria Java built-in per GUI <em>Swing</em></h3>
 <ul>
@@ -137,7 +137,7 @@ Mirko Viroli, che ringrazio.</p>
 <li>Consente di definire metodi hook sul ciclo di vita dell’applicazione (<code>init</code>, <code>start</code>, <code>stop</code>, …)</li>
 <li><a href="https://openjfx.io/javadoc/15/javafx.graphics/javafx/application/Application.html">https://openjfx.io/javadoc/15/javafx.graphics/javafx/application/Application.html</a></li>
 </ul>
-<p>Esempio: GUI vuota</p>
+<h4 id="esempio-gui-vuota">Esempio: GUI vuota</h4>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">App</span> <span style="color:#a90d91">extends</span> <span style="color:#000">javafx</span><span style="color:#000">.</span><span style="color:#836c28">application</span><span style="color:#000">.</span><span style="color:#836c28">Application</span> <span style="color:#000">{</span>
 </span></span><span style="display:flex;"><span>	<span style="color:#000">@Override</span>
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">start</span><span style="color:#000">(</span><span style="color:#000">Stage</span> <span style="color:#000">stage</span><span style="color:#000">)</span> <span style="color:#a90d91">throws</span> <span style="color:#000">Exception</span> <span style="color:#000">{</span>
@@ -168,14 +168,14 @@ Mirko Viroli, che ringrazio.</p>
 <ol>
 <li>Avvio del runtime JavaFX <!-- %(se necessario) --></li>
 <li>Istanziazione di <code>App</code> (la classe specificata che estende <code>Application</code>)</li>
-<li>Invocazione metodo <code>start(javafx.stage.Stage)</code></li>
+<li>Invocazione metodo <code>start(javafx.stage.Stage)</code> dell’applicazione</li>
 <li>Attesa terminazione applicazione
 <ul>
 <li>(a) mediante <code>Platform.exit()</code></li>
 <li>(b) chiusura dell’ultima finestra (e <code>Platform.isImplicitExit()</code> è true)</li>
 </ul>
 </li>
-<li>Invocazione metodo <code>stop()</code></li>
+<li>Invocazione metodo <code>stop()</code> dell’applicazione</li>
 </ol>
 </section><section>
 <h3 id="node"><code>Node</code></h3>
@@ -190,7 +190,12 @@ Mirko Viroli, che ringrazio.</p>
 </li>
 <li>Un nodo ha un ID univoco, coordinate locali, può subire trasformazioni (ad es. rotazione), ha un bounding rectangle associato, e può essere stilizzato via CSS</li>
 <li>Sottoclassi di <code>Node</code>: <code>SwingNode</code>, <code>Canvas</code>, <code>Parent</code></li>
-<li>Sottoclassi di <code>Parent</code>: <code>Group</code> (gestisce un insieme di figli; ogni trasformazione/effetto è applicata su ogni figlio), <code>Region</code> (classe base per tutti i controlli UI e i layout)</li>
+<li>Sottoclassi di <code>Parent</code>:
+<ul>
+<li><code>Group</code> (gestisce un insieme di figli; ogni trasformazione/effetto è applicata su ogni figlio)</li>
+<li><code>Region</code> (classe base per tutti i controlli UI e i layout)</li>
+</ul>
+</li>
 <li><a href="https://openjfx.io/javadoc/15/javafx.graphics/javafx/scene/Node.html">https://openjfx.io/javadoc/15/javafx.graphics/javafx/scene/Node.html</a></li>
 </ul>
 </section><section>
@@ -205,36 +210,40 @@ Mirko Viroli, che ringrazio.</p>
 <li>Si faccia riferimento al repository di esempio:
 <a href="https://github.com/APICe-at-DISI/sample-javafx-project">https://github.com/APICe-at-DISI/sample-javafx-project</a></li>
 </ul>
-<ol>
-<li>La classe principale di un’applicazione JavaFX deve estendere la classe <code>javafx.application.Application</code></li>
-<li>Il metodo <code>main()</code> deve chiamare il metodo <code>launch()</code>
-<ul>
-<li>Si tratta di un metodo statico della classe <code>Application</code></li>
-</ul>
-</li>
-<li>Il metodo <code>void start(Stage primaryStage)</code> è, di fatto, l’entry point dell’applicazione JavaFX (lo stage primario è creato dalla piattaforma)</li>
-<li>La scena definita per lo stage (vedi metodo <code>setScene()</code>) costituisce il container principale per tutti i componenti della GUI</li>
+<ol start="0">
+<li>Build Gradle</li>
 </ol>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">val</span> <span style="color:#000">javaFXModules</span> = <span style="color:#000">listOf</span>(<span style="color:#c41a16">"base"</span>, <span style="color:#c41a16">"controls"</span>, <span style="color:#c41a16">"fxml"</span>, <span style="color:#c41a16">"swing"</span>, <span style="color:#c41a16">"graphics"</span> )
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">val</span> <span style="color:#000">supportedPlatforms</span> = <span style="color:#000">listOf</span>(<span style="color:#c41a16">"linux"</span>, <span style="color:#c41a16">"mac"</span>, <span style="color:#c41a16">"win"</span>) <span style="color:#177500">// All required for OOP
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#a90d91">val</span> <span style="color:#000">javaFxVersion</span> = <span style="color:#1c01ce">17</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">dependencies</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a90d91">for</span> (<span style="color:#000">platform</span> <span style="color:#a90d91">in</span> <span style="color:#000">supportedPlatforms</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">for</span> (<span style="color:#000">module</span> <span style="color:#a90d91">in</span> <span style="color:#000">javaFXModules</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#000">implementation</span>(<span style="color:#c41a16">"org.openjfx:javafx-</span><span style="color:#c41a16">$module</span><span style="color:#c41a16">:</span><span style="color:#c41a16">$javaFxVersion</span><span style="color:#c41a16">:</span><span style="color:#c41a16">$platform</span><span style="color:#c41a16">"</span>)
+</span></span><span style="display:flex;"><span>} } }
+</span></span></code></pre></div><ol>
+<li>La classe principale di un’applicazione JavaFX deve estendere la classe <code>javafx.application.Application</code></li>
+<li>Una classe definisce il <code>main()</code> dell’applicazione Java, che deve chiamare <code>Application.launch()</code></li>
+<li>Il metodo <code>void start(Stage primaryStage)</code> è, di fatto, l’entry point dell’applicazione JavaFX (lo stage primario è creato dalla piattaforma)</li>
+<li>Sullo stage is imposta la scena (<code>setScene()</code>)</li>
+</ol>
+<!-- La scena definita per lo stage (vedi metodo `setScene()`) costituisce il container principale per tutti i componenti della GUI -->
 </section><section>
 <h3 id="nodi-e-proprietà">Nodi e Proprietà</h3>
 <ul>
 <li>
-<p>Ogni scena può essere popolata con una gerarchia di nodi</p>
+<p>Ogni scena ha un <em>root node</em> relativo a una <em>gerarchia di nodi</em> descrivente la GUI</p>
 </li>
 <li>
-<p>Ciascun nodo (componente) espone diverse proprietà</p>
+<p>Ciascun nodo (componente) espone diverse <em>proprietà osservabili</em> (classe <code>Property&lt;T&gt;</code>)</p>
+<ul>
+<li>relative all’aspetto (es. <code>size</code>, <code>posizion</code>, <code>color</code>, …)</li>
+<li>relative al contenuto (es. <code>text</code>, <code>value</code>, …)</li>
+<li>relative al comportamento (es. <em>event handler</em>, <code>controller</code>, …)</li>
+</ul>
 </li>
 <li>
-<p>relative all’aspetto (es. <code>size</code>, <code>posizion</code>, <code>color</code>, \dots)</p>
-</li>
-<li>
-<p>relative al contenuto (es. <code>text</code>, <code>value</code>, \dots)</p>
-</li>
-<li>
-<p>relative al comportamento (es. <em>event handler</em>, <code>controller</code>, \dots)</p>
-</li>
-<li>
-<p>Ciascun nodo genera eventi in relazione ad azioni dell’utente</p>
+<p>Ciascun nodo genera <em>eventi</em> in relazione ad azioni dell’utente</p>
 </li>
 </ul>
 </section><section>
@@ -242,23 +251,22 @@ Mirko Viroli, che ringrazio.</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Example1</span> <span style="color:#a90d91">extends</span> <span style="color:#000">Application</span> <span style="color:#000">{</span>
 </span></span><span style="display:flex;"><span>	<span style="color:#000">@Override</span>
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">start</span><span style="color:#000">(</span><span style="color:#000">Stage</span> <span style="color:#000">stage</span><span style="color:#000">)</span> <span style="color:#a90d91">throws</span> <span style="color:#000">Exception</span> <span style="color:#000">{</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#000">Label</span> <span style="color:#000">lbl</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Label</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">Label</span> <span style="color:#000">lbl</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Label</span><span style="color:#000">();</span>
 </span></span><span style="display:flex;"><span>		<span style="color:#000">lbl</span><span style="color:#000">.</span><span style="color:#836c28">setText</span><span style="color:#000">(</span><span style="color:#c41a16">"Label text here..."</span><span style="color:#000">);</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>		<span style="color:#000">Button</span> <span style="color:#000">btn</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Button</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">Button</span> <span style="color:#000">btn</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Button</span><span style="color:#000">();</span>
 </span></span><span style="display:flex;"><span>		<span style="color:#000">btn</span><span style="color:#000">.</span><span style="color:#836c28">setText</span><span style="color:#000">(</span><span style="color:#c41a16">"Click me"</span><span style="color:#000">);</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>		<span style="color:#000">HBox</span> <span style="color:#000">root</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">HBox</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">HBox</span> <span style="color:#000">root</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">HBox</span><span style="color:#000">();</span>
 </span></span><span style="display:flex;"><span>		<span style="color:#000">root</span><span style="color:#000">.</span><span style="color:#836c28">getChildren</span><span style="color:#000">().</span><span style="color:#836c28">add</span><span style="color:#000">(</span><span style="color:#000">btn</span><span style="color:#000">);</span>
 </span></span><span style="display:flex;"><span>		<span style="color:#000">root</span><span style="color:#000">.</span><span style="color:#836c28">getChildren</span><span style="color:#000">().</span><span style="color:#836c28">add</span><span style="color:#000">(</span><span style="color:#000">lbl</span><span style="color:#000">);</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>		<span style="color:#000">stage</span><span style="color:#000">.</span><span style="color:#836c28">setTitle</span><span style="color:#000">(</span><span style="color:#c41a16">"JavaFX - Example 1"</span><span style="color:#000">);</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#000">stage</span><span style="color:#000">.</span><span style="color:#836c28">setScene</span><span style="color:#000">(</span><span style="color:#a90d91">new</span> <span style="color:#000">Scene</span><span style="color:#000">(</span><span style="color:#000">root</span><span style="color:#000">,</span> <span style="color:#000">300</span><span style="color:#000">,</span><span style="color:#000">250</span><span style="color:#000">));</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">stage</span><span style="color:#000">.</span><span style="color:#836c28">setScene</span><span style="color:#000">(</span><span style="color:#a90d91">new</span> <span style="color:#000">Scene</span><span style="color:#000">(</span><span style="color:#000">root</span><span style="color:#000">,</span> <span style="color:#000">300</span><span style="color:#000">,</span> <span style="color:#000">250</span><span style="color:#000">));</span>
 </span></span><span style="display:flex;"><span>		<span style="color:#000">stage</span><span style="color:#000">.</span><span style="color:#836c28">show</span><span style="color:#000">();</span>
 </span></span><span style="display:flex;"><span>	<span style="color:#000">}</span>
 </span></span><span style="display:flex;"><span><span style="color:#000">}</span>
-</span></span></code></pre></div><p>%	public static void main(String[] args) { launch(args); }</p>
-</section><section>
+</span></span></code></pre></div></section><section>
 <h3 id="binding-e-proprietà">Binding e proprietà</h3>
 <ul>
 <li>
@@ -738,7 +746,7 @@ accoda il runnable nella coda degli eventi del JFXAT</li>
 %
 %* Tutti le librerire <em>esterne</em> \underline{non} sono automaticamente accessibili da tutti i progetti aperti nell’IDE Eclipse
 %
-%* In realtà dipende dalla versione di Eclipse\dots
+%* In realtà dipende dalla versione di Eclipse…
 %
 %* Deve essere definita una regola d’accesso per JavaFX in relazione allo specifico progetto Java aperto in Eclipse
 %
