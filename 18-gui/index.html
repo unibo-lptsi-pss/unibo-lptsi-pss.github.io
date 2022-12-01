@@ -198,7 +198,7 @@ Mirko Viroli, che ringrazio.</p>
 </ul>
 </section><section>
 <h3 id="sommario">Sommario</h3>
-<p><img src="imgs/javafx-app.png" alt=""></p>
+<p><img src="imgs/javafx-app-summary.png" alt=""></p>
 </section><section>
 <h3 id="struttura-di-unapplicazione-javafx-based">Struttura di un’applicazione JavaFX-based</h3>
 <p><img src="imgs/javafx-app-structure.png" alt=""></p>
@@ -353,8 +353,63 @@ Mirko Viroli, che ringrazio.</p>
 </span></span><span style="display:flex;"><span><span style="color:#000">g</span><span style="color:#000">.</span><span style="color:#836c28">setTranslateX</span><span style="color:#000">(-</span><span style="color:#1c01ce">5</span><span style="color:#000">);</span> <span style="color:#177500">// applies translation to all children
 </span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#000">g</span><span style="color:#000">.</span><span style="color:#836c28">setEffect</span><span style="color:#000">(</span><span style="color:#a90d91">new</span> <span style="color:#000">DropShadow</span><span style="color:#000">());</span> <span style="color:#177500">// applies effect to all children
 </span></span></span></code></pre></div></section><section>
-<h3 id="layouts-33">Layouts (3/3)</h3>
+<ul>
+<li>Layout pane forniscono metodi d’istanza/statici per dettagliare i posizionamenti</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#000">Text</span> <span style="color:#000">center</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Text</span><span style="color:#000">(</span><span style="color:#c41a16">"Center"</span><span style="color:#000">);</span> <span style="color:#177500">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#000">BorderPane</span> <span style="color:#000">bpane</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">BorderPane</span><span style="color:#000">(</span><span style="color:#000">center</span><span style="color:#000">,</span> <span style="color:#000">top</span><span style="color:#000">,</span> <span style="color:#000">right</span><span style="color:#000">,</span> <span style="color:#000">bottom</span><span style="color:#000">,</span> <span style="color:#000">left</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">bpane</span><span style="color:#000">.</span><span style="color:#836c28">setCenter</span><span style="color:#000">(</span><span style="color:#a90d91">new</span> <span style="color:#000">Text</span><span style="color:#000">(</span><span style="color:#c41a16">"NewCenter"</span><span style="color:#000">));</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#000">Button</span> <span style="color:#000">topLeft</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Button</span><span style="color:#000">(</span><span style="color:#c41a16">"Top Left"</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">AnchorPane</span><span style="color:#000">.</span><span style="color:#836c28">setTopAnchor</span><span style="color:#000">(</span><span style="color:#000">topLeft</span><span style="color:#000">,</span> <span style="color:#1c01ce">10.0</span><span style="color:#000">);</span> <span style="color:#177500">// 10px from the top edge
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#000">AnchorPane</span><span style="color:#000">.</span><span style="color:#836c28">setLeftAnchor</span><span style="color:#000">(</span><span style="color:#000">topLeft</span><span style="color:#000">,</span> <span style="color:#1c01ce">10.0</span><span style="color:#000">);</span> <span style="color:#177500">// 10px from the left edge
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#000">AnchorPane</span> <span style="color:#000">root</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">AnchorPane</span><span style="color:#000">(</span><span style="color:#000">topLeft</span><span style="color:#000">);</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#177500">// An empty vertical TilePane with 5px horiz / 10px vertical spacing
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#000">TilePane</span> <span style="color:#000">tp2</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">TilePane</span><span style="color:#000">(</span><span style="color:#000">Orientation</span><span style="color:#000">.</span><span style="color:#836c28">VERTICAL</span><span style="color:#000">,</span> <span style="color:#1c01ce">5</span><span style="color:#000">,</span> <span style="color:#1c01ce">10</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">tp2</span><span style="color:#000">.</span><span style="color:#836c28">setPrefRows</span><span style="color:#000">(</span><span style="color:#1c01ce">3</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">tp</span><span style="color:#000">.</span><span style="color:#836c28">setPrefTileHeight</span><span style="color:#000">(</span><span style="color:#1c01ce">100</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">for</span><span style="color:#000">(</span><span style="color:#000">Month</span> <span style="color:#000">m</span> <span style="color:#000">:</span> <span style="color:#000">Month</span><span style="color:#000">.</span><span style="color:#836c28">values</span><span style="color:#000">())</span> <span style="color:#000">{</span> <span style="color:#000">tp2</span><span style="color:#000">.</span><span style="color:#836c28">getChildren</span><span style="color:#000">().</span><span style="color:#836c28">add</span><span style="color:#000">(</span><span style="color:#a90d91">new</span> <span style="color:#000">Label</span><span style="color:#000">(</span><span style="color:#000">m</span><span style="color:#000">.</span><span style="color:#836c28">name</span><span style="color:#000">()));</span> <span style="color:#000">}</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#000">GridPane</span> <span style="color:#000">gp</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">GridPane</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">gp</span><span style="color:#000">.</span><span style="color:#836c28">setGridLinesVisible</span><span style="color:#000">(</span><span style="color:#a90d91">true</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">for</span><span style="color:#000">(</span><span style="color:#000">Month</span> <span style="color:#000">m</span> <span style="color:#000">:</span> <span style="color:#000">Month</span><span style="color:#000">.</span><span style="color:#836c28">values</span><span style="color:#000">())</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">Label</span> <span style="color:#000">l</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Label</span><span style="color:#000">(</span><span style="color:#000">m</span><span style="color:#000">.</span><span style="color:#836c28">name</span><span style="color:#000">());</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">gp</span><span style="color:#000">.</span><span style="color:#836c28">getChildren</span><span style="color:#000">().</span><span style="color:#836c28">add</span><span style="color:#000">(</span><span style="color:#000">l</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">int</span> <span style="color:#000">columnIndex</span> <span style="color:#000">=</span> <span style="color:#000">(</span><span style="color:#000">m</span><span style="color:#000">.</span><span style="color:#836c28">getValue</span><span style="color:#000">()-</span><span style="color:#1c01ce">1</span><span style="color:#000">)</span> <span style="color:#000">/</span> <span style="color:#1c01ce">4</span><span style="color:#000">;</span> <span style="color:#a90d91">int</span> <span style="color:#000">rowIndex</span> <span style="color:#000">=</span> <span style="color:#000">(</span><span style="color:#000">m</span><span style="color:#000">.</span><span style="color:#836c28">getValue</span><span style="color:#000">()-</span><span style="color:#1c01ce">1</span><span style="color:#000">)</span> <span style="color:#000">%</span> <span style="color:#1c01ce">4</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">GridPane</span><span style="color:#000">.</span><span style="color:#836c28">setConstraints</span><span style="color:#000">(</span><span style="color:#000">l</span><span style="color:#000">,</span> <span style="color:#000">columnIndex</span><span style="color:#000">,</span> <span style="color:#000">rowIndex</span><span style="color:#000">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#177500">// OR ALSO: gp.add(l, columnIndex, rowIndex);
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#000">}</span>
+</span></span></code></pre></div></section><section>
+<h3 id="layout-pane-sommario">Layout pane: sommario</h3>
 <p><img src="imgs/javafx-layouts.drawio.png" alt=""></p>
+</section><section>
+<h3 id="una-nota-sul-posizionamento-e-dimensionamento-delle-gui">Una nota sul posizionamento e dimensionamento delle GUI</h3>
+<ul>
+<li>I <em>bound</em> di un nodo/scena/stage/schermi ne definiscono:
+<ul>
+<li>(1) <em>posizione</em> (position)</li>
+<li>(2) <em>dimensione</em> (size)</li>
+</ul>
+</li>
+<li>Essi sono definiti in termini di un cosiddetto <em>bounding rectangle</em>, rappresentato da un’istanza di <code>javafx.geometry.Bounds</code> che espone:
+<ul>
+<li>(1) le coordinate del punto in alto a sinistra: <code>getMinX()</code>, <code>getMinY()</code>, <code>getMinZ()</code></li>
+<li>(2) le dimensioni: <code>getWidth()</code>, <code>getHeight()</code>, <code>getDepth()</code></li>
+<li>Di conseguenza si definisce un default anche per <code>getMaxX()</code>… come <code>getMinX()+getWidth()</code>…</li>
+</ul>
+</li>
+<li>Sul dimensionamento di una <code>Scene</code>
+<ul>
+<li>Se dimensione non è specificata, sarà calcolata automaticamente in base alla dimensione preferita dal contenuto</li>
+<li>Se il nodo radice di una scene è ridimensionabile (ad es. <code>Region</code> ma non un <code>Group</code>), allora il ridimensionamento della scena causerà un aggiustamento del layout</li>
+</ul>
+</li>
+<li>Sul dimensionamento di uno <code>Stage</code>
+<ul>
+<li>Se non ha una scena associata o la scena è vuota, la dimensione è specificata dalla piattaforma. Altrimenti, la dimensione sarà data dalla scena.</li>
+</ul>
+</li>
+<li>Un <code>Node</code> può essere “gestito” (<em>managed</em>) o meno: nel primo caso, il parent ne gestirà il posizionamento/dimensionamento (in base alla <em>preferred size</em> del nodo)</li>
+<li>Se ci sono più <code>Screen</code> (si veda slide più avanti), i bound degli schermi non-primari saranno relativi a quelli dello schermo primario</li>
+</ul>
 </section><section>
 <h2 id="eventi">Eventi</h2>
 <ul>
