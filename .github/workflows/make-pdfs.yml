@@ -3,7 +3,6 @@ name: Create PDFs
 on:
   push:
     branches:
-      - master
   workflow_dispatch:
   workflow_run:
     workflows: ["pages-build-deployment"]
@@ -45,7 +44,11 @@ jobs:
         run: sudo apt-get install -y poppler-utils
       - name: Make the pdfs
         run: shared-slides/makepdfs.rb pages
+      - name: Get branch name
+        id: branch-name
+        uses: tj-actions/branch-names@v6.3
       - name: Deliver the pdfs
+        if: steps.branch-name.outputs.is_default == 'true'
         uses: ncipollo/release-action@v1.12.0
         with:
           allowUpdates: true
