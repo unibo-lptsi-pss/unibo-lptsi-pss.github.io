@@ -46,7 +46,7 @@ jobs:
       - name: Make the pdfs
         run: shared-slides/makepdfs.rb pages
       - name: Deliver the pdfs
-        uses: ncipollo/release-action@v1.10.0
+        uses: ncipollo/release-action@1.10.1
         with:
           allowUpdates: true
           artifacts: "*.pdf"
