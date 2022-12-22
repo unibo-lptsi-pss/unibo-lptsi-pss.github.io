@@ -46,7 +46,7 @@ jobs:
         run: shared-slides/makepdfs.rb pages
       - name: Get branch name
         id: branch-name
-        uses: tj-actions/branch-names@v6.3
+        uses: tj-actions/branch-names@v6.4
       - name: Deliver the pdfs
         if: steps.branch-name.outputs.is_default == 'true'
         uses: ncipollo/release-action@v1.12.0
