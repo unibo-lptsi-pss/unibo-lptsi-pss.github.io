@@ -412,6 +412,9 @@ Mirko Viroli, che ringrazio.</p>
 </span></span><span style="display:flex;"><span>    <span style="color:#000">&lt;module</span> <span style="color:#836c28">name=</span><span style="color:#c41a16">"NewlineAtEndOfFile"</span><span style="color:#000">&gt;</span>
 </span></span><span style="display:flex;"><span>        <span style="color:#000">&lt;property</span> <span style="color:#836c28">name=</span><span style="color:#c41a16">"lineSeparator"</span> <span style="color:#836c28">value=</span><span style="color:#c41a16">"lf"</span><span style="color:#000">/&gt;</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#000">&lt;/module&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">&lt;module</span> <span style="color:#836c28">name=</span><span style="color:#c41a16">"LineLength"</span><span style="color:#000">&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#000">&lt;property</span> <span style="color:#836c28">name=</span><span style="color:#c41a16">"max"</span> <span style="color:#836c28">value=</span><span style="color:#c41a16">"85"</span><span style="color:#000">/&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">&lt;/module&gt;</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#177500">&lt;!-- ... --&gt;</span>
 </span></span><span style="display:flex;"><span><span style="color:#000">&lt;/module&gt;</span>
 </span></span></code></pre></div><ul>
@@ -443,7 +446,26 @@ Mirko Viroli, che ringrazio.</p>
 <li>L’output dell’analisi viene riportato sotto <code>build/reports/checkstyle</code></li>
 </ul>
 </section><section>
-</section>
+<ul>
+<li>Di default, <em>fallisce la build</em> se le regole di stile non sono rispettate</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span>$ ./gradlew check
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&gt; Task :checkstyleMain
+</span></span><span style="display:flex;"><span>[ant:checkstyle] [ERROR] /&lt;PATH-TO-PROJ&gt;/src/main/java/.../File.java:4: 
+</span></span><span style="display:flex;"><span>                         Line is longer than 85 characters (found 102). [LineLength]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&gt; Task :checkstyleMain FAILED
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>FAILURE: Build failed with an exception.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>* What went wrong:
+</span></span><span style="display:flex;"><span>Execution failed for task ':checkstyleMain'.
+</span></span><span style="display:flex;"><span>&gt; A failure occurred while executing org.gradle.api.plugins.quality.internal.CheckstyleAction
+</span></span><span style="display:flex;"><span>   &gt; Checkstyle rule violations were found. See the report at: file:///&lt;PATH-TO-PROJ&gt;/build/reports/checkstyle/main.html
+</span></span><span style="display:flex;"><span>     Checkstyle files with violations: 1
+</span></span><span style="display:flex;"><span>     Checkstyle violations by severity: [error:1]
+</span></span></code></pre></div></section>
 
   
 
