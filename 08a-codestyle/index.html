@@ -465,7 +465,33 @@ Mirko Viroli, che ringrazio.</p>
 </span></span><span style="display:flex;"><span>   &gt; Checkstyle rule violations were found. See the report at: file:///&lt;PATH-TO-PROJ&gt;/build/reports/checkstyle/main.html
 </span></span><span style="display:flex;"><span>     Checkstyle files with violations: 1
 </span></span><span style="display:flex;"><span>     Checkstyle violations by severity: [error:1]
-</span></span></code></pre></div></section>
+</span></span></code></pre></div><!--
+
+---
+
+### Soppressione in Checkstyle
+
+* La soppressione in checkstyle avviene tramite commenti, ed è configurabile
+* Ad es., con delle "comment fences":
+
+```java
+// CHECKSTYLE: <ruleName> OFF
+<java code with the false positive>
+// CHECKSTYLE: <ruleName> ON
+```
+
+* dove `<ruleName>` va sostituito col nome della regola di Checkstyle che si sta violando
+
+È bene aggiungere un commento che spieghi la ragione della soppressione
+
+```java
+// CHECKSTYLE: <ruleName> OFF
+// Rule disabled due to false positives, see this bug report: https://...
+<java code with the false positive>
+// CHECKSTYLE: <ruleName> ON
+```
+
+--></section>
 
   
 

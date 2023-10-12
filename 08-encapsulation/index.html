@@ -20,7 +20,7 @@
       <div class="slides">
   
 
-    <section><h1 id="encapsulation">Encapsulation</h1>
+    <section><h1 id="incapsulamento">Incapsulamento</h1>
 <h4 id="progettazione-e-sviluppo-del-software">Progettazione e Sviluppo del Software</h4>
 <h4 id="cdl-tecnologie-dei-sistemi-informatici">C.D.L. Tecnologie dei Sistemi Informatici</h4>
 <h3 id="roberto-casadei-----robycasadeiuniboitmailtorobycasadeiuniboit"><a href="mailto:roby.casadei@unibo.it">Roberto Casadei — <code>roby.casadei@unibo.it</code></a></h3>
@@ -60,6 +60,7 @@ Mirko Viroli, che ringrazio.</p>
 -->
 </section><section>
 <h1 id="alcuni-principi-di-buona-progettazione">Alcuni principi di buona progettazione</h1>
+</section><section>
 <!--
   % information hiding permette di calare le interdipendenze
     % encapsulation è il modo di risolvere la cosa nei ling OO
@@ -80,15 +81,19 @@ Mirko Viroli, che ringrazio.</p>
 <li>così che sia <em>facilmente manutenibile (estendibile, flessibile, leggibile)</em>?</li>
 </ul>
 <p>$\Rightarrow$ un lunghissimo percorso: muoviamo i primi passi..</p>
-</section><section>
-<h2 id="passi">Passi</h2>
-<h3 id="il-nostro-approccio">Il nostro approccio</h3>
+<h3 id="il-nostro-approccio-per-passi">Il nostro approccio: per passi</h3>
 <!-- *  Ricapitoleremo le principali convenzioni sul codice Java -->
 <ul>
-<li>Anticiperemo alcune tecniche di programmazione efficace basate sulle tecniche di <em><strong>incapsulamento</strong></em>, e conseguenti al fondamentale principio di <em><strong>decomposizione</strong></em> ($\Leftarrow$ aspetto cruciale della OO)</li>
+<li>Anticiperemo alcune tecniche di programmazione efficace basate su
+<ul>
+<li>tecniche di <em><strong>incapsulamento</strong></em></li>
+<li>principio di <em><strong>decomposizione</strong></em> ($\Leftarrow$ aspetto cruciale della OO)</li>
+</ul>
+</li>
 <li>Daremo qualche linea guida utile in future per costruire sistemi di più grosse dimensioni</li>
 </ul>
-<p>Nota: tutte queste tecniche e linee guida sono necessarie per gestire il livello di articolazione del linguaggio Java, ossia per rendere il suo uso più semplice possibile</p>
+<p>Nota: sono tecniche/linee guida importanti per gestire il livello di articolazione di Java</p>
+<!-- Nota: tutte queste tecniche e linee guida sono necessarie per gestire il livello di articolazione del linguaggio Java, ossia per rendere il suo uso più semplice possibile -->
 </section><section>
 <h1 id="decomposizione-incapsulamento-information-hiding">Decomposizione, incapsulamento, information hiding</h1>
 </section><section>
@@ -118,7 +123,7 @@ Mirko Viroli, che ringrazio.</p>
 <li>Una dipendenza crea un <strong>accoppiamento (coupling)</strong></li>
 </ul>
 </li>
-<li>Bisogna cercare di ridurre al massimo le <em>“dipendenze”</em> fra i sottoproblemi, il che consente:
+<li>Bisogna cercare di ridurre al massimo le <em>“dipendenze”</em> fra i sottoproblemi (ovvero, di favorire un <em>accoppiamento lasco</em> [<em>loose coupling</em>]), il che consente:
 <ul>
 <li>più autonomia decisionale</li>
 <li>meno interazione con altri</li>
@@ -164,26 +169,31 @@ Mirko Viroli, che ringrazio.</p>
 </section><section>
 <h2 id="dipendenze-e-oo">Dipendenze e OO</h2>
 <h3 id="dipendenza">Dipendenza</h3>
-<p>Si dice che una classe <code>A</code> <em>dipende da</em> una classe <code>B</code> se all’interno del codice di <code>A</code> si menziona la classe <code>B</code> (ad esempio come input di un metodo) o qualche sua proprietà.</p>
+<p>Una classe <code>A</code> <strong>dipende da</strong> una classe <code>B</code> se in <code>A</code> <em>si menziona</em> <code>B</code> (ad es. come input di un metodo) o qualche sua proprietà.</p>
 <ul>
-<li>La dipendenza è tanto più profonda (<em>high coupling</em>) quanto più in <code>A</code> si usano anche costruttori e/o campi e/o metodi definiti in <code>B</code>.</li>
+<li>La dipendenza è tanto più profonda (<strong>high coupling</strong>) quanto più in <code>A</code> si usano anche <em>costruttori / campi / metodi</em> di <code>B</code>.</li>
 </ul>
-<p>Implicazione di avere una dipendenza</p>
+<p>Implicazione</p>
 <ul>
-<li>Ogni dipendenza vincola fortemente la possibilità di fare modifiche, perché ne comporta altre da fare in cascata. Se <code>A</code> dipende da <code>B</code> e modifico <code>B</code>, dovrò probabilmente modificare anche <code>A</code>.</li>
+<li><em>Una dipendenza vincola fortemente la capacità di fare modifiche, perché ne comporta altre in cascata</em>.
+<ul>
+<li>Se <code>A</code> dipende da <code>B</code> e modifico <code>B</code>, dovrò probabilmente modificare anche <code>A</code>.</li>
+</ul>
+</li>
 </ul>
 <h3 id="la-sindrome-dellintoccabilità---sw-rigido">La sindrome dell’“intoccabilità”—<em>SW “rigido”</em></h3>
 <p>Costruendo software complesso con troppe dipendenze, si giunge al punto che ogni singola modifica ne richiederebbe molte altre, e rischierebbe quindi di essere troppo costosa – risultato: non si cambia più il software!</p>
 </section><section>
-<h2 id="incapsulamento">Incapsulamento</h2>
+<h2 id="incapsulamento-1">Incapsulamento</h2>
 <h3 id="definizione">Definizione</h3>
-<p><strong>Incapsulamento</strong>: il grado con cui un insieme di dati e funzioni sono parte di un oggetto</p>
+<p><strong>Incapsulamento</strong>: il grado con cui un insieme di dati e funzioni sono <em>“parte interna”</em> di un oggetto</p>
 <p>L’incapsulamento si fonda su due ingredienti cruciali della programmazione OO:</p>
 <ol>
 <li><strong>Impacchettamento dati + funzioni per manipolarli</strong></li>
 <li><strong>Information hiding</strong> (via <em>controllo d’accesso</em>)</li>
 </ol>
-<h3 id="filosofia">Filosofia</h3>
+</section><section>
+<h3 id="incapsulamento-linee-guida">Incapsulamento: linee guida</h3>
 <ul>
 <li>Ogni classe dichiari <code>public</code> solo quei (pochi) metodi/costruttori necessari a interagire con (o creare) le sue istanze</li>
 <li>Il resto (che quindi include meri aspetti realizzativi) sia <code>private</code>
@@ -193,8 +203,11 @@ Mirko Viroli, che ringrazio.</p>
 </ul>
 </li>
 </ul>
-<h3 id="incapsulamento-e-dipendenze">Incapsulamento e dipendenze</h3>
-<p>Così facendo il “cliente” è debolmente influenzato da possibili modifiche future riguardanti meri aspetti realizzativi.</p>
+<h3 id="lincapsulamento-aiuta-a-limitare-dipendenzeaccoppiamento">L’incapsulamento aiuta a limitare dipendenze/accoppiamento</h3>
+<ul>
+<li>Limitando la parti <code>public</code>, si riduce la superficie accessibile e quindi la dipendenza potenziale</li>
+<li>Il “cliente” è debolmente influenzato da possibili modifiche future riguardanti meri aspetti realizzativi.</li>
+</ul>
 </section><section>
 <h2 id="esempio-base-conteggio-non-incapsulato">Esempio base: conteggio (NON incapsulato)</h2>
 <ul>
