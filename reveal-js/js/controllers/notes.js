@@ -38,12 +38,10 @@ export default class Notes {
 	 */
 	update() {
 
-		if( this.Reveal.getConfig().showNotes &&
-			this.element && this.Reveal.getCurrentSlide() &&
-			!this.Reveal.isReaderMode() &&
-			!this.Reveal.isPrinting()
-		) {
+		if( this.Reveal.getConfig().showNotes && this.element && this.Reveal.getCurrentSlide() && !this.Reveal.print.isPrintingPDF() ) {
+
 			this.element.innerHTML = this.getSlideNotes() || '<span class="notes-placeholder">No notes on this slide.</span>';
+
 		}
 
 	}
@@ -56,11 +54,7 @@ export default class Notes {
 	 */
 	updateVisibility() {
 
-		if( this.Reveal.getConfig().showNotes &&
-			this.hasNotes() &&
-			!this.Reveal.isReaderMode() &&
-			!this.Reveal.isPrinting()
-		) {
+		if( this.Reveal.getConfig().showNotes && this.hasNotes() && !this.Reveal.print.isPrintingPDF() ) {
 			this.Reveal.getRevealElement().classList.add( 'show-notes' );
 		}
 		else {

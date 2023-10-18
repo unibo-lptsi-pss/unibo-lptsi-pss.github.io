@@ -5,7 +5,7 @@
  * https://revealjs.com/pdf-export/
  */
 
-html.reveal-print {
+html.print-pdf {
 	* {
 		-webkit-print-color-adjust: exact;
 	}
@@ -68,10 +68,6 @@ html.reveal-print {
 		z-index: 1;
 
 		page-break-after: always;
-	}
-
-	.reveal .slides .pdf-page:last-of-type {
-		page-break-after: avoid;
 	}
 
 	.reveal .slides section {
