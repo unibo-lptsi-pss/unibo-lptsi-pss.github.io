@@ -20,7 +20,7 @@
       <div class="slides">
   
 
-    <section><h1 id="interfacce">Interfacce</h1>
+    <section><h1 id="interfacce-e-composizione">Interfacce e composizione</h1>
 <h4 id="progettazione-e-sviluppo-del-software">Progettazione e Sviluppo del Software</h4>
 <h4 id="cdl-tecnologie-dei-sistemi-informatici">C.D.L. Tecnologie dei Sistemi Informatici</h4>
 <h3 id="roberto-casadei-----robycasadeiuniboitmailtorobycasadeiuniboit"><a href="mailto:roby.casadei@unibo.it">Roberto Casadei — <code>roby.casadei@unibo.it</code></a></h3>
@@ -114,7 +114,7 @@ Mirko Viroli, che ringrazio.</p>
 <h2 id="composizione----relazione-has-a">Composizione – relazione “has-a”</h2>
 <h3 id="idea">Idea</h3>
 <ul>
-<li>un oggetto della classe <code>A</code> è ottenuto componendo un insieme di altri oggetti, delle classi <code>B1</code>, <code>B2</code>, …, <code>Bn</code>
+<li>un oggetto della classe <code>A</code> è ottenuto <em>componendo</em> un insieme di altri oggetti, delle classi <code>B1</code>, <code>B2</code>, …, <code>Bn</code>
 <ul>
 <li>si dice che un oggetto di <code>A</code> <em>contiene</em>, o <em>si compone di</em>, o <em>aggrega</em>, oggetti delle classi <code>B1</code>, <code>B2</code>, …, <code>Bn</code></li>
 </ul>
@@ -125,16 +125,36 @@ Mirko Viroli, che ringrazio.</p>
 </ul>
 </li>
 </ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">A</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#000">B1</span> <span style="color:#000">component1</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#000">B2</span> <span style="color:#000">component2</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">A</span><span style="color:#000">(</span><span style="color:#000">B1</span> <span style="color:#000">b1</span><span style="color:#000">,</span> <span style="color:#000">...)</span> <span style="color:#000">{</span> <span style="color:#000">...</span> <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">}</span>
+</span></span></code></pre></div></section><section>
 <h3 id="composizione-vs-aggregazione">Composizione vs. aggregazione</h3>
 <ul>
-<li>Quando gli oggetti composti hanno vita propria senza l’esistenza di <code>A</code> si parla anche di <em><strong>aggregazione</strong></em>
+<li>La distinzione si basa sul <em>ciclo di vita degli elementi contenuti rispetto al contenitore</em>
+<ul>
+<li><em><strong>Aggregazione</strong></em>: in <code>A</code>, gli oggetti composti hanno <em>vita propria e indipendente</em> da <code>A</code>
+<ul>
+<li>In pratica: sono spesso creati “fuori” da <code>A</code>, passati ad <code>A</code> all’atto di costruzione o via setter, e possono sopravvivere ad <code>A</code></li>
+</ul>
+</li>
+<li><em><strong>Composizione</strong></em>: in <code>A</code>, gli oggetti composti hanno <em>vita vincolata</em> da <code>A</code>
+<ul>
+<li>In pratica: sono creati e distrutti entro <code>A</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Esempi
 <ul>
 <li>Esempio di <em>aggregazione</em>: una <code>ClasseScolastica</code> aggrega un insieme di oggetti <code>Studente</code>; una <code>Automobile</code> ha un <code>Motore</code>, quattro oggetti <code>Ruota</code> etc.</li>
 <li>Esempio di <em>composizione</em>: una <code>Casa</code> si compone di un insieme di oggetti <code>Stanza</code> (una stanza non ha vita indipendente dalla casa); un <code>Libro</code> si compone di più oggetti <code>Capitolo</code> (è vero, si potrebbe considerare un capitolo in isolamento, ma questo rimarrebbe comunque un capitolo di quel libro)</li>
 </ul>
 </li>
-<li>(ma non ci occuperemo per ora in dettaglio di questa distinzione)</li>
 </ul>
+<!-- * (ma non ci occuperemo per ora in dettaglio di questa distinzione) -->
 </section><section>
 <h2 id="qualche-esempio-di-composizione">Qualche esempio di composizione</h2>
 <h3 id="gui">GUI</h3>
@@ -145,21 +165,21 @@ Mirko Viroli, che ringrazio.</p>
 <p>Un oggetto controllore domotica si compone di oggetti di tipo <code>Lamp</code>, <code>TV</code>, <code>Radio</code>, eccetera</p>
 </section><section>
 <h2 id="tipiche-realizzazioni">Tipiche realizzazioni</h2>
-<h3 id="un-oggetto-a-si-compone-esattamente-di-un-oggetto-di-b">Un oggetto <code>A</code> si compone esattamente di un oggetto di <code>B</code></h3>
+<h3 id="un-oggetto-a-si-compone-esattamente-di-1-oggetto-di-b">Un oggetto <code>A</code> si compone <em>esattamente</em> di <em>1</em> oggetto di <code>B</code></h3>
 <ul>
 <li>La classe <code>A</code> avrà un campo (privato) di tipo <code>B</code></li>
 <li>Tale campo (impostato dal costruttore di <code>A</code>) è sempre presente</li>
 </ul>
-<h3 id="un-oggetto-a-si-compone-opzionalmente-di-un-oggetto-di-b">Un oggetto <code>A</code> si compone opzionalmente di un oggetto di <code>B</code></h3>
+<h3 id="un-oggetto-a-si-compone-opzionalmente-di-1-oggetto-di-b">Un oggetto <code>A</code> si compone <em>opzionalmente</em> di <em>1</em> oggetto di <code>B</code></h3>
 <ul>
 <li>La classe <code>A</code> avrà un campo (privato) di tipo <code>B</code></li>
 <li>Il suo contenuto potrebbe essere <code>null</code> (oggetto di <code>B</code> assente)</li>
 </ul>
-<h3 id="un-oggetto-a-si-compone-di-un-numero-noto-n-di-oggetti-di-b">Un oggetto <code>A</code> si compone di un numero noto $n$ di oggetti di <code>B</code></h3>
+<h3 id="un-oggetto-a-si-compone-di-un-numero-noto-n-di-oggetti-di-b">Un oggetto <code>A</code> si compone di un <em>numero noto</em> <em>$n$</em> di oggetti di <code>B</code></h3>
 <ul>
 <li>La classe <code>A</code> avrà $n$ campi (privati) di tipo <code>B</code> – se “n” piccolo</li>
 </ul>
-<h3 id="un-oggetto-a-si-compone-di-una-moltitudine-non-nota-di-oggetti-di-b">Un oggetto <code>A</code> si compone di una moltitudine non nota di oggetti di <code>B</code></h3>
+<h3 id="un-oggetto-a-si-compone-di-una-moltitudine-non-nota-di-oggetti-di-b">Un oggetto <code>A</code> si compone di una <em>moltitudine non nota</em> di oggetti di <code>B</code></h3>
 <ul>
 <li>La classe <code>A</code> avrà un campo (privato) di tipo <code>B[]</code> (o altro container)</li>
 </ul>
@@ -395,7 +415,7 @@ class Lamp {
 <ul>
 <li>tipicamente usata in fase di design</li>
 </ul>
-<div class="mermaid" data-processed="true" pre-rendered="true"><svg aria-labelledby="chart-title-mermaid-1697619075638 chart-desc-mermaid-1697619075638" role="img" viewBox="0 0 217.78125 249" style="max-width: 217.78125px;" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" width="100%" id="mermaid-1697619075638"><title id="chart-title-mermaid-1697619075638"></title><desc id="chart-desc-mermaid-1697619075638"></desc><style>#mermaid-1697619075638 {font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:16px;fill:#333;}#mermaid-1697619075638 .error-icon{fill:#552222;}#mermaid-1697619075638 .error-text{fill:#552222;stroke:#552222;}#mermaid-1697619075638 .edge-thickness-normal{stroke-width:2px;}#mermaid-1697619075638 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-1697619075638 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-1697619075638 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-1697619075638 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-1697619075638 .marker{fill:#333333;stroke:#333333;}#mermaid-1697619075638 .marker.cross{stroke:#333333;}#mermaid-1697619075638 svg{font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:16px;}#mermaid-1697619075638 g.classGroup text{fill:#9370DB;fill:#131300;stroke:none;font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:10px;}#mermaid-1697619075638 g.classGroup text .title{font-weight:bolder;}#mermaid-1697619075638 .nodeLabel,#mermaid-1697619075638 .edgeLabel{color:#131300;}#mermaid-1697619075638 .edgeLabel .label rect{fill:#ECECFF;}#mermaid-1697619075638 .label text{fill:#131300;}#mermaid-1697619075638 .edgeLabel .label span{background:#ECECFF;}#mermaid-1697619075638 .classTitle{font-weight:bolder;}#mermaid-1697619075638 .node rect,#mermaid-1697619075638 .node circle,#mermaid-1697619075638 .node ellipse,#mermaid-1697619075638 .node polygon,#mermaid-1697619075638 .node path{fill:#ECECFF;stroke:#9370DB;stroke-width:1px;}#mermaid-1697619075638 .divider{stroke:#9370DB;stroke:1;}#mermaid-1697619075638 g.clickable{cursor:pointer;}#mermaid-1697619075638 g.classGroup rect{fill:#ECECFF;stroke:#9370DB;}#mermaid-1697619075638 g.classGroup line{stroke:#9370DB;stroke-width:1;}#mermaid-1697619075638 .classLabel .box{stroke:none;stroke-width:0;fill:#ECECFF;opacity:0.5;}#mermaid-1697619075638 .classLabel .label{fill:#9370DB;font-size:10px;}#mermaid-1697619075638 .relation{stroke:#333333;stroke-width:1;fill:none;}#mermaid-1697619075638 .dashed-line{stroke-dasharray:3;}#mermaid-1697619075638 #compositionStart,#mermaid-1697619075638 .composition{fill:#333333!important;stroke:#333333!important;stroke-width:1;}#mermaid-1697619075638 #compositionEnd,#mermaid-1697619075638 .composition{fill:#333333!important;stroke:#333333!important;stroke-width:1;}#mermaid-1697619075638 #dependencyStart,#mermaid-1697619075638 .dependency{fill:#333333!important;stroke:#333333!important;stroke-width:1;}#mermaid-1697619075638 #dependencyStart,#mermaid-1697619075638 .dependency{fill:#333333!important;stroke:#333333!important;stroke-width:1;}#mermaid-1697619075638 #extensionStart,#mermaid-1697619075638 .extension{fill:#333333!important;stroke:#333333!important;stroke-width:1;}#mermaid-1697619075638 #extensionEnd,#mermaid-1697619075638 .extension{fill:#333333!important;stroke:#333333!important;stroke-width:1;}#mermaid-1697619075638 #aggregationStart,#mermaid-1697619075638 .aggregation{fill:#ECECFF!important;stroke:#333333!important;stroke-width:1;}#mermaid-1697619075638 #aggregationEnd,#mermaid-1697619075638 .aggregation{fill:#ECECFF!important;stroke:#333333!important;stroke-width:1;}#mermaid-1697619075638 #lollipopStart,#mermaid-1697619075638 .lollipop{fill:#ECECFF!important;stroke:#333333!important;stroke-width:1;}#mermaid-1697619075638 #lollipopEnd,#mermaid-1697619075638 .lollipop{fill:#ECECFF!important;stroke:#333333!important;stroke-width:1;}#mermaid-1697619075638 .edgeTerminals{font-size:11px;}#mermaid-1697619075638 :root{--mermaid-font-family:"trebuchet ms",verdana,arial,sans-serif;}</style><g><defs><marker orient="auto" markerHeight="240" markerWidth="190" refY="7" refX="0" class="marker aggregation classDiagram" id="classDiagram-aggregationStart"><path d="M 18,7 L9,13 L1,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="28" markerWidth="20" refY="7" refX="19" class="marker aggregation classDiagram" id="classDiagram-aggregationEnd"><path d="M 18,7 L9,13 L1,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="240" markerWidth="190" refY="7" refX="0" class="marker extension classDiagram" id="classDiagram-extensionStart"><path d="M 1,7 L18,13 V 1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="28" markerWidth="20" refY="7" refX="19" class="marker extension classDiagram" id="classDiagram-extensionEnd"><path d="M 1,1 V 13 L18,7 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="240" markerWidth="190" refY="7" refX="0" class="marker composition classDiagram" id="classDiagram-compositionStart"><path d="M 18,7 L9,13 L1,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="28" markerWidth="20" refY="7" refX="19" class="marker composition classDiagram" id="classDiagram-compositionEnd"><path d="M 18,7 L9,13 L1,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="240" markerWidth="190" refY="7" refX="0" class="marker dependency classDiagram" id="classDiagram-dependencyStart"><path d="M 5,7 L9,13 L1,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="28" markerWidth="20" refY="7" refX="19" class="marker dependency classDiagram" id="classDiagram-dependencyEnd"><path d="M 18,7 L9,13 L14,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="240" markerWidth="190" refY="7" refX="0" class="marker lollipop classDiagram" id="classDiagram-lollipopStart"><circle r="6" cy="7" cx="6" fill="white" stroke="black"></circle></marker></defs><g class="root"><g class="clusters"></g><g class="edgePaths"></g><g class="edgeLabels"></g><g class="nodes"><g transform="translate(108.890625, 124.5)" id="classid-Lamp-0" class="node default"><rect height="233" width="201.78125" y="-116.5" x="-100.890625" class="outer title-state"></rect><line y2="-86.5" y1="-86.5" x2="100.890625" x1="-100.890625" class="divider"></line><line y2="-70.5" y1="-70.5" x2="100.890625" x1="-100.890625" class="divider"></line><g class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel"></span></div></foreignObject><foreignObject transform="translate( -21.3359375, -109)" height="18" width="42.671875" class="classTitle"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">Lamp</span></div></foreignObject><foreignObject transform="translate( -93.390625, -63)" height="18" width="50.6875"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">Lamp()</span></div></foreignObject><foreignObject transform="translate( -93.390625, -41)" height="18" width="68.484375"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">brighten()</span></div></foreignObject><foreignObject transform="translate( -93.390625, -19)" height="18" width="36.4375"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">dim()</span></div></foreignObject><foreignObject transform="translate( -93.390625, 3)" height="18" width="153.875"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">getIntensity() : double</span></div></foreignObject><foreignObject transform="translate( -93.390625, 25)" height="18" width="178.765625"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">isSwitchedOn() : boolean</span></div></foreignObject><foreignObject transform="translate( -93.390625, 47)" height="18" width="186.78125"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">setIntensity(value: double)</span></div></foreignObject><foreignObject transform="translate( -93.390625, 69)" height="18" width="76.453125"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">switchOn()</span></div></foreignObject><foreignObject transform="translate( -93.390625, 91)" height="18" width="76.15625"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">switchOff()</span></div></foreignObject></g></g></g></g></g></svg></div>
+<div class="mermaid" data-processed="true" pre-rendered="true"><svg aria-labelledby="chart-title-mermaid-1697621166838 chart-desc-mermaid-1697621166838" role="img" viewBox="0 0 217.78125 249" style="max-width: 217.78125px;" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" width="100%" id="mermaid-1697621166838"><title id="chart-title-mermaid-1697621166838"></title><desc id="chart-desc-mermaid-1697621166838"></desc><style>#mermaid-1697621166838 {font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:16px;fill:#333;}#mermaid-1697621166838 .error-icon{fill:#552222;}#mermaid-1697621166838 .error-text{fill:#552222;stroke:#552222;}#mermaid-1697621166838 .edge-thickness-normal{stroke-width:2px;}#mermaid-1697621166838 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-1697621166838 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-1697621166838 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-1697621166838 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-1697621166838 .marker{fill:#333333;stroke:#333333;}#mermaid-1697621166838 .marker.cross{stroke:#333333;}#mermaid-1697621166838 svg{font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:16px;}#mermaid-1697621166838 g.classGroup text{fill:#9370DB;fill:#131300;stroke:none;font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:10px;}#mermaid-1697621166838 g.classGroup text .title{font-weight:bolder;}#mermaid-1697621166838 .nodeLabel,#mermaid-1697621166838 .edgeLabel{color:#131300;}#mermaid-1697621166838 .edgeLabel .label rect{fill:#ECECFF;}#mermaid-1697621166838 .label text{fill:#131300;}#mermaid-1697621166838 .edgeLabel .label span{background:#ECECFF;}#mermaid-1697621166838 .classTitle{font-weight:bolder;}#mermaid-1697621166838 .node rect,#mermaid-1697621166838 .node circle,#mermaid-1697621166838 .node ellipse,#mermaid-1697621166838 .node polygon,#mermaid-1697621166838 .node path{fill:#ECECFF;stroke:#9370DB;stroke-width:1px;}#mermaid-1697621166838 .divider{stroke:#9370DB;stroke:1;}#mermaid-1697621166838 g.clickable{cursor:pointer;}#mermaid-1697621166838 g.classGroup rect{fill:#ECECFF;stroke:#9370DB;}#mermaid-1697621166838 g.classGroup line{stroke:#9370DB;stroke-width:1;}#mermaid-1697621166838 .classLabel .box{stroke:none;stroke-width:0;fill:#ECECFF;opacity:0.5;}#mermaid-1697621166838 .classLabel .label{fill:#9370DB;font-size:10px;}#mermaid-1697621166838 .relation{stroke:#333333;stroke-width:1;fill:none;}#mermaid-1697621166838 .dashed-line{stroke-dasharray:3;}#mermaid-1697621166838 #compositionStart,#mermaid-1697621166838 .composition{fill:#333333!important;stroke:#333333!important;stroke-width:1;}#mermaid-1697621166838 #compositionEnd,#mermaid-1697621166838 .composition{fill:#333333!important;stroke:#333333!important;stroke-width:1;}#mermaid-1697621166838 #dependencyStart,#mermaid-1697621166838 .dependency{fill:#333333!important;stroke:#333333!important;stroke-width:1;}#mermaid-1697621166838 #dependencyStart,#mermaid-1697621166838 .dependency{fill:#333333!important;stroke:#333333!important;stroke-width:1;}#mermaid-1697621166838 #extensionStart,#mermaid-1697621166838 .extension{fill:#333333!important;stroke:#333333!important;stroke-width:1;}#mermaid-1697621166838 #extensionEnd,#mermaid-1697621166838 .extension{fill:#333333!important;stroke:#333333!important;stroke-width:1;}#mermaid-1697621166838 #aggregationStart,#mermaid-1697621166838 .aggregation{fill:#ECECFF!important;stroke:#333333!important;stroke-width:1;}#mermaid-1697621166838 #aggregationEnd,#mermaid-1697621166838 .aggregation{fill:#ECECFF!important;stroke:#333333!important;stroke-width:1;}#mermaid-1697621166838 #lollipopStart,#mermaid-1697621166838 .lollipop{fill:#ECECFF!important;stroke:#333333!important;stroke-width:1;}#mermaid-1697621166838 #lollipopEnd,#mermaid-1697621166838 .lollipop{fill:#ECECFF!important;stroke:#333333!important;stroke-width:1;}#mermaid-1697621166838 .edgeTerminals{font-size:11px;}#mermaid-1697621166838 :root{--mermaid-font-family:"trebuchet ms",verdana,arial,sans-serif;}</style><g><defs><marker orient="auto" markerHeight="240" markerWidth="190" refY="7" refX="0" class="marker aggregation classDiagram" id="classDiagram-aggregationStart"><path d="M 18,7 L9,13 L1,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="28" markerWidth="20" refY="7" refX="19" class="marker aggregation classDiagram" id="classDiagram-aggregationEnd"><path d="M 18,7 L9,13 L1,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="240" markerWidth="190" refY="7" refX="0" class="marker extension classDiagram" id="classDiagram-extensionStart"><path d="M 1,7 L18,13 V 1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="28" markerWidth="20" refY="7" refX="19" class="marker extension classDiagram" id="classDiagram-extensionEnd"><path d="M 1,1 V 13 L18,7 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="240" markerWidth="190" refY="7" refX="0" class="marker composition classDiagram" id="classDiagram-compositionStart"><path d="M 18,7 L9,13 L1,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="28" markerWidth="20" refY="7" refX="19" class="marker composition classDiagram" id="classDiagram-compositionEnd"><path d="M 18,7 L9,13 L1,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="240" markerWidth="190" refY="7" refX="0" class="marker dependency classDiagram" id="classDiagram-dependencyStart"><path d="M 5,7 L9,13 L1,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="28" markerWidth="20" refY="7" refX="19" class="marker dependency classDiagram" id="classDiagram-dependencyEnd"><path d="M 18,7 L9,13 L14,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="240" markerWidth="190" refY="7" refX="0" class="marker lollipop classDiagram" id="classDiagram-lollipopStart"><circle r="6" cy="7" cx="6" fill="white" stroke="black"></circle></marker></defs><g class="root"><g class="clusters"></g><g class="edgePaths"></g><g class="edgeLabels"></g><g class="nodes"><g transform="translate(108.890625, 124.5)" id="classid-Lamp-0" class="node default"><rect height="233" width="201.78125" y="-116.5" x="-100.890625" class="outer title-state"></rect><line y2="-86.5" y1="-86.5" x2="100.890625" x1="-100.890625" class="divider"></line><line y2="-70.5" y1="-70.5" x2="100.890625" x1="-100.890625" class="divider"></line><g class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel"></span></div></foreignObject><foreignObject transform="translate( -21.3359375, -109)" height="18" width="42.671875" class="classTitle"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">Lamp</span></div></foreignObject><foreignObject transform="translate( -93.390625, -63)" height="18" width="50.6875"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">Lamp()</span></div></foreignObject><foreignObject transform="translate( -93.390625, -41)" height="18" width="68.484375"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">brighten()</span></div></foreignObject><foreignObject transform="translate( -93.390625, -19)" height="18" width="36.4375"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">dim()</span></div></foreignObject><foreignObject transform="translate( -93.390625, 3)" height="18" width="153.875"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">getIntensity() : double</span></div></foreignObject><foreignObject transform="translate( -93.390625, 25)" height="18" width="178.765625"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">isSwitchedOn() : boolean</span></div></foreignObject><foreignObject transform="translate( -93.390625, 47)" height="18" width="186.78125"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">setIntensity(value: double)</span></div></foreignObject><foreignObject transform="translate( -93.390625, 69)" height="18" width="76.453125"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">switchOn()</span></div></foreignObject><foreignObject transform="translate( -93.390625, 91)" height="18" width="76.15625"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">switchOff()</span></div></foreignObject></g></g></g></g></g></svg></div>
 
 </section><section>
 <h2 id="uml-lamp-e-twolampsdevice">UML: <code>Lamp</code> e <code>TwoLampsDevice</code></h2>
@@ -577,10 +597,10 @@ AirConditioner "0..n" --* DomusController
 </li>
 </ul>
 </section><section>
-<h1 id="interfacce-1">Interfacce</h1>
+<h1 id="interfacce">Interfacce</h1>
 </section><section>
 <h2 id="motivazioni">Motivazioni</h2>
-<h3 id="specifica">Specifica</h3>
+<h3 id="1-specifica-astratta-di-oggetti">1) Specifica astratta di oggetti</h3>
 <ul>
 <li>Serve un meccanismo per <em>separare esplicitamente</em>, ossia in dichiarazioni diverse, <em>l’interfaccia</em> della classe e la sua <em>realizzazione</em>
 <ul>
@@ -589,7 +609,47 @@ AirConditioner "0..n" --* DomusController
 </ul>
 </li>
 </ul>
-<h3 id="polimorfismo">Polimorfismo</h3>
+<div class="container">
+<div class="col">
+<div class="smaller">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">Lamp</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">double</span> <span style="color:#000">DELTA</span> <span style="color:#000">=</span> <span style="color:#1c01ce">0</span><span style="color:#000">.</span><span style="color:#836c28">1</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#a90d91">private</span> <span style="color:#a90d91">int</span> <span style="color:#000">intensity</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#a90d91">private</span> <span style="color:#a90d91">boolean</span> <span style="color:#000">switchedOn</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#177500">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>
+</span></span><span style="display:flex;"><span>   <span style="color:#a90d91">public</span> <span style="color:#000">Lamp</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">switchedOn</span> <span style="color:#000">=</span> <span style="color:#a90d91">false</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">intensity</span> <span style="color:#000">=</span> <span style="color:#1c01ce">0</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">switchOn</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">switchedOn</span> <span style="color:#000">=</span> <span style="color:#a90d91">true</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   <span style="color:#a90d91">public</span> <span style="color:#a90d91">boolean</span> <span style="color:#000">isSwitchedOn</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">switchedOn</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   <span style="color:#a90d91">public</span> <span style="color:#a90d91">double</span> <span style="color:#000">getIntensity</span><span style="color:#000">()</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span><span style="color:#000">.</span><span style="color:#836c28">intensity</span> <span style="color:#000">*</span> <span style="color:#000">DELTA</span><span style="color:#000">;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#000">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   <span style="color:#177500">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#000">}</span>
+</span></span></code></pre></div></div>
+</div><div class="col">
+<p>Estrazione del “contratto d’uso” della lampadina</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">interface</span> <span style="color:#3f6e75">Lamp</span> <span style="color:#000">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a90d91">void</span> <span style="color:#000">switchOn</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000">Boolean</span> <span style="color:#000">isSwitchedOn</span><span style="color:#000">();</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a90d91">double</span> <span style="color:#000">getIntensity</span><span style="color:#000">()</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#177500">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#000">}</span>
+</span></span></code></pre></div></div>
+</div>
+</section><section>
+<h3 id="2-polimorfismo-accesso-uniforme-a-oggetti-diversi">2) Polimorfismo: accesso uniforme a oggetti diversi</h3>
 <ul>
 <li>Serve un meccanismo per poter fornire <em>diverse possibili realizzazioni di un contratto</em></li>
 <li>Tutte devono poter essere <em>utilizzabili in modo omogeneo</em></li>
@@ -1006,7 +1066,7 @@ Device <|-- AirConditioner
 <p>No. Il programma può manipolare gli elementi del tipo <code>I</code> solo mandando loro i messaggi dichiarati in <code>I</code>, che sono sicuramente “accettati” dagli oggetti di <code>C</code>. Il viceversa non è vero.</p>
 <p><strong>Nota: <code>I</code> è più generale di <code>C</code>, ma fornisce meno funzionalità!</strong></p>
 </section><section>
-<h2 id="polimorfismo-1">Polimorfismo</h2>
+<h2 id="polimorfismo">Polimorfismo</h2>
 <h3 id="polimorfismo--molte-forme-molti-tipi">Polimorfismo = molte forme (molti tipi)</h3>
 <p>Ve ne sono di diversi tipi nei linguaggi OO</p>
 <ul>
@@ -1233,9 +1293,9 @@ I <|-- C3
 <p>Familiarizzare con:</p>
 <ul>
 <li>Costruzione di semplici classi con incapsulamento</li>
-<li>Relativa costruzione di test</li>
 <li>Costruzione di classi con relazione d’uso verso una interfaccia</li>
 </ul>
+<!-- *  Relativa costruzione di test -->
 </section>
 
   
