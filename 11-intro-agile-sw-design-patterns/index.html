@@ -319,6 +319,16 @@ il proprio comportamento di conseguenza.</li>
 </ul>
 </section><section>
 <h2 id="design-pattern">Design Pattern</h2>
+<div class="container">
+<div class="col">
+<p><img src="imgs/pattern-gof-cover.jpg" alt=""></p>
+</div>
+<div class="col">
+<p><img src="imgs/posa1-cover.jpg" alt="">
+<img src="imgs/posa4-cover.jpg" alt=""></p>
+</div>
+</div>
+</section><section>
 <h3 id="i-pattern-di-progettazione">I Pattern di progettazione</h3>
 <ul>
 <li>Un <strong>pattern</strong> è una <em>soluzione notevole a problemi ricorrenti di design object-oriented</em>
@@ -524,7 +534,7 @@ il proprio comportamento di conseguenza.</li>
 <li>Ai clienti passo un oggetto (di una specializzazione) dell’interfaccia base</li>
 </ul>
 <!-- *  Se la strategia è funzionale si usano facilmente le lambda (e viceversa) -->
-<p><em><strong>È probabilmente uno dei pattern più importanti (assieme al Factory Methods)</strong></em></p>
+<p><em><strong>È probabilmente uno dei pattern più importanti (assieme al Factory Method)</strong></em></p>
 </section><section>
 <h2 id="strategy-uml">Strategy: UML</h2>
 <!-- ![](imgs/strategy.jpg) -->
@@ -910,7 +920,6 @@ il proprio comportamento di conseguenza.</li>
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></div>
 </div>
-</section><section>
 <ul>
 <li>Benefici
 <ul>
@@ -918,13 +927,24 @@ il proprio comportamento di conseguenza.</li>
 <li><code>TwoLampsDevice</code> non dipende più da classi concrete, ma da oggetti di contratto <code>LampFactory</code></li>
 </ul>
 </li>
-<li>Un pattern tra Abstract Factory e Factory Method
+</ul>
+</section><section>
 <ul>
-<li>Propriamente, Abstract Factory dovrebbe supportare una <em>famiglia di prodotti</em></li>
-<li>Propriamente, Factory Method richiederebbe che le classi che specializzano il metodo factory riusino il contesto</li>
+<li>Un pattern tra Factory Method e Abstract Factory
+<ul>
+<li>Propriamente, <em>Factory Method</em> si basa sul riuso del contesto via specializzazione, con override del “metodo factory” (da cui il nome del pattern)</li>
+<li>Propriamente, <em>Abstract Factory</em> dovrebbe supportare una <em>famiglia di prodotti</em></li>
 </ul>
 </li>
 </ul>
+<div class="container">
+<div class="col">
+<p><img src="imgs/factorymethod.png" alt=""></p>
+</div>
+<div class="col">
+<p><img src="imgs/pattern-abstractfactory-method.png" alt=""></p>
+</div>
+</div>
 </section><section>
 <h2 id="preview-del-prossimo-laboratorio">Preview del prossimo laboratorio</h2>
 <ul>
