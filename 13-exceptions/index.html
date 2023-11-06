@@ -21,14 +21,14 @@
   
 
     <section><h1 id="eccezioni">Eccezioni</h1>
-<!-- &lt;h4 id=&#34;progettazione-e-sviluppo-del-software&#34;&gt;Progettazione e Sviluppo del Software&lt;/h4&gt;
-&lt;h4 id=&#34;cdl-tecnologie-dei-sistemi-informatici&#34;&gt;C.D.L. Tecnologie dei Sistemi Informatici&lt;/h4&gt;
-&lt;h3 id=&#34;roberto-casadei-----robycasadeiuniboitmailtorobycasadeiuniboit&#34;&gt;&lt;a href=&#34;mailto:roby.casadei@unibo.it&#34;&gt;Roberto Casadei &amp;mdash; &lt;code&gt;roby.casadei@unibo.it&lt;/code&gt;&lt;/a&gt;&lt;/h3&gt;
-&lt;h3 id=&#34;angelo-filaseta-----angelofilasetauniboitmailtoangelofilasetauniboit&#34;&gt;&lt;a href=&#34;mailto:angelo.filaseta@unibo.it&#34;&gt;Angelo Filaseta &amp;mdash; &lt;code&gt;angelo.filaseta@unibo.it&lt;/code&gt;&lt;/a&gt;&lt;/h3&gt;
-&lt;h3 id=&#34;gianluca-aguzzi-----gianlucaaguzziuniboitmailtogianlucaaguzziuniboit&#34;&gt;&lt;a href=&#34;mailto:gianluca.aguzzi@unibo.it&#34;&gt;Gianluca Aguzzi &amp;mdash; &lt;code&gt;gianluca.aguzzi@unibo.it&lt;/code&gt;&lt;/a&gt;&lt;/h3&gt;
-&lt;!-- ### [Luca DeLuigi --- `luca.deluigi5@unibo.it`](mailto:luca.deluigi5@unibo.it) --&gt;
-&lt;p&gt;&lt;a href=&#34;?print-pdf&amp;amp;pdfSeparateFragments=false&#34;&gt;&lt;i class=&#34;fa fa-print&#34; aria-hidden=&#34;true&#34;&gt;&lt;/i&gt; versione stampabile&lt;/a&gt;&lt;/p&gt;
-&lt;hr&gt; -->
+<!-- <h4 id="progettazione-e-sviluppo-del-software">Progettazione e Sviluppo del Software</h4>
+<h4 id="cdl-tecnologie-dei-sistemi-informatici">C.D.L. Tecnologie dei Sistemi Informatici</h4>
+<h3 id="roberto-casadei-----robycasadeiuniboitmailtorobycasadeiuniboit"><a href="mailto:roby.casadei@unibo.it">Roberto Casadei &mdash; <code>roby.casadei@unibo.it</code></a></h3>
+<h3 id="angelo-filaseta-----angelofilasetauniboitmailtoangelofilasetauniboit"><a href="mailto:angelo.filaseta@unibo.it">Angelo Filaseta &mdash; <code>angelo.filaseta@unibo.it</code></a></h3>
+<h3 id="gianluca-aguzzi-----gianlucaaguzziuniboitmailtogianlucaaguzziuniboit"><a href="mailto:gianluca.aguzzi@unibo.it">Gianluca Aguzzi &mdash; <code>gianluca.aguzzi@unibo.it</code></a></h3>
+<!-- ### [Luca DeLuigi --- `luca.deluigi5@unibo.it`](mailto:luca.deluigi5@unibo.it) -->
+<p><a href="?print-pdf&amp;pdfSeparateFragments=false"><i class="fa fa-print" aria-hidden="true"></i> versione stampabile</a></p>
+</section><section> --&gt;
 <!-- this file includes generated content. Do not edit. Edit content/13-exceptions/generator.md, instead. -->
 <!-- this file includes generated content. Do not edit. Edit content/13-exceptions/generator.md, instead. -->
 <h4 id="progettazione-e-sviluppo-del-software">Progettazione e Sviluppo del Software</h4>
@@ -110,19 +110,19 @@ Mirko Viroli, che ringrazio.</p>
 </span></span></code></pre></div></section><section>
 <h2 id="violazioni-di-contratto-duso-di-un-oggetto-librerie-java">Violazioni di contratto d’uso di un oggetto: librerie Java</h2>
 <p>Operazione non supportata</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#000">Collections</span>.<span style="color:#000">&amp;</span><span style="color:#000">lt</span>;<span style="color:#000">Integer</span><span style="color:#000">&amp;</span><span style="color:#000">gt</span>;<span style="color:#000">emptySet</span>().<span style="color:#836c28">add</span>(<span style="color:#000">1</span>);
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#000">Collections</span>.<span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span><span style="color:#000">emptySet</span>().<span style="color:#836c28">add</span>(<span style="color:#000">1</span>);
 </span></span><span style="display:flex;"><span><span style="color:#177500">// UnsupportedOperationException</span>
 </span></span><span style="display:flex;"><span><span style="color:#177500">/* ERRORE: emptySet() torna un Set immutabile
-</span></span></span><span style="display:flex;"><span><span style="color:#177500">   deve essere impedita l&amp;#39;invocazione di add() */</span>
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">   deve essere impedita l'invocazione di add() */</span>
 </span></span></code></pre></div><p>Elemento non disponibile</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#000">Iterator</span><span style="color:#000">&amp;</span><span style="color:#000">lt</span>;<span style="color:#000">Integer</span><span style="color:#000">&amp;</span><span style="color:#000">gt</span>; <span style="color:#000">i</span> <span style="color:#000">=</span> <span style="color:#000">Arrays</span>.<span style="color:#836c28">asList</span>(<span style="color:#000">1</span>,<span style="color:#000">2</span>).<span style="color:#836c28">iterator</span>();
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#000">Iterator</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> <span style="color:#000">i</span> <span style="color:#000">=</span> <span style="color:#000">Arrays</span>.<span style="color:#836c28">asList</span>(<span style="color:#000">1</span>,<span style="color:#000">2</span>).<span style="color:#836c28">iterator</span>();
 </span></span><span style="display:flex;"><span><span style="color:#000">i</span>.<span style="color:#836c28">next</span>(); 
 </span></span><span style="display:flex;"><span><span style="color:#000">i</span>.<span style="color:#836c28">next</span>();
 </span></span><span style="display:flex;"><span><span style="color:#000">i</span>.<span style="color:#836c28">next</span>(); <span style="color:#177500">// NoSuchElementException</span>
-</span></span><span style="display:flex;"><span><span style="color:#177500">/* ERRORE: il contratto d&amp;#39;uso degli Iterator prevede di non
+</span></span><span style="display:flex;"><span><span style="color:#177500">/* ERRORE: il contratto d'uso degli Iterator prevede di non
 </span></span></span><span style="display:flex;"><span><span style="color:#177500">   invocare next() se hasNext() dà false */</span>
 </span></span></code></pre></div><p>Formato illegale</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#000">Integer</span>.<span style="color:#836c28">parseInt</span>(<span style="color:#000">&amp;</span><span style="color:#000">#</span><span style="color:#000">34</span>;<span style="color:#000">10</span>.<span style="color:#836c28">4</span><span style="color:#000">&amp;</span><span style="color:#000">#</span><span style="color:#000">34</span>;);
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#000">Integer</span>.<span style="color:#836c28">parseInt</span>(<span style="color:#c41a16">"10.4"</span>);
 </span></span><span style="display:flex;"><span><span style="color:#177500">// NumberFormatException</span>
 </span></span><span style="display:flex;"><span><span style="color:#177500">/* ERRORE: parseInt() si aspetta una stringa che contenga,
 </span></span></span><span style="display:flex;"><span><span style="color:#177500">   carattere per carattere, un intero valido */</span>
@@ -283,9 +283,9 @@ Mirko Viroli, che ringrazio.</p>
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#177500">/* Stampa dell&amp;#39;errore:
+</span></span><span style="display:flex;"><span><span style="color:#177500">/* Stampa dell'errore:
 </span></span></span><span style="display:flex;"><span><span style="color:#177500">
-</span></span></span><span style="display:flex;"><span><span style="color:#177500">Exception in thread &amp;#34;main&amp;#34; java.lang.ArrayIndexOutOfBoundsException: 3
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">Exception in thread "main" java.lang.ArrayIndexOutOfBoundsException: 3
 </span></span></span><span style="display:flex;"><span><span style="color:#177500">        at UncheckedStackTrace.accessArray(UncheckedStackTrace.java:9)
 </span></span></span><span style="display:flex;"><span><span style="color:#177500">        at UncheckedStackTrace.main(UncheckedStackTrace.java:5)
 </span></span></span><span style="display:flex;"><span><span style="color:#177500">*/</span>
@@ -299,17 +299,17 @@ Mirko Viroli, che ringrazio.</p>
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">int</span> <span style="color:#000">accessArray</span>(<span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span><span style="color:#000">[]</span> <span style="color:#000">array</span>, <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">pos</span>) {
-</span></span><span style="display:flex;"><span>    	<span style="color:#a90d91">if</span> (<span style="color:#000">pos</span> <span style="color:#000">&amp;</span><span style="color:#000">lt</span>; <span style="color:#000">0</span> <span style="color:#000">||</span> <span style="color:#000">pos</span> <span style="color:#000">&amp;</span><span style="color:#000">gt</span>;<span style="color:#000">=</span> <span style="color:#000">array</span>.<span style="color:#836c28">length</span>) {
-</span></span><span style="display:flex;"><span>    		<span style="color:#a90d91">final</span> <span style="color:#000">String</span> <span style="color:#000">msg</span> <span style="color:#000">=</span> <span style="color:#000">&amp;</span><span style="color:#000">#</span><span style="color:#000">34</span>;<span style="color:#000">Accesso</span> <span style="color:#000">fuori</span> <span style="color:#000">dai</span> <span style="color:#000">limiti</span>, <span style="color:#000">in</span> <span style="color:#000">posizione</span> <span style="color:#000">&amp;</span><span style="color:#000">#</span><span style="color:#000">34</span>; <span style="color:#000">&amp;</span><span style="color:#000">#</span><span style="color:#000">43</span>; <span style="color:#000">pos</span>;
+</span></span><span style="display:flex;"><span>    	<span style="color:#a90d91">if</span> (<span style="color:#000">pos</span> <span style="color:#000">&lt;</span> <span style="color:#000">0</span> <span style="color:#000">||</span> <span style="color:#000">pos</span> <span style="color:#000">&gt;=</span> <span style="color:#000">array</span>.<span style="color:#836c28">length</span>) {
+</span></span><span style="display:flex;"><span>    		<span style="color:#a90d91">final</span> <span style="color:#000">String</span> <span style="color:#000">msg</span> <span style="color:#000">=</span> <span style="color:#c41a16">"Accesso fuori dai limiti, in posizione "</span> <span style="color:#000">+</span> <span style="color:#000">pos</span>;
 </span></span><span style="display:flex;"><span>    		<span style="color:#a90d91">throw</span> <span style="color:#a90d91">new</span> <span style="color:#000">IllegalArgumentException</span>(<span style="color:#000">msg</span>);
 </span></span><span style="display:flex;"><span>    	}
 </span></span><span style="display:flex;"><span>    	<span style="color:#a90d91">return</span> <span style="color:#000">array</span><span style="color:#000">[</span><span style="color:#000">pos</span><span style="color:#000">]</span>;
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#177500">/* Stampa dell&amp;#39;errore:
+</span></span><span style="display:flex;"><span><span style="color:#177500">/* Stampa dell'errore:
 </span></span></span><span style="display:flex;"><span><span style="color:#177500">
-</span></span></span><span style="display:flex;"><span><span style="color:#177500">Exception in thread &amp;#34;main&amp;#34; java.lang.IllegalArgumentException: Accesso fuori dai limiti, in posizione 3
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">Exception in thread "main" java.lang.IllegalArgumentException: Accesso fuori dai limiti, in posizione 3
 </span></span></span><span style="display:flex;"><span><span style="color:#177500">	at it.unibo.apice.oop.p13exceptions.classes.UncheckedThrow.accessArray(UncheckedThrow.java:13)
 </span></span></span><span style="display:flex;"><span><span style="color:#177500">	at it.unibo.apice.oop.p13exceptions.classes.UncheckedThrow.main(UncheckedThrow.java:7)
 </span></span></span><span style="display:flex;"><span><span style="color:#177500">*/</span>
@@ -323,8 +323,8 @@ Mirko Viroli, che ringrazio.</p>
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">int</span> <span style="color:#000">accessArray</span>(<span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span><span style="color:#000">[]</span> <span style="color:#000">array</span>, <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">pos</span>) {
-</span></span><span style="display:flex;"><span>    	<span style="color:#a90d91">if</span> (<span style="color:#000">pos</span> <span style="color:#000">&amp;</span><span style="color:#000">lt</span>; <span style="color:#000">0</span> <span style="color:#000">||</span> <span style="color:#000">pos</span> <span style="color:#000">&amp;</span><span style="color:#000">gt</span>;<span style="color:#000">=</span> <span style="color:#000">array</span>.<span style="color:#836c28">length</span>) {
-</span></span><span style="display:flex;"><span>    		<span style="color:#a90d91">final</span> <span style="color:#000">String</span> <span style="color:#000">msg</span> <span style="color:#000">=</span> <span style="color:#000">&amp;</span><span style="color:#000">#</span><span style="color:#000">34</span>;<span style="color:#000">Accesso</span> <span style="color:#000">fuori</span> <span style="color:#000">dai</span> <span style="color:#000">limiti</span>, <span style="color:#000">in</span> <span style="color:#000">posizione</span> <span style="color:#000">&amp;</span><span style="color:#000">#</span><span style="color:#000">34</span>; <span style="color:#000">&amp;</span><span style="color:#000">#</span><span style="color:#000">43</span>; <span style="color:#000">pos</span>;
+</span></span><span style="display:flex;"><span>    	<span style="color:#a90d91">if</span> (<span style="color:#000">pos</span> <span style="color:#000">&lt;</span> <span style="color:#000">0</span> <span style="color:#000">||</span> <span style="color:#000">pos</span> <span style="color:#000">&gt;=</span> <span style="color:#000">array</span>.<span style="color:#836c28">length</span>) {
+</span></span><span style="display:flex;"><span>    		<span style="color:#a90d91">final</span> <span style="color:#000">String</span> <span style="color:#000">msg</span> <span style="color:#000">=</span> <span style="color:#c41a16">"Accesso fuori dai limiti, in posizione "</span> <span style="color:#000">+</span> <span style="color:#000">pos</span>;
 </span></span><span style="display:flex;"><span>    		<span style="color:#a90d91">final</span> <span style="color:#000">RuntimeException</span> <span style="color:#000">e</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">java</span>.<span style="color:#836c28">lang</span>.<span style="color:#836c28">IllegalArgumentException</span>(<span style="color:#000">msg</span>);
 </span></span><span style="display:flex;"><span>    		<span style="color:#a90d91">throw</span> <span style="color:#000">e</span>;
 </span></span><span style="display:flex;"><span>    	}
@@ -446,7 +446,7 @@ Mirko Viroli, che ringrazio.</p>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#177500">// modifico la toString per evidenziare this.args</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">String</span> <span style="color:#000">toString</span>() {
-</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">return</span> <span style="color:#000">&amp;</span><span style="color:#000">#</span><span style="color:#000">34</span>;<span style="color:#000">Failed</span> <span style="color:#000">with</span> <span style="color:#000">arguments</span>: <span style="color:#000">&amp;</span><span style="color:#000">#</span><span style="color:#000">34</span>; <span style="color:#000">&amp;</span><span style="color:#000">#</span><span style="color:#000">43</span>; <span style="color:#000">java</span>.<span style="color:#836c28">util</span>.<span style="color:#836c28">Arrays</span>.<span style="color:#836c28">toString</span>(<span style="color:#000">args</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">return</span> <span style="color:#c41a16">"Failed with arguments: "</span> <span style="color:#000">+</span> <span style="color:#000">java</span>.<span style="color:#836c28">util</span>.<span style="color:#836c28">Arrays</span>.<span style="color:#836c28">toString</span>(<span style="color:#000">args</span>);
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></section><section>
@@ -461,15 +461,15 @@ Mirko Viroli, che ringrazio.</p>
 </span></span><span style="display:flex;"><span>    		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">iterator</span>.<span style="color:#836c28">next</span>());
 </span></span><span style="display:flex;"><span>    		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">iterator</span>.<span style="color:#836c28">next</span>()); <span style="color:#177500">// Exception</span>
 </span></span><span style="display:flex;"><span>    	} <span style="color:#a90d91">catch</span> (<span style="color:#000">Exception</span> <span style="color:#000">e</span>) { <span style="color:#177500">// Exception caught!</span>
-</span></span><span style="display:flex;"><span>    		<span style="color:#a90d91">final</span> <span style="color:#000">RuntimeException</span> <span style="color:#000">e2</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">MyException</span>(<span style="color:#000">&amp;</span><span style="color:#000">#</span><span style="color:#000">34</span>;<span style="color:#000">Re</span><span style="color:#000">-</span><span style="color:#000">throwing</span>: <span style="color:#000">&amp;</span><span style="color:#000">#</span><span style="color:#000">34</span>; <span style="color:#000">&amp;</span><span style="color:#000">#</span><span style="color:#000">43</span>; <span style="color:#000">e</span>, <span style="color:#000">s</span>);
+</span></span><span style="display:flex;"><span>    		<span style="color:#a90d91">final</span> <span style="color:#000">RuntimeException</span> <span style="color:#000">e2</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">MyException</span>(<span style="color:#c41a16">"Re-throwing: "</span> <span style="color:#000">+</span> <span style="color:#000">e</span>, <span style="color:#000">s</span>);
 </span></span><span style="display:flex;"><span>    		<span style="color:#a90d91">throw</span> <span style="color:#000">e2</span>;
 </span></span><span style="display:flex;"><span>    	}
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span><span style="color:#177500">/* Esempio: java UseMyException 10 13.1
-</span></span></span><span style="display:flex;"><span><span style="color:#177500">Exception in thread &amp;#34;main&amp;#34; Failed with arguments: [10, 13.1]
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">Exception in thread "main" Failed with arguments: [10, 13.1]
 </span></span></span><span style="display:flex;"><span><span style="color:#177500">it.unibo.exceptions.classes.MyException:
-</span></span></span><span style="display:flex;"><span><span style="color:#177500">    Rilancio di: java.lang.NumberFormatException: For input string: &amp;#34;13.1&amp;#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">    Rilancio di: java.lang.NumberFormatException: For input string: "13.1"
 </span></span></span><span style="display:flex;"><span><span style="color:#177500">	at it.unibo.exceptions.classes.UseMyException.main(UseMyException.java:14)
 </span></span></span><span style="display:flex;"><span><span style="color:#177500">*/</span>
 </span></span></code></pre></div></section><section>
@@ -521,9 +521,9 @@ Mirko Viroli, che ringrazio.</p>
 </span></span><span style="display:flex;"><span>	}
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span>) <span style="color:#a90d91">throws</span> <span style="color:#000">Exception</span> {
-</span></span><span style="display:flex;"><span>			<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">print</span>(<span style="color:#000">&amp;</span><span style="color:#000">#</span><span style="color:#000">34</span>;<span style="color:#000">Inserisci</span> <span style="color:#000">un</span> <span style="color:#000">numero</span>: <span style="color:#000">&amp;</span><span style="color:#000">#</span><span style="color:#000">34</span>;);
+</span></span><span style="display:flex;"><span>			<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">print</span>(<span style="color:#c41a16">"Inserisci un numero: "</span>);
 </span></span><span style="display:flex;"><span>			<span style="color:#a90d91">int</span> <span style="color:#000">a</span> <span style="color:#000">=</span> <span style="color:#000">getIntFromKbd</span>();
-</span></span><span style="display:flex;"><span>			<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">&amp;</span><span style="color:#000">#</span><span style="color:#000">34</span>;<span style="color:#000">Hai</span> <span style="color:#000">inserito</span> <span style="color:#000">il</span> <span style="color:#000">num</span>.: <span style="color:#000">&amp;</span><span style="color:#000">#</span><span style="color:#000">34</span>; <span style="color:#000">&amp;</span><span style="color:#000">#</span><span style="color:#000">43</span>; <span style="color:#000">a</span>);
+</span></span><span style="display:flex;"><span>			<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Hai inserito il num.: "</span> <span style="color:#000">+</span> <span style="color:#000">a</span>);
 </span></span><span style="display:flex;"><span>		
 </span></span><span style="display:flex;"><span>	}
 </span></span><span style="display:flex;"><span>}
@@ -541,11 +541,11 @@ Mirko Viroli, che ringrazio.</p>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span>) {
 </span></span><span style="display:flex;"><span>		<span style="color:#a90d91">try</span> {
-</span></span><span style="display:flex;"><span>			<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">print</span>(<span style="color:#000">&amp;</span><span style="color:#000">#</span><span style="color:#000">34</span>;<span style="color:#000">Inserisci</span> <span style="color:#000">un</span> <span style="color:#000">numero</span>: <span style="color:#000">&amp;</span><span style="color:#000">#</span><span style="color:#000">34</span>;);
+</span></span><span style="display:flex;"><span>			<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">print</span>(<span style="color:#c41a16">"Inserisci un numero: "</span>);
 </span></span><span style="display:flex;"><span>			<span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">a</span> <span style="color:#000">=</span> <span style="color:#000">getIntFromKbd</span>();
-</span></span><span style="display:flex;"><span>			<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">&amp;</span><span style="color:#000">#</span><span style="color:#000">34</span>;<span style="color:#000">Hai</span> <span style="color:#000">inserito</span> <span style="color:#000">il</span> <span style="color:#000">num</span>.: <span style="color:#000">&amp;</span><span style="color:#000">#</span><span style="color:#000">34</span>; <span style="color:#000">&amp;</span><span style="color:#000">#</span><span style="color:#000">43</span>; <span style="color:#000">a</span>);
+</span></span><span style="display:flex;"><span>			<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Hai inserito il num.: "</span> <span style="color:#000">+</span> <span style="color:#000">a</span>);
 </span></span><span style="display:flex;"><span>		} <span style="color:#a90d91">catch</span> (<span style="color:#000">IOException</span> <span style="color:#000">e</span>) {
-</span></span><span style="display:flex;"><span>			<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">&amp;</span><span style="color:#000">#</span><span style="color:#000">34</span>;<span style="color:#000">Errore</span> <span style="color:#000">di</span> <span style="color:#000">I</span><span style="color:#000">/</span><span style="color:#000">O</span>: <span style="color:#000">&amp;</span><span style="color:#000">#</span><span style="color:#000">34</span>; <span style="color:#000">&amp;</span><span style="color:#000">#</span><span style="color:#000">43</span>; <span style="color:#000">e</span>);
+</span></span><span style="display:flex;"><span>			<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Errore di I/O: "</span> <span style="color:#000">+</span> <span style="color:#000">e</span>);
 </span></span><span style="display:flex;"><span>		} <span style="color:#a90d91">catch</span> (<span style="color:#000">NumberFormatException</span> <span style="color:#000">e</span>) {
 </span></span><span style="display:flex;"><span>			<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">e</span>);
 </span></span><span style="display:flex;"><span>		}
@@ -566,11 +566,11 @@ Mirko Viroli, che ringrazio.</p>
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span>) <span style="color:#a90d91">throws</span> <span style="color:#000">NumberFormatException</span> {
 </span></span><span style="display:flex;"><span>		<span style="color:#a90d91">while</span> (<span style="color:#a90d91">true</span>) {
 </span></span><span style="display:flex;"><span>			<span style="color:#a90d91">try</span> {
-</span></span><span style="display:flex;"><span>				<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">print</span>(<span style="color:#000">&amp;</span><span style="color:#000">#</span><span style="color:#000">34</span>;<span style="color:#000">Inserisci</span> <span style="color:#000">un</span> <span style="color:#000">numero</span>: <span style="color:#000">&amp;</span><span style="color:#000">#</span><span style="color:#000">34</span>;);
+</span></span><span style="display:flex;"><span>				<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">print</span>(<span style="color:#c41a16">"Inserisci un numero: "</span>);
 </span></span><span style="display:flex;"><span>				<span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">a</span> <span style="color:#000">=</span> <span style="color:#000">getIntFromKbd</span>();
-</span></span><span style="display:flex;"><span>				<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">&amp;</span><span style="color:#000">#</span><span style="color:#000">34</span>;<span style="color:#000">Hai</span> <span style="color:#000">inserito</span> <span style="color:#000">il</span> <span style="color:#000">num</span>.: <span style="color:#000">&amp;</span><span style="color:#000">#</span><span style="color:#000">34</span>; <span style="color:#000">&amp;</span><span style="color:#000">#</span><span style="color:#000">43</span>; <span style="color:#000">a</span>);
+</span></span><span style="display:flex;"><span>				<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Hai inserito il num.: "</span> <span style="color:#000">+</span> <span style="color:#000">a</span>);
 </span></span><span style="display:flex;"><span>			} <span style="color:#a90d91">catch</span> (<span style="color:#000">IOException</span> <span style="color:#000">e</span>) {
-</span></span><span style="display:flex;"><span>				<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">&amp;</span><span style="color:#000">#</span><span style="color:#000">34</span>;<span style="color:#000">Errore</span> <span style="color:#000">di</span> <span style="color:#000">I</span><span style="color:#000">/</span><span style="color:#000">O</span>: <span style="color:#000">&amp;</span><span style="color:#000">#</span><span style="color:#000">34</span>; <span style="color:#000">&amp;</span><span style="color:#000">#</span><span style="color:#000">43</span>; <span style="color:#000">e</span>);
+</span></span><span style="display:flex;"><span>				<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Errore di I/O: "</span> <span style="color:#000">+</span> <span style="color:#000">e</span>);
 </span></span><span style="display:flex;"><span>			}
 </span></span><span style="display:flex;"><span>		}
 </span></span><span style="display:flex;"><span>	}
@@ -578,19 +578,19 @@ Mirko Viroli, che ringrazio.</p>
 </span></span></code></pre></div></section><section>
 <h2 id="input-da-tastiera-alternativa-più-moderna">Input da tastiera (alternativa più moderna)</h2>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">IOFromKeyboard4</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#177500">// L&amp;#39;uso di System.console().readLine() non lancia eccezioni</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#177500">// L'uso di System.console().readLine() non lancia eccezioni</span>
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span>) {
 </span></span><span style="display:flex;"><span>		<span style="color:#a90d91">while</span> (<span style="color:#a90d91">true</span>) {
-</span></span><span style="display:flex;"><span>			<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">print</span>(<span style="color:#000">&amp;</span><span style="color:#000">#</span><span style="color:#000">34</span>;<span style="color:#000">Inserisci</span> <span style="color:#000">un</span> <span style="color:#000">numero</span>: <span style="color:#000">&amp;</span><span style="color:#000">#</span><span style="color:#000">34</span>;);
+</span></span><span style="display:flex;"><span>			<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">print</span>(<span style="color:#c41a16">"Inserisci un numero: "</span>);
 </span></span><span style="display:flex;"><span>			<span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">a</span> <span style="color:#000">=</span> <span style="color:#000">Integer</span>.<span style="color:#836c28">parseInt</span>(<span style="color:#000">System</span>.<span style="color:#836c28">console</span>().<span style="color:#836c28">readLine</span>());
-</span></span><span style="display:flex;"><span>			<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">&amp;</span><span style="color:#000">#</span><span style="color:#000">34</span>;<span style="color:#000">Hai</span> <span style="color:#000">inserito</span> <span style="color:#000">il</span> <span style="color:#000">num</span>.: <span style="color:#000">&amp;</span><span style="color:#000">#</span><span style="color:#000">34</span>; <span style="color:#000">&amp;</span><span style="color:#000">#</span><span style="color:#000">43</span>; <span style="color:#000">a</span>);
+</span></span><span style="display:flex;"><span>			<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Hai inserito il num.: "</span> <span style="color:#000">+</span> <span style="color:#000">a</span>);
 </span></span><span style="display:flex;"><span>		}
 </span></span><span style="display:flex;"><span>	}
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#177500">/*
 </span></span></span><span style="display:flex;"><span><span style="color:#177500"> * Si controlli la classe java.lang.Console, fornisce varie funzioni utili per
-</span></span></span><span style="display:flex;"><span><span style="color:#177500"> * l&amp;#39;I/O, come le stampe formattate tipo printf
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"> * l'I/O, come le stampe formattate tipo printf
 </span></span></span><span style="display:flex;"><span><span style="color:#177500"> */</span>
 </span></span></code></pre></div></section>
 
@@ -710,6 +710,8 @@ Mirko Viroli, che ringrazio.</p>
 
   
 
+  
+    
   
 
   
