@@ -622,336 +622,426 @@ il proprio comportamento di conseguenza.</li>
 </ul>
 </div>
 </div>
-</section><section>
-<h2 id="i-pattern-factory">I pattern “factory”</h2>
-<ul>
-<li>I pattern <strong>“factory”</strong> caratterizzano delle organizzazioni di codice OO al fine di gestire il modo con cui viene stabilito <em>quali classi istanziare</em>
-<ul>
-<li>2 pattern semplici: <strong>Static Factory</strong> e <strong>Simple Factory</strong></li>
-<li>2 pattern GOF: <strong>Abstract Factory</strong>, <strong>Factory Method</strong></li>
-<li>Varie varianti sono possibili…</li>
-<li>…Noi ne illustreremo una che è a metà tra Abstract Factory e Factory Method</li>
-<li>…Che può essere anche vista come un’applicazione dello <strong>Strategy</strong> dove strategie concrete stabiliscono quali classi istanziare</li>
-</ul>
-</li>
-</ul>
-</section><section>
-<h3 id="esempio-motivante-simplelamp-advancedlamp-twolampsdevice">Esempio motivante: <code>SimpleLamp</code>, <code>AdvancedLamp</code>, <code>TwoLampsDevice</code></h3>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">interface</span> <span style="color:#3f6e75">Lamp</span> {	
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">void</span> <span style="color:#000">switchOn</span>();       
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">void</span> <span style="color:#000">switchOff</span>();	   
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">boolean</span> <span style="color:#000">isSwitchedOn</span>();
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">void</span> <span style="color:#000">ecoMode</span>();
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">interface</span> <span style="color:#3f6e75">AdvancedLamp</span> <span style="color:#a90d91">extends</span> <span style="color:#000">Lamp</span> {	
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">dim</span>();
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">brighten</span>();
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">setIntensity</span>(<span style="color:#a90d91">int</span> <span style="color:#000">level</span>);
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">TwoLampsDevice</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#000">Lamp</span> <span style="color:#000">lamp1</span>, <span style="color:#000">lamp2</span>;
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">TwoLampsDevice</span>() {
-</span></span><span style="display:flex;"><span>        <span style="color:#000">lamp1</span> <span style="color:#000">=</span> <span style="color:#177500">/* ??? */</span>;
-</span></span><span style="display:flex;"><span>        <span style="color:#000">lamp2</span> <span style="color:#000">=</span> <span style="color:#177500">/* ??? */</span>;
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div></section><section>
+<!--
+
+---
+
+## I pattern "factory"
+
+- I pattern **"factory"** caratterizzano delle organizzazioni di codice OO al fine di gestire il modo con cui viene stabilito *quali classi istanziare*
+    - 2 pattern semplici: **Static Factory** e **Simple Factory**
+    - 2 pattern GOF: **Abstract Factory**, **Factory Method**
+    - Varie varianti sono possibili...
+    - ...Noi ne illustreremo una che è a metà tra Abstract Factory e Factory Method
+    - ...Che può essere anche vista come un'applicazione dello **Strategy** dove strategie concrete stabiliscono quali classi istanziare
+
+---
+
+### Esempio motivante: `SimpleLamp`, `AdvancedLamp`, `TwoLampsDevice`
+
+```java
+public interface Lamp {	
+    void switchOn();       
+    void switchOff();	   
+    boolean isSwitchedOn();
+    void ecoMode();
+}
+
+```
+
+```java
+public interface AdvancedLamp extends Lamp {	
+    public void dim();
+    public void brighten();
+    public void setIntensity(int level);
+}
+
+```
+
+```java
+public class TwoLampsDevice {
+    Lamp lamp1, lamp2;
+    public TwoLampsDevice() {
+        lamp1 = /* ??? */;
+        lamp2 = /* ??? */;
+    }
+}
+```
+
+---
+
 <div class="smaller">
+
+
+
 <div class="container">
 <div class="col">
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">SimpleLampImpl</span> <span style="color:#a90d91">implements</span> <span style="color:#000">Lamp</span> {
-</span></span><span style="display:flex;"><span>   <span style="color:#a90d91">private</span> <span style="color:#a90d91">boolean</span> <span style="color:#000">switchedOn</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>   <span style="color:#a90d91">public</span> <span style="color:#000">SimpleLampImpl</span>() {
-</span></span><span style="display:flex;"><span>      <span style="color:#a90d91">this</span>.<span style="color:#836c28">switchedOn</span> <span style="color:#000">=</span> <span style="color:#a90d91">false</span>;
-</span></span><span style="display:flex;"><span>   }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>   <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">switchOn</span>() {
-</span></span><span style="display:flex;"><span>      <span style="color:#a90d91">this</span>.<span style="color:#836c28">switchedOn</span> <span style="color:#000">=</span> <span style="color:#a90d91">true</span>;
-</span></span><span style="display:flex;"><span>   }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>   <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">switchOff</span>() {
-</span></span><span style="display:flex;"><span>      <span style="color:#a90d91">this</span>.<span style="color:#836c28">switchedOn</span> <span style="color:#000">=</span> <span style="color:#a90d91">false</span>;
-</span></span><span style="display:flex;"><span>   }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>   <span style="color:#a90d91">public</span> <span style="color:#a90d91">boolean</span> <span style="color:#000">isSwitchedOn</span>() {
-</span></span><span style="display:flex;"><span>      <span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">switchedOn</span>;
-</span></span><span style="display:flex;"><span>   }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>   <span style="color:#a90d91">public</span> <span style="color:#000">String</span> <span style="color:#000">toString</span>() {
-</span></span><span style="display:flex;"><span>	   <span style="color:#a90d91">return</span> <span style="color:#c41a16">"LAMP["</span> <span style="color:#000">+</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">isSwitchedOn</span>() <span style="color:#000">+</span> <span style="color:#c41a16">"]"</span>;
-</span></span><span style="display:flex;"><span>   }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>   <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">ecoMode</span>() { }
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div></div>
+
+```java
+public class SimpleLampImpl implements Lamp {
+   private boolean switchedOn;
+
+   public SimpleLampImpl() {
+      this.switchedOn = false;
+   }
+
+   public void switchOn() {
+      this.switchedOn = true;
+   }
+
+   public void switchOff() {
+      this.switchedOn = false;
+   }
+
+   public boolean isSwitchedOn() {
+      return this.switchedOn;
+   }
+
+   public String toString() {
+	   return "LAMP[" + this.isSwitchedOn() + "]";
+   }
+
+   public void ecoMode() { }
+}
+
+```
+
+</div>
 <div class="col">
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">AdvancedLampImpl</span> <span style="color:#a90d91">implements</span> <span style="color:#000">AdvancedLamp</span> {
-</span></span><span style="display:flex;"><span>   <span style="color:#a90d91">public</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">int</span> <span style="color:#000">MIN_INTENSITY</span> <span style="color:#000">=</span> <span style="color:#000">1</span>;
-</span></span><span style="display:flex;"><span>   <span style="color:#a90d91">public</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">int</span> <span style="color:#000">MAX_INTENSITY</span> <span style="color:#000">=</span> <span style="color:#000">10</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>   <span style="color:#a90d91">private</span> <span style="color:#a90d91">int</span> <span style="color:#000">intensity</span>;
-</span></span><span style="display:flex;"><span>   <span style="color:#a90d91">private</span> <span style="color:#a90d91">boolean</span> <span style="color:#000">switchedOn</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>   <span style="color:#a90d91">public</span> <span style="color:#000">AdvancedLampImpl</span>() {
-</span></span><span style="display:flex;"><span>      <span style="color:#a90d91">this</span>.<span style="color:#836c28">switchedOn</span> <span style="color:#000">=</span> <span style="color:#a90d91">false</span>;
-</span></span><span style="display:flex;"><span>      <span style="color:#a90d91">this</span>.<span style="color:#836c28">intensity</span> <span style="color:#000">=</span> (<span style="color:#000">MIN_INTENSITY</span> <span style="color:#000">+</span> <span style="color:#000">MAX_INTENSITY</span>) <span style="color:#000">/</span> <span style="color:#000">2</span>;
-</span></span><span style="display:flex;"><span>   }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>   <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">switchOn</span>() {
-</span></span><span style="display:flex;"><span>      <span style="color:#a90d91">this</span>.<span style="color:#836c28">switchedOn</span> <span style="color:#000">=</span> <span style="color:#a90d91">true</span>;
-</span></span><span style="display:flex;"><span>   }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>   <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">switchOff</span>() {
-</span></span><span style="display:flex;"><span>      <span style="color:#a90d91">this</span>.<span style="color:#836c28">switchedOn</span> <span style="color:#000">=</span> <span style="color:#a90d91">false</span>;
-</span></span><span style="display:flex;"><span>   }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>   <span style="color:#a90d91">public</span> <span style="color:#a90d91">boolean</span> <span style="color:#000">isSwitchedOn</span>() {
-</span></span><span style="display:flex;"><span>      <span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">switchedOn</span>;
-</span></span><span style="display:flex;"><span>   }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>   <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">setIntensity</span>(<span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">i</span>) {
-</span></span><span style="display:flex;"><span>      <span style="color:#a90d91">this</span>.<span style="color:#836c28">intensity</span> <span style="color:#000">=</span> <span style="color:#000">i</span> <span style="color:#000">&gt;</span> <span style="color:#000">MAX_INTENSITY</span> <span style="color:#000">?</span> <span style="color:#000">MAX_INTENSITY</span> :
-</span></span><span style="display:flex;"><span>         (<span style="color:#000">i</span> <span style="color:#000">&lt;</span> <span style="color:#000">MIN_INTENSITY</span> <span style="color:#000">?</span> <span style="color:#000">MIN_INTENSITY</span> : <span style="color:#000">i</span>);
-</span></span><span style="display:flex;"><span>   }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>   <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">dim</span>() {
-</span></span><span style="display:flex;"><span>      <span style="color:#000">setIntensity</span>(<span style="color:#000">getIntensity</span>() <span style="color:#000">-</span> <span style="color:#000">1</span>);
-</span></span><span style="display:flex;"><span>   }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>   <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">brighten</span>() {
-</span></span><span style="display:flex;"><span>      <span style="color:#000">setIntensity</span>(<span style="color:#000">getIntensity</span>() <span style="color:#000">+</span> <span style="color:#000">1</span>);
-</span></span><span style="display:flex;"><span>   }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>   <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">ecoMode</span>() {
-</span></span><span style="display:flex;"><span>      <span style="color:#000">setIntensity</span>(<span style="color:#000">MIN_INTENSITY</span>);
-</span></span><span style="display:flex;"><span>   }
-</span></span></code></pre></div></div>
+
+```java
+public class AdvancedLampImpl implements AdvancedLamp {
+   public final static int MIN_INTENSITY = 1;
+   public final static int MAX_INTENSITY = 10;
+
+   private int intensity;
+   private boolean switchedOn;
+
+   public AdvancedLampImpl() {
+      this.switchedOn = false;
+      this.intensity = (MIN_INTENSITY + MAX_INTENSITY) / 2;
+   }
+
+   public void switchOn() {
+      this.switchedOn = true;
+   }
+
+   public void switchOff() {
+      this.switchedOn = false;
+   }
+
+   public boolean isSwitchedOn() {
+      return this.switchedOn;
+   }
+
+   public void setIntensity(final int i) {
+      this.intensity = i > MAX_INTENSITY ? MAX_INTENSITY :
+         (i < MIN_INTENSITY ? MIN_INTENSITY : i);
+   }
+
+   public void dim() {
+      setIntensity(getIntensity() - 1);
+   }
+
+   public void brighten() {
+      setIntensity(getIntensity() + 1);
+   }
+
+   public void ecoMode() {
+      setIntensity(MIN_INTENSITY);
+   }
+```
+
 </div>
 </div>
-</section><section>
+
+
+    
+</div>
+
+---
+
 <div class="container">
 <div class="col">
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">TwoLampsDeviceNaive</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">private</span> <span style="color:#000">Lamp</span> <span style="color:#000">l1</span>;
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">private</span> <span style="color:#000">Lamp</span> <span style="color:#000">l2</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#000">TwoLampsDeviceNaive</span>() {
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span>.<span style="color:#836c28">l1</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">SimpleLampImpl</span>();
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span>.<span style="color:#836c28">l2</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">AdvancedLampImpl</span>();
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">switchOnBoth</span>() {
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span>.<span style="color:#836c28">l1</span>.<span style="color:#836c28">switchOn</span>();
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span>.<span style="color:#836c28">l2</span>.<span style="color:#836c28">switchOn</span>();
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">switchOffBoth</span>() {
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span>.<span style="color:#836c28">l1</span>.<span style="color:#836c28">switchOff</span>();
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span>.<span style="color:#836c28">l2</span>.<span style="color:#836c28">switchOff</span>();
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">ecoMode</span>() {
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span>.<span style="color:#836c28">l1</span>.<span style="color:#836c28">ecoMode</span>();
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span>.<span style="color:#836c28">l2</span>.<span style="color:#836c28">ecoMode</span>();
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#000">String</span> <span style="color:#000">toString</span>() {
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#c41a16">"{"</span> <span style="color:#000">+</span> <span style="color:#000">l1</span> <span style="color:#000">+</span> <span style="color:#c41a16">"; "</span> <span style="color:#000">+</span> <span style="color:#000">l2</span> <span style="color:#000">+</span> <span style="color:#c41a16">"}"</span>;
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div></div>
+
+```java
+public class TwoLampsDeviceNaive {
+	private Lamp l1;
+	private Lamp l2;
+
+	public TwoLampsDeviceNaive() {
+		this.l1 = new SimpleLampImpl();
+		this.l2 = new AdvancedLampImpl();
+	}
+
+	public void switchOnBoth() {
+		this.l1.switchOn();
+		this.l2.switchOn();
+	}
+
+	public void switchOffBoth() {
+		this.l1.switchOff();
+		this.l2.switchOff();
+	}
+
+	public void ecoMode() {
+		this.l1.ecoMode();
+		this.l2.ecoMode();
+	}
+
+	public String toString() {
+		return "{" + l1 + "; " + l2 + "}";
+	}
+}
+
+```
+
+</div>
 <div class="col">
-<ul>
-<li>In questo esempio, <code>TwoLampsDeviceNaive</code> prende subito una decisione sulle <code>Lamp</code> concrete da comporre</li>
-<li>Idealmente però, la nostra <code>TwoLampsDevice</code> dovrebbe astrarre dall’implementazione concreta delle <code>Lamp</code>
-<ul>
-<li>potrebbe consistere di due <code>SimpleLamp</code>, di due <code>AdvancedLamp</code>, o di un mix delle due..</li>
-</ul>
-</li>
-<li>Obiettivo: rifattorizzare per
-<ol>
-<li>rendere <code>TwoLampsDevice</code> più <strong>generale</strong> (<em>supportare varie composizioni</em>)</li>
-<li><em>eliminare la <strong>dipendenza</strong> dalle classi concrete</em></li>
-<li><em>rimuovere (spostare altrove) la <strong>responsabilità</strong> di scegliere le implementazioni concrete</em></li>
-</ol>
-</li>
-</ul>
+
+* In questo esempio, `TwoLampsDeviceNaive` prende subito una decisione sulle `Lamp` concrete da comporre 
+* Idealmente però, la nostra `TwoLampsDevice` dovrebbe astrarre dall'implementazione concreta delle `Lamp`
+    * potrebbe consistere di due `SimpleLamp`, di due `AdvancedLamp`, o di un mix delle due..
+* Obiettivo: rifattorizzare per 
+    1. rendere `TwoLampsDevice` più **generale** (*supportare varie composizioni*)
+    2. *eliminare la **dipendenza** dalle classi concrete*
+    3. *rimuovere (spostare altrove) la **responsabilità** di scegliere le implementazioni concrete* 
+
 </div>
 </div>
-</section><section>
-<h3 id="static-factory">Static Factory</h3>
+
+---
+
+
+### Static Factory
+
+
 <div class="smaller">
+
+
+
 <div class="container">
 <div class="col">
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">TwoLampsDeviceWithStaticFactory</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">private</span> <span style="color:#000">Lamp</span> <span style="color:#000">l1</span>;
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">private</span> <span style="color:#000">Lamp</span> <span style="color:#000">l2</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#000">TwoLampsDeviceWithStaticFactory</span>() {
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span>.<span style="color:#836c28">l1</span> <span style="color:#000">=</span> <span style="color:#000">LampFactoryModule</span>.<span style="color:#836c28">createLamp</span>(<span style="color:#a90d91">false</span>);
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span>.<span style="color:#836c28">l2</span> <span style="color:#000">=</span> <span style="color:#000">LampFactoryModule</span>.<span style="color:#836c28">createLamp</span>(<span style="color:#a90d91">true</span>);
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">switchOnBoth</span>() {
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span>.<span style="color:#836c28">l1</span>.<span style="color:#836c28">switchOn</span>();
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span>.<span style="color:#836c28">l2</span>.<span style="color:#836c28">switchOn</span>();
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">switchOffBoth</span>() {
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span>.<span style="color:#836c28">l1</span>.<span style="color:#836c28">switchOff</span>();
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span>.<span style="color:#836c28">l2</span>.<span style="color:#836c28">switchOff</span>();
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">ecoMode</span>() {
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span>.<span style="color:#836c28">l1</span>.<span style="color:#836c28">ecoMode</span>();
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span>.<span style="color:#836c28">l2</span>.<span style="color:#836c28">ecoMode</span>();
-</span></span><span style="display:flex;"><span>	}
-</span></span></code></pre></div></div>
+
+```java
+public class TwoLampsDeviceWithStaticFactory {
+	private Lamp l1;
+	private Lamp l2;
+
+	public TwoLampsDeviceWithStaticFactory() {
+		this.l1 = LampFactoryModule.createLamp(false);
+		this.l2 = LampFactoryModule.createLamp(true);
+	}
+
+	public void switchOnBoth() {
+		this.l1.switchOn();
+		this.l2.switchOn();
+	}
+
+	public void switchOffBoth() {
+		this.l1.switchOff();
+		this.l2.switchOff();
+	}
+
+	public void ecoMode() {
+		this.l1.ecoMode();
+		this.l2.ecoMode();
+	}
+
+```
+
+</div>
 <div class="col">
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">LampFactoryModule</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#000">Lamp</span> <span style="color:#000">createLamp</span>(<span style="color:#a90d91">boolean</span> <span style="color:#000">advanced</span>) {
-</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">return</span> <span style="color:#000">advanced</span> <span style="color:#000">?</span> <span style="color:#000">createAdvancedLamp</span>() : <span style="color:#000">createSimpleLamp</span>();
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#000">AdvancedLamp</span> <span style="color:#000">createAdvancedLamp</span>() {
-</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">return</span> <span style="color:#a90d91">new</span> <span style="color:#000">AdvancedLampImpl</span>();
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#000">Lamp</span> <span style="color:#000">createSimpleLamp</span>() {
-</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">return</span> <span style="color:#a90d91">new</span> <span style="color:#000">SimpleLampImpl</span>();
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseTwoLampsDeviceWithStaticFactory</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span>) {
-</span></span><span style="display:flex;"><span>		<span style="color:#000">TwoLampsDeviceWithStaticFactory</span> <span style="color:#000">td</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">TwoLampsDeviceWithStaticFactory</span>();
-</span></span><span style="display:flex;"><span>		<span style="color:#000">td</span>.<span style="color:#836c28">switchOnBoth</span>();
-</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">td</span>);
-</span></span><span style="display:flex;"><span>		<span style="color:#000">td</span>.<span style="color:#836c28">ecoMode</span>();
-</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">td</span>);
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div></div>
+
+```java
+public class LampFactoryModule {
+    public static Lamp createLamp(boolean advanced) {
+        return advanced ? createAdvancedLamp() : createSimpleLamp();
+    }
+    
+    public static AdvancedLamp createAdvancedLamp() {
+        return new AdvancedLampImpl();
+    }
+
+    public static Lamp createSimpleLamp() {
+        return new SimpleLampImpl();
+    }
+}
+
+```
+
+```java
+public class UseTwoLampsDeviceWithStaticFactory {
+	public static void main(String[] args) {
+		TwoLampsDeviceWithStaticFactory td = new TwoLampsDeviceWithStaticFactory();
+		td.switchOnBoth();
+		System.out.println(td);
+		td.ecoMode();
+		System.out.println(td);
+	}
+}
+
+```
+
 </div>
 </div>
-<p>Benefici dei <em>metodi factory statici</em> (rispetto ad uso diretto dei costruttori)</p>
-<ul>
-<li>possono restituire oggetti di qualunque sottotipo del tipo di ritorno</li>
-<li>la classe da istanziare può variare a seconda dei parametri</li>
-<li>possono avere nomi espressivi a piacere</li>
-<li>permettono di superare la limitazione di poter avere un solo costruttore per una data signature</li>
-</ul>
-</section><section>
-<h3 id="simple-factory">Simple Factory</h3>
-<ul>
-<li>Come Static Factory, ma il metodo è non statico e in una classe separata (anche chiamata <em>classe factory</em>)</li>
-</ul>
-<h3 id="altra-soluzione">Altra soluzione</h3>
-<ul>
-<li>Elementi della soluzione
-<ul>
-<li>Si introduce un’<em>interfaccia</em> per le possibili <em>factory</em></li>
-<li>Si inietta la factory concreta in un <em>contesto</em> ove occorre</li>
-<li>Il contesto diventa riusabile rispetto a diverse factory (e quindi diversi prodotti istanziabili)</li>
-</ul>
-</li>
-</ul>
-</section><section>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">interface</span> <span style="color:#3f6e75">LampFactory</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#000">Lamp</span> <span style="color:#000">createLamp</span>();
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">SimpleLampFactory</span> <span style="color:#a90d91">implements</span> <span style="color:#000">LampFactory</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">Lamp</span> <span style="color:#000">createLamp</span>() {
-</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">return</span> <span style="color:#a90d91">new</span> <span style="color:#000">SimpleLampImpl</span>();
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">AdvancedLampFactory</span> <span style="color:#a90d91">implements</span> <span style="color:#000">LampFactory</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">Lamp</span> <span style="color:#000">createLamp</span>() {
-</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">return</span> <span style="color:#a90d91">new</span> <span style="color:#000">AdvancedLampImpl</span>();
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div></section><section>
+
+
+    
+</div>
+
+
+Benefici dei *metodi factory statici* (rispetto ad uso diretto dei costruttori)
+
+* possono restituire oggetti di qualunque sottotipo del tipo di ritorno
+* la classe da istanziare può variare a seconda dei parametri
+* possono avere nomi espressivi a piacere
+* permettono di superare la limitazione di poter avere un solo costruttore per una data signature
+
+---
+
+### Simple Factory
+
+* Come Static Factory, ma il metodo è non statico e in una classe separata (anche chiamata *classe factory*)
+
+
+### Altra soluzione
+
+- Elementi della soluzione
+    - Si introduce un'*interfaccia* per le possibili *factory*
+    - Si inietta la factory concreta in un *contesto* ove occorre
+    - Il contesto diventa riusabile rispetto a diverse factory (e quindi diversi prodotti istanziabili)
+
+---
+
+
+
+```java
+public interface LampFactory {
+    Lamp createLamp();
+}
+
+```
+
+```java
+public class SimpleLampFactory implements LampFactory {
+    public Lamp createLamp() {
+        return new SimpleLampImpl();
+    }
+}
+```
+
+```java
+public class AdvancedLampFactory implements LampFactory {
+    public Lamp createLamp() {
+        return new AdvancedLampImpl();
+    }
+}
+```
+
+
+---
+
+
 <div class="container">
 <div class="col">
+
 <div class="smaller">
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">TwoLampsDevice</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">private</span> <span style="color:#000">Lamp</span> <span style="color:#000">l1</span>;
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">private</span> <span style="color:#000">Lamp</span> <span style="color:#000">l2</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#000">TwoLampsDevice</span>(<span style="color:#000">LampFactory</span> <span style="color:#000">f</span>) {
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span>.<span style="color:#836c28">l1</span> <span style="color:#000">=</span> <span style="color:#000">f</span>.<span style="color:#836c28">createLamp</span>();
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span>.<span style="color:#836c28">l2</span> <span style="color:#000">=</span> <span style="color:#000">f</span>.<span style="color:#836c28">createLamp</span>();
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">switchOnBoth</span>() {
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span>.<span style="color:#836c28">l1</span>.<span style="color:#836c28">switchOn</span>();
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span>.<span style="color:#836c28">l2</span>.<span style="color:#836c28">switchOn</span>();
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">switchOffBoth</span>() {
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span>.<span style="color:#836c28">l1</span>.<span style="color:#836c28">switchOff</span>();
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span>.<span style="color:#836c28">l2</span>.<span style="color:#836c28">switchOff</span>();
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">ecoMode</span>() {
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span>.<span style="color:#836c28">l1</span>.<span style="color:#836c28">ecoMode</span>();
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span>.<span style="color:#836c28">l2</span>.<span style="color:#836c28">ecoMode</span>();
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#000">String</span> <span style="color:#000">toString</span>() {
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#c41a16">"{"</span> <span style="color:#000">+</span> <span style="color:#000">l1</span> <span style="color:#000">+</span> <span style="color:#c41a16">"; "</span> <span style="color:#000">+</span> <span style="color:#000">l2</span> <span style="color:#000">+</span> <span style="color:#c41a16">"}"</span>;
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div></div>
+
+
+
+```java
+public class TwoLampsDevice {
+	private Lamp l1;
+	private Lamp l2;
+
+	public TwoLampsDevice(LampFactory f) {
+		this.l1 = f.createLamp();
+		this.l2 = f.createLamp();
+	}
+
+	public void switchOnBoth() {
+		this.l1.switchOn();
+		this.l2.switchOn();
+	}
+
+	public void switchOffBoth() {
+		this.l1.switchOff();
+		this.l2.switchOff();
+	}
+
+	public void ecoMode() {
+		this.l1.ecoMode();
+		this.l2.ecoMode();
+	}
+
+	public String toString() {
+		return "{" + l1 + "; " + l2 + "}";
+	}
+}
+```
+
+
+    
+</div>
+
 </div>
 <div class="col">
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseTwoLampsDevice</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">private</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">testWith</span>(<span style="color:#000">LampFactory</span> <span style="color:#000">lf</span>) {
-</span></span><span style="display:flex;"><span>		<span style="color:#000">TwoLampsDevice</span> <span style="color:#000">td</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">TwoLampsDevice</span>(<span style="color:#000">lf</span>);
-</span></span><span style="display:flex;"><span>		<span style="color:#000">td</span>.<span style="color:#836c28">switchOnBoth</span>();
-</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">td</span>);
-</span></span><span style="display:flex;"><span>		<span style="color:#000">td</span>.<span style="color:#836c28">ecoMode</span>();
-</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">td</span>);
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span>) {
-</span></span><span style="display:flex;"><span>		<span style="color:#000">testWith</span>(<span style="color:#a90d91">new</span> <span style="color:#000">SimpleLampFactory</span>()); 
-</span></span><span style="display:flex;"><span>		<span style="color:#000">testWith</span>(<span style="color:#a90d91">new</span> <span style="color:#000">AdvancedLampFactory</span>());
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div></div>
+
+```java
+public class UseTwoLampsDevice {
+	private static void testWith(LampFactory lf) {
+		TwoLampsDevice td = new TwoLampsDevice(lf);
+		td.switchOnBoth();
+		System.out.println(td);
+		td.ecoMode();
+		System.out.println(td);
+	}
+
+	public static void main(String[] args) {
+		testWith(new SimpleLampFactory()); 
+		testWith(new AdvancedLampFactory());
+	}
+}
+
+```
+
 </div>
-<ul>
-<li>Benefici
-<ul>
-<li><code>TwoLampsDevice</code> può comporsi con diverse coppie di lampadine e lavorare con esse in modo uniforme senza dover variare il proprio codice (cf. polimorfismo)</li>
-<li><code>TwoLampsDevice</code> non dipende più da classi concrete, ma da oggetti di contratto <code>LampFactory</code></li>
-</ul>
-</li>
-</ul>
-</section><section>
-<ul>
-<li>Un pattern tra Factory Method e Abstract Factory
-<ul>
-<li>Propriamente, <em>Factory Method</em> si basa sul riuso del contesto via specializzazione, con override del “metodo factory” (da cui il nome del pattern)</li>
-<li>Propriamente, <em>Abstract Factory</em> dovrebbe supportare una <em>famiglia di prodotti</em></li>
-</ul>
-</li>
-</ul>
+</div>
+
+
+
+- Benefici
+    - `TwoLampsDevice` può comporsi con diverse coppie di lampadine e lavorare con esse in modo uniforme senza dover variare il proprio codice (cf. polimorfismo)
+    - `TwoLampsDevice` non dipende più da classi concrete, ma da oggetti di contratto `LampFactory`
+
+---
+
+- Un pattern tra Factory Method e Abstract Factory
+    - Propriamente, *Factory Method* si basa sul riuso del contesto via specializzazione, con override del "metodo factory" (da cui il nome del pattern)
+    - Propriamente, *Abstract Factory* dovrebbe supportare una *famiglia di prodotti*
+
 <div class="container">
 <div class="col">
-<p><img src="imgs/factorymethod.png" alt=""></p>
+
+![](imgs/factorymethod.png)
+
 </div>
 <div class="col">
-<p><img src="imgs/pattern-abstractfactory-method.png" alt=""></p>
+
+![](imgs/pattern-abstractfactory-method.png)
+
 </div>
 </div>
-</section><section>
-<h2 id="preview-del-prossimo-laboratorio">Preview del prossimo laboratorio</h2>
-<ul>
-<li>Consolidare l’uso di interfacce e composizione</li>
-<li>Sperimentare con pattern Strategy e Factory</li>
-</ul>
+
+---
+
+## Preview del prossimo laboratorio
+
+- Consolidare l'uso di interfacce e composizione
+- Sperimentare con pattern Strategy e Factory
+
+-->
 </section>
 
   

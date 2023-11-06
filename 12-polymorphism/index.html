@@ -20,7 +20,7 @@
       <div class="slides">
   
 
-    <section><h1 id="polimorfismo">Polimorfismo</h1>
+    <section><h1 id="polimorfismo-classi-astratte-tipi-a-runtime">Polimorfismo, classi astratte, tipi a runtime</h1>
 <h4 id="progettazione-e-sviluppo-del-software">Progettazione e Sviluppo del Software</h4>
 <h4 id="cdl-tecnologie-dei-sistemi-informatici">C.D.L. Tecnologie dei Sistemi Informatici</h4>
 <h3 id="roberto-casadei-----robycasadeiuniboitmailtorobycasadeiuniboit"><a href="mailto:roby.casadei@unibo.it">Roberto Casadei — <code>roby.casadei@unibo.it</code></a></h3>
@@ -248,7 +248,7 @@ Mirko Viroli, che ringrazio.</p>
 </li>
 <li>E’ possibile realizzare più interfacce (cioè, supportare più contratti) ma non è possibile (in Java) estendere più classi</li>
 </ul>
-<h3 id="le-classi-non-consentono-ereditarietà-multipla-in-c-si">Le classi <em>non</em> consentono <em>“ereditarietà multipla”</em> (in C++ si)</h3>
+<h3 id="le-classi-in-java-non-consentono-ereditarietà-multipla-in-c-si">Le classi in Java <em>non</em> consentono <em>“ereditarietà multipla”</em> (in C++ si)</h3>
 <ul>
 <li><em>NON</em> è possibile in Java dichiarare: <code>class C extends D1, D2, ... { ... }</code>
 <ul>
@@ -268,7 +268,7 @@ Mirko Viroli, che ringrazio.</p>
 </ul>
 </section><section>
 <h2 id="riassunto-polimorfismo-inclusivo">Riassunto polimorfismo inclusivo</h2>
-<h3 id="polimorfismo-1">Polimorfismo</h3>
+<h3 id="polimorfismo">Polimorfismo</h3>
 <ul>
 <li>Fornisce sopratipi che raccolgono classi uniformi tra loro</li>
 <li>Usabili da funzionalità/<em>contesti ad alta riusabilità</em></li>
@@ -678,6 +678,7 @@ Integer i3 = (Integer) o; // ClassCastException
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></section><section>
 <h2 id="uselamps"><code>UseLamps</code></h2>
+<div class="smaller">
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseLamps</span> {
 </span></span><span style="display:flex;"><span>    <span style="color:#177500">// clausola throws Exception qui sotto necessaria!!</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">s</span>) <span style="color:#a90d91">throws</span> <span style="color:#000">Exception</span> {
@@ -709,7 +710,8 @@ Integer i3 = (Integer) o; // ClassCastException
 </span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"el| "</span> <span style="color:#000">+</span> <span style="color:#000">lamp</span>);
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div></section><section>
+</span></span></code></pre></div></div>
+</section><section>
 <h2 id="classi-astratte-vs-interfacce">Classi astratte vs interfacce</h2>
 <ul>
 <li>Due versioni quasi equivalenti</li>
@@ -884,7 +886,7 @@ Integer i3 = (Integer) o; // ClassCastException
 <!-- ![](imgs/template_method.jpg) -->
 <div class="container">
 <div class="col">
-<div class="mermaid" data-processed="true" pre-rendered="true"><svg aria-labelledby="chart-title-mermaid-1699289577780 chart-desc-mermaid-1699289577780" role="img" viewBox="0 0 159.953125 290" style="max-width: 159.953125px;" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" width="100%" id="mermaid-1699289577780"><title id="chart-title-mermaid-1699289577780"></title><desc id="chart-desc-mermaid-1699289577780"></desc><style>#mermaid-1699289577780 {font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:16px;fill:#333;}#mermaid-1699289577780 .error-icon{fill:#552222;}#mermaid-1699289577780 .error-text{fill:#552222;stroke:#552222;}#mermaid-1699289577780 .edge-thickness-normal{stroke-width:2px;}#mermaid-1699289577780 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-1699289577780 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-1699289577780 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-1699289577780 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-1699289577780 .marker{fill:#333333;stroke:#333333;}#mermaid-1699289577780 .marker.cross{stroke:#333333;}#mermaid-1699289577780 svg{font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:16px;}#mermaid-1699289577780 g.classGroup text{fill:#9370DB;fill:#131300;stroke:none;font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:10px;}#mermaid-1699289577780 g.classGroup text .title{font-weight:bolder;}#mermaid-1699289577780 .nodeLabel,#mermaid-1699289577780 .edgeLabel{color:#131300;}#mermaid-1699289577780 .edgeLabel .label rect{fill:#ECECFF;}#mermaid-1699289577780 .label text{fill:#131300;}#mermaid-1699289577780 .edgeLabel .label span{background:#ECECFF;}#mermaid-1699289577780 .classTitle{font-weight:bolder;}#mermaid-1699289577780 .node rect,#mermaid-1699289577780 .node circle,#mermaid-1699289577780 .node ellipse,#mermaid-1699289577780 .node polygon,#mermaid-1699289577780 .node path{fill:#ECECFF;stroke:#9370DB;stroke-width:1px;}#mermaid-1699289577780 .divider{stroke:#9370DB;stroke:1;}#mermaid-1699289577780 g.clickable{cursor:pointer;}#mermaid-1699289577780 g.classGroup rect{fill:#ECECFF;stroke:#9370DB;}#mermaid-1699289577780 g.classGroup line{stroke:#9370DB;stroke-width:1;}#mermaid-1699289577780 .classLabel .box{stroke:none;stroke-width:0;fill:#ECECFF;opacity:0.5;}#mermaid-1699289577780 .classLabel .label{fill:#9370DB;font-size:10px;}#mermaid-1699289577780 .relation{stroke:#333333;stroke-width:1;fill:none;}#mermaid-1699289577780 .dashed-line{stroke-dasharray:3;}#mermaid-1699289577780 #compositionStart,#mermaid-1699289577780 .composition{fill:#333333!important;stroke:#333333!important;stroke-width:1;}#mermaid-1699289577780 #compositionEnd,#mermaid-1699289577780 .composition{fill:#333333!important;stroke:#333333!important;stroke-width:1;}#mermaid-1699289577780 #dependencyStart,#mermaid-1699289577780 .dependency{fill:#333333!important;stroke:#333333!important;stroke-width:1;}#mermaid-1699289577780 #dependencyStart,#mermaid-1699289577780 .dependency{fill:#333333!important;stroke:#333333!important;stroke-width:1;}#mermaid-1699289577780 #extensionStart,#mermaid-1699289577780 .extension{fill:#333333!important;stroke:#333333!important;stroke-width:1;}#mermaid-1699289577780 #extensionEnd,#mermaid-1699289577780 .extension{fill:#333333!important;stroke:#333333!important;stroke-width:1;}#mermaid-1699289577780 #aggregationStart,#mermaid-1699289577780 .aggregation{fill:#ECECFF!important;stroke:#333333!important;stroke-width:1;}#mermaid-1699289577780 #aggregationEnd,#mermaid-1699289577780 .aggregation{fill:#ECECFF!important;stroke:#333333!important;stroke-width:1;}#mermaid-1699289577780 #lollipopStart,#mermaid-1699289577780 .lollipop{fill:#ECECFF!important;stroke:#333333!important;stroke-width:1;}#mermaid-1699289577780 #lollipopEnd,#mermaid-1699289577780 .lollipop{fill:#ECECFF!important;stroke:#333333!important;stroke-width:1;}#mermaid-1699289577780 .edgeTerminals{font-size:11px;}#mermaid-1699289577780 :root{--mermaid-font-family:"trebuchet ms",verdana,arial,sans-serif;}</style><g><defs><marker orient="auto" markerHeight="240" markerWidth="190" refY="7" refX="0" class="marker aggregation classDiagram" id="classDiagram-aggregationStart"><path d="M 18,7 L9,13 L1,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="28" markerWidth="20" refY="7" refX="19" class="marker aggregation classDiagram" id="classDiagram-aggregationEnd"><path d="M 18,7 L9,13 L1,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="240" markerWidth="190" refY="7" refX="0" class="marker extension classDiagram" id="classDiagram-extensionStart"><path d="M 1,7 L18,13 V 1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="28" markerWidth="20" refY="7" refX="19" class="marker extension classDiagram" id="classDiagram-extensionEnd"><path d="M 1,1 V 13 L18,7 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="240" markerWidth="190" refY="7" refX="0" class="marker composition classDiagram" id="classDiagram-compositionStart"><path d="M 18,7 L9,13 L1,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="28" markerWidth="20" refY="7" refX="19" class="marker composition classDiagram" id="classDiagram-compositionEnd"><path d="M 18,7 L9,13 L1,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="240" markerWidth="190" refY="7" refX="0" class="marker dependency classDiagram" id="classDiagram-dependencyStart"><path d="M 5,7 L9,13 L1,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="28" markerWidth="20" refY="7" refX="19" class="marker dependency classDiagram" id="classDiagram-dependencyEnd"><path d="M 18,7 L9,13 L14,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="240" markerWidth="190" refY="7" refX="0" class="marker lollipop classDiagram" id="classDiagram-lollipopStart"><circle r="6" cy="7" cx="6" fill="white" stroke="black"></circle></marker></defs><g class="root"><g class="clusters"></g><g class="edgePaths"><path marker-start="url(#classDiagram-extensionStart)" style="fill:none" class="edge-pattern-solid relation" id="id1" d="M79.9765625,131L79.9765625,135.16666666666666C79.9765625,139.33333333333334,79.9765625,147.66666666666666,79.9765625,156C79.9765625,164.33333333333334,79.9765625,172.66666666666666,79.9765625,176.83333333333334L79.9765625,181"></path></g><g class="edgeLabels"><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="edgeLabel"></span></div></foreignObject></g></g></g><g class="nodes"><g transform="translate(79.9765625, 69.5)" id="classid-AbstractClass-0" class="node default"><rect height="123" width="143.953125" y="-61.5" x="-71.9765625" class="outer title-state"></rect><line y2="-31.5" y1="-31.5" x2="71.9765625" x1="-71.9765625" class="divider"></line><line y2="-15.5" y1="-15.5" x2="71.9765625" x1="-71.9765625" class="divider"></line><g class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel"></span></div></foreignObject><foreignObject transform="translate( -53.8046875, -54)" height="18" width="107.609375" class="classTitle"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">AbstractClass</span></div></foreignObject><foreignObject transform="translate( -64.4765625, -8)" height="18" width="128.953125"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">TemplateMethod()</span></div></foreignObject><foreignObject transform="translate( -64.4765625, 14)" height="18" width="102.234375"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">PrimitiveOp1()</span></div></foreignObject><foreignObject transform="translate( -64.4765625, 36)" height="18" width="102.234375"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">PrimitiveOp2()</span></div></foreignObject></g></g><g transform="translate(79.9765625, 231.5)" id="classid-ConcreteClass-1" class="node default"><rect height="101" width="127.046875" y="-50.5" x="-63.5234375" class="outer title-state"></rect><line y2="-20.5" y1="-20.5" x2="63.5234375" x1="-63.5234375" class="divider"></line><line y2="-4.5" y1="-4.5" x2="63.5234375" x1="-63.5234375" class="divider"></line><g class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel"></span></div></foreignObject><foreignObject transform="translate( -56.0234375, -43)" height="18" width="112.046875" class="classTitle"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">ConcreteClass</span></div></foreignObject><foreignObject transform="translate( -56.0234375, 3)" height="18" width="102.234375"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">PrimitiveOp1()</span></div></foreignObject><foreignObject transform="translate( -56.0234375, 25)" height="18" width="102.234375"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">PrimitiveOp2()</span></div></foreignObject></g></g></g></g></g></svg></div>
+<div class="mermaid" data-processed="true" pre-rendered="true"><svg aria-labelledby="chart-title-mermaid-1699296523605 chart-desc-mermaid-1699296523605" role="img" viewBox="0 0 159.953125 290" style="max-width: 159.953125px;" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" width="100%" id="mermaid-1699296523605"><title id="chart-title-mermaid-1699296523605"></title><desc id="chart-desc-mermaid-1699296523605"></desc><style>#mermaid-1699296523605 {font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:16px;fill:#333;}#mermaid-1699296523605 .error-icon{fill:#552222;}#mermaid-1699296523605 .error-text{fill:#552222;stroke:#552222;}#mermaid-1699296523605 .edge-thickness-normal{stroke-width:2px;}#mermaid-1699296523605 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-1699296523605 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-1699296523605 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-1699296523605 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-1699296523605 .marker{fill:#333333;stroke:#333333;}#mermaid-1699296523605 .marker.cross{stroke:#333333;}#mermaid-1699296523605 svg{font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:16px;}#mermaid-1699296523605 g.classGroup text{fill:#9370DB;fill:#131300;stroke:none;font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:10px;}#mermaid-1699296523605 g.classGroup text .title{font-weight:bolder;}#mermaid-1699296523605 .nodeLabel,#mermaid-1699296523605 .edgeLabel{color:#131300;}#mermaid-1699296523605 .edgeLabel .label rect{fill:#ECECFF;}#mermaid-1699296523605 .label text{fill:#131300;}#mermaid-1699296523605 .edgeLabel .label span{background:#ECECFF;}#mermaid-1699296523605 .classTitle{font-weight:bolder;}#mermaid-1699296523605 .node rect,#mermaid-1699296523605 .node circle,#mermaid-1699296523605 .node ellipse,#mermaid-1699296523605 .node polygon,#mermaid-1699296523605 .node path{fill:#ECECFF;stroke:#9370DB;stroke-width:1px;}#mermaid-1699296523605 .divider{stroke:#9370DB;stroke:1;}#mermaid-1699296523605 g.clickable{cursor:pointer;}#mermaid-1699296523605 g.classGroup rect{fill:#ECECFF;stroke:#9370DB;}#mermaid-1699296523605 g.classGroup line{stroke:#9370DB;stroke-width:1;}#mermaid-1699296523605 .classLabel .box{stroke:none;stroke-width:0;fill:#ECECFF;opacity:0.5;}#mermaid-1699296523605 .classLabel .label{fill:#9370DB;font-size:10px;}#mermaid-1699296523605 .relation{stroke:#333333;stroke-width:1;fill:none;}#mermaid-1699296523605 .dashed-line{stroke-dasharray:3;}#mermaid-1699296523605 #compositionStart,#mermaid-1699296523605 .composition{fill:#333333!important;stroke:#333333!important;stroke-width:1;}#mermaid-1699296523605 #compositionEnd,#mermaid-1699296523605 .composition{fill:#333333!important;stroke:#333333!important;stroke-width:1;}#mermaid-1699296523605 #dependencyStart,#mermaid-1699296523605 .dependency{fill:#333333!important;stroke:#333333!important;stroke-width:1;}#mermaid-1699296523605 #dependencyStart,#mermaid-1699296523605 .dependency{fill:#333333!important;stroke:#333333!important;stroke-width:1;}#mermaid-1699296523605 #extensionStart,#mermaid-1699296523605 .extension{fill:#333333!important;stroke:#333333!important;stroke-width:1;}#mermaid-1699296523605 #extensionEnd,#mermaid-1699296523605 .extension{fill:#333333!important;stroke:#333333!important;stroke-width:1;}#mermaid-1699296523605 #aggregationStart,#mermaid-1699296523605 .aggregation{fill:#ECECFF!important;stroke:#333333!important;stroke-width:1;}#mermaid-1699296523605 #aggregationEnd,#mermaid-1699296523605 .aggregation{fill:#ECECFF!important;stroke:#333333!important;stroke-width:1;}#mermaid-1699296523605 #lollipopStart,#mermaid-1699296523605 .lollipop{fill:#ECECFF!important;stroke:#333333!important;stroke-width:1;}#mermaid-1699296523605 #lollipopEnd,#mermaid-1699296523605 .lollipop{fill:#ECECFF!important;stroke:#333333!important;stroke-width:1;}#mermaid-1699296523605 .edgeTerminals{font-size:11px;}#mermaid-1699296523605 :root{--mermaid-font-family:"trebuchet ms",verdana,arial,sans-serif;}</style><g><defs><marker orient="auto" markerHeight="240" markerWidth="190" refY="7" refX="0" class="marker aggregation classDiagram" id="classDiagram-aggregationStart"><path d="M 18,7 L9,13 L1,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="28" markerWidth="20" refY="7" refX="19" class="marker aggregation classDiagram" id="classDiagram-aggregationEnd"><path d="M 18,7 L9,13 L1,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="240" markerWidth="190" refY="7" refX="0" class="marker extension classDiagram" id="classDiagram-extensionStart"><path d="M 1,7 L18,13 V 1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="28" markerWidth="20" refY="7" refX="19" class="marker extension classDiagram" id="classDiagram-extensionEnd"><path d="M 1,1 V 13 L18,7 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="240" markerWidth="190" refY="7" refX="0" class="marker composition classDiagram" id="classDiagram-compositionStart"><path d="M 18,7 L9,13 L1,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="28" markerWidth="20" refY="7" refX="19" class="marker composition classDiagram" id="classDiagram-compositionEnd"><path d="M 18,7 L9,13 L1,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="240" markerWidth="190" refY="7" refX="0" class="marker dependency classDiagram" id="classDiagram-dependencyStart"><path d="M 5,7 L9,13 L1,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="28" markerWidth="20" refY="7" refX="19" class="marker dependency classDiagram" id="classDiagram-dependencyEnd"><path d="M 18,7 L9,13 L14,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="240" markerWidth="190" refY="7" refX="0" class="marker lollipop classDiagram" id="classDiagram-lollipopStart"><circle r="6" cy="7" cx="6" fill="white" stroke="black"></circle></marker></defs><g class="root"><g class="clusters"></g><g class="edgePaths"><path marker-start="url(#classDiagram-extensionStart)" style="fill:none" class="edge-pattern-solid relation" id="id1" d="M79.9765625,131L79.9765625,135.16666666666666C79.9765625,139.33333333333334,79.9765625,147.66666666666666,79.9765625,156C79.9765625,164.33333333333334,79.9765625,172.66666666666666,79.9765625,176.83333333333334L79.9765625,181"></path></g><g class="edgeLabels"><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="edgeLabel"></span></div></foreignObject></g></g></g><g class="nodes"><g transform="translate(79.9765625, 69.5)" id="classid-AbstractClass-0" class="node default"><rect height="123" width="143.953125" y="-61.5" x="-71.9765625" class="outer title-state"></rect><line y2="-31.5" y1="-31.5" x2="71.9765625" x1="-71.9765625" class="divider"></line><line y2="-15.5" y1="-15.5" x2="71.9765625" x1="-71.9765625" class="divider"></line><g class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel"></span></div></foreignObject><foreignObject transform="translate( -53.8046875, -54)" height="18" width="107.609375" class="classTitle"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">AbstractClass</span></div></foreignObject><foreignObject transform="translate( -64.4765625, -8)" height="18" width="128.953125"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">TemplateMethod()</span></div></foreignObject><foreignObject transform="translate( -64.4765625, 14)" height="18" width="102.234375"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">PrimitiveOp1()</span></div></foreignObject><foreignObject transform="translate( -64.4765625, 36)" height="18" width="102.234375"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">PrimitiveOp2()</span></div></foreignObject></g></g><g transform="translate(79.9765625, 231.5)" id="classid-ConcreteClass-1" class="node default"><rect height="101" width="127.046875" y="-50.5" x="-63.5234375" class="outer title-state"></rect><line y2="-20.5" y1="-20.5" x2="63.5234375" x1="-63.5234375" class="divider"></line><line y2="-4.5" y1="-4.5" x2="63.5234375" x1="-63.5234375" class="divider"></line><g class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel"></span></div></foreignObject><foreignObject transform="translate( -56.0234375, -43)" height="18" width="112.046875" class="classTitle"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">ConcreteClass</span></div></foreignObject><foreignObject transform="translate( -56.0234375, 3)" height="18" width="102.234375"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">PrimitiveOp1()</span></div></foreignObject><foreignObject transform="translate( -56.0234375, 25)" height="18" width="102.234375"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">PrimitiveOp2()</span></div></foreignObject></g></g></g></g></g></svg></div>
 
 </div>
 <div class="col">
@@ -980,163 +982,252 @@ public class UseRandomInputStream {
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></div>
 </section><section>
-<h2 id="pattern-decorator-strutturale-su-oggetti">Pattern <strong>Decorator</strong>: strutturale, su oggetti</h2>
-<h3 id="intentomotivazione-1">Intento/motivazione</h3>
-<p><em>Aggiunge ad un oggetto ulteriori responsabilità, dinamicamente</em>: cioè, lo “decora”. E lo fa in modo più flessibile (e componibile) rispetto all’ereditarietà.</p>
-<h3 id="esempi-1">Esempi</h3>
-<ul>
-<li>Aggiunta del “tempo di vita” ad una lampadina</li>
-<li>Aggiunta di “logging” (stampe in output/su file) alle operazioni di un oggetto</li>
-<li>Aggiunta di una una barra di scorrimento ad un pannello in una GUI (temi che vedremo)</li>
-<li>Ottenere uno stream ordered da uno unordered (temi che vedremo)</li>
-</ul>
 <!--
+
+## Pattern **Decorator**: strutturale, su oggetti
+
+
+    
+### Intento/motivazione
+
+
+*Aggiunge ad un oggetto ulteriori responsabilità, dinamicamente*: cioè, lo "decora". E lo fa in modo più flessibile (e componibile) rispetto all'ereditarietà.
+    
+
+    
+### Esempi
+
+*  Aggiunta del "tempo di vita" ad una lampadina
+*  Aggiunta di "logging" (stampe in output/su file) alle operazioni di un oggetto
+*  Aggiunta di una una barra di scorrimento ad un pannello in una GUI (temi che vedremo)
+*  Ottenere uno stream ordered da uno unordered (temi che vedremo)
 *  Aggiungere (in modo componibile) la gestione "buffered" ad uno stream
--->    
-<h3 id="soluzione-2">Soluzione</h3>
-<!--
-*  La classe base (*componente*) viene estesa con una nuova classe (*decoratore*) che è anche wrapper di un oggetto della classe base
-    *  Uno o più metodi potrebbero delegare semplicemente all'oggetto wrappato, altri modificare opportunamente, altri essere aggiuntivi
--->
-<ul>
-<li>Il <em>decoratore</em> ha un riferimento al <em>componente</em> e definisce un’interfaccia che è conforme a quella del <em>componente</em>: il <em>decoratore</em> fa “forwarding” delle richieste al <em>componente</em>, e può svolgere altre operazioni prima e/o dopo</li>
-<li>$\Rightarrow$ può essere visto come variante dello strategy (in cui la strategia è “il comportamento di base” del componente), e potrebbe includere dei template method</li>
-</ul>
-</section><section>
-<h2 id="decorator-uml">Decorator: UML</h2>
-<p><img src="imgs/decorator.jpg" alt=""></p>
-</section><section>
-<h2 id="esempio-di-problema">Esempio di problema</h2>
-<h3 id="data-la-seguente-interfaccia-pizza">Data la seguente interfaccia <code>Pizza</code>..</h3>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">interface</span> <span style="color:#3f6e75">Pizza</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">int</span> <span style="color:#000">getCost</span>(); <span style="color:#177500">// prezzo in centesimi di euro</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#000">String</span> <span style="color:#000">getIngredients</span>(); <span style="color:#177500">// lista di ingredienti a menù</span>
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h3 id="realizzare-le-seguenti-astrazioni">Realizzare le seguenti astrazioni</h3>
-<ul>
-<li>Margherita (6.50 euro, ingredienti: pomodoro + mozzarella)</li>
-<li>Aggiunta Salsiccia (1.50 euro), anche doppia o tripla eccetera</li>
-<li>Aggiunta Funghi (1 euro), anche doppia o tripla eccetera</li>
-<li>Pizza senza glutine (+10% costo)</li>
-</ul>
-<h3 id="forniamo-la-soluzione-col-decoratore-tipica-del-concetto-di-ingrediente">Forniamo la soluzione col decoratore (tipica del concetto di “ingrediente”)</h3>
-<ul>
-<li>Classe concreta <code>Margherita</code></li>
-<li>Decoratore astratto <code>IngredientDecorator</code></li>
-<li>Specializzazioni <code>Salsiccia</code>, <code>Funghi</code> e <code>GlutenFree</code></li>
-</ul>
-</section><section>
-<h2 id="funzionalità-di-testing">Funzionalità di testing</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span>	
-</span></span><span style="display:flex;"><span>	<span style="color:#000">@Test</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">test</span>(){
-</span></span><span style="display:flex;"><span>		<span style="color:#000">Pizza</span> <span style="color:#000">p1</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Mushrooms</span>(<span style="color:#a90d91">new</span> <span style="color:#000">Sausage</span>(<span style="color:#a90d91">new</span> <span style="color:#000">Margherita</span>()));
-</span></span><span style="display:flex;"><span>		<span style="color:#000">Pizza</span> <span style="color:#000">p2</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Margherita</span>();
-</span></span><span style="display:flex;"><span>		<span style="color:#000">Pizza</span> <span style="color:#000">p3</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Sausage</span>(<span style="color:#a90d91">new</span> <span style="color:#000">Sausage</span>(<span style="color:#a90d91">new</span> <span style="color:#000">Margherita</span>())); <span style="color:#177500">// Ingrediente usato due volte (ossia doppio)</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#000">Pizza</span> <span style="color:#000">p4</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">GlutFree</span>(<span style="color:#a90d91">new</span> <span style="color:#000">Sausage</span>(<span style="color:#a90d91">new</span> <span style="color:#000">Sausage</span>(<span style="color:#a90d91">new</span> <span style="color:#000">Margherita</span>())));
-</span></span><span style="display:flex;"><span>		<span style="color:#177500">// stampe di comodo</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">p1</span>.<span style="color:#836c28">getCost</span>()<span style="color:#000">+</span><span style="color:#c41a16">" "</span><span style="color:#000">+</span><span style="color:#000">p1</span>.<span style="color:#836c28">getIngredients</span>());
-</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">p2</span>.<span style="color:#836c28">getCost</span>()<span style="color:#000">+</span><span style="color:#c41a16">" "</span><span style="color:#000">+</span><span style="color:#000">p2</span>.<span style="color:#836c28">getIngredients</span>());
-</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">p3</span>.<span style="color:#836c28">getCost</span>()<span style="color:#000">+</span><span style="color:#c41a16">" "</span><span style="color:#000">+</span><span style="color:#000">p3</span>.<span style="color:#836c28">getIngredients</span>());
-</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">p4</span>.<span style="color:#836c28">getCost</span>()<span style="color:#000">+</span><span style="color:#c41a16">" "</span><span style="color:#000">+</span><span style="color:#000">p4</span>.<span style="color:#836c28">getIngredients</span>());
-</span></span><span style="display:flex;"><span>		<span style="color:#177500">// test correttezza di costi e stringhe</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#000">assertEquals</span>(<span style="color:#000">p1</span>.<span style="color:#836c28">getCost</span>(),<span style="color:#000">900</span>); <span style="color:#177500">// 6.50 + 1.00 + 1.50</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#000">assertEquals</span>(<span style="color:#000">p2</span>.<span style="color:#836c28">getCost</span>(),<span style="color:#000">650</span>);
-</span></span><span style="display:flex;"><span>		<span style="color:#000">assertEquals</span>(<span style="color:#000">p3</span>.<span style="color:#836c28">getCost</span>(),<span style="color:#000">950</span>); <span style="color:#177500">// 6.50 + 1.50 + 1.50</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#000">assertEquals</span>(<span style="color:#000">p4</span>.<span style="color:#836c28">getCost</span>(),<span style="color:#000">1045</span>);<span style="color:#177500">// (6.50 + 1.50 + 1.50) + 10%</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#000">assertEquals</span>(<span style="color:#000">p1</span>.<span style="color:#836c28">getIngredients</span>(),<span style="color:#c41a16">"Tomato, Mozzarella, Sausage, Mushrooms"</span>);
-</span></span><span style="display:flex;"><span>		<span style="color:#000">assertEquals</span>(<span style="color:#000">p2</span>.<span style="color:#836c28">getIngredients</span>(),<span style="color:#c41a16">"Tomato, Mozzarella"</span>);
-</span></span><span style="display:flex;"><span>		<span style="color:#000">assertEquals</span>(<span style="color:#000">p3</span>.<span style="color:#836c28">getIngredients</span>(),<span style="color:#c41a16">"Tomato, Mozzarella, Sausage, Sausage"</span>);
-</span></span><span style="display:flex;"><span>		<span style="color:#000">assertEquals</span>(<span style="color:#000">p4</span>.<span style="color:#836c28">getIngredients</span>(),<span style="color:#c41a16">"[GF] Tomato, Mozzarella, Sausage, Sausage"</span>);	
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div></section><section>
-<h2 id="classe-margherita">Classe <code>Margherita</code></h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#177500">/*
-</span></span></span><span style="display:flex;"><span><span style="color:#177500"> * This is the basic Pizza of all
-</span></span></span><span style="display:flex;"><span><span style="color:#177500"> */</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Margherita</span> <span style="color:#a90d91">implements</span> <span style="color:#000">Pizza</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">int</span> <span style="color:#000">getCost</span>() {
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#000">650</span>;
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#000">String</span> <span style="color:#000">getIngredients</span>() {
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#c41a16">"Tomato, Mozzarella"</span>;
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div></section><section>
-<h2 id="classe-ingredientdecorator">Classe <code>IngredientDecorator</code></h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">abstract</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">IngredientDecorator</span> <span style="color:#a90d91">implements</span> <span style="color:#000">Pizza</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">protected</span> <span style="color:#a90d91">final</span> <span style="color:#000">Pizza</span> <span style="color:#000">decorated</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">protected</span> <span style="color:#000">IngredientDecorator</span>(<span style="color:#000">Pizza</span> <span style="color:#000">decorated</span>) {
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span>.<span style="color:#836c28">decorated</span> <span style="color:#000">=</span> <span style="color:#000">decorated</span>;
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">int</span> <span style="color:#000">getCost</span>() {
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">decorated</span>.<span style="color:#836c28">getCost</span>();
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#000">String</span> <span style="color:#000">getIngredients</span>() {
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">decorated</span>.<span style="color:#836c28">getIngredients</span>();
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div></section><section>
-<h2 id="classe-basicingredient">Classe <code>BasicIngredient</code></h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">BasicIngredient</span> <span style="color:#a90d91">extends</span> <span style="color:#000">IngredientDecorator</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#000">String</span> <span style="color:#000">name</span>;
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">cost</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#000">BasicIngredient</span>(<span style="color:#000">String</span> <span style="color:#000">name</span>, <span style="color:#a90d91">int</span> <span style="color:#000">cost</span>, <span style="color:#000">Pizza</span> <span style="color:#000">p</span>) {
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">super</span>(<span style="color:#000">p</span>);
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span>.<span style="color:#836c28">name</span> <span style="color:#000">=</span> <span style="color:#000">name</span>;
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span>.<span style="color:#836c28">cost</span> <span style="color:#000">=</span> <span style="color:#000">cost</span>;
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">int</span> <span style="color:#000">getCost</span>() {
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#a90d91">super</span>.<span style="color:#836c28">getCost</span>() <span style="color:#000">+</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">cost</span>;
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#000">String</span> <span style="color:#000">getIngredients</span>() {
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#a90d91">super</span>.<span style="color:#836c28">getIngredients</span>() <span style="color:#000">+</span> <span style="color:#c41a16">", "</span> <span style="color:#000">+</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">name</span>;
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div></section><section>
-<h2 id="classi-per-gli-ingredienti">Classi per gli ingredienti..</h2>
+
+    
+### Soluzione
+
+
+* Il *decoratore* ha un riferimento al *componente* e definisce un'interfaccia che è conforme a quella del *componente*: il *decoratore* fa "forwarding" delle richieste al *componente*, e può svolgere altre operazioni prima e/o dopo 
+* $\Rightarrow$ può essere visto come variante dello strategy (in cui la strategia è "il comportamento di base" del componente), e potrebbe includere dei template method
+    
+
+---
+
+
+## Decorator: UML
+
+
+![](imgs/decorator.jpg)
+
+
+---
+
+
+## Esempio di problema
+
+
+    
+### Data la seguente interfaccia `Pizza`..
+
+
+```java
+public interface Pizza {
+	int getCost(); // prezzo in centesimi di euro
+	String getIngredients(); // lista di ingredienti a menù
+}
+
+```
+    
+
+    
+### Realizzare le seguenti astrazioni
+
+
+
+*  Margherita (6.50 euro, ingredienti: pomodoro + mozzarella)
+*  Aggiunta Salsiccia (1.50 euro), anche doppia o tripla eccetera
+*  Aggiunta Funghi (1 euro), anche doppia o tripla eccetera
+*  Pizza senza glutine (+10% costo) 
+    
+
+
+    
+### Forniamo la soluzione col decoratore (tipica del concetto di "ingrediente")
+
+
+
+*  Classe concreta `Margherita`
+*  Decoratore astratto `IngredientDecorator`
+*  Specializzazioni `Salsiccia`, `Funghi` e `GlutenFree`
+    
+
+
+
+
+---
+
+
+## Funzionalità di testing
+
+```java
+	
+	@Test
+	public void test(){
+		Pizza p1 = new Mushrooms(new Sausage(new Margherita()));
+		Pizza p2 = new Margherita();
+		Pizza p3 = new Sausage(new Sausage(new Margherita())); // Ingrediente usato due volte (ossia doppio)
+		Pizza p4 = new GlutFree(new Sausage(new Sausage(new Margherita())));
+		// stampe di comodo
+		System.out.println(p1.getCost()+" "+p1.getIngredients());
+		System.out.println(p2.getCost()+" "+p2.getIngredients());
+		System.out.println(p3.getCost()+" "+p3.getIngredients());
+		System.out.println(p4.getCost()+" "+p4.getIngredients());
+		// test correttezza di costi e stringhe
+		assertEquals(p1.getCost(),900); // 6.50 + 1.00 + 1.50
+		assertEquals(p2.getCost(),650);
+		assertEquals(p3.getCost(),950); // 6.50 + 1.50 + 1.50
+		assertEquals(p4.getCost(),1045);// (6.50 + 1.50 + 1.50) + 10%
+		assertEquals(p1.getIngredients(),"Tomato, Mozzarella, Sausage, Mushrooms");
+		assertEquals(p2.getIngredients(),"Tomato, Mozzarella");
+		assertEquals(p3.getIngredients(),"Tomato, Mozzarella, Sausage, Sausage");
+		assertEquals(p4.getIngredients(),"[GF] Tomato, Mozzarella, Sausage, Sausage");	
+	}
+}
+
+```
+
+
+---
+
+
+## Classe `Margherita`
+
+
+```java
+/*
+ * This is the basic Pizza of all
+ */
+
+public class Margherita implements Pizza {
+	public int getCost() {
+		return 650;
+	}
+
+	public String getIngredients() {
+		return "Tomato, Mozzarella";
+	}
+}
+
+```
+
+---
+
+
+## Classe `IngredientDecorator`
+
+
+
+```java
+public abstract class IngredientDecorator implements Pizza {
+	protected final Pizza decorated;
+
+	protected IngredientDecorator(Pizza decorated) {
+		this.decorated = decorated;
+	}
+
+	public int getCost() {
+		return this.decorated.getCost();
+	}
+
+	public String getIngredients() {
+		return this.decorated.getIngredients();
+	}
+}
+
+```
+
+---
+
+## Classe `BasicIngredient`
+
+```java
+public class BasicIngredient extends IngredientDecorator {
+	private final String name;
+	private final int cost;
+
+	public BasicIngredient(String name, int cost, Pizza p) {
+		super(p);
+		this.name = name;
+		this.cost = cost;
+	}
+
+	public int getCost() {
+		return super.getCost() + this.cost;
+	}
+
+	public String getIngredients() {
+		return super.getIngredients() + ", " + this.name;
+	}
+}
+
+```
+
+---
+
+
+## Classi per gli ingredienti..
+
 <div class="container">
 <div class="col">
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Sausage</span> <span style="color:#a90d91">extends</span> <span style="color:#000">BasicIngredient</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#000">Sausage</span>(<span style="color:#000">Pizza</span> <span style="color:#000">p</span>) {
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">super</span>(<span style="color:#c41a16">"Sausage"</span>, <span style="color:#000">150</span>, <span style="color:#000">p</span>);
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Mushrooms</span> <span style="color:#a90d91">extends</span> <span style="color:#000">BasicIngredient</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#000">Mushrooms</span>(<span style="color:#000">Pizza</span> <span style="color:#000">p</span>) {
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">super</span>(<span style="color:#c41a16">"Mushrooms"</span>, <span style="color:#000">100</span>, <span style="color:#000">p</span>);
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div></div>
+
+```java
+public class Sausage extends BasicIngredient {
+	public Sausage(Pizza p) {
+		super("Sausage", 150, p);
+	}
+}
+
+```
+
+```java
+public class Mushrooms extends BasicIngredient {
+	public Mushrooms(Pizza p) {
+		super("Mushrooms", 100, p);
+	}
+}
+
+```
+
+</div>
 <div class="col">
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">GlutFree</span> <span style="color:#a90d91">extends</span> <span style="color:#000">IngredientDecorator</span> {
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#000">GlutFree</span>(<span style="color:#000">Pizza</span> <span style="color:#000">p</span>) {
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">super</span>(<span style="color:#000">p</span>);
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">int</span> <span style="color:#000">getCost</span>() {
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> (<span style="color:#a90d91">int</span>) (<span style="color:#a90d91">super</span>.<span style="color:#836c28">getCost</span>() <span style="color:#000">*</span> <span style="color:#000">1</span>.<span style="color:#836c28">1</span>);
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#000">String</span> <span style="color:#000">getIngredients</span>() {
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#c41a16">"[GF] "</span> <span style="color:#000">+</span> <span style="color:#a90d91">super</span>.<span style="color:#836c28">getIngredients</span>();
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div></div></div>
-</section><section>
+
+```java
+public class GlutFree extends IngredientDecorator {
+
+	public GlutFree(Pizza p) {
+		super(p);
+	}
+
+	public int getCost() {
+		return (int) (super.getCost() * 1.1);
+	}
+
+	public String getIngredients() {
+		return "[GF] " + super.getIngredients();
+	}
+
+}
+
+```
+
+</div></div>
+
+
+---
+
+-->
 <h2 id="preview-del-prossimo-laboratorio">Preview del prossimo laboratorio</h2>
-<h3 id="obbiettivi">Obbiettivi</h3>
+<h3 id="obiettivi">Obiettivi</h3>
 <p>Familiarizzare con:</p>
 <ul>
 <li>Estensione delle classi e corrispondente polimorfismo</li>
