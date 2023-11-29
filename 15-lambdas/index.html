@@ -372,22 +372,22 @@ Mirko Viroli, che ringrazio.</p>
 <h2 id="generazione-automatica-della-classe-anonima">Generazione automatica della classe anonima</h2>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">FirstComparable2</span> {
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span>) {
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">Persona</span><span style="color:#000">&gt;</span> <span style="color:#000">list</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">ArrayList</span><span style="color:#000">&lt;</span><span style="color:#000">Persona</span><span style="color:#000">&gt;</span>();
-</span></span><span style="display:flex;"><span>		<span style="color:#000">list</span>.<span style="color:#836c28">add</span>(<span style="color:#a90d91">new</span> <span style="color:#000">Persona</span>(<span style="color:#c41a16">"Mario"</span>, <span style="color:#000">1960</span>, <span style="color:#a90d91">true</span>));
-</span></span><span style="display:flex;"><span>		<span style="color:#000">list</span>.<span style="color:#836c28">add</span>(<span style="color:#a90d91">new</span> <span style="color:#000">Persona</span>(<span style="color:#c41a16">"Gino"</span>, <span style="color:#000">1970</span>, <span style="color:#a90d91">false</span>));
-</span></span><span style="display:flex;"><span>		<span style="color:#000">list</span>.<span style="color:#836c28">add</span>(<span style="color:#a90d91">new</span> <span style="color:#000">Persona</span>(<span style="color:#c41a16">"Rino"</span>, <span style="color:#000">1951</span>, <span style="color:#a90d91">true</span>));
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">Person</span><span style="color:#000">&gt;</span> <span style="color:#000">list</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">ArrayList</span><span style="color:#000">&lt;</span><span style="color:#000">Person</span><span style="color:#000">&gt;</span>();
+</span></span><span style="display:flex;"><span>		<span style="color:#000">list</span>.<span style="color:#836c28">add</span>(<span style="color:#a90d91">new</span> <span style="color:#000">Person</span>(<span style="color:#c41a16">"Mario"</span>, <span style="color:#000">1960</span>, <span style="color:#a90d91">true</span>));
+</span></span><span style="display:flex;"><span>		<span style="color:#000">list</span>.<span style="color:#836c28">add</span>(<span style="color:#a90d91">new</span> <span style="color:#000">Person</span>(<span style="color:#c41a16">"Gino"</span>, <span style="color:#000">1970</span>, <span style="color:#a90d91">false</span>));
+</span></span><span style="display:flex;"><span>		<span style="color:#000">list</span>.<span style="color:#836c28">add</span>(<span style="color:#a90d91">new</span> <span style="color:#000">Person</span>(<span style="color:#c41a16">"Rino"</span>, <span style="color:#000">1951</span>, <span style="color:#a90d91">true</span>));
 </span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">list</span>);
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>		<span style="color:#177500">// Sorting with a lambda</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#000">Collections</span>.<span style="color:#836c28">sort</span>(<span style="color:#000">list</span>, (<span style="color:#000">p1</span>, <span style="color:#000">p2</span>) <span style="color:#000">-&gt;</span> <span style="color:#000">Integer</span>.<span style="color:#836c28">compare</span>(<span style="color:#000">p2</span>.<span style="color:#836c28">getAnno</span>(), <span style="color:#000">p1</span>.<span style="color:#836c28">getAnno</span>()));
+</span></span><span style="display:flex;"><span>		<span style="color:#000">Collections</span>.<span style="color:#836c28">sort</span>(<span style="color:#000">list</span>, (<span style="color:#000">p1</span>, <span style="color:#000">p2</span>) <span style="color:#000">-&gt;</span> <span style="color:#000">Integer</span>.<span style="color:#836c28">compare</span>(<span style="color:#000">p2</span>.<span style="color:#836c28">getYear</span>(), <span style="color:#000">p1</span>.<span style="color:#836c28">getYear</span>()));
 </span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">list</span>);
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>		<span style="color:#177500">// Nota che sort richiede un Comparator&lt;Persona&gt;, che ha il solo metodo:</span>
 </span></span><span style="display:flex;"><span>		<span style="color:#177500">// int compare(Persona p1, Persona p2)</span>
 </span></span><span style="display:flex;"><span>		<span style="color:#177500">// Quindi il codice equivalente generato da javac è:</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#000">Collections</span>.<span style="color:#836c28">sort</span>(<span style="color:#000">list</span>, <span style="color:#a90d91">new</span> <span style="color:#000">Comparator</span><span style="color:#000">&lt;</span><span style="color:#000">Persona</span><span style="color:#000">&gt;</span>() {
-</span></span><span style="display:flex;"><span>			<span style="color:#a90d91">public</span> <span style="color:#a90d91">int</span> <span style="color:#000">compare</span>(<span style="color:#000">Persona</span> <span style="color:#000">p1</span>, <span style="color:#000">Persona</span> <span style="color:#000">p2</span>) {
-</span></span><span style="display:flex;"><span>				<span style="color:#a90d91">return</span> <span style="color:#000">Integer</span>.<span style="color:#836c28">compare</span>(<span style="color:#000">p2</span>.<span style="color:#836c28">getAnno</span>(), <span style="color:#000">p1</span>.<span style="color:#836c28">getAnno</span>());
+</span></span><span style="display:flex;"><span>		<span style="color:#000">Collections</span>.<span style="color:#836c28">sort</span>(<span style="color:#000">list</span>, <span style="color:#a90d91">new</span> <span style="color:#000">Comparator</span><span style="color:#000">&lt;</span><span style="color:#000">Person</span><span style="color:#000">&gt;</span>() {
+</span></span><span style="display:flex;"><span>			<span style="color:#a90d91">public</span> <span style="color:#a90d91">int</span> <span style="color:#000">compare</span>(<span style="color:#000">Person</span> <span style="color:#000">p1</span>, <span style="color:#000">Person</span> <span style="color:#000">p2</span>) {
+</span></span><span style="display:flex;"><span>				<span style="color:#a90d91">return</span> <span style="color:#000">Integer</span>.<span style="color:#836c28">compare</span>(<span style="color:#000">p2</span>.<span style="color:#836c28">getYear</span>(), <span style="color:#000">p1</span>.<span style="color:#836c28">getYear</span>());
 </span></span><span style="display:flex;"><span>			}
 </span></span><span style="display:flex;"><span>		});
 </span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">list</span>);
@@ -819,11 +819,9 @@ p.test("hello world"); // true
   
 
   
+
+  
     
-  
-
-  
-
   
 
   
