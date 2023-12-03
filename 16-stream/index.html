@@ -11,7 +11,7 @@
 <link href="https://fonts.googleapis.com/css?family=Roboto Mono" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Oxygen Mono" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Ubuntu Mono" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
   </head>
   <body>
@@ -639,153 +639,7 @@ Mirko Viroli, che ringrazio.</p>
 </span></span><span style="display:flex;"><span>				.<span style="color:#836c28">collect</span>(<span style="color:#000">Collectors</span>.<span style="color:#836c28">joining</span>(<span style="color:#c41a16">","</span>,<span style="color:#c41a16">"["</span>,<span style="color:#c41a16">"]"</span>)));
 </span></span><span style="display:flex;"><span>	}
 </span></span><span style="display:flex;"><span>}   
-</span></span></code></pre></div></section><section>
-<h1 id="implementazione-stream-e-concorrenza">Implementazione Stream e Concorrenza</h1>
-</section><section>
-<h2 id="stream-e-parallelismo">Stream e parallelismo</h2>
-<h3 id="uno-dei-vantaggi-degli-stream">Uno dei vantaggi degli stream</h3>
-<ul>
-<li>E’ possibile gestire in modo completamente automatico il parallelismo</li>
-<li>Alcuni stream (ossia non tutti) ammettono implementazioni multi-threaded
-<ul>
-<li><code>range</code>, collezioni.. ma non <code>iterate</code></li>
-</ul>
-</li>
-<li>Gli effettivi vantaggi (o addirittura penalizzazioni!) dipendono da molti fattori
-<ul>
-<li>Implementazione corrente dell’API, tipo di stream, tipi di computazioni</li>
-</ul>
-</li>
-</ul>
-<h3 id="come-si-abilita-il-parallelismo-ove-possibile">Come si abilita il parallelismo (ove possibile)?</h3>
-<ul>
-<li>Basta richiamare il metodo <code>parallel()</code> su uno stream..</li>
-<li>..o il metodo <code>parallelStream()</code> da una collection</li>
-</ul>
-</section><section>
-<h2 id="test-concurrency">Test concurrency</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">TestConcurrency</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">int</span> <span style="color:#000">DIM</span> <span style="color:#000">=</span> <span style="color:#000">100000000</span>;
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">int</span> <span style="color:#000">STEPS</span> <span style="color:#000">=</span> <span style="color:#000">1</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span>) {
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">long</span> <span style="color:#000">time</span>;
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">long</span> <span style="color:#000">time2</span>;
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">Double</span><span style="color:#000">&gt;</span> <span style="color:#000">l</span> <span style="color:#000">=</span> <span style="color:#000">IntStream</span>.<span style="color:#836c28">range</span>(<span style="color:#000">0</span>, <span style="color:#000">DIM</span>)
-</span></span><span style="display:flex;"><span>								  .<span style="color:#836c28">mapToObj</span>(<span style="color:#000">x</span> <span style="color:#000">-&gt;</span> <span style="color:#000">Math</span>.<span style="color:#836c28">random</span>())
-</span></span><span style="display:flex;"><span>								  .<span style="color:#836c28">collect</span>(<span style="color:#000">toList</span>());
-</span></span><span style="display:flex;"><span>		
-</span></span><span style="display:flex;"><span>		<span style="color:#000">time</span> <span style="color:#000">=</span> <span style="color:#000">System</span>.<span style="color:#836c28">currentTimeMillis</span>();
-</span></span><span style="display:flex;"><span>		<span style="color:#000">IntStream</span>.<span style="color:#836c28">range</span>(<span style="color:#000">0</span>,<span style="color:#000">STEPS</span>).<span style="color:#836c28">forEach</span>(<span style="color:#000">i</span> <span style="color:#000">-&gt;</span> 
-</span></span><span style="display:flex;"><span>			<span style="color:#000">l</span>.<span style="color:#836c28">stream</span>().<span style="color:#836c28">collect</span>(<span style="color:#000">Collectors</span>.<span style="color:#836c28">averagingDouble</span>(<span style="color:#000">x</span><span style="color:#000">-&gt;</span><span style="color:#000">x</span>))
-</span></span><span style="display:flex;"><span>		);
-</span></span><span style="display:flex;"><span>		<span style="color:#000">time</span> <span style="color:#000">=</span> <span style="color:#000">System</span>.<span style="color:#836c28">currentTimeMillis</span>() <span style="color:#000">-</span> <span style="color:#000">time</span>;
-</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Time: "</span> <span style="color:#000">+</span> <span style="color:#000">time</span>);
-</span></span><span style="display:flex;"><span>		
-</span></span><span style="display:flex;"><span>		<span style="color:#000">time2</span> <span style="color:#000">=</span> <span style="color:#000">System</span>.<span style="color:#836c28">currentTimeMillis</span>();
-</span></span><span style="display:flex;"><span>		<span style="color:#000">IntStream</span>.<span style="color:#836c28">range</span>(<span style="color:#000">0</span>,<span style="color:#000">STEPS</span>).<span style="color:#836c28">forEach</span>(<span style="color:#000">i</span> <span style="color:#000">-&gt;</span> 
-</span></span><span style="display:flex;"><span>			<span style="color:#000">l</span>.<span style="color:#836c28">stream</span>().<span style="color:#836c28">parallel</span>().<span style="color:#836c28">collect</span>(<span style="color:#000">Collectors</span>.<span style="color:#836c28">averagingDouble</span>(<span style="color:#000">x</span><span style="color:#000">-&gt;</span><span style="color:#000">x</span>))
-</span></span><span style="display:flex;"><span>		);
-</span></span><span style="display:flex;"><span>		<span style="color:#000">time2</span> <span style="color:#000">=</span> <span style="color:#000">System</span>.<span style="color:#836c28">currentTimeMillis</span>() <span style="color:#000">-</span> <span style="color:#000">time2</span>;
-</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Time2: "</span> <span style="color:#000">+</span> <span style="color:#000">time2</span>);
-</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Gain: "</span> <span style="color:#000">+</span> (((<span style="color:#a90d91">double</span>)<span style="color:#000">time</span>)<span style="color:#000">/</span><span style="color:#000">time2</span>));
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div></section><section>
-<h2 id="considerazioni-sul-guadagno-di-performance----dati-molto-variabili">Considerazioni sul guadagno di performance – dati molto variabili..</h2>
-<h3 id="nel-caso-specifico-pc-quad-core">Nel caso specifico (PC quad core)</h3>
-<ul>
-<li>Con $1'000'000$ elementi nella collection, rapporto circa $0.65$ (più lento)</li>
-<li>Con $10'000'000$ elementi nella collection, circa $1.1$</li>
-<li>Con $100'000'000$ elementi nella collection, circa $3.22$</li>
-</ul>
-<h3 id="indicazioni-generali">Indicazioni generali</h3>
-<ul>
-<li>Usare parallelismo solo con istanze di dimensione significativa</li>
-<li>E’ bene se le lambda usate nelle trasformazioni sono semplici</li>
-<li>Verificate sempre prima di usare il parallelismo se conviene</li>
-</ul>
-</section><section>
-<h2 id="ma-come-sono-implementati-internamente-questi-stream">Ma come sono implementati internamente questi stream?</h2>
-<h3 id="elementi">Elementi</h3>
-<ul>
-<li>Qualche informazione è deducibile velocemente dal codice sorgente dell’API</li>
-<li>Gli stream sorgente incapsulano uno <code>Spliterator</code> – un <code>Iterator</code> con funzionalità aggiuntive per supportare il parallelismo</li>
-<li>Gli stream trasformatori sono decoratori degli stream a monte – vedere <code>java.util.stream.AbstractPipeline</code></li>
-<li>Lo stream a valle innesca la chiamata a catena degli elementi negli stream precedenti, uno alla volta (possibilmente in modo lazy).</li>
-</ul>
-<h3 id="una-considerazione">Una considerazione</h3>
-<ul>
-<li>Sarebbe interessante potersi costruire le proprie classi per gli stream, ma la maggior parte delle funzionalità di basso livello utili/necessarie non sono pubbliche</li>
-</ul>
-</section><section>
-<h2 id="interfaccia-spliterator">Interfaccia Spliterator</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">interface</span> <span style="color:#3f6e75">Spliterator</span><span style="color:#000">&lt;</span><span style="color:#000">T</span><span style="color:#000">&gt;</span> {
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">boolean</span> <span style="color:#000">tryAdvance</span>(<span style="color:#000">Consumer</span><span style="color:#000">&lt;?</span> <span style="color:#a90d91">super</span> <span style="color:#000">T</span><span style="color:#000">&gt;</span> <span style="color:#000">action</span>);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">default</span> <span style="color:#a90d91">void</span> <span style="color:#000">forEachRemaining</span>(<span style="color:#000">Consumer</span><span style="color:#000">&lt;?</span> <span style="color:#a90d91">super</span> <span style="color:#000">T</span><span style="color:#000">&gt;</span> <span style="color:#000">action</span>) {..}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#000">Spliterator</span><span style="color:#000">&lt;</span><span style="color:#000">T</span><span style="color:#000">&gt;</span> <span style="color:#000">trySplit</span>();
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">long</span> <span style="color:#000">estimateSize</span>();
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">default</span> <span style="color:#a90d91">long</span> <span style="color:#000">getExactSizeIfKnown</span>() {..}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">int</span> <span style="color:#000">characteristics</span>();
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">default</span> <span style="color:#a90d91">boolean</span> <span style="color:#000">hasCharacteristics</span>(<span style="color:#a90d91">int</span> <span style="color:#000">characteristics</span>) {..}
-</span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">default</span> <span style="color:#000">Comparator</span><span style="color:#000">&lt;?</span> <span style="color:#a90d91">super</span> <span style="color:#000">T</span><span style="color:#000">&gt;</span> <span style="color:#000">getComparator</span>() {
-</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">throw</span> <span style="color:#a90d91">new</span> <span style="color:#000">IllegalStateException</span>();
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">ORDERED</span>    <span style="color:#000">=</span> <span style="color:#000">0x00000010</span>;
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">DISTINCT</span>   <span style="color:#000">=</span> <span style="color:#000">0x00000001</span>;
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">SORTED</span>     <span style="color:#000">=</span> <span style="color:#000">0x00000004</span>;
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">SIZED</span>      <span style="color:#000">=</span> <span style="color:#000">0x00000040</span>;
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">NONNULL</span>    <span style="color:#000">=</span> <span style="color:#000">0x00000100</span>;
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">IMMUTABLE</span>  <span style="color:#000">=</span> <span style="color:#000">0x00000400</span>;
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">CONCURRENT</span> <span style="color:#000">=</span> <span style="color:#000">0x00001000</span>;
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">SUBSIZED</span> <span style="color:#000">=</span> <span style="color:#000">0x00004000</span>;
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span> 
-</span></span></code></pre></div></section><section>
-<h2 id="esempio-streamsrangespliterator">Esempio: <code>Streams.RangeSpliterator</code></h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">static</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">RangeIntSpliterator</span> <span style="color:#a90d91">implements</span> <span style="color:#000">Spliterator</span>.<span style="color:#836c28">OfInt</span> {
-</span></span><span style="display:flex;"><span> 
-</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">private</span> <span style="color:#a90d91">int</span> <span style="color:#000">from</span>;           <span style="color:#177500">// initial</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">upTo</span>;	    <span style="color:#177500">// final</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">private</span> <span style="color:#a90d91">int</span> <span style="color:#000">last</span>;	    <span style="color:#177500">// current</span>
-</span></span><span style="display:flex;"><span>        ..
-</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">public</span> <span style="color:#a90d91">boolean</span> <span style="color:#000">tryAdvance</span>(<span style="color:#000">IntConsumer</span> <span style="color:#000">consumer</span>) {
-</span></span><span style="display:flex;"><span>            <span style="color:#000">Objects</span>.<span style="color:#836c28">requireNonNull</span>(<span style="color:#000">consumer</span>);
-</span></span><span style="display:flex;"><span>            <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">i</span> <span style="color:#000">=</span> <span style="color:#000">from</span>;
-</span></span><span style="display:flex;"><span>            <span style="color:#a90d91">if</span> (<span style="color:#000">i</span> <span style="color:#000">&lt;</span> <span style="color:#000">upTo</span>) {
-</span></span><span style="display:flex;"><span>                <span style="color:#000">from</span><span style="color:#000">++</span>;
-</span></span><span style="display:flex;"><span>                <span style="color:#000">consumer</span>.<span style="color:#836c28">accept</span>(<span style="color:#000">i</span>);
-</span></span><span style="display:flex;"><span>                <span style="color:#a90d91">return</span> <span style="color:#a90d91">true</span>;
-</span></span><span style="display:flex;"><span>            } <span style="color:#a90d91">else</span> <span style="color:#a90d91">if</span> (<span style="color:#000">last</span> <span style="color:#000">&gt;</span> <span style="color:#000">0</span>) {
-</span></span><span style="display:flex;"><span>                <span style="color:#000">last</span> <span style="color:#000">=</span> <span style="color:#000">0</span>;
-</span></span><span style="display:flex;"><span>                <span style="color:#000">consumer</span>.<span style="color:#836c28">accept</span>(<span style="color:#000">i</span>);
-</span></span><span style="display:flex;"><span>                <span style="color:#a90d91">return</span> <span style="color:#a90d91">true</span>;
-</span></span><span style="display:flex;"><span>            }
-</span></span><span style="display:flex;"><span>            <span style="color:#a90d91">return</span> <span style="color:#a90d91">false</span>;
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">public</span> <span style="color:#a90d91">long</span> <span style="color:#000">estimateSize</span>() {
-</span></span><span style="display:flex;"><span>            <span style="color:#a90d91">return</span> ((<span style="color:#a90d91">long</span>) <span style="color:#000">upTo</span>) <span style="color:#000">-</span> <span style="color:#000">from</span> <span style="color:#000">+</span> <span style="color:#000">last</span>;
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">public</span> <span style="color:#000">Spliterator</span>.<span style="color:#836c28">OfInt</span> <span style="color:#000">trySplit</span>() {
-</span></span><span style="display:flex;"><span>            <span style="color:#a90d91">long</span> <span style="color:#000">size</span> <span style="color:#000">=</span> <span style="color:#000">estimateSize</span>();
-</span></span><span style="display:flex;"><span>            <span style="color:#a90d91">return</span> <span style="color:#000">size</span> <span style="color:#000">&lt;=</span> <span style="color:#000">1</span>
-</span></span><span style="display:flex;"><span>                   <span style="color:#000">?</span> <span style="color:#a90d91">null</span>
-</span></span><span style="display:flex;"><span>                   : <span style="color:#a90d91">new</span> <span style="color:#000">RangeIntSpliterator</span>(<span style="color:#000">from</span>, <span style="color:#000">from</span> <span style="color:#000">=</span> <span style="color:#000">from</span> <span style="color:#000">+</span> <span style="color:#000">splitPoint</span>(<span style="color:#000">size</span>), <span style="color:#000">0</span>);
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div></section><section>
-</section>
+</span></span></code></pre></div></section>
 
   
 
@@ -920,9 +774,11 @@ Mirko Viroli, che ringrazio.</p>
   
 
   
+    
+  
 
   
-    
+
   
 
   
