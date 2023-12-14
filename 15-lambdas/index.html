@@ -26,8 +26,8 @@
 <h3 id="roberto-casadei-----robycasadeiuniboitmailtorobycasadeiuniboit"><a href="mailto:roby.casadei@unibo.it">Roberto Casadei — <code>roby.casadei@unibo.it</code></a></h3>
 <h3 id="angelo-filaseta-----angelofilasetauniboitmailtoangelofilasetauniboit"><a href="mailto:angelo.filaseta@unibo.it">Angelo Filaseta — <code>angelo.filaseta@unibo.it</code></a></h3>
 <h3 id="gianluca-aguzzi-----gianlucaaguzziuniboitmailtogianlucaaguzziuniboit"><a href="mailto:gianluca.aguzzi@unibo.it">Gianluca Aguzzi — <code>gianluca.aguzzi@unibo.it</code></a></h3>
-<p><a href="?print-pdf&amp;pdfSeparateFragments=false"><i class="fa fa-print" aria-hidden="true"></i> versione stampabile</a></p>
-</section><section>
+<p><a href="?print-pdf&amp;pdfSeparateFragments=false"><i class="fa fa-print" aria-hidden="true"></i> versione stampabile</a>
+</p></section><section>
 <h2 id="riconoscimenti">Riconoscimenti</h2>
 <ul>
 <li>
@@ -50,6 +50,7 @@ Mirko Viroli, che ringrazio.</p>
 <li>Espressioni lambda</li>
 <li>Interfacce funzionali</li>
 <li>Altri usi nell’API</li>
+<li>Stream</li>
 </ul>
 </section><section>
 <h1 id="introduzione-alle-lambda">Introduzione alle lambda</h1>
@@ -115,7 +116,7 @@ Mirko Viroli, che ringrazio.</p>
 <ul>
 <li>Una <strong>classe innestata statica</strong> <code>B</code> (<em>static nested</em>) è definita all’interno di un’altra classe <code>A</code>
 <ul>
-<li>Dunque ci si può riferire ad essa via <code>A.B</code> (secondo regole di visibilità), o direttamente via <code>B</code> da dentro la classe <code>A</code></li>
+<li>Dunque ci si può riferire ad essa via <code>A.B</code> (secondo regole di visibilità), o direttamente via <code>B</code> da dentro la classe <code>A</code> – <a href="/advanced-mechanisms-nesting">approfondimento</a></li>
 </ul>
 </li>
 </ul>
@@ -154,9 +155,8 @@ Mirko Viroli, che ringrazio.</p>
 </span></span></code></pre></div></section><section>
 <h3 id="comparatori-definiti-attraverso-classi-anonime">Comparatori definiti attraverso classi anonime</h3>
 <ul>
-<li>Una <strong>classe anonima</strong> è una classe definita “al volo” (senza fornirne dunque un nome) e immediatamente istanziata
+<li>Una <strong>classe anonima</strong> è una classe definita “al volo” (senza fornirne dunque un nome) e immediatamente istanziata per evitare la proliferazione di classi – <a href="/19-advanced-mechanisms-nesting/#/36">approfondimento</a>
 <ul>
-<li>Si vuole evitare la proliferazione di classi</li>
 <li>Tipicamente: per implementare “al volo” una interfaccia</li>
 </ul>
 </li>
@@ -655,36 +655,119 @@ p.test("hello world"); // true
 </span></span><span style="display:flex;"><span>	}
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></section><section>
-<h2 id="esempi-di-stream">Esempi di <code>Stream</code></h2>
+<h2 id="il-concetto-di-stream">Il concetto di Stream</h2>
+<h3 id="idee">Idee</h3>
 <ul>
-<li>Ogni <code>Collection&lt;T&gt;</code> ha un metodo <code>stream()</code> che restituisce uno <code>Stream&lt;T&gt;</code> (un flusso “lazy” di dati percorribile una sola volta e manipolabile per ottenere ad es. un’informazione aggregata)</li>
+<li>Uno Stream rappresenta un flusso sequenziale (anche infinito) di dati omogenei, usabile una volta sola, e dal quale si vuole ottenere una informazione complessiva e/o aggregata</li>
+<li>Assomiglia al concetto di Iteratore, ma lo Stream è più dichiarativo, perché non indica passo-passo come l’informazione viene processata, e quindi è concettualmente più astratto</li>
+<li>Ove possibile, uno Stream manipola i suoi elementi in modo “lazy” (ritardato): i dati vengono processati mano a mano che servono, non sono memorizzati tutti assieme come nelle Collection</li>
+<li>E’ possibile creare “catene” di trasformazioni di Stream (implementate con decorazioni successive) in modo funzionale, per ottenere flessibilmente computazioni non banali dei loro elementi, con codice più compatto e leggibile</li>
+<li>Questa modalità di lavoro rende le computazioni (automaticamente) parallelizzabili, ossia computabili da un set arbitrario di Thread</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseTransformations</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span>) {
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> <span style="color:#000">li</span> <span style="color:#000">=</span> <span style="color:#000">List</span>.<span style="color:#836c28">of</span>(<span style="color:#000">10</span>, <span style="color:#000">20</span>, <span style="color:#000">30</span>, <span style="color:#000">5</span>, <span style="color:#000">6</span>, <span style="color:#000">7</span>, <span style="color:#000">10</span>, <span style="color:#000">20</span>, <span style="color:#000">100</span>);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">print</span>(<span style="color:#c41a16">"All\t\t :"</span>);
-</span></span><span style="display:flex;"><span>		<span style="color:#000">li</span>.<span style="color:#836c28">stream</span>().<span style="color:#836c28">forEach</span>(<span style="color:#000">i</span> <span style="color:#000">-&gt;</span> <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">print</span>(<span style="color:#c41a16">" "</span> <span style="color:#000">+</span> <span style="color:#000">i</span>));
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">print</span>(<span style="color:#c41a16">"\nFilter(&gt;10)\t :"</span>);
-</span></span><span style="display:flex;"><span>		<span style="color:#000">li</span>.<span style="color:#836c28">stream</span>()
-</span></span><span style="display:flex;"><span>				.<span style="color:#836c28">filter</span>(<span style="color:#000">i</span> <span style="color:#000">-&gt;</span> <span style="color:#000">i</span> <span style="color:#000">&gt;</span> <span style="color:#000">10</span>) <span style="color:#177500">// fa passare solo certi elementi</span>
-</span></span><span style="display:flex;"><span>				.<span style="color:#836c28">forEach</span>(<span style="color:#000">i</span> <span style="color:#000">-&gt;</span> <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">print</span>(<span style="color:#c41a16">" "</span> <span style="color:#000">+</span> <span style="color:#000">i</span>));
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">print</span>(<span style="color:#c41a16">"\nMap(N:i+1)\t :"</span>);
-</span></span><span style="display:flex;"><span>		<span style="color:#000">li</span>.<span style="color:#836c28">stream</span>()
-</span></span><span style="display:flex;"><span>				.<span style="color:#836c28">map</span>(<span style="color:#000">i</span> <span style="color:#000">-&gt;</span> <span style="color:#c41a16">"N:"</span> <span style="color:#000">+</span> (<span style="color:#000">i</span> <span style="color:#000">+</span> <span style="color:#000">1</span>)) <span style="color:#177500">// trasforma ogni elemento</span>
-</span></span><span style="display:flex;"><span>				.<span style="color:#836c28">forEach</span>(<span style="color:#000">i</span> <span style="color:#000">-&gt;</span> <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">print</span>(<span style="color:#c41a16">" "</span> <span style="color:#000">+</span> <span style="color:#000">i</span>));
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">print</span>(<span style="color:#c41a16">"\nflatMap(i,i+1)\t :"</span>);
-</span></span><span style="display:flex;"><span>		<span style="color:#000">li</span>.<span style="color:#836c28">stream</span>()
-</span></span><span style="display:flex;"><span>				.<span style="color:#836c28">flatMap</span>(<span style="color:#000">i</span> <span style="color:#000">-&gt;</span> <span style="color:#000">List</span>.<span style="color:#836c28">of</span>(<span style="color:#000">i</span>, <span style="color:#000">i</span> <span style="color:#000">+</span> <span style="color:#000">1</span>).<span style="color:#836c28">stream</span>()) <span style="color:#177500">// trasforma e appiattisce</span>
-</span></span><span style="display:flex;"><span>				.<span style="color:#836c28">map</span>(<span style="color:#000">String</span>::<span style="color:#000">valueOf</span>) <span style="color:#177500">// invece del forEach..</span>
-</span></span><span style="display:flex;"><span>				.<span style="color:#836c28">map</span>(<span style="color:#c41a16">" "</span>::<span style="color:#000">concat</span>)
-</span></span><span style="display:flex;"><span>				.<span style="color:#836c28">forEach</span>(<span style="color:#000">System</span>.<span style="color:#836c28">out</span>::<span style="color:#000">print</span>);
+</section><section>
+<h2 id="computazioni-con-gli-stream">Computazioni con gli Stream</h2>
+<h3 id="struttura-a-pipeline">Struttura a pipeline</h3>
+<ul>
+<li>Una sorgente o sink:
+<ul>
+<li>Una Collection/array, un dispositivo di I/O, una funzione generatrice</li>
+</ul>
+</li>
+<li>Una sequenza di trasformazioni:
+<ul>
+<li>mappe e filtri, ma non solo..</li>
+</ul>
+</li>
+<li>Un terminatore, che aggrega i dati dello Stream:
+<ul>
+<li>una riduzione ad un valore, una Collection/array, un Iteratore</li>
+</ul>
+</li>
+</ul>
+<h3 id="esempio-con-persone-con-nome-città-e-reddito">Esempio: con persone con nome, città e reddito</h3>
+<ul>
+<li>Data una <code>List&lt;Persona&gt;</code> con proprietà reddito e città, ottenere la somma dei redditi di tutte le persone di Cesena</li>
+<li>Come lo realizziamo tramite una pipeline?
+<ul>
+<li>Sorgente: la lista</li>
+<li>Trasformazione 1: filtro sulle persone di Cesena</li>
+<li>Trasformazione 2: si mappa ogni persona sul suo reddito</li>
+<li>Terminazione: sommo</li>
+</ul>
+</li>
+<li>Aspetto cruciale: le fasi intermedie (dopo le trasformazioni), non generano collezioni temporanee</li>
+</ul>
+</section><section>
+<h2 id="classe-person----equals-hashcode-e-tostring-omessi">Classe <code>Person</code> – <code>equals</code>, <code>hashCode</code> e <code>toString</code> omessi</h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Person</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#000">String</span> <span style="color:#000">name</span>;
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#000">Optional</span><span style="color:#000">&lt;</span><span style="color:#000">String</span><span style="color:#000">&gt;</span> <span style="color:#000">city</span>;
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">double</span> <span style="color:#000">income</span>;
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#000">Set</span><span style="color:#000">&lt;</span><span style="color:#000">String</span><span style="color:#000">&gt;</span> <span style="color:#000">jobs</span>;
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#000">Person</span>(<span style="color:#000">String</span> <span style="color:#000">name</span>, <span style="color:#000">String</span> <span style="color:#000">city</span>, <span style="color:#a90d91">double</span> <span style="color:#000">income</span>, <span style="color:#000">String</span>... <span style="color:#000">jobs</span>) {
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span>.<span style="color:#836c28">name</span> <span style="color:#000">=</span> <span style="color:#000">Objects</span>.<span style="color:#836c28">requireNonNull</span>(<span style="color:#000">name</span>);
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span>.<span style="color:#836c28">city</span> <span style="color:#000">=</span> <span style="color:#000">Optional</span>.<span style="color:#836c28">ofNullable</span>(<span style="color:#000">city</span>); <span style="color:#177500">// null in ingresso indica città assente</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span>.<span style="color:#836c28">income</span> <span style="color:#000">=</span> <span style="color:#000">income</span>;
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span>.<span style="color:#836c28">jobs</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">HashSet</span><span style="color:#000">&lt;&gt;</span>(<span style="color:#000">Arrays</span>.<span style="color:#836c28">asList</span>(<span style="color:#000">jobs</span>)); <span style="color:#177500">// conversione a set</span>
 </span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div></section>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#000">String</span> <span style="color:#000">getName</span>() {
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">name</span>;
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#000">Optional</span><span style="color:#000">&lt;</span><span style="color:#000">String</span><span style="color:#000">&gt;</span> <span style="color:#000">getCity</span>() {
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">city</span>;
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">double</span> <span style="color:#000">getIncome</span>() {
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">income</span>;
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#000">Set</span><span style="color:#000">&lt;</span><span style="color:#000">String</span><span style="color:#000">&gt;</span> <span style="color:#000">getJobs</span>(){
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#000">Collections</span>.<span style="color:#836c28">unmodifiableSet</span>(<span style="color:#a90d91">this</span>.<span style="color:#836c28">jobs</span>);	<span style="color:#177500">// copia difensiva</span>
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>	<span style="color:#177500">//.. seguono hashCode, equals e toString</span>
+</span></span></code></pre></div></section><section>
+<h2 id="realizzazione-dellesempio-in-java-8">Realizzazione dell’esempio in Java 8</h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseStreamsOnPerson</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span>) {
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">Person</span><span style="color:#000">&gt;</span> <span style="color:#000">list</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">ArrayList</span><span style="color:#000">&lt;&gt;</span>();
+</span></span><span style="display:flex;"><span>		<span style="color:#000">list</span>.<span style="color:#836c28">add</span>(<span style="color:#a90d91">new</span> <span style="color:#000">Person</span>(<span style="color:#c41a16">"Mario"</span>,<span style="color:#c41a16">"Cesena"</span>,<span style="color:#000">20000</span>,<span style="color:#c41a16">"Teacher"</span>));
+</span></span><span style="display:flex;"><span>		<span style="color:#000">list</span>.<span style="color:#836c28">add</span>(<span style="color:#a90d91">new</span> <span style="color:#000">Person</span>(<span style="color:#c41a16">"Rino"</span>,<span style="color:#c41a16">"Forlì"</span>,<span style="color:#000">50000</span>,<span style="color:#c41a16">"Professor"</span>));
+</span></span><span style="display:flex;"><span>		<span style="color:#000">list</span>.<span style="color:#836c28">add</span>(<span style="color:#a90d91">new</span> <span style="color:#000">Person</span>(<span style="color:#c41a16">"Lino"</span>,<span style="color:#c41a16">"Cesena"</span>,<span style="color:#000">110000</span>,<span style="color:#c41a16">"Professor"</span>,<span style="color:#c41a16">"Dean"</span>));
+</span></span><span style="display:flex;"><span>		<span style="color:#000">list</span>.<span style="color:#836c28">add</span>(<span style="color:#a90d91">new</span> <span style="color:#000">Person</span>(<span style="color:#c41a16">"Ugo"</span>,<span style="color:#c41a16">"Cesena"</span>,<span style="color:#000">20000</span>,<span style="color:#c41a16">"Secretary"</span>));
+</span></span><span style="display:flex;"><span>		<span style="color:#000">list</span>.<span style="color:#836c28">add</span>(<span style="color:#a90d91">new</span> <span style="color:#000">Person</span>(<span style="color:#c41a16">"Marco"</span>,<span style="color:#a90d91">null</span>,<span style="color:#000">4000</span>,<span style="color:#c41a16">"Contractor"</span>));
+</span></span><span style="display:flex;"><span>		
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#a90d91">double</span> <span style="color:#000">result</span> <span style="color:#000">=</span> <span style="color:#000">list</span>.<span style="color:#836c28">stream</span>()
+</span></span><span style="display:flex;"><span>								  .<span style="color:#836c28">filter</span>(<span style="color:#000">p</span><span style="color:#000">-&gt;</span><span style="color:#000">p</span>.<span style="color:#836c28">getCity</span>().<span style="color:#836c28">isPresent</span>())
+</span></span><span style="display:flex;"><span>								  .<span style="color:#836c28">filter</span>(<span style="color:#000">p</span><span style="color:#000">-&gt;</span><span style="color:#000">p</span>.<span style="color:#836c28">getCity</span>().<span style="color:#836c28">get</span>().<span style="color:#836c28">equals</span>(<span style="color:#c41a16">"Cesena"</span>))
+</span></span><span style="display:flex;"><span>								  .<span style="color:#836c28">mapToDouble</span>(<span style="color:#000">Person</span>::<span style="color:#000">getIncome</span>)
+</span></span><span style="display:flex;"><span>								  .<span style="color:#836c28">sum</span>();
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">result</span>);
+</span></span><span style="display:flex;"><span>		
+</span></span><span style="display:flex;"><span>		<span style="color:#177500">// alternativa con iteratore: qual è la più leggibile?</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">double</span> <span style="color:#000">res2</span> <span style="color:#000">=</span> <span style="color:#000">0</span>.<span style="color:#836c28">0</span>;
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">for</span> (<span style="color:#a90d91">final</span> <span style="color:#000">Person</span> <span style="color:#000">p</span>: <span style="color:#000">list</span>){
+</span></span><span style="display:flex;"><span>			<span style="color:#a90d91">if</span> (<span style="color:#000">p</span>.<span style="color:#836c28">getCity</span>().<span style="color:#836c28">isPresent</span>() <span style="color:#000">&amp;&amp;</span> <span style="color:#000">p</span>.<span style="color:#836c28">getCity</span>().<span style="color:#836c28">get</span>().<span style="color:#836c28">equals</span>(<span style="color:#c41a16">"Cesena"</span>)){
+</span></span><span style="display:flex;"><span>				<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">p</span>);
+</span></span><span style="display:flex;"><span>				<span style="color:#000">res2</span> <span style="color:#000">=</span> <span style="color:#000">res2</span> <span style="color:#000">+</span> <span style="color:#000">p</span>.<span style="color:#836c28">getIncome</span>();
+</span></span><span style="display:flex;"><span>			}
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">res2</span>);
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}   
+</span></span></code></pre></div></section><section>
+<p>Questa è solo una introduzione alle lambda in Java.
+Nel blocco di <a href="/stream">approfondimento</a> si trovano ulteriori informazioni su come:</p>
+<ul>
+<li>creare stream</li>
+<li>manipolazioni di stream (avanzate)</li>
+<li>esempi di uso di stream</li>
+</ul>
+</section>
 
   
 
@@ -819,9 +902,11 @@ p.test("hello world"); // true
   
 
   
+    
+  
 
   
-    
+
   
 
   
