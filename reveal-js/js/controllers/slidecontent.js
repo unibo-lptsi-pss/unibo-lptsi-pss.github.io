@@ -142,15 +142,13 @@ export default class SlideContent {
 
 					// Support comma separated lists of video sources
 					backgroundVideo.split( ',' ).forEach( source => {
-						const sourceElement = document.createElement( 'source' );
-						sourceElement.setAttribute( 'src', source );
-
 						let type = getMimeTypeFromFile( source );
 						if( type ) {
-							sourceElement.setAttribute( 'type', type );
+							video.innerHTML += `<source src="${source}" type="${type}">`;
 						}
-
-						video.appendChild( sourceElement );
+						else {
+							video.innerHTML += `<source src="${source}">`;
+						}
 					} );
 
 					backgroundContent.appendChild( video );
