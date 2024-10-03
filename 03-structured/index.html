@@ -538,7 +538,7 @@ for(int i=0; i<10; i++){ /* .. */ }
 </span></span><span style="display:flex;"><span>	<span style="color:#177500">// lungo size, contenente numeri random 0&lt;=x&lt;=1</span>
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">static</span> <span style="color:#a90d91">double</span><span style="color:#000">[]</span> <span style="color:#000">randomValues</span>(<span style="color:#a90d91">int</span> <span style="color:#000">size</span>){
 </span></span><span style="display:flex;"><span>		<span style="color:#a90d91">double</span><span style="color:#000">[]</span> <span style="color:#000">d</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#a90d91">double</span><span style="color:#000">[</span><span style="color:#000">size</span><span style="color:#000">]</span>;
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">for</span> (<span style="color:#a90d91">int</span> <span style="color:#000">i</span> <span style="color:#000">=</span> <span style="color:#000">0</span>; <span style="color:#000">i</span><span style="color:#000">&lt;</span><span style="color:#000">size</span>; <span style="color:#000">i</span><span style="color:#000">++</span>){
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">for</span> (<span style="color:#a90d91">int</span> <span style="color:#000">i</span> <span style="color:#000">=</span> <span style="color:#000">0</span>; <span style="color:#000">i</span> <span style="color:#000">&lt;</span> <span style="color:#000">size</span>; <span style="color:#000">i</span><span style="color:#000">++</span>){
 </span></span><span style="display:flex;"><span>			<span style="color:#000">d</span><span style="color:#000">[</span><span style="color:#000">i</span><span style="color:#000">]</span> <span style="color:#000">=</span> <span style="color:#000">Math</span>.<span style="color:#836c28">random</span>();
 </span></span><span style="display:flex;"><span>		}
 </span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#000">d</span>;
@@ -550,7 +550,7 @@ for(int i=0; i<10; i++){ /* .. */ }
 </span></span><span style="display:flex;"><span>		<span style="color:#177500">// Ricorda: toString è un metodo statico della classe Arrays</span>
 </span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">Arrays</span>.<span style="color:#836c28">toString</span>(<span style="color:#000">randomValues</span>(<span style="color:#000">10</span>)));
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">for</span> (<span style="color:#a90d91">double</span> <span style="color:#000">x</span> <span style="color:#000">=</span> <span style="color:#000">0</span>.<span style="color:#836c28">0</span>; <span style="color:#000">x</span> <span style="color:#000">&lt;=</span> <span style="color:#000">Math</span>.<span style="color:#836c28">PI</span><span style="color:#000">*</span><span style="color:#000">2</span>; <span style="color:#000">x</span> <span style="color:#000">=</span> <span style="color:#000">x</span> <span style="color:#000">+</span> <span style="color:#000">Math</span>.<span style="color:#836c28">PI</span><span style="color:#000">/</span><span style="color:#000">10</span>){
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">for</span> (<span style="color:#a90d91">double</span> <span style="color:#000">x</span> <span style="color:#000">=</span> <span style="color:#000">0</span>.<span style="color:#836c28">0</span>; <span style="color:#000">x</span> <span style="color:#000">&lt;=</span> <span style="color:#000">Math</span>.<span style="color:#836c28">PI</span> <span style="color:#000">*</span> <span style="color:#000">2</span>; <span style="color:#000">x</span> <span style="color:#000">=</span> <span style="color:#000">x</span> <span style="color:#000">+</span> <span style="color:#000">Math</span>.<span style="color:#836c28">PI</span> <span style="color:#000">/</span> <span style="color:#000">10</span>){
 </span></span><span style="display:flex;"><span>			<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"x = "</span> <span style="color:#000">+</span> <span style="color:#000">x</span> <span style="color:#000">+</span> <span style="color:#c41a16">"\t sin(x) = "</span> <span style="color:#000">+</span> <span style="color:#000">Math</span>.<span style="color:#836c28">sin</span>(<span style="color:#000">x</span>));
 </span></span><span style="display:flex;"><span>		}
 </span></span><span style="display:flex;"><span>	}
@@ -910,6 +910,8 @@ if (5) ..
 
   
 
+  
+    
   
 
   
