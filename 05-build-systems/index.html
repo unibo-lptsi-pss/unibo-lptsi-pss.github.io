@@ -140,6 +140,7 @@ che può essere sovrascritta in caso di necessità</p>
 </ul>
 </section><section>
 <h2 id="gradle-è-in-espansione-google-trends">Gradle è in espansione: Google trends</h2>
+<!-- this file includes generated content. Do not edit. Edit content/05-build-systems/generator.md, instead. -->
 <script type="text/javascript" src="https://ssl.gstatic.com/trends_nrtr/3045_RC01/embed_loader.js"></script>
 <script type="text/javascript">
 var today = new Date().toISOString().split('T')[0]
@@ -161,7 +162,6 @@ trends.embed.renderExploreWidget(
   }
 );
 </script>
-
 </section><section>
 <h2 id="concetti-base-in-gradle-task-progetto-plugin">Concetti base in Gradle: <strong>task</strong>, <strong>progetto</strong>, <strong>plugin</strong></h2>
 <h3 id="progetto">Progetto</h3>
@@ -206,7 +206,8 @@ Gradle contiene diversi plugin pronti all’uso
 <li>Al momento, ci basta una sola riga di codice per ciascuno!</li>
 </ul>
 <p><code>settings.gradle.kts</code></p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#000">rootProject</span>.<span style="color:#000">name</span> = <span style="color:#c41a16">"minimal-build"</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#000">rootProject.name = "minimal-build"
+</span>
 </span></span></code></pre></div><p><code>build.gradle.kts</code></p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#000">plugins</span> { <span style="color:#000">java</span> }
 </span></span></code></pre></div><p>Così configurato, Gradle autonomamente:</p>
