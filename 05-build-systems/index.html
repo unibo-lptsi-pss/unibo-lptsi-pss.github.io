@@ -39,8 +39,680 @@ Danilo Pianini, che ringrazio.</p>
 </ul>
 </section><section>
 <h1 id="build-systems">Build systems</h1>
-<h2 id="questo--materiale-è-deprecato-ed-è-stato-spostato-alle-slide-di-laboratorio">Questo  materiale è deprecato ed è stato spostato alle slide di laboratorio</h2>
 </section><section>
+<!-- this file includes generated content. Do not edit. Edit content/05-build-systems/generator.md, instead. -->
+<h2 id="la-costruzione-del-software">La costruzione del software</h2>
+<p>Costruire sistemi software non è solo <em>programmare</em>.
+Dipendentemente dal sistema in esame, potrebbero servire:</p>
+<ul>
+<li>Manipolazione e pre-processing del sorgente (inclusa generazione)</li>
+<li>Verifica della qualità del sorgente</li>
+<li>Gestione delle dipendenze
+<ul>
+<li>Ricerca, scaricamento, e importazione delle librerie</li>
+</ul>
+</li>
+<li>Compilazione</li>
+<li>Manipolazione del binario compilato</li>
+<li>Esecuzione dei test</li>
+<li>Misurazione della qualità dei test (e.g., coverage)</li>
+<li>Generazione della documentazione</li>
+</ul>
+<p>In principio, si può anche fare a mano</p>
+<ul>
+<li>ma richiederebbe <strong>molto tempo</strong>…</li>
+<li>…e gli umani si stancano presto di lavori noiosi e ripetitivi</li>
+</ul>
+</section><section>
+<h2 id="build-automation">Build automation</h2>
+<p>Automatizzazione del processo di costruzione del software</p>
+<ul>
+<li>Di fatto, scrivere software che di lavoro fa manutenzione di altro software</li>
+</ul>
+<h3 id="stili">Stili</h3>
+<ul>
+<li><strong>Imperativo</strong>/<strong>Personalizzato</strong>
+<ul>
+<li>Tipicamente realizzato tramite script in qualche linguaggio di programmazione</li>
+<li><em>Flessibile</em> e <em>configurabile</em></li>
+<li>Difficile da adattare e <em>riusare</em></li>
+</ul>
+</li>
+<li><strong>Dichiarativo</strong>/<strong>Standardizzato</strong>
+<ul>
+<li>Tipicamente realizzato tramite un file di configurazione di un software dedicato alla build automation</li>
+<li><em>Portabile</em> e di semplice comprensione</li>
+<li><em>Limitato</em> dalle opzioni di configurazioni disponibili, e quindi poco flessibile</li>
+</ul>
+</li>
+</ul>
+</section><section>
+<h2 id="convention-over-configuration">Convention over configuration</h2>
+<p>Principio per cui un certo sistema software ha una configurazione “ragionevole” di default,
+che può essere sovrascritta in caso di necessità</p>
+<ul>
+<li>Induce la creazione di <em>standard di fatto</em>
+<ul>
+<li>La convenzione tende a diventare il modo “normale” di fare le cose per minimizzare la configurazione</li>
+</ul>
+</li>
+<li>Riduce le <em>ripetizioni</em></li>
+<li>Aumenta la portabilità!</li>
+</ul>
+</section><section>
+<h2 id="automatori-ibridi">Automatori ibridi</h2>
+<p>Sono sistemi che cercano di unire il meglio dei sistemi dichiarativi e imperativi</p>
+<ul>
+<li>Il file di configurazione è in realtà uno <em>script</em> in un linguaggio di programmazione vero e proprio</li>
+<li>Aprendolo sembra un file di testo con la configurazione</li>
+<li>In realtà è uno script valido!</li>
+<li>Quanto non specificato si assume come da convenzione</li>
+<li>Quando si vuole personalizzare qualcosa, si ha a disposizione la “potenza di fuoco” di un linguaggio di programmazione vero e proprio</li>
+</ul>
+<h3 id="esempi">Esempi</h3>
+<ul>
+<li>Sbt, che si appoggia su Scala</li>
+<li>Gradle, che si appoggia su Kotlin o Groovy</li>
+</ul>
+<p>Il linguaggio host deve consentire di costruire dei <strong>Domain-Specific languages</strong></p>
+<ul>
+<li>ossia, essere così flessibile da permettere di costruire un “linguaggio nel linguaggio”</li>
+</ul>
+</section><section>
+<h2 id="gradle">Gradle</h2>
+<ul>
+<li>Un <strong>moderno</strong> build system ibrido
+<ul>
+<li>Pilotato in Kotlin (preferibile) o in Groovy</li>
+</ul>
+</li>
+<li>Supporta Java (oltre a C/C++, Scala, Kotlin…)
+<ul>
+<li>In tutto l’ecosistema, che include Android</li>
+</ul>
+</li>
+<li>Ne vedremo solo le basi di utilizzo
+<ul>
+<li>Per noi è strumentale a costruire software Java</li>
+<li>Impareremo come sfruttarlo per automatizzare le operazioni di cui sopra</li>
+</ul>
+</li>
+</ul>
+</section><section>
+<h2 id="gradle-è-in-espansione-google-trends">Gradle è in espansione: Google trends</h2>
+<script type="text/javascript" src="https://ssl.gstatic.com/trends_nrtr/3045_RC01/embed_loader.js"></script>
+<script type="text/javascript">
+var today = new Date().toISOString().split('T')[0]
+var dateRange = `2004-01-01 ${today}`
+trends.embed.renderExploreWidget(
+  "TIMESERIES",
+  {
+    "comparisonItem":[
+      {"keyword":"/m/028m4s","geo":"","time":dateRange},
+      {"keyword":"/m/04tj5z","geo":"","time":dateRange},
+      {"keyword":"/m/080c0g9","geo":"","time":dateRange}
+    ],
+    "category":0,
+    "property":""
+  },
+  {
+    "exploreQuery":"date=all&q=%2Fm%2F028m4s,%2Fm%2F04tj5z,%2Fm%2F080c0g9",
+    "guestPath":"https://trends.google.com:443/trends/embed/"
+  }
+);
+</script>
+
+</section><section>
+<h2 id="concetti-base-in-gradle-task-progetto-plugin">Concetti base in Gradle: <strong>task</strong>, <strong>progetto</strong>, <strong>plugin</strong></h2>
+<h3 id="progetto">Progetto</h3>
+<p>Una directory contenente il file speciale <code>build.gradle.kts</code> e/o <code>settings.gradle.kts</code>,
+detti <em>build file</em>.
+La loro presenza segnala a Gradle che la cartella rappresenta un <strong>progetto</strong></p>
+<h3 id="plugin">Plugin</h3>
+<p>Componente software contentente <strong>task</strong> pronti all’uso.
+Gradle contiene diversi plugin pronti all’uso
+(per i linguaggi più comuni, come Java).</p>
+<h3 id="task">Task</h3>
+<p>Un <strong>task</strong> in Gradle rappresenta una <em>singola operazione atomica</em> del processo di costruzione del sofware</p>
+<ul>
+<li><em>singola</em> $\rightarrow$ un task fa una sola cosa (Single Responsibility Principle)</li>
+<li><em>atomica</em> $\rightarrow$ indivisibile: un task comincia e finisce senza interruzione</li>
+</ul>
+<p>Qualunque esecuzione di Gradle richiede di specificare uno o più <strong>task</strong>, ad esempio:</p>
+<ul>
+<li><code>gradle tasks</code> (elenca i task disponibili, escludendo quelli non categorizzati)</li>
+<li><code>gradle tasks --all</code> (elenca tutti i task disponibili)</li>
+<li><code>gradle compileJava</code> (compila i sorgenti java)</li>
+</ul>
+<p>Gradle è in grado capire le <em>dipendenze</em> fra task ed eseguirli nell’ordine corretto.</p>
+</section><section>
+<h2 id="gradle-configurazione-minimale-per-java">Gradle: configurazione minimale per Java</h2>
+<ul>
+<li>Gradle viene pilotato con due file:
+<ul>
+<li><code>settings.gradle.kts</code>
+<ul>
+<li>Per i nostri scopi, serve solo a dare un nome al progetto</li>
+</ul>
+</li>
+<li><code>build.gradle.kts</code>
+<ul>
+<li>Conterrà tutta la logica di costruzione del software</li>
+<li>Ma noi sfrutteremo le convenzioni, configurando ben poco!</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Al momento, ci basta una sola riga di codice per ciascuno!</li>
+</ul>
+<p><code>settings.gradle.kts</code></p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#000">rootProject</span>.<span style="color:#000">name</span> = <span style="color:#c41a16">"minimal-build"</span>
+</span></span></code></pre></div><p><code>build.gradle.kts</code></p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#000">plugins</span> { <span style="color:#000">java</span> }
+</span></span></code></pre></div><p>Così configurato, Gradle autonomamente:</p>
+<ul>
+<li>cerca e compila i sorgenti java dalla cartella: <code>src/main/java</code></li>
+<li>produce i binari dentro: <code>build/classes/java/main</code></li>
+</ul>
+<p>Vogliamo percorsi diversi?
+Va configurato.</p>
+</section><section>
+<h2 id="gradle-hello-world-in-java-struttura">Gradle: Hello World in Java, struttura</h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span>├── build.gradle.kts
+</span></span><span style="display:flex;"><span>├── settings.gradle.kts
+</span></span><span style="display:flex;"><span>└── src
+</span></span><span style="display:flex;"><span>    └── main
+</span></span><span style="display:flex;"><span>        └── java
+</span></span><span style="display:flex;"><span>            └── HelloWorld.java
+</span></span></code></pre></div><p><code>build.gradle.kts</code></p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#000">plugins</span> { <span style="color:#000">java</span> }
+</span></span></code></pre></div><p><code>settings.gradle.kts</code> (opzionale)</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#000">rootProject</span>.<span style="color:#000">name</span> = <span style="color:#c41a16">"hello-world"</span>
+</span></span></code></pre></div><p><code>HelloWorld.java</code></p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">HelloWorld</span> {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span>... <span style="color:#000">args</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Hello, world!"</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></section><section>
+<h2 id="gradle-hello-world-in-java-task-e-loro-utilizzo">Gradle: Hello World in Java, task e loro utilizzo</h2>
+<ul>
+<li>elencare i task disponibili:
+<ul>
+<li><code>gradle tasks --all</code></li>
+</ul>
+</li>
+<li>compilazione:
+<ul>
+<li><code>gradle compileJava</code></li>
+</ul>
+</li>
+<li>pulizia (cancellazione della directory <code>build</code> dove Gradle lavora):
+<ul>
+<li><code>gradle clean</code></li>
+</ul>
+</li>
+<li>esecuzione (non responsabilità di Gradle):
+<ul>
+<li><code>java -cp build/classes/java/main HelloWorld</code></li>
+</ul>
+</li>
+</ul>
+</section><section>
+<!-- this file includes generated content. Do not edit. Edit content/05-build-systems/generator.md, instead. -->
+<h1 id="dipendenze-e-librerie">Dipendenze e librerie</h1>
+</section><section>
+<h2 id="dipendenze-nel-software">Dipendenze nel software</h2>
+<blockquote>
+<p>nos esse quasi nanos gigantium humeris insidentes
+<cite>Bernardo di Chartres</cite></p>
+</blockquote>
+<p>Tutto il software moderno dipende da altro software!</p>
+<ul>
+<li>il sistema operativo</li>
+<li>il <em>runtime environment</em> (la Java Virtual Machine)</li>
+<li>le librerie di basa (tutto quello che sta in <code>java.*</code> e <code>javax.*</code>)</li>
+<li>librerie di terze parti (fra poco)</li>
+<li>risorse esterne (icone, suoni, dati applicativi)</li>
+</ul>
+<p>Tutto il software che costruiamo e usiamo dipende da <em>altro sofware</em></p>
+<ul>
+<li>Che dipende da <em>altro software</em>
+<ul>
+<li>Che dipende da <em>altro software</em>
+<ul>
+<li>Che dipende da <em>altro software</em>
+<ul>
+<li>Che dipende da <em>altro software</em>
+<ul>
+<li>Che dipende da <em>altro software</em>
+<ul>
+<li>Che dipende da <em>altro software</em>
+<ul>
+<li>Che dipende da <em>altro software</em>
+<ul>
+<li>…</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>$\Rightarrow$ Le applicazioni hanno un <strong>albero</strong> di dipendenze!</p>
+</section><section>
+<h2 id="un-semplice-esempio-rate-a-movie">Un semplice esempio: rate a movie</h2>
+<p>Proviamo a costruire una <em>semplice applicazione</em> che:</p>
+<ol>
+<li>Richiede come parametro il nome di un film o serie TV</li>
+<li>Si connette ad Internet e cerca informazioni sul dato prodotto cinematografico<br>
+(per esempio, andando a cercare su IMDb.org o rottentomatoes)</li>
+<li>Cerca il film che abbiamo fornito come ingresso</li>
+<li>Stampa tutte le informazioni disponibili su questo film!<br>
+(anno, regista, attori, trama, media voti…)</li>
+</ol>
+<h4 id="quanto-codice-potrebbe-servire"><strong>Quanto codice potrebbe servire?</strong></h4>
+</section><section>
+<p>Una possibile soluzione:
+<a href="https://github.com/APICe-at-DISI/sample-gradle-project/blob/master/src/main/java/it/unibo/sampleapp/SimplerRateAMovie.java">https://github.com/APICe-at-DISI/sample-gradle-project/blob/master/src/main/java/it/unibo/sampleapp/SimplerRateAMovie.java</a></p>
+</section><section>
+<h2 id="il-trucco-usare-librerie">Il trucco: usare librerie</h2>
+<ul>
+<li>
+<p>È stata sfruttata una libreria per OMDB</p>
+<ul>
+<li>Data una chiave, interroga un database di film</li>
+<li>Nasconde tutta la parte di comunicazione di rete via HTTP, il parsing, eccetera</li>
+</ul>
+</li>
+<li>
+<p>Ma a sua volta, questa libreria usa librerie che usano librerie…</p>
+</li>
+</ul>
+
+
+<span class="fragment ">
+  <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span>+--- com.omertron:API-OMDB:1.5
+</span></span><span style="display:flex;"><span>|    +--- commons-codec:commons-codec:1.10
+</span></span><span style="display:flex;"><span>|    +--- org.apache.commons:commons-lang3:3.4
+</span></span><span style="display:flex;"><span>|    +--- com.fasterxml.jackson.core:jackson-core:2.8.7
+</span></span><span style="display:flex;"><span>|    +--- com.fasterxml.jackson.core:jackson-annotations:2.8.7
+</span></span><span style="display:flex;"><span>|    +--- com.fasterxml.jackson.core:jackson-databind:2.8.7
+</span></span><span style="display:flex;"><span>|    |    +--- com.fasterxml.jackson.core:jackson-annotations:2.8.0
+</span></span><span style="display:flex;"><span>|    |    \--- com.fasterxml.jackson.core:jackson-core:2.8.7
+</span></span><span style="display:flex;"><span>|    +--- org.slf4j:slf4j-api:1.7.24
+</span></span><span style="display:flex;"><span>|    \--- org.yamj:api-common:2.1
+</span></span><span style="display:flex;"><span>|         +--- org.apache.httpcomponents:httpclient:4.5.3
+</span></span><span style="display:flex;"><span>|         |    +--- org.apache.httpcomponents:httpcore:4.4.6
+</span></span><span style="display:flex;"><span>|         |    +--- commons-logging:commons-logging:1.2
+</span></span><span style="display:flex;"><span>|         |    \--- commons-codec:commons-codec:1.9
+</span></span><span style="display:flex;"><span>|         \--- org.slf4j:slf4j-api:1.7.24
+</span></span></code></pre></div>
+</span>
+
+</section><section>
+<h2 id="dipendenze-transitive">Dipendenze <em>transitive</em></h2>
+<p>Le dipendenze <em>indirette</em> (dipendenze di dipendenze) sono dette <em>transitive</em></p>
+<p>In progetti non giocattolo, le dipendenze transitive sono la <em>maggioranza</em></p>
+<ul>
+<li>Si fa molto, molto presto ad avere più di 50 dipendenze</li>
+</ul>
+<p>Gestire il classpath diventa molto difficile! Ogni libreria va:</p>
+<ul>
+<li>trovata su Internet</li>
+<li>scaricata</li>
+<li>installata</li>
+<li>aggiunta al classpath di compilazione e di esecuzione</li>
+</ul>
+<p>L’applicazione di prima viene lanciata con:</p>
+<p><code>java -cp "build/classes/java/main:lib/API-OMDB-1.5.jar:lib/jool-0.9.14.jar:lib/logback-classic-1.4.1.jar:lib/api-common-2.1.jar:lib/slf4j-api-2.0.2.jar:lib/httpclient-4.5.3.jar:lib/commons-codec-1.10.jar:lib/commons-lang3-3.4.jar:lib/jackson-databind-2.8.7.jar:lib/jackson-core-2.8.7.jar:lib/jackson-annotations-2.8.7.jar:lib/logback-core-1.4.1.jar:lib/httpcore-4.4.6.jar:lib/commons-logging-1.2.jar" it.unibo.sampleapp.SimplerRateAMovie</code></p>
+<h4 id="la-complessità-sfugge-presto-di-mano"><em>La complessità sfugge presto di mano!</em></h4>
+</section><section>
+<h2 id="la-gestione-delle-dipendenze">La gestione delle dipendenze</h2>
+<p>Ci servirebbe uno strumento capace di:</p>
+<ul>
+<li><em>Cercare</em> (magari in archivi noti) le librerie di cui abbiamo bisogno</li>
+<li><em>Scaricare</em> le suddette (se le trova)</li>
+<li>Costruire il <em>classpath</em> e lanciare la <em>compilazione</em></li>
+<li>E magari anche <em>lanciare l’applicazione</em>…</li>
+</ul>
+<p>Per farlo, però,
+abbiamo bisogno di conoscere qualche archivio ("<em>repository</em>") di librerie,
+e di sapere come reperirle, ossia conoscere il loro <em>nome</em> e <em>versione</em>…</p>
+</section><section>
+<h2 id="librerie-di-terze-parti-in-java">Librerie “di terze parti” in Java</h2>
+<h3 id="java-non-definisce-alcuno-standard-per-i-nomi-di-libreria">Java non definisce alcuno standard per i nomi di libreria</h3>
+<p>Al compilatore Java e alla JVM
+(a differenza di quello che accade con altri linguaggi)
+è <em>ignoto</em> il concetto di “libreria”.
+L’unica astrazione che abbiamo in mano è quella di <strong>classpath</strong>,
+ma è troppo grezza!</p>
+<ul>
+<li>Usare il solo classpath ci costringerebbe a cercare, scaricare, ed elencare le librerie a mano!</li>
+</ul>
+<h3 id="standard-di-fatto-maven-naming-convention">Standard di fatto: Maven naming convention</h3>
+<p>Quando Java ha preso piede, è stato necessario sopperire a questa mancanza.
+Un particolare build system,
+<strong>Apache Maven</strong>,
+ha elaborato una propria <em>convenzione</em> per i nomi,
+divenuta oggi <em>sostanzialmente standard</em>
+(qualunque build system per Java la adotta).</p>
+</section><section>
+<h2 id="maven-naming-convention">Maven naming convention</h2>
+<p>Una libreria Java in formato compatibile con Maven si compone di:</p>
+<ul>
+<li><strong>groupId</strong>: identifica un (sotto-)progetto o un gruppo di lavoro
+<ul>
+<li>Segue lo schema di nomi dei package Java, ossia, tipicamente,
+è un URL invertito
+<ul>
+<li>ad esempio: <code>it.unibo</code>, <code>com.google</code>, <code>io.github</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>artifactId</strong>: identifica una specifica <em>libreria</em> o <em>modulo di progetto</em>
+<ul>
+<li>È un nome semplice in kebab-case
+<ul>
+<li>ad esempio: <code>commons-math</code>, <code>guava</code>, <code>junit-jupiter-assertions-jvm</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>version</strong>: identifica una specifica <em>versione</em> di una libreria
+<ul>
+<li>possono essere numeri o lettere separati da <code>.</code>, <code>-</code>, o <code>+</code> (solitamente numeri e punti)
+<ul>
+<li>ad esempio: <code>1.0</code>, <code>1.0.1</code>, <code>2.3.5-beta4</code>, <code>28ae10dd</code>, <code>4.0.2-alpha+28ae10dd</code></li>
+<li>tipicamente (ma non sempre) le versioni con soli numeri e punti sono <em>stabili</em></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>Per riferirsi ad una libreria specifica, si usa la sintassi: <code>groupId:artifactId:version</code></p>
+<ul>
+<li><code>com.google.guava:guava:32-jre</code></li>
+<li><code>it.unibo.alchemist:alchemist-api:25.0.1</code></li>
+</ul>
+<p>Ora sappiamo come si chiamano, ma non dove trovarle…</p>
+</section><section>
+<h2 id="the-maven-central-repository-aka-sonatype-ossrh">The Maven Central Repository (a.k.a. Sonatype OSSRH)</h2>
+<p>Assieme alla convenzione per i nomi,
+Maven definì un <em>repository</em> (archivio) dove i creatori di software Java <em>open source</em> potessero:</p>
+<ul>
+<li><em>pubblicare</em> le proprie librerie</li>
+<li><em>utilizzare</em> quelle prodotte da sé e da altri $\Leftarrow$ vedremo come!</li>
+</ul>
+<p>La disponibilità e la possibilità di <strong>riuso</strong> ha consentito la nascita dell’“ecosistema” Java,
+rendendolo uno dei linguaggi/piattaforme di più ampio successo di sempre.</p>
+<h3 id="httpscentralsonatypecom-storicamente-httpssearchmavenorg"><a href="https://central.sonatype.com/">https://central.sonatype.com/</a> (storicamente: <a href="https://search.maven.org/">https://search.maven.org/</a>)</h3>
+<ul>
+<li>È possibile trovare moltissime librerie!</li>
+<li>Oltre a scaricarle, sono documentate le <em>dipendenze</em>, che andranno a loro volta scaricate…</li>
+</ul>
+<p>Sappiamo <em>dove</em> trovare le librerie e <em>come</em> riferirle, ma ci serve ancora uno strumento per:</p>
+<ul>
+<li><em>scaricarle</em> in automatico</li>
+<li>scaricare anche tutte le <em>dipendenze transitive</em>
+<ul>
+<li>ricorsivamente!</li>
+</ul>
+</li>
+<li>gestire i classpath che diventano lunghi e complicati</li>
+</ul>
+</section><section>
+<h1 id="dipendenze-e-gradle">Dipendenze e Gradle</h1>
+</section><section>
+<h2 id="gestione-delle-dipendenze-in-gradle">Gestione delle dipendenze in Gradle</h2>
+<p>Gradle consente di gestire le dipendenze, specificando:</p>
+<ul>
+<li>Dove andarle a reperire (i cosiddetti “<em>repository</em>”)</li>
+<li>Qual è il loro <em>nome</em></li>
+<li>Qual è la loro <em>versione</em></li>
+<li>Qual è il loro <em>scopo</em> (applicazione o testing, compilazione e/o esecuzione)
+<ul>
+<li>Infatti, potremmo avere delle librerie che ci servono solo per dei test,
+ma di cui possiamo fare a meno una volta che l’applicazione è testata
+<ul>
+<li>I produttori di automobili provano il motore sui banchi prova,
+ma quando comprate la macchina non ve lo danno:
+col software è analogo…</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</section><section>
+<h2 id="specificare-i-repository-in-gradle">Specificare i repository in Gradle</h2>
+<p>In Gradle è possibile “puntare” ad archivi di librerie specificandolo in un blocco <code>repositories</code></p>
+<ul>
+<li>Maven Central è un membro speciale, e la sua configurazione è semplificata.</li>
+</ul>
+<p>Per dire a Gradle di:</p>
+<ol>
+<li>Preparare il necessario per gestire un progetto Java</li>
+<li>Configurare Maven Central come <em>repository</em> per le eventuali liberie</li>
+</ol>
+<p>è sufficiente configurare <code>build.gradle.kts</code> come segue:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#000">plugins</span> { <span style="color:#000">java</span> } <span style="color:#177500">// Carica il necessario per Java
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#000">repositories</span> { <span style="color:#000">mavenCentral</span>() } <span style="color:#177500">// Configura Gradle per cercare e scaricare da Maven Central
+</span></span></span></code></pre></div></section><section>
+<h2 id="dipendenze-in-gradle-preparazione">Dipendenze in Gradle: preparazione</h2>
+<p>Siamo pronti per importare le librerie che vogliamo!
+Dobbiamo solo:</p>
+<ol>
+<li>Trovare su Maven Central la libreria che intendiamo usare e annotare <code>groupId</code>, <code>artifactId</code>, e <code>version</code>
+<ul>
+<li>per questo esempio: la libreria OMDB di “Omertron”
+<ul>
+<li><a href="https://central.sonatype.com/artifact/com.omertron/API-OMDB/1.5">https://central.sonatype.com/artifact/com.omertron/API-OMDB/1.5</a></li>
+<li><code>com.omertron:API-OMDB:1.5</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Capire quale sia il suo <em>scope</em></li>
+</ol>
+<h3 id="scopo-delle-dipendenze-in-gradle">Scopo delle dipendenze in Gradle</h3>
+<p>Gradle consente di (costringe a) dire chiaramente “a cosa serve” una certa libreria. Noi vedremo solo alcuni degli scope disponibili:</p>
+<ul>
+<li><code>implementation</code>: la libreria ci serve sia per compilare che per eseguire la nostra applicazione
+<ul>
+<li>è la scelta <em>più comune</em></li>
+<li>in questa lezione useremo solo questo scope</li>
+</ul>
+</li>
+<li><code>testImplementation</code>: la libreria ci serve per compilare ed eseguire i test
+<ul>
+<li>ma non deve essere usabile quando si scrive l’applicazione vera e propria
+<ul>
+<li>Sarebbe come costruire un motore che richiede pezzi del banco prova per funzionare…</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>testRuntimeOnly</code>: la libreria ci serve per eseguire i test (sarà nel <code>-cp</code> di <code>java</code>), ma non per compilarli (<em>non</em> sarà nel <code>-cp</code> di <code>javac</code>)</li>
+</ul>
+</section><section>
+<h2 id="dipendenze-in-gradle-specifica">Dipendenze in Gradle: specifica</h2>
+<p>Una volta identificata la libreria</p>
+<ul>
+<li><code>com.omertron:API-OMDB:1.5</code></li>
+</ul>
+<p>e scelto lo scope che vogliamo usare</p>
+<ul>
+<li><code>implementation</code></li>
+</ul>
+<p>Possiamo semplicemente configurare Gradle per importarla dentro il blocco <code>dependencies</code>:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#000">plugins</span> { <span style="color:#000">java</span> } <span style="color:#177500">// Carica il necessario per Java
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#000">repositories</span> { <span style="color:#000">mavenCentral</span>() } <span style="color:#177500">// Configura Gradle per cercare e scaricare da Maven Central
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#000">dependencies</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#000">implementation</span>(<span style="color:#c41a16">"com.omertron:API-OMDB:1.5"</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Quando lanceremo il task <code>compileJava</code>, Gradle si occuperà di:</p>
+<ul>
+<li>scaricare la libreria</li>
+<li>salvarla nella cartella dell’utente per uso futuro</li>
+<li>includerla nel classpath di compilazione!</li>
+</ul>
+</section><section>
+<p>Ora sappiamo compilare sorgenti che usano qualunque libreria</p>
+<ul>
+<li>ma se ci sono <em>dipendenze transitive</em> (e ci sono quasi sempre) dobbiamo cercare dove Gradle ha scaricato le librerie che ci servono per poter lanciare il programma</li>
+</ul>
+
+
+<span class="fragment ">
+  <p><img src="https://i.imgflip.com/6ux8rp.jpg" alt="bello"></p>
+
+</span>
+
+
+
+<span class="fragment ">
+  <ul>
+<li>vorremmo usare Gradle anche per <em>lanciare</em> l’applicazione…</li>
+</ul>
+
+</span>
+
+</section><section>
+<h1 id="lancio-di-applicazioni-java-tramite-gradle">Lancio di applicazioni Java tramite Gradle</h1>
+</section><section>
+<h2 id="lanciare-applicazioni-java-da-gradle">Lanciare applicazioni Java da Gradle</h2>
+<p>Gradle offre supporto all’esecuzione dell’applicazione,
+oltre che alla sua compilazione,
+utilizzando il task <code>run</code> che viene aggiunto dal plugin <code>application</code>.</p>
+<p>Per eseguire ci servono due cose:</p>
+<ol>
+<li>
+
+<span class="fragment ">
+  il <em>nome qualificato</em> della classe da eseguire
+</span>
+</li>
+<li>
+
+<span class="fragment ">
+  il <em>classpath</em> da cui caricare tutte le classi
+</span>
+</li>
+</ol>
+
+
+<span class="fragment ">
+  <p>Il classpath è noto, perché lo specifichiamo nelle dipendenze</p>
+<p>Il nome della classe, invece, va specificato manualmente</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#000">plugins</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#000">java</span> <span style="color:#177500">// Carica il necessario per la compilazione di Java
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>  <span style="color:#000">application</span> <span style="color:#177500">// Carica il necessario per l'esecuzione di classi con la JVM
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>}
+</span></span><span style="display:flex;"><span><span style="color:#000">repositories</span> { <span style="color:#000">mavenCentral</span>() } <span style="color:#177500">// Configura Gradle per cercare e scaricare da Maven Central
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#000">dependencies</span> { <span style="color:#177500">// Elenco di librerie che ci servono
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>  <span style="color:#000">implementation</span>(<span style="color:#c41a16">"com.omertron:API-OMDB:1.5"</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#000">application</span> { <span style="color:#177500">// Configurazione dell'esecuzione, la main class è sufficiente
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#000">mainClass</span>.<span style="color:#a90d91">set</span>(<span style="color:#c41a16">"it.unibo.sampleapp.SimplerRateAMovie"</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Possiamo ora lanciare la nostra applicazione tramite:</p>
+<ul>
+<li><code>gradle run</code></li>
+</ul>
+
+</span>
+
+</section><section>
+<!-- this file includes generated content. Do not edit. Edit content/05-build-systems/generator.md, instead. -->
+<h2 id="il-build-system-come-dipendenza">Il build system come dipendenza</h2>
+<p><strong>Problema</strong>: come tutti i software <em>anche il build system <strong>cambia</strong></em></p>
+<p>Se da una versione all’altra di Gradle dovesse cambiare la convenzione,
+cosa succederebbe?</p>
+<ul>
+<li>Il nostro software smette di funzionare se aggiorniamo il build system!</li>
+</ul>
+<p>E se avessimo <em>progetti diversi</em> che richiedono <em>versioni diverse</em> di Gradle?</p>
+<h4 id="ci-serve-un-modo-per">Ci serve un modo per:</h4>
+<ol>
+<li>avere sempre <em>la giusta versione</em> di Gradle
+<ul>
+<li>Potenzialmente ogni progetto ha la sua</li>
+</ul>
+</li>
+<li>fare in modo che più versioni di Gradle coesistano senza “darsi fastidio”
+<ul>
+<li>Non vogliamo certo scaricare e installare versioni diverse a seconda del progetto su cui stiamo lavorando</li>
+</ul>
+</li>
+<li>già che ci siamo, sarebbe carino se questo sistema sapesse scaricare e installare Gradle, senza richiedere multiple installazioni manuali all’utente</li>
+</ol>
+</section><section>
+<h2 id="gradle-wrapper">Gradle wrapper</h2>
+<p>Un insieme di script con un software minimale che:</p>
+<ol>
+<li>Scarica la versione di Gradle indicata in un file di configurazione
+<ul>
+<li>se non già disponibile nel sistema</li>
+</ul>
+</li>
+<li>Usa quella versione per costruire il nostro sistema software!</li>
+</ol>
+<p>Il wrapper può (deve) esser copiato in ogni progetto che gestiamo con Gradle</p>
+<p>Dato che il wrapper sa come scaricare ed installare Gradle, non occorre scaricare ed installare gradle manualmente</p>
+<ul>
+<li>Anche se è comodo, la versione di Gradle installata può generare le versioni wrapper</li>
+</ul>
+</section><section>
+<h2 id="progetti-gradle-con-wrapper">Progetti Gradle con wrapper</h2>
+<ol>
+<li>Script bash eseguibile (<i class="fab fa-linux"></i>/<i class="fab fa-apple"></i>): <code>gradlew</code></li>
+<li>Script batch eseguibile (<i class="fab fa-windows"></i>): <code>gradlew.bat</code></li>
+<li>File di configurazione con indicata la versione di Gradle:<br>
+<code>gradle/wrapper/gradle-wrapper.properties</code></li>
+<li>Software Java che scarica la versione di Gradle descritta nel file di configurazione: <br>
+<code>gradle/wrapper/gradle-wrapper.jar</code></li>
+</ol>
+<p>Wrapper pronto per esser scaricato:</p>
+<ul>
+<li><a href="https://github.com/DanySK/Gradle-Wrapper/archive/refs/heads/master.zip">https://github.com/DanySK/Gradle-Wrapper/archive/refs/heads/master.zip</a></li>
+<li><strong>Attenzione</strong>: su <i class="fab fa-linux"></i> e <i class="fab fa-apple"></i>,
+eseguire anche il comando <code>chmod +x gradlew</code> per rendere eseguibile lo script</li>
+<li>setta i permessi Unix per eseguire, il cui valore viene resettato dalla compressione in formato zip</li>
+<li>alternativamente, lo script va eseguito chiedendo all’interprete della linea di comando di interpretarlo</li>
+<li><code>sh gradlew</code></li>
+</ul>
+</section><section>
+<h2 id="utilizzo-di-gradle-con-wrapper">Utilizzo di Gradle con wrapper</h2>
+<p>Se abbiamo il Gradle wrapper configurato in un progetto,
+possiamo usarlo attraverso uno dei due script:</p>
+<ul>
+<li><code>gradlew</code> (<i class="fab fa-linux"></i>/<i class="fab fa-apple"></i>)
+o <code>gradlew.bat</code> (<i class="fab fa-windows"></i>),
+a seconda della nostra piattaforma</li>
+<li>seguito dall’elenco dei <strong>task</strong></li>
+</ul>
+<h4 id="nota"><strong>Nota</strong></h4>
+<p>Su sistemi <i class="fab fa-linux"></i> e <i class="fab fa-apple"></i>
+per eseguire lo script occorre anche includere il percorso corrente:</p>
+<ul>
+<li><code>./gradlew</code></li>
+</ul>
+<p>o, in alternativa, chiedere all’interprete dei comandi di eseguire</p>
+<ul>
+<li><code>sh gradlew</code></li>
+<li><code>bash gradlew</code></li>
+</ul>
 </section>
 
   
@@ -131,12 +803,6 @@ Danilo Pianini, che ringrazio.</p>
 
   
     
-  
-
-  
-
-  
-
   
 
   
