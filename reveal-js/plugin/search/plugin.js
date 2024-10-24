@@ -235,9 +235,7 @@ const Plugin = () => {
 
 		},
 
-		open: openSearch,
-		close: closeSearch,
-		toggle: toggleSearch
+		open: openSearch
 
 	}
 };
