@@ -21,30 +21,50 @@
   
 
     <section><h1 id="esecuzione-di-applicazioni-java-tramite-gradle">Esecuzione di applicazioni Java tramite Gradle</h1>
+<h4 id="progettazione-e-sviluppo-del-software">Progettazione e Sviluppo del Software</h4>
+<h4 id="cdl-tecnologie-dei-sistemi-informatici">C.D.L. Tecnologie dei Sistemi Informatici</h4>
+<h3 id="gianluca-aguzzi-----gianlucaaguzziuniboitmailtogianlucaaguzziuniboit"><a href="mailto:gianluca.aguzzi@unibo.it">Gianluca Aguzzi — <code>gianluca.aguzzi@unibo.it</code></a></h3>
+<h3 id="angelo-filaseta-----angelofilasetauniboitmailtoangelofilasetauniboit"><a href="mailto:angelo.filaseta@unibo.it">Angelo Filaseta — <code>angelo.filaseta@unibo.it</code></a></h3>
+<p><a href="?print-pdf&amp;pdfSeparateFragments=false"><i class="fa fa-print" aria-hidden="true"></i> versione stampabile</a></p>
+</section><section>
+<h2 id="riconoscimenti">Riconoscimenti</h2>
+<ul>
+<li>
+<p>Questo materiale è ampiamente basato su quello realizzato dai Prof.
+Mirko Viroli e Roberto Casadei, che ringrazio.</p>
+</li>
+<li>
+<p>Ogni errore riscontratovi è esclusiva responsabilità degli autori di questo documento.</p>
+</li>
+</ul>
 </section><section>
 <h2 id="lanciare-applicazioni-java-da-gradle">Lanciare applicazioni Java da Gradle</h2>
 <p>Gradle offre supporto all’esecuzione dell’applicazione,
 oltre che alla sua compilazione,
 utilizzando il task <code>run</code> che viene aggiunto dal plugin <code>application</code>.</p>
 <p>Per eseguire ci servono due cose:</p>
-<ol>
-<li>
+
 
 <span class="fragment ">
-  il <em>nome qualificato</em> della classe da eseguire
-</span>
-</li>
-<li>
-
-<span class="fragment ">
-  il <em>classpath</em> da cui caricare tutte le classi
-</span>
-</li>
+  <ol>
+<li>il <em>nome qualificato</em> della classe da eseguire <br></li>
 </ol>
 
+</span>
+
+
 
 <span class="fragment ">
-  <p>Il classpath è noto, perché lo specifichiamo nelle dipendenze</p>
+  <ol start="2">
+<li>il <em>classpath</em> da cui caricare tutte le classi</li>
+</ol>
+
+</span>
+
+
+
+<span class="fragment ">
+  <p>Il classpath è noto perché specificato (in questo caso grazie a <strong>Convention over Configuration</strong>);</p>
 <p>Il nome della classe, invece, va specificato manualmente</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#000">plugins</span> {
 </span></span><span style="display:flex;"><span>  <span style="color:#000">java</span> <span style="color:#177500">// Carica il necessario per la compilazione di Java
@@ -61,113 +81,18 @@ utilizzando il task <code>run</code> che viene aggiunto dal plugin <code>applica
 </span>
 
 </section><section>
-<!-- this file includes generated content. Do not edit. Edit content/lab/04-execution/generator.md, instead. -->
-<h2 id="il-build-system-come-dipendenza">Il build system come dipendenza</h2>
-<p><strong>Problema</strong>: come tutti i software <em>anche il build system <strong>cambia</strong></em></p>
-<p>Se da una versione all’altra di Gradle dovesse cambiare la convenzione,
-cosa succederebbe?</p>
+<h2 id="verso-una-gestione-next-level-del-software">Verso una gestione NEXT LEVEL del software</h2>
+<p><img src="tech.jpg" alt="Meme del tizio che dice stonks ma invece dice tech"></p>
+<p>Abbiamo sempre più elementi che ci permettono di creare software di qualità:</p>
 <ul>
-<li>Il nostro software smette di funzionare se aggiorniamo il build system!</li>
-</ul>
-<p>E se avessimo <em>progetti diversi</em> che richiedono <em>versioni diverse</em> di Gradle?</p>
-<h4 id="ci-serve-un-modo-per">Ci serve un modo per:</h4>
-<ol>
-<li>avere sempre <em>la giusta versione</em> di Gradle
+<li>Grazie a <strong>git</strong> possiamo tenere traccia delle modifiche che apportiamo al software;</li>
+<li>Grazie a <strong>Gradle</strong> possiamo automatizzare la compilazione e l’esecuzione del software;
 <ul>
-<li>Potenzialmente ogni progetto ha la sua</li>
-</ul>
-</li>
-<li>fare in modo che più versioni di Gradle coesistano senza “darsi fastidio”
-<ul>
-<li>Non vogliamo certo scaricare e installare versioni diverse a seconda del progetto su cui stiamo lavorando</li>
-</ul>
-</li>
-<li>già che ci siamo, sarebbe carino se questo sistema sapesse scaricare e installare Gradle, senza richiedere multiple installazioni manuali all’utente</li>
-</ol>
-</section><section>
-<h2 id="gradle-wrapper">Gradle wrapper</h2>
-<p>Un insieme di script con un software minimale che:</p>
-<ol>
-<li>Scarica la versione di Gradle indicata in un file di configurazione
-<ul>
-<li>se non già disponibile nel sistema</li>
-</ul>
-</li>
-<li>Usa quella versione per costruire il nostro sistema software!</li>
-</ol>
-<p>Il wrapper può (deve) esser copiato in ogni progetto che gestiamo con Gradle</p>
-<p>Dato che il wrapper sa come scaricare ed installare Gradle, non occorre scaricare ed installare gradle manualmente</p>
-<ul>
-<li>Anche se è comodo, la versione di Gradle installata può generare le versioni wrapper</li>
-</ul>
-</section><section>
-<h2 id="progetti-gradle-con-wrapper">Progetti Gradle con wrapper</h2>
-<ol>
-<li>Script bash eseguibile (<i class="fab fa-linux"></i>/<i class="fab fa-apple"></i>): <code>gradlew</code></li>
-<li>Script batch eseguibile (<i class="fab fa-windows"></i>): <code>gradlew.bat</code></li>
-<li>File di configurazione con indicata la versione di Gradle:<br>
-<code>gradle/wrapper/gradle-wrapper.properties</code></li>
-<li>Software Java che scarica la versione di Gradle descritta nel file di configurazione: <br>
-<code>gradle/wrapper/gradle-wrapper.jar</code></li>
-</ol>
-<p>Wrapper pronto per esser scaricato:</p>
-<ul>
-<li><a href="https://github.com/DanySK/Gradle-Wrapper/archive/refs/heads/master.zip">https://github.com/DanySK/Gradle-Wrapper/archive/refs/heads/master.zip</a></li>
-<li><strong>Attenzione</strong>: su <i class="fab fa-linux"></i> e <i class="fab fa-apple"></i>,
-eseguire anche il comando <code>chmod +x gradlew</code> per rendere eseguibile lo script</li>
-<li>setta i permessi Unix per eseguire, il cui valore viene resettato dalla compressione in formato zip</li>
-<li>alternativamente, lo script va eseguito chiedendo all’interprete della linea di comando di interpretarlo</li>
-<li><code>sh gradlew</code></li>
-</ul>
-</section><section>
-<h2 id="utilizzo-di-gradle-con-wrapper">Utilizzo di Gradle con wrapper</h2>
-<p>Se abbiamo il Gradle wrapper configurato in un progetto,
-possiamo usarlo attraverso uno dei due script:</p>
-<ul>
-<li><code>gradlew</code> (<i class="fab fa-linux"></i>/<i class="fab fa-apple"></i>)
-o <code>gradlew.bat</code> (<i class="fab fa-windows"></i>),
-a seconda della nostra piattaforma</li>
-<li>seguito dall’elenco dei <strong>task</strong></li>
-</ul>
-<h4 id="nota"><strong>Nota</strong></h4>
-<p>Su sistemi <i class="fab fa-linux"></i> e <i class="fab fa-apple"></i>
-per eseguire lo script occorre anche includere il percorso corrente:</p>
-<ul>
-<li><code>./gradlew</code></li>
-</ul>
-<p>o, in alternativa, chiedere all’interprete dei comandi di eseguire</p>
-<ul>
-<li><code>sh gradlew</code></li>
-<li><code>bash gradlew</code></li>
-</ul>
-</section><section>
-<h1 id="esecuzioni-di-programmi-java-con-argomenti">Esecuzioni di programmi java con argomenti</h1>
-</section><section>
-<h2 id="passaggio-di-argomenti-ad-un-programma-java">Passaggio di argomenti ad un programma Java</h2>
-<p>La maggior parte dei comandi supporta degli argomenti</p>
-<p>Ad esempio, quando eseguite <code>javac -d bin MyClass.java</code> gli argomenti sono:</p>
-<ol>
-<li><code>-d</code></li>
-<li><code>bin</code></li>
-<li><code>MyClass.java</code></li>
-</ol>
-<p>In C, questi vengono passati al metodo <code>main()</code> come coppia di <code>char **</code> e <code>int</code>, rappresentanti rispettivamente un riferimento all’area di memoria dove sono salvati i parametri ed il numero dei suddetti.</p>
-<p>Anche in Java ovviamente è possibile passare degli argomenti ad un programma!</p>
-<ul>
-<li>La gestione in Java è un po’ più semplice che in C:
-<ul>
-<li>gli array hanno l’informazione circa la loro dimensione</li>
-<li>la signature del metodo <code>main()</code> è una sola:
-<ul>
-<li><code>public static void main(String [])</code> è l’unica signature valida</li>
-<li>In C sia <code>int main(void)</code> che <code>int main(char **, int)</code> sono ugualmente accettabili</li>
+<li>Inoltre esistono numerosi plugin che ci aiutano ad automatizzare altri aspetti come la qualità del codice (vedi <strong>Checkstyle</strong>);</li>
 </ul>
 </li>
 </ul>
-</li>
-<li>Gli argomenti con cui un programma Java viene invocato vengono passati come parametri attraverso l’array (<code>String[] args</code>) che il metodo <code>main()</code> prende in ingresso</li>
-<li>Nonostante sia un parametro del <em>metodo principale</em> di qualunque programma Java, si tratta di un comune array senza alcuna particolarità.</li>
-</ul>
+</section><section>
 </section>
 
   
