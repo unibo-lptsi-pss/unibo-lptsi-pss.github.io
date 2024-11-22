@@ -2,16 +2,16 @@
     <meta charset="utf-8">
 <title>Progettazione e Sviluppo del Software</title>
 <meta name="description" content="Progettazione e Sviluppo del Software, Tecnologie dei Sistemi Informatici">
-
+<meta name="author" content="Danilo Pianini">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><link rel="stylesheet" href="/reveal-js/dist/reset.css">
 <link rel="stylesheet" href="/reveal-js/dist/reveal.css">
-  <link rel="stylesheet" href="/css/custom-theme.min.98a60caa0d0e2bc7a4e1de47a2f7f4789e111fe9a6f6a29e157b6baf0f1d79b2.css" id="theme"><link rel="stylesheet" href="/highlight-js/default.min.css">
+  <link rel="stylesheet" href="/css/custom-theme.min.faf08d9813503bfc168614975992049b5d33a02bfde997df80d4db6e8dacadf3.css" id="theme"><link rel="stylesheet" href="/highlight-js/default.min.css">
 <link href="https://fonts.googleapis.com/css?family=Roboto Mono" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Oxygen Mono" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Ubuntu Mono" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 
   </head>
   <body>
@@ -174,54 +174,54 @@ Mirko Viroli e Roberto Casadei, che ringrazio.</p>
 <table>
   <thead>
       <tr>
-          <th>Type name</th>
-          <th>Size (bits)</th>
-          <th>Minimum</th>
-          <th>Maximum</th>
+          <th style="text-align: left">Type name</th>
+          <th style="text-align: left">Size (bits)</th>
+          <th style="text-align: left">Minimum</th>
+          <th style="text-align: left">Maximum</th>
       </tr>
   </thead>
   <tbody>
       <tr>
-          <td>char</td>
-          <td>16</td>
-          <td><code>\u0000</code> ($0$)</td>
-          <td><code>\uFFFF</code> ($2^{16}-1$)</td>
+          <td style="text-align: left">char</td>
+          <td style="text-align: left">16</td>
+          <td style="text-align: left"><code>\u0000</code> ($0$)</td>
+          <td style="text-align: left"><code>\uFFFF</code> ($2^{16}-1$)</td>
       </tr>
       <tr>
-          <td>byte</td>
-          <td>8</td>
-          <td>$-128$</td>
-          <td>$128$</td>
+          <td style="text-align: left">byte</td>
+          <td style="text-align: left">8</td>
+          <td style="text-align: left">$-128$</td>
+          <td style="text-align: left">$128$</td>
       </tr>
       <tr>
-          <td>short</td>
-          <td>16</td>
-          <td>$-2^{15}$</td>
-          <td>$2^{15}-1$</td>
+          <td style="text-align: left">short</td>
+          <td style="text-align: left">16</td>
+          <td style="text-align: left">$-2^{15}$</td>
+          <td style="text-align: left">$2^{15}-1$</td>
       </tr>
       <tr>
-          <td>int</td>
-          <td>32</td>
-          <td>$-2^{31}$</td>
-          <td>$2^{31}-1$</td>
+          <td style="text-align: left">int</td>
+          <td style="text-align: left">32</td>
+          <td style="text-align: left">$-2^{31}$</td>
+          <td style="text-align: left">$2^{31}-1$</td>
       </tr>
       <tr>
-          <td>long</td>
-          <td>64</td>
-          <td>$-2^{63}$</td>
-          <td>$2^{63}-1$</td>
+          <td style="text-align: left">long</td>
+          <td style="text-align: left">64</td>
+          <td style="text-align: left">$-2^{63}$</td>
+          <td style="text-align: left">$2^{63}-1$</td>
       </tr>
       <tr>
-          <td>float</td>
-          <td>32</td>
-          <td>IEEE754</td>
-          <td>IEEE754</td>
+          <td style="text-align: left">float</td>
+          <td style="text-align: left">32</td>
+          <td style="text-align: left">IEEE754</td>
+          <td style="text-align: left">IEEE754</td>
       </tr>
       <tr>
-          <td>double</td>
-          <td>64</td>
-          <td>IEEE754</td>
-          <td>IEEE754</td>
+          <td style="text-align: left">double</td>
+          <td style="text-align: left">64</td>
+          <td style="text-align: left">IEEE754</td>
+          <td style="text-align: left">IEEE754</td>
       </tr>
   </tbody>
 </table>
@@ -863,7 +863,7 @@ if (5) ..
 
   var revealHugoDefaults = { center: true, controls: true, history: true, progress: true, transition: "slide" };
 
-  var revealHugoPlugins = {
+  var revealHugoPlugins = { 
     plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealZoom ]
    };
   var revealHugoSiteParams = JSON.parse(document.getElementById('reveal-hugo-site-params').innerHTML);
@@ -882,138 +882,87 @@ if (5) ..
 
 
 
-
-  
   
 
   
+
   
 
   
-  
 
   
-  
 
-  
-  
-
-  
   
 
   
     
   
+
+  
+    
+  
+
   
 
   
     
   
+
   
 
   
+
   
 
   
-    
-  
+
   
 
   
+
   
 
   
-    
-  
+
   
 
   
+
   
 
   
+
   
 
   
+
   
 
   
+
   
 
   
+
   
 
   
+
   
 
   
+
   
 
   
-  
 
   
-  
 
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
   
 
 
 
-  <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.3/dist/mermaid.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@9.1.6/dist/mermaid.min.js"></script>
   <script>
     mermaid.initialize({"startOnLoad":false});
 
@@ -1036,8 +985,6 @@ if (5) ..
     Reveal.on('slidechanged', render);
     Reveal.on('ready', render);
   </script>
-
-
 
     <script>
     MathJax = {

@@ -2,16 +2,16 @@
     <meta charset="utf-8">
 <title>Progettazione e Sviluppo del Software</title>
 <meta name="description" content="Progettazione e Sviluppo del Software, Tecnologie dei Sistemi Informatici">
-
+<meta name="author" content="Danilo Pianini">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><link rel="stylesheet" href="/reveal-js/dist/reset.css">
 <link rel="stylesheet" href="/reveal-js/dist/reveal.css">
-  <link rel="stylesheet" href="/css/custom-theme.min.98a60caa0d0e2bc7a4e1de47a2f7f4789e111fe9a6f6a29e157b6baf0f1d79b2.css" id="theme"><link rel="stylesheet" href="/highlight-js/default.min.css">
+  <link rel="stylesheet" href="/css/custom-theme.min.faf08d9813503bfc168614975992049b5d33a02bfde997df80d4db6e8dacadf3.css" id="theme"><link rel="stylesheet" href="/highlight-js/default.min.css">
 <link href="https://fonts.googleapis.com/css?family=Roboto Mono" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Oxygen Mono" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Ubuntu Mono" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 
   </head>
   <body>
@@ -383,6 +383,194 @@ vogliamo compilare</li>
   <h1><b>SI</b></h1>
 </div>
 È molto facile dimenticarsi la sintassi delle opzioni di comandi che non si usano spesso. È molto più facile imparare a destreggiarsi in un help che andare a tentativi o ricordare cose a memoria.
+</section><section>
+<h1 id="build-systems">Build systems</h1>
+</section><section>
+<h2 id="quando-il-gioco-si-fa-duro-i-duri-automatizzano">Quando il gioco si fa duro, i duri <em>automatizzano</em></h2>
+<p>La gestione della compilazione potrebbe diventare complicata:</p>
+<ul>
+<li>Sorgenti in molte cartelle</li>
+<li>Divisi in molti package</li>
+<li>Alcune librerie binarie di cui non abbiamo il sorgente</li>
+</ul>
+<p>Comandi <strong>molto lunghi!</strong> Facile sbagliarsi, tedioso da fare a mano!</p>
+<p>Soluzione: costruire degli script!</p>
+</section><section>
+<h2 id="script-per-compilare">Script per compilare?</h2>
+<p>In fin dei conti, è solo software che, di mestiere, compila software</p>
+<p>…a sua volta, da compilare o interpretare.</p>
+<p>Fare uno script personalizzato è molto flessibile, ma se abbiamo <em>molti progetti</em>?</p>
+<ul>
+<li>Copiarlo da tutte le parti vuol dire doverlo modificare in molti posti in caso di errore!</li>
+<li>Viola un principio importante: <strong>Don’t Repeat Yourself</strong> (<strong>DRY</strong>)</li>
+</ul>
+<h4 id="la-compilazione-è-ripetitiva">La compilazione è <strong>ripetitiva</strong>!</h4>
+<p>Potremmo costruire un sistema che:</p>
+<ol>
+<li>Si aspetta che i sorgenti siano in un posto standard
+<ul>
+<li>Se li trova, allora compila, mettendo il risultato in un posto standard</li>
+</ul>
+</li>
+<li>Se sono in un posto non standard, si <em>configura</em> per funzionare</li>
+</ol>
+<h4 id="principio-convention-over-configuration">Principio <strong>convention over configuration</strong></h4>
+</section><section>
+<h2 id="build-systems-1">Build systems</h2>
+<p>Sono software che si occupano di aiutare con le varie fasi della costruzione del software:</p>
+<ul>
+<li>Ricerca e scaricamento di librerie (vediamo in futuro)</li>
+<li>Compilazione (vediamo oggi)</li>
+<li>Testing (vediamo in futuro)</li>
+<li>Packaging (vediamo in futuro)</li>
+<li>Generazione di documentazione (vediamo in futuro)</li>
+<li>Delivery degli artefatti (non oggetto del corso)</li>
+</ul>
+<h2 id="gradle">Gradle</h2>
+<ul>
+<li>Un <strong>moderno</strong> build system</li>
+<li>Supporta Java (oltre a C/C++, Scala, Kotlin…)
+<ul>
+<li>In tutto l’ecosistema, che include Android</li>
+</ul>
+</li>
+<li>Ne vedremo solo i rudimenti
+<ul>
+<li>Per noi è strumentale a costruire software Java</li>
+<li>Impareremo come sfruttarlo per automatizzare le operazioni di cui sopra</li>
+</ul>
+</li>
+</ul>
+</section><section>
+<h2 id="gradle-è-in-espansione-google-trends">Gradle è in espansione: Google trends</h2>
+<script type="text/javascript" src="https://ssl.gstatic.com/trends_nrtr/3045_RC01/embed_loader.js"></script> <script type="text/javascript"> trends.embed.renderExploreWidget("TIMESERIES", {"comparisonItem":[{"keyword":"/m/028m4s","geo":"","time":"2004-01-01 2022-09-22"},{"keyword":"/m/04tj5z","geo":"","time":"2004-01-01 2022-09-22"},{"keyword":"/m/080c0g9","geo":"","time":"2004-01-01 2022-09-22"}],"category":0,"property":""}, {"exploreQuery":"date=all&q=%2Fm%2F028m4s,%2Fm%2F04tj5z,%2Fm%2F080c0g9","guestPath":"https://trends.google.com:443/trends/embed/"}); </script>
+</section><section>
+<h2 id="gradle-configurazione-minimale-per-java">Gradle: configurazione minimale per Java</h2>
+<ul>
+<li>Gradle viene pilotato con due file:
+<ul>
+<li><code>settings.gradle.kts</code>
+<ul>
+<li>Per il momento, ci serve solo a dare un nome al progetto</li>
+</ul>
+</li>
+<li><code>build.gradle.kts</code>
+<ul>
+<li>Conterrà tutta la logica di costruzione del software</li>
+<li>Ma noi sfrutteremo le convenzioni, configurando ben poco!</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Al momento, ci basta una sola riga di codice per ciascuno!</li>
+</ul>
+<p><code>settings.gradle.kts</code></p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#000">rootProject</span>.<span style="color:#000">name</span> = <span style="color:#c41a16">"name-of-our-project"</span>
+</span></span></code></pre></div><p><code>build.gradle.kts</code></p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#000">plugins</span> { <span style="color:#000">java</span> }
+</span></span></code></pre></div><p>Così configurato, Gradle autonomamente:</p>
+<ul>
+<li>cerca e compila i sorgenti java dalla cartella: <code>src/main/java</code></li>
+<li>produce i binari dentro: <code>build/classes/java/main</code></li>
+</ul>
+<p>Vogliamo percorsi diversi?
+Va configurato.</p>
+</section><section>
+<h2 id="non-installare-gradle-il-wrapper">(Non) installare Gradle: il wrapper</h2>
+<p>Se da una versione all’altra di Gradle dovesse cambiare la convenzione,
+cosa succederebbe?</p>
+<ul>
+<li>Il nostro software smette di funzionare se aggiorniamo il build system!</li>
+</ul>
+<p>E se avessimo <em>progetti diversi</em> che richiedono <em>versioni diverse</em> di Gradle?</p>
+<h4 id="ci-serve-un-modo-per-portarci-dietro-la-versione-di-gradle-che-ci-serve">Ci serve un modo per portarci dietro la versione di Gradle che ci serve</h4>
+<h3 id="gradle-wrapper">Gradle wrapper</h3>
+<p>Un insieme di script con un software minimale che:</p>
+<ol>
+<li>Scarica la versione di Gradle indicata in un file di configurazione
+<ul>
+<li>se non già disponibile nel sistema</li>
+</ul>
+</li>
+<li>Usa quella versione per costruire il nostro sistema!</li>
+</ol>
+<p>Il wrapper può (deve) esser copiato in ogni progetto che gestiamo con Gradle</p>
+<p>Dato che si auto-scarica, non occorre installare Gradle!</p>
+<ul>
+<li>Anche se è comodo, la versione di Gradle installata può generare le versioni wrapper</li>
+</ul>
+</section><section>
+<h2 id="progetti-gradle-con-wrapper">Progetti Gradle con wrapper</h2>
+<ol>
+<li>Script bash eseguibile (<i class="fab fa-linux"></i>/<i class="fab fa-apple"></i>): <code>gradlew</code></li>
+<li>Script batch eseguibile (<i class="fab fa-windows"></i>): <code>gradlew.bat</code></li>
+<li>File di configurazione con indicata la versione di Gradle:<br>
+<code>gradle/wrapper/gradle-wrapper.properties</code></li>
+<li>Software Java che scarica la versione di Gradle descritta nel file di configurazione: <br>
+<code>gradle/wrapper/gradle-wrapper.jar</code></li>
+</ol>
+<p>Wrapper pronto per esser scaricato:</p>
+<ul>
+<li><a href="https://github.com/DanySK/Gradle-Wrapper/archive/refs/heads/master.zip">https://github.com/DanySK/Gradle-Wrapper/archive/refs/heads/master.zip</a></li>
+</ul>
+</section><section>
+<h2 id="utilizzo-di-gradle-in-un-progetto-java">Utilizzo di Gradle in un progetto Java</h2>
+<p>Se abbiamo il Gradle wrapper configurato in un progetto,
+possiamo usarlo attraverso uno dei due script:</p>
+<ul>
+<li><code>gradlew</code> (<i class="fab fa-linux"></i>/<i class="fab fa-apple"></i>)
+o <code>gradlew.bat</code> (<i class="fab fa-windows"></i>),
+a seconda della nostra piattaforma</li>
+<li>seguito da un elenco di comandi detti <strong>task</strong></li>
+</ul>
+<p>In Gradle, un <strong>task</strong> è una particolare <em>attività</em> del processo di costruzione del software</p>
+<p>Esiste un task che elenca i task, chiamato <code>tasks</code>.</p>
+<p>Quando configurato per compilare Java fra i vari task troviamo anche <code>compileJava</code></p>
+<h3 id="ottenere-lelenco-dei-task-disponibili">Ottenere l’elenco dei task disponibili</h3>
+<ul>
+<li><code>./gradlew tasks</code> (sistemi <i class="fab fa-linux"></i> e <i class="fab fa-apple"></i>)</li>
+<li><code>gradlew.bat tasks</code> (sistemi <i class="fab fa-windows"></i>)</li>
+</ul>
+<h3 id="compilazione-java">Compilazione Java</h3>
+<ul>
+<li><code>./gradlew compileJava</code> (sistemi <i class="fab fa-linux"></i> e <i class="fab fa-apple"></i>)</li>
+<li><code>gradlew.bat compileJava</code> (sistemi <i class="fab fa-windows"></i>)</li>
+</ul>
+<h4 id="continueremo-a-lanciare-i-nostri-eseguibili-a-mano-dal-terminale">Continueremo a <em>lanciare</em> i nostri eseguibili <em>a mano</em> dal terminale!</h4>
+<p><code>java -cp build/classes/java/main nome.qualificato.della.ClasseDaEseguire</code></p>
+</section><section>
+<h1 id="esecuzioni-di-programmi-java-con-argomenti">Esecuzioni di programmi java con argomenti</h1>
+</section><section>
+<h2 id="passaggio-di-argomenti-ad-un-programma-java">Passaggio di argomenti ad un programma Java</h2>
+<p>La maggior parte dei comandi supporta degli argomenti</p>
+<p>Ad esempio, quando eseguite <code>javac -d bin MyClass.java</code> gli argomenti sono:</p>
+<ol>
+<li><code>-d</code></li>
+<li><code>bin</code></li>
+<li><code>MyClass.java</code></li>
+</ol>
+<p>In C, questi vengono passati al metodo <code>main()</code> come coppia di <code>char **</code> e <code>int</code>, rappresentanti rispettivamente un riferimento all’area di memoria dove sono salvati i parametri ed il numero dei suddetti.</p>
+<p>Anche in Java ovviamente è possibile passare degli argomenti ad un programma!</p>
+<ul>
+<li>La gestione in Java è un po’ più semplice che in C:
+<ul>
+<li>gli array hanno l’informazione circa la loro dimensione</li>
+<li>la signature del metodo <code>main()</code> è una sola:
+<ul>
+<li><code>public static void main(String [])</code> è l’unica signature valida</li>
+<li>In C sia <code>int main(void)</code> che <code>int main(char **, int)</code> sono ugualmente accettabili</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Gli argomenti con cui un programma Java viene invocato vengono passati come parametri attraverso l’array (<code>String[] args</code>) che il metodo <code>main()</code> prende in ingresso</li>
+<li>Nonostante sia un parametro del <em>metodo principale</em> di qualunque programma Java, si tratta di un comune array senza alcuna particolarità.</li>
+</ul>
+</section><section>
+<h2 id="appendice----varianza">Appendice – Varianza</h2>
+<h2 id="formula-per-il-calcolo-della-varianza">Formula per il calcolo della varianza</h2>
+<p>Sia $n$ il numero di elementi dell’array ed $x_i$ l’elemento all’indice $i$ dell’array, e $\mu$ la media dei valori del suddetto array. La varianza $\sigma^2$ può essere calcolata come:</p>
+<p>$$\sigma^2 = \frac{\displaystyle\sum_{i=0}^{n-1}(x_i - \mu)^2} {n}$$</p>
 </section>
 
   
@@ -436,7 +624,7 @@ vogliamo compilare</li>
 
   var revealHugoDefaults = { center: true, controls: true, history: true, progress: true, transition: "slide" };
 
-  var revealHugoPlugins = {
+  var revealHugoPlugins = { 
     plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealZoom ]
    };
   var revealHugoSiteParams = JSON.parse(document.getElementById('reveal-hugo-site-params').innerHTML);
@@ -455,150 +643,101 @@ vogliamo compilare</li>
 
 
 
-
-  
   
 
   
+
   
 
   
-  
 
   
-  
 
-  
-  
-
-  
   
 
   
     
   
+
+  
+    
+  
+
   
 
   
     
   
-  
 
-  
-  
-
-  
-    
-  
-  
-
-  
   
 
   
     
   
-  
 
   
-  
 
-  
   
 
   
     
   
+
+  
+    
+  
+
+  
+
   
 
   
     
   
+
+  
+    
   
 
   
-  
 
   
+
   
 
   
     
   
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
   
 
   
     
   
+
   
 
   
-  
 
-  
-  
-
-  
-  
-
-  
-    
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-    
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
   
 
 
 
-  <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.3/dist/mermaid.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@9.1.6/dist/mermaid.min.js"></script>
   <script>
     mermaid.initialize({"startOnLoad":false});
 
@@ -621,8 +760,6 @@ vogliamo compilare</li>
     Reveal.on('slidechanged', render);
     Reveal.on('ready', render);
   </script>
-
-
 
     <script>
     MathJax = {
