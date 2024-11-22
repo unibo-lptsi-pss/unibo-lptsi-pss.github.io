@@ -20,7 +20,7 @@
       <div class="slides">
   
 
-    <section><h1 id="build-system-gradle-costruzione-del-software-e-librerie">Build system (Gradle), costruzione del software, e librerie</h1>
+    <section><h1 id="esecuzione-di-applicazioni-java-tramite-gradle">Esecuzione di applicazioni Java tramite Gradle</h1>
 <h4 id="progettazione-e-sviluppo-del-software">Progettazione e Sviluppo del Software</h4>
 <h4 id="cdl-tecnologie-dei-sistemi-informatici">C.D.L. Tecnologie dei Sistemi Informatici</h4>
 <h3 id="gianluca-aguzzi-----gianlucaaguzziuniboitmailtogianlucaaguzziuniboit"><a href="mailto:gianluca.aguzzi@unibo.it">Gianluca Aguzzi — <code>gianluca.aguzzi@unibo.it</code></a></h3>
@@ -30,17 +30,68 @@
 <h2 id="riconoscimenti">Riconoscimenti</h2>
 <ul>
 <li>
-<p>Questo materiale è ampiamente basato su quello realizzato dal Prof.
-Danilo Pianini, che ringrazio.</p>
+<p>Questo materiale è ampiamente basato su quello realizzato dai Prof.
+Mirko Viroli e Roberto Casadei, che ringrazio.</p>
 </li>
 <li>
 <p>Ogni errore riscontratovi è esclusiva responsabilità degli autori di questo documento.</p>
 </li>
 </ul>
 </section><section>
-<h1 id="build-systems">Build systems</h1>
-<h2 id="questo--materiale-è-deprecato-ed-è-stato-spostato-alle-slide-di-laboratorio">Questo  materiale è deprecato ed è stato spostato alle slide di laboratorio</h2>
+<h2 id="lanciare-applicazioni-java-da-gradle">Lanciare applicazioni Java da Gradle</h2>
+<p>Gradle offre supporto all’esecuzione dell’applicazione,
+oltre che alla sua compilazione,
+utilizzando il task <code>run</code> che viene aggiunto dal plugin <code>application</code>.</p>
+<p>Per eseguire ci servono due cose:</p>
+
+
+<span class="fragment ">
+  <ol>
+<li>il <em>nome qualificato</em> della classe da eseguire <br></li>
+</ol>
+
+</span>
+
+
+
+<span class="fragment ">
+  <ol start="2">
+<li>il <em>classpath</em> da cui caricare tutte le classi</li>
+</ol>
+
+</span>
+
+
+
+<span class="fragment ">
+  <p>Il classpath è noto perché specificato (in questo caso grazie a <strong>Convention over Configuration</strong>);</p>
+<p>Il nome della classe, invece, va specificato manualmente</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#000">plugins</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#000">java</span> <span style="color:#177500">// Carica il necessario per la compilazione di Java
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>  <span style="color:#000">application</span> <span style="color:#177500">// Carica il necessario per l'esecuzione di classi con la JVM
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>}
+</span></span><span style="display:flex;"><span><span style="color:#000">application</span> { <span style="color:#177500">// Configurazione dell'esecuzione, la main class è sufficiente
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#000">mainClass</span>.<span style="color:#a90d91">set</span>(<span style="color:#c41a16">"it.unibo.sampleapp.SimplerRateAMovie"</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Possiamo ora lanciare la nostra applicazione tramite:</p>
+<ul>
+<li><code>gradle run</code></li>
+</ul>
+
+</span>
+
 </section><section>
+<h2 id="verso-una-gestione-next-level-del-software">Verso una gestione NEXT LEVEL del software</h2>
+<p><img src="tech.jpg" alt="Meme del tizio che dice stonks ma invece dice tech"></p>
+<p>Abbiamo sempre più elementi che ci permettono di creare software di qualità:</p>
+<ul>
+<li>Grazie a <strong>git</strong> possiamo tenere traccia delle modifiche che apportiamo al software;</li>
+<li>Grazie a <strong>Gradle</strong> possiamo automatizzare la compilazione e l’esecuzione del software;
+<ul>
+<li>Inoltre esistono numerosi plugin che ci aiutano ad automatizzare altri aspetti come la qualità del codice (vedi <strong>Checkstyle</strong>);</li>
+</ul>
+</li>
+</ul>
 </section>
 
   
@@ -146,6 +197,62 @@ Danilo Pianini, che ringrazio.</p>
   
 
   
+    
+  
+  
+
+  
+  
+
+  
+    
+  
+  
+
+  
+  
+
+  
+  
+
+  
+    
+  
+  
+
+  
+    
+  
+  
+
+  
+  
+
+  
+  
+
+  
+    
+  
+  
+
+  
+    
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+    
+  
   
 
   
@@ -173,47 +280,7 @@ Danilo Pianini, che ringrazio.</p>
   
 
   
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
+    
   
   
 
