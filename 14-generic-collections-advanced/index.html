@@ -23,8 +23,8 @@
     <section><h1 id="collezioni-generiche-avanzate">Collezioni generiche (avanzate)</h1>
 <h4 id="progettazione-e-sviluppo-del-software">Progettazione e Sviluppo del Software</h4>
 <h4 id="cdl-tecnologie-dei-sistemi-informatici">C.D.L. Tecnologie dei Sistemi Informatici</h4>
-<h3 id="gianluca-aguzzi-----gianlucaaguzziuniboitmailtogianlucaaguzziuniboit"><a href="mailto:gianluca.aguzzi@unibo.it">Gianluca Aguzzi — <code>gianluca.aguzzi@unibo.it</code></a></h3>
-<h3 id="angelo-filaseta-----angelofilasetauniboitmailtoangelofilasetauniboit"><a href="mailto:angelo.filaseta@unibo.it">Angelo Filaseta — <code>angelo.filaseta@unibo.it</code></a></h3>
+<h3 id="gianluca-aguzzi"><a href="mailto:gianluca.aguzzi@unibo.it">Gianluca Aguzzi — <code>gianluca.aguzzi@unibo.it</code></a></h3>
+<h3 id="angelo-filaseta"><a href="mailto:angelo.filaseta@unibo.it">Angelo Filaseta — <code>angelo.filaseta@unibo.it</code></a></h3>
 <p><a href="?print-pdf&amp;pdfSeparateFragments=false"><i class="fa fa-print" aria-hidden="true"></i> versione stampabile</a></p>
 </section><section>
 <h2 id="riconoscimenti">Riconoscimenti</h2>
@@ -139,7 +139,7 @@ Mirko Viroli e Roberto Casadei, che ringrazio.</p>
 <li>… <code>(X)o</code>, <code>(C&lt;String&gt;)o</code></li>
 <li>il compilatore segnala un “unchecked warning”</li>
 </ul>
-<h3 id="perché-queste-limitazioni----odersky--runne--wadler-1998---">Perché queste limitazioni? <!-- (Odersky \& Runne \& Wadler, 1998) --></h3>
+<h3 id="perché-queste-limitazioni">Perché queste limitazioni? <!-- (Odersky \& Runne \& Wadler, 1998) --></h3>
 <ul>
 <li>Derivano dallo schema di supporto <em>“ad erasure”</em>
 <ul>
@@ -283,7 +283,7 @@ Mirko Viroli e Roberto Casadei, che ringrazio.</p>
 <li>Data una classe <code>C&lt;X&gt;</code>, il type-parameter <code>X</code> può essere istanziato a qualunque sottotipo di <code>Object</code></li>
 <li>In effetti la definizione <code>class C&lt;X&gt; { ... }</code> equivale a <code>class C &lt;X extends Object&gt; { ... }</code></li>
 </ul>
-<h3 id="polimorfismo-vincolato----igarashi--pierce--wadler-2000---">Polimorfismo <em>vincolato</em> <!-- (Igarashi \& Pierce \& Wadler, 2000) --></h3>
+<h3 id="polimorfismo-vincolato-2">Polimorfismo <em>vincolato</em> <!-- (Igarashi \& Pierce \& Wadler, 2000) --></h3>
 <ul>
 <li>In generale invece, può essere opportuno <em>vincolare</em> in qualche modo <em>le possibili istanziazioni di <code>X</code></em>, ad essere sottotipo di un tipo più specifico di <code>Object</code></li>
 <li><code>class C&lt;X extends D&gt; { ... }</code>
@@ -413,7 +413,7 @@ $\Rightarrow$ potremmo facilmente compromettere l’integrità del vettore</p>
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">int</span> <span style="color:#000">n</span> <span style="color:#000">=</span> <span style="color:#000">vec</span>.<span style="color:#836c28">getElementAt</span>(<span style="color:#000">3</span>).<span style="color:#836c28">intValue</span>(); <span style="color:#177500">// break!</span>
 </span></span></code></pre></div></section><section>
 <h2 id="subtyping-e-safety">Subtyping e safety</h2>
-<h3 id="__safety__-di-un-linguaggio-oo"><em><strong>Safety</strong></em> di un linguaggio OO</h3>
+<h3 id="safety-di-un-linguaggio-oo"><em><strong>Safety</strong></em> di un linguaggio OO</h3>
 <p>Def. semplificata: un linguaggio OO è <strong>safe</strong> nessuna combinazione di istruzioni porta a poter invocare un metodo su un oggetto la cui classe non lo definisce</p>
 <ul>
 <li>È necessario che il subtyping segua il principio di sostituibilità</li>
@@ -738,6 +738,8 @@ $\Rightarrow$ potremmo facilmente compromettere l’integrità del vettore</p>
   
   
 
+  
+    
   
   
 

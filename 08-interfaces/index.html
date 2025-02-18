@@ -23,8 +23,8 @@
     <section><h1 id="interfacce-e-composizione">Interfacce e composizione</h1>
 <h4 id="progettazione-e-sviluppo-del-software">Progettazione e Sviluppo del Software</h4>
 <h4 id="cdl-tecnologie-dei-sistemi-informatici">C.D.L. Tecnologie dei Sistemi Informatici</h4>
-<h3 id="gianluca-aguzzi-----gianlucaaguzziuniboitmailtogianlucaaguzziuniboit"><a href="mailto:gianluca.aguzzi@unibo.it">Gianluca Aguzzi — <code>gianluca.aguzzi@unibo.it</code></a></h3>
-<h3 id="angelo-filaseta-----angelofilasetauniboitmailtoangelofilasetauniboit"><a href="mailto:angelo.filaseta@unibo.it">Angelo Filaseta — <code>angelo.filaseta@unibo.it</code></a></h3>
+<h3 id="gianluca-aguzzi"><a href="mailto:gianluca.aguzzi@unibo.it">Gianluca Aguzzi — <code>gianluca.aguzzi@unibo.it</code></a></h3>
+<h3 id="angelo-filaseta"><a href="mailto:angelo.filaseta@unibo.it">Angelo Filaseta — <code>angelo.filaseta@unibo.it</code></a></h3>
 <p><a href="?print-pdf&amp;pdfSeparateFragments=false"><i class="fa fa-print" aria-hidden="true"></i> versione stampabile</a></p>
 </section><section>
 <h2 id="riconoscimenti">Riconoscimenti</h2>
@@ -109,7 +109,7 @@ Mirko Viroli e Roberto Casadei, che ringrazio.</p>
 <h3 id="nella-lezione-corrente">Nella lezione corrente</h3>
 <p>Introdurremo la composizione (che è una versione più forte della associazione), mostrando la sua relazione con le <em><strong>interface</strong></em> di Java</p>
 </section><section>
-<h2 id="composizione----relazione-has-a">Composizione – relazione “has-a”</h2>
+<h2 id="composizione--relazione-has-a">Composizione – relazione “has-a”</h2>
 <h3 id="idea">Idea</h3>
 <ul>
 <li>un oggetto della classe <code>A</code> è ottenuto <em>componendo</em> un insieme di altri oggetti, delle classi <code>B1</code>, <code>B2</code>, …, <code>Bn</code>
@@ -335,8 +335,8 @@ Mirko Viroli e Roberto Casadei, che ringrazio.</p>
 
 -->
 </section><section>
-<h2 id="la-necessità-di-una-notazione-grafica----uml">La necessità di una notazione grafica – UML</h2>
-<h3 id="uml----unified-modelling-language">UML – Unified Modelling Language</h3>
+<h2 id="la-necessità-di-una-notazione-grafica--uml">La necessità di una notazione grafica – UML</h2>
+<h3 id="uml--unified-modelling-language">UML – Unified Modelling Language</h3>
 <ul>
 <li>È un <em>linguaggio grafico</em> semi-formale e <em>OO-based</em> per <em>modellare e documentare il software</em>
 <ul>
@@ -807,7 +807,7 @@ Device <|-- AirConditioner
 </span></span><span style="display:flex;"><span><span style="color:#177500">/* Attenzione, le interfacce non sono istanziabili */</span>
 </span></span><span style="display:flex;"><span><span style="color:#000">Device</span> <span style="color:#000">dev3</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Device</span>(); <span style="color:#177500">// NO!!!! </span>
 </span></span></code></pre></div></section><section>
-<h2 id="ridurre-la-molteplicità--aumentare-riuso----prima">Ridurre la molteplicità / aumentare riuso – prima</h2>
+<h2 id="ridurre-la-molteplicità--aumentare-riuso--prima">Ridurre la molteplicità / aumentare riuso – prima</h2>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">DeviceUtilities</span> {
 </span></span><span style="display:flex;"><span>    
 </span></span><span style="display:flex;"><span>    <span style="color:#177500">/* Senza interfacce, non resta altro che... */</span>
@@ -832,7 +832,7 @@ Device <|-- AirConditioner
 </span></span><span style="display:flex;"><span>    ..
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></section><section>
-<h2 id="ridurre-la-molteplicità--aumentare-riuso----dopo">Ridurre la molteplicità / aumentare riuso – dopo</h2>
+<h2 id="ridurre-la-molteplicità--aumentare-riuso--dopo">Ridurre la molteplicità / aumentare riuso – dopo</h2>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">DeviceUtilities</span> {
 </span></span><span style="display:flex;"><span>    <span style="color:#177500">// ...</span>
 </span></span><span style="display:flex;"><span>
