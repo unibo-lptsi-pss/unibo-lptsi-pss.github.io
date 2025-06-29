@@ -49,7 +49,7 @@ jobs:
         uses: tj-actions/branch-names@v6.5
       - name: Deliver the pdfs
         if: steps.branch-name.outputs.is_default == 'true'
-        uses: ncipollo/release-action@v1.16.0
+        uses: ncipollo/release-action@v1.17.0
         with:
           allowUpdates: true
           artifacts: "*.pdf"
