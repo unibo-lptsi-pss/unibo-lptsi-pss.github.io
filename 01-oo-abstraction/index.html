@@ -26,18 +26,9 @@
 <h3 id="danilo-pianini"><a href="mailto:danilo.pianini@unibo.it">Danilo Pianini — <code>danilo.pianini@unibo.it</code></a></h3>
 <h3 id="gianluca-aguzzi"><a href="mailto:gianluca.aguzzi@unibo.it">Gianluca Aguzzi — <code>gianluca.aguzzi@unibo.it</code></a></h3>
 <h3 id="angelo-filaseta"><a href="mailto:angelo.filaseta@unibo.it">Angelo Filaseta — <code>angelo.filaseta@unibo.it</code></a></h3>
-<p><a href="?print-pdf&amp;pdfSeparateFragments=false"><i class="fa fa-print" aria-hidden="true"></i> versione stampabile</a></p>
-</section><section>
-<h2 id="riconoscimenti">Riconoscimenti</h2>
-<ul>
-<li>
-<p>Questo materiale è ampiamente basato su quello realizzato dai Prof.
-Mirko Viroli e Roberto Casadei, che ringrazio.</p>
-</li>
-<li>
-<p>Ogni errore riscontratovi è esclusiva responsabilità degli autori di questo documento.</p>
-</li>
-</ul>
+<p>Compiled on: 2025-08-29
+ — <a href="?print-pdf&amp;pdfSeparateFragments=false"><i class="fa fa-print" aria-hidden="true"></i> versione stampabile</a></p>
+<p><a href=".."><i class="fa fa-undo" aria-hidden="true"></i> back</a></p>
 </section><section>
 <h2 id="sistemi-software">Sistemi software</h2>
 <h3 id="obiettivo-di-questo-corso">Obiettivo di questo corso</h3>
@@ -197,65 +188,69 @@ il problema (realizzate mediante i linguaggi e le tecnologie scelte e a fronte d
 <h2 id="2-comportamento">2. <em>comportamento</em></h2>
 <h2 id="3-identità">3. <em>identità</em></h2>
 </section><section>
-<h2 id="astrazione-oo-definizione-più-dettagliata">Astrazione OO: definizione più dettagliata</h2>
+<p>Esempio “lampadina” in notazione UML (Unified Modelling Language):</p>
+<div class="mermaid" data-processed="true" pre-rendered="true"><svg aria-roledescription="classDiagram" role="graphics-document document" viewBox="0 0 119.0625 183" style="max-width: 119.0625px;" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" width="100%" id="my-svg"><style>#my-svg{font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:16px;fill:#333;}#my-svg .error-icon{fill:#552222;}#my-svg .error-text{fill:#552222;stroke:#552222;}#my-svg .edge-thickness-normal{stroke-width:1px;}#my-svg .edge-thickness-thick{stroke-width:3.5px;}#my-svg .edge-pattern-solid{stroke-dasharray:0;}#my-svg .edge-thickness-invisible{stroke-width:0;fill:none;}#my-svg .edge-pattern-dashed{stroke-dasharray:3;}#my-svg .edge-pattern-dotted{stroke-dasharray:2;}#my-svg .marker{fill:#333333;stroke:#333333;}#my-svg .marker.cross{stroke:#333333;}#my-svg svg{font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:16px;}#my-svg p{margin:0;}#my-svg g.classGroup text{fill:#9370DB;stroke:none;font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:10px;}#my-svg g.classGroup text .title{font-weight:bolder;}#my-svg .nodeLabel,#my-svg .edgeLabel{color:#131300;}#my-svg .edgeLabel .label rect{fill:#ECECFF;}#my-svg .label text{fill:#131300;}#my-svg .edgeLabel .label span{background:#ECECFF;}#my-svg .classTitle{font-weight:bolder;}#my-svg .node rect,#my-svg .node circle,#my-svg .node ellipse,#my-svg .node polygon,#my-svg .node path{fill:#ECECFF;stroke:#9370DB;stroke-width:1px;}#my-svg .divider{stroke:#9370DB;stroke-width:1;}#my-svg g.clickable{cursor:pointer;}#my-svg g.classGroup rect{fill:#ECECFF;stroke:#9370DB;}#my-svg g.classGroup line{stroke:#9370DB;stroke-width:1;}#my-svg .classLabel .box{stroke:none;stroke-width:0;fill:#ECECFF;opacity:0.5;}#my-svg .classLabel .label{fill:#9370DB;font-size:10px;}#my-svg .relation{stroke:#333333;stroke-width:1;fill:none;}#my-svg .dashed-line{stroke-dasharray:3;}#my-svg .dotted-line{stroke-dasharray:1 2;}#my-svg #compositionStart,#my-svg .composition{fill:#333333!important;stroke:#333333!important;stroke-width:1;}#my-svg #compositionEnd,#my-svg .composition{fill:#333333!important;stroke:#333333!important;stroke-width:1;}#my-svg #dependencyStart,#my-svg .dependency{fill:#333333!important;stroke:#333333!important;stroke-width:1;}#my-svg #dependencyStart,#my-svg .dependency{fill:#333333!important;stroke:#333333!important;stroke-width:1;}#my-svg #extensionStart,#my-svg .extension{fill:transparent!important;stroke:#333333!important;stroke-width:1;}#my-svg #extensionEnd,#my-svg .extension{fill:transparent!important;stroke:#333333!important;stroke-width:1;}#my-svg #aggregationStart,#my-svg .aggregation{fill:transparent!important;stroke:#333333!important;stroke-width:1;}#my-svg #aggregationEnd,#my-svg .aggregation{fill:transparent!important;stroke:#333333!important;stroke-width:1;}#my-svg #lollipopStart,#my-svg .lollipop{fill:#ECECFF!important;stroke:#333333!important;stroke-width:1;}#my-svg #lollipopEnd,#my-svg .lollipop{fill:#ECECFF!important;stroke:#333333!important;stroke-width:1;}#my-svg .edgeTerminals{font-size:11px;line-height:initial;}#my-svg .classTitleText{text-anchor:middle;font-size:18px;fill:#333;}#my-svg :root{--mermaid-font-family:"trebuchet ms",verdana,arial,sans-serif;}</style><g><defs><marker orient="auto" markerHeight="240" markerWidth="190" refY="7" refX="18" class="marker aggregation classDiagram" id="my-svg_classDiagram-aggregationStart"><path d="M 18,7 L9,13 L1,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="28" markerWidth="20" refY="7" refX="1" class="marker aggregation classDiagram" id="my-svg_classDiagram-aggregationEnd"><path d="M 18,7 L9,13 L1,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="240" markerWidth="190" refY="7" refX="18" class="marker extension classDiagram" id="my-svg_classDiagram-extensionStart"><path d="M 1,7 L18,13 V 1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="28" markerWidth="20" refY="7" refX="1" class="marker extension classDiagram" id="my-svg_classDiagram-extensionEnd"><path d="M 1,1 V 13 L18,7 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="240" markerWidth="190" refY="7" refX="18" class="marker composition classDiagram" id="my-svg_classDiagram-compositionStart"><path d="M 18,7 L9,13 L1,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="28" markerWidth="20" refY="7" refX="1" class="marker composition classDiagram" id="my-svg_classDiagram-compositionEnd"><path d="M 18,7 L9,13 L1,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="240" markerWidth="190" refY="7" refX="6" class="marker dependency classDiagram" id="my-svg_classDiagram-dependencyStart"><path d="M 5,7 L9,13 L1,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="28" markerWidth="20" refY="7" refX="13" class="marker dependency classDiagram" id="my-svg_classDiagram-dependencyEnd"><path d="M 18,7 L9,13 L14,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="240" markerWidth="190" refY="7" refX="13" class="marker lollipop classDiagram" id="my-svg_classDiagram-lollipopStart"><circle r="6" cy="7" cx="7" fill="transparent" stroke="black"></circle></marker></defs><defs><marker orient="auto" markerHeight="240" markerWidth="190" refY="7" refX="1" class="marker lollipop classDiagram" id="my-svg_classDiagram-lollipopEnd"><circle r="6" cy="7" cx="7" fill="transparent" stroke="black"></circle></marker></defs><g class="root"><g class="clusters"></g><g class="edgePaths"></g><g class="edgeLabels"></g><g class="nodes"><g transform="translate(59.53125, 91.5)" id="classId-Light-0" class="node default"><rect height="167" width="103.0625" y="-83.5" x="-51.53125" class="outer title-state" style=""></rect><line y2="-31.5" y1="-31.5" x2="51.53125" x1="-51.53125" class="divider"></line><line y2="-15.5" y1="-15.5" x2="51.53125" x1="-51.53125" class="divider"></line><g class="label"><foreignObject transform="translate( -44.03125, -76)" height="18" width="88.0625"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">« interface »</span></div></foreignObject><foreignObject transform="translate( -19.546875, -54)" height="18" width="39.09375" class="classTitle"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">Light</span></div></foreignObject><foreignObject transform="translate( -44.03125, -8)" height="18" width="28.453125"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">on()</span></div></foreignObject><foreignObject transform="translate( -44.03125, 14)" height="18" width="28.15625"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">off()</span></div></foreignObject><foreignObject transform="translate( -44.03125, 36)" height="18" width="68.484375"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">brighten()</span></div></foreignObject><foreignObject transform="translate( -44.03125, 58)" height="18" width="36.4375"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">dim()</span></div></foreignObject></g></g></g></g></g></svg></div>
+
+<p>È un linguaggio visuale che consente di rappresentare gli elementi di un sistema software in modo standardizzato.</p>
 <ul>
-<li><strong>Everything is an object.</strong> Un oggetto è una entità che fornisce operazioni per essere manipolata.</li>
-<li><strong>Un programma è un set di oggetti che si comunicano cosa fare scambiandosi messaggi.</strong> Questi messaggi sono richieste per eseguire le operazioni fornite.</li>
-<li><strong>Un oggetto ha una memoria fatta di altri oggetti.</strong> Un oggetto è ottenuto impacchettando altri oggetti.</li>
-<li><strong>Ogni oggetto è istanza di una classe.</strong> Una classe descrive il comportamento dei suoi oggetti.</li>
-<li><strong>Tutti gli oggetti di una classe possono ricevere gli stessi messaggi.</strong> La classe indica tra le altre cose quali operazioni sono fornite, quindi per comunicare con un oggetto basta sapere qual è la sua classe.</li>
+<li>Funziona particolarmente bene per sistemi OO</li>
 </ul>
 </section><section>
-<h2 id="sono-questi-concetti-utili-per-il-problem-space">Sono questi concetti utili per il problem space?</h2>
-<h3 id="esempio-di-sistema-reale-la-gestione-informativa-di-un-ateneo">Esempio di sistema reale: la gestione informativa di un ateneo</h3>
-<p>Come organizzarla? Quale servizi fornisce?</p>
+<h3 id="un-proto-oggetto-in-c">Un proto-oggetto in C</h3>
+<p>La stessa lampadina, in C, diventerebbe…</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">typedef</span> <span style="color:#a90d91">struct</span> { <span style="color:#177500">// stato
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#a90d91">int</span> <span style="color:#000">isOn</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">double</span> <span style="color:#000">brightness</span>;
+</span></span><span style="display:flex;"><span>} <span style="color:#000">Lamp</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#177500">// comportamento (interfaccia)
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span><span style="color:#a90d91">void</span> <span style="color:#000">on</span>(<span style="color:#000">Lamp</span><span style="color:#000">*</span> <span style="color:#000">l</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#000">l</span><span style="color:#000">-&gt;</span><span style="color:#000">isOn</span> <span style="color:#000">=</span> <span style="color:#1c01ce">1</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">void</span> <span style="color:#000">off</span>(<span style="color:#000">Lamp</span><span style="color:#000">*</span> <span style="color:#000">l</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#000">l</span><span style="color:#000">-&gt;</span><span style="color:#000">isOn</span> <span style="color:#000">=</span> <span style="color:#1c01ce">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">void</span> <span style="color:#000">brighten</span>(<span style="color:#000">Lamp</span><span style="color:#000">*</span> <span style="color:#000">l</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">if</span> (<span style="color:#000">l</span><span style="color:#000">-&gt;</span><span style="color:#000">isOn</span>) <span style="color:#000">l</span><span style="color:#000">-&gt;</span><span style="color:#000">brightness</span> <span style="color:#000">+=</span> <span style="color:#1c01ce">0.1</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">void</span> <span style="color:#000">dim</span>(<span style="color:#000">Lamp</span><span style="color:#000">*</span> <span style="color:#000">l</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">if</span> (<span style="color:#000">l</span><span style="color:#000">-&gt;</span><span style="color:#000">isOn</span> <span style="color:#000">&amp;&amp;</span> <span style="color:#000">l</span><span style="color:#000">-&gt;</span><span style="color:#000">brightness</span> <span style="color:#000">&gt;</span> <span style="color:#1c01ce">0</span>) <span style="color:#000">l</span><span style="color:#000">-&gt;</span><span style="color:#000">brightness</span> <span style="color:#000">-=</span> <span style="color:#1c01ce">0.1</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#a90d91">void</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#000">Lamp</span> <span style="color:#000">myLamp</span> <span style="color:#000">=</span> {<span style="color:#1c01ce">0</span>, <span style="color:#1c01ce">0.0</span>}; <span style="color:#177500">// Creazione dell'oggetto: nel caso di C, il riferimento in memoria è l'identità
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#000">on</span>(<span style="color:#000">&amp;</span><span style="color:#000">myLamp</span>); <span style="color:#177500">// messaggio
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#000">brighten</span>(<span style="color:#000">&amp;</span><span style="color:#000">myLamp</span>); <span style="color:#177500">// messaggio
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>}
+</span></span></code></pre></div></section><section>
+<!--
+## Sono questi concetti utili per il problem space?
+    
+### Esempio di sistema reale: la gestione informativa di un ateneo
+
+Come organizzarla? Quale servizi fornisce?
 
 
-<span class="fragment ">
+
+<span class='fragment ' >
   <h3 id="visione-object-oriented">Visione object-oriented</h3>
 <ul>
-<li>Un corso di laurea (CdL) è un “oggetto”</li>
-<li>Che operazioni consente? Iscrivi studente, laurea studente, assegna docente a corso, concludi anno accademico, …</li>
+<li>Un corso di laurea (CdL) è un &ldquo;oggetto&rdquo;</li>
+<li>Che operazioni consente? Iscrivi studente, laurea studente, assegna docente a corso, concludi anno accademico, &hellip;</li>
 <li>Un programma (sistema) è fatto da oggetti: facoltà, corso di laurea, corsi, studente, docente</li>
-<li>Le interazioni fra questi oggetti sono “scambi di messaggi”</li>
+<li>Le interazioni fra questi oggetti sono &ldquo;scambi di messaggi&rdquo;</li>
 <li>Il CdL ha uno stato fatto da altri oggetti: docenti, studenti, corsi</li>
-<li>Il CdL è istanza di una classe: la classe dei CdL (con una gestione comune) – UNIBO ne gestisce dozzine contemporaneamente</li>
+<li>Il CdL è istanza di una classe: la classe dei CdL (con una gestione comune) &ndash; UNIBO ne gestisce dozzine contemporaneamente</li>
 </ul>
 
 </span>
 
-</section><section>
-<h2 id="classe-vs-oggetto">Classe vs Oggetto</h2>
-<h3 id="classe">Classe</h3>
-<ul>
-<li>Definisce la <strong>struttura</strong> di un oggetto
-<ul>
-<li>può essere visto come uno “stampo” per creare oggetti</li>
-</ul>
-</li>
-<li>Definisce i <strong>comportamenti</strong> di un oggetto
-<ul>
-<li>metodi che possono essere chiamati su un oggetto</li>
-<li>Ad esempio, tutte le lampadine possono essere accese o spente (metodi <code>on()</code> e <code>off()</code>)</li>
-</ul>
-</li>
-<li>Definisce le <strong>proprietà</strong> di un oggetto
-<ul>
-<li>campi che descrivono lo stato dell’oggetto</li>
-<li>Ad esempio, una lampadina ha un colore, una luminosità, un’intensità</li>
-</ul>
-</li>
-</ul>
-<h3 id="oggetto">Oggetto</h3>
-<ul>
-<li>È un’<strong>istanza</strong> di una classe
-<ul>
-<li>è un’entità concreta che esiste in memoria</li>
-<li>Data la classe <code>Lampadina</code>, un’istanza di <code>Lampadina</code> è una lampadina specifica, con un colore, una luminosità, un’intensità</li>
-</ul>
-</li>
-</ul>
-</section><section>
+
+---
+-->
 <h2 id="oo-problem-space-solution-space">OO: problem space, solution space</h2>
 <h3 id="lesperienza-mostra-che">L’esperienza mostra che:</h3>
 <ul>
@@ -271,117 +266,150 @@ il problema (realizzate mediante i linguaggi e le tecnologie scelte e a fronte d
 </section><section>
 <h2 id="overview">Overview</h2>
 <ul>
-<li>Ogni oggetto ha un’<em>interfaccia</em></li>
-<li>Un oggetto <em>fornisce un servizio</em></li>
-<li>Un oggetto deve <em>nascondere l’implementazione</em></li>
-<li>Le implementazioni possono essere <em>riusate</em></li>
-<li>Il riuso tramite ereditarietà</li>
-</ul>
-</section><section>
-<h2 id="ogni-oggetto-ha-una-interfaccia">Ogni oggetto ha una interfaccia</h2>
-<h3 id="classi-istanze-metodi-interfaccia">Classi, istanze, metodi, interfaccia</h3>
+<li>Ogni oggetto ha un’<em>interfaccia</em>
 <ul>
-<li>Oggetti simili sono istanze della stessa <em><strong>classe</strong></em>, o <em><strong>tipo</strong></em></li>
-<li>La classe definisce i messaggi ricevibili, attraverso <em><strong>metodi</strong></em></li>
-<li>L’insieme dei metodi prende il nome di <em><strong>interfaccia</strong></em></li>
-<li>Un messaggio ha effetto su stato e comportamento dell’oggetto</li>
-</ul>
-</section><section>
-<p>Esempio “lampadina” in notazione UML (Unified Modelling Language):</p>
-<div class="mermaid" data-processed="true" pre-rendered="true"><svg aria-roledescription="classDiagram" role="graphics-document document" viewBox="0 0 119.0625 183" style="max-width: 119.0625px;" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" width="100%" id="my-svg"><style>#my-svg{font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:16px;fill:#333;}#my-svg .error-icon{fill:#552222;}#my-svg .error-text{fill:#552222;stroke:#552222;}#my-svg .edge-thickness-normal{stroke-width:1px;}#my-svg .edge-thickness-thick{stroke-width:3.5px;}#my-svg .edge-pattern-solid{stroke-dasharray:0;}#my-svg .edge-thickness-invisible{stroke-width:0;fill:none;}#my-svg .edge-pattern-dashed{stroke-dasharray:3;}#my-svg .edge-pattern-dotted{stroke-dasharray:2;}#my-svg .marker{fill:#333333;stroke:#333333;}#my-svg .marker.cross{stroke:#333333;}#my-svg svg{font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:16px;}#my-svg p{margin:0;}#my-svg g.classGroup text{fill:#9370DB;stroke:none;font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:10px;}#my-svg g.classGroup text .title{font-weight:bolder;}#my-svg .nodeLabel,#my-svg .edgeLabel{color:#131300;}#my-svg .edgeLabel .label rect{fill:#ECECFF;}#my-svg .label text{fill:#131300;}#my-svg .edgeLabel .label span{background:#ECECFF;}#my-svg .classTitle{font-weight:bolder;}#my-svg .node rect,#my-svg .node circle,#my-svg .node ellipse,#my-svg .node polygon,#my-svg .node path{fill:#ECECFF;stroke:#9370DB;stroke-width:1px;}#my-svg .divider{stroke:#9370DB;stroke-width:1;}#my-svg g.clickable{cursor:pointer;}#my-svg g.classGroup rect{fill:#ECECFF;stroke:#9370DB;}#my-svg g.classGroup line{stroke:#9370DB;stroke-width:1;}#my-svg .classLabel .box{stroke:none;stroke-width:0;fill:#ECECFF;opacity:0.5;}#my-svg .classLabel .label{fill:#9370DB;font-size:10px;}#my-svg .relation{stroke:#333333;stroke-width:1;fill:none;}#my-svg .dashed-line{stroke-dasharray:3;}#my-svg .dotted-line{stroke-dasharray:1 2;}#my-svg #compositionStart,#my-svg .composition{fill:#333333!important;stroke:#333333!important;stroke-width:1;}#my-svg #compositionEnd,#my-svg .composition{fill:#333333!important;stroke:#333333!important;stroke-width:1;}#my-svg #dependencyStart,#my-svg .dependency{fill:#333333!important;stroke:#333333!important;stroke-width:1;}#my-svg #dependencyStart,#my-svg .dependency{fill:#333333!important;stroke:#333333!important;stroke-width:1;}#my-svg #extensionStart,#my-svg .extension{fill:transparent!important;stroke:#333333!important;stroke-width:1;}#my-svg #extensionEnd,#my-svg .extension{fill:transparent!important;stroke:#333333!important;stroke-width:1;}#my-svg #aggregationStart,#my-svg .aggregation{fill:transparent!important;stroke:#333333!important;stroke-width:1;}#my-svg #aggregationEnd,#my-svg .aggregation{fill:transparent!important;stroke:#333333!important;stroke-width:1;}#my-svg #lollipopStart,#my-svg .lollipop{fill:#ECECFF!important;stroke:#333333!important;stroke-width:1;}#my-svg #lollipopEnd,#my-svg .lollipop{fill:#ECECFF!important;stroke:#333333!important;stroke-width:1;}#my-svg .edgeTerminals{font-size:11px;line-height:initial;}#my-svg .classTitleText{text-anchor:middle;font-size:18px;fill:#333;}#my-svg :root{--mermaid-font-family:"trebuchet ms",verdana,arial,sans-serif;}</style><g><defs><marker orient="auto" markerHeight="240" markerWidth="190" refY="7" refX="18" class="marker aggregation classDiagram" id="my-svg_classDiagram-aggregationStart"><path d="M 18,7 L9,13 L1,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="28" markerWidth="20" refY="7" refX="1" class="marker aggregation classDiagram" id="my-svg_classDiagram-aggregationEnd"><path d="M 18,7 L9,13 L1,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="240" markerWidth="190" refY="7" refX="18" class="marker extension classDiagram" id="my-svg_classDiagram-extensionStart"><path d="M 1,7 L18,13 V 1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="28" markerWidth="20" refY="7" refX="1" class="marker extension classDiagram" id="my-svg_classDiagram-extensionEnd"><path d="M 1,1 V 13 L18,7 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="240" markerWidth="190" refY="7" refX="18" class="marker composition classDiagram" id="my-svg_classDiagram-compositionStart"><path d="M 18,7 L9,13 L1,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="28" markerWidth="20" refY="7" refX="1" class="marker composition classDiagram" id="my-svg_classDiagram-compositionEnd"><path d="M 18,7 L9,13 L1,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="240" markerWidth="190" refY="7" refX="6" class="marker dependency classDiagram" id="my-svg_classDiagram-dependencyStart"><path d="M 5,7 L9,13 L1,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="28" markerWidth="20" refY="7" refX="13" class="marker dependency classDiagram" id="my-svg_classDiagram-dependencyEnd"><path d="M 18,7 L9,13 L14,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="240" markerWidth="190" refY="7" refX="13" class="marker lollipop classDiagram" id="my-svg_classDiagram-lollipopStart"><circle r="6" cy="7" cx="7" fill="transparent" stroke="black"></circle></marker></defs><defs><marker orient="auto" markerHeight="240" markerWidth="190" refY="7" refX="1" class="marker lollipop classDiagram" id="my-svg_classDiagram-lollipopEnd"><circle r="6" cy="7" cx="7" fill="transparent" stroke="black"></circle></marker></defs><g class="root"><g class="clusters"></g><g class="edgePaths"></g><g class="edgeLabels"></g><g class="nodes"><g transform="translate(59.53125, 91.5)" id="classId-Light-0" class="node default"><rect height="167" width="103.0625" y="-83.5" x="-51.53125" class="outer title-state" style=""></rect><line y2="-31.5" y1="-31.5" x2="51.53125" x1="-51.53125" class="divider"></line><line y2="-15.5" y1="-15.5" x2="51.53125" x1="-51.53125" class="divider"></line><g class="label"><foreignObject transform="translate( -44.03125, -76)" height="18" width="88.0625"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">« interface »</span></div></foreignObject><foreignObject transform="translate( -19.546875, -54)" height="18" width="39.09375" class="classTitle"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">Light</span></div></foreignObject><foreignObject transform="translate( -44.03125, -8)" height="18" width="28.453125"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">on()</span></div></foreignObject><foreignObject transform="translate( -44.03125, 14)" height="18" width="28.15625"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">off()</span></div></foreignObject><foreignObject transform="translate( -44.03125, 36)" height="18" width="68.484375"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">brighten()</span></div></foreignObject><foreignObject transform="translate( -44.03125, 58)" height="18" width="36.4375"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">dim()</span></div></foreignObject></g></g></g></g></g></svg></div>
-
-</section><section>
-<h2 id="un-oggetto-fornisce-un-servizio">Un oggetto fornisce un servizio</h2>
-<h3 id="quale-entità-del-problem-space-deve-diventare-un-oggetto">Quale entità del problem space deve diventare un oggetto?</h3>
-<ul>
-<li>Conviene considerare un oggetto come un fornitore di un servizio</li>
-<li>Tutto il programma può essere visto come un servizio dato all’utente</li>
-<li>Principio di decomposizione: i sotto-servizi sono affidati ai vari oggetti</li>
-</ul>
-<h3 id="vantaggi-di-questo-approccio">Vantaggi di questo approccio</h3>
-<ul>
-<li>Semplifica la progettazione degli oggetti, e il mapping col problema</li>
-<li>Semplifica il loro riuso in programmi diversi – come parte di libreria</li>
-<li>Semplifica la comprensione dei programmi, specialmente da terzi</li>
-</ul>
-<p>Opportunità: $\Rightarrow$ Se non se ne riesce a descrivere (e comprendere) il servizio
-offerto, allora probabilmente un oggetto non ha ragione d’esistere!</p>
-<p>Coerenza: $\Rightarrow$ Se sembra che un oggetto realizzi due servizi diversi, allora probabilmente bisogna in realtà realizzare due oggetti!</p>
-</section><section>
-<h2 id="un-oggetto-deve-nascondere-limplementazione">Un oggetto deve nascondere l’implementazione</h2>
-<h3 id="le-due-figure-creatore-di-classi-vs-programmatore-cliente">Le due figure: creatore di classi vs. programmatore cliente</h3>
-<ul>
-<li>Chi produce la classe (e ha la responsabilità del suo funzionamento)</li>
-<li>Chi usa la classe (per fornire un servizio più di alto livello)</li>
-</ul>
-<h3 id="information-hiding">Information hiding</h3>
-<ul>
-<li>Il creatore rende visibile solo una piccola parte della classe</li>
-<li>Il resto è invisibile perché suscettibile di modifiche future</li>
-<li>Principio: “less is more”</li>
-<li>Tipica struttura di una classe
-<ul>
-<li>interfaccia: la sola visibile al cliente, di norma</li>
-<li><em><strong>membri</strong></em> (o <em><strong>campi</strong></em>) della classe (i sotto-oggetti di cui è costituito)</li>
-<li>implementazione metodi (cosa fa l’oggetto quando riceve messaggi)
-<ul>
-<li>come cambia lo stato (membri)</li>
-<li>quali messaggi manda ad altri oggetti</li>
-<li>quale risultato fornisce (risposta al messaggio)</li>
+<li>I messaggi che può ricevere</li>
 </ul>
 </li>
+<li>Un oggetto (ben progettato) <em>fornisce uno e un solo servizio</em>
+<ul>
+<li>“Single Responsibility Principle”</li>
+<li>Non vi aspettate che il vostro microonde possa anche lavare i panni, giusto?</li>
+</ul>
+</li>
+<li>Un oggetto (ben progettato) deve <em>nascondere l’implementazione</em>
+<ul>
+<li>Incapsulamento e “information hiding”</li>
+<li>Non vi aspettate di dover smontare il microonde per scaldare un piatto di pasta, giusto?</li>
+</ul>
+</li>
+<li>Le implementazioni possono essere <em>riusate</em>
+<ul>
+<li>“Don’t Repeat Yourself” (DRY)</li>
+<li>Non dovete cambiare microonde se invece della pasta scaldate il riso, giusto?</li>
 </ul>
 </li>
 </ul>
 </section><section>
-<h2 id="le-implementazioni-possono-essere-riusate">Le implementazioni possono essere riusate</h2>
-<h3 id="fasi-del-processo-di-riuso">Fasi del processo di riuso</h3>
-<ul>
-<li>Il creatore produce una classe e ne verifica il corretto funzionamento: diventa una unità riusabile di codice</li>
-<li>Un cliente può ri-utilizzarla per creare nuovi concetti</li>
-</ul>
-<h3 id="la-tecnica-di-riuso-più-usata-è-la-composizione">La tecnica di riuso più usata è la <strong>composizione</strong></h3>
-<ul>
-<li>Un nuovo oggetto è costituito da oggetti di altre classi</li>
-<li>Relazione chiamata “has-a” (“ha un”)</li>
-<li>Questa relazione può essere nascosta, e resa dinamica</li>
-</ul>
-</section><section>
-<h4 id="esempio-carengine-in-notazione-uml">Esempio “car+engine” in notazione UML:</h4>
-<div class="mermaid" data-processed="true" pre-rendered="true"><svg aria-roledescription="classDiagram" role="graphics-document document" viewBox="0 0 84.34375 180" style="max-width: 84.34375px;" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" width="100%" id="my-svg"><style>#my-svg{font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:16px;fill:#333;}#my-svg .error-icon{fill:#552222;}#my-svg .error-text{fill:#552222;stroke:#552222;}#my-svg .edge-thickness-normal{stroke-width:1px;}#my-svg .edge-thickness-thick{stroke-width:3.5px;}#my-svg .edge-pattern-solid{stroke-dasharray:0;}#my-svg .edge-thickness-invisible{stroke-width:0;fill:none;}#my-svg .edge-pattern-dashed{stroke-dasharray:3;}#my-svg .edge-pattern-dotted{stroke-dasharray:2;}#my-svg .marker{fill:#333333;stroke:#333333;}#my-svg .marker.cross{stroke:#333333;}#my-svg svg{font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:16px;}#my-svg p{margin:0;}#my-svg g.classGroup text{fill:#9370DB;stroke:none;font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:10px;}#my-svg g.classGroup text .title{font-weight:bolder;}#my-svg .nodeLabel,#my-svg .edgeLabel{color:#131300;}#my-svg .edgeLabel .label rect{fill:#ECECFF;}#my-svg .label text{fill:#131300;}#my-svg .edgeLabel .label span{background:#ECECFF;}#my-svg .classTitle{font-weight:bolder;}#my-svg .node rect,#my-svg .node circle,#my-svg .node ellipse,#my-svg .node polygon,#my-svg .node path{fill:#ECECFF;stroke:#9370DB;stroke-width:1px;}#my-svg .divider{stroke:#9370DB;stroke-width:1;}#my-svg g.clickable{cursor:pointer;}#my-svg g.classGroup rect{fill:#ECECFF;stroke:#9370DB;}#my-svg g.classGroup line{stroke:#9370DB;stroke-width:1;}#my-svg .classLabel .box{stroke:none;stroke-width:0;fill:#ECECFF;opacity:0.5;}#my-svg .classLabel .label{fill:#9370DB;font-size:10px;}#my-svg .relation{stroke:#333333;stroke-width:1;fill:none;}#my-svg .dashed-line{stroke-dasharray:3;}#my-svg .dotted-line{stroke-dasharray:1 2;}#my-svg #compositionStart,#my-svg .composition{fill:#333333!important;stroke:#333333!important;stroke-width:1;}#my-svg #compositionEnd,#my-svg .composition{fill:#333333!important;stroke:#333333!important;stroke-width:1;}#my-svg #dependencyStart,#my-svg .dependency{fill:#333333!important;stroke:#333333!important;stroke-width:1;}#my-svg #dependencyStart,#my-svg .dependency{fill:#333333!important;stroke:#333333!important;stroke-width:1;}#my-svg #extensionStart,#my-svg .extension{fill:transparent!important;stroke:#333333!important;stroke-width:1;}#my-svg #extensionEnd,#my-svg .extension{fill:transparent!important;stroke:#333333!important;stroke-width:1;}#my-svg #aggregationStart,#my-svg .aggregation{fill:transparent!important;stroke:#333333!important;stroke-width:1;}#my-svg #aggregationEnd,#my-svg .aggregation{fill:transparent!important;stroke:#333333!important;stroke-width:1;}#my-svg #lollipopStart,#my-svg .lollipop{fill:#ECECFF!important;stroke:#333333!important;stroke-width:1;}#my-svg #lollipopEnd,#my-svg .lollipop{fill:#ECECFF!important;stroke:#333333!important;stroke-width:1;}#my-svg .edgeTerminals{font-size:11px;line-height:initial;}#my-svg .classTitleText{text-anchor:middle;font-size:18px;fill:#333;}#my-svg :root{--mermaid-font-family:"trebuchet ms",verdana,arial,sans-serif;}</style><g><defs><marker orient="auto" markerHeight="240" markerWidth="190" refY="7" refX="18" class="marker aggregation classDiagram" id="my-svg_classDiagram-aggregationStart"><path d="M 18,7 L9,13 L1,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="28" markerWidth="20" refY="7" refX="1" class="marker aggregation classDiagram" id="my-svg_classDiagram-aggregationEnd"><path d="M 18,7 L9,13 L1,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="240" markerWidth="190" refY="7" refX="18" class="marker extension classDiagram" id="my-svg_classDiagram-extensionStart"><path d="M 1,7 L18,13 V 1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="28" markerWidth="20" refY="7" refX="1" class="marker extension classDiagram" id="my-svg_classDiagram-extensionEnd"><path d="M 1,1 V 13 L18,7 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="240" markerWidth="190" refY="7" refX="18" class="marker composition classDiagram" id="my-svg_classDiagram-compositionStart"><path d="M 18,7 L9,13 L1,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="28" markerWidth="20" refY="7" refX="1" class="marker composition classDiagram" id="my-svg_classDiagram-compositionEnd"><path d="M 18,7 L9,13 L1,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="240" markerWidth="190" refY="7" refX="6" class="marker dependency classDiagram" id="my-svg_classDiagram-dependencyStart"><path d="M 5,7 L9,13 L1,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="28" markerWidth="20" refY="7" refX="13" class="marker dependency classDiagram" id="my-svg_classDiagram-dependencyEnd"><path d="M 18,7 L9,13 L14,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="240" markerWidth="190" refY="7" refX="13" class="marker lollipop classDiagram" id="my-svg_classDiagram-lollipopStart"><circle r="6" cy="7" cx="7" fill="transparent" stroke="black"></circle></marker></defs><defs><marker orient="auto" markerHeight="240" markerWidth="190" refY="7" refX="1" class="marker lollipop classDiagram" id="my-svg_classDiagram-lollipopEnd"><circle r="6" cy="7" cx="7" fill="transparent" stroke="black"></circle></marker></defs><g class="root"><g class="clusters"></g><g class="edgePaths"><path marker-start="url(#my-svg_classDiagram-compositionStart)" style="fill:none" class="edge-pattern-solid relation" id="id_Car_Engine_1" d="M42.172,83L42.172,84.167C42.172,85.333,42.172,87.667,42.172,93C42.172,98.333,42.172,106.667,42.172,110.833L42.172,115"></path></g><g class="edgeLabels"><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="edgeLabel"></span></div></foreignObject></g></g></g><g class="nodes"><g transform="translate(42.171875, 36.5)" id="classId-Car-0" class="node default"><rect height="57" width="41.6875" y="-28.5" x="-20.84375" class="outer title-state" style=""></rect><line y2="1.5" y1="1.5" x2="20.84375" x1="-20.84375" class="divider"></line><line y2="17.5" y1="17.5" x2="20.84375" x1="-20.84375" class="divider"></line><g class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel"></span></div></foreignObject><foreignObject transform="translate( -13.34375, -21)" height="18" width="26.6875" class="classTitle"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">Car</span></div></foreignObject></g></g><g transform="translate(42.171875, 143.5)" id="classId-Engine-1" class="node default"><rect height="57" width="68.34375" y="-28.5" x="-34.171875" class="outer title-state" style=""></rect><line y2="1.5" y1="1.5" x2="34.171875" x1="-34.171875" class="divider"></line><line y2="17.5" y1="17.5" x2="34.171875" x1="-34.171875" class="divider"></line><g class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel"></span></div></foreignObject><foreignObject transform="translate( -26.671875, -21)" height="18" width="53.34375" class="classTitle"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">Engine</span></div></foreignObject></g></g></g></g></g></svg></div>
+<!--
 
-</section><section>
-<h2 id="il-riuso-tramite-ereditarietà">Il riuso tramite ereditarietà</h2>
-<h3 id="è-una-ulteriore-fondamentale-tecnica-di-riuso">È una ulteriore, fondamentale, tecnica di riuso</h3>
-<ul>
-<li>Un nuovo oggetto(/classe) estende i servizi di uno esistente</li>
-<li>Fornisce i metodi della sopra-classe, ma anche altri</li>
-<li>Relazione chiamata “is-a” (“è un”)</li>
-</ul>
-</section><section>
-<h4 id="esempio-shape-in-notazione-uml">Esempio “shape” in notazione UML:</h4>
-<div class="mermaid" data-processed="true" pre-rendered="true"><svg aria-roledescription="classDiagram" role="graphics-document document" viewBox="0 0 418.921875 334" style="max-width: 418.921875px;" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" width="100%" id="my-svg"><style>#my-svg{font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:16px;fill:#333;}#my-svg .error-icon{fill:#552222;}#my-svg .error-text{fill:#552222;stroke:#552222;}#my-svg .edge-thickness-normal{stroke-width:1px;}#my-svg .edge-thickness-thick{stroke-width:3.5px;}#my-svg .edge-pattern-solid{stroke-dasharray:0;}#my-svg .edge-thickness-invisible{stroke-width:0;fill:none;}#my-svg .edge-pattern-dashed{stroke-dasharray:3;}#my-svg .edge-pattern-dotted{stroke-dasharray:2;}#my-svg .marker{fill:#333333;stroke:#333333;}#my-svg .marker.cross{stroke:#333333;}#my-svg svg{font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:16px;}#my-svg p{margin:0;}#my-svg g.classGroup text{fill:#9370DB;stroke:none;font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:10px;}#my-svg g.classGroup text .title{font-weight:bolder;}#my-svg .nodeLabel,#my-svg .edgeLabel{color:#131300;}#my-svg .edgeLabel .label rect{fill:#ECECFF;}#my-svg .label text{fill:#131300;}#my-svg .edgeLabel .label span{background:#ECECFF;}#my-svg .classTitle{font-weight:bolder;}#my-svg .node rect,#my-svg .node circle,#my-svg .node ellipse,#my-svg .node polygon,#my-svg .node path{fill:#ECECFF;stroke:#9370DB;stroke-width:1px;}#my-svg .divider{stroke:#9370DB;stroke-width:1;}#my-svg g.clickable{cursor:pointer;}#my-svg g.classGroup rect{fill:#ECECFF;stroke:#9370DB;}#my-svg g.classGroup line{stroke:#9370DB;stroke-width:1;}#my-svg .classLabel .box{stroke:none;stroke-width:0;fill:#ECECFF;opacity:0.5;}#my-svg .classLabel .label{fill:#9370DB;font-size:10px;}#my-svg .relation{stroke:#333333;stroke-width:1;fill:none;}#my-svg .dashed-line{stroke-dasharray:3;}#my-svg .dotted-line{stroke-dasharray:1 2;}#my-svg #compositionStart,#my-svg .composition{fill:#333333!important;stroke:#333333!important;stroke-width:1;}#my-svg #compositionEnd,#my-svg .composition{fill:#333333!important;stroke:#333333!important;stroke-width:1;}#my-svg #dependencyStart,#my-svg .dependency{fill:#333333!important;stroke:#333333!important;stroke-width:1;}#my-svg #dependencyStart,#my-svg .dependency{fill:#333333!important;stroke:#333333!important;stroke-width:1;}#my-svg #extensionStart,#my-svg .extension{fill:transparent!important;stroke:#333333!important;stroke-width:1;}#my-svg #extensionEnd,#my-svg .extension{fill:transparent!important;stroke:#333333!important;stroke-width:1;}#my-svg #aggregationStart,#my-svg .aggregation{fill:transparent!important;stroke:#333333!important;stroke-width:1;}#my-svg #aggregationEnd,#my-svg .aggregation{fill:transparent!important;stroke:#333333!important;stroke-width:1;}#my-svg #lollipopStart,#my-svg .lollipop{fill:#ECECFF!important;stroke:#333333!important;stroke-width:1;}#my-svg #lollipopEnd,#my-svg .lollipop{fill:#ECECFF!important;stroke:#333333!important;stroke-width:1;}#my-svg .edgeTerminals{font-size:11px;line-height:initial;}#my-svg .classTitleText{text-anchor:middle;font-size:18px;fill:#333;}#my-svg :root{--mermaid-font-family:"trebuchet ms",verdana,arial,sans-serif;}</style><g><defs><marker orient="auto" markerHeight="240" markerWidth="190" refY="7" refX="18" class="marker aggregation classDiagram" id="my-svg_classDiagram-aggregationStart"><path d="M 18,7 L9,13 L1,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="28" markerWidth="20" refY="7" refX="1" class="marker aggregation classDiagram" id="my-svg_classDiagram-aggregationEnd"><path d="M 18,7 L9,13 L1,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="240" markerWidth="190" refY="7" refX="18" class="marker extension classDiagram" id="my-svg_classDiagram-extensionStart"><path d="M 1,7 L18,13 V 1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="28" markerWidth="20" refY="7" refX="1" class="marker extension classDiagram" id="my-svg_classDiagram-extensionEnd"><path d="M 1,1 V 13 L18,7 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="240" markerWidth="190" refY="7" refX="18" class="marker composition classDiagram" id="my-svg_classDiagram-compositionStart"><path d="M 18,7 L9,13 L1,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="28" markerWidth="20" refY="7" refX="1" class="marker composition classDiagram" id="my-svg_classDiagram-compositionEnd"><path d="M 18,7 L9,13 L1,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="240" markerWidth="190" refY="7" refX="6" class="marker dependency classDiagram" id="my-svg_classDiagram-dependencyStart"><path d="M 5,7 L9,13 L1,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="28" markerWidth="20" refY="7" refX="13" class="marker dependency classDiagram" id="my-svg_classDiagram-dependencyEnd"><path d="M 18,7 L9,13 L14,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="240" markerWidth="190" refY="7" refX="13" class="marker lollipop classDiagram" id="my-svg_classDiagram-lollipopStart"><circle r="6" cy="7" cx="7" fill="transparent" stroke="black"></circle></marker></defs><defs><marker orient="auto" markerHeight="240" markerWidth="190" refY="7" refX="1" class="marker lollipop classDiagram" id="my-svg_classDiagram-lollipopEnd"><circle r="6" cy="7" cx="7" fill="transparent" stroke="black"></circle></marker></defs><g class="root"><g class="clusters"></g><g class="edgePaths"><path marker-start="url(#my-svg_classDiagram-extensionStart)" style="fill:none" class="edge-pattern-solid relation" id="id_Shape_Circle_1" d="M134.773,145.237L121.786,154.364C108.799,163.491,82.825,181.746,69.839,196.873C56.852,212,56.852,224,56.852,230L56.852,236"></path><path marker-start="url(#my-svg_classDiagram-extensionStart)" style="fill:none" class="edge-pattern-solid relation" id="id_Shape_Square_2" d="M211.234,193L211.234,194.167C211.234,195.333,211.234,197.667,211.234,204.833C211.234,212,211.234,224,211.234,230L211.234,236"></path><path marker-start="url(#my-svg_classDiagram-extensionStart)" style="fill:none" class="edge-pattern-solid relation" id="id_Shape_Triangle_3" d="M287.639,145.821L300.34,154.851C313.041,163.881,338.442,181.94,351.143,195.137C363.844,208.333,363.844,216.667,363.844,220.833L363.844,225"></path></g><g class="edgeLabels"><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="edgeLabel"></span></div></foreignObject></g></g></g><g class="nodes"><g transform="translate(211.234375, 91.5)" id="classId-Shape-0" class="node default"><rect height="167" width="123.46875" y="-83.5" x="-61.734375" class="outer title-state" style=""></rect><line y2="-53.5" y1="-53.5" x2="61.734375" x1="-61.734375" class="divider"></line><line y2="-37.5" y1="-37.5" x2="61.734375" x1="-61.734375" class="divider"></line><g class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel"></span></div></foreignObject><foreignObject transform="translate( -24.0078125, -76)" height="18" width="48.015625" class="classTitle"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">Shape</span></div></foreignObject><foreignObject transform="translate( -54.234375, -30)" height="18" width="45.34375"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">draw()</span></div></foreignObject><foreignObject transform="translate( -54.234375, -8)" height="18" width="50.6875"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">erase()</span></div></foreignObject><foreignObject transform="translate( -54.234375, 14)" height="18" width="49.78125"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">move()</span></div></foreignObject><foreignObject transform="translate( -54.234375, 36)" height="18" width="71.140625"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">getColor()</span></div></foreignObject><foreignObject transform="translate( -54.234375, 58)" height="18" width="108.46875"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">setColor(Color)</span></div></foreignObject></g></g><g transform="translate(56.8515625, 275.5)" id="classId-Circle-1" class="node default"><rect height="79" width="97.703125" y="-39.5" x="-48.8515625" class="outer title-state" style=""></rect><line y2="-9.5" y1="-9.5" x2="48.8515625" x1="-48.8515625" class="divider"></line><line y2="6.5" y1="6.5" x2="48.8515625" x1="-48.8515625" class="divider"></line><g class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel"></span></div></foreignObject><foreignObject transform="translate( -22.234375, -32)" height="18" width="44.46875" class="classTitle"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">Circle</span></div></foreignObject><foreignObject transform="translate( -41.3515625, 14)" height="18" width="82.703125"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">getRadius()</span></div></foreignObject></g></g><g transform="translate(211.234375, 275.5)" id="classId-Square-2" class="node default"><rect height="79" width="111.0625" y="-39.5" x="-55.53125" class="outer title-state" style=""></rect><line y2="-9.5" y1="-9.5" x2="55.53125" x1="-55.53125" class="divider"></line><line y2="6.5" y1="6.5" x2="55.53125" x1="-55.53125" class="divider"></line><g class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel"></span></div></foreignObject><foreignObject transform="translate( -27.125, -32)" height="18" width="54.25" class="classTitle"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">Square</span></div></foreignObject><foreignObject transform="translate( -48.03125, 14)" height="18" width="96.0625"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">getDiagonal()</span></div></foreignObject></g></g><g transform="translate(363.84375, 275.5)" id="classId-Triangle-3" class="node default"><rect height="101" width="94.15625" y="-50.5" x="-47.078125" class="outer title-state" style=""></rect><line y2="-20.5" y1="-20.5" x2="47.078125" x1="-47.078125" class="divider"></line><line y2="-4.5" y1="-4.5" x2="47.078125" x1="-47.078125" class="divider"></line><g class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel"></span></div></foreignObject><foreignObject transform="translate( -30.6796875, -43)" height="18" width="61.359375" class="classTitle"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">Triangle</span></div></foreignObject><foreignObject transform="translate( -39.578125, 3)" height="18" width="69.375"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">getBase()</span></div></foreignObject><foreignObject transform="translate( -39.578125, 25)" height="18" width="79.15625"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">getHeight()</span></div></foreignObject></g></g></g></g></g></svg></div>
+## Un oggetto fornisce un servizio
+  
+### Quale entità del problem space deve diventare un oggetto?
+*  Conviene considerare un oggetto come un fornitore di un servizio
+*  Tutto il programma può essere visto come un servizio dato all'utente
+*  Principio di decomposizione: i sotto-servizi sono affidati ai vari oggetti
+  
+### Vantaggi di questo approccio
+*  Semplifica la progettazione degli oggetti, e il mapping col problema
+*  Semplifica il loro riuso in programmi diversi -- come parte di libreria
+*  Semplifica la comprensione dei programmi, specialmente da terzi
 
-</section><section>
-<h2 id="altri-aspetti--organizzazione-del-corso">Altri aspetti – organizzazione del corso</h2>
-<h3 id="funzionalità-base--i-parte">Funzionalità base – I parte</h3>
-<ul>
-<li>I concetti appena introdotti</li>
-</ul>
-<h3 id="funzionalità-aggiuntive--ii-parte">Funzionalità aggiuntive – II parte</h3>
-<ul>
-<li>Polimorfismo per genericità</li>
-<li>Gestione delle eccezioni</li>
-<li>Riflessività, classi innestate, enumerazioni</li>
-</ul>
-<h3 id="tecniche-avanzate--iii-parte">Tecniche Avanzate – III parte</h3>
-<ul>
-<li>Librerie avanzate (I/O, GUI, Concorrenza)</li>
-<li>Integrazione con la programmazione funzionale</li>
-<li>Pattern di progettazione</li>
-<li>Prassi di programmazione efficace</li>
-</ul>
-</section><section>
+Opportunità: $\Rightarrow$ Se non se ne riesce a descrivere (e comprendere) il servizio 
+offerto, allora probabilmente un oggetto non ha ragione d'esistere!
+
+Coerenza: $\Rightarrow$ Se sembra che un oggetto realizzi due servizi diversi, allora probabilmente bisogna in realtà realizzare due oggetti!
+
+---
+
+## Un oggetto deve nascondere l'implementazione
+  
+### Le due figure: creatore di classi vs. programmatore cliente
+*  Chi produce la classe (e ha la responsabilità del suo funzionamento)
+*  Chi usa la classe (per fornire un servizio più di alto livello)
+  
+### Information hiding
+*  Il creatore rende visibile solo una piccola parte della classe
+*  Il resto è invisibile perché suscettibile di modifiche future
+*  Principio: "less is more"
+*  Tipica struttura di una classe 
+    *  interfaccia: la sola visibile al cliente, di norma
+    *  *__membri__* (o *__campi__*) della classe (i sotto-oggetti di cui è costituito)
+    *  implementazione metodi (cosa fa l'oggetto quando riceve messaggi)
+        *  come cambia lo stato (membri)
+        *  quali messaggi manda ad altri oggetti
+        *  quale risultato fornisce (risposta al messaggio)
+
+---
+
+## Le implementazioni possono essere riusate
+  
+### Fasi del processo di riuso
+*  Il creatore produce una classe e ne verifica il corretto funzionamento: diventa una unità riusabile di codice
+*  Un cliente può ri-utilizzarla per creare nuovi concetti
+  
+### La tecnica di riuso più usata è la **composizione**
+*  Un nuovo oggetto è costituito da oggetti di altre classi
+*  Relazione chiamata "has-a" ("ha un")
+*  Questa relazione può essere nascosta, e resa dinamica
+
+---
+  
+#### Esempio "car+engine" in notazione UML:
+
+```mermaid
+classDiagram
+Car *-- Engine
+```
+
+---
+
+## Il riuso tramite ereditarietà
+
+### È una ulteriore, fondamentale, tecnica di riuso
+*  Un nuovo oggetto(/classe) estende i servizi di uno esistente
+*  Fornisce i metodi della sopra-classe, ma anche altri
+*  Relazione chiamata "is-a" ("è un")
+
+---
+
+#### Esempio "shape" in notazione UML:
+
+```mermaid
+classDiagram
+class Shape {
+  draw()
+  erase()
+  move()
+  getColor()
+  setColor(Color)
+}
+class Circle {
+  getRadius()
+}
+class Square {
+  getDiagonal()
+}
+class Triangle {
+  getBase()
+  getHeight()
+}
+Shape <|-- Circle
+Shape <|-- Square
+Shape <|-- Triangle
+```
+
+---
+
+## Altri aspetti -- organizzazione del corso
+
+### Funzionalità base -- I parte
+*  I concetti appena introdotti
+  
+### Funzionalità aggiuntive -- II parte
+*  Polimorfismo per genericità
+*  Gestione delle eccezioni
+*  Riflessività, classi innestate, enumerazioni
+  
+### Tecniche Avanzate -- III parte
+*  Librerie avanzate (I/O, GUI, Concorrenza)
+*  Integrazione con la programmazione funzionale
+*  Pattern di progettazione
+*  Prassi di programmazione efficace
+
+---
+
+-->
 <h1 id="java">Java</h1>
 </section><section>
 <h2 id="java-1">Java</h2>
@@ -468,6 +496,10 @@ offerto, allora probabilmente un oggetto non ha ragione d’esistere!</p>
 <li>Java 19 (2022): supporto a Linux/RISC-V</li>
 <li>Java 20 (2023): miglioramenti minori, introduzione di nuove features (alpha)</li>
 <li><strong>$\Rightarrow$ Java 21 LTS (2023)</strong>: Virtual threads, record patterns</li>
+<li>Java 22 (2024):  Unnamed Variables, Stream Gatherers.</li>
+<li>Java 23 (2024): miglioramenti alla gestione della memoria, documentazione in Markdown</li>
+<li>Java 24 (2025): class file API, miglioramenti minori</li>
+<li>Java 25 LTS (2025): Instance Main Methods</li>
 </ul>
 </section><section>
 <h3 id="modello-di-sviluppo-attuale">Modello di sviluppo attuale</h3>
@@ -484,6 +516,16 @@ offerto, allora probabilmente un oggetto non ha ragione d’esistere!</p>
 </ul>
 </li>
 </ul>
+</section><section>
+<h1 id="ingegneria-e-astrazione-orientata-agli-oggetti-1">Ingegneria e astrazione orientata agli oggetti</h1>
+<h4 id="progettazione-e-sviluppo-del-software">Progettazione e Sviluppo del Software</h4>
+<h4 id="cdl-tecnologie-dei-sistemi-informatici">C.D.L. Tecnologie dei Sistemi Informatici</h4>
+<h3 id="danilo-pianini"><a href="mailto:danilo.pianini@unibo.it">Danilo Pianini — <code>danilo.pianini@unibo.it</code></a></h3>
+<h3 id="gianluca-aguzzi"><a href="mailto:gianluca.aguzzi@unibo.it">Gianluca Aguzzi — <code>gianluca.aguzzi@unibo.it</code></a></h3>
+<h3 id="angelo-filaseta"><a href="mailto:angelo.filaseta@unibo.it">Angelo Filaseta — <code>angelo.filaseta@unibo.it</code></a></h3>
+<p>Compiled on: 2025-08-29
+ — <a href="?print-pdf&amp;pdfSeparateFragments=false"><i class="fa fa-print" aria-hidden="true"></i> versione stampabile</a></p>
+<p><a href=".."><i class="fa fa-undo" aria-hidden="true"></i> back</a></p>
 </section>
 
   

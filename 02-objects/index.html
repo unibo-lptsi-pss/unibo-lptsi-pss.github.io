@@ -26,7 +26,9 @@
 <h3 id="danilo-pianini"><a href="mailto:danilo.pianini@unibo.it">Danilo Pianini — <code>danilo.pianini@unibo.it</code></a></h3>
 <h3 id="gianluca-aguzzi"><a href="mailto:gianluca.aguzzi@unibo.it">Gianluca Aguzzi — <code>gianluca.aguzzi@unibo.it</code></a></h3>
 <h3 id="angelo-filaseta"><a href="mailto:angelo.filaseta@unibo.it">Angelo Filaseta — <code>angelo.filaseta@unibo.it</code></a></h3>
-<p><a href="?print-pdf&amp;pdfSeparateFragments=false"><i class="fa fa-print" aria-hidden="true"></i> versione stampabile</a></p>
+<p>Compiled on: 2025-08-29
+ — <a href="?print-pdf&amp;pdfSeparateFragments=false"><i class="fa fa-print" aria-hidden="true"></i> versione stampabile</a></p>
+<p><a href=".."><i class="fa fa-undo" aria-hidden="true"></i> back</a></p>
 </section><section>
 <h2 id="riconoscimenti">Riconoscimenti</h2>
 <ul>
@@ -56,7 +58,97 @@ Mirko Viroli e Roberto Casadei, che ringrazio.</p>
 <li>Primo semplice programma Java</li>
 </ul>
 </section><section>
-<h1 id="elementi-base-dei-tipi-di-java">Elementi base dei tipi di Java</h1>
+<h2 id="astrazione-oo">Astrazione OO</h2>
+<ul>
+<li><strong>Everything is an object.</strong> Un oggetto è una entità che fornisce operazioni per essere manipolata.</li>
+<li><strong>Un programma è un set di oggetti che si comunicano cosa fare scambiandosi messaggi.</strong> Questi messaggi sono richieste per eseguire le operazioni fornite.</li>
+<li><strong>Un oggetto ha una memoria fatta di altri oggetti.</strong> Un oggetto è ottenuto impacchettando altri oggetti.</li>
+<li><strong>Ogni oggetto è istanza di una classe.</strong> Una classe descrive il comportamento dei suoi oggetti.</li>
+<li><strong>Tutti gli oggetti di una classe possono ricevere gli stessi messaggi.</strong> La classe indica tra le altre cose quali operazioni sono fornite, quindi per comunicare con un oggetto basta sapere qual è la sua classe.</li>
+</ul>
+</section><section>
+<h2 id="classi-e-oggetti">Classi e Oggetti</h2>
+<p>Due forni a microonde dello stesso modello sono due oggetti distinti, ma hanno la stessa struttura e gli stessi comportamenti.</p>
+<p>La <strong>classe</strong> in OOP è la descrizione di un tipo di oggetto, ne definisce:</p>
+<ul>
+<li><em>struttura</em> (come è fatta, quali sono gli elementi che la compongono)</li>
+<li><em>comportamento</em> (cosa può fare, quali operazioni sono possibili)
+<ul>
+<li>il comportamento potrebbe prevedere l’<em>interazione</em> con altri oggetti</li>
+</ul>
+</li>
+</ul>
+<p>A partire da una classe, si possono creare degli <strong>oggetti</strong></p>
+<ul>
+<li>Si dice che l’opggetto è <em>istanza</em> della classe</li>
+</ul>
+<p>Un programma OOP è un insieme di classi.
+Il comportamento è definito a partire da un punto di ingresso (il <code>main</code>),
+e si sviluppa attraverso l’interazione tra gli oggetti.</p>
+</section><section>
+<p>Flusso:</p>
+<ul>
+<li>HelloWorld in Java che mostra il punto d’ingresso senza codice</li>
+<li>Interazione di base fra il programma e il sistema utilizzando System.out.println
+<ul>
+<li>Esiste un oggetto sistema (sempre disponibile e creato dalla JVM) che si chiama <code>System.out</code> e rappresenta lo standard output</li>
+<li>Questo oggetto può ricevere messaggi <code>print</code> (funziona come <code>printf</code> in C) che stampano a video quello che viene fornito e messaggi <code>println</code> che vanno anche a capo</li>
+</ul>
+</li>
+<li>Abbiamo usato una Stringa <code>"..."</code>: esistono alcuni tipi di dato che sono forniti dal sistema</li>
+</ul>
+<h1 id="tipi-primitivi-e-operatori">Tipi primitivi e operatori</h1>
+<ul>
+<li>In java i tipi di dato si dividono in due categorie: le classi e i tipi primitivi
+<ul>
+<li>Infatti Java non è un linguaggio OOP “puro” (i primitivi esistono per motivi di efficienza)</li>
+</ul>
+</li>
+<li>descrizione dei primitivi</li>
+<li>operatori su primitivi (+ - * / % &lt; &gt; &lt;= &gt;= == != &amp;&amp; || !)</li>
+<li>descrizione delle stringhe (che sono classe)</li>
+<li>concatenazione di stringhe</li>
+<li>definizione di variabili con tipo esplicito o con <code>var</code></li>
+</ul>
+</section><section>
+<h3 id="esempio-a-parole-di-programma-oop">Esempio (a parole) di programma OOP</h3>
+<p>TODO: Gianlu metti un UML</p>
+<p>Programma che scalda un piatto di pasta e lo mangia:</p>
+<ul>
+<li>Classi: <code>MicrowaveOven</code>, <code>Food</code></li>
+<li>Programma:
+<ol>
+<li>Crea un oggetto di tipo <code>MicrowaveOven</code>, modello <code>"HotPoint Ariston"</code>, nome: <code>oven</code></li>
+<li>Crea un oggetto di tipo <code>Food</code>, tipo: <code>"Pasta al sugo"</code>, nome: <code>pasta</code></li>
+<li>Invia il messaggio <code>insert(pasta)</code> all’oggetto <code>oven</code></li>
+<li>Invia il messaggio <code>setTime(60)</code> all’oggetto <code>oven</code></li>
+<li>Invia il messaggio <code>setPower(800)</code> all’oggetto <code>oven</code></li>
+<li>Invia il messaggio <code>start()</code> all’oggetto <code>oven</code></li>
+<li>Invia il messaggio <code>getContent()</code> all’oggetto <code>oven</code></li>
+<li>Invia il messaggio <code>consume()</code> all’oggetto <code>pasta</code></li>
+</ol>
+</li>
+</ul>
+</section><section>
+<p>Flusso:</p>
+<ul>
+<li>Uml del programma di esempio</li>
+<li>Costruzione di classi (solo campi)</li>
+<li>Istanziazione di oggetti</li>
+<li>Programma di esempio quindi quello sopra ma senza metodi</li>
+<li>Individuare la scomodità: vogliamo controllare che la potenza non superi 800W.</li>
+<li>introdurre <code>if</code> (<code>else</code>/<code>else if</code>)</li>
+<li>Il controllo di potenza lo deve fare il microonde, non il programma: se provate a scaldare la pasta a 8KW, il microonde semplicemente non ve lo fa fare</li>
+<li>Aggiunta di metodi alla classe</li>
+</ul>
+<h2 id="ogni-oggetto-ha-una-interfaccia">Ogni oggetto ha una interfaccia</h2>
+<h3 id="classi-istanze-metodi-interfaccia">Classi, istanze, metodi, interfaccia</h3>
+<ul>
+<li>Oggetti simili sono istanze della stessa <em><strong>classe</strong></em>, o <em><strong>tipo</strong></em></li>
+<li>La classe definisce i messaggi ricevibili, attraverso <em><strong>metodi</strong></em></li>
+<li>L’insieme dei metodi prende il nome di <em><strong>interfaccia</strong></em></li>
+<li>Un messaggio ha effetto su stato e comportamento dell’oggetto</li>
+</ul>
 </section><section>
 <blockquote>
 <p><strong>Everything is an object</strong></p></blockquote>
