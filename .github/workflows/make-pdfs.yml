@@ -41,7 +41,9 @@ jobs:
         with:
           chrome-version: stable
       - name: Install pdfinfo
-        run: sudo apt-get install -y poppler-utils
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y poppler-utils
       - name: Make the pdfs
         run: shared-slides/makepdfs.rb pages
       - name: Get branch name
