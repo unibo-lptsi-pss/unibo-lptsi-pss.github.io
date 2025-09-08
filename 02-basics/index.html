@@ -337,6 +337,37 @@ a".getBytes(java.nio.charset.StandardCharsets.UTF_16)     // byte[4] { -2, -1, 0
 ```
 -->
 </section><section>
+<h2 id="le-stringhe">Le Stringhe</h2>
+<h3 id="rappresentazione">Rappresentazione</h3>
+<ul>
+<li>In Java sono oggetti della classe <code>String</code>.
+<ul>
+<li>Vedremo le classi in dettaglio più avanti.</li>
+</ul>
+</li>
+<li>Si rappresentano con sequenze di caratteri racchiusi da doppi apici: <code>"Ciao Mondo!"</code></li>
+</ul>
+<h3 id="immutabilità">Immutabilità</h3>
+<ul>
+<li>Le istanze di <code>String</code> sono immutabili: una volta create non possono essere modificate.
+<ul>
+<li>Operazioni che “modificano” una stringa in realtà ne creano una nuova.</li>
+</ul>
+</li>
+</ul>
+<h3 id="operazione-principale--concatenazione">Operazione principale — Concatenazione</h3>
+<ul>
+<li>L’operatore <code>+</code> concatena stringhe:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#c41a16">"Ciao "</span> <span style="color:#000">+</span> <span style="color:#c41a16">"Mondo!"</span> <span style="color:#177500">// "Ciao Mondo!"</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">String</span> <span style="color:#000">s</span> <span style="color:#000">=</span> <span style="color:#c41a16">"Ciao"</span>;
+</span></span><span style="display:flex;"><span><span style="color:#000">s</span> <span style="color:#000">=</span> <span style="color:#000">s</span> <span style="color:#000">+</span> <span style="color:#c41a16">" Mondo"</span>;   <span style="color:#177500">// crea una nuova String</span>
+</span></span></code></pre></div><h3 id="conversioni-1">Conversioni</h3>
+<ul>
+<li>Da primitive a stringa: <code>String.valueOf(42)</code> o <code>"" + 42</code></li>
+<li>Da stringa a numeri: <code>Integer.parseInt("42")</code>, <code>Double.parseDouble("3.14")</code></li>
+</ul>
+</section><section>
 <h1 id="array">Array</h1>
 </section><section>
 <h2 id="java-array">Java array</h2>
