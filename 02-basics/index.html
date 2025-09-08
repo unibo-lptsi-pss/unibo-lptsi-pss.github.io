@@ -20,7 +20,7 @@
       <div class="slides">
   
 
-    <section><h1 id="oggetti-e-classi">Oggetti e classi</h1>
+    <section><h1 id="introduzione-al-linguaggio-java">Introduzione al linguaggio Java</h1>
 <h4 id="progettazione-e-sviluppo-del-software">Progettazione e Sviluppo del Software</h4>
 <h4 id="cdl-tecnologie-dei-sistemi-informatici">C.D.L. Tecnologie dei Sistemi Informatici</h4>
 <h3 id="danilo-pianini"><a href="mailto:danilo.pianini@unibo.it">Danilo Pianini — <code>danilo.pianini@unibo.it</code></a></h3>
@@ -33,48 +33,637 @@
 <h2 id="outline">Outline</h2>
 <h3 id="goal-della-lezione">Goal della lezione</h3>
 <ul>
-<li>Illustrare i concetti base del paradigma object-oriented</li>
 <li>Mostrare un primo semplice programma Java</li>
-<li>Fornire una panoramica di alcuni meccanismi Java</li>
+<li>Fornire una panoramica di alcuni meccanismi base di Java</li>
 </ul>
 <h3 id="argomenti">Argomenti</h3>
 <ul>
-<li>Oggetti e riferimenti</li>
-<li>Tipi primitivi</li>
-<li>Classi, metodi e campi</li>
-<li>Accenno a package e librerie</li>
-<li>Stampe a video</li>
-<li>Primo semplice programma Java</li>
+<li>Stampa a video</li>
+<li>Tipi primitivi e operatori</li>
+<li>Variabili e riferimenti</li>
 </ul>
 </section><section>
-<h2 id="astrazione-oo">Astrazione OO</h2>
+<h2 id="hello-world-in-java">Hello World in Java</h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">void</span> <span style="color:#000">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Hello, World!"</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>In C sarebbe:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#633820">#include</span> <span style="color:#633820">&lt;stdio.h&gt;</span><span style="color:#633820">
+</span></span></span><span style="display:flex;"><span><span style="color:#633820"></span><span style="color:#a90d91">int</span> <span style="color:#000">main</span>(<span style="color:#a90d91">void</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#000">printf</span>(<span style="color:#c41a16">"Hello, World!</span><span style="color:#c41a16">\n</span><span style="color:#c41a16">"</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">return</span> <span style="color:#1c01ce">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Cos’è <code>System.out.println</code>?</p>
 <ul>
-<li><strong>Everything is an object.</strong> Un oggetto è una entità che fornisce operazioni per essere manipolata.</li>
-<li><strong>Un programma è un set di oggetti che si comunicano cosa fare scambiandosi messaggi.</strong> Questi messaggi sono richieste per eseguire le operazioni fornite.</li>
-<li><strong>Un oggetto ha una memoria fatta di altri oggetti.</strong> Un oggetto è ottenuto impacchettando altri oggetti.</li>
-<li><strong>Ogni oggetto è istanza di una classe.</strong> Una classe descrive il comportamento dei suoi oggetti.</li>
-<li><strong>Tutti gli oggetti di una classe possono ricevere gli stessi messaggi.</strong> La classe indica tra le altre cose quali operazioni sono fornite, quindi per comunicare con un oggetto basta sapere qual è la sua classe.</li>
+<li>In ogni programma java esiste un oggetto di sistema chiamato <code>System.out</code> che rappresenta lo standard output</li>
+<li>Questo oggetto può ricevere messaggi <code>print</code> (funziona come <code>printf</code> in C) che stampano a video quello che viene fornito e messaggi <code>println</code> che vanno anche a capo</li>
 </ul>
 </section><section>
-<h2 id="classi-e-oggetti">Classi e Oggetti</h2>
-<p>Due forni a microonde dello stesso modello sono due oggetti distinti, ma hanno la stessa struttura e gli stessi comportamenti.</p>
-<p>La <strong>classe</strong> in OOP è la descrizione di un tipo di oggetto, ne definisce:</p>
+<h2 id="eseguimolo">Eseguimolo!</h2>
 <ul>
-<li><em>struttura</em> (come è fatta, quali sono gli elementi che la compongono)</li>
-<li><em>comportamento</em> (cosa può fare, quali operazioni sono possibili)
+<li>Visto che è un java è un linguaggio compilato, prima di eseguirlo dobbiamo compilarlo</li>
+<li>Salviamolo in un file <code>HelloWorld.java</code></li>
+<li>Compiliamolo con <code>javac HelloWorld.java</code></li>
+<li>Eseguiamolo con <code>java HelloWorld</code></li>
+<li>Dovremmo vedere il messaggio “Hello, World!” stampato a video.</li>
+</ul>
+</section><section>
+<h2 id="il-tool-jshell">Il tool <code>JShell</code></h2>
 <ul>
-<li>il comportamento potrebbe prevedere l’<em>interazione</em> con altri oggetti</li>
+<li>In fase di sviluppo può essere utile un tool che permetta di eseguire codice Java senza doverlo salvare in un file e compilarlo ogni volta.</li>
+</ul>
+<h3 id="jshell-jdk-9">JShell (JDK 9+)</h3>
+<ul>
+<li>richiamabile da linea di comando: <code>jshell</code></li>
+<li>è una console Java, dove si possono eseguire istruzioni vedendone subito l’effetto</li>
+<li>si ispira a tool <em>REPL (Read-Eval-Print Loop)</em> di altri linguaggi</li>
+<li>non molto usata, ma utile per veloci esperimenti (cf. slide seguenti)</li>
+</ul>
+</section><section>
+<h1 id="tipi-e-operatori-di-java">Tipi e operatori di Java</h1>
+</section><section>
+<h2 id="tipi">Tipi</h2>
+<h3 id="cosè-un-tipo">Cos’è un tipo</h3>
+<ul>
+<li>È un meccanismo per classificare valori (e oggetti)</li>
+<li>Un <em>tipo</em> è costituito da un <em>nome</em>, un <em>set di valori</em>, e un <em>set di operatori</em>/meccanismi per manipolarli</li>
+</ul>
+<h3 id="tipi-di-java">Tipi di Java</h3>
+<ul>
+<li><em>Primitivi</em>: <code>boolean</code>, <code>byte</code>, <code>short</code>, <code>int</code>, <code>long</code>, <code>float</code>, <code>double</code>, <code>char</code></li>
+<li><em>Classi</em>: oggi vedremo <code>String</code>, ma ce ne sono molte altre</li>
+<li><em>Array</em>: <code>boolean[]</code>, <code>byte[]</code>, <code>String[]</code>, <code>String[][]</code>, $\ldots$</li>
+</ul>
+<h3 id="java-e-i-tipi">Java e i tipi</h3>
+<ul>
+<li>Java ha <em>tipizzazione statica</em>: ogni espressione ha un tipo noto dal compilatore</li>
+<li>Java ha <em>tipizzazione forte</em>: non si accettano espressioni con errori di tipo</li>
+<li>$\Rightarrow$ .. permette l’intercettazione a priori di molti errori</li>
+<li>$\Rightarrow$ .. disciplina progettazione e programmazione</li>
+</ul>
+</section><section>
+<h2 id="tipo-booleano">Tipo Booleano</h2>
+<ul>
+<li>
+<p>Nome del tipo: <code>boolean</code></p>
+</li>
+<li>
+<p>Valori: <code>true</code>, <code>false</code></p>
+</li>
+<li>
+<p>Operatori unari: <code>!</code> (not)</p>
+</li>
+<li>
+<p>Operatori binari: <code>&amp;</code> (and), <code>|</code> (or), <code>^</code> (xor), <code>&amp;&amp;</code> (and-c), <code>||</code> (or-c)</p>
+<ul>
+<li><code>&amp;&amp;</code> e <code>||</code> valutano il secondo argomento solo se necessario (<em>short-circuiting</em>)</li>
+<li><code>false &amp;&amp; X</code> restituisce <code>false</code> senza valutare <code>X</code></li>
+<li><code>true || X</code> restituisce <code>true</code> senza valutare <code>X</code></li>
+</ul>
+</li>
+<li>
+<p>Operatori di confronto numerici: <code>&gt;</code>, <code>&lt;</code>, <code>&gt;=</code>, <code>&lt;=</code></p>
+</li>
+<li>
+<p>Operatori di uguaglianza (su tutti i tipi): <code>==</code>, <code>!=</code></p>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#000">10</span> <span style="color:#000">==</span> <span style="color:#000">20</span>                     <span style="color:#177500">// false</span>
+</span></span><span style="display:flex;"><span><span style="color:#c41a16">"ciao"</span> <span style="color:#000">==</span> <span style="color:#c41a16">"ciao"</span>             <span style="color:#177500">// true</span>
+</span></span></code></pre></div><ul>
+<li>Operatore ternario (booleano,tipo,tipo): <code>?:</code>
+<ul>
+<li><code>b ? v1 : v2</code> restituisce <code>v1</code> se <code>b</code> è vero, <code>v2</code> altrimenti</li>
 </ul>
 </li>
 </ul>
-<p>A partire da una classe, si possono creare degli <strong>oggetti</strong></p>
-<ul>
-<li>Si dice che l’opggetto è <em>istanza</em> della classe</li>
-</ul>
-<p>Un programma OOP è un insieme di classi.
-Il comportamento è definito a partire da un punto di ingresso (il <code>main</code>),
-e si sviluppa attraverso l’interazione tra gli oggetti.</p>
 </section><section>
+<h2 id="tipi-numerici">Tipi numerici</h2>
+<table>
+  <thead>
+      <tr>
+          <th>Type name</th>
+          <th>Size (bits)</th>
+          <th>Minimum</th>
+          <th>Maximum</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>char</td>
+          <td>16</td>
+          <td><code>\u0000</code> ($0$)</td>
+          <td><code>\uFFFF</code> ($2^{16}-1$)</td>
+      </tr>
+      <tr>
+          <td>byte</td>
+          <td>8</td>
+          <td>$-128$</td>
+          <td>$128$</td>
+      </tr>
+      <tr>
+          <td>short</td>
+          <td>16</td>
+          <td>$-2^{15}$</td>
+          <td>$2^{15}-1$</td>
+      </tr>
+      <tr>
+          <td>int</td>
+          <td>32</td>
+          <td>$-2^{31}$</td>
+          <td>$2^{31}-1$</td>
+      </tr>
+      <tr>
+          <td>long</td>
+          <td>64</td>
+          <td>$-2^{63}$</td>
+          <td>$2^{63}-1$</td>
+      </tr>
+      <tr>
+          <td>float</td>
+          <td>32</td>
+          <td>IEEE754</td>
+          <td>IEEE754</td>
+      </tr>
+      <tr>
+          <td>double</td>
+          <td>64</td>
+          <td>IEEE754</td>
+          <td>IEEE754</td>
+      </tr>
+  </tbody>
+</table>
+<!--| void | -- | -- | -- |-->
+<!--| boolean | -- | -- | -- |-->
+</section><section>
+<h2 id="interi-byte-short-int-long">Interi: <code>byte</code>, <code>short</code>, <code>int</code>, <code>long</code></h2>
+<h3 id="operatori">Operatori</h3>
+<ul>
+<li>Base: <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code> (con resto), <code>%</code> (resto), <code>+</code> e <code>-</code> anche unari</li>
+<li>Bit-a-bit: <code>&amp;</code> (and), <code>|</code> (or), <code>^</code> (xor), <code>~</code> (complement)</li>
+<li>Shift: <code>&gt;&gt;</code> (dx con segno), <code>&lt;&lt;</code> (sx), <code>&gt;&gt;&gt;</code> (dx senza segno)</li>
+<li>Operatori unari/binari applicati ad un tipo, restituiscono il tipo stesso</li>
+</ul>
+<h3 id="codifica-rappresentazione">Codifica, rappresentazione</h3>
+<ul>
+<li>Interi codificati in complemento a 2 (ciò impatta il suo range)</li>
+<li>Rappresentazione decimale (<code>200</code>), ottale (<code>0310</code>), esadecimale (<code>0xC8</code>)</li>
+<li>Di default sono <code>int</code>, per avere un <code>long</code> va aggiunta una <code>L</code> (<code>15L</code>)</li>
+</ul>
+<h3 id="prassi">Prassi</h3>
+<ul>
+<li>Raro l’uso di <code>byte</code> e <code>short</code>, non molto più efficienti di <code>int</code></li>
+<li><code>int</code> più efficiente di <code>long</code></li>
+</ul>
+</section><section>
+<h2 id="numeri-in-virgola-mobile-float-double">Numeri in virgola mobile: <code>float</code>, <code>double</code></h2>
+<h3 id="operatori-1">Operatori</h3>
+<ul>
+<li>Base: <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code> (con resto), <code>%</code> (resto), <code>+</code> e <code>-</code> anche unari</li>
+</ul>
+<h3 id="codifica-rappresentazione-1">Codifica, rappresentazione</h3>
+<ul>
+<li>Codificati secondo lo standard IEEE 754</li>
+<li>Rappresentazione standard (<code>-128.345</code>), o scientifica (<code>-1.2835E+2</code>)</li>
+<li>Di default sono <code>double</code>, per avere un <code>float</code> va aggiunta una <code>F</code></li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#000">5</span>   <span style="color:#177500">// int</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">5</span>.  <span style="color:#177500">// double</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">5d</span>  <span style="color:#177500">// double</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">5f</span>  <span style="color:#177500">// float</span>
+</span></span></code></pre></div><h3 id="prassi-1">Prassi</h3>
+<ul>
+<li>Raro l’uso di <code>float</code>, anche se più efficiente di <code>double</code></li>
+<li>Attenzione agli errori di precisione!!</li>
+</ul>
+</section><section>
+<h2 id="provate-voi-stessi">Provate voi stessi..</h2>
+<!--  \srcode{\scriptsize}{3}{100}{\ecl/Try.java} -->
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#000">@SuppressWarnings</span>(<span style="color:#c41a16">"all"</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Try</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">s</span>) {
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">10</span> <span style="color:#000">+</span> <span style="color:#000">20</span>); <span style="color:#177500">// 30</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">010</span> <span style="color:#000">+</span> <span style="color:#000">020</span>); <span style="color:#177500">// 24</span>
+</span></span><span style="display:flex;"><span>		
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">0xFFFFFFFF</span>); <span style="color:#177500">// -1</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">0x7FFFFFFF</span>); <span style="color:#177500">// 2147483647</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">0x80000000</span>); <span style="color:#177500">// -2147483648</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">0x80000000</span> <span style="color:#000">-</span> <span style="color:#000">1</span>); <span style="color:#177500">// 2147483647</span>
+</span></span><span style="display:flex;"><span>		
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">2147483647</span> <span style="color:#000">+</span> <span style="color:#000">1</span>); <span style="color:#177500">// -2147483648</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">2147483647L</span> <span style="color:#000">+</span> <span style="color:#000">1</span>); <span style="color:#177500">// 2147483648</span>
+</span></span><span style="display:flex;"><span>		
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>((<span style="color:#000">0x0F0F</span> <span style="color:#000">|</span> <span style="color:#000">0xF0F0</span>) <span style="color:#000">==</span> <span style="color:#000">0xFFFF</span>); <span style="color:#177500">// true</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>((<span style="color:#000">0x0F0F</span> <span style="color:#000">&amp;</span> <span style="color:#000">0xF0F0</span>) <span style="color:#000">==</span> <span style="color:#000">0</span>); <span style="color:#177500">// true</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>((<span style="color:#000">0x0F0F</span> <span style="color:#000">&lt;&lt;</span> <span style="color:#000">4</span>) <span style="color:#000">==</span> <span style="color:#000">0xF0F0</span>); <span style="color:#177500">// true</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>((<span style="color:#000">0x0F0F</span> <span style="color:#000">&gt;&gt;</span> <span style="color:#000">4</span>) <span style="color:#000">==</span> <span style="color:#000">0x00F0</span>); <span style="color:#177500">// true</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">~</span><span style="color:#000">0x0F0F</span> <span style="color:#000">==</span> <span style="color:#000">0xFFFFF0F0</span>); <span style="color:#177500">// true</span>
+</span></span><span style="display:flex;"><span>		
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">10</span> <span style="color:#000">/</span> <span style="color:#000">3</span>); <span style="color:#177500">// 3</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">10</span> <span style="color:#000">%</span> <span style="color:#000">3</span>); <span style="color:#177500">// 1</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">3</span>.<span style="color:#836c28">5</span> <span style="color:#000">/</span> <span style="color:#000">51</span> <span style="color:#000">*</span> <span style="color:#000">51</span>); <span style="color:#177500">// 3.5000000000000004</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">3</span>.<span style="color:#836c28">5f</span> <span style="color:#000">/</span> <span style="color:#000">51</span> <span style="color:#000">*</span> <span style="color:#000">51</span>);<span style="color:#177500">// 3.5000002</span>
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></section><section>
+<h2 id="conversioni">Conversioni</h2>
+<h3 id="conversioni-di-tipo-dette-anche-cast-tipovalore">Conversioni di tipo, dette anche <em>cast</em>: <code>(tipo)valore</code></h3>
+<ul>
+<li>Fra tipi numerici sono sempre consentite
+<ul>
+<li>mentre non lo sono, ad es. tra tipi numerici e <code>boolean</code></li>
+</ul>
+</li>
+<li>Possono causare perdita di informazione</li>
+<li>Es.: <code>(int)3.33</code>, <code>((double)10)/3</code>, <code>(short)100</code></li>
+</ul>
+<h3 id="conversioni-automatiche-dette-anche-coercizioni">Conversioni automatiche, dette anche <em>coercizioni</em></h3>
+<ul>
+<li>Le inserisce automaticamente il compilatore in certi casi</li>
+<li>Quando ci si aspetta un tipo, e si usa un valore diverso</li>
+<li>Solo da un tipo più specifico a uno più generale (<em>promozione</em>)
+<ul>
+<li>(+ Specifico $\rightarrow$ + Generale) <code>byte</code>$\rightarrow$<code>short</code>$\rightarrow$<code>int</code>$\rightarrow$<code>long</code>$\rightarrow$<code>float</code>$\rightarrow$<code>double</code></li>
+</ul>
+</li>
+<li>Due casi:
+<ul>
+<li>In assegnamenti: <code>long l=100;</code> diventa <code>long l=(long)100;</code></li>
+<li>Operazioni fra tipi diversi: <code>10.1+10</code> diventa <code>10.1+(double)10</code></li>
+<li>Passando valori a funzioni</li>
+</ul>
+</li>
+</ul>
+</section><section>
+<h2 id="i-caratteri">I caratteri</h2>
+<h3 id="rappresentazione-esterna">Rappresentazione (esterna)</h3>
+<ul>
+<li>Singolo carattere: <code>'a'</code>, <code>'z'</code>, <code>'A'</code>, <code>'='</code></li>
+<li>Codice ASCII: 65 (<code>'A'</code>), 66 (<code>'B'</code>)</li>
+<li>Caratteri escape: <code>'\n'</code>, <code>'\\'</code>, <code>'\0'</code></li>
+<li>Caratteri UTF16: <code>'\u6C34'</code></li>
+</ul>
+<h3 id="codifica-rappresentazione-interna">Codifica (rappresentazione interna)</h3>
+<ul>
+<li>UTF16
+<ul>
+<li>variable-length encoding (ogni <em>codepoint</em> in 1 o 2 unità di 16 bit) $\to$ non compatibile con ASCII</li>
+</ul>
+</li>
+<li>automaticamente convertibile ad un numerico fra 0 e 65535</li>
+</ul>
+<!--  \srcode{\scriptsize}{3}{100}{\ecl/TryChars.java} -->
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">TryChars</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">s</span>) {
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"lettera 'a' e a capo"</span> <span style="color:#000">+</span> <span style="color:#2300ce">'a'</span>);
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"acqua (cinese) e a capo "</span> <span style="color:#000">+</span> <span style="color:#2300ce">'\u6C34'</span>);
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"backslash e a capo"</span> <span style="color:#000">+</span> <span style="color:#2300ce">'\\'</span>);
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">print</span>(<span style="color:#c41a16">"a capo "</span> <span style="color:#000">+</span> <span style="color:#2300ce">'\n'</span>);
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">print</span>(<span style="color:#c41a16">"a capo "</span> <span style="color:#000">+</span> (<span style="color:#a90d91">char</span>) <span style="color:#000">10</span>);
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><!--
+
+---
+
+```
+a".getBytes(java.nio.charset.StandardCharsets.ISO_8859_1) // byte[1] { 97 }
+
+a".getBytes(java.nio.charset.StandardCharsets.UTF_8)      // byte[1] { 97 }
+
+a".getBytes(java.nio.charset.StandardCharsets.UTF_16)     // byte[4] { -2, -1, 0, 97 }
+```
+-->
+</section><section>
+<h1 id="array">Array</h1>
+</section><section>
+<h2 id="java-array">Java array</h2>
+<h3 id="caratteristiche-generali">Caratteristiche generali</h3>
+<ul>
+<li>Internamente sono degli oggetti (cf. creazione con <code>new</code>)</li>
+<li>Quindi sono gestiti con riferimenti sullo heap</li>
+<li>Notazione ad-hoc (e C-like) per creare, leggere e scrivere elementi</li>
+</ul>
+<h3 id="principale-differenza-rispetto-al-c">Principale differenza rispetto al C</h3>
+<ul>
+<li>Un array ha una lunghezza (campo <code>length</code>) esplicita e accessibile (non modificabile)</li>
+<li>È impossibile violare i limiti di una array, pena un errore (<code>ArrayIndexOutOfBoundsException</code>)</li>
+<li>L’accesso all’array è di conseguenza leggermente rallentato</li>
+</ul>
+</section><section>
+<h2 id="sintassi-array">Sintassi Array</h2>
+<h3 id="creazione-array">Creazione array</h3>
+<ul>
+<li>Due notazioni, per elenco (elencazione di valori)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">int</span><span style="color:#000">[]</span> <span style="color:#000">ar1</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#a90d91">int</span><span style="color:#000">[]</span>{<span style="color:#000">10</span>,<span style="color:#000">20</span>,<span style="color:#000">30</span>,<span style="color:#000">40</span>,<span style="color:#000">50</span>,<span style="color:#000">7</span>,<span style="color:#000">8</span>,<span style="color:#000">9</span>};
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">var</span>   <span style="color:#000">ar2</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#a90d91">int</span><span style="color:#000">[]</span>{<span style="color:#000">10</span>,<span style="color:#000">20</span>,<span style="color:#000">30</span>}; <span style="color:#177500">// variante con `var`</span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">int</span><span style="color:#000">[]</span> <span style="color:#000">ar3</span> <span style="color:#000">=</span> {<span style="color:#000">10</span>,<span style="color:#000">20</span>,<span style="color:#000">30</span>};          <span style="color:#177500">// variante senza `new`</span>
+</span></span></code></pre></div>e per dimensione
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">int</span><span style="color:#000">[]</span> <span style="color:#000">ar4</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#a90d91">int</span><span style="color:#000">[</span><span style="color:#000">200</span><span style="color:#000">]</span>;        <span style="color:#177500">// new int[]{0,0,...,0}</span>
+</span></span></code></pre></div><ul>
+<li>quando creati per dimensione, gli elementi sono inizializzati (come se fossero campi di una classe)</li>
+</ul>
+</li>
+<li>la creazione di array di array (<em>matrici</em>) è analoga:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">int</span><span style="color:#000">[][]</span> <span style="color:#000">m</span>  <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#a90d91">int</span><span style="color:#000">[][]</span>{ <span style="color:#a90d91">new</span> <span style="color:#a90d91">int</span><span style="color:#000">[]</span>{...}, ... };
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">int</span><span style="color:#000">[][]</span> <span style="color:#000">m2</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#a90d91">int</span><span style="color:#000">[</span><span style="color:#000">200</span><span style="color:#000">][</span><span style="color:#000">200</span><span style="color:#000">]</span>;
+</span></span></code></pre></div><h3 id="accesso-array-zero-indexed">Accesso array (<em>zero-indexed</em>)</h3>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#000">ar4</span>.<span style="color:#836c28">length</span>    <span style="color:#177500">// 200 (lunghezza)</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">ar4</span><span style="color:#000">[</span><span style="color:#000">23</span><span style="color:#000">]</span>       <span style="color:#177500">// espressione per leggere 24-esimo elemento</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">ar4</span><span style="color:#000">[</span><span style="color:#000">23</span><span style="color:#000">]</span> <span style="color:#000">=</span> <span style="color:#000">10</span>; <span style="color:#177500">// assegnamento del 24-esimo elemento</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">m</span><span style="color:#000">[</span><span style="color:#000">1</span><span style="color:#000">][</span><span style="color:#000">2</span><span style="color:#000">]</span> <span style="color:#000">=</span> <span style="color:#000">10</span>; <span style="color:#177500">// assegnamento riga 2 colonna 3</span>
+</span></span></code></pre></div></section><section>
+<h2 id="qualche-esempio-duso-di-array">Qualche esempio d’uso di array</h2>
+<!--  \srcode{\scriptsize}{3}{100}{\ecl/UseArrays.java} -->
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseArrays</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">s</span>) {
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">int</span><span style="color:#000">[]</span> <span style="color:#000">a</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#a90d91">int</span><span style="color:#000">[]</span> { <span style="color:#000">10</span>, <span style="color:#000">20</span>, <span style="color:#000">30</span> }; <span style="color:#177500">// int[] aa = {10,20,30};</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"a: "</span> <span style="color:#000">+</span> <span style="color:#000">a</span><span style="color:#000">[</span><span style="color:#000">0</span><span style="color:#000">]</span> <span style="color:#000">+</span> <span style="color:#c41a16">" "</span> <span style="color:#000">+</span> <span style="color:#000">a</span><span style="color:#000">[</span><span style="color:#000">1</span><span style="color:#000">]</span> <span style="color:#000">+</span> <span style="color:#c41a16">" "</span> <span style="color:#000">+</span> <span style="color:#000">a</span><span style="color:#000">[</span><span style="color:#000">2</span><span style="color:#000">]</span>);
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">a</span>); <span style="color:#177500">// [I@1794d431</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">java</span>.<span style="color:#836c28">util</span>.<span style="color:#836c28">Arrays</span>.<span style="color:#836c28">toString</span>(<span style="color:#000">a</span>)); <span style="color:#177500">// [10, 20, 30]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">double</span><span style="color:#000">[]</span> <span style="color:#000">b</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#a90d91">double</span><span style="color:#000">[]</span> { <span style="color:#000">10</span>.<span style="color:#836c28">1</span>, <span style="color:#000">10</span>.<span style="color:#836c28">2</span> };
+</span></span><span style="display:flex;"><span>		<span style="color:#000">b</span><span style="color:#000">[</span><span style="color:#000">1</span><span style="color:#000">]</span> <span style="color:#000">=</span> <span style="color:#000">10</span>.<span style="color:#836c28">21</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">c</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">String</span><span style="color:#000">[]</span> { <span style="color:#c41a16">"10"</span>, <span style="color:#c41a16">"20"</span>, <span style="color:#c41a16">"3"</span> <span style="color:#000">+</span> <span style="color:#c41a16">"0"</span> };
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"c.length: "</span> <span style="color:#000">+</span> <span style="color:#000">c</span>.<span style="color:#836c28">length</span>); <span style="color:#177500">// 3</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">boolean</span><span style="color:#000">[]</span> <span style="color:#000">d</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#a90d91">boolean</span><span style="color:#000">[</span><span style="color:#000">10000</span><span style="color:#000">]</span>;
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"d[5000]: "</span> <span style="color:#000">+</span> <span style="color:#000">d</span><span style="color:#000">[</span><span style="color:#000">5000</span><span style="color:#000">]</span>); <span style="color:#177500">// false</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">int</span><span style="color:#000">[][]</span> <span style="color:#000">e</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#a90d91">int</span><span style="color:#000">[</span><span style="color:#000">5</span><span style="color:#000">][</span><span style="color:#000">10</span><span style="color:#000">]</span>; <span style="color:#177500">// matrice 5x10 di zeri</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"e.length: "</span> <span style="color:#000">+</span> <span style="color:#000">e</span>.<span style="color:#836c28">length</span>); <span style="color:#177500">// 5</span>
+</span></span><span style="display:flex;"><span>		
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">int</span><span style="color:#000">[][]</span> <span style="color:#000">f</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#a90d91">int</span><span style="color:#000">[][]</span> {  <span style="color:#177500">// int[][] f = {{11,12,13,14},{21,22,23,24},....};</span>
+</span></span><span style="display:flex;"><span>			    <span style="color:#a90d91">new</span> <span style="color:#a90d91">int</span><span style="color:#000">[]</span> { <span style="color:#000">11</span>, <span style="color:#000">12</span>, <span style="color:#000">13</span>, <span style="color:#000">14</span> },
+</span></span><span style="display:flex;"><span>				<span style="color:#a90d91">new</span> <span style="color:#a90d91">int</span><span style="color:#000">[]</span> { <span style="color:#000">21</span>, <span style="color:#000">22</span>, <span style="color:#000">23</span>, <span style="color:#000">24</span> }, 
+</span></span><span style="display:flex;"><span>				<span style="color:#a90d91">new</span> <span style="color:#a90d91">int</span><span style="color:#000">[]</span> { <span style="color:#000">31</span>, <span style="color:#000">32</span>, <span style="color:#000">33</span>, <span style="color:#000">34</span> } };
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"f.length: "</span> <span style="color:#000">+</span> <span style="color:#000">f</span>.<span style="color:#836c28">length</span>); <span style="color:#177500">// 3</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"f[0].length: "</span> <span style="color:#000">+</span> <span style="color:#000">f</span><span style="color:#000">[</span><span style="color:#000">0</span><span style="color:#000">]</span>.<span style="color:#836c28">length</span>); <span style="color:#177500">// 4</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"f[1][2]: "</span> <span style="color:#000">+</span> <span style="color:#000">f</span><span style="color:#000">[</span><span style="color:#000">1</span><span style="color:#000">][</span><span style="color:#000">2</span><span style="color:#000">]</span>); <span style="color:#177500">// 23</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"ERR: f[1][4]: "</span> <span style="color:#000">+</span> <span style="color:#000">f</span><span style="color:#000">[</span><span style="color:#000">1</span><span style="color:#000">][</span><span style="color:#000">4</span><span style="color:#000">]</span>); <span style="color:#177500">// ArrayIndexOutOfBoundsException</span>
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></section><section>
+<h2 id="array-di-oggetti">Array di oggetti</h2>
+<h3 id="creazione-array--stessa-notazione">Creazione array – stessa notazione</h3>
+<ul>
+<li>Per elenco:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#000">Object</span><span style="color:#000">[]</span> <span style="color:#000">ar</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Object</span><span style="color:#000">[]</span>{ <span style="color:#a90d91">new</span> <span style="color:#000">Object</span>(), <span style="color:#a90d91">new</span> <span style="color:#000">Object</span>() };
+</span></span></code></pre></div><ul>
+<li>Per dimensione</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#000">Object</span><span style="color:#000">[]</span> <span style="color:#000">ar2</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Object</span><span style="color:#000">[</span><span style="color:#000">200</span><span style="color:#000">]</span>;
+</span></span></code></pre></div><ul>
+<li>Note
+<ul>
+<li>in ogni posizione c’è <code>null</code></li>
+<li>frequente errore dello studente è pensare che sia un array di nuovi oggetti automaticamente creati</li>
+<li>ricorda: è una sola <code>new</code> quindi si crea un solo oggetto, l’array stesso</li>
+</ul>
+</li>
+</ul>
+</section><section>
+<h1 id="istruzioni-statement">Istruzioni (statement)</h1>
+</section><section>
+<h2 id="i-linguaggi-oo-sono-anche-imperativistrutturati">I linguaggi OO sono anche imperativi/strutturati</h2>
+<h3 id="java-estende-il-c">Java “estende” il C</h3>
+<ul>
+<li>Come C++ e C#, Java è alla base anche imperativo/strutturato – altri linguaggi come Scala invece no</li>
+<li>Il codice di un metodo è un insieme di comandi C-like</li>
+</ul>
+<!--  *  Ecco perché li si chiama object-oriented e non object-based -->
+<!-- In realtà: object-based PLs consentono di creare e usare oggetti; quelli object-oriented forniscono inoltre supporto per ereditarietà e polimorfismo -->
+<h3 id="panoramica-istruzioni">Panoramica istruzioni</h3>
+<ul>
+<li>Variabili e assegnamenti:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">int</span> <span style="color:#000">x</span>;              <span style="color:#177500">// dichiarazione</span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">int</span> <span style="color:#000">x</span><span style="color:#000">=</span><span style="color:#000">5</span>;  <span style="color:#a90d91">var</span> <span style="color:#000">x</span><span style="color:#000">=</span><span style="color:#000">5</span>;  <span style="color:#177500">// dichiarazione e inizializzazione (assegnamento)</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">x</span><span style="color:#000">=</span><span style="color:#000">5</span>;                <span style="color:#177500">// assegnamento</span>
+</span></span></code></pre></div><ul>
+<li>Ritorno: <code>return 5;</code></li>
+<li>Chiamate: <code>meth(3,4);</code> <code>obj.meth(3);</code>  <code>Cls.meth(4);</code></li>
+<li>Costrutti di controllo del flusso: <code>for</code>, <code>while</code>, <code>do</code>, <code>switch</code>, <code>if</code>, <code>break</code>, <code>continue</code></li>
+<li>Qualche altra tipologia, che vedremo nel prosieguo</li>
+</ul>
+</section><section>
+<h2 id="java-vs-c">Java vs C</h2>
+<h3 id="principali-differenze">Principali differenze</h3>
+<ul>
+<li>No coercizione da altri tipi verso <code>boolean</code> (cf. strong typing)
+<ul>
+<li>Nota: la condizione dell’<code>if</code>, <code>for</code>, <code>while</code> e <code>do</code> è un <code>boolean</code></li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">boolean</span> <span style="color:#000">b</span> <span style="color:#000">=</span> <span style="color:#000">1</span>;            <span style="color:#177500">// ERROR: incompatible types: int cannot be converted to boolean</span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">boolean</span> <span style="color:#000">b</span> <span style="color:#000">=</span> (<span style="color:#a90d91">boolean</span>) <span style="color:#000">1</span>;  <span style="color:#177500">// incompatible types: int cannot be converted to boolean</span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">if</span>(<span style="color:#000">1</span>){ <span style="color:#177500">/* ... */</span> }        <span style="color:#177500">// ERROR: incompatible types: int cannot be converted to boolean</span>
+</span></span></code></pre></div></li>
+<li>No puntatori, no de/allocazione manuale di oggetti</li>
+</ul>
+<!--
+*  Nel `for` è possibile dichiarare la variabile di ciclo (come nel C99), che sarà visibile solo internamente
+```java
+for(int i=0; i<10; i++){ /* .. */ }
+```
+--->
+<h3 id="differenza-filosofica">Differenza filosofica</h3>
+<ul>
+<li>Java è molto più restrittivo del C</li>
+<li>Molto di ciò che è solo <em>warning</em> in C, è <em>errore</em> in Java
+<ul>
+<li><em>unreachable statement</em>: istruzioni non raggiungibili (per errore)</li>
+<li><em>variable may not have been initialised</em> (uso variabile prima del suo init)</li>
+<li><em>missing return statement</em> (un return finale è obbligatorio)</li>
+</ul>
+</li>
+<li>Può sembrare una filosofia che rende la programmazione “rigida”, e invece è cruciale per supportare lo sviluppo di software di qualità</li>
+<li>Le prassi che discuteremo ci porteranno ulteriori rigidità</li>
+</ul>
+</section><section>
+<h2 id="java-come-linguaggio-puramente-strutturato-procedurale">Java come linguaggio puramente strutturato-procedurale</h2>
+<h3 id="un-uso-limitato-ma-a-volte-utile-di-java">Un uso limitato (ma a volte utile) di Java</h3>
+<ul>
+<li>Una classe ha solo metodi o campi dichiarati <code>static</code></li>
+<li>In questo caso tale classe definice un insieme di <em>funzioni/procedure</em> e <em>variabili globali</em> (a quella classe), ossia una struttura analoga a quella di una libreria C</li>
+<li>Un metodo (o campo) <em><strong>statico</strong></em> viene richiamato nel seguente modo:
+<ul>
+<li>da fuori la classe (se dichiarato <code>public</code>): <code>&lt;nome-classe&gt;.&lt;nome-metodo&gt;(...)</code></li>
+<li>da dentro la classe: <code>&lt;nome-metodo&gt;(...)</code></li>
+</ul>
+</li>
+<li>E’ una tecnica usata per realizzare <em>utility class</em>, come ad esempio la classe delle funzioni matematiche <code>java.lang.Math</code></li>
+</ul>
+</section><section>
+<h2 id="qualche-prova-di-javalangmath">Qualche prova di <code>java.lang.Math</code></h2>
+<!--  \srcode{\ssmall}{3}{100}{\ecl/UseMath.java} -->
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.Arrays</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseMath</span> { <span style="color:#177500">// E' una utility class</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#177500">// Metodo statico, crea e torna un array di double</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#177500">// lungo size, contenente numeri random 0&lt;=x&lt;=1</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">static</span> <span style="color:#a90d91">double</span><span style="color:#000">[]</span> <span style="color:#000">randomValues</span>(<span style="color:#a90d91">int</span> <span style="color:#000">size</span>){
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">double</span><span style="color:#000">[]</span> <span style="color:#000">d</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#a90d91">double</span><span style="color:#000">[</span><span style="color:#000">size</span><span style="color:#000">]</span>;
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">for</span> (<span style="color:#a90d91">int</span> <span style="color:#000">i</span> <span style="color:#000">=</span> <span style="color:#000">0</span>; <span style="color:#000">i</span> <span style="color:#000">&lt;</span> <span style="color:#000">size</span>; <span style="color:#000">i</span><span style="color:#000">++</span>){
+</span></span><span style="display:flex;"><span>			<span style="color:#000">d</span><span style="color:#000">[</span><span style="color:#000">i</span><span style="color:#000">]</span> <span style="color:#000">=</span> <span style="color:#000">Math</span>.<span style="color:#836c28">random</span>();
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#000">d</span>;
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span>) {
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">Math</span>.<span style="color:#836c28">random</span>());
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>		<span style="color:#177500">// Ricorda: toString è un metodo statico della classe Arrays</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">Arrays</span>.<span style="color:#836c28">toString</span>(<span style="color:#000">randomValues</span>(<span style="color:#000">10</span>)));
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">for</span> (<span style="color:#a90d91">double</span> <span style="color:#000">x</span> <span style="color:#000">=</span> <span style="color:#000">0</span>.<span style="color:#836c28">0</span>; <span style="color:#000">x</span> <span style="color:#000">&lt;=</span> <span style="color:#000">Math</span>.<span style="color:#836c28">PI</span> <span style="color:#000">*</span> <span style="color:#000">2</span>; <span style="color:#000">x</span> <span style="color:#000">=</span> <span style="color:#000">x</span> <span style="color:#000">+</span> <span style="color:#000">Math</span>.<span style="color:#836c28">PI</span> <span style="color:#000">/</span> <span style="color:#000">10</span>){
+</span></span><span style="display:flex;"><span>			<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"x = "</span> <span style="color:#000">+</span> <span style="color:#000">x</span> <span style="color:#000">+</span> <span style="color:#c41a16">"\t sin(x) = "</span> <span style="color:#000">+</span> <span style="color:#000">Math</span>.<span style="color:#836c28">sin</span>(<span style="color:#000">x</span>));
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></section><section>
+<h2 id="un-esercizio-sugli-array">Un esercizio sugli array</h2>
+<p>Costruire una funzione che dato un array ne produce in uscita uno della stessa lunghezza, ma invertendo il primo elemento con l’ultimo, il secondo col penultimo, etc..</p>
+<!--  %\sizedcode{\scriptsize}{code/Reverse.java}
+  \srcode{\scriptsize}{3}{100}{\ecl/Reverse.java} -->
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.Arrays</span>; <span style="color:#177500">// Classe con funzioni di utilità</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">Reverse</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">static</span> <span style="color:#a90d91">int</span><span style="color:#000">[]</span> <span style="color:#000">reverse</span>(<span style="color:#a90d91">int</span><span style="color:#000">[]</span> <span style="color:#000">array</span>) { <span style="color:#177500">// funzione reverse</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">int</span><span style="color:#000">[]</span> <span style="color:#000">out</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#a90d91">int</span><span style="color:#000">[</span><span style="color:#000">array</span>.<span style="color:#836c28">length</span><span style="color:#000">]</span>; <span style="color:#177500">// creo array per lunghezza</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">for</span> (<span style="color:#a90d91">int</span> <span style="color:#000">i</span> <span style="color:#000">=</span> <span style="color:#000">0</span>; <span style="color:#000">i</span> <span style="color:#000">&lt;</span> <span style="color:#000">out</span>.<span style="color:#836c28">length</span>; <span style="color:#000">i</span><span style="color:#000">++</span>) { <span style="color:#177500">// for con var. interna</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#000">out</span><span style="color:#000">[</span><span style="color:#000">i</span><span style="color:#000">]</span> <span style="color:#000">=</span> <span style="color:#000">array</span><span style="color:#000">[</span><span style="color:#000">out</span>.<span style="color:#836c28">length</span> <span style="color:#000">-</span> <span style="color:#000">1</span> <span style="color:#000">-</span> <span style="color:#000">i</span><span style="color:#000">]</span>;
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#000">out</span>;
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>	<span style="color:#177500">// l'uso di public qui sotto è necessario per il main</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">s</span>) { <span style="color:#177500">// prova funz. di reverse</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">int</span><span style="color:#000">[]</span> <span style="color:#000">a</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#a90d91">int</span><span style="color:#000">[]</span> { <span style="color:#000">10</span>, <span style="color:#000">20</span>, <span style="color:#000">30</span>, <span style="color:#000">40</span> };
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">int</span><span style="color:#000">[]</span> <span style="color:#000">b</span> <span style="color:#000">=</span> <span style="color:#000">reverse</span>(<span style="color:#000">a</span>);
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">Arrays</span>.<span style="color:#836c28">toString</span>(<span style="color:#000">a</span>)); <span style="color:#177500">// [10, 20, 30, 40]</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">Arrays</span>.<span style="color:#836c28">toString</span>(<span style="color:#000">b</span>)); <span style="color:#177500">// [40, 30, 20, 10]</span>
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></section><section>
+<h2 id="for-each">For-each</h2>
+<h3 id="java-introduce-una-variante-del-ciclo-for">Java introduce una variante del ciclo <code>for</code></h3>
+<ul>
+<li>supporta l’astrazione di “per ogni elemento della collezione fai..”</li>
+<li>utile con gli array quando non importa il valore corrente dell’indice</li>
+<li>utilizzabile con oggetti <em>iterabili</em>, quindi anche con le Collection di Java (liste, insiemi,..)</li>
+</ul>
+<h3 id="sintassi--caso-di-array-di-interi">Sintassi – caso di array di interi</h3>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">for</span>(<span style="color:#a90d91">int</span> <span style="color:#000">v</span>: <span style="color:#000">array</span>){ <span style="color:#177500">/* uso di v */</span> }
+</span></span></code></pre></div><ul>
+<li>spesso usato con <code>var</code>:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">for</span>(<span style="color:#a90d91">var</span> <span style="color:#000">v</span>: <span style="color:#000">array</span>){ <span style="color:#177500">/* uso di v */</span> }
+</span></span></code></pre></div><ul>
+<li><code>array</code> è una espressione che restituisce un <code>int[]</code></li>
+<li>nel corpo del <code>for</code>, <code>v</code> vale via via ogni elemento dell’array</li>
+<li>leggi “per ogni <code>v</code> in <code>array</code> esegui il corpo”</li>
+</ul>
+</section><section>
+<h2 id="for-each-esempio">For-each: esempio</h2>
+<!--  %\sizedcode{\scriptsize}{code/Sum.java}
+  \srcode{\scriptsize}{3}{100}{\ecl/Sum.java} -->
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">Sum</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">int</span> <span style="color:#000">sum</span>(<span style="color:#a90d91">int</span><span style="color:#000">[]</span> <span style="color:#000">array</span>) { <span style="color:#177500">// soluzione standard</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">int</span> <span style="color:#000">sum</span> <span style="color:#000">=</span> <span style="color:#000">0</span>;
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">for</span> (<span style="color:#a90d91">int</span> <span style="color:#000">i</span> <span style="color:#000">=</span> <span style="color:#000">0</span>; <span style="color:#000">i</span> <span style="color:#000">&lt;</span> <span style="color:#000">array</span>.<span style="color:#836c28">length</span>; <span style="color:#000">i</span><span style="color:#000">++</span>) {
+</span></span><span style="display:flex;"><span>			<span style="color:#000">sum</span> <span style="color:#000">=</span> <span style="color:#000">sum</span> <span style="color:#000">+</span> <span style="color:#000">array</span><span style="color:#000">[</span><span style="color:#000">i</span><span style="color:#000">]</span>;
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#000">sum</span>;
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">int</span> <span style="color:#000">sum2</span>(<span style="color:#a90d91">int</span><span style="color:#000">[]</span> <span style="color:#000">array</span>) { <span style="color:#177500">// soluzione con for-each</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">int</span> <span style="color:#000">sum</span> <span style="color:#000">=</span> <span style="color:#000">0</span>;
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">for</span> (<span style="color:#a90d91">int</span> <span style="color:#000">elem</span> : <span style="color:#000">array</span>) { <span style="color:#177500">// per ogni elem in array..</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#000">sum</span> <span style="color:#000">=</span> <span style="color:#000">sum</span> <span style="color:#000">+</span> <span style="color:#000">elem</span>;
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#000">sum</span>;
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">s</span>) {
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">int</span> <span style="color:#000">res</span> <span style="color:#000">=</span> <span style="color:#000">sum2</span>(<span style="color:#a90d91">new</span> <span style="color:#a90d91">int</span><span style="color:#000">[]</span> { <span style="color:#000">10</span>, <span style="color:#000">20</span>, <span style="color:#000">30</span>, <span style="color:#000">40</span> });
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Somma : "</span> <span style="color:#000">+</span> <span style="color:#000">res</span>);
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></section><section>
+<h2 id="fornire-input-da-linea-di-comando-argomenti-del-main">Fornire input da linea di comando: argomenti del <code>main</code></h2>
+<!--  %\sizedcode{\scriptsize}{code/Sum.java}
+  \srcode{\scriptsize}{3}{100}{\ecl/SumMain.java}-->
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">SumMain</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">int</span> <span style="color:#000">sum</span>(<span style="color:#a90d91">int</span><span style="color:#000">[]</span> <span style="color:#000">array</span>) { <span style="color:#177500">// soluzione con for-each</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">int</span> <span style="color:#000">sum</span> <span style="color:#000">=</span> <span style="color:#000">0</span>;
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">for</span> (<span style="color:#a90d91">int</span> <span style="color:#000">elem</span> : <span style="color:#000">array</span>) { <span style="color:#177500">// per ogni elem in array..</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#000">sum</span> <span style="color:#000">=</span> <span style="color:#000">sum</span> <span style="color:#000">+</span> <span style="color:#000">elem</span>;
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#000">sum</span>;
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#177500">// da invocare con: java SumMain 10 20 30 40</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span>) {
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">int</span><span style="color:#000">[]</span> <span style="color:#000">input</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#a90d91">int</span><span style="color:#000">[</span><span style="color:#000">args</span>.<span style="color:#836c28">length</span><span style="color:#000">]</span>;
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">for</span> (<span style="color:#a90d91">int</span> <span style="color:#000">i</span> <span style="color:#000">=</span> <span style="color:#000">0</span>; <span style="color:#000">i</span> <span style="color:#000">&lt;</span> <span style="color:#000">input</span>.<span style="color:#836c28">length</span>; <span style="color:#000">i</span><span style="color:#000">++</span>){
+</span></span><span style="display:flex;"><span>			<span style="color:#000">input</span><span style="color:#000">[</span><span style="color:#000">i</span><span style="color:#000">]</span> <span style="color:#000">=</span> <span style="color:#000">Integer</span>.<span style="color:#836c28">parseInt</span>(<span style="color:#000">args</span><span style="color:#000">[</span><span style="color:#000">i</span><span style="color:#000">]</span>);
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">int</span> <span style="color:#000">res</span> <span style="color:#000">=</span> <span style="color:#000">sum</span>(<span style="color:#000">input</span>);
+</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Somma : "</span> <span style="color:#000">+</span> <span style="color:#000">res</span>);
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></section><section>
+<h2 id="elementi-applicativi-allinterno-del-corso-oop">Elementi applicativi all’interno del corso OOP</h2>
+<h3 id="teoria-o-applicazioni">Teoria o applicazioni?</h3>
+<ul>
+<li>La parte applicativa è maggiormente sviluppata in laboratorio e poi sperimentata nella realtà nella prova d’esame di progetto</li>
+<li>In aula si illustrano i concetti, i meccanismi, e gli elementi metodologici</li>
+<li>Spesso comunque si mostreranno applicazioni di esempio, semplici ma “paradigmatiche”, dove discutere alcuni aspetti tecnici e metodologici</li>
+</ul>
+</section><section>
+<h2 id="applicazione-guessmynumberapp">Applicazione: <code>GuessMyNumberApp</code></h2>
+<h3 id="problema">Problema</h3>
+<p>Realizzare una applicazione che, scelto un numero a caso compreso fra 1 a 100, chieda all’utente di indovinarlo, dandogli $10$ tentativi e indicando ogni volta se il numero in input è maggiore o minore di quello scelto all’inizio</p>
+<h3 id="alcune-scelte-progettuali">Alcune scelte progettuali</h3>
+<ul>
+<li>L’applicazione è realizzabile in prima battuta come codice strutturato dentro al <code>main</code></li>
+<li>Le (max) 10 iterazioni sono realizzabili da un ciclo (p.e., <code>for</code>)</li>
+</ul>
+<h3 id="elementi-implementativi">Elementi implementativi</h3>
+<ul>
+<li><code>java.io.Console#readLine</code> usabile per leggere input da tastiera (console ottenibile da <code>System.console()</code>, se associata alla JVM in uso)</li>
+<li><code>java.lang.Integer.parseInt(String)</code> usabile per convertire una stringa in un numero</li>
+<li><code>java.util.Random.nextInt</code> usabile per ottenere un numero random</li>
+</ul>
+</section><section>
+<h2 id="implementazione-guessmynumberapp">Implementazione <code>GuessMyNumberApp</code></h2>
+<!--  \srcode{\scriptsize}{3}{100}{\ecl/GuessMyNumberApp.java} -->
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.Random</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">GuessMyNumberApp</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span>) {
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">int</span> <span style="color:#000">number</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Random</span>().<span style="color:#836c28">nextInt</span>(<span style="color:#000">99</span>) <span style="color:#000">+</span> <span style="color:#000">1</span>;
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">for</span> (<span style="color:#a90d91">int</span> <span style="color:#000">i</span> <span style="color:#000">=</span> <span style="color:#000">1</span>; <span style="color:#000">i</span> <span style="color:#000">&lt;=</span> <span style="color:#000">10</span>; <span style="color:#000">i</span><span style="color:#000">++</span>){
+</span></span><span style="display:flex;"><span>			<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Attempt no. "</span><span style="color:#000">+</span><span style="color:#000">i</span>);
+</span></span><span style="display:flex;"><span>			<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Insert your guess.. "</span>);
+</span></span><span style="display:flex;"><span>			<span style="color:#a90d91">int</span> <span style="color:#000">guess</span> <span style="color:#000">=</span> <span style="color:#000">Integer</span>.<span style="color:#836c28">parseInt</span>(<span style="color:#000">System</span>.<span style="color:#836c28">console</span>().<span style="color:#836c28">readLine</span>());
+</span></span><span style="display:flex;"><span>			<span style="color:#a90d91">if</span> (<span style="color:#000">guess</span> <span style="color:#000">==</span> <span style="color:#000">number</span>){
+</span></span><span style="display:flex;"><span>				<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"You won!!"</span>);
+</span></span><span style="display:flex;"><span>				<span style="color:#a90d91">return</span>;
+</span></span><span style="display:flex;"><span>			} <span style="color:#a90d91">else</span> <span style="color:#a90d91">if</span> (<span style="color:#000">guess</span> <span style="color:#000">&gt;</span> <span style="color:#000">number</span>){
+</span></span><span style="display:flex;"><span>				<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Your guess is greater, try again.."</span>);
+</span></span><span style="display:flex;"><span>			} <span style="color:#a90d91">else</span> {
+</span></span><span style="display:flex;"><span>				<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Your guess is lower, try again.."</span>);
+</span></span><span style="display:flex;"><span>			}
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></section><section>
+<h2 id="tipi-primitivi-e-operatori">Tipi primitivi e operatori</h2>
 <p>Flusso:</p>
 <ul>
 <li>HelloWorld in Java che mostra il punto d’ingresso senza codice</li>
@@ -86,7 +675,7 @@ e si sviluppa attraverso l’interazione tra gli oggetti.</p>
 </li>
 <li>Abbiamo usato una Stringa <code>"..."</code>: esistono alcuni tipi di dato che sono forniti dal sistema</li>
 </ul>
-<h1 id="tipi-primitivi-e-operatori">Tipi primitivi e operatori</h1>
+<h1 id="tipi-primitivi-e-operatori-1">Tipi primitivi e operatori</h1>
 <ul>
 <li>In java i tipi di dato si dividono in due categorie: le classi e i tipi primitivi
 <ul>
@@ -792,7 +1381,7 @@ per il momento non ce ne occuperemo perché il JDK fornisce “di default” acc
 <li>fare qualche esercizio con la costruzione e uso di classi</li>
 </ul>
 </section><section>
-<h1 id="oggetti-e-classi-1">Oggetti e classi</h1>
+<h1 id="oggetti-e-classi">Oggetti e classi</h1>
 <h4 id="progettazione-e-sviluppo-del-software">Progettazione e Sviluppo del Software</h4>
 <h4 id="cdl-tecnologie-dei-sistemi-informatici">C.D.L. Tecnologie dei Sistemi Informatici</h4>
 <h3 id="danilo-pianini"><a href="mailto:danilo.pianini@unibo.it">Danilo Pianini — <code>danilo.pianini@unibo.it</code></a></h3>
@@ -900,9 +1489,13 @@ per il momento non ce ne occuperemo perché il JDK fornisce “di default” acc
   
 
   
+    
+  
 
   
 
+  
+    
   
 
   
