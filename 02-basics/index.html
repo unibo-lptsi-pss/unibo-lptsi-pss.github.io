@@ -118,62 +118,51 @@ chiamato <em>bytecode</em> (file con estensione <code>.class</code>)</li>
 <li>Un <em>tipo</em> è costituito da:
 <ul>
 <li>un <em>nome</em></li>
-<li>delle regole che ne definiscono la struttura, oppure dall’enumerazione dei possibili valori</li>
+<li>delle regole che ne definiscono la struttura, o l’enumerazione dei possibili valori</li>
 <li>un <em>insieme di operatori</em> o meccanismi per manipolarli</li>
 </ul>
 </li>
 </ul>
-<h3 id="tipi-di-java">Tipi di Java</h3>
+<h3 id="type-checking-in-java">Type checking in Java</h3>
 <ul>
-<li><em>Primitivi</em>: <code>boolean</code>, <code>byte</code>, <code>short</code>, <code>int</code>, <code>long</code>, <code>float</code>, <code>double</code>, <code>char</code></li>
-<li><em>Classi</em>: oggi vedremo <code>String</code>, ma ce ne sono molte altre</li>
-<li><em>Array</em>: <code>boolean[]</code>, <code>byte[]</code>, <code>String[]</code>, <code>String[][]</code>, $\ldots$</li>
-</ul>
-<h3 id="java-e-i-tipi">Java e i tipi</h3>
-<ul>
-<li>Java ha <em>tipizzazione statica</em>: ogni espressione ha un tipo noto dal compilatore</li>
-<li>Java ha <em>tipizzazione forte</em>: non si accettano espressioni con errori di tipo</li>
-<li>$\Rightarrow$ .. permette l’intercettazione a priori di molti errori</li>
-<li>$\Rightarrow$ .. disciplina progettazione e programmazione</li>
+<li>Java ha <em>tipizzazione statica</em>: ogni espressione ha un tipo noto al compilatore</li>
+<li>Java è <em>type safe</em>: non si accettano espressioni con errori di tipo</li>
+<li>$\Rightarrow\ldots$ permette l’intercettazione a priori di molti errori</li>
+<li>$\Rightarrow\ldots$ disciplina progettazione e programmazione</li>
 </ul>
 </section><section>
-<h2 id="tipo-booleano">Tipo Booleano</h2>
+<h3 id="tipi-in-java">Tipi in Java</h3>
+<p>Java distingue due macro-categorie di tipi: tipi <strong>primitivi</strong> e tipi <strong>non-primitivi</strong>.</p>
+<h4 id="tipi-primitivi">Tipi primitivi</h4>
+<p>I tipi primitivi in Java sono <code>boolean</code>, <code>byte</code>, <code>short</code>, <code>int</code>, <code>long</code>, <code>float</code>, <code>double</code>, <code>char</code>, <code>void</code></p>
 <ul>
-<li>
-<p>Nome del tipo: <code>boolean</code></p>
-</li>
-<li>
-<p>Valori: <code>true</code>, <code>false</code></p>
-</li>
-<li>
-<p>Operatori unari: <code>!</code> (not)</p>
-</li>
-<li>
-<p>Operatori binari: <code>&amp;</code> (and), <code>|</code> (or), <code>^</code> (xor), <code>&amp;&amp;</code> (and-c), <code>||</code> (or-c)</p>
+<li>Sono tipi “fondamentali”</li>
+<li>Sono predefiniti nel linguaggio e non possono essere ridefiniti o creati dal programmatore</li>
+<li>Non sono oggetti (non accettano l’invio di messaggi)</li>
+<li>Risiedono nello stack, non nello heap</li>
+<li>Hanno sempre un valore (non possono essere <code>null</code>)</li>
+</ul>
+<h4 id="tipi-non-primitivi">Tipi non-primitivi</h4>
 <ul>
-<li><code>&amp;&amp;</code> e <code>||</code> valutano il secondo argomento solo se necessario (<em>short-circuiting</em>)</li>
-<li><code>false &amp;&amp; X</code> restituisce <code>false</code> senza valutare <code>X</code></li>
-<li><code>true || X</code> restituisce <code>true</code> senza valutare <code>X</code></li>
+<li><em>Classi</em>: tipi di dato creabili dal programmatore
+<ul>
+<li>Sono utilizzate per costruire oggetti, che risiedono nello heap</li>
 </ul>
 </li>
-<li>
-<p>Operatori di confronto numerici: <code>&gt;</code>, <code>&lt;</code>, <code>&gt;=</code>, <code>&lt;=</code></p>
-</li>
-<li>
-<p>Operatori di uguaglianza (su tutti i tipi): <code>==</code>, <code>!=</code></p>
-</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#000">10</span> <span style="color:#000">==</span> <span style="color:#000">20</span>                     <span style="color:#177500">// false</span>
-</span></span><span style="display:flex;"><span><span style="color:#c41a16">"ciao"</span> <span style="color:#000">==</span> <span style="color:#c41a16">"ciao"</span>             <span style="color:#177500">// true</span>
-</span></span></code></pre></div><ul>
-<li>Operatore ternario (booleano,tipo,tipo): <code>?:</code>
+<li><em>Array</em>: <code>boolean[]</code>, <code>byte[]</code>, <code>String[]</code>, <code>String[][]</code>, $\ldots$
 <ul>
-<li><code>b ? v1 : v2</code> restituisce <code>v1</code> se <code>b</code> è vero, <code>v2</code> altrimenti</li>
+<li>Sequenze ordinate (accessibili per indice) di valori dello stesso tipo</li>
+<li>Sono oggetti, ma hanno una sintassi speciale</li>
+</ul>
+</li>
+<li><em>Stringhe</em>: <code>String</code>
+<ul>
+<li>Sequenza di caratteri (oggetti, ma con sintassi speciale)</li>
 </ul>
 </li>
 </ul>
 </section><section>
-<h2 id="tipi-numerici">Tipi numerici</h2>
+<h2 id="tipi-primitivi-1">Tipi primitivi</h2>
 <table>
   <thead>
       <tr>
@@ -185,93 +174,149 @@ chiamato <em>bytecode</em> (file con estensione <code>.class</code>)</li>
   </thead>
   <tbody>
       <tr>
-          <td>char</td>
+          <td><code>char</code></td>
           <td>16</td>
           <td><code>\u0000</code> ($0$)</td>
           <td><code>\uFFFF</code> ($2^{16}-1$)</td>
       </tr>
       <tr>
-          <td>byte</td>
+          <td><code>byte</code></td>
           <td>8</td>
           <td>$-128$</td>
           <td>$128$</td>
       </tr>
       <tr>
-          <td>short</td>
+          <td><code>short</code></td>
           <td>16</td>
           <td>$-2^{15}$</td>
           <td>$2^{15}-1$</td>
       </tr>
       <tr>
-          <td>int</td>
+          <td><code>int</code></td>
           <td>32</td>
           <td>$-2^{31}$</td>
           <td>$2^{31}-1$</td>
       </tr>
       <tr>
-          <td>long</td>
+          <td><code>long</code></td>
           <td>64</td>
           <td>$-2^{63}$</td>
           <td>$2^{63}-1$</td>
       </tr>
       <tr>
-          <td>float</td>
+          <td><code>float</code></td>
           <td>32</td>
           <td>IEEE754</td>
           <td>IEEE754</td>
       </tr>
       <tr>
-          <td>double</td>
+          <td><code>double</code></td>
           <td>64</td>
           <td>IEEE754</td>
           <td>IEEE754</td>
       </tr>
+      <tr>
+          <td><code>boolean</code></td>
+          <td>8</td>
+          <td>–</td>
+          <td>–</td>
+      </tr>
+      <tr>
+          <td><code>void</code></td>
+          <td>–</td>
+          <td>–</td>
+          <td>–</td>
+      </tr>
   </tbody>
 </table>
-<!--| void | -- | -- | -- |-->
-<!--| boolean | -- | -- | -- |-->
+</section><section>
+<h2 id="boolean"><code>boolean</code></h2>
+<p>Rappresentano valori di verità</p>
+<ul>
+<li>Valori ammessi: <code>true</code>, <code>false</code></li>
+<li>Operatori unari: <code>!</code> (not)</li>
+<li>Operatori binari: <code>&amp;</code> (and), <code>|</code> (or), <code>^</code> (xor), <code>&amp;&amp;</code> (and-c), <code>||</code> (or-c)
+<ul>
+<li><code>&amp;&amp;</code> e <code>||</code> valutano il secondo argomento solo se necessario (<em>short-circuiting</em>)
+<ul>
+<li><code>false &amp;&amp; X</code> restituisce <code>false</code> senza valutare <code>X</code></li>
+<li><code>true || X</code> restituisce <code>true</code> senza valutare <code>X</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>Gli <em>operatori</em> di <em>confronto e uguaglianza</em> restituiscono <code>boolean</code></p>
+<ul>
+<li>Operatori di uguaglianza e diseguaglianza: <code>==</code>, <code>!=</code></li>
+<li>Operatori di confronto fra primitivi numerici: <code>&gt;</code>, <code>&lt;</code>, <code>&gt;=</code>, <code>&lt;=</code></li>
+</ul>
+<p>Gli <em>operatori</em> e le <em>strutture di controllo</em> che operano sulla base di <em>valori di verità</em>
+(operatore ternario <code>?:</code>, strutture <code>if</code>, <code>while</code>, e <code>for</code>)
+si aspettano valori di tipo <code>boolean</code></p>
 </section><section>
 <h2 id="interi-byte-short-int-long">Interi: <code>byte</code>, <code>short</code>, <code>int</code>, <code>long</code></h2>
 <h3 id="operatori">Operatori</h3>
 <ul>
-<li>Base: <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code> (con resto), <code>%</code> (resto), <code>+</code> e <code>-</code> anche unari</li>
-<li>Bit-a-bit: <code>&amp;</code> (and), <code>|</code> (or), <code>^</code> (xor), <code>~</code> (complement)</li>
-<li>Shift: <code>&gt;&gt;</code> (dx con segno), <code>&lt;&lt;</code> (sx), <code>&gt;&gt;&gt;</code> (dx senza segno)</li>
+<li>Binari per operazioni numeriche: <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>, <code>%</code> (resto della divisione)</li>
+<li>Binari bit-a-bit: <code>&amp;</code> (and), <code>|</code> (or), <code>^</code> (xor)</li>
+<li>Binari per bit-shift: <code>&lt;&lt;</code> (sinistra), <code>&gt;&gt;</code> (destra con segno), <code>&gt;&gt;&gt;</code> (destra senza segno)</li>
+<li>Unari: <code>+</code>, <code>-</code> (inversione del segno), <code>~</code> (complemento bit-a-bit), <code>++</code> (incremento), <code>--</code> (decremento)
+<ul>
+<li><code>++</code> e <code>--</code> possono essere prefissi o postfissi
+<ul>
+<li><code>++x</code> e <code>--x</code> incrementano/decrementano e restituiscono il nuovo valore</li>
+<li><code>x++</code> e <code>x--</code> restituiscono il vecchio valore e poi incrementano/decrementano</li>
+</ul>
+</li>
+</ul>
+</li>
 <li>Operatori unari/binari applicati ad un tipo, restituiscono il tipo stesso</li>
 </ul>
 <h3 id="codifica-rappresentazione">Codifica, rappresentazione</h3>
 <ul>
-<li>Interi codificati in complemento a 2 (ciò impatta il suo range)</li>
+<li>Interi codificati in <a href="https://it.wikipedia.org/wiki/Complemento_a_due">complemento a 2</a>
+<ul>
+<li>da cui, per un numero di $N$ bit, il range di valori rappresentabili è $[-2^{N-1}, 2^{N-1}-1]$</li>
+</ul>
+</li>
 <li>Rappresentazione decimale (<code>200</code>), ottale (<code>0310</code>), esadecimale (<code>0xC8</code>)</li>
 <li>Di default sono <code>int</code>, per avere un <code>long</code> va aggiunta una <code>L</code> (<code>15L</code>)</li>
-</ul>
-<h3 id="prassi">Prassi</h3>
+<li>Non c’è sintassi per <code>byte</code> e <code>short</code> (usati di rado): si usano cast espliciti (<code>(byte) 5</code>)</li>
+<li>È possibile usare underscore (<code>_</code>) per separare le cifre
 <ul>
-<li>Raro l’uso di <code>byte</code> e <code>short</code>, non molto più efficienti di <code>int</code></li>
-<li><code>int</code> più efficiente di <code>long</code></li>
+<li>Es.: <code>1_000_000</code> è più leggibile di <code>1000000</code></li>
+</ul>
+</li>
 </ul>
 </section><section>
 <h2 id="numeri-in-virgola-mobile-float-double">Numeri in virgola mobile: <code>float</code>, <code>double</code></h2>
+<p>Numeri con virgola mobile, con valori speciali:</p>
+<ul>
+<li>“not-a-number” (<code>NaN</code>),</li>
+<li>$\infty$ (<code>POSITIVE_INFINITY</code>), $-\infty$ (<code>NEGATIVE_INFINITY</code>)</li>
+</ul>
 <h3 id="operatori-1">Operatori</h3>
 <ul>
-<li>Base: <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code> (con resto), <code>%</code> (resto), <code>+</code> e <code>-</code> anche unari</li>
+<li>Unari: <code>+</code> e <code>-</code></li>
+<li>Binari: <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>, <code>%</code> (resto della divisione)</li>
 </ul>
 <h3 id="codifica-rappresentazione-1">Codifica, rappresentazione</h3>
 <ul>
-<li>Codificati secondo lo standard IEEE 754</li>
+<li>Codificati secondo lo standard <a href="https://en.wikipedia.org/wiki/IEEE_754">IEEE 754</a>
+<ul>
+<li>Perdono di precisione man mano che il numero cresce</li>
+<li>Sono possibili errori di arrotondamento (provate a fare <code>0.1 + 0.2</code> in JShell)</li>
+</ul>
+</li>
 <li>Rappresentazione standard (<code>-128.345</code>), o scientifica (<code>-1.2835E+2</code>)</li>
-<li>Di default sono <code>double</code>, per avere un <code>float</code> va aggiunta una <code>F</code></li>
+<li>Di default sono <code>double</code>, per avere un <code>float</code> va aggiunta una <code>f</code></li>
 </ul>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#000">5</span>   <span style="color:#177500">// int</span>
 </span></span><span style="display:flex;"><span><span style="color:#000">5</span>.  <span style="color:#177500">// double</span>
 </span></span><span style="display:flex;"><span><span style="color:#000">5d</span>  <span style="color:#177500">// double</span>
 </span></span><span style="display:flex;"><span><span style="color:#000">5f</span>  <span style="color:#177500">// float</span>
-</span></span></code></pre></div><h3 id="prassi-1">Prassi</h3>
-<ul>
-<li>Raro l’uso di <code>float</code>, anche se più efficiente di <code>double</code></li>
-<li>Attenzione agli errori di precisione!!</li>
-</ul>
-</section><section>
+</span></span></code></pre></div></section><section>
 <h2 id="provate-voi-stessi">Provate voi stessi..</h2>
 <!--  \srcode{\scriptsize}{3}{100}{\ecl/Try.java} -->
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">void</span> <span style="color:#000">main</span>() {
@@ -1522,15 +1567,11 @@ per il momento non ce ne occuperemo perché il JDK fornisce “di default” acc
   
 
   
-    
-  
   
 
   
   
 
-  
-    
   
   
 
