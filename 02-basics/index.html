@@ -43,7 +43,7 @@
 <li>Variabili e riferimenti</li>
 </ul>
 </section><section>
-<h2 id="hello-world-in-java">Hello World in Java</h2>
+<h2 id="hello-world-in-java-25">Hello World in Java (25+)</h2>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">void</span> <span style="color:#000">main</span>() {
 </span></span><span style="display:flex;"><span>    <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Hello, World!"</span>);
 </span></span><span style="display:flex;"><span>}
@@ -53,19 +53,48 @@
 </span></span><span style="display:flex;"><span>    <span style="color:#000">printf</span>(<span style="color:#c41a16">"Hello, World!</span><span style="color:#c41a16">\n</span><span style="color:#c41a16">"</span>);
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">return</span> <span style="color:#1c01ce">0</span>;
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>Cos’è <code>System.out.println</code>?</p>
+</span></span></code></pre></div><p>Come leggerlo?</p>
 <ul>
-<li>In ogni programma java esiste un oggetto di sistema chiamato <code>System.out</code> che rappresenta lo standard output</li>
-<li>Questo oggetto può ricevere messaggi <code>print</code> (funziona come <code>printf</code> in C) che stampano a video quello che viene fornito e messaggi <code>println</code> che vanno anche a capo</li>
+<li>In Java esiste un oggetto chiamato <code>System</code> che rappresenta il sistema (creato automaticamente dalla virtual machine)</li>
+<li>L’oggetto system può ricevere il messaggio <code>out</code>, e risponde fornendo un oggetto che rappresenta lo standard output</li>
+<li>Fra i messaggi che l’oggetto che rappresenta lo standard output può ricevere ci sono:
+<ul>
+<li><code>print</code>, analogo a <code>printf</code> in C, che stampa a video la stringa fornita</li>
+<li><code>println</code>, come <code>print</code>, ma va a capo sempre anche se non viene specificato <code>\n</code></li>
+</ul>
+</li>
 </ul>
 </section><section>
-<h2 id="eseguiamolo">Eseguiamolo!</h2>
+<h2 id="compilazione-ed-esecuzione">Compilazione ed esecuzione</h2>
 <ul>
-<li>Visto che è un java è un linguaggio compilato, prima di eseguirlo dobbiamo compilarlo</li>
-<li>Salviamolo in un file <code>HelloWorld.java</code></li>
-<li>Compiliamolo con <code>javac HelloWorld.java</code></li>
-<li>Eseguiamolo con <code>java HelloWorld</code></li>
-<li>Dovremmo vedere il messaggio “Hello, World!” stampato a video.</li>
+<li>Salviamo il sorgente dentro un file <code>HelloWorld.java</code></li>
+<li>Java è un linguaggio compilato, prima di eseguirlo dobbiamo compilarlo
+<ul>
+<li>Ossia, dobbiamo <em>tradurlo</em> da codice Java a un formato eseguibile dalla Java Virtual Machine (JVM),
+chiamato <em>bytecode</em> (file con estensione <code>.class</code>)</li>
+<li>Il compilatore trasforma <strong>file</strong> di testo (di solito <code>*.java</code>) in <strong>file</strong> binari (<code>*.class</code>)</li>
+<li>Il tool di compilazione è <code>javac</code> (Java Compiler)
+<ul>
+<li>Posizioniamo il terminale dove si trova il nostro file Java e lanciamo: <code>javac HelloWorld.java</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Osserviamo che viene creato il file <code>HelloWorld.class</code>
+<ul>
+<li>Questo file contiene le iscrizioni in linguaggio bytecode</li>
+<li>È un file binario, non può essere letto con un editor di testo</li>
+<li>È però possibile decompilarlo e osservare le istruzioni usando <code>javap</code></li>
+</ul>
+</li>
+<li>L’interprete del bytecode (la Java Virtual Machine) non esegue file, ma <em>classi</em></li>
+<li>Eseguiamolo con <code>java HelloWorld</code>
+<ul>
+<li>Notate che eseguiamo <code>HelloWorld</code>, e non <code>HelloWorld.class</code>!</li>
+<li>La risoluzione del file <code>.class</code> dove si trova la classe viene fatta automaticamente dalla JVM</li>
+</ul>
+</li>
+<li>Il risultato è la stampa a video di <code>Hello, World!</code></li>
 </ul>
 </section><section>
 <h2 id="il-tool-jshell">Il tool <code>JShell</code></h2>
@@ -1250,7 +1279,7 @@ per il momento non ce ne occuperemo perché il JDK fornisce “di default” acc
 </span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Hello World!"</span>);
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h3 id="compilazione-ed-esecuzione">Compilazione ed esecuzione</h3>
+</span></span></code></pre></div><h3 id="compilazione-ed-esecuzione-1">Compilazione ed esecuzione</h3>
 <ul>
 <li>con un editor di testo si scrive la classe in un file <code>Hello.java</code></li>
 <li>si compila la classe col comando: <code>javac Hello.java</code></li>
