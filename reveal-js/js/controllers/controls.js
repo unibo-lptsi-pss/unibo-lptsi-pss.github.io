@@ -66,10 +66,7 @@ export default class Controls {
 	 */
 	configure( config, oldConfig ) {
 
-		this.element.style.display = (
-			config.controls &&
-			(config.controls !== 'speaker-only' || this.Reveal.isSpeakerNotes())
-		) ? 'block' : 'none';
+		this.element.style.display = config.controls ? 'block' : 'none';
 
 		this.element.setAttribute( 'data-controls-layout', config.controlsLayout );
 		this.element.setAttribute( 'data-controls-back-arrows', config.controlsBackArrows );
@@ -83,10 +80,9 @@ export default class Controls {
 		let pointerEvents = [ 'touchstart', 'click' ];
 
 		// Only support touch for Android, fixes double navigations in
-		// stock browser. Use touchend for it to be considered a valid
-		// user interaction (so we're allowed to autoplay media).
+		// stock browser
 		if( isAndroid ) {
-			pointerEvents = [ 'touchend' ];
+			pointerEvents = [ 'touchstart' ];
 		}
 
 		pointerEvents.forEach( eventName => {
@@ -103,7 +99,7 @@ export default class Controls {
 
 	unbind() {
 
-		[ 'touchstart', 'touchend', 'click' ].forEach( eventName => {
+		[ 'touchstart', 'click' ].forEach( eventName => {
 			this.controlsLeft.forEach( el => el.removeEventListener( eventName, this.onNavigateLeftClicked, false ) );
 			this.controlsRight.forEach( el => el.removeEventListener( eventName, this.onNavigateRightClicked, false ) );
 			this.controlsUp.forEach( el => el.removeEventListener( eventName, this.onNavigateUpClicked, false ) );
@@ -150,14 +146,9 @@ export default class Controls {
 			if( fragmentsRoutes.prev ) this.controlsPrev.forEach( el => { el.classList.add( 'fragmented', 'enabled' ); el.removeAttribute( 'disabled' ); } );
 			if( fragmentsRoutes.next ) this.controlsNext.forEach( el => { el.classList.add( 'fragmented', 'enabled' ); el.removeAttribute( 'disabled' ); } );
 
-			const isVerticalStack = this.Reveal.isVerticalSlide( currentSlide );
-			const hasVerticalSiblings = isVerticalStack &&
-																	currentSlide.parentElement &&
-																	currentSlide.parentElement.querySelectorAll( ':scope > section' ).length > 1;
-
 			// Apply fragment decorators to directional buttons based on
 			// what slide axis they are in
-			if( isVerticalStack && hasVerticalSiblings ) {
+			if( this.Reveal.isVerticalSlide( currentSlide ) ) {
 				if( fragmentsRoutes.prev ) this.controlsUp.forEach( el => { el.classList.add( 'fragmented', 'enabled' ); el.removeAttribute( 'disabled' ); } );
 				if( fragmentsRoutes.next ) this.controlsDown.forEach( el => { el.classList.add( 'fragmented', 'enabled' ); el.removeAttribute( 'disabled' ); } );
 			}

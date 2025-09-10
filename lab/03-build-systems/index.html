@@ -2,12 +2,12 @@
     <meta charset="utf-8">
 <title>Progettazione e Sviluppo del Software</title>
 <meta name="description" content="Progettazione e Sviluppo del Software, Tecnologie dei Sistemi Informatici">
-<meta name="author" content="Danilo Pianini">
+
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><link rel="stylesheet" href="/reveal-js/dist/reset.css">
 <link rel="stylesheet" href="/reveal-js/dist/reveal.css">
-  <link rel="stylesheet" href="/css/custom-theme.min.74aaab17185ca745386dea4049941e9a87daa017355a815c6d4be285e830870d.css" id="theme"><link rel="stylesheet" href="/highlight-js/default.min.css">
+  <link rel="stylesheet" href="/css/custom-theme.min.64b25e8fc79cb2d6ebd4c0f19d110cd870679489e26e7e2cf19b4b743498a84c.css" id="theme"><link rel="stylesheet" href="/highlight-js/default.min.css">
 <link href="https://fonts.googleapis.com/css?family=Roboto Mono" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Oxygen Mono" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Ubuntu Mono" rel="stylesheet">
@@ -198,7 +198,6 @@ che può essere sovrascritta in caso di necessità</p>
 </ul>
 </section><section>
 <h2 id="gradle-è-in-espansione-google-trends">Gradle è in espansione: Google trends</h2>
-<!-- this file includes generated content. Do not edit. Edit content/lab/03-build-systems/generator.md, instead. -->
 <script type="text/javascript" src="https://ssl.gstatic.com/trends_nrtr/3045_RC01/embed_loader.js"></script>
 <script type="text/javascript">
 var today = new Date().toISOString().split('T')[0]
@@ -220,6 +219,7 @@ trends.embed.renderExploreWidget(
   }
 );
 </script>
+
 </section><section>
 <h2 id="concetti-base-in-gradle-task-progetto-plugin">Concetti base in Gradle: <strong>task</strong>, <strong>progetto</strong>, <strong>plugin</strong></h2>
 <h3 id="progetto">Progetto</h3>
@@ -264,8 +264,7 @@ Gradle contiene diversi plugin pronti all’uso
 <li>Al momento, ci basta una sola riga di codice per ciascuno!</li>
 </ul>
 <p><code>settings.gradle.kts</code></p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#000">rootProject.name = "minimal-build"
-</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#000">rootProject</span>.<span style="color:#000">name</span> = <span style="color:#c41a16">"minimal-build"</span>
 </span></span></code></pre></div><p><code>build.gradle.kts</code></p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#000">plugins</span> { <span style="color:#000">java</span> }
 </span></span></code></pre></div><p>Così configurato, Gradle autonomamente:</p>
@@ -442,7 +441,7 @@ a seconda della nostra piattaforma</li>
 
   var revealHugoDefaults = { center: true, controls: true, history: true, progress: true, transition: "slide" };
 
-  var revealHugoPlugins = {
+  var revealHugoPlugins = { 
     plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealZoom ]
    };
   var revealHugoSiteParams = JSON.parse(document.getElementById('reveal-hugo-site-params').innerHTML);
@@ -461,155 +460,111 @@ a seconda della nostra piattaforma</li>
 
 
 
-
-  
   
 
   
+
   
 
   
-  
 
   
-  
 
-  
-  
-
-  
   
 
   
     
   
+
   
 
   
     
   
+
   
 
   
     
   
-  
 
-  
-  
-
-  
-    
-  
-  
-
-  
   
 
   
     
   
-  
 
   
-  
 
-  
   
 
   
     
   
+
+  
+    
+  
+
+  
+
   
 
   
     
   
+
+  
+    
   
 
   
-  
 
   
+
   
 
   
     
   
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
   
 
   
     
   
+
   
 
   
+
   
 
   
+
   
 
   
-  
 
-  
-    
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-    
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
   
 
 
 
-  <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.3/dist/mermaid.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@9.1.6/dist/mermaid.min.js"></script>
   <script>
     mermaid.initialize({"startOnLoad":false});
 
@@ -632,8 +587,6 @@ a seconda della nostra piattaforma</li>
     Reveal.on('slidechanged', render);
     Reveal.on('ready', render);
   </script>
-
-
 
     <script>
     MathJax = {

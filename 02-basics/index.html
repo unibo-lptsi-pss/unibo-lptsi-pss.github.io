@@ -2,12 +2,12 @@
     <meta charset="utf-8">
 <title>Progettazione e Sviluppo del Software</title>
 <meta name="description" content="Progettazione e Sviluppo del Software, Tecnologie dei Sistemi Informatici">
-<meta name="author" content="Danilo Pianini">
+
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><link rel="stylesheet" href="/reveal-js/dist/reset.css">
 <link rel="stylesheet" href="/reveal-js/dist/reveal.css">
-  <link rel="stylesheet" href="/css/custom-theme.min.74aaab17185ca745386dea4049941e9a87daa017355a815c6d4be285e830870d.css" id="theme"><link rel="stylesheet" href="/highlight-js/default.min.css">
+  <link rel="stylesheet" href="/css/custom-theme.min.64b25e8fc79cb2d6ebd4c0f19d110cd870679489e26e7e2cf19b4b743498a84c.css" id="theme"><link rel="stylesheet" href="/highlight-js/default.min.css">
 <link href="https://fonts.googleapis.com/css?family=Roboto Mono" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Oxygen Mono" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Ubuntu Mono" rel="stylesheet">
@@ -444,39 +444,27 @@ si aspettano valori di tipo <code>boolean</code></p>
 <h2 id="java-array">Java array</h2>
 <h3 id="caratteristiche-generali">Caratteristiche generali</h3>
 <ul>
-<li>Internamente sono degli oggetti (cf. creazione con <code>new</code>)</li>
+<li>Internamente sono degli oggetti</li>
 <li>Quindi sono gestiti con riferimenti sullo heap</li>
 <li>Notazione ad-hoc (e C-like) per creare, leggere e scrivere elementi</li>
 </ul>
 <h3 id="principale-differenza-rispetto-al-c">Principale differenza rispetto al C</h3>
 <ul>
-<li>Un array ha una lunghezza (campo <code>length</code>) esplicita e accessibile (non modificabile)</li>
+<li>Un array ha una lunghezza esplicita e accessibile (non modificabile)</li>
 <li>È impossibile violare i limiti di una array, pena un errore (<code>ArrayIndexOutOfBoundsException</code>)</li>
 <li>L’accesso all’array è di conseguenza leggermente rallentato</li>
 </ul>
 </section><section>
-<h2 id="sintassi-array">Sintassi Array</h2>
+<h2 id="sintassi-array-introduzione">Sintassi Array (introduzione)</h2>
 <h3 id="creazione-array">Creazione array</h3>
 <ul>
-<li>Due notazioni, per elenco (elencazione di valori)
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">int</span><span style="color:#000">[]</span> <span style="color:#000">ar1</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#a90d91">int</span><span style="color:#000">[]</span>{<span style="color:#000">10</span>,<span style="color:#000">20</span>,<span style="color:#000">30</span>,<span style="color:#000">40</span>,<span style="color:#000">50</span>,<span style="color:#000">7</span>,<span style="color:#000">8</span>,<span style="color:#000">9</span>};
-</span></span><span style="display:flex;"><span><span style="color:#a90d91">var</span>   <span style="color:#000">ar2</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#a90d91">int</span><span style="color:#000">[]</span>{<span style="color:#000">10</span>,<span style="color:#000">20</span>,<span style="color:#000">30</span>}; <span style="color:#177500">// variante con `var`</span>
-</span></span><span style="display:flex;"><span><span style="color:#a90d91">int</span><span style="color:#000">[]</span> <span style="color:#000">ar3</span> <span style="color:#000">=</span> {<span style="color:#000">10</span>,<span style="color:#000">20</span>,<span style="color:#000">30</span>};          <span style="color:#177500">// variante senza `new`</span>
-</span></span></code></pre></div>e per dimensione
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">int</span><span style="color:#000">[]</span> <span style="color:#000">ar4</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#a90d91">int</span><span style="color:#000">[</span><span style="color:#000">200</span><span style="color:#000">]</span>;        <span style="color:#177500">// new int[]{0,0,...,0}</span>
-</span></span></code></pre></div><ul>
-<li>quando creati per dimensione, gli elementi sono inizializzati (come se fossero campi di una classe)</li>
+<li><code>int[] arr = {10,20,30};</code> (inizializzazione per elenco)</li>
+<li>Vedremo altre forme più avanti</li>
 </ul>
-</li>
-<li>la creazione di array di array (<em>matrici</em>) è analoga:</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">int</span><span style="color:#000">[][]</span> <span style="color:#000">m</span>  <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#a90d91">int</span><span style="color:#000">[][]</span>{ <span style="color:#a90d91">new</span> <span style="color:#a90d91">int</span><span style="color:#000">[]</span>{...}, ... };
-</span></span><span style="display:flex;"><span><span style="color:#a90d91">int</span><span style="color:#000">[][]</span> <span style="color:#000">m2</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#a90d91">int</span><span style="color:#000">[</span><span style="color:#000">200</span><span style="color:#000">][</span><span style="color:#000">200</span><span style="color:#000">]</span>;
-</span></span></code></pre></div><h3 id="accesso-array-zero-indexed">Accesso array (<em>zero-indexed</em>)</h3>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#000">ar4</span>.<span style="color:#836c28">length</span>    <span style="color:#177500">// 200 (lunghezza)</span>
-</span></span><span style="display:flex;"><span><span style="color:#000">ar4</span><span style="color:#000">[</span><span style="color:#000">23</span><span style="color:#000">]</span>       <span style="color:#177500">// espressione per leggere 24-esimo elemento</span>
-</span></span><span style="display:flex;"><span><span style="color:#000">ar4</span><span style="color:#000">[</span><span style="color:#000">23</span><span style="color:#000">]</span> <span style="color:#000">=</span> <span style="color:#000">10</span>; <span style="color:#177500">// assegnamento del 24-esimo elemento</span>
-</span></span><span style="display:flex;"><span><span style="color:#000">m</span><span style="color:#000">[</span><span style="color:#000">1</span><span style="color:#000">][</span><span style="color:#000">2</span><span style="color:#000">]</span> <span style="color:#000">=</span> <span style="color:#000">10</span>; <span style="color:#177500">// assegnamento riga 2 colonna 3</span>
+<h3 id="accesso-array-zero-indexed">Accesso array (<em>zero-indexed</em>)</h3>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#000">arr</span>.<span style="color:#836c28">length</span>    <span style="color:#177500">// 3 (lunghezza)</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">arr</span><span style="color:#000">[</span><span style="color:#000">0</span><span style="color:#000">]</span>       <span style="color:#177500">// espressione per leggere 0-esimo elemento</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">arr</span><span style="color:#000">[</span><span style="color:#000">0</span><span style="color:#000">]</span> <span style="color:#000">=</span> <span style="color:#000">10</span>; <span style="color:#177500">// assegnamento del 0-esimo elemento</span>
 </span></span></code></pre></div></section><section>
 <h2 id="qualche-esempio-duso-di-array">Qualche esempio d’uso di array</h2>
 <!--  \srcode{\scriptsize}{3}{100}{\ecl/UseArrays.java} -->
@@ -489,49 +477,35 @@ si aspettano valori di tipo <code>boolean</code></p>
 </span></span><span style="display:flex;"><span>	<span style="color:#177500">// System.out.println(words[2]); --&gt; OutOfBoundException</span>
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></section><section>
-<h2 id="array-di-oggetti">Array di oggetti</h2>
-<h3 id="creazione-array--stessa-notazione">Creazione array – stessa notazione</h3>
-<ul>
-<li>Per elenco:</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#000">Object</span><span style="color:#000">[]</span> <span style="color:#000">ar</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Object</span><span style="color:#000">[]</span>{ <span style="color:#a90d91">new</span> <span style="color:#000">Object</span>(), <span style="color:#a90d91">new</span> <span style="color:#000">Object</span>() };
-</span></span></code></pre></div><ul>
-<li>Per dimensione</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#000">Object</span><span style="color:#000">[]</span> <span style="color:#000">ar2</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Object</span><span style="color:#000">[</span><span style="color:#000">200</span><span style="color:#000">]</span>;
-</span></span></code></pre></div><ul>
-<li>Note
-<ul>
-<li>in ogni posizione c’è <code>null</code></li>
-<li>frequente errore dello studente è pensare che sia un array di nuovi oggetti automaticamente creati</li>
-<li>ricorda: è una sola <code>new</code> quindi si crea un solo oggetto, l’array stesso</li>
-</ul>
-</li>
-</ul>
-</section><section>
+<!--
+## Array di oggetti
+
+
+
+### Creazione array -- stessa notazione
+
+
+
+*  Per elenco:
+```java
+Object[] ar = new Object[]{ new Object(), new Object() };
+```
+*  Per dimensione
+```java
+Object[] ar2 = new Object[200];
+```
+* Note
+    *  in ogni posizione c'è `null`
+    *  frequente errore dello studente è pensare che sia un array di nuovi oggetti automaticamente creati
+    *  ricorda: è una sola `new` quindi si crea un solo oggetto, l'array stesso
+
+
+
+
+
+---
+--> 
 <h1 id="istruzioni-statement">Istruzioni (statement)</h1>
-</section><section>
-<h2 id="i-linguaggi-oo-sono-anche-imperativistrutturati">I linguaggi OO sono anche imperativi/strutturati</h2>
-<h3 id="java-estende-il-c">Java “estende” il C</h3>
-<ul>
-<li>Come C++ e C#, Java è alla base anche imperativo/strutturato – altri linguaggi come Scala invece no</li>
-<li>Il codice di un metodo è un insieme di comandi C-like</li>
-</ul>
-<!--  *  Ecco perché li si chiama object-oriented e non object-based -->
-<!-- In realtà: object-based PLs consentono di creare e usare oggetti; quelli object-oriented forniscono inoltre supporto per ereditarietà e polimorfismo -->
-<h3 id="panoramica-istruzioni">Panoramica istruzioni</h3>
-<ul>
-<li>Variabili e assegnamenti:</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">int</span> <span style="color:#000">x</span>;              <span style="color:#177500">// dichiarazione</span>
-</span></span><span style="display:flex;"><span><span style="color:#a90d91">int</span> <span style="color:#000">x</span><span style="color:#000">=</span><span style="color:#000">5</span>;  <span style="color:#a90d91">var</span> <span style="color:#000">x</span><span style="color:#000">=</span><span style="color:#000">5</span>;  <span style="color:#177500">// dichiarazione e inizializzazione (assegnamento)</span>
-</span></span><span style="display:flex;"><span><span style="color:#000">x</span><span style="color:#000">=</span><span style="color:#000">5</span>;                <span style="color:#177500">// assegnamento</span>
-</span></span></code></pre></div><ul>
-<li>Ritorno: <code>return 5;</code></li>
-<li>Chiamate: <code>meth(3,4);</code> <code>obj.meth(3);</code>  <code>Cls.meth(4);</code></li>
-<li>Costrutti di controllo del flusso: <code>for</code>, <code>while</code>, <code>do</code>, <code>switch</code>, <code>if</code>, <code>break</code>, <code>continue</code></li>
-<li>Qualche altra tipologia, che vedremo nel prosieguo</li>
-</ul>
 </section><section>
 <h2 id="java-vs-c">Java vs C</h2>
 <h3 id="principali-differenze">Principali differenze</h3>
@@ -552,6 +526,7 @@ si aspettano valori di tipo <code>boolean</code></p>
 for(int i=0; i<10; i++){ /* .. */ }
 ```
 --->
+</section><section>
 <h3 id="differenza-filosofica">Differenza filosofica</h3>
 <ul>
 <li>Java è molto più restrittivo del C</li>
@@ -566,69 +541,76 @@ for(int i=0; i<10; i++){ /* .. */ }
 <li>Le prassi che discuteremo ci porteranno ulteriori rigidità</li>
 </ul>
 </section><section>
-<h2 id="java-come-linguaggio-puramente-strutturato-procedurale">Java come linguaggio puramente strutturato-procedurale</h2>
-<h3 id="un-uso-limitato-ma-a-volte-utile-di-java">Un uso limitato (ma a volte utile) di Java</h3>
-<ul>
-<li>Una classe ha solo metodi o campi dichiarati <code>static</code></li>
-<li>In questo caso tale classe definice un insieme di <em>funzioni/procedure</em> e <em>variabili globali</em> (a quella classe), ossia una struttura analoga a quella di una libreria C</li>
-<li>Un metodo (o campo) <em><strong>statico</strong></em> viene richiamato nel seguente modo:
-<ul>
-<li>da fuori la classe (se dichiarato <code>public</code>): <code>&lt;nome-classe&gt;.&lt;nome-metodo&gt;(...)</code></li>
-<li>da dentro la classe: <code>&lt;nome-metodo&gt;(...)</code></li>
+<h2 id="controllo-di-flusso-if">Controllo di flusso: <code>if</code></h2>
+<h3 id="sintassi">Sintassi</h3>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">if</span>(<span style="color:#000">condizione</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#177500">// blocco eseguito se condizione è true</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><ul>
+<li>La condizione deve essere di tipo <code>boolean</code>.</li>
+<li>Raccomandato usare sempre le parentesi graffe anche per un’unica istruzione.</li>
 </ul>
-</li>
-<li>E’ una tecnica usata per realizzare <em>utility class</em>, come ad esempio la classe delle funzioni matematiche <code>java.lang.Math</code></li>
-</ul>
-</section><section>
-<h2 id="qualche-prova-di-javalangmath">Qualche prova di <code>java.lang.Math</code></h2>
-<!--  \srcode{\ssmall}{3}{100}{\ecl/UseMath.java} -->
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.Arrays</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseMath</span> { <span style="color:#177500">// E' una utility class</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#177500">// Metodo statico, crea e torna un array di double</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#177500">// lungo size, contenente numeri random 0&lt;=x&lt;=1</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">static</span> <span style="color:#a90d91">double</span><span style="color:#000">[]</span> <span style="color:#000">randomValues</span>(<span style="color:#a90d91">int</span> <span style="color:#000">size</span>){
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">double</span><span style="color:#000">[]</span> <span style="color:#000">d</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#a90d91">double</span><span style="color:#000">[</span><span style="color:#000">size</span><span style="color:#000">]</span>;
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">for</span> (<span style="color:#a90d91">int</span> <span style="color:#000">i</span> <span style="color:#000">=</span> <span style="color:#000">0</span>; <span style="color:#000">i</span> <span style="color:#000">&lt;</span> <span style="color:#000">size</span>; <span style="color:#000">i</span><span style="color:#000">++</span>){
-</span></span><span style="display:flex;"><span>			<span style="color:#000">d</span><span style="color:#000">[</span><span style="color:#000">i</span><span style="color:#000">]</span> <span style="color:#000">=</span> <span style="color:#000">Math</span>.<span style="color:#836c28">random</span>();
-</span></span><span style="display:flex;"><span>		}
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#000">d</span>;
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span>) {
-</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">Math</span>.<span style="color:#836c28">random</span>());
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>		<span style="color:#177500">// Ricorda: toString è un metodo statico della classe Arrays</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">Arrays</span>.<span style="color:#836c28">toString</span>(<span style="color:#000">randomValues</span>(<span style="color:#000">10</span>)));
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">for</span> (<span style="color:#a90d91">double</span> <span style="color:#000">x</span> <span style="color:#000">=</span> <span style="color:#000">0</span>.<span style="color:#836c28">0</span>; <span style="color:#000">x</span> <span style="color:#000">&lt;=</span> <span style="color:#000">Math</span>.<span style="color:#836c28">PI</span> <span style="color:#000">*</span> <span style="color:#000">2</span>; <span style="color:#000">x</span> <span style="color:#000">=</span> <span style="color:#000">x</span> <span style="color:#000">+</span> <span style="color:#000">Math</span>.<span style="color:#836c28">PI</span> <span style="color:#000">/</span> <span style="color:#000">10</span>){
-</span></span><span style="display:flex;"><span>			<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"x = "</span> <span style="color:#000">+</span> <span style="color:#000">x</span> <span style="color:#000">+</span> <span style="color:#c41a16">"\t sin(x) = "</span> <span style="color:#000">+</span> <span style="color:#000">Math</span>.<span style="color:#836c28">sin</span>(<span style="color:#000">x</span>));
-</span></span><span style="display:flex;"><span>		}
-</span></span><span style="display:flex;"><span>	}
+<h3 id="esempio">Esempio</h3>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">int</span> <span style="color:#000">x</span> <span style="color:#000">=</span> <span style="color:#000">10</span>;
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">if</span> (<span style="color:#000">x</span> <span style="color:#000">&gt;</span> <span style="color:#000">0</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Positivo"</span>);
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></section><section>
-<h2 id="un-esercizio-sugli-array">Un esercizio sugli array</h2>
-<p>Costruire una funzione che dato un array ne produce in uscita uno della stessa lunghezza, ma invertendo il primo elemento con l’ultimo, il secondo col penultimo, etc..</p>
+<h2 id="if-else-e-else-if"><code>if-else</code> e <code>else if</code></h2>
+<h3 id="sintassi-1">Sintassi</h3>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">if</span>(<span style="color:#000">cond1</span>) {
+</span></span><span style="display:flex;"><span>  ...
+</span></span><span style="display:flex;"><span>} <span style="color:#a90d91">else</span> <span style="color:#a90d91">if</span>(<span style="color:#000">cond2</span>) {
+</span></span><span style="display:flex;"><span>  ...
+</span></span><span style="display:flex;"><span>} <span style="color:#a90d91">else</span> {
+</span></span><span style="display:flex;"><span>  ...
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="esempio-1">Esempio</h3>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">int</span> <span style="color:#000">n</span> <span style="color:#000">=</span> <span style="color:#000">Integer</span>.<span style="color:#836c28">parseInt</span>(<span style="color:#000">s</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">if</span> (<span style="color:#000">n</span> <span style="color:#000">&lt;</span> <span style="color:#000">0</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Negativo"</span>);
+</span></span><span style="display:flex;"><span>} <span style="color:#a90d91">else</span> <span style="color:#a90d91">if</span> (<span style="color:#000">n</span> <span style="color:#000">==</span> <span style="color:#000">0</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Zero"</span>);
+</span></span><span style="display:flex;"><span>} <span style="color:#a90d91">else</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Positivo"</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></section><section>
+<h2 id="ciclo-for-classico">Ciclo <code>for</code> (classico)</h2>
+<h3 id="sintassi-2">Sintassi</h3>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">for</span> (<span style="color:#000">inizializzazione</span>; <span style="color:#000">condizione</span>; <span style="color:#000">aggiornamento</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#177500">// corpo</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="esempio-2">Esempio</h3>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">for</span> (<span style="color:#a90d91">int</span> <span style="color:#000">i</span> <span style="color:#000">=</span> <span style="color:#000">0</span>; <span style="color:#000">i</span> <span style="color:#000">&lt;</span> <span style="color:#000">10</span>; <span style="color:#000">i</span><span style="color:#000">++</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">i</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><ul>
+<li>La variabile dichiarata (<code>int i</code>) ha scope limitato al <code>for</code>.</li>
+<li>Usare tipi adeguati (<code>int</code> per contatori, <code>long</code> se necessario).</li>
+</ul>
+</section><section>
+<h2 id="ciclo-while">Ciclo <code>while</code></h2>
+<h3 id="while"><code>while</code></h3>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">while</span> (<span style="color:#000">condizione</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#177500">// corpo</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Esempio:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">int</span> <span style="color:#000">i</span> <span style="color:#000">=</span> <span style="color:#000">0</span>;
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">while</span> (<span style="color:#000">i</span> <span style="color:#000">&lt;</span> <span style="color:#000">5</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">i</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#000">i</span><span style="color:#000">++</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></section><section>
+<h2 id="come-si-itera-sugli-array">Come si itera sugli array?</h2>
+<p>In Java si può usare il classico <code>for</code> (come in C):</p>
 <!--  %\sizedcode{\scriptsize}{code/Reverse.java}
   \srcode{\scriptsize}{3}{100}{\ecl/Reverse.java} -->
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.Arrays</span>; <span style="color:#177500">// Classe con funzioni di utilità</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">Reverse</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">static</span> <span style="color:#a90d91">int</span><span style="color:#000">[]</span> <span style="color:#000">reverse</span>(<span style="color:#a90d91">int</span><span style="color:#000">[]</span> <span style="color:#000">array</span>) { <span style="color:#177500">// funzione reverse</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">int</span><span style="color:#000">[]</span> <span style="color:#000">out</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#a90d91">int</span><span style="color:#000">[</span><span style="color:#000">array</span>.<span style="color:#836c28">length</span><span style="color:#000">]</span>; <span style="color:#177500">// creo array per lunghezza</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">for</span> (<span style="color:#a90d91">int</span> <span style="color:#000">i</span> <span style="color:#000">=</span> <span style="color:#000">0</span>; <span style="color:#000">i</span> <span style="color:#000">&lt;</span> <span style="color:#000">out</span>.<span style="color:#836c28">length</span>; <span style="color:#000">i</span><span style="color:#000">++</span>) { <span style="color:#177500">// for con var. interna</span>
-</span></span><span style="display:flex;"><span>			<span style="color:#000">out</span><span style="color:#000">[</span><span style="color:#000">i</span><span style="color:#000">]</span> <span style="color:#000">=</span> <span style="color:#000">array</span><span style="color:#000">[</span><span style="color:#000">out</span>.<span style="color:#836c28">length</span> <span style="color:#000">-</span> <span style="color:#000">1</span> <span style="color:#000">-</span> <span style="color:#000">i</span><span style="color:#000">]</span>;
-</span></span><span style="display:flex;"><span>		}
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#000">out</span>;
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>  
-</span></span><span style="display:flex;"><span>	<span style="color:#177500">// l'uso di public qui sotto è necessario per il main</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">s</span>) { <span style="color:#177500">// prova funz. di reverse</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">int</span><span style="color:#000">[]</span> <span style="color:#000">a</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#a90d91">int</span><span style="color:#000">[]</span> { <span style="color:#000">10</span>, <span style="color:#000">20</span>, <span style="color:#000">30</span>, <span style="color:#000">40</span> };
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">int</span><span style="color:#000">[]</span> <span style="color:#000">b</span> <span style="color:#000">=</span> <span style="color:#000">reverse</span>(<span style="color:#000">a</span>);
-</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">Arrays</span>.<span style="color:#836c28">toString</span>(<span style="color:#000">a</span>)); <span style="color:#177500">// [10, 20, 30, 40]</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">Arrays</span>.<span style="color:#836c28">toString</span>(<span style="color:#000">b</span>)); <span style="color:#177500">// [40, 30, 20, 10]</span>
-</span></span><span style="display:flex;"><span>	}
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">void</span> <span style="color:#000">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">words</span> <span style="color:#000">=</span> {<span style="color:#c41a16">"Hello"</span>, <span style="color:#c41a16">"World!"</span>};
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">for</span>(<span style="color:#a90d91">int</span> <span style="color:#000">i</span> <span style="color:#000">=</span> <span style="color:#000">0</span>; <span style="color:#000">i</span> <span style="color:#000">&lt;</span> <span style="color:#000">words</span>.<span style="color:#836c28">length</span>; <span style="color:#000">i</span><span style="color:#000">++</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">print</span>(<span style="color:#000">words</span><span style="color:#000">[</span><span style="color:#000">i</span><span style="color:#000">]</span> <span style="color:#000">+</span> <span style="color:#c41a16">" "</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>();
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></section><section>
 <h2 id="for-each">For-each</h2>
@@ -653,800 +635,16 @@ for(int i=0; i<10; i++){ /* .. */ }
 <h2 id="for-each-esempio">For-each: esempio</h2>
 <!--  %\sizedcode{\scriptsize}{code/Sum.java}
   \srcode{\scriptsize}{3}{100}{\ecl/Sum.java} -->
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span>	<span style="color:#a90d91">var</span> <span style="color:#000">sum</span> <span style="color:#000">=</span> <span style="color:#000">0</span>;
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">void</span> <span style="color:#000">main</span>() {
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">int</span><span style="color:#000">[]</span> <span style="color:#000">elements</span> <span style="color:#000">=</span> {<span style="color:#000">10</span>, <span style="color:#000">20</span>, <span style="color:#000">30</span>};
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">var</span> <span style="color:#000">sum</span> <span style="color:#000">=</span> <span style="color:#000">0</span>;
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">for</span> (<span style="color:#a90d91">var</span> <span style="color:#000">element</span>: <span style="color:#000">elements</span>) {
 </span></span><span style="display:flex;"><span>		<span style="color:#000">sum</span> <span style="color:#000">+=</span> <span style="color:#000">element</span>;
 </span></span><span style="display:flex;"><span>	}
 </span></span><span style="display:flex;"><span>	<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">sum</span>);
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></section><section>
-<h2 id="fornire-input-da-linea-di-comando-argomenti-del-main">Fornire input da linea di comando: argomenti del <code>main</code></h2>
-<!--  %\sizedcode{\scriptsize}{code/Sum.java}
-  \srcode{\scriptsize}{3}{100}{\ecl/SumMain.java}-->
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">SumMain</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">int</span> <span style="color:#000">sum</span>(<span style="color:#a90d91">int</span><span style="color:#000">[]</span> <span style="color:#000">array</span>) { <span style="color:#177500">// soluzione con for-each</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">int</span> <span style="color:#000">sum</span> <span style="color:#000">=</span> <span style="color:#000">0</span>;
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">for</span> (<span style="color:#a90d91">int</span> <span style="color:#000">elem</span> : <span style="color:#000">array</span>) { <span style="color:#177500">// per ogni elem in array..</span>
-</span></span><span style="display:flex;"><span>			<span style="color:#000">sum</span> <span style="color:#000">=</span> <span style="color:#000">sum</span> <span style="color:#000">+</span> <span style="color:#000">elem</span>;
-</span></span><span style="display:flex;"><span>		}
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#000">sum</span>;
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>	<span style="color:#177500">// da invocare con: java SumMain 10 20 30 40</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span>) {
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">int</span><span style="color:#000">[]</span> <span style="color:#000">input</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#a90d91">int</span><span style="color:#000">[</span><span style="color:#000">args</span>.<span style="color:#836c28">length</span><span style="color:#000">]</span>;
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">for</span> (<span style="color:#a90d91">int</span> <span style="color:#000">i</span> <span style="color:#000">=</span> <span style="color:#000">0</span>; <span style="color:#000">i</span> <span style="color:#000">&lt;</span> <span style="color:#000">input</span>.<span style="color:#836c28">length</span>; <span style="color:#000">i</span><span style="color:#000">++</span>){
-</span></span><span style="display:flex;"><span>			<span style="color:#000">input</span><span style="color:#000">[</span><span style="color:#000">i</span><span style="color:#000">]</span> <span style="color:#000">=</span> <span style="color:#000">Integer</span>.<span style="color:#836c28">parseInt</span>(<span style="color:#000">args</span><span style="color:#000">[</span><span style="color:#000">i</span><span style="color:#000">]</span>);
-</span></span><span style="display:flex;"><span>		}
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">int</span> <span style="color:#000">res</span> <span style="color:#000">=</span> <span style="color:#000">sum</span>(<span style="color:#000">input</span>);
-</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Somma : "</span> <span style="color:#000">+</span> <span style="color:#000">res</span>);
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div></section><section>
-<h2 id="elementi-applicativi-allinterno-del-corso-oop">Elementi applicativi all’interno del corso OOP</h2>
-<h3 id="teoria-o-applicazioni">Teoria o applicazioni?</h3>
-<ul>
-<li>La parte applicativa è maggiormente sviluppata in laboratorio e poi sperimentata nella realtà nella prova d’esame di progetto</li>
-<li>In aula si illustrano i concetti, i meccanismi, e gli elementi metodologici</li>
-<li>Spesso comunque si mostreranno applicazioni di esempio, semplici ma “paradigmatiche”, dove discutere alcuni aspetti tecnici e metodologici</li>
-</ul>
-</section><section>
-<h2 id="applicazione-guessmynumberapp">Applicazione: <code>GuessMyNumberApp</code></h2>
-<h3 id="problema">Problema</h3>
-<p>Realizzare una applicazione che, scelto un numero a caso compreso fra 1 a 100, chieda all’utente di indovinarlo, dandogli $10$ tentativi e indicando ogni volta se il numero in input è maggiore o minore di quello scelto all’inizio</p>
-<h3 id="alcune-scelte-progettuali">Alcune scelte progettuali</h3>
-<ul>
-<li>L’applicazione è realizzabile in prima battuta come codice strutturato dentro al <code>main</code></li>
-<li>Le (max) 10 iterazioni sono realizzabili da un ciclo (p.e., <code>for</code>)</li>
-</ul>
-<h3 id="elementi-implementativi">Elementi implementativi</h3>
-<ul>
-<li><code>java.io.Console#readLine</code> usabile per leggere input da tastiera (console ottenibile da <code>System.console()</code>, se associata alla JVM in uso)</li>
-<li><code>java.lang.Integer.parseInt(String)</code> usabile per convertire una stringa in un numero</li>
-<li><code>java.util.Random.nextInt</code> usabile per ottenere un numero random</li>
-</ul>
-</section><section>
-<h2 id="implementazione-guessmynumberapp">Implementazione <code>GuessMyNumberApp</code></h2>
-<!--  \srcode{\scriptsize}{3}{100}{\ecl/GuessMyNumberApp.java} -->
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.Random</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">GuessMyNumberApp</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span>) {
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">int</span> <span style="color:#000">number</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Random</span>().<span style="color:#836c28">nextInt</span>(<span style="color:#000">99</span>) <span style="color:#000">+</span> <span style="color:#000">1</span>;
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">for</span> (<span style="color:#a90d91">int</span> <span style="color:#000">i</span> <span style="color:#000">=</span> <span style="color:#000">1</span>; <span style="color:#000">i</span> <span style="color:#000">&lt;=</span> <span style="color:#000">10</span>; <span style="color:#000">i</span><span style="color:#000">++</span>){
-</span></span><span style="display:flex;"><span>			<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Attempt no. "</span><span style="color:#000">+</span><span style="color:#000">i</span>);
-</span></span><span style="display:flex;"><span>			<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Insert your guess.. "</span>);
-</span></span><span style="display:flex;"><span>			<span style="color:#a90d91">int</span> <span style="color:#000">guess</span> <span style="color:#000">=</span> <span style="color:#000">Integer</span>.<span style="color:#836c28">parseInt</span>(<span style="color:#000">System</span>.<span style="color:#836c28">console</span>().<span style="color:#836c28">readLine</span>());
-</span></span><span style="display:flex;"><span>			<span style="color:#a90d91">if</span> (<span style="color:#000">guess</span> <span style="color:#000">==</span> <span style="color:#000">number</span>){
-</span></span><span style="display:flex;"><span>				<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"You won!!"</span>);
-</span></span><span style="display:flex;"><span>				<span style="color:#a90d91">return</span>;
-</span></span><span style="display:flex;"><span>			} <span style="color:#a90d91">else</span> <span style="color:#a90d91">if</span> (<span style="color:#000">guess</span> <span style="color:#000">&gt;</span> <span style="color:#000">number</span>){
-</span></span><span style="display:flex;"><span>				<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Your guess is greater, try again.."</span>);
-</span></span><span style="display:flex;"><span>			} <span style="color:#a90d91">else</span> {
-</span></span><span style="display:flex;"><span>				<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Your guess is lower, try again.."</span>);
-</span></span><span style="display:flex;"><span>			}
-</span></span><span style="display:flex;"><span>		}
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div></section><section>
-<h2 id="tipi-primitivi-e-operatori">Tipi primitivi e operatori</h2>
-<p>Flusso:</p>
-<ul>
-<li>HelloWorld in Java che mostra il punto d’ingresso senza codice</li>
-<li>Interazione di base fra il programma e il sistema utilizzando System.out.println
-<ul>
-<li>Esiste un oggetto sistema (sempre disponibile e creato dalla JVM) che si chiama <code>System.out</code> e rappresenta lo standard output</li>
-<li>Questo oggetto può ricevere messaggi <code>print</code> (funziona come <code>printf</code> in C) che stampano a video quello che viene fornito e messaggi <code>println</code> che vanno anche a capo</li>
-</ul>
-</li>
-<li>Abbiamo usato una Stringa <code>"..."</code>: esistono alcuni tipi di dato che sono forniti dal sistema</li>
-</ul>
-<h1 id="tipi-primitivi-e-operatori-1">Tipi primitivi e operatori</h1>
-<ul>
-<li>In java i tipi di dato si dividono in due categorie: le classi e i tipi primitivi
-<ul>
-<li>Infatti Java non è un linguaggio OOP “puro” (i primitivi esistono per motivi di efficienza)</li>
-</ul>
-</li>
-<li>descrizione dei primitivi</li>
-<li>operatori su primitivi (+ - * / % &lt; &gt; &lt;= &gt;= == != &amp;&amp; || !)</li>
-<li>descrizione delle stringhe (che sono classe)</li>
-<li>concatenazione di stringhe</li>
-<li>definizione di variabili con tipo esplicito o con <code>var</code></li>
-</ul>
-</section><section>
-<h3 id="esempio-a-parole-di-programma-oop">Esempio (a parole) di programma OOP</h3>
-<p>TODO: Gianlu metti un UML</p>
-<p>Programma che scalda un piatto di pasta e lo mangia:</p>
-<ul>
-<li>Classi: <code>MicrowaveOven</code>, <code>Food</code></li>
-<li>Programma:
-<ol>
-<li>Crea un oggetto di tipo <code>MicrowaveOven</code>, modello <code>"HotPoint Ariston"</code>, nome: <code>oven</code></li>
-<li>Crea un oggetto di tipo <code>Food</code>, tipo: <code>"Pasta al sugo"</code>, nome: <code>pasta</code></li>
-<li>Invia il messaggio <code>insert(pasta)</code> all’oggetto <code>oven</code></li>
-<li>Invia il messaggio <code>setTime(60)</code> all’oggetto <code>oven</code></li>
-<li>Invia il messaggio <code>setPower(800)</code> all’oggetto <code>oven</code></li>
-<li>Invia il messaggio <code>start()</code> all’oggetto <code>oven</code></li>
-<li>Invia il messaggio <code>getContent()</code> all’oggetto <code>oven</code></li>
-<li>Invia il messaggio <code>consume()</code> all’oggetto <code>pasta</code></li>
-</ol>
-</li>
-</ul>
-</section><section>
-<p>Flusso:</p>
-<ul>
-<li>Uml del programma di esempio</li>
-<li>Costruzione di classi (solo campi)</li>
-<li>Istanziazione di oggetti</li>
-<li>Programma di esempio quindi quello sopra ma senza metodi</li>
-<li>Individuare la scomodità: vogliamo controllare che la potenza non superi 800W.</li>
-<li>introdurre <code>if</code> (<code>else</code>/<code>else if</code>)</li>
-<li>Il controllo di potenza lo deve fare il microonde, non il programma: se provate a scaldare la pasta a 8KW, il microonde semplicemente non ve lo fa fare</li>
-<li>Aggiunta di metodi alla classe</li>
-</ul>
-<h2 id="ogni-oggetto-ha-una-interfaccia">Ogni oggetto ha una interfaccia</h2>
-<h3 id="classi-istanze-metodi-interfaccia">Classi, istanze, metodi, interfaccia</h3>
-<ul>
-<li>Oggetti simili sono istanze della stessa <em><strong>classe</strong></em>, o <em><strong>tipo</strong></em></li>
-<li>La classe definisce i messaggi ricevibili, attraverso <em><strong>metodi</strong></em></li>
-<li>L’insieme dei metodi prende il nome di <em><strong>interfaccia</strong></em></li>
-<li>Un messaggio ha effetto su stato e comportamento dell’oggetto</li>
-</ul>
-</section><section>
-<blockquote>
-<p><strong>Everything is an object</strong></p></blockquote>
-<h3 id="riferimenti-ad-oggetti">Riferimenti ad oggetti</h3>
-<ul>
-<li>Nessun meccanismo per accedere ai dati per valore o puntatore!</li>
-<li>Le variabili conterranno dei riferimenti agli oggetti veri e propri, sono quindi dei nomi “locali” utilizzabili per denotare l’oggetto</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#177500">// Creo un oggetto String, e lo assegno al nome s</span>
-</span></span><span style="display:flex;"><span><span style="color:#177500">// questo oggetto stringa rappresenta la sequenza vuota di caratteri</span>
-</span></span><span style="display:flex;"><span><span style="color:#000">String</span> <span style="color:#000">s</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">String</span>();
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#177500">// In generale si crea un oggetto con l'operatore "new"</span>
-</span></span><span style="display:flex;"><span><span style="color:#177500">// Accetta 0,1 o più argomenti, a seconda del tipo: valori primitivi (numeri), string literals, o oggetti</span>
-</span></span><span style="display:flex;"><span><span style="color:#000">String</span> <span style="color:#000">s2</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">String</span>(<span style="color:#c41a16">"prova"</span>);
-</span></span><span style="display:flex;"><span><span style="color:#000">Point2D</span> <span style="color:#000">p</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Point2D</span>(<span style="color:#000">10</span>.<span style="color:#836c28">5</span>, <span style="color:#000">20</span>.<span style="color:#836c28">3</span>);
-</span></span><span style="display:flex;"><span><span style="color:#000">Object</span> <span style="color:#000">o</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Object</span>();
-</span></span></code></pre></div></section><section>
-<h2 id="variabili-oggetti-e-valori-primitivi">Variabili, oggetti, e valori primitivi</h2>
-<h3 id="concetti-base">Concetti base</h3>
-<ul>
-<li>Variabile: un contenitore con nome (come in C), usabile per denotare un oggetto</li>
-<li>Valore primitivo: p.e. un numero, anche assegnabile ad una variabile</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#000">String</span> <span style="color:#000">s</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">String</span>(<span style="color:#c41a16">"prova"</span>);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#177500">// Un caso ad-hoc di Java, equivalente a:</span>
-</span></span><span style="display:flex;"><span><span style="color:#177500">// String s2 = new String("casa");</span>
-</span></span><span style="display:flex;"><span><span style="color:#000">String</span> <span style="color:#000">s2</span> <span style="color:#000">=</span> <span style="color:#c41a16">"casa"</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#177500">// Definisco il nome s4, ma non lo inizializzo</span>
-</span></span><span style="display:flex;"><span><span style="color:#000">String</span> <span style="color:#000">s4</span>;
-</span></span><span style="display:flex;"><span><span style="color:#177500">// ora assegno s4, da qui in poi è utilizzabile</span>
-</span></span><span style="display:flex;"><span><span style="color:#000">s4</span> <span style="color:#000">=</span> <span style="color:#c41a16">"auto"</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#177500">// Il nome i è assegnato al valore primitivo 5</span>
-</span></span><span style="display:flex;"><span><span style="color:#a90d91">int</span> <span style="color:#000">i</span> <span style="color:#000">=</span> <span style="color:#000">5</span>;
-</span></span></code></pre></div></section><section>
-<h2 id="almost-everything-is-an-object">“(Almost) Everything is an object”</h2>
-<h3 id="tipi-primitivi-rappresentano-i-valori-built-in">Tipi primitivi: rappresentano i valori “built-in”</h3>
-<p>Assomigliano molto a quelli del C, ma hanno dimensioni fissate</p>
-<table>
-  <thead>
-      <tr>
-          <th>Type name</th>
-          <th>Size (bits)</th>
-          <th>Minimum</th>
-          <th>Maximum</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td>boolean</td>
-          <td>–</td>
-          <td>–</td>
-          <td>–</td>
-      </tr>
-      <tr>
-          <td>char</td>
-          <td>16</td>
-          <td><code>\u0000</code></td>
-          <td><code>\uFFFF</code></td>
-      </tr>
-      <tr>
-          <td>byte</td>
-          <td>8</td>
-          <td>$-128$</td>
-          <td>$128$</td>
-      </tr>
-      <tr>
-          <td>short</td>
-          <td>16</td>
-          <td>$-2^{15}$</td>
-          <td>$2^{15}-1$</td>
-      </tr>
-      <tr>
-          <td>int</td>
-          <td>32</td>
-          <td>$-2^{31}$</td>
-          <td>$2^{31}-1$</td>
-      </tr>
-      <tr>
-          <td>long</td>
-          <td>64</td>
-          <td>$-2^{63}$</td>
-          <td>$2^{63}-1$</td>
-      </tr>
-      <tr>
-          <td>float</td>
-          <td>32</td>
-          <td>IEEE754</td>
-          <td>IEEE754</td>
-      </tr>
-      <tr>
-          <td>double</td>
-          <td>64</td>
-          <td>IEEE754</td>
-          <td>IEEE754</td>
-      </tr>
-      <tr>
-          <td>void</td>
-          <td>–</td>
-          <td>–</td>
-          <td>–</td>
-      </tr>
-  </tbody>
-</table>
-<ul>
-<li>I <code>boolean</code> possono valere <code>true</code> o <code>false</code></li>
-<li>Altre classi di libreria (<code>BigDecimal</code>, <code>BigInteger</code>) gestiscono numeri di dimensione/precisione arbitraria</li>
-</ul>
-</section><section>
-<h2 id="una-prima-classificazione-dei-tipi">Una prima classificazione dei tipi</h2>
-<div class="mermaid" data-processed="true" pre-rendered="true"><svg aria-roledescription="flowchart-v2" role="graphics-document document" viewBox="0 0 1139.71875 444" style="max-width: 1139.71875px;" class="flowchart" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" width="100%" id="my-svg"><style>#my-svg{font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:16px;fill:#333;}#my-svg .error-icon{fill:#552222;}#my-svg .error-text{fill:#552222;stroke:#552222;}#my-svg .edge-thickness-normal{stroke-width:1px;}#my-svg .edge-thickness-thick{stroke-width:3.5px;}#my-svg .edge-pattern-solid{stroke-dasharray:0;}#my-svg .edge-thickness-invisible{stroke-width:0;fill:none;}#my-svg .edge-pattern-dashed{stroke-dasharray:3;}#my-svg .edge-pattern-dotted{stroke-dasharray:2;}#my-svg .marker{fill:#333333;stroke:#333333;}#my-svg .marker.cross{stroke:#333333;}#my-svg svg{font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:16px;}#my-svg p{margin:0;}#my-svg .label{font-family:"trebuchet ms",verdana,arial,sans-serif;color:#333;}#my-svg .cluster-label text{fill:#333;}#my-svg .cluster-label span{color:#333;}#my-svg .cluster-label span p{background-color:transparent;}#my-svg .label text,#my-svg span{fill:#333;color:#333;}#my-svg .node rect,#my-svg .node circle,#my-svg .node ellipse,#my-svg .node polygon,#my-svg .node path{fill:#ECECFF;stroke:#9370DB;stroke-width:1px;}#my-svg .rough-node .label text,#my-svg .node .label text,#my-svg .image-shape .label,#my-svg .icon-shape .label{text-anchor:middle;}#my-svg .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#my-svg .rough-node .label,#my-svg .node .label,#my-svg .image-shape .label,#my-svg .icon-shape .label{text-align:center;}#my-svg .node.clickable{cursor:pointer;}#my-svg .root .anchor path{fill:#333333!important;stroke-width:0;stroke:#333333;}#my-svg .arrowheadPath{fill:#333333;}#my-svg .edgePath .path{stroke:#333333;stroke-width:2.0px;}#my-svg .flowchart-link{stroke:#333333;fill:none;}#my-svg .edgeLabel{background-color:rgba(232,232,232, 0.8);text-align:center;}#my-svg .edgeLabel p{background-color:rgba(232,232,232, 0.8);}#my-svg .edgeLabel rect{opacity:0.5;background-color:rgba(232,232,232, 0.8);fill:rgba(232,232,232, 0.8);}#my-svg .labelBkg{background-color:rgba(232, 232, 232, 0.5);}#my-svg .cluster rect{fill:#ffffde;stroke:#aaaa33;stroke-width:1px;}#my-svg .cluster text{fill:#333;}#my-svg .cluster span{color:#333;}#my-svg div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:12px;background:hsl(80, 100%, 96.2745098039%);border:1px solid #aaaa33;border-radius:2px;pointer-events:none;z-index:100;}#my-svg .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#333;}#my-svg rect.text{fill:none;stroke-width:0;}#my-svg .icon-shape,#my-svg .image-shape{background-color:rgba(232,232,232, 0.8);text-align:center;}#my-svg .icon-shape p,#my-svg .image-shape p{background-color:rgba(232,232,232, 0.8);padding:2px;}#my-svg .icon-shape rect,#my-svg .image-shape rect{opacity:0.5;background-color:rgba(232,232,232, 0.8);fill:rgba(232,232,232, 0.8);}#my-svg :root{--mermaid-font-family:"trebuchet ms",verdana,arial,sans-serif;}</style><g><marker orient="auto" markerHeight="8" markerWidth="8" markerUnits="userSpaceOnUse" refY="5" refX="5" viewBox="0 0 10 10" class="marker flowchart-v2" id="my-svg_flowchart-v2-pointEnd"><path style="stroke-width: 1; stroke-dasharray: 1, 0;" class="arrowMarkerPath" d="M 0 0 L 10 5 L 0 10 z"></path></marker><marker orient="auto" markerHeight="8" markerWidth="8" markerUnits="userSpaceOnUse" refY="5" refX="4.5" viewBox="0 0 10 10" class="marker flowchart-v2" id="my-svg_flowchart-v2-pointStart"><path style="stroke-width: 1; stroke-dasharray: 1, 0;" class="arrowMarkerPath" d="M 0 5 L 10 10 L 10 0 z"></path></marker><marker orient="auto" markerHeight="11" markerWidth="11" markerUnits="userSpaceOnUse" refY="5" refX="11" viewBox="0 0 10 10" class="marker flowchart-v2" id="my-svg_flowchart-v2-circleEnd"><circle style="stroke-width: 1; stroke-dasharray: 1, 0;" class="arrowMarkerPath" r="5" cy="5" cx="5"></circle></marker><marker orient="auto" markerHeight="11" markerWidth="11" markerUnits="userSpaceOnUse" refY="5" refX="-1" viewBox="0 0 10 10" class="marker flowchart-v2" id="my-svg_flowchart-v2-circleStart"><circle style="stroke-width: 1; stroke-dasharray: 1, 0;" class="arrowMarkerPath" r="5" cy="5" cx="5"></circle></marker><marker orient="auto" markerHeight="11" markerWidth="11" markerUnits="userSpaceOnUse" refY="5.2" refX="12" viewBox="0 0 11 11" class="marker cross flowchart-v2" id="my-svg_flowchart-v2-crossEnd"><path style="stroke-width: 2; stroke-dasharray: 1, 0;" class="arrowMarkerPath" d="M 1,1 l 9,9 M 10,1 l -9,9"></path></marker><marker orient="auto" markerHeight="11" markerWidth="11" markerUnits="userSpaceOnUse" refY="5.2" refX="-1" viewBox="0 0 11 11" class="marker cross flowchart-v2" id="my-svg_flowchart-v2-crossStart"><path style="stroke-width: 2; stroke-dasharray: 1, 0;" class="arrowMarkerPath" d="M 1,1 l 9,9 M 10,1 l -9,9"></path></marker><g class="root"><g class="clusters"></g><g class="edgePaths"></g><g class="edgeLabels"></g><g class="nodes"><g transform="translate(0, 0)" class="root"><g class="clusters"><g data-look="classic" id="subGraph2" class="cluster"><rect height="428" width="1123.71875" y="8" x="8" style=""></rect><g transform="translate(531.6171875, 8)" class="cluster-label"><foreignObject height="24" width="76.484375"><div style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel"><p>Java types</p></span></div></foreignObject></g></g></g><g class="edgePaths"></g><g class="edgeLabels"></g><g class="nodes"><g transform="translate(381.1640625, 35)" class="root"><g class="clusters"><g data-look="classic" id="Classes" class="cluster"><rect height="154" width="361.390625" y="8" x="8" style=""></rect><g transform="translate(160.2421875, 8)" class="cluster-label"><foreignObject height="24" width="56.90625"><div style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel"><p>Classes</p></span></div></foreignObject></g></g></g><g class="edgePaths"></g><g class="edgeLabels"></g><g class="nodes"><g transform="translate(81.125, 85)" id="flowchart-Object-9" class="node default"><rect height="54" width="76.25" y="-27" x="-38.125" ry="5" rx="5" style="" class="basic label-container"></rect><g transform="translate(-23.125, -12)" style="" class="label"><rect></rect><foreignObject height="24" width="46.25"><div style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel"><p>Object</p></span></div></foreignObject></g></g><g transform="translate(205.1484375, 85)" id="flowchart-String-10" class="node default"><rect height="54" width="71.796875" y="-27" x="-35.8984375" ry="5" rx="5" style="" class="basic label-container"></rect><g transform="translate(-20.8984375, -12)" style="" class="label"><rect></rect><foreignObject height="24" width="41.796875"><div style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel"><p>String</p></span></div></foreignObject></g></g><g transform="translate(312.71875, 85)" id="flowchart-other-11" class="node default"><rect height="54" width="43.34375" y="-27" x="-21.671875" ry="5" rx="5" style="" class="basic label-container"></rect><g transform="translate(-6.671875, -12)" style="" class="label"><rect></rect><foreignObject height="24" width="13.34375"><div style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel"><p>...</p></span></div></foreignObject></g></g></g></g><g transform="translate(37.5, 239)" class="root"><g class="clusters"><g data-look="classic" id="subGraph0" class="cluster"><rect height="154" width="1048.71875" y="8" x="8" style=""></rect><g transform="translate(480.34375, 8)" class="cluster-label"><foreignObject height="24" width="104.03125"><div style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel"><p>Primitive types</p></span></div></foreignObject></g></g></g><g class="edgePaths"></g><g class="edgeLabels"></g><g class="nodes"><g transform="translate(66.453125, 85)" id="flowchart-int-0" class="node default"><rect height="54" width="46.90625" y="-27" x="-23.453125" ry="5" rx="5" style="" class="basic label-container"></rect><g transform="translate(-8.453125, -12)" style="" class="label"><rect></rect><foreignObject height="24" width="16.90625"><div style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel"><p>int</p></span></div></foreignObject></g></g><g transform="translate(183.3828125, 85)" id="flowchart-boolean-1" class="node default"><rect height="54" width="86.953125" y="-27" x="-43.4765625" ry="5" rx="5" style="" class="basic label-container"></rect><g transform="translate(-28.4765625, -12)" style="" class="label"><rect></rect><foreignObject height="24" width="56.953125"><div style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel"><p>boolean</p></span></div></foreignObject></g></g><g transform="translate(309.6484375, 85)" id="flowchart-short-2" class="node default"><rect height="54" width="65.578125" y="-27" x="-32.7890625" ry="5" rx="5" style="" class="basic label-container"></rect><g transform="translate(-17.7890625, -12)" style="" class="label"><rect></rect><foreignObject height="24" width="35.578125"><div style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel"><p>short</p></span></div></foreignObject></g></g><g transform="translate(423, 85)" id="flowchart-char-3" class="node default"><rect height="54" width="61.125" y="-27" x="-30.5625" ry="5" rx="5" style="" class="basic label-container"></rect><g transform="translate(-15.5625, -12)" style="" class="label"><rect></rect><foreignObject height="24" width="31.125"><div style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel"><p>char</p></span></div></foreignObject></g></g><g transform="translate(533.6875, 85)" id="flowchart-byte-4" class="node default"><rect height="54" width="60.25" y="-27" x="-30.125" ry="5" rx="5" style="" class="basic label-container"></rect><g transform="translate(-15.125, -12)" style="" class="label"><rect></rect><foreignObject height="24" width="30.25"><div style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel"><p>byte</p></span></div></foreignObject></g></g><g transform="translate(643.9375, 85)" id="flowchart-long-5" class="node default"><rect height="54" width="60.25" y="-27" x="-30.125" ry="5" rx="5" style="" class="basic label-container"></rect><g transform="translate(-15.125, -12)" style="" class="label"><rect></rect><foreignObject height="24" width="30.25"><div style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel"><p>long</p></span></div></foreignObject></g></g><g transform="translate(754.1875, 85)" id="flowchart-float-6" class="node default"><rect height="54" width="60.25" y="-27" x="-30.125" ry="5" rx="5" style="" class="basic label-container"></rect><g transform="translate(-15.125, -12)" style="" class="label"><rect></rect><foreignObject height="24" width="30.25"><div style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel"><p>float</p></span></div></foreignObject></g></g><g transform="translate(873.3359375, 85)" id="flowchart-double-7" class="node default"><rect height="54" width="78.046875" y="-27" x="-39.0234375" ry="5" rx="5" style="" class="basic label-container"></rect><g transform="translate(-24.0234375, -12)" style="" class="label"><rect></rect><foreignObject height="24" width="48.046875"><div style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel"><p>double</p></span></div></foreignObject></g></g><g transform="translate(992.0390625, 85)" id="flowchart-void-8" class="node default"><rect height="54" width="59.359375" y="-27" x="-29.6796875" ry="5" rx="5" style="" class="basic label-container"></rect><g transform="translate(-14.6796875, -12)" style="" class="label"><rect></rect><foreignObject height="24" width="29.359375"><div style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel"><p>void</p></span></div></foreignObject></g></g></g></g></g></g></g></g></g></svg></div>
-
-</section><section>
-<h2 id="variabili-e-tipi">Variabili e tipi</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#177500">// assegnamenti con tipi primitivi</span>
-</span></span><span style="display:flex;"><span><span style="color:#a90d91">int</span> <span style="color:#000">i</span> <span style="color:#000">=</span> <span style="color:#000">5</span>;
-</span></span><span style="display:flex;"><span><span style="color:#a90d91">double</span> <span style="color:#000">d</span> <span style="color:#000">=</span> <span style="color:#000">145e</span><span style="color:#000">-</span><span style="color:#000">20</span>;
-</span></span><span style="display:flex;"><span><span style="color:#a90d91">boolean</span> <span style="color:#000">b</span> <span style="color:#000">=</span> <span style="color:#a90d91">true</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#177500">// assegnamenti con classi</span>
-</span></span><span style="display:flex;"><span><span style="color:#000">Object</span> <span style="color:#000">o</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Object</span>(); 
-</span></span><span style="display:flex;"><span><span style="color:#000">String</span> <span style="color:#000">s</span> <span style="color:#000">=</span> <span style="color:#c41a16">"altra stringa"</span>;
-</span></span><span style="display:flex;"><span><span style="color:#000">Point2D</span> <span style="color:#000">p</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Point2D</span>(<span style="color:#000">10</span>.<span style="color:#836c28">4</span>, <span style="color:#000">20</span>.<span style="color:#836c28">3</span>);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#177500">// assegnamento da/a variabile</span>
-</span></span><span style="display:flex;"><span><span style="color:#a90d91">int</span> <span style="color:#000">other</span> <span style="color:#000">=</span> <span style="color:#000">i</span>;
-</span></span><span style="display:flex;"><span><span style="color:#000">Point2D</span> <span style="color:#000">q</span> <span style="color:#000">=</span> <span style="color:#000">p</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#177500">// assegnamento a null</span>
-</span></span><span style="display:flex;"><span><span style="color:#000">Object</span> <span style="color:#000">on</span> <span style="color:#000">=</span> <span style="color:#a90d91">null</span>;
-</span></span></code></pre></div></section><section>
-<h2 id="costrutto-var-local-variable-type-inference-java-10">Costrutto <code>var</code>: local variable type inference (Java 10+)</h2>
-<ul>
-<li>usabile nelle variabili locali (a funzioni/metodi) per avere maggiore concisione</li>
-<li>il compilatore capisce (inferisce) il tipo della varibile dall’espressione assegnata</li>
-<li>non abusarne, specialmente all’inizio!</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#177500">// assegnamenti con tipi primitivi</span>
-</span></span><span style="display:flex;"><span><span style="color:#a90d91">var</span> <span style="color:#000">i</span> <span style="color:#000">=</span> <span style="color:#000">5</span>;
-</span></span><span style="display:flex;"><span><span style="color:#a90d91">var</span> <span style="color:#000">d</span> <span style="color:#000">=</span> <span style="color:#000">145e</span><span style="color:#000">-</span><span style="color:#000">20</span>;
-</span></span><span style="display:flex;"><span><span style="color:#a90d91">var</span> <span style="color:#000">b</span> <span style="color:#000">=</span> <span style="color:#a90d91">true</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#177500">// assegnamenti con classi</span>
-</span></span><span style="display:flex;"><span><span style="color:#a90d91">var</span> <span style="color:#000">o</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Object</span>(); 
-</span></span><span style="display:flex;"><span><span style="color:#a90d91">var</span> <span style="color:#000">s</span> <span style="color:#000">=</span> <span style="color:#c41a16">"altra stringa"</span>;
-</span></span><span style="display:flex;"><span><span style="color:#a90d91">var</span> <span style="color:#000">p</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Point2D</span>(<span style="color:#000">10</span>.<span style="color:#836c28">4</span>, <span style="color:#000">20</span>.<span style="color:#836c28">3</span>);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#177500">// assegnamento da/a variabile</span>
-</span></span><span style="display:flex;"><span><span style="color:#a90d91">var</span> <span style="color:#000">other</span> <span style="color:#000">=</span> <span style="color:#000">i</span>;
-</span></span><span style="display:flex;"><span><span style="color:#a90d91">var</span> <span style="color:#000">q</span> <span style="color:#000">=</span> <span style="color:#000">p</span>;
-</span></span></code></pre></div></section><section>
-<h2 id="oggetti-e-memoria">Oggetti e memoria</h2>
-<h3 id="gestione-della-memoria">Gestione della memoria</h3>
-<ul>
-<li>tutti gli <em>oggetti</em> sono allocati nella memoria <strong>heap</strong></li>
-<li>le <em>variabili</em> allocate nello <strong>stack</strong>, nei rispettivi record di attivazione</li>
-<li>le variabili di <em>tipi primitivi contengono direttamente il valore</em></li>
-<li>le variabili che contengono <em>oggetti in realtà hanno un riferimento</em> verso lo heap</li>
-<li>nota: ancora non sappiamo cosa contiene un oggetto</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#177500">// assegnamenti con tipi primitivi: contengono VALORI!</span>
-</span></span><span style="display:flex;"><span><span style="color:#a90d91">var</span> <span style="color:#000">i</span> <span style="color:#000">=</span> <span style="color:#000">5</span>;
-</span></span><span style="display:flex;"><span><span style="color:#a90d91">var</span> <span style="color:#000">d</span> <span style="color:#000">=</span> <span style="color:#000">145e</span><span style="color:#000">-</span><span style="color:#000">20</span>;
-</span></span><span style="display:flex;"><span><span style="color:#a90d91">var</span> <span style="color:#000">b</span> <span style="color:#000">=</span> <span style="color:#a90d91">true</span>;
-</span></span><span style="display:flex;"><span><span style="color:#177500">// assegnamenti con classi contengono RIFERIMENTI!</span>
-</span></span><span style="display:flex;"><span><span style="color:#a90d91">var</span> <span style="color:#000">o</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Object</span>(); 
-</span></span><span style="display:flex;"><span><span style="color:#a90d91">var</span> <span style="color:#000">s</span> <span style="color:#000">=</span> <span style="color:#c41a16">"altra stringa"</span>;
-</span></span><span style="display:flex;"><span><span style="color:#a90d91">var</span> <span style="color:#000">p</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Point2D</span>(<span style="color:#000">10</span>.<span style="color:#836c28">4</span>, <span style="color:#000">20</span>.<span style="color:#836c28">3</span>);
-</span></span><span style="display:flex;"><span><span style="color:#a90d91">var</span> <span style="color:#000">other</span> <span style="color:#000">=</span> <span style="color:#000">i</span>; <span style="color:#177500">// VALORE!</span>
-</span></span><span style="display:flex;"><span><span style="color:#a90d91">var</span> <span style="color:#000">q</span> <span style="color:#000">=</span> <span style="color:#000">p</span>; <span style="color:#177500">// Stesso RIFERIMENTO!</span>
-</span></span><span style="display:flex;"><span><span style="color:#000">Object</span> <span style="color:#000">on</span> <span style="color:#000">=</span> <span style="color:#a90d91">null</span>; <span style="color:#177500">// Riferimento speciale al valore null</span>
-</span></span></code></pre></div></section><section>
-<h2 id="visibilità">Visibilità</h2>
-<h3 id="scope-delle-variabili">“Scope” delle variabili</h3>
-<ul>
-<li>È simile a quello di C</li>
-<li>variabili dentro un blocco non sono visibili fuori</li>
-<li>differenza rispetto a C: variabili non inizializzate non sono utilizzabili!</li>
-</ul>
-<h3 id="tempo-di-vita-degli-oggetti">Tempo di vita degli oggetti</h3>
-<ul>
-<li>finito lo scope di una variabile, l’oggetto continua a esistere</li>
-<li>verrà deallocato automaticamente dal sistema se non più usato
-<ul>
-<li>se, direttamente o indirettamente, nessuna variabile lo può raggiungere</li>
-<li>un componente della JVM, il <em><strong>garbage collector</strong></em>, è preposto a questo compito</li>
-</ul>
-</li>
-</ul>
-</section><section>
-<h1 id="principali-costrutti-dellobject-orientation">Principali costrutti dell’object-orientation</h1>
-</section><section>
-<h2 id="costruire-classi">Costruire classi</h2>
-<h3 id="premesse">Premesse</h3>
-<ul>
-<li>la <em><strong>classe</strong></em> è l’unità fondamentale di programmazione OO</li>
-<li>progettare e costruire classi correttamente sarà l’obiettivo del corso</li>
-<li>incominciamo descrivendo la loro struttura generale</li>
-<li>solo nelle prossime lezioni daremo linee guida definitive</li>
-</ul>
-<h3 id="cosè-una-classe">Cos’è una classe</h3>
-<ul>
-<li>è un template (<em>stampino</em>) per generare oggetti di una certa forma</li>
-<li>ne definisce <em>tipo</em>, <em>struttura</em> in memoria e <em>comportamento</em></li>
-</ul>
-<h3 id="classe-vs-oggetto">Classe vs. oggetto</h3>
-<ul>
-<li>classe: è una descrizione (parte di programma)</li>
-<li>oggetto: è una entità a tempo di esecuzione, è <em><strong>istanza</strong></em> di una classe</li>
-</ul>
-</section><section>
-<h2 id="struttura-di-una-classe">Struttura di una classe</h2>
-<h3 id="nome-della-classe">Nome della classe</h3>
-<p>È anche il nome del tipo</p>
-<h3 id="membri-della-classe">Membri della classe</h3>
-<p><em><strong>Campi</strong></em> (fields)</p>
-<ul>
-<li>descrivono la struttura/stato dell’oggetto in memoria</li>
-</ul>
-<p><em><strong>Metodi</strong></em> (methods)</p>
-<ul>
-<li>descrivono i messaggi accettati e il comportamento corrispondente</li>
-</ul>
-</section><section>
-<h2 id="classi-un-po-di-codice">Classi: un po’ di codice</h2>
-<h4 id="costruzione-di-classi">Costruzione di classi</h4>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">A</span> { <span style="color:#177500">// A è il nome della classe</span>
-</span></span><span style="display:flex;"><span>  ... <span style="color:#177500">// qui si riporta il suo contenuto</span>
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">AltroEsempioDiClasse</span> { <span style="color:#177500">// Nota il PascalCase</span>
-</span></span><span style="display:flex;"><span>  ...
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h4 id="uso">Uso</h4>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#177500">// codice cliente</span>
-</span></span><span style="display:flex;"><span><span style="color:#000">A</span> <span style="color:#000">obj1</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">A</span>(); <span style="color:#177500">// creo un oggetto di A, con nome obj1</span>
-</span></span><span style="display:flex;"><span><span style="color:#000">A</span> <span style="color:#000">obj2</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">A</span>(); <span style="color:#177500">// creo un altro oggetto di A</span>
-</span></span><span style="display:flex;"><span><span style="color:#000">AltroEsempioDiClasse</span> <span style="color:#000">obj3</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">AltroEsempioDiClasse</span>();
-</span></span><span style="display:flex;"><span><span style="color:#000">A</span> <span style="color:#000">obj4</span>; <span style="color:#177500">// variabile obj4 non inizializzata</span>
-</span></span><span style="display:flex;"><span><span style="color:#000">obj4</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">A</span>(); <span style="color:#177500">// ok</span>
-</span></span><span style="display:flex;"><span><span style="color:#000">obj4</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">AltroEsempioDiClasse</span>(); <span style="color:#177500">// NO!! Errore semantico</span>
-</span></span></code></pre></div></section><section>
-<h2 id="campi">Campi</h2>
-<h3 id="elementi-costitutivi-dei-campi">Elementi costitutivi dei campi</h3>
-<ul>
-<li>i campi di una classe assomigliano ai membri di una struct del C</li>
-<li>ognuno è una sorta di variabile (nome + tipo)
-<ul>
-<li>per i campi non è usabile il costrutto <code>var</code>!</li>
-</ul>
-</li>
-<li>ve ne possono essere 0,1, molti</li>
-<li>lo stato di un oggetto è l’attuale valore associato ai campi</li>
-<li>potrebbero essere valori primitivi, o altri oggetti</li>
-</ul>
-<h3 id="valore-di-un-campo">Valore di un campo</h3>
-<ul>
-<li>impostabile al momento della sua dichiarazione</li>
-<li>se non inizializzato vale:
-<ul>
-<li><code>0</code> per i tipi numerici</li>
-<li><code>false</code> per i booleani</li>
-<li><code>null</code> per le classi</li>
-</ul>
-</li>
-<li>accessibile da codice cliente con notazione <code>object.field</code>
-<ul>
-<li>c.d. “dot notation”</li>
-</ul>
-</li>
-</ul>
-</section><section>
-<h2 id="campi-un-semplice-esempio-giocattolo">Campi: Un semplice esempio giocattolo</h2>
-<h4 id="classe">Classe</h4>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">A</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#a90d91">int</span> <span style="color:#000">i</span>;
-</span></span><span style="display:flex;"><span>  <span style="color:#a90d91">int</span> <span style="color:#000">j</span> <span style="color:#000">=</span> <span style="color:#000">2</span>;
-</span></span><span style="display:flex;"><span>  <span style="color:#000">Object</span> <span style="color:#000">o</span>;
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h4 id="uso-1">Uso</h4>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#000">A</span> <span style="color:#000">obj</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">A</span>();
-</span></span><span style="display:flex;"><span><span style="color:#a90d91">int</span> <span style="color:#000">a</span> <span style="color:#000">=</span> <span style="color:#000">obj</span>.<span style="color:#836c28">i</span>; <span style="color:#177500">// a varrà 0</span>
-</span></span><span style="display:flex;"><span><span style="color:#a90d91">int</span> <span style="color:#000">b</span> <span style="color:#000">=</span> <span style="color:#000">obj</span>.<span style="color:#836c28">j</span>; <span style="color:#177500">// b varrà 2</span>
-</span></span><span style="display:flex;"><span><span style="color:#000">obj</span>.<span style="color:#836c28">i</span> <span style="color:#000">=</span> <span style="color:#000">10</span>; <span style="color:#177500">// modifico lo stato di obj</span>
-</span></span><span style="display:flex;"><span><span style="color:#a90d91">int</span> <span style="color:#000">d</span> <span style="color:#000">=</span> <span style="color:#000">obj</span>.<span style="color:#836c28">i</span>; <span style="color:#177500">// d varrà 10</span>
-</span></span><span style="display:flex;"><span><span style="color:#000">obj</span>.<span style="color:#836c28">o</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Object</span>(); <span style="color:#177500">// riassegno obj.o</span>
-</span></span><span style="display:flex;"><span><span style="color:#000">A</span> <span style="color:#000">obj2</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">A</span>();
-</span></span><span style="display:flex;"><span><span style="color:#000">obj</span>.<span style="color:#836c28">i</span> <span style="color:#000">=</span> <span style="color:#000">obj2</span>.<span style="color:#836c28">i</span>; <span style="color:#177500">// quanto varrà ora obj.i?</span>
-</span></span></code></pre></div></section><section>
-<h2 id="campi-lesempio-point3d">Campi: l’esempio Point3D</h2>
-<h4 id="classe-1">Classe</h4>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">Point3D</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#a90d91">double</span> <span style="color:#000">x</span>;	<span style="color:#177500">// Nota, l'ordine dei campi è irrilevante</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a90d91">double</span> <span style="color:#000">y</span>;
-</span></span><span style="display:flex;"><span>  <span style="color:#a90d91">double</span> <span style="color:#000">z</span>;
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h4 id="uso-2">Uso</h4>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#000">Point3D</span> <span style="color:#000">a</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Point3D</span>(); <span style="color:#177500">// Creo due punti, di nome a e b</span>
-</span></span><span style="display:flex;"><span><span style="color:#000">Point3D</span> <span style="color:#000">b</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Point3D</span>();
-</span></span><span style="display:flex;"><span><span style="color:#000">a</span>.<span style="color:#836c28">x</span> <span style="color:#000">=</span> <span style="color:#000">10</span>.<span style="color:#836c28">0</span>;	<span style="color:#177500">// Imposto lo stato di a</span>
-</span></span><span style="display:flex;"><span><span style="color:#000">a</span>.<span style="color:#836c28">y</span> <span style="color:#000">=</span> <span style="color:#000">20</span>.<span style="color:#836c28">0</span>;
-</span></span><span style="display:flex;"><span><span style="color:#000">a</span>.<span style="color:#836c28">z</span> <span style="color:#000">=</span> <span style="color:#000">30</span>.<span style="color:#836c28">0</span>;
-</span></span><span style="display:flex;"><span><span style="color:#000">b</span>.<span style="color:#836c28">x</span> <span style="color:#000">=</span> <span style="color:#000">a</span>.<span style="color:#836c28">x</span> <span style="color:#000">*</span> <span style="color:#000">2</span>; <span style="color:#177500">// Imposto lo stato di b</span>
-</span></span><span style="display:flex;"><span><span style="color:#000">b</span>.<span style="color:#836c28">y</span> <span style="color:#000">=</span> <span style="color:#000">a</span>.<span style="color:#836c28">y</span> <span style="color:#000">*</span> <span style="color:#000">2</span>; <span style="color:#177500">// .. a partire da quello di a</span>
-</span></span><span style="display:flex;"><span><span style="color:#000">b</span>.<span style="color:#836c28">z</span> <span style="color:#000">=</span> <span style="color:#000">a</span>.<span style="color:#836c28">z</span> <span style="color:#000">*</span> <span style="color:#000">2</span>;
-</span></span><span style="display:flex;"><span><span style="color:#a90d91">int</span> <span style="color:#000">mod2a</span> <span style="color:#000">=</span> <span style="color:#000">a</span>.<span style="color:#836c28">x</span> <span style="color:#000">*</span> <span style="color:#000">a</span>.<span style="color:#836c28">x</span> <span style="color:#000">+</span> <span style="color:#000">a</span>.<span style="color:#836c28">y</span> <span style="color:#000">*</span> <span style="color:#000">a</span>.<span style="color:#836c28">y</span> <span style="color:#000">+</span> <span style="color:#000">a</span>.<span style="color:#836c28">z</span> <span style="color:#000">*</span> <span style="color:#000">a</span>.<span style="color:#836c28">z</span>;
-</span></span><span style="display:flex;"><span><span style="color:#a90d91">int</span> <span style="color:#000">mod2b</span> <span style="color:#000">=</span> <span style="color:#000">b</span>.<span style="color:#836c28">x</span> <span style="color:#000">*</span> <span style="color:#000">b</span>.<span style="color:#836c28">x</span> <span style="color:#000">+</span> <span style="color:#000">b</span>.<span style="color:#836c28">y</span> <span style="color:#000">*</span> <span style="color:#000">b</span>.<span style="color:#836c28">y</span> <span style="color:#000">+</span> <span style="color:#000">b</span>.<span style="color:#836c28">z</span> <span style="color:#000">*</span> <span style="color:#000">b</span>.<span style="color:#836c28">z</span>;
-</span></span><span style="display:flex;"><span><span style="color:#a90d91">boolean</span> <span style="color:#000">aGreater</span> <span style="color:#000">=</span> (<span style="color:#000">mod2a</span> <span style="color:#000">&gt;</span> <span style="color:#000">mod2b</span>); <span style="color:#177500">// false</span>
-</span></span></code></pre></div></section><section>
-<h2 id="metodi">Metodi</h2>
-<h3 id="elementi-costitutivi-dei-metodi">Elementi costitutivi dei metodi</h3>
-<ul>
-<li>i metodi di una classe assomigliano a funzioni (del C)</li>
-<li>ognuno ha una <em><strong>intestazione</strong></em> (o signature) e un corpo
-<ul>
-<li>a sua volta l’intestazione ha il <em>nome</em>, tipo di <em>ritorno</em>, <em>argomenti</em></li>
-</ul>
-</li>
-<li>di metodi ve ne possono essere 0,1, molti</li>
-<li>definiscono il <em>comportamento</em> dell’oggetto</li>
-</ul>
-<h3 id="significato-di-un-metodo">Significato di un metodo</h3>
-<ul>
-<li>codice cliente richiama un metodo con notazione <code>object.method(arguments)</code>
-<ul>
-<li>Di nuovo, <em>dot notation</em>! (stavolta con le parentesi)</li>
-</ul>
-</li>
-<li>corrisponde ad inviare un messaggio a <code>object</code></li>
-<li><code>object</code> è chiamato il <em><strong>receiver</strong></em> del messaggio (o dell’invocazione)</li>
-<li>il comportamento conseguente è dato dall’esecuzione del corpo</li>
-<li>il corpo può leggere/scrivere il valore dei campi</li>
-</ul>
-</section><section>
-<h2 id="metodi-un-esempio-giocattolo">Metodi: Un esempio giocattolo</h2>
-<h4 id="classe-2">Classe</h4>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">Adder</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#a90d91">int</span> <span style="color:#000">total</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a90d91">void</span> <span style="color:#000">add</span>(<span style="color:#a90d91">int</span> <span style="color:#000">a</span>){ <span style="color:#177500">// input "int a"</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#000">total</span> <span style="color:#000">=</span> <span style="color:#000">total</span> <span style="color:#000">+</span> <span style="color:#000">a</span>;              
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a90d91">int</span> <span style="color:#000">getValue</span>(){ <span style="color:#177500">// intestazione funzione</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">return</span> <span style="color:#000">total</span>; <span style="color:#177500">// corpo funzione</span>
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h4 id="uso-3">Uso</h4>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#000">Adder</span> <span style="color:#000">adder</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Adder</span>();
-</span></span><span style="display:flex;"><span><span style="color:#a90d91">int</span> <span style="color:#000">v</span> <span style="color:#000">=</span> <span style="color:#000">adder</span>.<span style="color:#836c28">total</span>; <span style="color:#177500">// vale 0</span>
-</span></span><span style="display:flex;"><span><span style="color:#000">adder</span>.<span style="color:#836c28">add</span>(<span style="color:#000">10</span>); <span style="color:#177500">// modifico adder</span>
-</span></span><span style="display:flex;"><span><span style="color:#000">adder</span>.<span style="color:#836c28">add</span>(<span style="color:#000">20</span>); <span style="color:#177500">// modifico adder</span>
-</span></span><span style="display:flex;"><span><span style="color:#a90d91">int</span> <span style="color:#000">v2</span> <span style="color:#000">=</span> <span style="color:#000">adder</span>.<span style="color:#836c28">total</span>; <span style="color:#177500">// vale 30</span>
-</span></span><span style="display:flex;"><span><span style="color:#a90d91">int</span> <span style="color:#000">v3</span> <span style="color:#000">=</span> <span style="color:#000">adder</span>.<span style="color:#836c28">getValue</span>(); <span style="color:#177500">// vale 30</span>
-</span></span></code></pre></div></section><section>
-<h2 id="la-variabile-speciale-this">La variabile speciale <code>this</code></h2>
-<ul>
-<li>dentro ad un metodo si può accedere agli argomenti o ai campi</li>
-<li>per rendere meno ambigua la sintassi, Java fornisce una variabile speciale denotata con <code>this</code>
-<ul>
-<li>contiene il riferimento all’oggetto che sta gestendo il messaggio</li>
-</ul>
-</li>
-<li>per motivi di leggibilità, viene spesso omessa
-<ul>
-<li>all’inizio, è opportuno usarla sempre!</li>
-</ul>
-</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">Adder</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#a90d91">int</span> <span style="color:#000">total</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a90d91">void</span> <span style="color:#000">add</span>(<span style="color:#a90d91">int</span> <span style="color:#000">a</span>){ <span style="color:#177500">// input "int a"</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">this</span>.<span style="color:#836c28">total</span> <span style="color:#000">=</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">total</span> <span style="color:#000">+</span> <span style="color:#000">a</span>;              
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a90d91">int</span> <span style="color:#000">getValue</span>(){ <span style="color:#177500">// intestazione funzione</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">total</span>; <span style="color:#177500">// corpo funzione</span>
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div></section><section>
-<h2 id="metodi-altro-esempio-point3d">Metodi: altro esempio Point3D</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">Point3D</span> { <span style="color:#177500">// Class declaration</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">double</span> <span style="color:#000">x</span>; <span style="color:#177500">// 3 campi</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">double</span> <span style="color:#000">y</span>;
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">double</span> <span style="color:#000">z</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">void</span> <span style="color:#000">build</span>(<span style="color:#a90d91">double</span> <span style="color:#000">a</span>, <span style="color:#a90d91">double</span> <span style="color:#000">b</span>, <span style="color:#a90d91">double</span> <span style="color:#000">c</span>){
-</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">this</span>.<span style="color:#836c28">x</span> <span style="color:#000">=</span> <span style="color:#000">a</span>;
-</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">this</span>.<span style="color:#836c28">y</span> <span style="color:#000">=</span> <span style="color:#000">b</span>;
-</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">this</span>.<span style="color:#836c28">z</span> <span style="color:#000">=</span> <span style="color:#000">c</span>;
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">double</span> <span style="color:#000">getNormSquared</span>(){
-</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">x</span> <span style="color:#000">*</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">x</span> <span style="color:#000">+</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">y</span> <span style="color:#000">*</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">y</span> <span style="color:#000">+</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">z</span> <span style="color:#000">*</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">z</span>;
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">boolean</span> <span style="color:#000">equal</span>(<span style="color:#000">Point3D</span> <span style="color:#000">q</span>){	<span style="color:#177500">// true if two points are equal</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">x</span> <span style="color:#000">==</span> <span style="color:#000">q</span>.<span style="color:#836c28">x</span> <span style="color:#000">&amp;&amp;</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">y</span> <span style="color:#000">==</span> <span style="color:#000">q</span>.<span style="color:#836c28">y</span> <span style="color:#000">&amp;&amp;</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">z</span> <span style="color:#000">==</span> <span style="color:#000">q</span>.<span style="color:#836c28">z</span>;    
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#177500">// codice cliente</span>
-</span></span><span style="display:flex;"><span><span style="color:#000">Point3D</span> <span style="color:#000">p</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Point3D</span>(); <span style="color:#177500">// Create a new point p</span>
-</span></span><span style="display:flex;"><span><span style="color:#000">p</span>.<span style="color:#836c28">build</span>(<span style="color:#000">10</span>.<span style="color:#836c28">0</span>, <span style="color:#000">20</span>.<span style="color:#836c28">0</span>, <span style="color:#000">30</span>.<span style="color:#836c28">0</span>); <span style="color:#177500">// set up the point </span>
-</span></span><span style="display:flex;"><span><span style="color:#000">Point3D</span> <span style="color:#000">q</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Point3D</span>(); <span style="color:#177500">// create a new point q</span>
-</span></span><span style="display:flex;"><span><span style="color:#000">q</span>.<span style="color:#836c28">build</span>(<span style="color:#000">10</span>.<span style="color:#836c28">0</span>, <span style="color:#000">20</span>.<span style="color:#836c28">0</span>, <span style="color:#000">31</span>.<span style="color:#836c28">0</span>); <span style="color:#177500">// set up point q</span>
-</span></span><span style="display:flex;"><span><span style="color:#a90d91">double</span> <span style="color:#000">m2</span> <span style="color:#000">=</span> <span style="color:#000">p</span>.<span style="color:#836c28">getNormSquared</span>(); <span style="color:#177500">// get the squared norm of m2</span>
-</span></span><span style="display:flex;"><span><span style="color:#a90d91">boolean</span> <span style="color:#000">samePoint</span> <span style="color:#000">=</span> <span style="color:#000">p</span>.<span style="color:#836c28">equal</span>(<span style="color:#000">q</span>); <span style="color:#177500">// chiedo a p se è uguale a q</span>
-</span></span></code></pre></div></section><section>
-<h1 id="programmi-java">Programmi Java</h1>
-</section><section>
-<h2 id="programmi-java-1">Programmi Java</h2>
-<h3 id="elementi-costitutivi-dei-programmi-java">Elementi costitutivi dei programmi Java</h3>
-<ul>
-<li>librerie (insiemi di classi)
-<ul>
-<li>Incluse nel Java Development Kit</li>
-<li>esterne (nostre o di altri, vedremo come importarle)</li>
-</ul>
-</li>
-<li>un insieme di classi che costituiscono l’applicazione</li>
-<li>almeno una di tali classi ha un metodo speciale <code>main</code>
-<ul>
-<li>Ma possono essercene più d’una</li>
-</ul>
-</li>
-<li>un <code>main</code> è un punto d’accesso di un programma</li>
-</ul>
-</section><section>
-<h2 id="il-metodo-main">Il metodo <code>main</code></h2>
-<p>Il <code>main</code> deve avere la seguente dichiarazione:</p>
-<h2 id="public-static-void-mainstring-args"><code>public static void main(String[] args)</code></h2>
-<p>tre concetti che spiegheremo in dettaglio nel prosieguo:</p>
-<ul>
-<li><code>public</code> indica il fatto che debba essere visibile “a tutti”</li>
-<li><code>static</code> indica che non è un metodo dell’oggetto, ma della classe</li>
-<li><code>String[]</code> indica il tipo “array di stringhe”</li>
-</ul>
-</section><section>
-<h2 id="package-e-librerie-java-organizzazione">Package e librerie Java: organizzazione</h2>
-<h3 id="librerie-di-java">Librerie di Java</h3>
-<ul>
-<li>Documentazione auto-generata, consultabile offline, o online:</li>
-<li><a href="https://docs.oracle.com/en/java/javase/21/docs/api/">https://docs.oracle.com/en/java/javase/21/docs/api/</a>
-<br>
-(google search “<em>java 21 javadoc</em>”)</li>
-<li>contano più di 4000 classi, raggruppate in 200+ <em><strong>package</strong></em> (e 50+ <em><strong>moduli</strong></em>)</li>
-</ul>
-<h3 id="package">Package</h3>
-<ul>
-<li>un package è un contenitore di classi con uno scopo comune, di alto livello</li>
-<li>tipicamente un package contiene qualche decina di classi</li>
-<li>i package sono organizzati ad albero, con notazione <code>name1.name2.name3</code></li>
-<li>Package principali: <code>java.lang</code>, <code>java.util</code>, <code>java.io</code></li>
-</ul>
-</section><section>
-<h2 id="package-moduli-e-librerie-java">Package, moduli e librerie Java</h2>
-<h3 id="moduli-java-9">Moduli (Java 9+)</h3>
-<ul>
-<li>un modulo definisce un frammento di codice “autonomo”:
-<ul>
-<li>con chiara interfaccia ed esplicite dipendenze da altri</li>
-<li>esempi: <code>java.base</code>, <code>java.desktop</code>, <code>java.sql</code>, <code>java.xml</code></li>
-</ul>
-</li>
-<li>le librerie per Java 9+ possono essere distribuite in uno o più moduli</li>
-<li>un modulo è costituito internamente da uno o più package</li>
-<li>ad esempio, <code>java.base</code> contiene i package principali che useremo</li>
-</ul>
-<h3 id="impatto-sulla-programmazione-base">Impatto sulla programmazione “base”</h3>
-<ul>
-<li>il concetto di modulo <em><strong>non impatta</strong></em> i sorgenti,
-ma “solo” la gestione dei componenti:
-per il momento non ce ne occuperemo perché il JDK fornisce “di default” accesso a tutti i moduli che ci servono (<code>java.*</code>)</li>
-<li>il concetto di package, invece, <em><strong>impatta</strong></em> i sorgenti:
-<em>il nome completo di una classe include il package</em> in cui si trova</li>
-</ul>
-</section><section>
-<h2 id="package-moduli-e-librerie-java-uso">Package, moduli e librerie Java: uso</h2>
-<h3 id="importare-una-classe-di-libreria">Importare una classe di “libreria”</h3>
-<ul>
-<li>per usare le classi di una libreria prima le si importa</li>
-<li>lo si fa con la clausola <code>import</code>, da usare all’inizio del sorgente
-<ul>
-<li>importo la singola classe: <code>import java.util.Date;</code></li>
-<li>importo l’intero package: <code>import java.util.*;</code></li>
-<li>importazione di default: <code>import java.lang.*;</code></li>
-</ul>
-</li>
-<li>senza importazioni, ogni classe andrebbe sempre qualificata indicandone anche il package completo:
-<ul>
-<li><code>java.util.Date now = new java.util.Date();</code></li>
-</ul>
-</li>
-<li>importare evita quindi solo di dover indicare ogni volta il package</li>
-</ul>
-<h3 id="classi-e-funzionalità-deprecate">Classi (e funzionalità) “deprecate”</h3>
-<ul>
-<li>dichiarate come “scadute”, ossia preferibilmente “da non usare più”
-<ul>
-<li>Tipicamente perché il loro funzionamento è stato mal progettato</li>
-<li>Potrebbero essere <em>rimosse</em> in una nuova versione di Java!</li>
-</ul>
-</li>
-<li>noi le utilizzeremo per <strong>solo scopo didattico</strong> <code>java.util.Date</code></li>
-</ul>
-</section><section>
-<h2 id="stampe-su-terminale">Stampe su terminale</h2>
-<h3 id="il-metodo-systemoutprintln">Il metodo <code>System.out.println</code></h3>
-<ul>
-<li><code>System</code> è una <em>classe</em> nel package <code>java.lang</code></li>
-<li><code>out</code> è un suo <em>campo</em> che rappresenta lo standard output
-<ul>
-<li><code>static</code>o, ossia uguale per ogni istanza di <code>System</code></li>
-</ul>
-</li>
-<li><code>println</code> è un <em>metodo</em> che accetta una <code>String</code>a e la stampa</li>
-<li>l’operatore <code>+</code> concatena stringhe a valori</li>
-</ul>
-</section><section>
-<h2 id="hello-world-java-program">“Hello world” Java Program</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#177500">// This class should be into a file named Hello.java</span>
-</span></span><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">Hello</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span>){
-</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Hello World!"</span>);
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h3 id="compilazione-ed-esecuzione-1">Compilazione ed esecuzione</h3>
-<ul>
-<li>con un editor di testo si scrive la classe in un file <code>Hello.java</code></li>
-<li>si compila la classe col comando: <code>javac Hello.java</code></li>
-<li>se non ci sono errori, viene generato il <em><strong>bytecode</strong></em> <code>Hello.class</code></li>
-<li>si esegue il programma con: <code>java Hello</code></li>
-<li>la JVM cerca la classe <code>Hello</code>, e ne esegue il <code>main</code>
-<ul>
-<li>Nota: la JVM cerca la <strong>classe</strong> <code>Hello</code>, <em>non il file</em> <code>Hello.class</code></li>
-</ul>
-</li>
-</ul>
-</section><section>
-<h2 id="librerie-oggetti-e-stampe">Librerie, oggetti, e stampe</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.Date</span>;
-</span></span><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.Random</span>;
-</span></span><span style="display:flex;"><span><span style="color:#177500">// java.lang.System non va importata</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">PrintingObjects</span>{
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span>){
-</span></span><span style="display:flex;"><span>        <span style="color:#177500">// Date</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#000">Date</span> <span style="color:#000">d</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Date</span>();
-</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Today: "</span> <span style="color:#000">+</span> <span style="color:#000">d</span>);
-</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Milliseconds since 1/1/1970: "</span> <span style="color:#000">+</span> <span style="color:#000">d</span>.<span style="color:#836c28">getTime</span>());
-</span></span><span style="display:flex;"><span>        <span style="color:#177500">// Random number generator</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#000">Random</span> <span style="color:#000">r</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Random</span>();
-</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Random number: "</span> <span style="color:#000">+</span> <span style="color:#000">r</span>.<span style="color:#836c28">nextInt</span>());
-</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Another random: "</span> <span style="color:#000">+</span> <span style="color:#000">r</span>.<span style="color:#836c28">nextInt</span>());
-</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"A random in 0..99: "</span> <span style="color:#000">+</span> <span style="color:#000">r</span>.<span style="color:#836c28">nextInt</span>(<span style="color:#000">100</span>));
-</span></span><span style="display:flex;"><span>        <span style="color:#177500">// System properties</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#000">String</span> <span style="color:#000">javaVersion</span> <span style="color:#000">=</span> <span style="color:#000">System</span>.<span style="color:#836c28">getProperty</span>(<span style="color:#c41a16">"java.version"</span>);
-</span></span><span style="display:flex;"><span>        <span style="color:#000">String</span> <span style="color:#000">osname</span> <span style="color:#000">=</span> <span style="color:#000">System</span>.<span style="color:#836c28">getProperty</span>(<span style="color:#c41a16">"os.name"</span>);
-</span></span><span style="display:flex;"><span>        <span style="color:#000">String</span> <span style="color:#000">usrdir</span> <span style="color:#000">=</span> <span style="color:#000">System</span>.<span style="color:#836c28">getProperty</span>(<span style="color:#c41a16">"user.dir"</span>);
-</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Running Java "</span> <span style="color:#000">+</span> <span style="color:#000">javaVersion</span> <span style="color:#000">+</span> <span style="color:#c41a16">" in "</span> <span style="color:#000">+</span> <span style="color:#000">osname</span> <span style="color:#000">+</span> <span style="color:#c41a16">" from "</span> <span style="color:#000">+</span> <span style="color:#000">usrdir</span>);
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div></section><section>
-<h2 id="costruire-e-provare-classi">Costruire e provare classi</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">A</span> {
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">int</span> <span style="color:#000">i</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">void</span> <span style="color:#000">print</span>(){
-</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Sono un oggetto della classe A"</span>);
-</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Il mio valore di i è: "</span> <span style="color:#000">+</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">i</span>);
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">Print</span> {
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span>) {
-</span></span><span style="display:flex;"><span>        <span style="color:#000">A</span> <span style="color:#000">obj</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">A</span>();
-</span></span><span style="display:flex;"><span>        <span style="color:#000">obj</span>.<span style="color:#836c28">i</span> <span style="color:#000">=</span> <span style="color:#000">12</span>;
-</span></span><span style="display:flex;"><span>        <span style="color:#000">obj</span>.<span style="color:#836c28">print</span>();
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><ul>
-<li>Dopo aver compilato, si esegue la classe col <code>main</code>:
-<ul>
-<li><code>java Print</code></li>
-</ul>
-</li>
-</ul>
-</section><section>
-<h2 id="classi">Classi…</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">Point3D</span> {
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">double</span> <span style="color:#000">x</span>;
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">double</span> <span style="color:#000">y</span>;
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">double</span> <span style="color:#000">z</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">void</span> <span style="color:#000">build</span>(<span style="color:#a90d91">double</span> <span style="color:#000">x</span>, <span style="color:#a90d91">double</span> <span style="color:#000">y</span>, <span style="color:#a90d91">double</span> <span style="color:#000">z</span>) {
-</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">this</span>.<span style="color:#836c28">x</span> <span style="color:#000">=</span> <span style="color:#000">x</span>;
-</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">this</span>.<span style="color:#836c28">y</span> <span style="color:#000">=</span> <span style="color:#000">y</span>;
-</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">this</span>.<span style="color:#836c28">z</span> <span style="color:#000">=</span> <span style="color:#000">z</span>;
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">double</span> <span style="color:#000">getNormSquared</span>() {
-</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">x</span> <span style="color:#000">*</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">x</span> <span style="color:#000">+</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">y</span> <span style="color:#000">*</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">y</span> <span style="color:#000">+</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">z</span> <span style="color:#000">*</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">z</span>;
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">boolean</span> <span style="color:#000">equal</span>(<span style="color:#000">Point3D</span> <span style="color:#000">other</span>) {
-</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">x</span> <span style="color:#000">==</span> <span style="color:#000">other</span>.<span style="color:#836c28">x</span> <span style="color:#000">&amp;&amp;</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">y</span> <span style="color:#000">==</span> <span style="color:#000">other</span>.<span style="color:#836c28">y</span> <span style="color:#000">&amp;&amp;</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">z</span> <span style="color:#000">==</span> <span style="color:#000">other</span>.<span style="color:#836c28">z</span>;    
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div></section><section>
-<h2 id="e-classi-clienti">…e classi clienti</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">UsePoint3D</span>{   
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span>) {
-</span></span><span style="display:flex;"><span>        <span style="color:#000">Point3D</span> <span style="color:#000">p</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Point3D</span>();
-</span></span><span style="display:flex;"><span>        <span style="color:#000">p</span>.<span style="color:#836c28">build</span>(<span style="color:#000">10</span>.<span style="color:#836c28">0</span>, <span style="color:#000">20</span>.<span style="color:#836c28">0</span>, <span style="color:#000">30</span>.<span style="color:#836c28">0</span>);
-</span></span><span style="display:flex;"><span>        <span style="color:#000">Point3D</span> <span style="color:#000">q</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Point3D</span>();
-</span></span><span style="display:flex;"><span>        <span style="color:#000">q</span>.<span style="color:#836c28">build</span>(<span style="color:#000">10</span>.<span style="color:#836c28">0</span>, <span style="color:#000">20</span>.<span style="color:#836c28">0</span>, <span style="color:#000">31</span>.<span style="color:#836c28">0</span>);
-</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"p's squared norm: "</span> <span style="color:#000">+</span> <span style="color:#000">p</span>.<span style="color:#836c28">getNormSquared</span>());
-</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Are p and q the same point? "</span> <span style="color:#000">+</span> <span style="color:#000">p</span>.<span style="color:#836c28">equal</span>(<span style="color:#000">q</span>));
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><ul>
-<li>si compilano separatamente
-<ul>
-<li>Siccome per compilare <code>UsePoint3D.java</code> serve la <em>classe</em> <code>Point3D</code>, il <em>file</em> <code>Point3D.java</code> va compilato prima</li>
-</ul>
-</li>
-<li>si possono anche compilare insieme, dandoli entrambi al compilatore
-<ul>
-<li><code>javac UsePoint3D.java Point3D.java</code></li>
-<li>o, usando la sintassi “glob”: <code>javac *.java</code></li>
-</ul>
-</li>
-<li>si esegue la classe col <code>main</code>
-<ul>
-<li><code>java UsePoint3D</code></li>
-</ul>
-</li>
-</ul>
-</section><section>
-<h2 id="preview-del-prossimo-laboratorio">Preview del prossimo laboratorio</h2>
-<h3 id="obiettivi">Obiettivi</h3>
-<ul>
-<li>familiarizzare con la compilazione da linea di comando in Java</li>
-<li>fare qualche esercizio con la costruzione e uso di classi</li>
-</ul>
-</section><section>
-<h1 id="oggetti-e-classi">Oggetti e classi</h1>
+<h1 id="introduzione-al-linguaggio-java-1">Introduzione al linguaggio Java</h1>
 <h4 id="progettazione-e-sviluppo-del-software">Progettazione e Sviluppo del Software</h4>
 <h4 id="cdl-tecnologie-dei-sistemi-informatici">C.D.L. Tecnologie dei Sistemi Informatici</h4>
 <h3 id="danilo-pianini"><a href="mailto:danilo.pianini@unibo.it">Danilo Pianini — <code>danilo.pianini@unibo.it</code></a></h3>
@@ -1508,7 +706,7 @@ per il momento non ce ne occuperemo perché il JDK fornisce “di default” acc
 
   var revealHugoDefaults = { center: true, controls: true, history: true, progress: true, transition: "slide" };
 
-  var revealHugoPlugins = {
+  var revealHugoPlugins = { 
     plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealZoom ]
    };
   var revealHugoSiteParams = JSON.parse(document.getElementById('reveal-hugo-site-params').innerHTML);
@@ -1527,141 +725,93 @@ per il momento non ce ne occuperemo perché il JDK fornisce “di default” acc
 
 
 
-
-  
   
 
   
+
   
 
   
-  
 
   
-  
 
-  
-  
-
-  
   
 
   
     
   
+
   
 
   
-    
-  
+
   
 
   
-    
-  
+
   
 
   
+
   
 
   
+
   
 
   
+
   
 
   
-    
-  
+
   
 
   
+
   
 
   
+
   
 
   
+
   
 
   
+
   
 
   
+
   
 
   
+
   
 
   
+
   
 
   
+
   
 
   
+
   
 
   
-  
 
   
-  
 
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
   
 
 
 
-  <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.3/dist/mermaid.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@9.1.6/dist/mermaid.min.js"></script>
   <script>
     mermaid.initialize({"startOnLoad":false});
 
@@ -1684,8 +834,6 @@ per il momento non ce ne occuperemo perché il JDK fornisce “di default” acc
     Reveal.on('slidechanged', render);
     Reveal.on('ready', render);
   </script>
-
-
 
     <script>
     MathJax = {
