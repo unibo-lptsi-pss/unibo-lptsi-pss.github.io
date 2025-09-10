@@ -43,28 +43,6 @@
 <li>Variabili e riferimenti</li>
 </ul>
 </section><section>
-<h2 id="i-linguaggi-oo-sono-anche-imperativistrutturati">I linguaggi OO sono anche imperativi/strutturati</h2>
-<h3 id="java-estende-il-c">Java “estende” il C</h3>
-<ul>
-<li>Come C++ e C#, Java è alla base anche imperativo/strutturato – altri linguaggi come Scala invece no</li>
-<li>Il codice di un metodo è un insieme di comandi C-like</li>
-</ul>
-<!--  *  Ecco perché li si chiama object-oriented e non object-based -->
-<!-- In realtà: object-based PLs consentono di creare e usare oggetti; quelli object-oriented forniscono inoltre supporto per ereditarietà e polimorfismo -->
-<h3 id="panoramica-istruzioni">Panoramica istruzioni</h3>
-<ul>
-<li>Variabili e assegnamenti:</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">int</span> <span style="color:#000">x</span>;              <span style="color:#177500">// dichiarazione</span>
-</span></span><span style="display:flex;"><span><span style="color:#a90d91">int</span> <span style="color:#000">x</span><span style="color:#000">=</span><span style="color:#000">5</span>;  <span style="color:#a90d91">var</span> <span style="color:#000">x</span><span style="color:#000">=</span><span style="color:#000">5</span>;  <span style="color:#177500">// dichiarazione e inizializzazione (assegnamento)</span>
-</span></span><span style="display:flex;"><span><span style="color:#000">x</span><span style="color:#000">=</span><span style="color:#000">5</span>;                <span style="color:#177500">// assegnamento</span>
-</span></span></code></pre></div><ul>
-<li>Ritorno: <code>return 5;</code></li>
-<li>Chiamate: <code>meth(3,4);</code> <code>obj.meth(3);</code>  <code>Cls.meth(4);</code></li>
-<li>Costrutti di controllo del flusso: <code>for</code>, <code>while</code>, <code>do</code>, <code>switch</code>, <code>if</code>, <code>break</code>, <code>continue</code></li>
-<li>Qualche altra tipologia, che vedremo nel prosieguo</li>
-</ul>
-</section><section>
 <h2 id="hello-world-in-java-25">Hello World in Java (25+)</h2>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">void</span> <span style="color:#000">main</span>() {
 </span></span><span style="display:flex;"><span>    <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Hello, World!"</span>);
@@ -373,6 +351,31 @@ si aspettano valori di tipo <code>boolean</code></p>
 </span></span><span style="display:flex;"><span>	<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">3</span>.<span style="color:#836c28">5f</span> <span style="color:#000">/</span> <span style="color:#000">51</span> <span style="color:#000">*</span> <span style="color:#000">51</span>);<span style="color:#177500">// 3.5000002</span>
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></section><section>
+<h2 id="variabili-e-assegnamento">Variabili e Assegnamento</h2>
+<p>In Java, come in C, è possibile assegnare dei nomi a dei valori (<em>variabili</em>).</p>
+<ul>
+<li>Una variabile ha un <em>tipo</em> e un <em>nome</em>
+<ul>
+<li>A partire da Java 11, è possibile dedurre (<em>inferire</em>) il tipo automaticamente usando <code>var</code> al posto del tipo</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Il tipo e il nome delle variabili, una volta assegnati, non possono essere cambiati!!
+<ul>
+<li>Il valore invece può essere cambiato (vedremo in futuro come impedirlo)</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">int</span> <span style="color:#000">x</span>;              <span style="color:#177500">// dichiarazione</span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">int</span> <span style="color:#000">y</span> <span style="color:#000">=</span> <span style="color:#000">5</span>;          <span style="color:#177500">// dichiarazione + inizializzazione</span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">var</span> <span style="color:#000">z</span> <span style="color:#000">=</span> <span style="color:#000">5</span>;          <span style="color:#177500">// dichiarazione + inizializzazione con inferenza del tipo</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">x</span> <span style="color:#000">=</span> <span style="color:#000">5</span>;              <span style="color:#177500">// assegnamento</span>
+</span></span><span style="display:flex;"><span><span style="color:#177500">// z = 3.14;         // ERRORE: stiamo provando ad assegnare un double a una variabile di tipo int</span>
+</span></span></code></pre></div><ul>
+<li><em>Consiglio</em>: All’inizio si raccomanda di dichiarare il tipo in modo esplicito per prendere maggior confidenza con il linguaggio.</li>
+</ul>
+</section><section>
 <h2 id="conversioni-fra-tipi-primitivi">Conversioni fra tipi <em>primitivi</em></h2>
 <h3 id="conversioni-di-tipo-forzate-dette-type-cast-tipo-valore">Conversioni di tipo forzate, dette <em>type cast</em>: <code>(tipo) valore</code></h3>
 <ul>
