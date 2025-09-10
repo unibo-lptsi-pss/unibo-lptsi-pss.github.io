@@ -160,6 +160,12 @@ chiamato <em>bytecode</em> (file con estensione <code>.class</code>)</li>
 <li>Sequenza di caratteri (oggetti, ma con sintassi speciale)</li>
 </ul>
 </li>
+<li><em>Wrapper types</em>: <code>Boolean</code>, <code>Byte</code>, <code>Short</code>, <code>Integer</code>, <code>Long</code>, <code>Float</code>, <code>Double</code>, <code>Char</code>, <code>Void</code>
+<ul>
+<li>Versioni “oggetto” dei tipi primitivi, saranno utili in futuro</li>
+<li>Per ora, sono comode per ottenere alcuni valori speciali (es.: <code>Integer.MAX_VALUE</code>)</li>
+</ul>
+</li>
 </ul>
 </section><section>
 <h2 id="tipi-primitivi-1">Tipi primitivi</h2>
@@ -282,20 +288,17 @@ si aspettano valori di tipo <code>boolean</code></p>
 </li>
 <li>Rappresentazione decimale (<code>200</code>), ottale (<code>0310</code>), esadecimale (<code>0xC8</code>)</li>
 <li>Di default sono <code>int</code>, per avere un <code>long</code> va aggiunta una <code>L</code> (<code>15L</code>)</li>
-<li>Non c’è sintassi per <code>byte</code> e <code>short</code> (usati di rado): si usano cast espliciti (<code>(byte) 5</code>)</li>
+<li>Nessuna sintassi speciale per <code>byte</code> e <code>short</code> (usati di rado): si usano “cast” espliciti (<code>(byte) 5</code>)</li>
 <li>È possibile usare underscore (<code>_</code>) per separare le cifre
 <ul>
 <li>Es.: <code>1_000_000</code> è più leggibile di <code>1000000</code></li>
 </ul>
 </li>
+<li>Valori <em>speciali</em> nei wrapper types: <code>*.MAX_VALUE</code>, <code>*.MIN_VALUE</code>, e.g. <code>Integer.MAX_VALUE</code></li>
 </ul>
 </section><section>
 <h2 id="numeri-in-virgola-mobile-float-double">Numeri in virgola mobile: <code>float</code>, <code>double</code></h2>
-<p>Numeri con virgola mobile, con valori speciali:</p>
-<ul>
-<li>“not-a-number” (<code>NaN</code>),</li>
-<li>$\infty$ (<code>POSITIVE_INFINITY</code>), $-\infty$ (<code>NEGATIVE_INFINITY</code>)</li>
-</ul>
+<p>Numeri con virgola mobile, con valori speciali che rappresentano valori non numerici o infiniti</p>
 <h3 id="operatori-1">Operatori</h3>
 <ul>
 <li>Unari: <code>+</code> e <code>-</code></li>
@@ -311,13 +314,17 @@ si aspettano valori di tipo <code>boolean</code></p>
 </li>
 <li>Rappresentazione standard (<code>-128.345</code>), o scientifica (<code>-1.2835E+2</code>)</li>
 <li>Di default sono <code>double</code>, per avere un <code>float</code> va aggiunta una <code>f</code></li>
+<li>Valori speciali:
+<ul>
+<li>“not-a-number” (<code>Float.NaN</code>, <code>Double.NaN</code>),</li>
+<li>$\infty$ (<code>Float.POSITIVE_INFINITY</code>, <code>Double.POSITIVE_INFINITY</code>)</li>
+<li>$-\infty$ (<code>Float.NEGATIVE_INFINITY</code>, <code>Double.NEGATIVE_INFINITY</code>)</li>
+<li>Valori più grandi e più piccoli rappresentabili: <code>*.MAX_VALUE</code>, <code>*.MIN_VALUE</code></li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#000">5</span>   <span style="color:#177500">// int</span>
-</span></span><span style="display:flex;"><span><span style="color:#000">5</span>.  <span style="color:#177500">// double</span>
-</span></span><span style="display:flex;"><span><span style="color:#000">5d</span>  <span style="color:#177500">// double</span>
-</span></span><span style="display:flex;"><span><span style="color:#000">5f</span>  <span style="color:#177500">// float</span>
-</span></span></code></pre></div></section><section>
-<h2 id="provate-voi-stessi">Provate voi stessi..</h2>
+</li>
+</ul>
+</section><section>
+<h2 id="provate-voi-stessi">Provate voi stessi</h2>
 <!--  \srcode{\scriptsize}{3}{100}{\ecl/Try.java} -->
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">void</span> <span style="color:#000">main</span>() {
 </span></span><span style="display:flex;"><span>	<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">10</span> <span style="color:#000">+</span> <span style="color:#000">20</span>); <span style="color:#177500">// 30</span>
@@ -344,89 +351,68 @@ si aspettano valori di tipo <code>boolean</code></p>
 </span></span><span style="display:flex;"><span>	<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">3</span>.<span style="color:#836c28">5f</span> <span style="color:#000">/</span> <span style="color:#000">51</span> <span style="color:#000">*</span> <span style="color:#000">51</span>);<span style="color:#177500">// 3.5000002</span>
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></section><section>
-<h2 id="conversioni">Conversioni</h2>
-<h3 id="conversioni-di-tipo-dette-anche-cast-tipovalore">Conversioni di tipo, dette anche <em>cast</em>: <code>(tipo)valore</code></h3>
+<h2 id="conversioni-fra-tipi-primitivi">Conversioni fra tipi <em>primitivi</em></h2>
+<h3 id="conversioni-di-tipo-forzate-dette-type-cast-tipo-valore">Conversioni di tipo forzate, dette <em>type cast</em>: <code>(tipo) valore</code></h3>
 <ul>
-<li>Fra tipi numerici sono sempre consentite
+<li>Sempre consentite fra tipi numerici</li>
+<li>non consentite tra tipi numerici e <code>boolean</code></li>
+<li>Possono causare perdita di informazione!
 <ul>
-<li>mentre non lo sono, ad es. tra tipi numerici e <code>boolean</code></li>
+<li>Es.: <code>(int) 3.33</code>, <code>((double) 10)/3</code>, <code>(short) 100_000</code></li>
 </ul>
 </li>
-<li>Possono causare perdita di informazione</li>
-<li>Es.: <code>(int)3.33</code>, <code>((double)10)/3</code>, <code>(short)100</code></li>
 </ul>
-<h3 id="conversioni-automatiche-dette-anche-coercizioni">Conversioni automatiche, dette anche <em>coercizioni</em></h3>
+<h3 id="conversioni-automatiche-dette-coercizioni">Conversioni automatiche, dette <em>coercizioni</em></h3>
 <ul>
-<li>Le inserisce automaticamente il compilatore in certi casi</li>
-<li>Quando ci si aspetta un tipo, e si usa un valore diverso</li>
 <li>Solo da un tipo più specifico a uno più generale (<em>promozione</em>)
 <ul>
 <li>(+ Specifico $\rightarrow$ + Generale) <code>byte</code>$\rightarrow$<code>short</code>$\rightarrow$<code>int</code>$\rightarrow$<code>long</code>$\rightarrow$<code>float</code>$\rightarrow$<code>double</code></li>
+<li>Possono comunque generare perdita di informazione nel passaggio da <code>long</code> a <code>float</code>!
+<ul>
+<li>Provate: <code>(long) ((float) Long.MAX_VALUE - 1) == Long.MAX_VALUE - 1</code></li>
+<li>Perché?</li>
 </ul>
 </li>
-<li>Due casi:
+</ul>
+</li>
+<li>Le inserisce automaticamente il compilatore dove necessario, ad esempio:
 <ul>
-<li>In assegnamenti: <code>long l=100;</code> diventa <code>long l=(long)100;</code></li>
-<li>Operazioni fra tipi diversi: <code>10.1+10</code> diventa <code>10.1+(double)10</code></li>
-<li>Passando valori a funzioni</li>
+<li>In assegnamenti: <code>long l = 100;</code> diventa <code>long l = 100L;</code></li>
+<li>In operazioni fra tipi diversi: <code>10.1 + 10</code> diventa <code>10.1 + 10.0</code></li>
+<li>Passando valori a funzioni che si aspettano un tipo più generale</li>
 </ul>
 </li>
 </ul>
 </section><section>
-<h2 id="i-caratteri">I caratteri</h2>
-<h3 id="rappresentazione-esterna">Rappresentazione (esterna)</h3>
-<ul>
-<li>Singolo carattere: <code>'a'</code>, <code>'z'</code>, <code>'A'</code>, <code>'='</code></li>
-<li>Codice ASCII: 65 (<code>'A'</code>), 66 (<code>'B'</code>)</li>
-<li>Caratteri escape: <code>'\n'</code>, <code>'\\'</code>, <code>'\0'</code></li>
-<li>Caratteri UTF16: <code>'\u6C34'</code></li>
-</ul>
+<h2 id="char"><code>char</code></h2>
 <h3 id="codifica-rappresentazione-interna">Codifica (rappresentazione interna)</h3>
 <ul>
 <li>UTF16
 <ul>
-<li>variable-length encoding (ogni <em>codepoint</em> in 1 o 2 unità di 16 bit) $\to$ non compatibile con ASCII</li>
+<li>variable-length encoding (ogni <em>codepoint</em> in 1 o 2 unità di 16 bit) $\to$ sussume ASCII</li>
 </ul>
 </li>
-<li>automaticamente convertibile ad un numerico fra 0 e 65535</li>
+<li>automaticamente convertibile da/a un numerico fra 0 e 65535</li>
 </ul>
-<!--  \srcode{\scriptsize}{3}{100}{\ecl/TryChars.java} -->
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span>	<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#2300ce">'a'</span>);
-</span></span><span style="display:flex;"><span>	<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#2300ce">'\u6C34'</span>); <span style="color:#177500">// Acqua (cinese)</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#2300ce">'\\'</span>);
-</span></span><span style="display:flex;"><span>	<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">print</span>(<span style="color:#2300ce">'\n'</span>); <span style="color:#177500">// print come printf di C</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">print</span>((<span style="color:#a90d91">char</span>) <span style="color:#000">10</span>);
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><!--
-
----
-
-```
-a".getBytes(java.nio.charset.StandardCharsets.ISO_8859_1) // byte[1] { 97 }
-
-a".getBytes(java.nio.charset.StandardCharsets.UTF_8)      // byte[1] { 97 }
-
-a".getBytes(java.nio.charset.StandardCharsets.UTF_16)     // byte[4] { -2, -1, 0, 97 }
-```
--->
+<h3 id="rappresentazione-esterna">Rappresentazione (esterna)</h3>
+<ul>
+<li>Singolo carattere: <code>'a'</code>, <code>'z'</code>, <code>'A'</code>, <code>'='</code>, <code>'✀'</code></li>
+<li>Codice UTF-16 (sussume ASCII): 65 (<code>'A'</code>), 66 (<code>'B'</code>), 9984 (<code>'✀'</code>)</li>
+<li>Caratteri speciali: <code>'\n'</code>, <code>'\\'</code>, <code>'\0'</code>…</li>
+<li>UTF-16 code units (equivale a Unicode code points da U+0000 a U+FFFF): <code>'\u2603'</code> (<code>'☃'</code>)</li>
+<li>Code points &gt; U+FFFF possono essere rappresentati con due <code>char</code> (<em>surrogate pairs</em>)
+<ul>
+<li>Es.: <code>"\uD83E\uDD96"</code> (<code>"🦖"</code>) (notare che produce una stringa di due caratteri)</li>
+</ul>
+</li>
+</ul>
 </section><section>
 <h2 id="le-stringhe">Le Stringhe</h2>
-<h3 id="rappresentazione">Rappresentazione</h3>
-<ul>
-<li>In Java sono oggetti della classe <code>String</code>.
-<ul>
-<li>Vedremo le classi in dettaglio più avanti.</li>
-</ul>
-</li>
-<li>Si rappresentano con sequenze di caratteri racchiusi da doppi apici: <code>"Ciao Mondo!"</code></li>
-</ul>
-<h3 id="immutabilità">Immutabilità</h3>
-<ul>
-<li>Le istanze di <code>String</code> sono immutabili: una volta create non possono essere modificate.
+<p>Oggetti della classe <code>String</code> (vedremo le classi in dettaglio più avanti).</p>
+<p>Si rappresentano con sequenze di caratteri racchiusi da doppi apici: <code>"Ciao Mondo!"</code></p>
+<p>Le istanze di <code>String</code> sono <strong>immutabili</strong>: una volta create non possono essere modificate.</p>
 <ul>
 <li>Operazioni che “modificano” una stringa in realtà ne creano una nuova.</li>
-</ul>
-</li>
 </ul>
 <h3 id="operazione-principale--concatenazione">Operazione principale — Concatenazione</h3>
 <ul>
@@ -435,10 +421,22 @@ a".getBytes(java.nio.charset.StandardCharsets.UTF_16)     // byte[4] { -2, -1, 0
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#c41a16">"Ciao "</span> <span style="color:#000">+</span> <span style="color:#c41a16">"Mondo!"</span> <span style="color:#177500">// "Ciao Mondo!"</span>
 </span></span><span style="display:flex;"><span><span style="color:#000">String</span> <span style="color:#000">s</span> <span style="color:#000">=</span> <span style="color:#c41a16">"Ciao"</span>;
 </span></span><span style="display:flex;"><span><span style="color:#000">s</span> <span style="color:#000">=</span> <span style="color:#000">s</span> <span style="color:#000">+</span> <span style="color:#c41a16">" Mondo"</span>;   <span style="color:#177500">// crea una nuova String</span>
-</span></span></code></pre></div><h3 id="conversioni-1">Conversioni</h3>
+</span></span></code></pre></div><h3 id="conversioni">Conversioni</h3>
 <ul>
-<li>Da primitive a stringa: <code>String.valueOf(42)</code> o <code>"" + 42</code></li>
-<li>Da stringa a numeri: <code>Integer.parseInt("42")</code>, <code>Double.parseDouble("3.14")</code></li>
+<li>Da primitivo a stringa: <code>String.valueOf(42)</code>, oppure <code>Integer.toString(42)</code>
+<ul>
+<li>In generale, per ogni wrapper type <code>T</code>, <code>T.toString(x)</code> converte <code>x</code> in <code>String</code></li>
+</ul>
+</li>
+<li>Da stringa a primitivo: <code>Integer.parseInt("42")</code>, <code>Double.parseDouble("3.14")</code>
+<ul>
+<li>In generale, per ogni wrapper type <code>T</code>, <code>T.parseT(s)</code> converte la stringa <code>s</code> in un valore di tipo <code>T</code></li>
+</ul>
+</li>
+</ul>
+<p><strong>Attenzione</strong>: le conversioni <strong>non sono cast</strong>!</p>
+<ul>
+<li>Java non consente cast fra tipi primitivi e tipi non-primitivi (eccetto wrapper types), le conversioni vanno effettuate tramite apposite funzioni</li>
 </ul>
 </section><section>
 <h1 id="array">Array</h1>
@@ -1572,6 +1570,8 @@ per il momento non ce ne occuperemo perché il JDK fornisce “di default” acc
   
   
 
+  
+    
   
   
 
