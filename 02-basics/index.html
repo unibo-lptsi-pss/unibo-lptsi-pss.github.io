@@ -450,15 +450,23 @@ si aspettano valori di tipo <code>boolean</code></p>
 </ul>
 <h3 id="principale-differenza-rispetto-al-c">Principale differenza rispetto al C</h3>
 <ul>
-<li>Un array ha una lunghezza esplicita e accessibile (non modificabile)</li>
-<li>È impossibile violare i limiti di una array, pena un errore (<code>ArrayIndexOutOfBoundsException</code>)</li>
-<li>L’accesso all’array è di conseguenza leggermente rallentato</li>
+<li>Un array ha una lunghezza esplicita e accessibile (non modificabile)
+<ul>
+<li>In C la lunghezza va tracciata separatamente</li>
+</ul>
+</li>
+<li>È impossibile violare i limiti di una array, pena un errore (<code>ArrayIndexOutOfBoundsException</code>)
+<ul>
+<li>In C si può provare a leggere o scrivere fuori dai limiti, con conseguenze imprevedibili
+(da lettura di dati spuri a crash del programma per segmentation fault)</li>
+</ul>
+</li>
 </ul>
 </section><section>
 <h2 id="sintassi-array-introduzione">Sintassi Array (introduzione)</h2>
 <h3 id="creazione-array">Creazione array</h3>
 <ul>
-<li><code>int[] arr = {10,20,30};</code> (inizializzazione per elenco)</li>
+<li><code>int[] array = {10, 20, 30};</code> (inizializzazione per elenco)</li>
 <li>Vedremo altre forme più avanti</li>
 </ul>
 <h3 id="accesso-array-zero-indexed">Accesso array (<em>zero-indexed</em>)</h3>
@@ -529,15 +537,19 @@ for(int i=0; i<10; i++){ /* .. */ }
 </section><section>
 <h3 id="differenza-filosofica">Differenza filosofica</h3>
 <ul>
-<li>Java è molto più restrittivo del C</li>
-<li>Molto di ciò che è solo <em>warning</em> in C, è <em>errore</em> in Java
+<li>Java è molto più restrittivo di C</li>
+<li>Molto di ciò che è solo <em>warning</em> in C, è <strong>errore</strong> in Java
 <ul>
 <li><em>unreachable statement</em>: istruzioni non raggiungibili (per errore)</li>
 <li><em>variable may not have been initialised</em> (uso variabile prima del suo init)</li>
 <li><em>missing return statement</em> (un return finale è obbligatorio)</li>
 </ul>
 </li>
-<li>Può sembrare una filosofia che rende la programmazione “rigida”, e invece è cruciale per supportare lo sviluppo di software di qualità</li>
+<li>Può sembrare una filosofia che rende la programmazione “rigida”, e invece è cruciale per supportare lo sviluppo di software di qualità
+<ul>
+<li>Principio ingegneristico: <em>fail fast</em></li>
+</ul>
+</li>
 <li>Le prassi che discuteremo ci porteranno ulteriori rigidità</li>
 </ul>
 </section><section>
@@ -548,7 +560,11 @@ for(int i=0; i<10; i++){ /* .. */ }
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><ul>
 <li>La condizione deve essere di tipo <code>boolean</code>.</li>
-<li>Raccomandato usare sempre le parentesi graffe anche per un’unica istruzione.</li>
+<li>Usare sempre le parentesi graffe anche per un’unica istruzione.
+<ul>
+<li>Non richiesto dalla sintassi, ma evita errori difficili da individuare.</li>
+</ul>
+</li>
 </ul>
 <h3 id="esempio">Esempio</h3>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">int</span> <span style="color:#000">x</span> <span style="color:#000">=</span> <span style="color:#000">10</span>;
@@ -575,32 +591,64 @@ for(int i=0; i<10; i++){ /* .. */ }
 </span></span><span style="display:flex;"><span>  <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Positivo"</span>);
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></section><section>
-<h2 id="ciclo-for-classico">Ciclo <code>for</code> (classico)</h2>
-<h3 id="sintassi-2">Sintassi</h3>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">for</span> (<span style="color:#000">inizializzazione</span>; <span style="color:#000">condizione</span>; <span style="color:#000">aggiornamento</span>) {
-</span></span><span style="display:flex;"><span>  <span style="color:#177500">// corpo</span>
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h3 id="esempio-2">Esempio</h3>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">for</span> (<span style="color:#a90d91">int</span> <span style="color:#000">i</span> <span style="color:#000">=</span> <span style="color:#000">0</span>; <span style="color:#000">i</span> <span style="color:#000">&lt;</span> <span style="color:#000">10</span>; <span style="color:#000">i</span><span style="color:#000">++</span>) {
-</span></span><span style="display:flex;"><span>  <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">i</span>);
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><ul>
-<li>La variabile dichiarata (<code>int i</code>) ha scope limitato al <code>for</code>.</li>
-<li>Usare tipi adeguati (<code>int</code> per contatori, <code>long</code> se necessario).</li>
-</ul>
-</section><section>
 <h2 id="ciclo-while">Ciclo <code>while</code></h2>
 <h3 id="while"><code>while</code></h3>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">while</span> (<span style="color:#000">condizione</span>) {
 </span></span><span style="display:flex;"><span>  <span style="color:#177500">// corpo</span>
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>Esempio:</p>
+</span></span></code></pre></div><ol>
+<li>valuta <code>condizione</code> (deve restituire <code>boolean</code>)</li>
+<li>se <code>true</code>, esegue il corpo e torna a 1.</li>
+</ol>
+<p>Esempio:</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">int</span> <span style="color:#000">i</span> <span style="color:#000">=</span> <span style="color:#000">0</span>;
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">while</span> (<span style="color:#000">i</span> <span style="color:#000">&lt;</span> <span style="color:#000">5</span>) {
 </span></span><span style="display:flex;"><span>  <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">i</span>);
 </span></span><span style="display:flex;"><span>  <span style="color:#000">i</span><span style="color:#000">++</span>;
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></section><section>
+<h2 id="ciclo-do-while">Ciclo <code>do</code>-<code>while</code></h2>
+<h3 id="do-while"><code>do</code>-<code>while</code></h3>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">do</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#177500">// corpo</span>
+</span></span><span style="display:flex;"><span>} <span style="color:#a90d91">while</span> (<span style="color:#000">condizione</span>);
+</span></span></code></pre></div><ol>
+<li>esegue il corpo</li>
+<li>valuta <code>condizione</code> (deve restituire <code>boolean</code>)</li>
+<li>se <code>true</code>, torna a 1.</li>
+</ol>
+<p>Utile se il corpo deve essere eseguito almeno una volta.</p>
+<p>Esempio:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">int</span> <span style="color:#000">i</span> <span style="color:#000">=</span> <span style="color:#000">0</span>;
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">do</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">i</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#000">i</span><span style="color:#000">++</span>;
+</span></span><span style="display:flex;"><span>} <span style="color:#a90d91">while</span> (<span style="color:#000">i</span> <span style="color:#000">&lt;</span> <span style="color:#000">5</span>);
+</span></span></code></pre></div></section><section>
+<h2 id="ciclo-for-classico">Ciclo <code>for</code> (classico)</h2>
+<h3 id="sintassi-2">Sintassi</h3>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">for</span> (<span style="color:#000">inizializzazione</span>; <span style="color:#000">condizione</span>; <span style="color:#000">aggiornamento</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#177500">// corpo</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><ol>
+<li>Esegue <code>inizializzazione</code></li>
+<li>Valuta <code>condizione</code> (deve restituire <code>boolean</code>)</li>
+<li>Se <code>true</code>, esegue il corpo</li>
+<li>esegue <code>aggiornamento</code></li>
+<li>Torna a 2.</li>
+</ol>
+<h3 id="esempio-2">Esempio</h3>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">for</span> (<span style="color:#a90d91">int</span> <span style="color:#000">i</span> <span style="color:#000">=</span> <span style="color:#000">0</span>; <span style="color:#000">i</span> <span style="color:#000">&lt;</span> <span style="color:#000">10</span>; <span style="color:#000">i</span><span style="color:#000">++</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">i</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><ul>
+<li>È possibile dichiarare una variabile nel blocco di inizializzazione
+<ul>
+<li>La variabile dichiarata (<code>int i</code>) ha scopo limitato al <code>for</code> (non è visibile fuori)</li>
+</ul>
+</li>
+</ul>
+</section><section>
 <h2 id="come-si-itera-sugli-array">Come si itera sugli array?</h2>
 <p>In Java si può usare il classico <code>for</code> (come in C):</p>
 <!--  %\sizedcode{\scriptsize}{code/Reverse.java}
@@ -743,8 +791,6 @@ for(int i=0; i<10; i++){ /* .. */ }
 
   
 
-  
-    
   
 
   
