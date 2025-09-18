@@ -1,7 +1,7 @@
 <!DOCTYPE html><html lang="en"><head>
     <meta charset="utf-8">
-<title>Progettazione e Sviluppo del Software</title>
-<meta name="description" content="Progettazione e Sviluppo del Software, Tecnologie dei Sistemi Informatici">
+<title>Installazione IntelliJ IDEA</title>
+<meta name="description" content="Laboratorio di Progettazione e Sviluppo del Software">
 <meta name="author" content="Danilo Pianini">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -20,7 +20,7 @@
       <div class="slides">
   
 
-    <section><h1 id="esecuzione-di-applicazioni-java-tramite-gradle">Esecuzione di applicazioni Java tramite Gradle</h1>
+    <section><h1 id="installazione-di-intellij-idea">Installazione di IntelliJ IDEA</h1>
 <h4 id="progettazione-e-sviluppo-del-software">Progettazione e Sviluppo del Software</h4>
 <h4 id="cdl-tecnologie-dei-sistemi-informatici">C.D.L. Tecnologie dei Sistemi Informatici</h4>
 <h3 id="danilo-pianini"><a href="mailto:danilo.pianini@unibo.it">Danilo Pianini — <code>danilo.pianini@unibo.it</code></a></h3>
@@ -41,58 +41,120 @@ Mirko Viroli e Roberto Casadei, che ringrazio.</p>
 </li>
 </ul>
 </section><section>
-<h2 id="lanciare-applicazioni-java-da-gradle">Lanciare applicazioni Java da Gradle</h2>
-<p>Gradle offre supporto all’esecuzione dell’applicazione,
-oltre che alla sua compilazione,
-utilizzando il task <code>run</code> che viene aggiunto dal plugin <code>application</code>.</p>
-<p>Per eseguire ci servono due cose:</p>
-
-
-<span class="fragment ">
-  <ol>
-<li>il <em>nome qualificato</em> della classe da eseguire <br></li>
-</ol>
-
-</span>
-
-
-
-<span class="fragment ">
-  <ol start="2">
-<li>il <em>classpath</em> da cui caricare tutte le classi</li>
-</ol>
-
-</span>
-
-
-
-<span class="fragment ">
-  <p>Il classpath è noto perché specificato (in questo caso grazie a <strong>Convention over Configuration</strong>);</p>
-<p>Il nome della classe, invece, va specificato manualmente</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#000">plugins</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#000">java</span> <span style="color:#177500">// Carica il necessario per la compilazione di Java
-</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>  <span style="color:#000">application</span> <span style="color:#177500">// Carica il necessario per l'esecuzione di classi con la JVM
-</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>}
-</span></span><span style="display:flex;"><span><span style="color:#000">application</span> { <span style="color:#177500">// Configurazione dell'esecuzione, la main class è sufficiente
-</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#000">mainClass</span>.<span style="color:#a90d91">set</span>(<span style="color:#c41a16">"it.unibo.sampleapp.SimplerRateAMovie"</span>)
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>Possiamo ora lanciare la nostra applicazione tramite:</p>
+<h2 id="introduzione">Introduzione</h2>
 <ul>
-<li><code>gradle run</code></li>
+<li>IntelliJ IDEA è un <strong>IDE</strong> sviluppato da JetBrains, tra i più diffusi per Java (e non solo)</li>
+<li>Esistono due versioni:
+<ul>
+<li><strong>Ultimate</strong> (a pagamento, gratuita con licenza studente)</li>
+<li><strong>Community</strong> (gratuita, open source)
+<ul>
+<li>vi consigliamo di utilizzare questa versione sul vostro PC personale</li>
+<li>le funzionalità aggiuntive offerte da <strong>Ultimate</strong> non sono necessarie per il corso</li>
 </ul>
-
-</span>
-
+</li>
+</ul>
+</li>
+<li>Disponibile su tutti i principali sistemi operativi:
+<ul>
+<li><i class="fa-brands fa-windows"></i> Windows</li>
+<li><i class="fa-brands fa-linux"></i> Linux</li>
+<li><i class="fa-brands fa-apple"></i> macOS</li>
+</ul>
+</li>
+</ul>
 </section><section>
-<h2 id="verso-una-gestione-next-level-del-software">Verso una gestione NEXT LEVEL del software</h2>
-<p><img src="tech.jpg" alt="Meme del tizio che dice stonks ma invece dice tech"></p>
-<p>Abbiamo sempre più elementi che ci permettono di creare software di qualità:</p>
+<h2 id="pc-dei-laboratori">PC dei laboratori</h2>
 <ul>
-<li>Grazie a <strong>git</strong> possiamo tenere traccia delle modifiche che apportiamo al software;</li>
-<li>Grazie a <strong>Gradle</strong> possiamo automatizzare la compilazione e l’esecuzione del software;
-<ul>
-<li>Inoltre esistono numerosi plugin che ci aiutano ad automatizzare altri aspetti come la qualità del codice (vedi <strong>Checkstyle</strong>);</li>
+<li>I computer dei laboratori sono <strong>già attrezzati</strong> con IntelliJ IDEA e JDK configurati</li>
+<li>Non è quindi necessario effettuare alcuna installazione aggiuntiva durante le esercitazioni</li>
 </ul>
+<h2 id="lavorare-a-casa">Lavorare a casa</h2>
+<p>Per esercitarsi autonomamente a casa è necessario ricreare lo stesso ambiente:</p>
+<ul>
+<li>Installare il <strong>JDK</strong> seguendo le istruzioni riportate in <a href="lab/01-basic-tools/">Strumenti del JDK</a></li>
+<li>Installare <strong>IntelliJ IDEA</strong> seguendo le istruzioni che seguono</li>
+</ul>
+<p>In questo modo sarà possibile allenarsi e sviluppare progetti anche fuori dall’aula</p>
+</section><section>
+<h2 id="installazione-su-windows"><i class="fa-brands fa-windows"></i> Installazione su Windows</h2>
+<ol>
+<li>Scaricare l’installer con formato <code>.exe</code> adatto alla propria architettura dal <a href="https://www.jetbrains.com/idea/download/">sito ufficiale di JetBrains</a></li>
+<li>Eseguire l’installer.</li>
+<li>Seguire la procedura guidata:
+<ul>
+<li>è possibile avanzare nel wizard lasciando inalterate tutte le opzioni disponibili;</li>
+</ul>
+</li>
+<li>Completare l’installazione e avviare IntelliJ IDEA</li>
+</ol>
+</section><section>
+<h2 id="installazione-su-linux"><i class="fa-brands fa-linux"></i> Installazione su Linux</h2>
+<ul>
+<li>
+<p>Dal sito JetBrains è disponibile un <strong>generico</strong> archivio (<code>.tar.gz</code>)</p>
+<ul>
+<li>Può essere estratto e avviato su <strong>gran parte delle distribuzioni Linux</strong></li>
+<li>è possibile installare il software seguendo le istruzioni in <code>Install-Linux-tar.txt</code></li>
+</ul>
+</li>
+<li>
+<p>Tuttavia, <strong>è preferibile</strong> seguire le istruzioni specifiche per la propria distribuzione</p>
+<ul>
+<li>ad esempio utilzzando il package manager disponibile (es. <code>apt</code>, <code>dnf</code>, <code>pacman</code>, <code>snap</code>, <code>flatpak</code>)</li>
+<li>questo garantisce aggiornamenti automatici e migliore integrazione con il sistema</li>
+</ul>
+</li>
+<li>
+<p>In caso di difficoltà con l’installazione:</p>
+<ul>
+<li>contattare i docenti del laboratorio</li>
+<li>cercheremo di fornirvi supporto per la distribuzione in uso</li>
+</ul>
+</li>
+</ul>
+</section><section>
+<h2 id="installazione-su-macos"><i class="fa-brands fa-apple"></i> Installazione su macOS</h2>
+<ol>
+<li>Scaricare il file <code>.dmg</code> dal <a href="https://www.jetbrains.com/idea/download/">sito ufficiale di JetBrains</a></li>
+<li>Aprire il pacchetto e trascinare IntelliJ IDEA nella cartella <strong>Applicazioni</strong>;</li>
+<li>Avviare l’IDE dal Launchpad o Finder.</li>
+</ol>
+</section><section>
+<h2 id="in-caso-di-problemi">In caso di problemi…</h2>
+<ul>
+<li>
+<p>Se durante l’installazione di IntelliJ IDEA o del JDK dovessero sorgere difficoltà:</p>
+<ul>
+<li>Contattare i docenti per ricevere supporto</li>
+</ul>
+</li>
+<li>
+<p>Ricordarsi che i PC dei laboratori sono già pronti:</p>
+<ul>
+<li>in caso di urgenza, è sempre possibile utilizzarli</li>
+</ul>
+</li>
+</ul>
+</section><section>
+<h1 id="installazione-intellij-idea">Installazione IntelliJ IDEA</h1>
+<h4 id="progettazione-e-sviluppo-del-software">Progettazione e Sviluppo del Software</h4>
+<h4 id="cdl-tecnologie-dei-sistemi-informatici">C.D.L. Tecnologie dei Sistemi Informatici</h4>
+<h3 id="danilo-pianini"><a href="mailto:danilo.pianini@unibo.it">Danilo Pianini — <code>danilo.pianini@unibo.it</code></a></h3>
+<h3 id="gianluca-aguzzi"><a href="mailto:gianluca.aguzzi@unibo.it">Gianluca Aguzzi — <code>gianluca.aguzzi@unibo.it</code></a></h3>
+<h3 id="angelo-filaseta"><a href="mailto:angelo.filaseta@unibo.it">Angelo Filaseta — <code>angelo.filaseta@unibo.it</code></a></h3>
+<p>Compiled on: 2025-09-18
+ — <a href="?print-pdf&amp;pdfSeparateFragments=false"><i class="fa fa-print" aria-hidden="true"></i> versione stampabile</a></p>
+<p><a href=".."><i class="fa fa-undo" aria-hidden="true"></i> back</a></p>
+</section><section>
+<h2 id="riconoscimenti">Riconoscimenti</h2>
+<ul>
+<li>
+<p>Questo materiale è ampiamente basato su quello realizzato dai Prof.
+Mirko Viroli e Roberto Casadei, che ringrazio.</p>
+</li>
+<li>
+<p>Ogni errore riscontratovi è esclusiva responsabilità degli autori di questo documento.</p>
 </li>
 </ul>
 </section>
