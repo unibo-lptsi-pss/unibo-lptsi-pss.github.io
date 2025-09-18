@@ -2,12 +2,12 @@
     <meta charset="utf-8">
 <title>Progettazione e Sviluppo del Software</title>
 <meta name="description" content="Progettazione e Sviluppo del Software, Tecnologie dei Sistemi Informatici">
-<meta name="author" content="Danilo Pianini">
+
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><link rel="stylesheet" href="/reveal-js/dist/reset.css">
 <link rel="stylesheet" href="/reveal-js/dist/reveal.css">
-  <link rel="stylesheet" href="/css/custom-theme.min.74aaab17185ca745386dea4049941e9a87daa017355a815c6d4be285e830870d.css" id="theme"><link rel="stylesheet" href="/highlight-js/default.min.css">
+  <link rel="stylesheet" href="/css/custom-theme.min.64b25e8fc79cb2d6ebd4c0f19d110cd870679489e26e7e2cf19b4b743498a84c.css" id="theme"><link rel="stylesheet" href="/highlight-js/default.min.css">
 <link href="https://fonts.googleapis.com/css?family=Roboto Mono" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Oxygen Mono" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Ubuntu Mono" rel="stylesheet">
@@ -340,43 +340,7 @@ né consente di allocare oggetti sullo stack (valore)</li>
 <li>differenza rispetto a C: variabili non inizializzate non sono utilizzabili!</li>
 </ul>
 </section><section>
-<p>Flusso:</p>
-<ul>
-<li>UML del programma di esempio</li>
-<li>Costruzione di classi (solo campi)</li>
-<li>Istanziazione di oggetti</li>
-<li>Programma di esempio: quello sopra ma senza metodi</li>
-<li>Individuare la scomodità: vogliamo controllare che la potenza non superi 800 W.</li>
-<li>Introdurre <code>if</code> (<code>else</code>/<code>else if</code>)</li>
-<li>Il controllo della potenza deve farlo il microonde, non il programma: se provate a scaldare la pasta a 8 kW, il microonde semplicemente non ve lo permette.</li>
-<li>Aggiunta di metodi alla classe</li>
-</ul>
-<h2 id="la-variabile-speciale-this">La variabile speciale <code>this</code></h2>
-<ul>
-<li>dentro ad un metodo si può accedere agli argomenti o ai campi</li>
-<li>per rendere meno ambigua la sintassi, Java fornisce una variabile speciale denotata con <code>this</code>
-<ul>
-<li>contiene il riferimento all’oggetto che sta gestendo il messaggio</li>
-</ul>
-</li>
-<li>per motivi di leggibilità, viene spesso omessa
-<ul>
-<li>all’inizio, è opportuno usarla sempre!</li>
-</ul>
-</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">Adder</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#a90d91">int</span> <span style="color:#000">total</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a90d91">void</span> <span style="color:#000">add</span>(<span style="color:#a90d91">int</span> <span style="color:#000">a</span>){ <span style="color:#177500">// input "int a"</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">this</span>.<span style="color:#836c28">total</span> <span style="color:#000">=</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">total</span> <span style="color:#000">+</span> <span style="color:#000">a</span>;              
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  <span style="color:#a90d91">int</span> <span style="color:#000">getValue</span>(){ <span style="color:#177500">// intestazione funzione</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">total</span>; <span style="color:#177500">// corpo funzione</span>
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div></section><section>
+</section><section>
 <h2 id="metodi-altro-esempio-point3d">Metodi: altro esempio Point3D</h2>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">Point3D</span> { <span style="color:#177500">// dichiarazione della classe</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">double</span> <span style="color:#000">x</span>; <span style="color:#177500">// 3 campi</span>
@@ -465,7 +429,7 @@ né consente di allocare oggetti sullo stack (valore)</li>
 
   var revealHugoDefaults = { center: true, controls: true, history: true, progress: true, transition: "slide" };
 
-  var revealHugoPlugins = {
+  var revealHugoPlugins = { 
     plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealZoom ]
    };
   var revealHugoSiteParams = JSON.parse(document.getElementById('reveal-hugo-site-params').innerHTML);
@@ -484,145 +448,101 @@ né consente di allocare oggetti sullo stack (valore)</li>
 
 
 
-
-  
   
 
   
+
   
 
   
+
   
 
   
-  
 
-  
-  
-
-  
-  
-
-  
   
 
   
     
   
-  
 
-  
-  
-
-  
-    
-  
   
 
   
     
   
+
+  
+    
   
 
   
+
   
 
   
+
   
 
   
+
   
 
   
+
   
 
   
+
   
 
   
+
   
 
   
+
   
 
   
+
   
 
   
+
   
 
   
+
   
 
   
+
   
 
   
+
   
 
   
+
   
 
   
+
   
 
   
+
   
 
   
-  
 
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
   
 
 
 
-  <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.3/dist/mermaid.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@9.1.6/dist/mermaid.min.js"></script>
   <script>
     mermaid.initialize({"startOnLoad":false});
 
@@ -645,8 +565,6 @@ né consente di allocare oggetti sullo stack (valore)</li>
     Reveal.on('slidechanged', render);
     Reveal.on('ready', render);
   </script>
-
-
 
     <script>
     MathJax = {

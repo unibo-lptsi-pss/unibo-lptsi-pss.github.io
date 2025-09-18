@@ -13,7 +13,6 @@ import Controls from './controllers/controls.js'
 import Progress from './controllers/progress.js'
 import Pointer from './controllers/pointer.js'
 import Plugins from './controllers/plugins.js'
-import Overlay from './controllers/overlay.js'
 import Touch from './controllers/touch.js'
 import Focus from './controllers/focus.js'
 import Notes from './controllers/notes.js'
@@ -29,7 +28,7 @@ import {
 } from './utils/constants.js'
 
 // The reveal.js version
-export const VERSION = '5.2.1';
+export const VERSION = '5.1.0';
 
 /**
  * reveal.js
@@ -120,7 +119,6 @@ export default function( revealElement, options ) {
 		progress = new Progress( Reveal ),
 		pointer = new Pointer( Reveal ),
 		plugins = new Plugins( Reveal ),
-		overlay = new Overlay( Reveal ),
 		focus = new Focus( Reveal ),
 		touch = new Touch( Reveal ),
 		notes = new Notes( Reveal );
@@ -131,8 +129,6 @@ export default function( revealElement, options ) {
 	function initialize( initOptions ) {
 
 		if( !revealElement ) throw 'Unable to find presentation root (<div class="reveal">).';
-
-		if( initialized ) throw 'Reveal.js has already been initialized.';
 
 		initialized = true;
 
@@ -394,7 +390,7 @@ export default function( revealElement, options ) {
 
 		// Text node
 		if( node.nodeType === 3 ) {
-			text += node.textContent.trim();
+			text += node.textContent;
 		}
 		// Element node
 		else if( node.nodeType === 1 ) {
@@ -403,24 +399,9 @@ export default function( revealElement, options ) {
 			let isDisplayHidden = window.getComputedStyle( node )['display'] === 'none';
 			if( isAriaHidden !== 'true' && !isDisplayHidden ) {
 
-				// Capture alt text from img and video elements
-				if( node.tagName === 'IMG' || node.tagName === 'VIDEO' ) {
-					let altText = node.getAttribute( 'alt' );
-					if( altText ) {
-						text += ensurePunctuation( altText );
-					}
-				}
-
 				Array.from( node.childNodes ).forEach( child => {
 					text += getStatusText( child );
 				} );
-
-				// Add period after block-level text elements to improve
-				// screen reader experience
-				const textElements = ['P', 'DIV', 'UL', 'OL', 'LI', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'BLOCKQUOTE'];
-				if( textElements.includes( node.tagName ) && text.trim() !== '' ) {
-					text = ensurePunctuation( text );
-				}
 
 			}
 
@@ -429,22 +410,6 @@ export default function( revealElement, options ) {
 		text = text.trim();
 
 		return text === '' ? '' : text + ' ';
-
-	}
-
-	/**
-	 * Ensures text ends with proper punctuation by adding a period
-	 * if it doesn't already end with punctuation.
-	 */
-	function ensurePunctuation( text ) {
-
-		const trimmedText = text.trim();
-
-		if( trimmedText === '' ) {
-			return text;
-		}
-
-		return !/[.!?]$/.test(trimmedText) ? trimmedText + '.' : trimmedText;
 
 	}
 
@@ -541,6 +506,16 @@ export default function( revealElement, options ) {
 		// Exit the paused mode if it was configured off
 		if( config.pause === false ) {
 			resume();
+		}
+
+		// Iframe link previews
+		if( config.previewLinks ) {
+			enablePreviewLinks();
+			disablePreviewLinks( '[data-preview-link=false]' );
+		}
+		else {
+			disablePreviewLinks();
+			enablePreviewLinks( '[data-preview-link]:not([data-preview-link=false])' );
 		}
 
 		// Reset all changes made by auto-animations
@@ -645,11 +620,11 @@ export default function( revealElement, options ) {
 
 		removeEventListeners();
 		cancelAutoSlide();
+		disablePreviewLinks();
 
 		// Destroy controllers
 		notes.destroy();
 		focus.destroy();
-		overlay.destroy();
 		plugins.destroy();
 		pointer.destroy();
 		controls.destroy();
@@ -796,6 +771,164 @@ export default function( revealElement, options ) {
 
 			window.parent.postMessage( JSON.stringify( message ), '*' );
 		}
+
+	}
+
+	/**
+	 * Bind preview frame links.
+	 *
+	 * @param {string} [selector=a] - selector for anchors
+	 */
+	function enablePreviewLinks( selector = 'a' ) {
+
+		Array.from( dom.wrapper.querySelectorAll( selector ) ).forEach( element => {
+			if( /^(http|www)/gi.test( element.getAttribute( 'href' ) ) ) {
+				element.addEventListener( 'click', onPreviewLinkClicked, false );
+			}
+		} );
+
+	}
+
+	/**
+	 * Unbind preview frame links.
+	 */
+	function disablePreviewLinks( selector = 'a' ) {
+
+		Array.from( dom.wrapper.querySelectorAll( selector ) ).forEach( element => {
+			if( /^(http|www)/gi.test( element.getAttribute( 'href' ) ) ) {
+				element.removeEventListener( 'click', onPreviewLinkClicked, false );
+			}
+		} );
+
+	}
+
+	/**
+	 * Opens a preview window for the target URL.
+	 *
+	 * @param {string} url - url for preview iframe src
+	 */
+	function showPreview( url ) {
+
+		closeOverlay();
+
+		dom.overlay = document.createElement( 'div' );
+		dom.overlay.classList.add( 'overlay' );
+		dom.overlay.classList.add( 'overlay-preview' );
+		dom.wrapper.appendChild( dom.overlay );
+
+		dom.overlay.innerHTML =
+			`<header>
+				<a class="close" href="#"><span class="icon"></span></a>
+				<a class="external" href="${url}" target="_blank"><span class="icon"></span></a>
+			</header>
+			<div class="spinner"></div>
+			<div class="viewport">
+				<iframe src="${url}"></iframe>
+				<small class="viewport-inner">
+					<span class="x-frame-error">Unable to load iframe. This is likely due to the site's policy (x-frame-options).</span>
+				</small>
+			</div>`;
+
+		dom.overlay.querySelector( 'iframe' ).addEventListener( 'load', event => {
+			dom.overlay.classList.add( 'loaded' );
+		}, false );
+
+		dom.overlay.querySelector( '.close' ).addEventListener( 'click', event => {
+			closeOverlay();
+			event.preventDefault();
+		}, false );
+
+		dom.overlay.querySelector( '.external' ).addEventListener( 'click', event => {
+			closeOverlay();
+		}, false );
+
+	}
+
+	/**
+	 * Open or close help overlay window.
+	 *
+	 * @param {Boolean} [override] Flag which overrides the
+	 * toggle logic and forcibly sets the desired state. True means
+	 * help is open, false means it's closed.
+	 */
+	function toggleHelp( override ){
+
+		if( typeof override === 'boolean' ) {
+			override ? showHelp() : closeOverlay();
+		}
+		else {
+			if( dom.overlay ) {
+				closeOverlay();
+			}
+			else {
+				showHelp();
+			}
+		}
+	}
+
+	/**
+	 * Opens an overlay window with help material.
+	 */
+	function showHelp() {
+
+		if( config.help ) {
+
+			closeOverlay();
+
+			dom.overlay = document.createElement( 'div' );
+			dom.overlay.classList.add( 'overlay' );
+			dom.overlay.classList.add( 'overlay-help' );
+			dom.wrapper.appendChild( dom.overlay );
+
+			let html = '<p class="title">Keyboard Shortcuts</p><br/>';
+
+			let shortcuts = keyboard.getShortcuts(),
+				bindings = keyboard.getBindings();
+
+			html += '<table><th>KEY</th><th>ACTION</th>';
+			for( let key in shortcuts ) {
+				html += `<tr><td>${key}</td><td>${shortcuts[ key ]}</td></tr>`;
+			}
+
+			// Add custom key bindings that have associated descriptions
+			for( let binding in bindings ) {
+				if( bindings[binding].key && bindings[binding].description ) {
+					html += `<tr><td>${bindings[binding].key}</td><td>${bindings[binding].description}</td></tr>`;
+				}
+			}
+
+			html += '</table>';
+
+			dom.overlay.innerHTML = `
+				<header>
+					<a class="close" href="#"><span class="icon"></span></a>
+				</header>
+				<div class="viewport">
+					<div class="viewport-inner">${html}</div>
+				</div>
+			`;
+
+			dom.overlay.querySelector( '.close' ).addEventListener( 'click', event => {
+				closeOverlay();
+				event.preventDefault();
+			}, false );
+
+		}
+
+	}
+
+	/**
+	 * Closes any currently open overlay.
+	 */
+	function closeOverlay() {
+
+		if( dom.overlay ) {
+			dom.overlay.parentNode.removeChild( dom.overlay );
+			dom.overlay = null;
+			return true;
+		}
+
+		return false;
 
 	}
 
@@ -1555,7 +1688,6 @@ export default function( revealElement, options ) {
 
 		notes.update();
 		notes.updateVisibility();
-		overlay.update();
 		backgrounds.update( true );
 		slideNumber.update();
 		slideContent.formatEmbeddedContent();
@@ -1813,16 +1945,14 @@ export default function( revealElement, options ) {
 
 		if( horizontalSlidesLength && typeof indexh !== 'undefined' ) {
 
-			const isOverview = overview.isActive();
-
 			// The number of steps away from the present slide that will
 			// be visible
-			let viewDistance = isOverview ? 10 : config.viewDistance;
+			let viewDistance = overview.isActive() ? 10 : config.viewDistance;
 
 			// Shorten the view distance on devices that typically have
 			// less resources
 			if( Device.isMobile ) {
-				viewDistance = isOverview ? 6 : config.mobileViewDistance;
+				viewDistance = overview.isActive() ? 6 : config.mobileViewDistance;
 			}
 
 			// All slides need to be visible when exporting to PDF
@@ -1855,7 +1985,7 @@ export default function( revealElement, options ) {
 
 				if( verticalSlidesLength ) {
 
-					let oy = isOverview ? 0 : getPreviousVerticalIndex( horizontalSlide );
+					let oy = getPreviousVerticalIndex( horizontalSlide );
 
 					for( let y = 0; y < verticalSlidesLength; y++ ) {
 						let verticalSlide = verticalSlides[y];
@@ -2243,8 +2373,7 @@ export default function( revealElement, options ) {
 			indexv: indices.v,
 			indexf: indices.f,
 			paused: isPaused(),
-			overview: overview.isActive(),
-			...overlay.getState()
+			overview: overview.isActive()
 		};
 
 	}
@@ -2270,8 +2399,6 @@ export default function( revealElement, options ) {
 			if( typeof overviewFlag === 'boolean' && overviewFlag !== overview.isActive() ) {
 				overview.toggle( overviewFlag );
 			}
-
-			overlay.setState( state );
 		}
 
 	}
@@ -2677,6 +2804,24 @@ export default function( revealElement, options ) {
 	}
 
 	/**
+	 * Handles clicks on links that are set to preview in the
+	 * iframe overlay.
+	 *
+	 * @param {object} event
+	 */
+	function onPreviewLinkClicked( event ) {
+
+		if( event.currentTarget && event.currentTarget.hasAttribute( 'href' ) ) {
+			let url = event.currentTarget.getAttribute( 'href' );
+			if( url ) {
+				showPreview( url );
+				event.preventDefault();
+			}
+		}
+
+	}
+
+	/**
 	 * Handles click on the auto-sliding controls element.
 	 *
 	 * @param {object} [event]
@@ -2754,7 +2899,7 @@ export default function( revealElement, options ) {
 		availableFragments: fragments.availableRoutes.bind( fragments ),
 
 		// Toggles a help overlay with keyboard shortcuts
-		toggleHelp: overlay.toggleHelp.bind( overlay ),
+		toggleHelp,
 
 		// Toggles the overview mode on/off
 		toggleOverview: overview.toggle.bind( overview ),
@@ -2784,7 +2929,7 @@ export default function( revealElement, options ) {
 		isSpeakerNotes: notes.isSpeakerNotesWindow.bind( notes ),
 		isOverview: overview.isActive.bind( overview ),
 		isFocused: focus.isFocused.bind( focus ),
-		isOverlayOpen: overlay.isOpen.bind( overlay ),
+
 		isScrollView: scrollView.isActive.bind( scrollView ),
 		isPrintView: printView.isActive.bind( printView ),
 
@@ -2799,13 +2944,9 @@ export default function( revealElement, options ) {
 		startEmbeddedContent: () => slideContent.startEmbeddedContent( currentSlide ),
 		stopEmbeddedContent: () => slideContent.stopEmbeddedContent( currentSlide, { unloadIframes: false } ),
 
-		// Lightbox previews
-		previewIframe: overlay.previewIframe.bind( overlay ),
-		previewImage: overlay.previewImage.bind( overlay ),
-		previewVideo: overlay.previewVideo.bind( overlay ),
-
-		showPreview: overlay.previewIframe.bind( overlay ), // deprecated in favor of showIframeLightbox
-		hidePreview: overlay.close.bind( overlay ),
+		// Preview management
+		showPreview,
+		hidePreview: closeOverlay,
 
 		// Adds or removes all internal event listeners
 		addEventListeners,
@@ -2919,14 +3060,13 @@ export default function( revealElement, options ) {
 		controls,
 		location,
 		overview,
-		keyboard,
 		fragments,
 		backgrounds,
 		slideContent,
 		slideNumber,
 
 		onUserInput,
-		closeOverlay: overlay.close.bind( overlay ),
+		closeOverlay,
 		updateSlidesVisibility,
 		layoutSlideContents,
 		transformSlides,
