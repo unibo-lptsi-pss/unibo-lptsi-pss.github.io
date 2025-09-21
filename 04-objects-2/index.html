@@ -303,7 +303,7 @@
 </span></span></code></pre></div></section><section>
 <h2 id="uso-point3d-e-points">Uso <code>Point3D</code> e <code>Points</code></h2>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">UsePoint3D</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">s</span>) {
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">s</span>) {
 </span></span><span style="display:flex;"><span>		<span style="color:#177500">// creo e inizializzo vari punti</span>
 </span></span><span style="display:flex;"><span>		<span style="color:#000">Point3D</span> <span style="color:#000">p1</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Point3D</span>().<span style="color:#836c28">build</span>(<span style="color:#000">10</span>, <span style="color:#000">20</span>, <span style="color:#000">30</span>);
 </span></span><span style="display:flex;"><span>		<span style="color:#000">Point3D</span> <span style="color:#000">p2</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Point3D</span>().<span style="color:#836c28">build</span>(<span style="color:#000">5</span>, <span style="color:#000">6</span>, <span style="color:#000">7</span>);
@@ -814,17 +814,120 @@
 </section><section>
 <h2 id="classe-gameconfig">Classe <code>GameConfig</code></h2>
 <p>Questa classe non era necessaria, ma aiuta a raggruppare le costanti di configurazione del gioco.</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""></code></pre></div></section><section>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">GameConfig</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">attempts</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">minGuesses</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">maxGuesses</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">GameConfig</span>(<span style="color:#a90d91">int</span> <span style="color:#000">attempts</span>, <span style="color:#a90d91">int</span> <span style="color:#000">minGuesses</span>, <span style="color:#a90d91">int</span> <span style="color:#000">maxGuesses</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">this</span>.<span style="color:#836c28">attempts</span> <span style="color:#000">=</span> <span style="color:#000">attempts</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">this</span>.<span style="color:#836c28">minGuesses</span> <span style="color:#000">=</span> <span style="color:#000">minGuesses</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">this</span>.<span style="color:#836c28">maxGuesses</span> <span style="color:#000">=</span> <span style="color:#000">maxGuesses</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">int</span> <span style="color:#000">getAttempts</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">attempts</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">int</span> <span style="color:#000">getMinGuesses</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">minGuesses</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">int</span> <span style="color:#000">getMaxGuesses</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">maxGuesses</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></section><section>
 <h2 id="classe-numberpicker">Classe <code>NumberPicker</code></h2>
 <div class="smaller">
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""></code></pre></div></div>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">NumberPicker</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#000">Random</span> <span style="color:#000">random</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">NumberPicker</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#000">random</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Random</span>();
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">NumberPicker</span>(<span style="color:#a90d91">int</span> <span style="color:#000">seed</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#000">random</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Random</span>(<span style="color:#000">seed</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">int</span> <span style="color:#000">pickNumber</span>(<span style="color:#a90d91">int</span> <span style="color:#000">minInclusive</span>, <span style="color:#a90d91">int</span> <span style="color:#000">maxExclusive</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">return</span> <span style="color:#000">random</span>.<span style="color:#836c28">nextInt</span>((<span style="color:#000">maxExclusive</span> <span style="color:#000">-</span> <span style="color:#000">minInclusive</span>) <span style="color:#000">+</span> <span style="color:#000">1</span>) <span style="color:#000">+</span> <span style="color:#000">minInclusive</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></div>
 </section><section>
 <h2 id="classe-iomanager">Classe <code>IOManager</code></h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""></code></pre></div></section><section>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.Scanner</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">IOManager</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#000">Scanner</span> <span style="color:#000">scanner</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">IOManager</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">this</span>.<span style="color:#836c28">scanner</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Scanner</span>(<span style="color:#000">System</span>.<span style="color:#836c28">in</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">printLine</span>(<span style="color:#000">String</span> <span style="color:#000">text</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">text</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">int</span> <span style="color:#000">readIntInRange</span>(<span style="color:#a90d91">int</span> <span style="color:#000">min</span>, <span style="color:#a90d91">int</span> <span style="color:#000">max</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">while</span> (<span style="color:#a90d91">true</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#000">String</span> <span style="color:#000">line</span> <span style="color:#000">=</span> <span style="color:#000">scanner</span>.<span style="color:#836c28">nextLine</span>();
+</span></span><span style="display:flex;"><span>            <span style="color:#a90d91">int</span> <span style="color:#000">value</span> <span style="color:#000">=</span> <span style="color:#000">Integer</span>.<span style="color:#836c28">parseInt</span>(<span style="color:#000">line</span>.<span style="color:#836c28">trim</span>());
+</span></span><span style="display:flex;"><span>            <span style="color:#a90d91">if</span> (<span style="color:#000">value</span> <span style="color:#000">&lt;</span> <span style="color:#000">min</span> <span style="color:#000">||</span> <span style="color:#000">value</span> <span style="color:#000">&gt;</span> <span style="color:#000">max</span>) {
+</span></span><span style="display:flex;"><span>                <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Please enter a number between "</span> <span style="color:#000">+</span> <span style="color:#000">min</span> <span style="color:#000">+</span> <span style="color:#c41a16">" and "</span> <span style="color:#000">+</span> <span style="color:#000">max</span> <span style="color:#000">+</span> <span style="color:#c41a16">"."</span>);
+</span></span><span style="display:flex;"><span>            } <span style="color:#a90d91">else</span> {
+</span></span><span style="display:flex;"><span>                <span style="color:#a90d91">return</span> <span style="color:#000">value</span>;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></section><section>
 <h2 id="classe-guessmynumbergame">Classe <code>GuessMyNumberGame</code></h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""></code></pre></div></section><section>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">GuessMyNumberGame</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#000">GameConfig</span> <span style="color:#000">config</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#000">NumberPicker</span> <span style="color:#000">numberPicker</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#000">IOManager</span> <span style="color:#000">io</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">GuessMyNumberGame</span>(<span style="color:#000">GameConfig</span> <span style="color:#000">config</span>, <span style="color:#000">NumberPicker</span> <span style="color:#000">numberPicker</span>, <span style="color:#000">IOManager</span> <span style="color:#000">io</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">this</span>.<span style="color:#836c28">config</span> <span style="color:#000">=</span> <span style="color:#000">config</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">this</span>.<span style="color:#836c28">numberPicker</span> <span style="color:#000">=</span> <span style="color:#000">numberPicker</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">this</span>.<span style="color:#836c28">io</span> <span style="color:#000">=</span> <span style="color:#000">io</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">play</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">int</span> <span style="color:#000">secret</span> <span style="color:#000">=</span> <span style="color:#000">numberPicker</span>.<span style="color:#836c28">pickNumber</span>(<span style="color:#000">config</span>.<span style="color:#836c28">getMinGuesses</span>(), <span style="color:#000">config</span>.<span style="color:#836c28">getMaxGuesses</span>());
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">for</span> (<span style="color:#a90d91">int</span> <span style="color:#000">attempt</span> <span style="color:#000">=</span> <span style="color:#000">1</span>; <span style="color:#000">attempt</span> <span style="color:#000">&lt;=</span> <span style="color:#000">config</span>.<span style="color:#836c28">getAttempts</span>(); <span style="color:#000">attempt</span><span style="color:#000">++</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#000">io</span>.<span style="color:#836c28">printLine</span>(<span style="color:#c41a16">"Attempt no. "</span> <span style="color:#000">+</span> <span style="color:#000">attempt</span>);
+</span></span><span style="display:flex;"><span>            <span style="color:#000">io</span>.<span style="color:#836c28">printLine</span>(<span style="color:#c41a16">"Insert your guess ("</span> <span style="color:#000">+</span> <span style="color:#000">config</span>.<span style="color:#836c28">getMinGuesses</span>() <span style="color:#000">+</span> <span style="color:#c41a16">"–"</span> <span style="color:#000">+</span> <span style="color:#000">config</span>.<span style="color:#836c28">getMaxGuesses</span>() <span style="color:#000">+</span> <span style="color:#c41a16">"):"</span>);
+</span></span><span style="display:flex;"><span>            <span style="color:#a90d91">int</span> <span style="color:#000">guess</span> <span style="color:#000">=</span> <span style="color:#000">io</span>.<span style="color:#836c28">readIntInRange</span>(<span style="color:#000">config</span>.<span style="color:#836c28">getMinGuesses</span>(), <span style="color:#000">config</span>.<span style="color:#836c28">getMaxGuesses</span>());
+</span></span><span style="display:flex;"><span>            <span style="color:#a90d91">if</span> (<span style="color:#000">guess</span> <span style="color:#000">==</span> <span style="color:#000">secret</span>) {
+</span></span><span style="display:flex;"><span>                <span style="color:#000">io</span>.<span style="color:#836c28">printLine</span>(<span style="color:#c41a16">"You won!!"</span>);
+</span></span><span style="display:flex;"><span>                <span style="color:#a90d91">return</span>;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>            <span style="color:#a90d91">if</span> (<span style="color:#000">guess</span> <span style="color:#000">&gt;</span> <span style="color:#000">secret</span>) {
+</span></span><span style="display:flex;"><span>                <span style="color:#000">io</span>.<span style="color:#836c28">printLine</span>(<span style="color:#c41a16">"Your guess is greater.."</span>);
+</span></span><span style="display:flex;"><span>            } <span style="color:#a90d91">else</span> {
+</span></span><span style="display:flex;"><span>                <span style="color:#000">io</span>.<span style="color:#836c28">printLine</span>(<span style="color:#c41a16">"Your guess is lower.."</span>);
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#000">io</span>.<span style="color:#836c28">printLine</span>(<span style="color:#c41a16">"Sorry, you lost!"</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></section><section>
 <h2 id="nuovo-main">Nuovo <code>main</code></h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""></code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">it.unibo.lifecycle.modeling.IOManager</span>;
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">it.unibo.lifecycle.modeling.GameConfig</span>;
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">it.unibo.lifecycle.modeling.NumberPicker</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">void</span> <span style="color:#000">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#000">GameConfig</span> <span style="color:#000">config</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">GameConfig</span>(<span style="color:#000">10</span>, <span style="color:#000">1</span>, <span style="color:#000">100</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#000">NumberPicker</span> <span style="color:#000">numberPicker</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">NumberPicker</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#000">IOManager</span> <span style="color:#000">consoleManager</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">IOManager</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#000">GuessMyNumberGame</span> <span style="color:#000">game</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">GuessMyNumberGame</span>(<span style="color:#000">config</span>, <span style="color:#000">numberPicker</span>, <span style="color:#000">consoleManager</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#000">game</span>.<span style="color:#836c28">play</span>();
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><ul>
 <li><strong>Divisione delle responsabilità:</strong> separare i compiti tra le classi mantiene il codice ordinato e facilmente manutenibile, riducendo accoppiamento e complessità.</li>
 <li><strong>Una classe, una responsabilità:</strong> design mirato e coerente migliora leggibilità e riuso; modifiche locali restano isolate.
 <ul>
