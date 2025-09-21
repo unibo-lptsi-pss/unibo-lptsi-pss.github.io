@@ -56,9 +56,7 @@
 <li>Esempi visti:
 <ul>
 <li>il <code>main</code> dal quale parte un programma Java</li>
-<li>il metodo <code>java.util.Arrays.toString()</code> (ossia, il metodo <code>toString</code> nella classe <code>Arrays</code> dentro al package <code>java.util</code>)</li>
 <li>il campo <code>java.lang.System.out</code></li>
-<li>il metodo <code>java.lang.System.getProperty()</code></li>
 </ul>
 </li>
 <li>Tali campi e metodi sono considerate <em>proprietà della classe</em>, non dell’oggetto</li>
@@ -70,7 +68,7 @@
 </ul>
 <h3 id="sulla-notazione">Sulla notazione</h3>
 <ul>
-<li>Iniziano con <em>minuscolo</em>: nomi di package (<code>it.unibo.students</code>), metodi (<code>getName</code>) e campi (<code>firstName</code>)</li>
+<li>Iniziano con <em>minuscolo</em>: metodi (<code>getName</code>) e campi (<code>firstName</code>)</li>
 <li>Iniziano con <em>maiuscolo</em>: nomi di classe (e.g. <code>Student</code>)
 <ul>
 <li>Questo consente di capire facilmente il significato delle istruzioni</li>
@@ -82,20 +80,24 @@
 <h3 id="codice-non-statico-detto-anche-codice-d">Codice non statico (detto anche <em>codice d’istanza</em>)</h3>
 <ul>
 <li>È codice puro object-oriented</li>
-<li>Definisce le operazioni e lo stato di ogni oggetto creato da <code>C</code></li>
+<li>Definisce le <em>operazioni</em> e lo <em>stato</em> di ogni oggetto creato da <code>C</code></li>
 </ul>
 <h3 id="codice-statico-2">Codice statico</h3>
 <ul>
 <li>Non è codice puro object-oriented, ma codice in stile “imperativo/strutturato”</li>
 <li>Definisce funzioni e variabili del componente software definito da <code>C</code>
 <ul>
-<li>possono essere visti come metodi e campi dell’unico oggetto “classe <code>C</code>” (cf. <em>reflection</em>)</li>
+<li>possono essere visti come metodi e campi dell’unico oggetto “classe <code>C</code>”</li>
 </ul>
 </li>
 </ul>
 <h3 id="usarli-assieme">Usarli assieme?</h3>
 <ul>
-<li>Le helper class abbiano solo metodi/campi statici</li>
+<li>Le <em>helper class</em> abbiano solo metodi/campi statici
+<ul>
+<li>Sono classi di supporto, non istanziabili (utility).</li>
+</ul>
+</li>
 <li>Le classi OO non abbiano metodi/campi statici, a meno di qualche funzionalità “generale” della classe (si veda nel proseguio)</li>
 </ul>
 </section><section>
@@ -151,6 +153,23 @@
 </span></span><span style="display:flex;"><span>	}
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></section><section>
+<h2 id="main-come-metodo-statico"><code>main</code> come metodo statico</h2>
+<p>Nelle lezioni precedenti abbiamo usato la nuova sintassi (Java 25) che permette di scrivere direttamente un blocco main senza dichiarare esplicitamente la classe:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#177500">// codice</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>La sintassi canonica (classica) di Java richiede invece che <code>main</code> sia un metodo statico contenuto in una classe:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">EntryPoint</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#177500">// codice</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Punti chiave:</p>
+<ul>
+<li><code>main</code> è statico perché ha senso essere invocato senza creare un’istanza: la JVM lo chiama direttamente sulla classe.</li>
+<li><code>EntryPoint</code> è solo un nome di esempio: la classe che contiene <code>main</code> può chiamarsi come si vuole, purché la JVM invii l’esecuzione a quel metodo.</li>
+</ul>
+</section><section>
 <h2 id="point3d-commenti">Point3D: commenti</h2>
 <h3 id="si-notino-le-due-diverse-chiamate">Si notino le due diverse chiamate</h3>
 <ul>
@@ -310,7 +329,7 @@
 <li>Allo stato attuale delle nostre conoscenze, l’operatore <code>new T</code> crea un oggetto di tipo <code>T</code> inizializzando tutti i suoi campi al loro valore di default (p.e. $0$ per i numeri), e ne restituisce il riferimento</li>
 </ul>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#000">Point3D</span>   <span style="color:#000">p</span>  <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Point3D</span>();
-</span></span><span style="display:flex;"><span><span style="color:#000">Point3D</span><span style="color:#000">[]</span> <span style="color:#000">ps</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Point3D</span><span style="color:#000">[</span><span style="color:#000">2</span><span style="color:#000">]</span>; <span style="color:#177500">// [null, null]</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">Point3D</span><span style="color:#000">[]</span> <span style="color:#000">ps</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Point3D</span><span style="color:#000">[</span><span style="color:#000">2</span><span style="color:#000">]</span>; <span style="color:#177500">// [null, null] &lt;- sintassi per creare array di oggetti</span>
 </span></span></code></pre></div><ul>
 <li>Problema: garantire una corretta <em>inizializzazione</em></li>
 </ul>
@@ -330,7 +349,11 @@
 <li>Il <em>costruttore di default</em> (a zero argomenti) è implicitamente definito solo se non se ne aggiungono altri – ecco perché era consentito scrivere: <code>new Point3D()</code></li>
 </ul>
 </section><section>
-<h2 id="esempio-point3d-1">Esempio: Point3D</h2>
+<h3 id="costruttori-sintassi"><em>Costruttori</em>: sintassi</h3>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#000">&lt;</span><span style="color:#000">NomeClasse</span><span style="color:#000">&gt;</span> (<span style="color:#000">&lt;</span><span style="color:#000">Tipo1</span><span style="color:#000">&gt;</span> <span style="color:#000">&lt;</span><span style="color:#000">arg1</span><span style="color:#000">&gt;</span>, <span style="color:#000">&lt;</span><span style="color:#000">Tipo2</span><span style="color:#000">&gt;</span> <span style="color:#000">&lt;</span><span style="color:#000">arg2</span><span style="color:#000">&gt;</span>, ...) {
+</span></span><span style="display:flex;"><span>    <span style="color:#177500">// codice di inizializzazione</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="esempio-point3d-1">Esempio: Point3D</h3>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Point3Dcons</span> {   <span style="color:#177500">// dichiarazione classe</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">double</span> <span style="color:#000">x</span>;
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">double</span> <span style="color:#000">y</span>;
@@ -353,7 +376,7 @@
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></section><section>
-<h2 id="gli-argomenti-del-costr-spesso-corrispondono-ai-campi">Gli argomenti del costr. spesso corrispondono ai campi</h2>
+<h2 id="gli-argomenti-del-costruttore-spesso-corrispondono-ai-campi">Gli argomenti del costruttore spesso corrispondono ai campi</h2>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">Point3Dvar</span> {  <span style="color:#177500">// dichiarazione classe</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">double</span> <span style="color:#000">x</span>;
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">double</span> <span style="color:#000">y</span>;
@@ -949,14 +972,6 @@
 
   
     
-  
-  
-
-  
-    
-  
-  
-
   
   
 
