@@ -646,7 +646,35 @@
 </span></span><span style="display:flex;"><span>	}
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></section><section>
-<h2 id="guessmynumberapp-revisited"><code>GuessMyNumberApp</code> revisited</h2>
+<h2 id="guessmynumberapp-un-esempio-completo"><code>GuessMyNumberApp</code>: un esempio completo</h2>
+<ul>
+<li>Realizziamo un semplice gioco: “indovina il numero”</li>
+<li>Il computer sceglie un numero casuale in un intervallo predefinito</li>
+<li>Il giocatore ha un numero limitato di tentativi per indovinarlo</li>
+<li>Ad ogni tentativo, il computer fornisce un suggerimento: “troppo alto” o “troppo basso”</li>
+</ul>
+<h3 id="analisi-dei-requisiti">Analisi dei requisiti</h3>
+<ul>
+<li><strong>Costanti del gioco</strong>: numero massimo e minimo, tentativi disponibili</li>
+<li><strong>Generazione numero casuale</strong> nell’intervallo specificato</li>
+<li><strong>Ciclo di gioco</strong>: ripetere fino a vittoria o esaurimento tentativi</li>
+<li><strong>Input/Output</strong>: leggere il tentativo del giocatore e fornire il feedback</li>
+</ul>
+<h3 id="logica-principale">Logica principale</h3>
+<ol>
+<li><strong>Inizializzazione</strong>: generare numero casuale</li>
+<li><strong>Ciclo di gioco</strong>: per ogni tentativo:
+<ul>
+<li>Mostrare il numero del tentativo</li>
+<li>Leggere l’input del giocatore</li>
+<li>Confrontare con il numero segreto</li>
+<li>Fornire il feedback appropriato</li>
+</ul>
+</li>
+<li><strong>Terminazione</strong>: vittoria immediata o sconfitta dopo tutti i tentativi</li>
+</ol>
+</section><section>
+<h2 id="implementazione-completa">Implementazione completa</h2>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.Random</span>;
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">GuessMyNumberApp</span> {
@@ -674,6 +702,20 @@
 </span></span><span style="display:flex;"><span>	}
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></section><section>
+<h2 id="note-sullimplementazione">Note sull’implementazione</h2>
+<h3 id="generazione-numero-casuale">Generazione numero casuale</h3>
+<ul>
+<li><code>new Random().nextInt(MAX_GUESS - MIN_GUESS) + MIN_GUESS</code></li>
+<li><code>nextInt(n)</code> genera numero tra 0 e n-1</li>
+<li>Sommiamo <code>MIN_GUESS</code> per ottenere l’intervallo desiderato</li>
+</ul>
+<h3 id="lettura-input">Lettura input</h3>
+<ul>
+<li><code>System.console().readLine()</code> legge una riga da console</li>
+<li><code>Integer.parseInt()</code> converte la stringa in intero</li>
+<li>Attenzione: possibili eccezioni se input non è un numero valido</li>
+</ul>
+</section><section>
 <h1 id="distruzione-oggetti">Distruzione oggetti</h1>
 </section><section>
 <h2 id="allocazione-degli-oggetti-in-memoria">Allocazione degli oggetti in memoria</h2>
@@ -736,127 +778,60 @@
 </span></span><span style="display:flex;"><span>	}
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></section><section>
-<h1 id="una-applicazione">Una applicazione</h1>
+<h1 id="unapplicazione">Un’applicazione</h1>
 </section><section>
-<h2 id="applicazione-mandelbrot">Applicazione: <code>Mandelbrot</code></h2>
-<h3 id="problema-1">Problema</h3>
-<p>Data una semplice classe <code>Picture</code> che gestisce gli aspetti grafici, realizzare una applicazione che disegna il frattale Mandelbrot.</p>
+<h2 id="applicazione-oop-guessmynumber">Applicazione OOP: <code>GuessMyNumber</code></h2>
 <h3 id="elementi-progettuali">Elementi progettuali</h3>
 <ul>
-<li>Classe fornita <code>Picture</code> – codice non comprensibile ora
+<li>I concetti principali di questa applicazione sono:
 <ul>
-<li>ha un costruttore che accetta larghezza e altezza in pixel della finestra</li>
-<li>metodo <code>void drawPixel(int x,int y,int color)</code></li>
+<li><strong>Generazione di numeri casuali</strong>: il computer genera un numero casuale da indovinare</li>
+<li><strong>Ciclo di gioco</strong>: il giocatore ha un numero limitato di tentativi per indovinare il numero</li>
+<li><strong>Input/Output</strong>: leggere il tentativo del giocatore e fornire feedback</li>
 </ul>
 </li>
-<li>Classe <code>Complex</code> modella numeri complessi e operazioni base</li>
-<li>Classe <code>Mandelbrot</code> si occupa di calcolare il valore di ogni punto del rettangolo
+<li>Questo si reifica in tre classi:
 <ul>
-<li>metodo <code>void advancePosition()</code> passa al prossimo punto</li>
-<li>metodo <code>boolean isCompleted()</code> dice se ci sono altri punti da calcolare</li>
-<li>metodo <code>int computeIteratrions()</code> dice quante iterazioni vengono calcolate per il punto corrente</li>
+<li><code>GuessMyNumberGame</code>: la classe principale che gestisce il flusso del gioco
+<ul>
+<li>Metodo: <code>play()</code>: contiene il ciclo di gioco</li>
 </ul>
 </li>
-<li>Classe <code>MandelbrotApp</code> ha il solo <code>main</code></li>
-</ul>
-<h3 id="elementi-implementativi">Elementi implementativi</h3>
+<li><code>NumberPicker</code>: una classe che contiene le logiche per generare numeri casuali
 <ul>
-<li>Implementazione ancora preliminare e da migliorare</li>
+<li>Metodo: <code>pickNumber(int min, int max)</code>: genera un numero casuale nell’intervallo specificato</li>
+</ul>
+</li>
+<li><code>IOManager</code>: una classe che gestisce l’input e l’output
+<ul>
+<li>Metodo: <code>readIntInRange(int min, int max)</code>: legge il tentativo del giocatore</li>
+<li>Metodo: <code>printLine(String message)</code>: stampa un messaggio sulla console</li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </section><section>
-<h2 id="classe-complex">Classe <code>Complex</code></h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Complex</span> {
-</span></span><span style="display:flex;"><span>	
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">double</span> <span style="color:#000">re</span>;
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">double</span> <span style="color:#000">im</span>;
-</span></span><span style="display:flex;"><span>	
-</span></span><span style="display:flex;"><span>	<span style="color:#000">Complex</span>(<span style="color:#a90d91">double</span> <span style="color:#000">re</span>, <span style="color:#a90d91">double</span> <span style="color:#000">im</span>) {
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span>.<span style="color:#836c28">re</span> <span style="color:#000">=</span> <span style="color:#000">re</span>;
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span>.<span style="color:#836c28">im</span> <span style="color:#000">=</span> <span style="color:#000">im</span>;
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>	
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">double</span> <span style="color:#000">getScalarProduct</span>(){
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">re</span> <span style="color:#000">*</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">re</span> <span style="color:#000">+</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">im</span> <span style="color:#000">*</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">im</span>;
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>	
-</span></span><span style="display:flex;"><span>	<span style="color:#177500">// Crea un nuovo complesso, sommando this a c</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#000">Complex</span> <span style="color:#000">sum</span>(<span style="color:#000">Complex</span> <span style="color:#000">c</span>){
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#a90d91">new</span> <span style="color:#000">Complex</span>(<span style="color:#a90d91">this</span>.<span style="color:#836c28">re</span> <span style="color:#000">+</span> <span style="color:#000">c</span>.<span style="color:#836c28">re</span>, <span style="color:#a90d91">this</span>.<span style="color:#836c28">im</span> <span style="color:#000">+</span> <span style="color:#000">c</span>.<span style="color:#836c28">im</span>);
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>	
-</span></span><span style="display:flex;"><span>	<span style="color:#177500">// Crea un nuovo complesso, moltiplicando this a c</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#000">Complex</span> <span style="color:#000">times</span>(<span style="color:#000">Complex</span> <span style="color:#000">c</span>){
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#a90d91">new</span> <span style="color:#000">Complex</span>(<span style="color:#a90d91">this</span>.<span style="color:#836c28">re</span> <span style="color:#000">*</span> <span style="color:#000">c</span>.<span style="color:#836c28">re</span> <span style="color:#000">-</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">im</span> <span style="color:#000">*</span> <span style="color:#000">c</span>.<span style="color:#836c28">im</span>, 
-</span></span><span style="display:flex;"><span>				           <span style="color:#000">c</span>.<span style="color:#836c28">re</span> <span style="color:#000">*</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">im</span> <span style="color:#000">+</span> <span style="color:#000">c</span>.<span style="color:#836c28">im</span> <span style="color:#000">*</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">re</span>);
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>	
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div></section><section>
-<h2 id="classe-mandelbrot">Classe <code>Mandelbrot</code></h2>
+<h2 id="classe-gameconfig">Classe <code>GameConfig</code></h2>
+<p>Questa classe non era necessaria, ma aiuta a raggruppare le costanti di configurazione del gioco.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""></code></pre></div></section><section>
+<h2 id="classe-numberpicker">Classe <code>NumberPicker</code></h2>
 <div class="smaller">
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Mandelbrot</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">static</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">double</span> <span style="color:#000">MAX_PRODUCT</span> <span style="color:#000">=</span> <span style="color:#000">4</span>.<span style="color:#836c28">0</span>;
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">int</span> <span style="color:#000">width</span>, <span style="color:#000">height</span>, <span style="color:#000">x</span>, <span style="color:#000">y</span>; <span style="color:#177500">// uno per linea di norma</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">double</span> <span style="color:#000">minx</span>, <span style="color:#000">maxx</span>, <span style="color:#000">miny</span>, <span style="color:#000">maxy</span>, <span style="color:#000">maxIter</span>; <span style="color:#177500">// uno per linea di norma</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#000">Mandelbrot</span>(<span style="color:#a90d91">int</span> <span style="color:#000">width</span>, <span style="color:#a90d91">int</span> <span style="color:#000">height</span>, <span style="color:#a90d91">double</span> <span style="color:#000">minx</span>, <span style="color:#a90d91">double</span> <span style="color:#000">maxx</span>,  
-</span></span><span style="display:flex;"><span>			<span style="color:#a90d91">double</span> <span style="color:#000">miny</span>, <span style="color:#a90d91">double</span> <span style="color:#000">maxy</span>, <span style="color:#a90d91">int</span> <span style="color:#000">maxIter</span>) {
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span>.<span style="color:#836c28">width</span> <span style="color:#000">=</span> <span style="color:#000">width</span>;	<span style="color:#a90d91">this</span>.<span style="color:#836c28">height</span> <span style="color:#000">=</span> <span style="color:#000">height</span>;
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span>.<span style="color:#836c28">minx</span> <span style="color:#000">=</span> <span style="color:#000">minx</span>;	<span style="color:#a90d91">this</span>.<span style="color:#836c28">maxx</span> <span style="color:#000">=</span> <span style="color:#000">maxx</span>;
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span>.<span style="color:#836c28">miny</span> <span style="color:#000">=</span> <span style="color:#000">miny</span>;	<span style="color:#a90d91">this</span>.<span style="color:#836c28">maxy</span> <span style="color:#000">=</span> <span style="color:#000">maxy</span>; <span style="color:#a90d91">this</span>.<span style="color:#836c28">maxIter</span> <span style="color:#000">=</span> <span style="color:#000">maxIter</span>;
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">void</span> <span style="color:#000">advancePosition</span>(){
-</span></span><span style="display:flex;"><span>		<span style="color:#000">x</span> <span style="color:#000">=</span> (<span style="color:#000">x</span> <span style="color:#000">+</span> <span style="color:#000">1</span>) <span style="color:#000">%</span> <span style="color:#000">width</span>;
-</span></span><span style="display:flex;"><span>		<span style="color:#000">y</span> <span style="color:#000">=</span> <span style="color:#000">y</span> <span style="color:#000">+</span> (<span style="color:#000">x</span> <span style="color:#000">==</span> <span style="color:#000">0</span> <span style="color:#000">?</span> <span style="color:#000">1</span> : <span style="color:#000">0</span>);
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">boolean</span> <span style="color:#000">isCompleted</span>(){ <span style="color:#a90d91">return</span> <span style="color:#000">y</span> <span style="color:#000">==</span> <span style="color:#000">height</span>; }
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">int</span> <span style="color:#000">computeIterations</span>(){
-</span></span><span style="display:flex;"><span>		<span style="color:#000">Complex</span> <span style="color:#000">c0</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Complex</span>(<span style="color:#a90d91">this</span>.<span style="color:#836c28">minx</span> <span style="color:#000">+</span> (<span style="color:#a90d91">this</span>.<span style="color:#836c28">maxx</span> <span style="color:#000">-</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">minx</span>) <span style="color:#000">*</span> <span style="color:#000">x</span> <span style="color:#000">/</span> <span style="color:#000">width</span>,
-</span></span><span style="display:flex;"><span>				                 <span style="color:#a90d91">this</span>.<span style="color:#836c28">miny</span> <span style="color:#000">+</span> (<span style="color:#a90d91">this</span>.<span style="color:#836c28">maxy</span> <span style="color:#000">-</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">miny</span>) <span style="color:#000">*</span> <span style="color:#000">y</span> <span style="color:#000">/</span> <span style="color:#000">height</span>);
-</span></span><span style="display:flex;"><span>		<span style="color:#000">Complex</span> <span style="color:#000">c</span> <span style="color:#000">=</span> <span style="color:#000">c0</span>;
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">int</span> <span style="color:#000">iter</span>;
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">for</span> (<span style="color:#000">iter</span> <span style="color:#000">=</span> <span style="color:#000">0</span>; <span style="color:#000">c</span>.<span style="color:#836c28">getScalarProduct</span>() <span style="color:#000">&lt;</span> <span style="color:#000">MAX_PRODUCT</span> <span style="color:#000">&amp;&amp;</span> <span style="color:#000">iter</span> <span style="color:#000">&lt;</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">maxIter</span>; <span style="color:#000">iter</span><span style="color:#000">++</span>) {
-</span></span><span style="display:flex;"><span>			<span style="color:#000">c</span> <span style="color:#000">=</span> <span style="color:#000">c</span>.<span style="color:#836c28">times</span>(<span style="color:#000">c</span>).<span style="color:#836c28">sum</span>(<span style="color:#000">c0</span>); <span style="color:#177500">// c = c*c + c0</span>
-</span></span><span style="display:flex;"><span>		}
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#000">iter</span>;
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div></div>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""></code></pre></div></div>
 </section><section>
-<h2 id="classe-mandelbrotapp">Classe <code>MandelbrotApp</code></h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">MandelbrotApp</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">WIDTH</span> <span style="color:#000">=</span> <span style="color:#000">800</span>;
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">HEIGHT</span> <span style="color:#000">=</span> <span style="color:#000">800</span>;
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">double</span> <span style="color:#000">MINX</span> <span style="color:#000">=</span> <span style="color:#000">-</span><span style="color:#000">1</span>.<span style="color:#836c28">5</span>;
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">double</span> <span style="color:#000">MAXX</span> <span style="color:#000">=</span> <span style="color:#000">0</span>.<span style="color:#836c28">5</span>;
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">double</span> <span style="color:#000">MINY</span> <span style="color:#000">=</span> <span style="color:#000">-</span><span style="color:#000">1</span>.<span style="color:#836c28">0</span>;
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">double</span> <span style="color:#000">MAXY</span> <span style="color:#000">=</span> <span style="color:#000">1</span>.<span style="color:#836c28">0</span>;
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">MAX_ITER</span> <span style="color:#000">=</span> <span style="color:#000">32</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">int</span> <span style="color:#000">greyColorFromIterations</span>(<span style="color:#a90d91">int</span> <span style="color:#000">iter</span>, <span style="color:#a90d91">int</span> <span style="color:#000">maxIter</span>){
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">if</span> (<span style="color:#000">iter</span> <span style="color:#000">==</span> <span style="color:#000">MAX_ITER</span>) { <span style="color:#a90d91">return</span> <span style="color:#000">0</span>; } <span style="color:#177500">// Out of Mandelbrot set</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#000">iter</span> <span style="color:#000">=</span> <span style="color:#000">255</span><span style="color:#000">-</span><span style="color:#000">iter</span><span style="color:#000">*</span>(<span style="color:#000">256</span><span style="color:#000">/</span><span style="color:#000">MAX_ITER</span>); <span style="color:#177500">// 255,254,..,0 colors</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#000">iter</span> <span style="color:#000">|</span> <span style="color:#000">iter</span> <span style="color:#000">&lt;&lt;</span> <span style="color:#000">8</span> <span style="color:#000">|</span> <span style="color:#000">iter</span> <span style="color:#000">&lt;&lt;</span> <span style="color:#000">16</span>; <span style="color:#177500">// as grey</span>
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">s</span>){
-</span></span><span style="display:flex;"><span>		<span style="color:#000">Mandelbrot</span> <span style="color:#000">mb</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Mandelbrot</span>(<span style="color:#000">WIDTH</span>,<span style="color:#000">HEIGHT</span>,<span style="color:#000">MINX</span>,<span style="color:#000">MAXX</span>,<span style="color:#000">MINY</span>,<span style="color:#000">MAXY</span>,<span style="color:#000">MAX_ITER</span>);
-</span></span><span style="display:flex;"><span>		<span style="color:#000">Picture</span> <span style="color:#000">p</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Picture</span>(<span style="color:#000">WIDTH</span>,<span style="color:#000">HEIGHT</span>);
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">while</span> (<span style="color:#000">!</span><span style="color:#000">mb</span>.<span style="color:#836c28">isCompleted</span>()){
-</span></span><span style="display:flex;"><span>			<span style="color:#a90d91">int</span> <span style="color:#000">iter</span> <span style="color:#000">=</span> <span style="color:#000">mb</span>.<span style="color:#836c28">computeIterations</span>();
-</span></span><span style="display:flex;"><span>			<span style="color:#a90d91">int</span> <span style="color:#000">color</span> <span style="color:#000">=</span> <span style="color:#000">greyColorFromIterations</span>(<span style="color:#000">iter</span>,<span style="color:#000">MAX_ITER</span>);
-</span></span><span style="display:flex;"><span>			<span style="color:#000">p</span>.<span style="color:#836c28">drawPixel</span>(<span style="color:#000">mb</span>.<span style="color:#836c28">x</span>, <span style="color:#000">mb</span>.<span style="color:#836c28">y</span>, <span style="color:#000">color</span>);
-</span></span><span style="display:flex;"><span>			<span style="color:#000">mb</span>.<span style="color:#836c28">advancePosition</span>();
-</span></span><span style="display:flex;"><span>} } }
-</span></span></code></pre></div></section><section>
-<h2 id="preview-del-prossimo-laboratorio">Preview del prossimo laboratorio</h2>
-<h3 id="obiettivi">Obiettivi</h3>
+<h2 id="classe-iomanager">Classe <code>IOManager</code></h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""></code></pre></div></section><section>
+<h2 id="classe-guessmynumbergame">Classe <code>GuessMyNumberGame</code></h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""></code></pre></div></section><section>
+<h2 id="nuovo-main">Nuovo <code>main</code></h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""></code></pre></div><ul>
+<li><strong>Divisione delle responsabilità:</strong> separare i compiti tra le classi mantiene il codice ordinato e facilmente manutenibile, riducendo accoppiamento e complessità.</li>
+<li><strong>Una classe, una responsabilità:</strong> design mirato e coerente migliora leggibilità e riuso; modifiche locali restano isolate.
 <ul>
-<li>Esercizi su piccoli algoritmi su array e tipi primitivi</li>
-<li>Uso costruttori</li>
-<li>Aspetti avanzati della compilazione in Java (cf. classpath)</li>
-<li>Introduzione al build system Gradle</li>
+<li>Cosa succede se vogliamo cambiare la modalità di input (da console a GUI)? Solo <code>IOManager</code> va modificata.</li>
+</ul>
+</li>
+<li><strong>Ruolo minimo del <code>main</code>:</strong> il <code>main</code> si limita a inizializzare e avviare il gioco, lasciando la logica nelle classi dedicate per un flusso principale chiaro e intuitivo.</li>
 </ul>
 </section><section>
 <h1 id="oggetti-e-classi-pt2-inizializzazione-accessi-distruzione-1">Oggetti e Classi pt.2: inizializzazione, accessi, distruzione</h1>
