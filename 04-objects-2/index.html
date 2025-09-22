@@ -40,65 +40,127 @@
 <h3 id="argomenti">Argomenti</h3>
 <ul>
 <li>Costruttori</li>
-<li>Codice statico</li>
+<li>Proprietà di classe: <code>static</code></li>
 <li>Overloading di metodi</li>
 <li>Approfondimento sui package</li>
 <li>Controllo d’accesso</li>
 <li>Finalizzazione e garbage collection</li>
 </ul>
 </section><section>
-<h1 id="codice-statico">Codice statico</h1>
+<h1 id="proprietà-di-classe-in-java-static">Proprietà di classe in Java: <code>static</code></h1>
 </section><section>
-<h2 id="codice-statico-1">Codice statico</h2>
+<h2 id="codice-statico">Codice statico</h2>
 <h3 id="meccanismo">Meccanismo</h3>
 <ul>
-<li>Alcuni campi e metodi di una classe possono essere dichiarati <code>static</code></li>
-<li>Esempi visti:
+<li>Alcuni campi e metodi non sono proprietà di un oggetto, ma <em>appartengono logicamente alla classe</em>
 <ul>
-<li>il <code>main</code> dal quale parte un programma Java</li>
-<li>il campo <code>java.lang.System.out</code></li>
+<li>Hanno lo stesso valore o comportamento indipendentemente da quale oggetto li usa</li>
+<li>E infatti non hanno neppure bisogno di un oggetto per essere usati</li>
+<li>Pensate, ad esempio, a:
+<ul>
+<li>il campo <code>java.lang.System.out</code>: potete usarlo senza avere un oggetto <code>System</code>!
+<ul>
+<li>non fate <code>new System().out</code>!</li>
 </ul>
 </li>
-<li>Tali campi e metodi sono considerate <em>proprietà della classe</em>, non dell’oggetto</li>
+<li>il campo <code>Integer.MAX_VALUE</code></li>
+<li>i metodi di conversione: <code>Integer.parseInt(String s)</code>, <code>Double.parseDouble(String s)</code>, etc.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Questi campi e metodi <em>di classe</em> vanno dichiarati <code>static</code>
+<ul>
+<li>A questo punto, sono accessibili direttamente dalla classe, senza bisogno di costruire oggetti</li>
 <li>Sintassi: <code>Classe.metodo(argomenti)</code>, e <code>Classe.campo</code>
 <ul>
-<li>omettendo la classe si assume quella da cui parte la chiamata</li>
+<li>la classe si può omettere se si intende usare la classe corrente</li>
 </ul>
 </li>
-</ul>
-<h3 id="sulla-notazione">Sulla notazione</h3>
-<ul>
-<li>Iniziano con <em>minuscolo</em>: metodi (<code>getName</code>) e campi (<code>firstName</code>)</li>
-<li>Iniziano con <em>maiuscolo</em>: nomi di classe (e.g. <code>Student</code>)
-<ul>
-<li>Questo consente di capire facilmente il significato delle istruzioni</li>
 </ul>
 </li>
 </ul>
 </section><section>
-<h2 id="uso-di-codice-statico-o-non-statico-in-una-classe-c">Uso di codice statico o non statico in una classe <code>C</code>?</h2>
-<h3 id="codice-non-statico-detto-anche-codice-d">Codice non statico (detto anche <em>codice d’istanza</em>)</h3>
+<h3 id="esempio-main-dentro-una-classe">Esempio: <code>main</code> dentro una classe</h3>
+<p>Il metodo <code>main</code> non richiede un oggetto per essere invocato</p>
+<ul>
+<li>È il punto di ingresso del programma, anche volendo non sapremmo come costruire un oggetto su cui invocarlo</li>
+<li>In effetti, abbiamo detto che l’interprete Java richiede un <em>nome di classe</em> per partire
+<ul>
+<li>e cerca il metodo <code>main</code> in quella classe</li>
+</ul>
+</li>
+<li>La sintassi moderna di fatto <em>nasconde</em> la classe, ma in realtà c’è sempre (e prende implicitamente il nome del file)</li>
+<li>È comunque possibile (e consigliato in applicazioni più complesse) definire esplicitamente una classe di ingresso</li>
+</ul>
+<h4 id="il-main-come-metodo-statico-di-una-classe-java-25">Il <code>main</code> come metodo statico di una classe (Java 25+)</h4>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">EntryPoint</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span>) { <span style="color:#177500">// Main è un metodo statico della classe EntryPoint</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Hello, World!"</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></section><section>
+<h2 id="notazione-per-classi-metodi-e-campi">Notazione per classi, metodi e campi</h2>
+<p>In Java, anche se non obbligatorio, si adotta una <em>convenzione di notazione</em> per distinguere vari elementi del linguaggio</p>
+<ul>
+<li>Questa convenzione, anche se compromette la compilabilità, migliora la leggibilità del codice</li>
+<li>Sarà usata in tutti gli esempi e sarà oggetto di valutazione nei progetti</li>
+<li>Non sempre rispettata nelle librerie di Java
+<ul>
+<li>alcuni nomi sono stati scelti prima che questa convenzione fosse diffusa)</li>
+</ul>
+</li>
+</ul>
+<p>I <strong>nomi di classe</strong> iniziano in <em>maiuscolo</em>, e ogni parola “interna” al nome usa la maiuscola</p>
+<ul>
+<li>notazione <code>PascalCase</code>, no underscore <code>_</code></li>
+<li>p.e.: <code>EnrolledStudent</code>, <code>System</code>, <code>Point3D</code>, <code>Integer</code>, <code>String</code></li>
+</ul>
+<p>I <strong>nomi di campi <em>istanza</em> e metodi</strong> iniziano in <em>minuscolo</em>, e ogni parola “interna” al nome usa la maiuscola</p>
+<ul>
+<li>notazione <code>camelCase</code>, no underscore <code>_</code></li>
+<li>p.e.: <code>firstName</code>, <code>lastName</code>, <code>getName()</code>, <code>parseInt()</code></li>
+</ul>
+<p>I <strong>nomi di campi <code>static</code></strong> sono <em>interamente in  maiuscolo</em>, e ogni parola “interna” al nome è separata da un underscore <code>_</code></p>
+<ul>
+<li>notazione <code>SCREAMING_SNAKE_CASE</code></li>
+<li>p.e.: <code>MAX_VALUE</code>, <code>MIN_GUESS</code>, <code>PI</code></li>
+</ul>
+</section><section>
+<h2 id="uso-di-codice-statico-o-non-statico-in-una-classe">Uso di codice statico o non statico in una classe?</h2>
+<h3 id="codice-istanza-non-static">Codice <em>istanza</em> (non <code>static</code>)</h3>
 <ul>
 <li>È codice puro object-oriented</li>
-<li>Definisce le <em>operazioni</em> e lo <em>stato</em> di ogni oggetto creato da <code>C</code></li>
-</ul>
-<h3 id="codice-statico-2">Codice statico</h3>
+<li>Definisce le <em>operazioni</em> e lo <em>stato</em> di ogni oggetto creato dalla classe</li>
+<li>Ogni oggetto riceve la sua copia dei campi (stato) e dei metodi (operazioni)
 <ul>
-<li>Non è codice puro object-oriented, ma codice in stile “imperativo/strutturato”</li>
-<li>Definisce funzioni e variabili del componente software definito da <code>C</code>
-<ul>
-<li>possono essere visti come metodi e campi dell’unico oggetto “classe <code>C</code>”</li>
+<li>Nei metodi, <code>this</code> si riferisce all’istanza della classe (l’oggetto) che riceve il messaggio</li>
 </ul>
 </li>
 </ul>
-<h3 id="usarli-assieme">Usarli assieme?</h3>
+<h3 id="codice-static">Codice <code>static</code></h3>
 <ul>
-<li>Le <em>helper class</em> abbiano solo metodi/campi statici
+<li>Non è codice puro object-oriented, ma codice in stile “imperativo/strutturato” (come in C)</li>
+<li>Definisce funzioni e variabili che sono parte <strong>della classe</strong>
+<ul>
+<li>Sono <em>condivise</em> da tutte le istanze (oggetti) generate dalla classe</li>
+<li>Per ogni classe <code>X</code>, possono essere visti come metodi e campi dell’unico oggetto “classe <code>X</code>”</li>
+</ul>
+</li>
+</ul>
+<h3 id="buone-pratiche">Buone pratiche</h3>
+<ul>
+<li>Esistono delle <em>helper class</em> che hanno solo metodi/campi statici
 <ul>
 <li>Sono classi di supporto, non istanziabili (utility).</li>
+<li>Ad esempio, <code>java.lang.Math</code> contiene solo campi e metodi statici per operazioni matematiche</li>
 </ul>
 </li>
-<li>Le classi OO non abbiano metodi/campi statici, a meno di qualche funzionalità “generale” della classe (si veda nel proseguio)</li>
+<li>Le classi progettate come OO di norma non hanno metodi/campi statici
+<ul>
+<li>a meno di qualche rara funzionalità “generale” della classe</li>
+</ul>
+</li>
 </ul>
 </section><section>
 <h2 id="esempio-point3d">Esempio Point3D</h2>
@@ -191,7 +253,7 @@
 </li>
 </ul>
 </section><section>
-<h2 id="variante-point3dbis-inizializzazione-con-ritorno">Variante Point3DBis.. inizializzazione con ritorno</h2>
+<h2 id="variante-point3dbis-inizializzazione-con-ritorno">Variante <code>Point3DBis</code>: inizializzazione con ritorno</h2>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">Point3DBis</span> { <span style="color:#177500">// dichiarazione classe</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">double</span> <span style="color:#000">x</span>; <span style="color:#177500">// 3 campi</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">double</span> <span style="color:#000">y</span>;
@@ -221,7 +283,7 @@
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></section><section>
-<h2 id="uso-point3dbis">Uso Point3DBis</h2>
+<h2 id="uso-point3dbis">Uso <code>Point3DBis</code></h2>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">UsePoint3DBis</span> {
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">s</span>) {
 </span></span><span style="display:flex;"><span>        <span style="color:#177500">// creo vari punti</span>
@@ -253,20 +315,24 @@
 <li>schema chiamato <em>“fluente”</em></li>
 </ul>
 </section><section>
-<h2 id="sulluso-delle-proprietà-static">Sull’uso delle proprietà <code>static</code></h2>
-<h3 id="consigli-generali">Consigli generali</h3>
-<ul>
-<li>nella programmazione OO pura, andrebbero interamente evitati</li>
-<li>frequente invece l’uso di costanti</li>
-<li>a volte sono comodi, per ora cercare di tenere separate nelle classi le parti <code>static</code> dalle altre (poi vedremo “pattern” più sofisticati)</li>
-<li>le librerie di Java ne fanno largo uso</li>
-</ul>
-<h3 id="prassi-frequente-in-java">Prassi frequente in Java</h3>
-<ul>
-<li>se <code>C</code> è una classe usata per generare oggetti, la classe <code>Cs</code> (plurale) conterrà solo proprietà statiche relative</li>
-<li>es: <code>Object</code>/<code>Objects</code>, <code>Array</code>/<code>Arrays</code>, <code>Collection</code>/<code>Collections</code></li>
-</ul>
-</section><section>
+<!--
+
+## Sull'uso delle proprietà `static`
+
+### Consigli generali
+*  nella programmazione OO pura, andrebbero interamente evitati
+*  frequente invece l'uso di costanti
+*  a volte sono comodi, per ora cercare di tenere separate nelle classi le parti `static` dalle altre (poi vedremo "pattern" più sofisticati)
+*  le librerie di Java ne fanno largo uso
+
+
+### Prassi frequente in Java
+*  se `C` è una classe usata per generare oggetti, la classe `Cs` (plurale) conterrà solo proprietà statiche relative
+*  es: `Object`/`Objects`, `Array`/`Arrays`, `Collection`/`Collections`
+
+---
+
+-->
 <h2 id="ristrutturazione-point3d">Ristrutturazione <code>Point3D</code></h2>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#177500">// Classe Point3D con solo membri d'istanza (non-static)</span>
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">Point3D</span> { <span style="color:#177500">// dichiarazione classe</span>
@@ -329,14 +395,14 @@
 <ul>
 <li>Allo stato attuale delle nostre conoscenze, l’operatore <code>new T</code> crea un oggetto di tipo <code>T</code> inizializzando tutti i suoi campi al loro valore di default (p.e. $0$ per i numeri), e ne restituisce il riferimento</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#000">Point3D</span>   <span style="color:#000">p</span>  <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Point3D</span>();
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#000">Point3D</span>  <span style="color:#000">p</span>  <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Point3D</span>();
 </span></span><span style="display:flex;"><span><span style="color:#000">Point3D</span><span style="color:#000">[]</span> <span style="color:#000">ps</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Point3D</span><span style="color:#000">[</span><span style="color:#000">2</span><span style="color:#000">]</span>; <span style="color:#177500">// [null, null] &lt;- sintassi per creare array di oggetti</span>
 </span></span></code></pre></div><ul>
 <li>Problema: garantire una corretta <em>inizializzazione</em></li>
 </ul>
 <h3 id="costruttori-di-una-classe"><em>Costruttori</em> di una classe</h3>
 <ul>
-<li>I <em>costruttori</em> assomigliano per struttura ai metodi: hanno un nome e possono avere dei parametri formali
+<li>I <em>costruttori</em> assomigliano strutturalmente ai metodi: possono avere dei parametri formali
 <ul>
 <li>alla <code>new</code> si possono quindi passare dei valori</li>
 </ul>
@@ -347,11 +413,15 @@
 <li>Si dichiarano <em>senza tipo di ritorno</em> (è implicito che il tipo di ritorno sia il tipo della classe)</li>
 </ul>
 </li>
-<li>Il <em>costruttore di default</em> (a zero argomenti) è implicitamente definito solo se non se ne aggiungono altri – ecco perché era consentito scrivere: <code>new Point3D()</code></li>
+<li>Il <em>costruttore di default</em> a zero argomenti è implicitamente definito solo se non se ne aggiungono altri
+<ul>
+<li>ecco perché era consentito scrivere: <code>new Point3D()</code></li>
+</ul>
+</li>
 </ul>
 </section><section>
 <h3 id="costruttori-sintassi"><em>Costruttori</em>: sintassi</h3>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#000">&lt;</span><span style="color:#000">NomeClasse</span><span style="color:#000">&gt;</span> (<span style="color:#000">&lt;</span><span style="color:#000">Tipo1</span><span style="color:#000">&gt;</span> <span style="color:#000">&lt;</span><span style="color:#000">arg1</span><span style="color:#000">&gt;</span>, <span style="color:#000">&lt;</span><span style="color:#000">Tipo2</span><span style="color:#000">&gt;</span> <span style="color:#000">&lt;</span><span style="color:#000">arg2</span><span style="color:#000">&gt;</span>, ...) {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#000">&lt;</span><span style="color:#000">NomeClasse</span><span style="color:#000">&gt;</span>(<span style="color:#000">&lt;</span><span style="color:#000">Tipo1</span><span style="color:#000">&gt;</span> <span style="color:#000">&lt;</span><span style="color:#000">arg1</span><span style="color:#000">&gt;</span>, <span style="color:#000">&lt;</span><span style="color:#000">Tipo2</span><span style="color:#000">&gt;</span> <span style="color:#000">&lt;</span><span style="color:#000">arg2</span><span style="color:#000">&gt;</span>, ...) {
 </span></span><span style="display:flex;"><span>    <span style="color:#177500">// codice di inizializzazione</span>
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><h3 id="esempio-point3d-1">Esempio: Point3D</h3>
@@ -377,27 +447,31 @@
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></section><section>
-<h2 id="gli-argomenti-del-costruttore-spesso-corrispondono-ai-campi">Gli argomenti del costruttore spesso corrispondono ai campi</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">Point3Dvar</span> {  <span style="color:#177500">// dichiarazione classe</span>
+<h2 id="gli-argomenti-del-costruttore-spesso-corrispondono-ai-campi">Gli argomenti del costruttore <em>spesso</em> corrispondono ai campi!</h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Point3Dcons</span> {   <span style="color:#177500">// dichiarazione classe</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">double</span> <span style="color:#000">x</span>;
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">double</span> <span style="color:#000">y</span>;
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">double</span> <span style="color:#000">z</span>;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#000">Point3Dvar</span>(<span style="color:#a90d91">double</span> <span style="color:#000">x</span>, <span style="color:#a90d91">double</span> <span style="color:#000">y</span>, <span style="color:#a90d91">double</span> <span style="color:#000">z</span>){ <span style="color:#177500">// costruttore</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">this</span>.<span style="color:#836c28">x</span> <span style="color:#000">=</span> <span style="color:#000">x</span>;	<span style="color:#177500">// metto l'argomento x in this.x</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">this</span>.<span style="color:#836c28">y</span> <span style="color:#000">=</span> <span style="color:#000">y</span>;	<span style="color:#177500">// ..</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">this</span>.<span style="color:#836c28">z</span> <span style="color:#000">=</span> <span style="color:#000">z</span>;	<span style="color:#177500">// ..</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#177500">// costruttore</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">Point3Dcons</span>(<span style="color:#a90d91">double</span> <span style="color:#000">x</span>, <span style="color:#a90d91">double</span> <span style="color:#000">y</span>, <span style="color:#a90d91">double</span> <span style="color:#000">z</span>) { <span style="color:#177500">// nota: assenza di tipo di ritorno</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">this</span>.<span style="color:#836c28">x</span> <span style="color:#000">=</span> <span style="color:#000">x</span>; <span style="color:#177500">// metto l'argomento x in this.x</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">this</span>.<span style="color:#836c28">y</span> <span style="color:#000">=</span> <span style="color:#000">y</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">this</span>.<span style="color:#836c28">z</span> <span style="color:#000">=</span> <span style="color:#000">z</span>;
 </span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>    <span style="color:#177500">// ...</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span>){
-</span></span><span style="display:flex;"><span>        <span style="color:#177500">//creo l'oggetto usando il costruttore a tre argomenti</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#000">Point3Dvar</span> <span style="color:#000">p</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Point3Dvar</span>(<span style="color:#000">10</span>.<span style="color:#836c28">0</span>, <span style="color:#000">20</span>.<span style="color:#836c28">0</span>, <span style="color:#000">30</span>.<span style="color:#836c28">0</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#177500">// creo l'oggetto usando il costruttore a tre argomenti</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">Point3Dcons</span> <span style="color:#000">p</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Point3Dcons</span>(<span style="color:#000">10</span>.<span style="color:#836c28">0</span>, <span style="color:#000">20</span>.<span style="color:#836c28">0</span>, <span style="color:#000">30</span>.<span style="color:#836c28">0</span>);
 </span></span><span style="display:flex;"><span>        <span style="color:#177500">// stampo</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"p: "</span> <span style="color:#000">+</span> <span style="color:#000">p</span>.<span style="color:#836c28">x</span> <span style="color:#000">+</span> <span style="color:#c41a16">","</span> <span style="color:#000">+</span> <span style="color:#000">p</span>.<span style="color:#836c28">y</span> <span style="color:#000">+</span> <span style="color:#c41a16">","</span> <span style="color:#000">+</span> <span style="color:#000">p</span>.<span style="color:#836c28">z</span>);	
+</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"p: "</span> <span style="color:#000">+</span> <span style="color:#000">p</span>.<span style="color:#836c28">x</span> <span style="color:#000">+</span> <span style="color:#c41a16">","</span> <span style="color:#000">+</span> <span style="color:#000">p</span>.<span style="color:#836c28">y</span> <span style="color:#000">+</span> <span style="color:#c41a16">","</span> <span style="color:#000">+</span> <span style="color:#000">p</span>.<span style="color:#836c28">z</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#177500">// costruttore di "default" in questo caso non funziona!</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#177500">// Point3D p2 = new Point3D(); NO!!</span>
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div></section><section>
-<h2 id="esempio-person-3-costruttori">Esempio: Person (3 costruttori)</h2>
+</span></span></code></pre></div><p>È una prassi comune, ma non una regola (tutt’altro)</p>
+</section><section>
+<h2 id="esempio-person-3-costruttori-in-overloading">Esempio: Person (3 costruttori in <em>overloading</em>)</h2>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.Calendar</span>;
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Person</span> { <span style="color:#177500">// dichiarazione classe</span>
@@ -455,6 +529,7 @@
 <ul>
 <li>tale istruzione può solo essere la prima di un costruttore</li>
 <li>questo meccanismo consente di riusare il codice di altri costruttori</li>
+<li>è buona norma avere un costruttore “<em>primario</em>” che fa tutto il lavoro, e gli altri lo richiamano</li>
 </ul>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.Calendar</span>;
 </span></span><span style="display:flex;"><span>
@@ -485,7 +560,7 @@
 <ul>
 <li>L’<em>overloading</em> è un meccanismo che consente di definire più metodi/operatori con lo stesso nome</li>
 <li>La difficoltà che comporta è dovuta alla necessità di disambiguazione</li>
-<li>Due esempi visti finora: overloading operatori matematici (cf. <code>+</code>) e overloading costruttori</li>
+<li>Due esempi visti finora: overloading operatori matematici (es. <code>+</code>) e overloading costruttori</li>
 </ul>
 <h3 id="overloading-dei-costruttori-1">Overloading dei costruttori</h3>
 <p>Data una <code>new</code>, quale costruttore richiamerà? (JLS 15.12)</p>
@@ -534,11 +609,11 @@
 <h2 id="i-package">I package</h2>
 <h3 id="problema">Problema</h3>
 <ul>
-<li>Un framework mainstream come quello di Java può disporre  di decine di migliaia di classi di libreria e di applicazione</li>
+<li>Un framework mainstream come quello di Java può disporre di decine di migliaia di classi di libreria e di applicazione</li>
 <li>È necessario un meccanismo per consentire di strutturarle in gruppi (a più <em>livelli gerarchici</em>)</li>
 <li>Per poter meglio gestirli in memoria secondaria, e per meglio accedervi
 <ul>
-<li>cf. filesystem nei sistemi operativi</li>
+<li>come il filesystem nei sistemi operativi</li>
 </ul>
 </li>
 </ul>
@@ -546,8 +621,23 @@
 <ul>
 <li>Ogni classe appartiene ad un <em><strong>package</strong></em></li>
 <li>Un package ha nome gerarchico <code>n1.n2....nj</code> (p.e. <code>java.lang</code>)</li>
-<li>Le classi di un package devono trovarsi in una medesima directory</li>
-<li>Questa è la subdirectory <code>n1/n2/../nj</code> a partire da una delle directory presenti nella variabile d’ambiente <code>CLASSPATH</code></li>
+<li>È prassi (ma non obbligatorio) che i file sorgente <code>.java</code> siano organizzati in directory che rispecchiano la struttura del package
+<ul>
+<li>p.e. <code>n1/n2/Foo.java</code> per la classe <code>Foo</code> del package <code>n1.n2</code></li>
+</ul>
+</li>
+<li>Il compilatore genererà automaticamente la struttura di directory per i file <code>.class</code>
+<ul>
+<li>Questa è obbligatoria per il corretto caricamento delle classi, ma se ne occupa il compilatore</li>
+</ul>
+</li>
+<li>La ricerca delle subdirectory del package è effettuata a partire da una delle directory presenti nel <strong>classpath</strong>
+<ul>
+<li>Il <strong>classpath</strong> è un elenco di directory (separate da <code>:</code> su Linux, <code>;</code> su Windows) in cui cercare i package</li>
+<li>Il classpath si specifica con l’opzione <code>-cp</code> di <code>javac</code> e <code>java</code> o con la variabile d’ambiente <code>CLASSPATH</code></li>
+<li>Se non specificato, il classpath di default è la directory corrente (<code>.</code>)</li>
+</ul>
+</li>
 </ul>
 </section><section>
 <h2 id="i-package-pt-2">I package pt. 2</h2>
@@ -556,7 +646,7 @@
 <li>Ogni unità di compilazione (file <code>.java</code>) deve specificare il suo package</li>
 <li>Lo fa con la direttiva <code>package pname;</code></li>
 <li>Se non lo fa, allora trattasi del <em>package di “default”</em></li>
-<li>Se lo fa, tale file dovrà stare nella opportuna directory</li>
+<li>Se lo fa, è buona prassi mettere tale file nella opportuna directory</li>
 </ul>
 <h3 id="importazione-classi-da-altri-package">Importazione classi da altri package</h3>
 <ul>
@@ -570,22 +660,10 @@
 <li>L’importazione non è necessaria per classi che si trovano nello stesso package</li>
 </ul>
 </section><section>
-<h2 id="package-esempio-di-organizzazione-dei-sorgenti-class-e-dei-file-compilati-class">Package: esempio di organizzazione dei sorgenti .class e dei file compilati .class</h2>
-<div class="container">
-<div class="col">
-<div class="mermaid" data-processed="true" pre-rendered="true"><svg aria-roledescription="flowchart-v2" role="graphics-document document" viewBox="0 -0.5 215.1875 270.03125" style="max-width: 215.1875px;" class="flowchart" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" width="100%" id="my-svg"><style>#my-svg{font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:16px;fill:#333;}#my-svg .error-icon{fill:#552222;}#my-svg .error-text{fill:#552222;stroke:#552222;}#my-svg .edge-thickness-normal{stroke-width:1px;}#my-svg .edge-thickness-thick{stroke-width:3.5px;}#my-svg .edge-pattern-solid{stroke-dasharray:0;}#my-svg .edge-thickness-invisible{stroke-width:0;fill:none;}#my-svg .edge-pattern-dashed{stroke-dasharray:3;}#my-svg .edge-pattern-dotted{stroke-dasharray:2;}#my-svg .marker{fill:#333333;stroke:#333333;}#my-svg .marker.cross{stroke:#333333;}#my-svg svg{font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:16px;}#my-svg p{margin:0;}#my-svg .label{font-family:"trebuchet ms",verdana,arial,sans-serif;color:#333;}#my-svg .cluster-label text{fill:#333;}#my-svg .cluster-label span{color:#333;}#my-svg .cluster-label span p{background-color:transparent;}#my-svg .label text,#my-svg span{fill:#333;color:#333;}#my-svg .node rect,#my-svg .node circle,#my-svg .node ellipse,#my-svg .node polygon,#my-svg .node path{fill:#ECECFF;stroke:#9370DB;stroke-width:1px;}#my-svg .rough-node .label text,#my-svg .node .label text,#my-svg .image-shape .label,#my-svg .icon-shape .label{text-anchor:middle;}#my-svg .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#my-svg .rough-node .label,#my-svg .node .label,#my-svg .image-shape .label,#my-svg .icon-shape .label{text-align:center;}#my-svg .node.clickable{cursor:pointer;}#my-svg .root .anchor path{fill:#333333!important;stroke-width:0;stroke:#333333;}#my-svg .arrowheadPath{fill:#333333;}#my-svg .edgePath .path{stroke:#333333;stroke-width:2.0px;}#my-svg .flowchart-link{stroke:#333333;fill:none;}#my-svg .edgeLabel{background-color:rgba(232,232,232, 0.8);text-align:center;}#my-svg .edgeLabel p{background-color:rgba(232,232,232, 0.8);}#my-svg .edgeLabel rect{opacity:0.5;background-color:rgba(232,232,232, 0.8);fill:rgba(232,232,232, 0.8);}#my-svg .labelBkg{background-color:rgba(232, 232, 232, 0.5);}#my-svg .cluster rect{fill:#ffffde;stroke:#aaaa33;stroke-width:1px;}#my-svg .cluster text{fill:#333;}#my-svg .cluster span{color:#333;}#my-svg div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:12px;background:hsl(80, 100%, 96.2745098039%);border:1px solid #aaaa33;border-radius:2px;pointer-events:none;z-index:100;}#my-svg .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#333;}#my-svg rect.text{fill:none;stroke-width:0;}#my-svg .icon-shape,#my-svg .image-shape{background-color:rgba(232,232,232, 0.8);text-align:center;}#my-svg .icon-shape p,#my-svg .image-shape p{background-color:rgba(232,232,232, 0.8);padding:2px;}#my-svg .icon-shape rect,#my-svg .image-shape rect{opacity:0.5;background-color:rgba(232,232,232, 0.8);fill:rgba(232,232,232, 0.8);}#my-svg :root{--mermaid-font-family:"trebuchet ms",verdana,arial,sans-serif;}#my-svg .f&gt;*{fill:#ddd!important;}#my-svg .f span{fill:#ddd!important;}</style><g><marker orient="auto" markerHeight="8" markerWidth="8" markerUnits="userSpaceOnUse" refY="5" refX="5" viewBox="0 0 10 10" class="marker flowchart-v2" id="my-svg_flowchart-v2-pointEnd"><path style="stroke-width: 1; stroke-dasharray: 1, 0;" class="arrowMarkerPath" d="M 0 0 L 10 5 L 0 10 z"></path></marker><marker orient="auto" markerHeight="8" markerWidth="8" markerUnits="userSpaceOnUse" refY="5" refX="4.5" viewBox="0 0 10 10" class="marker flowchart-v2" id="my-svg_flowchart-v2-pointStart"><path style="stroke-width: 1; stroke-dasharray: 1, 0;" class="arrowMarkerPath" d="M 0 5 L 10 10 L 10 0 z"></path></marker><marker orient="auto" markerHeight="11" markerWidth="11" markerUnits="userSpaceOnUse" refY="5" refX="11" viewBox="0 0 10 10" class="marker flowchart-v2" id="my-svg_flowchart-v2-circleEnd"><circle style="stroke-width: 1; stroke-dasharray: 1, 0;" class="arrowMarkerPath" r="5" cy="5" cx="5"></circle></marker><marker orient="auto" markerHeight="11" markerWidth="11" markerUnits="userSpaceOnUse" refY="5" refX="-1" viewBox="0 0 10 10" class="marker flowchart-v2" id="my-svg_flowchart-v2-circleStart"><circle style="stroke-width: 1; stroke-dasharray: 1, 0;" class="arrowMarkerPath" r="5" cy="5" cx="5"></circle></marker><marker orient="auto" markerHeight="11" markerWidth="11" markerUnits="userSpaceOnUse" refY="5.2" refX="12" viewBox="0 0 11 11" class="marker cross flowchart-v2" id="my-svg_flowchart-v2-crossEnd"><path style="stroke-width: 2; stroke-dasharray: 1, 0;" class="arrowMarkerPath" d="M 1,1 l 9,9 M 10,1 l -9,9"></path></marker><marker orient="auto" markerHeight="11" markerWidth="11" markerUnits="userSpaceOnUse" refY="5.2" refX="-1" viewBox="0 0 11 11" class="marker cross flowchart-v2" id="my-svg_flowchart-v2-crossStart"><path style="stroke-width: 2; stroke-dasharray: 1, 0;" class="arrowMarkerPath" d="M 1,1 l 9,9 M 10,1 l -9,9"></path></marker><g class="root"><g class="clusters"></g><g class="edgePaths"><path marker-end="url(#my-svg_flowchart-v2-pointEnd)" style="" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" id="L_A_B_0" d="M108.484,31L108.484,35.167C108.484,39.333,108.484,47.667,108.484,53.917C108.484,60.167,108.484,64.333,108.484,67.833C108.484,71.333,108.484,74.167,108.484,75.583L108.484,77"></path><path marker-end="url(#my-svg_flowchart-v2-pointEnd)" style="" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" id="L_B_C_1" d="M87.709,125.445L80.789,131.231C73.869,137.016,60.028,148.586,53.108,156.454C46.188,164.323,46.188,168.49,46.188,171.99C46.188,175.49,46.188,178.323,46.188,179.74L46.188,181.156"></path><path marker-end="url(#my-svg_flowchart-v2-pointEnd)" style="" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" id="L_B_D_2" d="M129.259,125.445L136.18,131.231C143.1,137.016,156.941,148.586,163.861,156.603C170.781,164.62,170.781,169.083,170.781,172.88C170.781,176.677,170.781,179.807,170.781,181.372L170.781,182.938"></path></g><g class="edgeLabels"><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" class="labelBkg" xmlns="http://www.w3.org/1999/xhtml"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" class="labelBkg" xmlns="http://www.w3.org/1999/xhtml"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" class="labelBkg" xmlns="http://www.w3.org/1999/xhtml"><span class="edgeLabel"></span></div></foreignObject></g></g></g><g class="nodes"><g transform="translate(108.484375, 19.5)" id="flowchart-A-0" class="node default"><circle cy="0" cx="0" r="11.5" style="" class="basic label-container"></circle><g transform="translate(-4, -12)" style="" class="label"><rect></rect><foreignObject height="24" width="8"><div style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel"><p>it</p></span></div></foreignObject></g></g><g transform="translate(108.484375, 108.078125)" id="flowchart-B-1" class="node default"><circle cy="0" cx="0" r="27.078125" style="" class="basic label-container"></circle><g transform="translate(-19.578125, -12)" style="" class="label"><rect></rect><foreignObject height="24" width="39.15625"><div style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel"><p>unibo</p></span></div></foreignObject></g></g><g transform="translate(46.1875, 223.34375)" id="flowchart-C-3" class="node default f"><circle cy="0" cx="0" r="38.1875" style="fill:#ddd !important" class="basic label-container"></circle><g transform="translate(-30.6875, -12)" style="" class="label"><rect></rect><foreignObject height="24" width="61.375"><div style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel"><p>Foo.java</p></span></div></foreignObject></g></g><g transform="translate(170.78125, 223.34375)" id="flowchart-D-5" class="node default f"><circle cy="0" cx="0" r="36.40625" style="fill:#ddd !important" class="basic label-container"></circle><g transform="translate(-28.90625, -12)" style="" class="label"><rect></rect><foreignObject height="24" width="57.8125"><div style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel"><p>Bar.java</p></span></div></foreignObject></g></g></g></g></g></svg></div>
-
-</div>
-<div class="col">
-<div class="mermaid" data-processed="true" pre-rendered="true"><svg aria-roledescription="flowchart-v2" role="graphics-document document" viewBox="0 -0.5 229.390625 277.125" style="max-width: 229.390625px;" class="flowchart" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" width="100%" id="my-svg"><style>#my-svg{font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:16px;fill:#333;}#my-svg .error-icon{fill:#552222;}#my-svg .error-text{fill:#552222;stroke:#552222;}#my-svg .edge-thickness-normal{stroke-width:1px;}#my-svg .edge-thickness-thick{stroke-width:3.5px;}#my-svg .edge-pattern-solid{stroke-dasharray:0;}#my-svg .edge-thickness-invisible{stroke-width:0;fill:none;}#my-svg .edge-pattern-dashed{stroke-dasharray:3;}#my-svg .edge-pattern-dotted{stroke-dasharray:2;}#my-svg .marker{fill:#333333;stroke:#333333;}#my-svg .marker.cross{stroke:#333333;}#my-svg svg{font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:16px;}#my-svg p{margin:0;}#my-svg .label{font-family:"trebuchet ms",verdana,arial,sans-serif;color:#333;}#my-svg .cluster-label text{fill:#333;}#my-svg .cluster-label span{color:#333;}#my-svg .cluster-label span p{background-color:transparent;}#my-svg .label text,#my-svg span{fill:#333;color:#333;}#my-svg .node rect,#my-svg .node circle,#my-svg .node ellipse,#my-svg .node polygon,#my-svg .node path{fill:#ECECFF;stroke:#9370DB;stroke-width:1px;}#my-svg .rough-node .label text,#my-svg .node .label text,#my-svg .image-shape .label,#my-svg .icon-shape .label{text-anchor:middle;}#my-svg .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#my-svg .rough-node .label,#my-svg .node .label,#my-svg .image-shape .label,#my-svg .icon-shape .label{text-align:center;}#my-svg .node.clickable{cursor:pointer;}#my-svg .root .anchor path{fill:#333333!important;stroke-width:0;stroke:#333333;}#my-svg .arrowheadPath{fill:#333333;}#my-svg .edgePath .path{stroke:#333333;stroke-width:2.0px;}#my-svg .flowchart-link{stroke:#333333;fill:none;}#my-svg .edgeLabel{background-color:rgba(232,232,232, 0.8);text-align:center;}#my-svg .edgeLabel p{background-color:rgba(232,232,232, 0.8);}#my-svg .edgeLabel rect{opacity:0.5;background-color:rgba(232,232,232, 0.8);fill:rgba(232,232,232, 0.8);}#my-svg .labelBkg{background-color:rgba(232, 232, 232, 0.5);}#my-svg .cluster rect{fill:#ffffde;stroke:#aaaa33;stroke-width:1px;}#my-svg .cluster text{fill:#333;}#my-svg .cluster span{color:#333;}#my-svg div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:12px;background:hsl(80, 100%, 96.2745098039%);border:1px solid #aaaa33;border-radius:2px;pointer-events:none;z-index:100;}#my-svg .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#333;}#my-svg rect.text{fill:none;stroke-width:0;}#my-svg .icon-shape,#my-svg .image-shape{background-color:rgba(232,232,232, 0.8);text-align:center;}#my-svg .icon-shape p,#my-svg .image-shape p{background-color:rgba(232,232,232, 0.8);padding:2px;}#my-svg .icon-shape rect,#my-svg .image-shape rect{opacity:0.5;background-color:rgba(232,232,232, 0.8);fill:rgba(232,232,232, 0.8);}#my-svg :root{--mermaid-font-family:"trebuchet ms",verdana,arial,sans-serif;}#my-svg .c&gt;*{fill:#fff!important;}#my-svg .c span{fill:#fff!important;}</style><g><marker orient="auto" markerHeight="8" markerWidth="8" markerUnits="userSpaceOnUse" refY="5" refX="5" viewBox="0 0 10 10" class="marker flowchart-v2" id="my-svg_flowchart-v2-pointEnd"><path style="stroke-width: 1; stroke-dasharray: 1, 0;" class="arrowMarkerPath" d="M 0 0 L 10 5 L 0 10 z"></path></marker><marker orient="auto" markerHeight="8" markerWidth="8" markerUnits="userSpaceOnUse" refY="5" refX="4.5" viewBox="0 0 10 10" class="marker flowchart-v2" id="my-svg_flowchart-v2-pointStart"><path style="stroke-width: 1; stroke-dasharray: 1, 0;" class="arrowMarkerPath" d="M 0 5 L 10 10 L 10 0 z"></path></marker><marker orient="auto" markerHeight="11" markerWidth="11" markerUnits="userSpaceOnUse" refY="5" refX="11" viewBox="0 0 10 10" class="marker flowchart-v2" id="my-svg_flowchart-v2-circleEnd"><circle style="stroke-width: 1; stroke-dasharray: 1, 0;" class="arrowMarkerPath" r="5" cy="5" cx="5"></circle></marker><marker orient="auto" markerHeight="11" markerWidth="11" markerUnits="userSpaceOnUse" refY="5" refX="-1" viewBox="0 0 10 10" class="marker flowchart-v2" id="my-svg_flowchart-v2-circleStart"><circle style="stroke-width: 1; stroke-dasharray: 1, 0;" class="arrowMarkerPath" r="5" cy="5" cx="5"></circle></marker><marker orient="auto" markerHeight="11" markerWidth="11" markerUnits="userSpaceOnUse" refY="5.2" refX="12" viewBox="0 0 11 11" class="marker cross flowchart-v2" id="my-svg_flowchart-v2-crossEnd"><path style="stroke-width: 2; stroke-dasharray: 1, 0;" class="arrowMarkerPath" d="M 1,1 l 9,9 M 10,1 l -9,9"></path></marker><marker orient="auto" markerHeight="11" markerWidth="11" markerUnits="userSpaceOnUse" refY="5.2" refX="-1" viewBox="0 0 11 11" class="marker cross flowchart-v2" id="my-svg_flowchart-v2-crossStart"><path style="stroke-width: 2; stroke-dasharray: 1, 0;" class="arrowMarkerPath" d="M 1,1 l 9,9 M 10,1 l -9,9"></path></marker><g class="root"><g class="clusters"></g><g class="edgePaths"><path marker-end="url(#my-svg_flowchart-v2-pointEnd)" style="" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" id="L_A_B_0" d="M115.582,31L115.582,35.167C115.582,39.333,115.582,47.667,115.582,53.917C115.582,60.167,115.582,64.333,115.582,67.833C115.582,71.333,115.582,74.167,115.582,75.583L115.582,77"></path><path marker-end="url(#my-svg_flowchart-v2-pointEnd)" style="" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" id="L_B_C_1" d="M94.343,124.875L86.909,130.756C79.474,136.636,64.604,148.396,57.169,156.359C49.734,164.323,49.734,168.49,49.734,171.99C49.734,175.49,49.734,178.323,49.734,179.74L49.734,181.156"></path><path marker-end="url(#my-svg_flowchart-v2-pointEnd)" style="" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" id="L_B_D_2" d="M136.821,124.875L144.255,130.756C151.69,136.636,166.56,148.396,173.995,156.507C181.43,164.618,181.43,169.081,181.43,172.876C181.43,176.672,181.43,179.801,181.43,181.365L181.43,182.93"></path></g><g class="edgeLabels"><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" class="labelBkg" xmlns="http://www.w3.org/1999/xhtml"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" class="labelBkg" xmlns="http://www.w3.org/1999/xhtml"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" class="labelBkg" xmlns="http://www.w3.org/1999/xhtml"><span class="edgeLabel"></span></div></foreignObject></g></g></g><g class="nodes"><g transform="translate(115.58203125, 19.5)" id="flowchart-A-0" class="node default"><circle cy="0" cx="0" r="11.5" style="" class="basic label-container"></circle><g transform="translate(-4, -12)" style="" class="label"><rect></rect><foreignObject height="24" width="8"><div style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel"><p>it</p></span></div></foreignObject></g></g><g transform="translate(115.58203125, 108.078125)" id="flowchart-B-1" class="node default"><circle cy="0" cx="0" r="27.078125" style="" class="basic label-container"></circle><g transform="translate(-19.578125, -12)" style="" class="label"><rect></rect><foreignObject height="24" width="39.15625"><div style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel"><p>unibo</p></span></div></foreignObject></g></g><g transform="translate(49.734375, 226.890625)" id="flowchart-C-3" class="node default c"><circle cy="0" cx="0" r="41.734375" style="fill:#fff !important" class="basic label-container"></circle><g transform="translate(-34.234375, -12)" style="" class="label"><rect></rect><foreignObject height="24" width="68.46875"><div style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel"><p>Foo.class</p></span></div></foreignObject></g></g><g transform="translate(181.4296875, 226.890625)" id="flowchart-D-5" class="node default c"><circle cy="0" cx="0" r="39.9609375" style="fill:#fff !important" class="basic label-container"></circle><g transform="translate(-32.4609375, -12)" style="" class="label"><rect></rect><foreignObject height="24" width="64.921875"><div style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel"><p>Bar.class</p></span></div></foreignObject></g></g></g></g></g></svg></div>
-
-</div>
-</div>
-</section><section>
 <h2 id="unità-di-compilazione-e-livello-daccesso-package">Unità di compilazione e livello d’accesso “package”</h2>
 <h3 id="unità-di-compilazione">Unità di compilazione</h3>
 <ul>
-<li>Un’<em>unità di compilazione</em> è un file compilabile in modo atomico da <code>javac</code></li>
+<li>Un’<em>unità di compilazione</em> è un insieme di file compilabile in modo atomico da <code>javac</code></li>
 <li>Si deve chiamare con estensione <code>.java</code></li>
 <li>Può contenere varie classi indicate una dopo l’altra</li>
 </ul>
@@ -619,8 +697,34 @@
 </ul>
 <h3 id="a-livello-di-metodicampicostruttori">A livello di metodi/campi/costruttori</h3>
 <ul>
-<li>la scelta <code>public</code>/<code>private</code> può consentire di gestire a piacimento il concetto di <em><strong>information hiding</strong></em>, come approfondiremo la prossima settimana</li>
+<li>la scelta <code>public</code>/<code>private</code> può consentire di gestire a piacimento il concetto di <em><strong>information hiding</strong></em>
+<ul>
+<li>vedremo meglio in futuro</li>
 </ul>
+</li>
+</ul>
+</section><section>
+<h3 id="il-main-classico-di-java-java-24-e-precedenti">Il <code>main</code> classico di Java (Java 24 e precedenti)</h3>
+<p>Il metodo <code>main</code> ha le seguenti caratteristiche:</p>
+<ol>
+<li>Deve essere <em>invocabile senza un oggetto</em>, a partire dalla sola classe
+<ul>
+<li>ed è quindi <code>static</code></li>
+</ul>
+</li>
+<li>Deve essere <em>visibile</em> dall’“esterno” del package, perché la JVM quando parte non lo fa in un package specifico
+<ul>
+<li>ed è quindi <code>public</code></li>
+</ul>
+</li>
+</ol>
+<h4 id="il-main-come-metodo-statico-e-pubblico-di-una-classe">Il <code>main</code> come metodo statico e pubblico di una classe</h4>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">EntryPoint</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span>) { <span style="color:#177500">// Main è un metodo statico della classe EntryPoint</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Hello, World!"</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Se usate una versione di Java precedente alla 25, dovete sempre usare questa sintassi.</p>
 </section><section>
 <h2 id="la-keyword-final">La keyword <code>final</code></h2>
 <h3 id="final--non-modificabile"><code>final</code> = non modificabile</h3>
@@ -639,7 +743,7 @@
 <h3 id="il-caso-dei-magic-number">Il caso dei “magic number”</h3>
 <ul>
 <li>Ogni numero usato in una classe per qualche motivo (3,21,..)..</li>
-<li>..sarebbe opportuno venisse mascherato da una costante, per motivi di leggibilità e di più semplice modificabilità</li>
+<li>sarebbe opportuno venisse mascherato da una costante, per motivi di leggibilità e di più semplice modificabilità</li>
 </ul>
 </section><section>
 <h2 id="esempio-magic-numbers">Esempio Magic Numbers</h2>
@@ -1066,8 +1170,6 @@
   
   
 
-  
-    
   
   
 
