@@ -242,75 +242,75 @@
 <div class="col">
 <div class="smaller">
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#177500">/**
-</span></span></span><span style="display:flex;"><span><span style="color:#177500"> * Point3D is an example showcasing some OO functionality 
-</span></span></span><span style="display:flex;"><span><span style="color:#177500"> * in Java, with a focus on formatting. 
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"> * Point3D is an example showcasing some OO functionality
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"> * in Java, with a focus on formatting.
 </span></span></span><span style="display:flex;"><span><span style="color:#177500"> * All properties have default (package) access.
 </span></span></span><span style="display:flex;"><span><span style="color:#177500"> */</span>
-</span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Point3D</span> {
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#177500">/*
-</span></span></span><span style="display:flex;"><span><span style="color:#177500">	 * A Point3D object is made of three doubles, 
-</span></span></span><span style="display:flex;"><span><span style="color:#177500">	 * and has some manipulation functions.
-</span></span></span><span style="display:flex;"><span><span style="color:#177500">	 */</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#177500">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">     * A constant representing the origin (0,0,0).
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">     */</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">final</span> <span style="color:#000">Point3D</span> <span style="color:#000">ZERO</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Point3D</span>(<span style="color:#000">0</span>, <span style="color:#000">0</span>, <span style="color:#000">0</span>);
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#177500">// A constant ZERO point</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">static</span> <span style="color:#a90d91">final</span> <span style="color:#000">Point3D</span> <span style="color:#000">ZERO</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Point3D</span>(<span style="color:#000">0</span>, <span style="color:#000">0</span>, <span style="color:#000">0</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">double</span> <span style="color:#000">x</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">double</span> <span style="color:#000">y</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">double</span> <span style="color:#000">z</span>;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">double</span> <span style="color:#000">x</span>; <span style="color:#177500">// x coordinate</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">double</span> <span style="color:#000">y</span>; <span style="color:#177500">// y coordinate</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">double</span> <span style="color:#000">z</span>; <span style="color:#177500">// z coordinate</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#177500">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">     * Constructor for Point3D
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">     */</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">Point3D</span>(<span style="color:#a90d91">final</span> <span style="color:#a90d91">double</span> <span style="color:#000">x</span>, <span style="color:#a90d91">final</span> <span style="color:#a90d91">double</span> <span style="color:#000">y</span>, <span style="color:#a90d91">final</span> <span style="color:#a90d91">double</span> <span style="color:#000">z</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">this</span>.<span style="color:#836c28">x</span> <span style="color:#000">=</span> <span style="color:#000">x</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">this</span>.<span style="color:#836c28">y</span> <span style="color:#000">=</span> <span style="color:#000">y</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">this</span>.<span style="color:#836c28">z</span> <span style="color:#000">=</span> <span style="color:#000">z</span>;
+</span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#177500">/* A standard constructor initializing fields */</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#000">Point3D</span>(<span style="color:#a90d91">double</span> <span style="color:#000">x</span>, <span style="color:#a90d91">double</span> <span style="color:#000">y</span>, <span style="color:#a90d91">double</span> <span style="color:#000">z</span>) {
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span>.<span style="color:#836c28">x</span> <span style="color:#000">=</span> <span style="color:#000">x</span>;
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span>.<span style="color:#836c28">y</span> <span style="color:#000">=</span> <span style="color:#000">y</span>;
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span>.<span style="color:#836c28">z</span> <span style="color:#000">=</span> <span style="color:#000">z</span>;
-</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>    <span style="color:#177500">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">     * Method to compute the square of the module of the point.
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">     */</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">double</span> <span style="color:#000">getSquareModule</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">x</span> <span style="color:#000">*</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">x</span> <span style="color:#000">+</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">y</span> <span style="color:#000">*</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">y</span> <span style="color:#000">+</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">z</span> <span style="color:#000">*</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">z</span>;
+</span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#177500">/* A simple function that 
-</span></span></span><span style="display:flex;"><span><span style="color:#177500">	 * extracts useful info from a point 
-</span></span></span><span style="display:flex;"><span><span style="color:#177500">	 */</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">double</span> <span style="color:#000">getSquareModule</span>() {
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">x</span> <span style="color:#000">*</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">x</span> <span style="color:#000">+</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">y</span> <span style="color:#000">*</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">y</span> <span style="color:#000">+</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">z</span> <span style="color:#000">*</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">z</span>;
-</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">double</span> <span style="color:#000">getX</span>() {
 </span></span></code></pre></div>
 </div>
 </div>
 <div class="col">
 <div class="smaller">
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#177500">/* The following three are called selector methods */</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span>        <span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">x</span>;
+</span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">double</span> <span style="color:#000">getX</span>() {
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">x</span>;
-</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">double</span> <span style="color:#000">getY</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">y</span>;
+</span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">double</span> <span style="color:#000">getY</span>() {
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">y</span>;
-</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">double</span> <span style="color:#000">getZ</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">z</span>;
+</span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">double</span> <span style="color:#000">getZ</span>() {
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">z</span>;
-</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>    <span style="color:#177500">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">     * Translate the point by the given amount.
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">     */</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">translate</span>(<span style="color:#a90d91">final</span> <span style="color:#a90d91">double</span> <span style="color:#000">x</span>, <span style="color:#a90d91">final</span> <span style="color:#a90d91">double</span> <span style="color:#000">y</span>, <span style="color:#a90d91">final</span> <span style="color:#a90d91">double</span> <span style="color:#000">z</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">this</span>.<span style="color:#836c28">x</span> <span style="color:#000">+=</span> <span style="color:#000">x</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">this</span>.<span style="color:#836c28">y</span> <span style="color:#000">+=</span> <span style="color:#000">y</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">this</span>.<span style="color:#836c28">z</span> <span style="color:#000">+=</span> <span style="color:#000">z</span>;
+</span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#177500">/* An example of a method changing the object state */</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">void</span> <span style="color:#000">translate</span>(<span style="color:#a90d91">double</span> <span style="color:#000">x</span>, <span style="color:#a90d91">double</span> <span style="color:#000">y</span>, <span style="color:#a90d91">double</span> <span style="color:#000">z</span>) {
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span>.<span style="color:#836c28">x</span> <span style="color:#000">+=</span> <span style="color:#000">x</span>;
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span>.<span style="color:#836c28">y</span> <span style="color:#000">+=</span> <span style="color:#000">y</span>;
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span>.<span style="color:#836c28">z</span> <span style="color:#000">+=</span> <span style="color:#000">z</span>;
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#177500">/* We also provide an example static method */</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">static</span> <span style="color:#000">Point3D</span> <span style="color:#000">max</span>(<span style="color:#000">Point3D</span><span style="color:#000">[]</span> <span style="color:#000">ps</span>) {
-</span></span><span style="display:flex;"><span>		<span style="color:#000">Point3D</span> <span style="color:#000">max</span> <span style="color:#000">=</span> <span style="color:#000">Point3D</span>.<span style="color:#836c28">ZERO</span>; <span style="color:#177500">// Inizializing max</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">for</span> (<span style="color:#000">Point3D</span> <span style="color:#000">elem</span> : <span style="color:#000">ps</span>) { <span style="color:#177500">// Iterating over all input points</span>
-</span></span><span style="display:flex;"><span>			<span style="color:#a90d91">if</span> (<span style="color:#000">elem</span>.<span style="color:#836c28">getSquareModule</span>() <span style="color:#000">&gt;</span> <span style="color:#000">max</span>.<span style="color:#836c28">getSquareModule</span>()) {
-</span></span><span style="display:flex;"><span>				<span style="color:#000">max</span> <span style="color:#000">=</span> <span style="color:#000">elem</span>; <span style="color:#177500">// Update max if needed..</span>
-</span></span><span style="display:flex;"><span>			}
-</span></span><span style="display:flex;"><span>		}
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#000">max</span>; <span style="color:#177500">// Return max</span>
-</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>    <span style="color:#177500">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">     * Finds the point with the maximum square module from an array of points.
+</span></span></span><span style="display:flex;"><span><span style="color:#177500">     */</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#000">Point3D</span> <span style="color:#000">max</span>(<span style="color:#a90d91">final</span> <span style="color:#000">Point3D</span><span style="color:#000">[]</span> <span style="color:#000">points</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#000">Point3D</span> <span style="color:#000">maximum</span> <span style="color:#000">=</span> <span style="color:#000">Point3D</span>.<span style="color:#836c28">ZERO</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">for</span> (<span style="color:#000">Point3D</span> <span style="color:#000">point</span> : <span style="color:#000">points</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#a90d91">if</span> (<span style="color:#000">point</span>.<span style="color:#836c28">getSquareModule</span>() <span style="color:#000">&gt;</span> <span style="color:#000">maximum</span>.<span style="color:#836c28">getSquareModule</span>()) {
+</span></span><span style="display:flex;"><span>                <span style="color:#000">maximum</span> <span style="color:#000">=</span> <span style="color:#000">point</span>;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">return</span> <span style="color:#000">maximum</span>;
+</span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div>
 </div>
