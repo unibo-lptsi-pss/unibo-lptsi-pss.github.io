@@ -42,12 +42,6 @@
 <li><em>Incapsulamento</em> in Java</li>
 <li>Una metodologia di progettazione</li>
 </ul>
-<!--
-
-  *  Convenzioni su *formattazione* di codice sorgente Java
-  *  Ulteriori convenzioni
-
--->
 </section><section>
 <h1 id="alcuni-principi-di-buona-progettazione">Alcuni principi di buona progettazione</h1>
 </section><section>
@@ -96,7 +90,8 @@
 <h3 id="esempi">Esempi</h3>
 <ul>
 <li>SW calcolatrice con GUI: GUI, gestione eventi, calcoli matematici</li>
-<li>Disegno Mandelbrot: Complex, Mandelbrot, MandelbrotApp</li>
+<li>Videogioco: grafica, fisica, gestione input, AI, rete</li>
+<li>Applicazione web: front-end, back-end, DB</li>
 </ul>
 </section><section>
 <h2 id="decomposizione-modularità-e-dipendenze">Decomposizione, modularità, e dipendenze</h2>
@@ -441,20 +436,25 @@
 </span></span><span style="display:flex;"><span>   }
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></section><section>
-<h1 id="una-metodologia-basata-sullincapsulamento">Una metodologia basata sull’incapsulamento</h1>
-<h2 id="altro-esempio-classe-lamp">Altro esempio: classe <code>Lamp</code></h2>
-<h3 id="analisi-del-problema">Analisi del problema</h3>
-<p>In un sistema domotico, dovremo gestire un certo numero di lampadine (da accendere/spegnere e pilotare tramite un apposito controllore centralizzato, oltre che tramite i comandi a muro). Tali comandi sono a pulsante con controllo di intensità (10 livelli). Il controllore deve poter accedere alla situazione di ogni lampadina (accesa/spenta, livello di intensità) e modificarla a piacimento. Al primo avvio, le lampadine sono spente e il controllo di intensità è a zero (in un intervallo $[0,1]$).</p>
+<h2 id="una-metodologia-basata-sullincapsulamento">Una metodologia basata sull’incapsulamento</h2>
+<h3 id="esempio-classe-lamp">Esempio: classe <code>Lamp</code></h3>
+<h4 id="analisi-del-problema">Analisi del problema</h4>
+<p>In un sistema domotico,
+dovremo gestire un certo numero di lampadine
+(da accendere/spegnere e pilotare tramite un apposito controllore centralizzato, oltre che tramite i comandi a muro).
+Tali comandi sono a pulsante con controllo di intensità (10 livelli).
+Il controllore deve poter accedere alla situazione di ogni lampadina (accesa/spenta, livello di intensità) e modificarla a piacimento.
+Al primo avvio, le lampadine sono spente e il controllo di intensità è a zero (in un intervallo $[0,1]$).</p>
 <p>Come procediamo alla costruzione della classe <code>Lamp</code>?</p>
 </section><section>
 <h2 id="progettazione-e-implementazione-fasi">Progettazione e implementazione: fasi</h2>
 <h3 id="fasi-nella-costruzione-di-una-classe">Fasi nella costruzione di una classe</h3>
 <ul>
 <li>Progettazione della <em>parte pubblica</em> della classe</li>
+<li>Scrittura di un <em>Test</em> che validi il comportamento atteso</li>
 <li>Costruzione dello <em>stato</em></li>
 <li>Completamento <em>implementazione</em></li>
 <li>Miglioramento codice finale (<em>refactoring</em>)</li>
-<li><em>Test</em> del risultato</li>
 </ul>
 </section><section>
 <h2 id="fase-1-progettazione-della-parte-pubblica-della-classe">Fase 1: Progettazione della parte pubblica della classe</h2>
@@ -498,15 +498,59 @@
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">boolean</span> <span style="color:#000">isSwitchedOn</span>() { .. }
 </span></span><span style="display:flex;"><span>} 
 </span></span></code></pre></div></section><section>
-<h2 id="fase-2-costruzione-dello-stato">Fase 2: Costruzione dello stato</h2>
-<p>Ovvero, dei campi privati della classe</p>
+<h2 id="fase-2-collaudo-del-contratto">Fase 2: Collaudo del contratto</h2>
 <h3 id="linee-guida-1">Linee guida</h3>
+<ul>
+<li>Definire un insieme di scenari d’uso di un oggetto</li>
+<li>Per ognuno costruire una procedura che crea l’oggetto, lo usa, e stampa i risultati necessari</li>
+</ul>
+<h3 id="il-caso-lamp-1">Il caso <code>Lamp</code></h3>
+<p>Un possibile caso (non costituisce da solo un test esaustivo):</p>
+<ul>
+<li>Costruisco l’oggetto lampadina</li>
+<li>La accendo</li>
+<li>Imposto la luminosità, poi la vario un poco</li>
+<li>Leggo e stampo lo stato del sistema</li>
+</ul>
+</section><section>
+<h2 id="classe-uselamp">Classe UseLamp</h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseLamp</span> {
+</span></span><span style="display:flex;"><span>   <span style="color:#a90d91">private</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">test1</span>() {
+</span></span><span style="display:flex;"><span>      <span style="color:#a90d91">final</span> <span style="color:#000">Lamp</span> <span style="color:#000">l</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Lamp</span>();
+</span></span><span style="display:flex;"><span>      <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">l</span>);
+</span></span><span style="display:flex;"><span>      <span style="color:#000">l</span>.<span style="color:#836c28">switchOn</span>();
+</span></span><span style="display:flex;"><span>      <span style="color:#000">l</span>.<span style="color:#836c28">setIntensity</span>(<span style="color:#000">0</span>.<span style="color:#836c28">5</span>);
+</span></span><span style="display:flex;"><span>      <span style="color:#000">l</span>.<span style="color:#836c28">dim</span>();
+</span></span><span style="display:flex;"><span>      <span style="color:#000">l</span>.<span style="color:#836c28">dim</span>();
+</span></span><span style="display:flex;"><span>      <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">l</span>);
+</span></span><span style="display:flex;"><span>      <span style="color:#000">l</span>.<span style="color:#836c28">brighten</span>();
+</span></span><span style="display:flex;"><span>      <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">l</span>);
+</span></span><span style="display:flex;"><span>      <span style="color:#177500">// Acceso: true Intensità: 0.4</span>
+</span></span><span style="display:flex;"><span>   }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#a90d91">final</span> <span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">s</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#000">UseLamp</span>.<span style="color:#836c28">test1</span>();
+</span></span><span style="display:flex;"><span>      <span style="color:#177500">// altri test...</span>
+</span></span><span style="display:flex;"><span>   }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><ul>
+<li><strong>Nota</strong>: al momento la nostra classe non funzionerà come atteso!
+<ul>
+<li>Questo è in realtà un bene: il test ci aiuterà a guidare lo sviluppo della classe <code>Lamp</code></li>
+<li><em>Ogni buon test deve esser fallito almeno una volta</em></li>
+</ul>
+</li>
+</ul>
+</section><section>
+<h2 id="fase-3-costruzione-dello-stato">Fase 3: Costruzione dello stato</h2>
+<p>Ovvero, dei campi privati della classe</p>
+<h3 id="linee-guida-2">Linee guida</h3>
 <ul>
 <li>Considerare che esistono varie scelte possibili (è un aspetto implementativo, ritrattabile successivamente)</li>
 <li>L’insieme dei campi deve essere più piccolo possibile, per esigenze di performance (spazio in memoria) e di non duplicazione</li>
 <li>L’insieme dei campi deve essere sufficiente a tenere traccia di tutti i modi in cui il comportamento dell’oggetto può cambiare a fronte dei messaggi ricevuti</li>
 </ul>
-<h3 id="il-caso-lamp-1">Il caso <code>Lamp</code></h3>
+<h3 id="il-caso-lamp-2">Il caso <code>Lamp</code></h3>
 <ul>
 <li>Dovremo sapere se è accesa o spenta (<code>boolean switchedOn</code>)</li>
 <li>Dovremo sapere il livello attuale di intensità (<code>double intensity</code>)</li>
@@ -535,14 +579,14 @@
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">boolean</span> <span style="color:#000">isSwitchedOn</span>(){ .. }
 </span></span><span style="display:flex;"><span>} 
 </span></span></code></pre></div></section><section>
-<h2 id="fase-3-completamento-implementazione">Fase 3: Completamento implementazione</h2>
+<h2 id="fase-4-completamento-implementazione">Fase 4: Completamento implementazione</h2>
 <p>Ovvero, del corpo di costruttori e metodi</p>
-<h3 id="linee-guida-2">Linee guida</h3>
+<h3 id="linee-guida-3">Linee guida</h3>
 <ul>
 <li>Realizzare il corpo di ogni costruttore e metodo in modo compatibile col contratto previsto per la classe</li>
 <li>Accettare il fatto che la prima versione prodotta non necessariamente sarà quella finale</li>
 </ul>
-<h3 id="il-caso-lamp-2">Il caso <code>Lamp</code></h3>
+<h3 id="il-caso-lamp-3">Il caso <code>Lamp</code></h3>
 <ul>
 <li><code>switchOn()</code>, <code>switchOff()</code> sono semplici <em><strong>setter</strong></em> del campo <code>switchedOn</code></li>
 <li><code>isSwitchedOn()</code>, <code>getIntensity()</code> semplici <em><strong>getter</strong></em> dei due campi</li>
@@ -585,8 +629,8 @@
 </span></span><span style="display:flex;"><span>} 
 </span></span></code></pre></div></div>
 </section><section>
-<h2 id="fase-4-miglioramento-codice-finale">Fase 4: Miglioramento codice finale</h2>
-<h3 id="linee-guida-3">Linee guida</h3>
+<h2 id="fase-5-miglioramento-codice-finale">Fase 5: Miglioramento codice finale</h2>
+<h3 id="linee-guida-4">Linee guida</h3>
 <ul>
 <li>Inserire commenti nel codice</li>
 <li>Verificare la necessità di costanti per evitare numeri “magici”</li>
@@ -670,42 +714,6 @@
 </div>
 </div>
 </section><section>
-<h2 id="fase-5-test-del-risultato">Fase 5: Test del risultato</h2>
-<h3 id="linee-guida-4">Linee guida</h3>
-<ul>
-<li>Definire un insieme di scenari d’uso di un oggetto</li>
-<li>Per ognuno costruire una procedura che crea l’oggetto, lo usa, e stampa i risultati necessari</li>
-</ul>
-<h3 id="il-caso-lamp-3">Il caso <code>Lamp</code></h3>
-<p>Un possibile caso (non costituisce da solo un test esaustivo):</p>
-<ul>
-<li>Costruisco l’oggetto lampadina</li>
-<li>La accendo</li>
-<li>Imposto la luminosità, poi la vario un poco</li>
-<li>Leggo e stampo lo stato del sistema</li>
-</ul>
-</section><section>
-<h2 id="classe-uselamp">Classe UseLamp</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseLamp</span> {
-</span></span><span style="display:flex;"><span>   <span style="color:#a90d91">private</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">test1</span>() {
-</span></span><span style="display:flex;"><span>      <span style="color:#a90d91">final</span> <span style="color:#000">Lamp</span> <span style="color:#000">l</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Lamp</span>();
-</span></span><span style="display:flex;"><span>      <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">l</span>);
-</span></span><span style="display:flex;"><span>      <span style="color:#000">l</span>.<span style="color:#836c28">switchOn</span>();
-</span></span><span style="display:flex;"><span>      <span style="color:#000">l</span>.<span style="color:#836c28">setIntensity</span>(<span style="color:#000">0</span>.<span style="color:#836c28">5</span>);
-</span></span><span style="display:flex;"><span>      <span style="color:#000">l</span>.<span style="color:#836c28">dim</span>();
-</span></span><span style="display:flex;"><span>      <span style="color:#000">l</span>.<span style="color:#836c28">dim</span>();
-</span></span><span style="display:flex;"><span>      <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">l</span>);
-</span></span><span style="display:flex;"><span>      <span style="color:#000">l</span>.<span style="color:#836c28">brighten</span>();
-</span></span><span style="display:flex;"><span>      <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">l</span>);
-</span></span><span style="display:flex;"><span>      <span style="color:#177500">// Acceso: true Intensità: 0.4</span>
-</span></span><span style="display:flex;"><span>   }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>   <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#a90d91">final</span> <span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">s</span>) {
-</span></span><span style="display:flex;"><span>      <span style="color:#000">UseLamp</span>.<span style="color:#836c28">test1</span>();
-</span></span><span style="display:flex;"><span>      <span style="color:#177500">// altri test...</span>
-</span></span><span style="display:flex;"><span>   }
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div></section><section>
 <h2 id="il-metodo-tostring">Il metodo toString()</h2>
 <h3 id="una-convenzione-java">Una convenzione Java</h3>
 <ul>
