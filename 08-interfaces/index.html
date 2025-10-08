@@ -104,6 +104,7 @@
 <h2 id="composizione--relazione-has-a">Composizione – relazione “has-a”</h2>
 <h3 id="idea">Idea</h3>
 <ul>
+<li></li>
 <li>un oggetto della classe <code>A</code> è ottenuto <em>componendo</em> un insieme di altri oggetti, delle classi <code>B1</code>, <code>B2</code>, …, <code>Bn</code>
 <ul>
 <li>si dice che un oggetto di <code>A</code> <em>contiene</em>, o <em>si compone di</em>, o <em>aggrega</em>, oggetti delle classi <code>B1</code>, <code>B2</code>, …, <code>Bn</code></li>
@@ -121,31 +122,24 @@
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">A</span>(<span style="color:#000">B1</span> <span style="color:#000">b1</span>, ...) { ... }
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></section><section>
-<h3 id="composizione-vs-aggregazione">Composizione vs. aggregazione</h3>
-<ul>
-<li>La distinzione si basa sul <em>ciclo di vita degli elementi contenuti rispetto al contenitore</em>
-<ul>
-<li><em><strong>Aggregazione</strong></em>: in <code>A</code>, gli oggetti composti hanno <em>vita propria e indipendente</em> da <code>A</code>
-<ul>
-<li>In pratica: sono spesso creati “fuori” da <code>A</code>, passati ad <code>A</code> all’atto di costruzione o via setter, e possono sopravvivere ad <code>A</code></li>
-</ul>
-</li>
-<li><em><strong>Composizione</strong></em>: in <code>A</code>, gli oggetti composti hanno <em>vita vincolata</em> da <code>A</code>
-<ul>
-<li>In pratica: sono creati e distrutti entro <code>A</code></li>
-</ul>
-</li>
-</ul>
-</li>
-<li>Esempi
-<ul>
-<li>Esempio di <em>aggregazione</em>: una <code>ClasseScolastica</code> aggrega un insieme di oggetti <code>Studente</code>; una <code>Automobile</code> ha un <code>Motore</code>, quattro oggetti <code>Ruota</code> etc.</li>
-<li>Esempio di <em>composizione</em>: una <code>Casa</code> si compone di un insieme di oggetti <code>Stanza</code> (una stanza non ha vita indipendente dalla casa); un <code>Libro</code> si compone di più oggetti <code>Capitolo</code> (è vero, si potrebbe considerare un capitolo in isolamento, ma questo rimarrebbe comunque un capitolo di quel libro)</li>
-</ul>
-</li>
-</ul>
-<!-- * (ma non ci occuperemo per ora in dettaglio di questa distinzione) -->
-</section><section>
+<!--
+
+### Composizione vs. aggregazione
+
+* La distinzione si basa sul *ciclo di vita degli elementi contenuti rispetto al contenitore*
+    *  *__Aggregazione__*: in `A`, gli oggetti composti hanno *vita propria e indipendente* da `A`
+        * In pratica: sono spesso creati "fuori" da `A`, passati ad `A` all'atto di costruzione o via setter, e possono sopravvivere ad `A`
+    *  *__Composizione__*: in `A`, gli oggetti composti hanno *vita vincolata* da `A`
+        * In pratica: sono creati e distrutti entro `A`
+* Esempi
+    * Esempio di *aggregazione*: una `ClasseScolastica` aggrega un insieme di oggetti `Studente`; una `Automobile` ha un `Motore`, quattro oggetti `Ruota` etc. 
+    * Esempio di *composizione*: una `Casa` si compone di un insieme di oggetti `Stanza` (una stanza non ha vita indipendente dalla casa); un `Libro` si compone di più oggetti `Capitolo` (è vero, si potrebbe considerare un capitolo in isolamento, ma questo rimarrebbe comunque un capitolo di quel libro)
+
+ * (ma non ci occuperemo per ora in dettaglio di questa distinzione)
+
+---
+
+-->
 <h2 id="qualche-esempio-di-composizione">Qualche esempio di composizione</h2>
 <h3 id="gui">GUI</h3>
 <p>Un oggetto interfaccia grafica si compone di oggetti di tipo <code>Button</code>, <code>TextField</code>, <code>Label</code>, eccetera</p>
@@ -153,26 +147,6 @@
 <p>Un oggetto ateneo si compone di oggetti di tipo <code>Facoltà</code>, <code>Studenti</code>, <code>Docenti</code>, eccetera</p>
 <h3 id="controllore-domotica">Controllore Domotica</h3>
 <p>Un oggetto controllore domotica si compone di oggetti di tipo <code>Lamp</code>, <code>TV</code>, <code>Radio</code>, eccetera</p>
-</section><section>
-<h2 id="tipiche-realizzazioni">Tipiche realizzazioni</h2>
-<h3 id="un-oggetto-a-si-compone-esattamente-di-1-oggetto-di-b">Un oggetto <code>A</code> si compone <em>esattamente</em> di <em>1</em> oggetto di <code>B</code></h3>
-<ul>
-<li>La classe <code>A</code> avrà un campo (privato) di tipo <code>B</code></li>
-<li>Tale campo (impostato dal costruttore di <code>A</code>) è sempre presente</li>
-</ul>
-<h3 id="un-oggetto-a-si-compone-opzionalmente-di-1-oggetto-di-b">Un oggetto <code>A</code> si compone <em>opzionalmente</em> di <em>1</em> oggetto di <code>B</code></h3>
-<ul>
-<li>La classe <code>A</code> avrà un campo (privato) di tipo <code>B</code></li>
-<li>Il suo contenuto potrebbe essere <code>null</code> (oggetto di <code>B</code> assente)</li>
-</ul>
-<h3 id="un-oggetto-a-si-compone-di-un-numero-noto-n-di-oggetti-di-b">Un oggetto <code>A</code> si compone di un <em>numero noto</em> <em>$n$</em> di oggetti di <code>B</code></h3>
-<ul>
-<li>La classe <code>A</code> avrà $n$ campi (privati) di tipo <code>B</code> – se “n” piccolo</li>
-</ul>
-<h3 id="un-oggetto-a-si-compone-di-una-moltitudine-non-nota-di-oggetti-di-b">Un oggetto <code>A</code> si compone di una <em>moltitudine non nota</em> di oggetti di <code>B</code></h3>
-<ul>
-<li>La classe <code>A</code> avrà un campo (privato) di tipo <code>B[]</code> (o altro container)</li>
-</ul>
 </section><section>
 <h2 id="ricordiamo-la-classe-lamp">Ricordiamo la classe Lamp</h2>
 <div class="container">
@@ -254,7 +228,7 @@
 <li>possibilità di accendere/spegnere entrambe</li>
 <li>possibilità di modalità “eco” (ad es.: una sola accesa a media intensità)</li>
 </ul>
-<h3 id="idea-realizzativa-1-">Idea realizzativa 1 :(</h3>
+<h3 id="idea-realizzativa-1-">Idea realizzativa 1 👎🏻</h3>
 <ul>
 <li>una classe con 4 campi, ossia le due intensità e i due flag</li>
 <li>sarebbe un buon design?
@@ -264,7 +238,7 @@
 </ul>
 </li>
 </ul>
-<h3 id="idea-realizzativa-2-">Idea realizzativa 2 :)</h3>
+<h3 id="idea-realizzativa-2-">Idea realizzativa 2 👍🏻</h3>
 <ul>
 <li>riuso <code>Lamp</code> e sfrutto la composizione</li>
 </ul>
@@ -1279,13 +1253,23 @@ I <|-- C3
 </ul>
 </section><section>
 <h2 id="preview-del-prossimo-laboratorio">Preview del prossimo laboratorio</h2>
-<h3 id="obbiettivi">Obbiettivi</h3>
+<h3 id="obiettivi">Obiettivi</h3>
 <p>Familiarizzare con:</p>
 <ul>
 <li>Costruzione di semplici classi con incapsulamento</li>
 <li>Costruzione di classi con relazione d’uso verso una interfaccia</li>
 </ul>
 <!-- *  Relativa costruzione di test -->
+</section><section>
+<h1 id="interfacce-e-composizione-1">Interfacce e composizione</h1>
+<h4 id="progettazione-e-sviluppo-del-software">Progettazione e Sviluppo del Software</h4>
+<h4 id="cdl-tecnologie-dei-sistemi-informatici">C.D.L. Tecnologie dei Sistemi Informatici</h4>
+<h3 id="danilo-pianini"><a href="mailto:danilo.pianini@unibo.it">Danilo Pianini — <code>danilo.pianini@unibo.it</code></a></h3>
+<h3 id="gianluca-aguzzi"><a href="mailto:gianluca.aguzzi@unibo.it">Gianluca Aguzzi — <code>gianluca.aguzzi@unibo.it</code></a></h3>
+<h3 id="angelo-filaseta"><a href="mailto:angelo.filaseta@unibo.it">Angelo Filaseta — <code>angelo.filaseta@unibo.it</code></a></h3>
+<p>Compiled on: 2025-10-08
+ — <a href="?print-pdf&amp;pdfSeparateFragments=false"><i class="fa fa-print" aria-hidden="true"></i> versione stampabile</a></p>
+<p><a href=".."><i class="fa fa-undo" aria-hidden="true"></i> back</a></p>
 </section>
 
   
