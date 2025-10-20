@@ -20,7 +20,7 @@
       <div class="slides">
   
 
-    <section><h1 id="build-system-gradle-costruzione-del-software-e-librerie">Build system (Gradle), costruzione del software, e librerie</h1>
+    <section><h1 id="checkstyle">Checkstyle</h1>
 <h4 id="progettazione-e-sviluppo-del-software">Progettazione e Sviluppo del Software</h4>
 <h4 id="cdl-tecnologie-dei-sistemi-informatici">C.D.L. Tecnologie dei Sistemi Informatici</h4>
 <h3 id="danilo-pianini"><a href="mailto:danilo.pianini@unibo.it">Danilo Pianini — <code>danilo.pianini@unibo.it</code></a></h3>
@@ -30,21 +30,80 @@
  — <a href="?print-pdf&amp;pdfSeparateFragments=false"><i class="fa fa-print" aria-hidden="true"></i> versione stampabile</a></p>
 <p><a href=".."><i class="fa fa-undo" aria-hidden="true"></i> back</a></p>
 </section><section>
-<h2 id="riconoscimenti">Riconoscimenti</h2>
+<h3 id="cosè-checkstyle">Cos’è Checkstyle</h3>
+<p>Checkstyle si occupa di trovare errori di stile:</p>
 <ul>
-<li>
-<p>Questo materiale è ampiamente basato su quello realizzato dal Prof.
-Danilo Pianini, che ringrazio.</p>
-</li>
-<li>
-<p>Ogni errore riscontratovi è esclusiva responsabilità degli autori di questo documento.</p>
-</li>
+<li>Mancanza di commento Javadoc, Spaziature non corrette, Parentesi assenti, Magic numbers…</li>
+<li>Altri check: <a href="http://checkstyle.sourceforge.net/checks.html">http://checkstyle.sourceforge.net/checks.html</a></li>
+</ul>
+<h3 id="come-funziona">Come funziona</h3>
+<ul>
+<li>Si dichiara lo stile desiderato in un file <code>checkstyle.xml</code> (un <a href="https://github.com/DanySK/gradle-java-qa/blob/master/src/main/resources/org/danilopianini/javaqa/checkstyle.xml">esempio</a>)</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#633820">&lt;?xml version="1.0"?&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#633820">&lt;!DOCTYPE module PUBLIC
+</span></span></span><span style="display:flex;"><span><span style="color:#633820">        "-//Checkstyle//DTD Checkstyle Configuration 1.3//EN"
+</span></span></span><span style="display:flex;"><span><span style="color:#633820">        "https://checkstyle.org/dtds/configuration_1_3.dtd"&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">&lt;module</span> <span style="color:#836c28">name=</span><span style="color:#c41a16">"Checker"</span><span style="color:#000">&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">&lt;property</span> <span style="color:#836c28">name=</span><span style="color:#c41a16">"charset"</span> <span style="color:#836c28">value=</span><span style="color:#c41a16">"UTF-8"</span><span style="color:#000">/&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">&lt;module</span> <span style="color:#836c28">name=</span><span style="color:#c41a16">"NewlineAtEndOfFile"</span><span style="color:#000">&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">&lt;property</span> <span style="color:#836c28">name=</span><span style="color:#c41a16">"lineSeparator"</span> <span style="color:#836c28">value=</span><span style="color:#c41a16">"lf"</span><span style="color:#000">/&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">&lt;/module&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">&lt;module</span> <span style="color:#836c28">name=</span><span style="color:#c41a16">"LineLength"</span><span style="color:#000">&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#000">&lt;property</span> <span style="color:#836c28">name=</span><span style="color:#c41a16">"max"</span> <span style="color:#836c28">value=</span><span style="color:#c41a16">"85"</span><span style="color:#000">/&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">&lt;/module&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#177500">&lt;!-- ... --&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">&lt;/module&gt;</span>
+</span></span></code></pre></div><ul>
+<li>Si utilizza il tool <code>checkstyle</code> per analizzare codice rispetto allo stile configurato</li>
 </ul>
 </section><section>
-<h1 id="build-systems">Build systems</h1>
-<h2 id="questo--materiale-è-deprecato-ed-è-stato-spostato-alle-slide-di-laboratorio">Questo  materiale è deprecato ed è stato spostato alle slide di laboratorio</h2>
+<h3 id="integrazione-con-gradle">Integrazione con Gradle</h3>
+<ul>
+<li>Plugin <a href="https://docs.gradle.org/current/userguide/checkstyle_plugin.html"><code>checkstyle</code></a>, da dichiarare in <code>build.gradle.kts</code>:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#000">plugins</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#000">java</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000">checkstyle</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000">repositories</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#000">mavenCentral</span>()
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><ul>
+<li>Di default, il plugin si aspetta i seguenti file</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span>&lt;root&gt;
+</span></span><span style="display:flex;"><span>└── config
+</span></span><span style="display:flex;"><span>    └── checkstyle           
+</span></span><span style="display:flex;"><span>        └── checkstyle.xml   
+</span></span><span style="display:flex;"><span>        └── suppressions.xml
+</span></span></code></pre></div><ul>
+<li>Il plugin fornisce il task <code>check</code> (che include <code>checkstyleMain</code> e <code>checkstyleTest</code>)</li>
+<li>L’output dell’analisi viene riportato sotto <code>build/reports/checkstyle</code></li>
+</ul>
 </section><section>
-<h1 id="build-system-gradle-costruzione-del-software-e-librerie-1">Build system (Gradle), costruzione del software, e librerie</h1>
+<ul>
+<li>Di default, <em>fallisce la build</em> se le regole di stile non sono rispettate</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span>$ ./gradlew check
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&gt; Task :checkstyleMain
+</span></span><span style="display:flex;"><span>[ant:checkstyle] [ERROR] /&lt;PATH-TO-PROJ&gt;/src/main/java/.../File.java:4: 
+</span></span><span style="display:flex;"><span>                         Line is longer than 85 characters (found 102). [LineLength]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&gt; Task :checkstyleMain FAILED
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>FAILURE: Build failed with an exception.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>* What went wrong:
+</span></span><span style="display:flex;"><span>Execution failed for task ':checkstyleMain'.
+</span></span><span style="display:flex;"><span>&gt; A failure occurred while executing org.gradle.api.plugins.quality.internal.CheckstyleAction
+</span></span><span style="display:flex;"><span>   &gt; Checkstyle rule violations were found. See the report at: file:///&lt;PATH-TO-PROJ&gt;/build/reports/checkstyle/main.html
+</span></span><span style="display:flex;"><span>     Checkstyle files with violations: 1
+</span></span><span style="display:flex;"><span>     Checkstyle violations by severity: [error:1]
+</span></span></code></pre></div></section><section>
+<h1 id="stile-e-formattazione-del-codice">Stile e formattazione del codice</h1>
 <h4 id="progettazione-e-sviluppo-del-software">Progettazione e Sviluppo del Software</h4>
 <h4 id="cdl-tecnologie-dei-sistemi-informatici">C.D.L. Tecnologie dei Sistemi Informatici</h4>
 <h3 id="danilo-pianini"><a href="mailto:danilo.pianini@unibo.it">Danilo Pianini — <code>danilo.pianini@unibo.it</code></a></h3>
@@ -167,6 +226,54 @@ Danilo Pianini, che ringrazio.</p>
   
 
   
+    
+  
+  
+
+  
+  
+
+  
+  
+
+  
+    
+  
+  
+
+  
+    
+  
+  
+
+  
+  
+
+  
+  
+
+  
+    
+  
+  
+
+  
+    
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+    
+  
   
 
   
@@ -194,41 +301,7 @@ Danilo Pianini, che ringrazio.</p>
   
 
   
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
+    
   
   
 
