@@ -665,26 +665,6 @@
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></section><section>
-<h2 id="implementazione-2-listiterator">Implementazione 2: <code>ListIterator</code></h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#177500">/* Itera tutti gli elementi di una List */</span>
-</span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">ListIterator</span><span style="color:#000">&lt;</span><span style="color:#000">E</span><span style="color:#000">&gt;</span> <span style="color:#a90d91">implements</span> <span style="color:#000">Iterator</span><span style="color:#000">&lt;</span><span style="color:#000">E</span><span style="color:#000">&gt;</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">E</span><span style="color:#000">&gt;</span> <span style="color:#000">list</span>; <span style="color:#177500">// Lista corrente</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">ListIterator</span>(<span style="color:#a90d91">final</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">E</span><span style="color:#000">&gt;</span> <span style="color:#000">list</span>) {
-</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">this</span>.<span style="color:#836c28">list</span> <span style="color:#000">=</span> <span style="color:#000">list</span>;
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">E</span> <span style="color:#000">next</span>() {
-</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">final</span> <span style="color:#000">E</span> <span style="color:#000">element</span> <span style="color:#000">=</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">list</span>.<span style="color:#836c28">getHead</span>(); <span style="color:#177500">// Elemento da tornare</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">this</span>.<span style="color:#836c28">list</span> <span style="color:#000">=</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">list</span>.<span style="color:#836c28">getTail</span>(); <span style="color:#177500">// Aggiorno la lista</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">return</span> <span style="color:#000">element</span>;
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">boolean</span> <span style="color:#000">hasNext</span>() {
-</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">list</span> <span style="color:#000">!=</span> <span style="color:#a90d91">null</span>;
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div></section><section>
 <h2 id="implementazione-3-vectoriterator">Implementazione 3: <code>VectorIterator</code></h2>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#177500">/* Itera tutti gli elementi di un Vector */</span>
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">VectorIterator</span><span style="color:#000">&lt;</span><span style="color:#000">E</span><span style="color:#000">&gt;</span> <span style="color:#a90d91">implements</span> <span style="color:#000">Iterator</span><span style="color:#000">&lt;</span><span style="color:#000">E</span><span style="color:#000">&gt;</span> {
@@ -741,15 +721,15 @@
 <p>Un metodo che lavora su qualche argomento e/o valore di ritorno in modo independente dal suo tipo effettivo. Tale tipo viene quindi astratto in una type-variable del metodo.</p>
 <h3 id="sintassi">Sintassi</h3>
 <ul>
-<li>def: <code>&lt;X1,..,Xn&gt; ret-type nome-metodo(formal-args) { ... }</code></li>
-<li>call: <code>receiver.&lt;X1,..,Xn&gt;nome-metodo(actual-args) { ... }</code></li>
-<li>call con inferenza, stessa sintassi delle call standard, ossia senza <code>&lt;&gt;</code></li>
+<li>definizione: <code>&lt;X1,..,Xn&gt; ReturnType nomeMetodo(ArgType1 argName1, ...) { ... }</code></li>
+<li>chiamata: <code>receiver.&lt;X1,..,Xn&gt;nomeMetodo(ArgType1 argName1, ...)</code></li>
+<li>chiamata con inferenza (uso molto frequente): <code>receiver.nomeMetodo(ArgType1 argName1, ...)</code></li>
 </ul>
 <h3 id="due-casi-principali-con-medesima-gestione">Due casi principali, con medesima gestione</h3>
 <ul>
 <li>Metodo generico (statico o non-statico) in una classe non generica</li>
 <li>Metodo generico (non-statico) in una classe generica</li>
-<li>$\Rightarrow$ Il primo dei due molto più comune..</li>
+<li>$\Rightarrow$ Il primo dei due molto più comune…</li>
 </ul>
 </section><section>
 <h2 id="definizione-di-un-metodo-generico">Definizione di un metodo generico</h2>
@@ -818,9 +798,6 @@
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></section><section>
-<h2 id="notazione-uml-non-del-tutto-standard">Notazione UML (non del tutto standard)</h2>
-<p><img src="imgs/uml-generics.png" alt=""></p>
-</section><section>
 <h1 id="java-wildcards">Java Wildcards</h1>
 </section><section>
 <h2 id="java-wildcards-1">Java Wildcards</h2>
@@ -1126,6 +1103,8 @@
   
   
 
+  
+    
   
   
 
