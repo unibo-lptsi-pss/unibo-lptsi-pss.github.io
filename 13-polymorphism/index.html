@@ -20,7 +20,7 @@
       <div class="slides">
   
 
-    <section><h1 id="polimorfismo-classi-astratte-tipi-a-runtime">Polimorfismo, classi astratte, tipi a runtime</h1>
+    <section><h1 id="polimorfismo-e-tipi-a-runtime">Polimorfismo e tipi a runtime</h1>
 <h4 id="progettazione-e-sviluppo-del-software">Progettazione e Sviluppo del Software</h4>
 <h4 id="cdl-tecnologie-dei-sistemi-informatici">C.D.L. Tecnologie dei Sistemi Informatici</h4>
 <h3 id="danilo-pianini"><a href="mailto:danilo.pianini@unibo.it">Danilo Pianini — <code>danilo.pianini@unibo.it</code></a></h3>
@@ -68,6 +68,7 @@
 <li>Gli oggetti della classe <code>B</code> <em>rispondono a tutti i messaggi previsti dalla classe</em> <code>A</code> (ed eventualmente a qualcuno in più)</li>
 <li>$\to$ un oggetto di <code>B</code> può essere passato dove se ne aspetta uno di <code>A</code>, senza dare problemi (di “typing”)</li>
 </ul>
+<p>Cosa mi hai de</p>
 <h3 id="conseguenza">Conseguenza:</h3>
 <p>Poiché è possibile, corretto, ed utile, allora in Java si considera <code>B</code> come un <em>sottotipo</em> di <code>A</code> a tutti gli effetti!</p>
 </section><section>
@@ -475,286 +476,440 @@ Integer i3 = (Integer) o; // ClassCastException
 </span></span><span style="display:flex;"><span>	}
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></section><section>
-<h1 id="classi-astratte">Classi astratte</h1>
-</section><section>
-<h2 id="motivazioni">Motivazioni</h2>
-<h3 id="fra-interfacce-e-classi">Fra interfacce e classi</h3>
-<ul>
-<li>Le interfacce descrivono solo un contratto</li>
-<li>Le classi definiscono un comportamento completo</li>
-<li>…c’è margine per costrutti intermedi?</li>
-</ul>
-<h3 id="classi-astratte-1">Classi astratte</h3>
-<ul>
-<li>Le <strong>classi astratte</strong> sono usate per descrivere classi dal <em>comportamento parziale</em> (ossia, in cui alcuni metodi sono dicharati ma non implementati)</li>
-<li>Tali classi <em>non sono istanziabili</em> (l’operatore <code>new</code> non può essere usato)</li>
-<li>Possono essere estese e ivi completate, da cui la generazione di oggetti</li>
-</ul>
-<h3 id="tipica-applicazione-pattern-template-method">Tipica applicazione: pattern <em>Template Method</em></h3>
-<p>Serve a dichiare uno <em>schema di strategia</em> con un <strong>metodo “template”</strong> (spesso <code>final</code>) che definisce un comportamento comune, <em>basato su metodi astratti</em> da concretizzare in sottoclassi</p>
-</section><section>
-<h2 id="classi-astratte-2">Classi astratte</h2>
-<h3 id="una-classe-astratta">Una classe astratta:</h3>
-<ul>
-<li>è dichiarata tale: <code>abstract class C ... { ... }</code></li>
-<li><em>non è istanziabile</em> (in quanto astratta, ovvero non pienamente specificata)</li>
-<li>può opzionalmente dichiarare <em>metodi astratti</em>:
-<ul>
-<li>hanno forma ad esempio: <code>abstract int m(int a, String s);</code></li>
-<li>ossia senza body, come nelle dichiarazioni delle interfacce</li>
-</ul>
-</li>
-</ul>
-<h3 id="altri-aspetti">Altri aspetti</h3>
-<ul>
-<li>può definire campi, costruttori, metodi, concreti e non
-<ul>
-<li>…deve definire con cura il loro livello d’accesso</li>
-</ul>
-</li>
-<li>può estendere da una classe astratta o non astratta</li>
-<li>può implementare interfacce, senza essere tenuta ad ottemperarne il contratto
-<ul>
-<li>i metodi dell’interfaccia implementata, se non implementati, sono astratti</li>
-</ul>
-</li>
-<li><em>chi estende una classe astratta può essere non-astratto solo se concretizza/implementa tutti i metodi astratti</em></li>
-</ul>
-</section><section>
-<h2 id="esempio-limitedlamp-come-classe-astratta">Esempio: <code>LimitedLamp</code> come classe astratta</h2>
-<h3 id="obiettivo">Obiettivo</h3>
-<ul>
-<li>Vogliamo progettare una estensione di <code>SimpleLamp</code> col concetto di esaurimento</li>
-<li>La strategia con la quale gestire tale esaurimento può essere varia</li>
-<li>Ma bisogna far sì che qualunque strategia si specifichi, sia garantito che:
-<ul>
-<li>la lampadina si accenda solo se non esaurita</li>
-<li>in caso di effettiva accensione sia possibile tenerne traccia ai fini della strategia</li>
-</ul>
-</li>
-</ul>
-<h3 id="soluzione">Soluzione</h3>
-<ul>
-<li>Un uso accurato di <code>abstract</code>, <code>final</code>, e <code>protected</code></li>
-<li>Daremo tre possibili specializzazioni per una <code>LimitedLamp</code>
-<ol>
-<li>che non si esaurisce mai</li>
-<li>che si esaurisce all’n-esima accensione</li>
-<li>che si esaurisce dopo un certo tempo dalla prima accensione</li>
-</ol>
-</li>
-</ul>
-</section><section>
-<h2 id="uml-complessivo">UML complessivo</h2>
-<p><img src="imgs/uml-abstract.png" alt=""></p>
-</section><section>
-<h2 id="simplelamp"><code>SimpleLamp</code></h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">SimpleLamp</span> {
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">private</span> <span style="color:#a90d91">boolean</span> <span style="color:#000">switchedOn</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#000">SimpleLamp</span>() {
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span>.<span style="color:#836c28">switchedOn</span> <span style="color:#000">=</span> <span style="color:#a90d91">false</span>;
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">switchOn</span>() {
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span>.<span style="color:#836c28">switchedOn</span> <span style="color:#000">=</span> <span style="color:#a90d91">true</span>;
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">switchOff</span>() {
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span>.<span style="color:#836c28">switchedOn</span> <span style="color:#000">=</span> <span style="color:#a90d91">false</span>;
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">boolean</span> <span style="color:#000">isSwitchedOn</span>() {
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">switchedOn</span>;
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div></section><section>
-<h2 id="limitedlamp"><code>LimitedLamp</code></h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">abstract</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">LimitedLamp</span> <span style="color:#a90d91">extends</span> <span style="color:#000">SimpleLamp</span> {
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#000">LimitedLamp</span>() {
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">super</span>();
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#177500">/* Questo metodo è finale: regola la coerenza con okSwitch() e isOver() */</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">void</span> <span style="color:#000">switchOn</span>() { <span style="color:#177500">// TEMPLATE METHOD</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">if</span> (<span style="color:#000">!</span><span style="color:#a90d91">this</span>.<span style="color:#836c28">isSwitchedOn</span>() <span style="color:#000">&amp;&amp;</span> <span style="color:#000">!</span><span style="color:#a90d91">this</span>.<span style="color:#836c28">isOver</span>()) {
-</span></span><span style="display:flex;"><span>			<span style="color:#a90d91">super</span>.<span style="color:#836c28">switchOn</span>();
-</span></span><span style="display:flex;"><span>			<span style="color:#a90d91">this</span>.<span style="color:#836c28">okSwitch</span>();
-</span></span><span style="display:flex;"><span>		}
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#177500">// Cosa facciamo se abbiamo effettivamente acceso? Dipende dalla strategia</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">protected</span> <span style="color:#a90d91">abstract</span> <span style="color:#a90d91">void</span> <span style="color:#000">okSwitch</span>();
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#177500">/* Strategia per riconoscere se la lamp è esaurita */</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">abstract</span> <span style="color:#a90d91">boolean</span> <span style="color:#000">isOver</span>();
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#000">String</span> <span style="color:#000">toString</span>() {
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#c41a16">"Over: "</span> <span style="color:#000">+</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">isOver</span>() <span style="color:#000">+</span> <span style="color:#c41a16">", switchedOn: "</span>	<span style="color:#000">+</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">isSwitchedOn</span>();
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div></section><section>
-<h2 id="unlimitedlamp"><code>UnlimitedLamp</code></h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#177500">/* Non si esaurisce mai */</span>
-</span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UnlimitedLamp</span> <span style="color:#a90d91">extends</span> <span style="color:#000">LimitedLamp</span> {
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#177500">/* Nessuna informazione extra da tenere */</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#000">UnlimitedLamp</span>() {
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">super</span>();
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#177500">/* Allo switchOn.. non faccio nulla */</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">protected</span> <span style="color:#a90d91">void</span> <span style="color:#000">okSwitch</span>() {
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#177500">/* Non è mai esaurita */</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">boolean</span> <span style="color:#000">isOver</span>() {
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#a90d91">false</span>;
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div></section><section>
-<h2 id="countdownlamp"><code>CountdownLamp</code></h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#177500">/* Si esaurisce all'n-esima accensione */</span>
-</span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">CountdownLamp</span> <span style="color:#a90d91">extends</span> <span style="color:#000">LimitedLamp</span> {
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#177500">/* Quanti switch mancano */</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">private</span> <span style="color:#a90d91">int</span> <span style="color:#000">countdown</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#000">CountdownLamp</span>(<span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">countdown</span>) {
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">super</span>();
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span>.<span style="color:#836c28">countdown</span> <span style="color:#000">=</span> <span style="color:#000">countdown</span>;
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#177500">/* Allo switchOn.. decremento il count */</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">protected</span> <span style="color:#a90d91">void</span> <span style="color:#000">okSwitch</span>() {
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span>.<span style="color:#836c28">countdown</span><span style="color:#000">--</span>;
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#177500">/* Finito il count.. lamp esaurita */</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">boolean</span> <span style="color:#000">isOver</span>() {
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">countdown</span> <span style="color:#000">==</span> <span style="color:#000">0</span>;
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div></section><section>
-<h2 id="expirationtimelamp"><code>ExpirationTimeLamp</code></h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.Date</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#177500">/* Si esaurisce dopo un certo tempo (reale) dopo la prima accensione */</span>
-</span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">ExpirationTimeLamp</span> <span style="color:#a90d91">extends</span> <span style="color:#000">LimitedLamp</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#177500">/* Tengo il momento dell'accensione e la durata */</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">private</span> <span style="color:#000">Date</span> <span style="color:#000">firstSwitchDate</span>;
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">private</span> <span style="color:#a90d91">long</span> <span style="color:#000">duration</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#000">ExpirationTimeLamp</span>(<span style="color:#a90d91">final</span> <span style="color:#a90d91">long</span> <span style="color:#000">duration</span>) {
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">super</span>();
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span>.<span style="color:#836c28">duration</span> <span style="color:#000">=</span> <span style="color:#000">duration</span>;
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span>.<span style="color:#836c28">firstSwitchDate</span> <span style="color:#000">=</span> <span style="color:#a90d91">null</span>;
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#177500">/* Alla prima accensione, registro la data */</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">protected</span> <span style="color:#a90d91">void</span> <span style="color:#000">okSwitch</span>() {
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">if</span> (<span style="color:#a90d91">this</span>.<span style="color:#836c28">firstSwitchDate</span> <span style="color:#000">==</span> <span style="color:#a90d91">null</span>) {
-</span></span><span style="display:flex;"><span>			<span style="color:#a90d91">this</span>.<span style="color:#836c28">firstSwitchDate</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">java</span>.<span style="color:#836c28">util</span>.<span style="color:#836c28">Date</span>();
-</span></span><span style="display:flex;"><span>		}
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#177500">/* Esaurita se è passato troppo tempo */</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">boolean</span> <span style="color:#000">isOver</span>() {
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">firstSwitchDate</span> <span style="color:#000">!=</span> <span style="color:#a90d91">null</span> <span style="color:#000">&amp;&amp;</span>
-</span></span><span style="display:flex;"><span>		   (<span style="color:#a90d91">new</span> <span style="color:#000">Date</span>().<span style="color:#836c28">getTime</span>() <span style="color:#000">-</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">firstSwitchDate</span>.<span style="color:#836c28">getTime</span>() 
-</span></span><span style="display:flex;"><span>				   <span style="color:#000">&gt;=</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">duration</span>);
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div></section><section>
-<h2 id="uselamps"><code>UseLamps</code></h2>
+<!--
+# Classi astratte
+
+---
+
+
+
+## Motivazioni
+
+
+  
+### Fra interfacce e classi
+
+
+
+*  Le interfacce descrivono solo un contratto
+*  Le classi definiscono un comportamento completo
+*  ...c'è margine per costrutti intermedi?
+  
+
+
+  
+### Classi astratte
+
+
+
+*  Le **classi astratte** sono usate per descrivere classi dal *comportamento parziale* (ossia, in cui alcuni metodi sono dicharati ma non implementati)
+*  Tali classi *non sono istanziabili* (l'operatore `new` non può essere usato)
+*  Possono essere estese e ivi completate, da cui la generazione di oggetti
+  
+
+
+  
+### Tipica applicazione: pattern *Template Method*
+
+
+Serve a dichiare uno *schema di strategia* con un **metodo "template"** (spesso `final`) che definisce un comportamento comune, *basato su metodi astratti* da concretizzare in sottoclassi
+  
+
+
+
+---
+
+
+## Classi astratte
+
+
+  
+### Una classe astratta:
+
+
+
+*  è dichiarata tale: `abstract class C ... { ... }`
+*  *non è istanziabile* (in quanto astratta, ovvero non pienamente specificata)
+*  può opzionalmente dichiarare *metodi astratti*: 
+    *  hanno forma ad esempio: `abstract int m(int a, String s);`
+    *  ossia senza body, come nelle dichiarazioni delle interfacce
+
+
+  
+
+
+  
+### Altri aspetti
+
+
+
+*  può definire campi, costruttori, metodi, concreti e non
+    *  ...deve definire con cura il loro livello d'accesso
+*  può estendere da una classe astratta o non astratta
+*  può implementare interfacce, senza essere tenuta ad ottemperarne il contratto
+    * i metodi dell'interfaccia implementata, se non implementati, sono astratti
+*  *chi estende una classe astratta può essere non-astratto solo se concretizza/implementa tutti i metodi astratti*
+  
+
+
+
+
+---
+
+
+## Esempio: `LimitedLamp` come classe astratta
+
+
+  
+### Obiettivo
+
+
+
+*  Vogliamo progettare una estensione di `SimpleLamp` col concetto di esaurimento
+*  La strategia con la quale gestire tale esaurimento può essere varia
+*  Ma bisogna far sì che qualunque strategia si specifichi, sia garantito che:
+    *  la lampadina si accenda solo se non esaurita
+    *  in caso di effettiva accensione sia possibile tenerne traccia ai fini della strategia
+  
+
+
+  
+### Soluzione
+
+
+*  Un uso accurato di `abstract`, `final`, e `protected`
+*  Daremo tre possibili specializzazioni per una `LimitedLamp`
+    1.  che non si esaurisce mai
+    2.  che si esaurisce all'n-esima accensione
+    3.  che si esaurisce dopo un certo tempo dalla prima accensione
+
+
+
+
+---
+
+
+## UML complessivo
+
+
+  ![](imgs/uml-abstract.png)
+
+
+---
+
+
+## `SimpleLamp`
+
+```java
+public class SimpleLamp {
+
+	private boolean switchedOn;
+
+	public SimpleLamp() {
+		this.switchedOn = false;
+	}
+
+	public void switchOn() {
+		this.switchedOn = true;
+	}
+
+	public void switchOff() {
+		this.switchedOn = false;
+	}
+
+	public boolean isSwitchedOn() {
+		return this.switchedOn;
+	}
+}
+
+```
+
+
+---
+
+
+## `LimitedLamp`
+
+
+```java
+public abstract class LimitedLamp extends SimpleLamp {
+
+	public LimitedLamp() {
+		super();
+	}
+
+	/* Questo metodo è finale: regola la coerenza con okSwitch() e isOver() */
+	public final void switchOn() { // TEMPLATE METHOD
+		if (!this.isSwitchedOn() && !this.isOver()) {
+			super.switchOn();
+			this.okSwitch();
+		}
+	}
+
+	// Cosa facciamo se abbiamo effettivamente acceso? Dipende dalla strategia
+	protected abstract void okSwitch();
+
+	/* Strategia per riconoscere se la lamp è esaurita */
+	public abstract boolean isOver();
+
+	public String toString() {
+		return "Over: " + this.isOver() + ", switchedOn: "	+ this.isSwitchedOn();
+	}
+}
+
+```
+
+
+---
+
+
+## `UnlimitedLamp`
+
+
+```java
+/* Non si esaurisce mai */
+public class UnlimitedLamp extends LimitedLamp {
+
+	/* Nessuna informazione extra da tenere */
+	public UnlimitedLamp() {
+		super();
+	}
+
+	/* Allo switchOn.. non faccio nulla */
+	protected void okSwitch() {
+	}
+
+	/* Non è mai esaurita */
+	public boolean isOver() {
+		return false;
+	}
+}
+
+```
+
+
+---
+
+
+## `CountdownLamp`
+
+
+```java
+/* Si esaurisce all'n-esima accensione */
+public class CountdownLamp extends LimitedLamp {
+
+	/* Quanti switch mancano */
+	private int countdown;
+
+	public CountdownLamp(final int countdown) {
+		super();
+		this.countdown = countdown;
+	}
+
+	/* Allo switchOn.. decremento il count */
+	protected void okSwitch() {
+		this.countdown--;
+	}
+
+	/* Finito il count.. lamp esaurita */
+	public boolean isOver() {
+		return this.countdown == 0;
+	}
+}
+
+```
+
+
+---
+
+
+## `ExpirationTimeLamp`
+
+```java
+import java.util.Date;
+
+/* Si esaurisce dopo un certo tempo (reale) dopo la prima accensione */
+public class ExpirationTimeLamp extends LimitedLamp {
+	/* Tengo il momento dell'accensione e la durata */
+	private Date firstSwitchDate;
+	private long duration;
+
+	public ExpirationTimeLamp(final long duration) {
+		super();
+		this.duration = duration;
+		this.firstSwitchDate = null;
+	}
+
+	/* Alla prima accensione, registro la data */
+	protected void okSwitch() {
+		if (this.firstSwitchDate == null) {
+			this.firstSwitchDate = new java.util.Date();
+		}
+	}
+
+	/* Esaurita se è passato troppo tempo */
+	public boolean isOver() {
+		return this.firstSwitchDate != null &&
+		   (new Date().getTime() - this.firstSwitchDate.getTime() 
+				   >= this.duration);
+	}
+}
+
+```
+
+
+---
+
+
+## `UseLamps`
+
+
 <div class="smaller">
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseLamps</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#177500">// clausola throws Exception qui sotto necessaria!!</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">s</span>) <span style="color:#a90d91">throws</span> <span style="color:#000">Exception</span> {
-</span></span><span style="display:flex;"><span>        <span style="color:#000">LimitedLamp</span> <span style="color:#000">lamp</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">UnlimitedLamp</span>();
-</span></span><span style="display:flex;"><span>        <span style="color:#000">lamp</span>.<span style="color:#836c28">switchOn</span>();
-</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"ul| "</span> <span style="color:#000">+</span> <span style="color:#000">lamp</span>);
-</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">for</span> (<span style="color:#a90d91">int</span> <span style="color:#000">i</span> <span style="color:#000">=</span> <span style="color:#000">0</span>; <span style="color:#000">i</span> <span style="color:#000">&lt;</span> <span style="color:#000">1000</span>; <span style="color:#000">i</span><span style="color:#000">++</span>) {
-</span></span><span style="display:flex;"><span>            <span style="color:#000">lamp</span>.<span style="color:#836c28">switchOff</span>();
-</span></span><span style="display:flex;"><span>            <span style="color:#000">lamp</span>.<span style="color:#836c28">switchOn</span>();
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"ul| "</span> <span style="color:#000">+</span> <span style="color:#000">lamp</span>); <span style="color:#177500">// non si è esaurita</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        <span style="color:#000">lamp</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">CountdownLamp</span>(<span style="color:#000">5</span>);
-</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">for</span> (<span style="color:#a90d91">int</span> <span style="color:#000">i</span> <span style="color:#000">=</span> <span style="color:#000">0</span>; <span style="color:#000">i</span> <span style="color:#000">&lt;</span> <span style="color:#000">4</span>; <span style="color:#000">i</span><span style="color:#000">++</span>) {
-</span></span><span style="display:flex;"><span>            <span style="color:#000">lamp</span>.<span style="color:#836c28">switchOn</span>();
-</span></span><span style="display:flex;"><span>            <span style="color:#000">lamp</span>.<span style="color:#836c28">switchOff</span>();
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"cl| "</span> <span style="color:#000">+</span> <span style="color:#000">lamp</span>);
-</span></span><span style="display:flex;"><span>        <span style="color:#000">lamp</span>.<span style="color:#836c28">switchOn</span>();
-</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"cl| "</span> <span style="color:#000">+</span> <span style="color:#000">lamp</span>); <span style="color:#177500">// al quinto switch si esaurisce</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        <span style="color:#000">lamp</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">ExpirationTimeLamp</span>(<span style="color:#000">1000</span>); <span style="color:#177500">// 1 sec</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#000">lamp</span>.<span style="color:#836c28">switchOn</span>();
-</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"el| "</span> <span style="color:#000">+</span> <span style="color:#000">lamp</span>);
-</span></span><span style="display:flex;"><span>        <span style="color:#000">Thread</span>.<span style="color:#836c28">sleep</span>(<span style="color:#000">3000</span>); <span style="color:#177500">// attendo 1.1 secs</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"el| "</span> <span style="color:#000">+</span> <span style="color:#000">lamp</span>); <span style="color:#177500">// dopo 1.1 secs si è esaurita</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#000">lamp</span>.<span style="color:#836c28">switchOff</span>();
-</span></span><span style="display:flex;"><span>        <span style="color:#000">lamp</span>.<span style="color:#836c28">switchOn</span>();
-</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"el| "</span> <span style="color:#000">+</span> <span style="color:#000">lamp</span>);
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div></div>
-</section><section>
-<h2 id="classi-astratte-vs-interfacce">Classi astratte vs interfacce</h2>
-<ul>
-<li>Due versioni quasi equivalenti</li>
-<li>Unica differenza: ereditarietà singola per classi, ereditarietà multipla per le interfacce</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#177500">/* Versione interfaccia */</span>
-</span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">interface</span> <span style="color:#3f6e75">Counter</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">void</span> <span style="color:#000">increment</span>();
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">int</span> <span style="color:#000">getValue</span>();
-</span></span><span style="display:flex;"><span>} 
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#177500">/* Versione classe astratta */</span>
-</span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">abstract</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Counter</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">abstract</span> <span style="color:#a90d91">void</span> <span style="color:#000">increment</span>();
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">abstract</span> <span style="color:#a90d91">int</span> <span style="color:#000">getValue</span>();
-</span></span><span style="display:flex;"><span>} 
-</span></span></code></pre></div></section><section>
-<h2 id="approfondimento-classi-astratte-vs-interfacce-con-metodi-di-default">Approfondimento: classi astratte vs. interfacce con metodi di default</h2>
-<p>Interfacce con metodi di default …</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">interface</span> <span style="color:#3f6e75">I4</span> <span style="color:#a90d91">extends</span> <span style="color:#000">I1</span>, <span style="color:#000">I2</span>, <span style="color:#000">I3</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">void</span> <span style="color:#000">doSomething</span>(<span style="color:#000">String</span> <span style="color:#000">s</span>);
-</span></span><span style="display:flex;"><span>    <span style="color:#177500">// da Java 8</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">double</span> <span style="color:#000">E</span> <span style="color:#000">=</span> <span style="color:#000">2</span>.<span style="color:#836c28">718282</span>; <span style="color:#177500">// implicitamente public, static, final</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">default</span> <span style="color:#a90d91">void</span> <span style="color:#000">doSomethingTwice</span>(<span style="color:#000">String</span> <span style="color:#000">s</span>) { <span style="color:#000">doSomething</span>(<span style="color:#000">s</span>); <span style="color:#000">doSomething</span>(<span style="color:#000">s</span>); }
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">static</span> <span style="color:#a90d91">double</span> <span style="color:#000">PI</span>() { <span style="color:#a90d91">return</span> <span style="color:#000">Math</span>.<span style="color:#836c28">PI</span>; }
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>… sembrano piuttosto simili alle classi astratte, in quanto possono fornire, in aggiunta a un contratto, alcune implementazioni di default</p>
-<p>Tuttavia, ci sono differenze cruciali:</p>
-<ul>
-<li>le classi astratte possono definire variabili d’istanza (stato)</li>
-<li>le classi astratte possono definire costruttori</li>
-<li>le classi astratte possono definire membri con visibilità diverse</li>
-<li>le classi astratte possono fare overriding di metodi da <code>Object</code></li>
-<li>i default method non possono essere <code>final</code></li>
-</ul>
-</section><section>
-<h2 id="wrap-up-su-ereditarietà">Wrap-up su ereditarietà</h2>
-<h3 id="il-caso-più-generale">Il caso più generale:</h3>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">C</span> <span style="color:#a90d91">extends</span> <span style="color:#000">D</span> <span style="color:#a90d91">implements</span> <span style="color:#000">I</span>, <span style="color:#000">J</span>, <span style="color:#000">K</span>, <span style="color:#000">L</span> { ... }
-</span></span></code></pre></div><h3 id="cosa-devepuò-fare-la-classe-c">Cosa deve/può fare la classe <code>C</code></h3>
-<ul>
-<li>deve implementare tutti i metodi dichiarati in <code>I,J,K,L</code> e super-interfacce</li>
-<li>può fare overriding dei metodi (non finali) definiti in <code>D</code> e superclassi</li>
-</ul>
-<h3 id="classe-astratta">Classe astratta:</h3>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">abstract</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">CA</span> <span style="color:#a90d91">extends</span> <span style="color:#000">D</span> <span style="color:#a90d91">implements</span> <span style="color:#000">I</span>, <span style="color:#000">J</span>, <span style="color:#000">K</span>, <span style="color:#000">L</span> { ... }
-</span></span></code></pre></div><h3 id="cosa-devepuò-fare-la-classe-ca">Cosa deve/può fare la classe <code>CA</code></h3>
-<ul>
-<li>non è tenuta a implementare alcun metodo</li>
-<li>può implementare qualche metodo per definire un comportamento parziale</li>
-</ul>
-</section><section>
+
+
+
+```java
+public class UseLamps {
+    // clausola throws Exception qui sotto necessaria!!
+    public static void main(String[] s) throws Exception {
+        LimitedLamp lamp = new UnlimitedLamp();
+        lamp.switchOn();
+        System.out.println("ul| " + lamp);
+        for (int i = 0; i < 1000; i++) {
+            lamp.switchOff();
+            lamp.switchOn();
+        }
+        System.out.println("ul| " + lamp); // non si è esaurita
+
+        lamp = new CountdownLamp(5);
+        for (int i = 0; i < 4; i++) {
+            lamp.switchOn();
+            lamp.switchOff();
+        }
+        System.out.println("cl| " + lamp);
+        lamp.switchOn();
+        System.out.println("cl| " + lamp); // al quinto switch si esaurisce
+
+        lamp = new ExpirationTimeLamp(1000); // 1 sec
+        lamp.switchOn();
+        System.out.println("el| " + lamp);
+        Thread.sleep(3000); // attendo 1.1 secs
+        System.out.println("el| " + lamp); // dopo 1.1 secs si è esaurita
+        lamp.switchOff();
+        lamp.switchOn();
+        System.out.println("el| " + lamp);
+    }
+}
+
+```
+
+
+    
+</div>
+
+---
+
+
+## Classi astratte vs interfacce
+
+
+  
+
+
+*  Due versioni quasi equivalenti
+*  Unica differenza: ereditarietà singola per classi, ereditarietà multipla per le interfacce
+  
+
+
+```java
+/* Versione interfaccia */
+public interface Counter {
+    void increment();
+    int getValue();
+} 
+
+/* Versione classe astratta */
+public abstract class Counter {
+    public abstract void increment();
+    public abstract int getValue();
+} 
+```
+
+---
+
+## Approfondimento: classi astratte vs. interfacce con metodi di default
+
+Interfacce con metodi di default ...
+
+```java
+public interface I4 extends I1, I2, I3 {
+    void doSomething(String s);
+    // da Java 8
+    double E = 2.718282; // implicitamente public, static, final
+    default void doSomethingTwice(String s) { doSomething(s); doSomething(s); }
+    static double PI() { return Math.PI; }
+}
+```
+
+... sembrano piuttosto simili alle classi astratte, in quanto possono fornire, in aggiunta a un contratto, alcune implementazioni di default
+
+Tuttavia, ci sono differenze cruciali:
+
+- le classi astratte possono definire variabili d'istanza (stato)
+- le classi astratte possono definire costruttori
+- le classi astratte possono definire membri con visibilità diverse
+- le classi astratte possono fare overriding di metodi da `Object`
+- i default method non possono essere `final`
+
+---
+
+
+## Wrap-up su ereditarietà
+
+
+  
+### Il caso più generale:
+
+
+```java
+class C extends D implements I, J, K, L { ... }
+```
+  
+
+  
+### Cosa deve/può fare la classe `C`
+
+
+
+*  deve implementare tutti i metodi dichiarati in `I,J,K,L` e super-interfacce
+*  può fare overriding dei metodi (non finali) definiti in `D` e superclassi
+  
+
+
+  
+### Classe astratta:
+
+
+```java
+abstract class CA extends D implements I, J, K, L { ... }
+```
+  
+
+  
+### Cosa deve/può fare la classe `CA`
+
+
+
+*  non è tenuta a implementare alcun metodo
+*  può implementare qualche metodo per definire un comportamento parziale
+  
+
+
+
+
+---
+
+-->
 <h1 id="autoboxing-dei-tipi-primitivi-e-argomenti-variabili">Autoboxing dei tipi primitivi, e argomenti variabili</h1>
 </section><section>
 <h2 id="autoboxing-dei-tipi-primitivi">Autoboxing dei tipi primitivi</h2>
@@ -844,30 +999,42 @@ Integer i3 = (Integer) o; // ClassCastException
 </span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">format</span>(<span style="color:#c41a16">"%d %d\n"</span>, <span style="color:#000">10</span>, <span style="color:#000">20</span>); <span style="color:#177500">// C-like printf</span>
 </span></span><span style="display:flex;"><span>	}
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div></section><section>
-<h1 id="alcuni-pattern-basati-sulle-classe-astratte">Alcuni pattern basati sulle classe astratte</h1>
-</section><section>
-<h2 id="pattern-template-method-comportamentale-su-classi">Pattern <strong>Template Method</strong>: comportamentale, su classi</h2>
-<h3 id="intentomotivazione">Intento/motivazione</h3>
-<p>Definisce lo scheletro (template) di un algoritmo (o comportamento), lasciando l’indicazione di alcuni suoi aspetti alle sottoclassi.</p>
-<h3 id="esempi">Esempi</h3>
-<ul>
-<li>Definizione della logica di accensione (<code>switchOn</code>) di una lampadina (<code>Lamp</code>)</li>
-<li>Un comparatore può fornire metodi template per capire se un oggetto è minore/maggiore/uguale di un altro, sulla base di un metodo astratto <code>int compareTo(T a, T b)</code></li>
-<li>In un input stream (<code>InputStream</code>), i vari metodi di lettura sono dei Template Method: dipendono dall’implementazione del solo concetto di lettura di un <code>int</code></li>
-</ul>
+</span></span></code></pre></div><!--
+
+---
+
+# Alcuni pattern basati sulle classe astratte
+
+
+---
+
+
+
+## Pattern **Template Method**: comportamentale, su classi
+
+### Intento/motivazione
+
+Definisce lo scheletro (template) di un algoritmo (o comportamento), lasciando l'indicazione di alcuni suoi aspetti alle sottoclassi.
+
+### Esempi
+
+* Definizione della logica di accensione (`switchOn`) di una lampadina (`Lamp`)
+* Un comparatore può fornire metodi template per capire se un oggetto è minore/maggiore/uguale di un altro, sulla base di un metodo astratto `int compareTo(T a, T b)`
+* In un input stream (`InputStream`), i vari metodi di lettura sono dei Template Method: dipendono dall'implementazione del solo concetto di lettura di un `int`
+
 <!--
 * Implementazione del pattern **Factory Method**: il metodo template usa un factory method per definire un comportamento astraendo dall'implementazione specifica di uno o più oggetti coinvolti
 * In un input stream (`InputStream`), i vari metodi di lettura sono dei Template Method: dipendono dall'implementazione del solo concetto di lettura di un `int`
 	%*  Similmente, i metodi di `AbstractSet` tranne `size()` e `iterator()`
 	*  Le interfacce funzionali con metodi di default che chiamano l'astratto
     }}
--->
-<h3 id="soluzione-1">Soluzione</h3>
-<ul>
-<li>L’algoritmo è realizzato attraverso un <strong>metodo template</strong> che <em>realizza un algoritmo chiamando metodi astratti/da specializzare</em> quando servono gli aspetti non noti a priori</li>
-<li>Una sottoclasse fornisce l’implementazione dei metodi astratti</li>
-</ul>
+
+
+### Soluzione
+
+* L'algoritmo è realizzato attraverso un **metodo template** che *realizza un algoritmo chiamando metodi astratti/da specializzare* quando servono gli aspetti non noti a priori
+* Una sottoclasse fornisce l'implementazione dei metodi astratti
+
 <!--
 * L'algoritmo è realizzato attraverso un metodo non astratto (il template method) di una classe astratta
 * Questo realizza l'algoritmo, chiamando metodi astratti quando servono gli aspetti non noti a priori
@@ -875,30 +1042,53 @@ Integer i3 = (Integer) o; // ClassCastException
 -->
 </section><section>
 <!-- ![](imgs/template_method.jpg) -->
+<!--
 <div class="container">
 <div class="col">
-<div class="mermaid" data-processed="true" pre-rendered="true"><svg aria-roledescription="classDiagram" role="graphics-document document" viewBox="0 0 159.953125 290" style="max-width: 159.953125px;" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" width="100%" id="my-svg"><style>#my-svg{font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:16px;fill:#333;}#my-svg .error-icon{fill:#552222;}#my-svg .error-text{fill:#552222;stroke:#552222;}#my-svg .edge-thickness-normal{stroke-width:1px;}#my-svg .edge-thickness-thick{stroke-width:3.5px;}#my-svg .edge-pattern-solid{stroke-dasharray:0;}#my-svg .edge-thickness-invisible{stroke-width:0;fill:none;}#my-svg .edge-pattern-dashed{stroke-dasharray:3;}#my-svg .edge-pattern-dotted{stroke-dasharray:2;}#my-svg .marker{fill:#333333;stroke:#333333;}#my-svg .marker.cross{stroke:#333333;}#my-svg svg{font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:16px;}#my-svg p{margin:0;}#my-svg g.classGroup text{fill:#9370DB;stroke:none;font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:10px;}#my-svg g.classGroup text .title{font-weight:bolder;}#my-svg .nodeLabel,#my-svg .edgeLabel{color:#131300;}#my-svg .edgeLabel .label rect{fill:#ECECFF;}#my-svg .label text{fill:#131300;}#my-svg .edgeLabel .label span{background:#ECECFF;}#my-svg .classTitle{font-weight:bolder;}#my-svg .node rect,#my-svg .node circle,#my-svg .node ellipse,#my-svg .node polygon,#my-svg .node path{fill:#ECECFF;stroke:#9370DB;stroke-width:1px;}#my-svg .divider{stroke:#9370DB;stroke-width:1;}#my-svg g.clickable{cursor:pointer;}#my-svg g.classGroup rect{fill:#ECECFF;stroke:#9370DB;}#my-svg g.classGroup line{stroke:#9370DB;stroke-width:1;}#my-svg .classLabel .box{stroke:none;stroke-width:0;fill:#ECECFF;opacity:0.5;}#my-svg .classLabel .label{fill:#9370DB;font-size:10px;}#my-svg .relation{stroke:#333333;stroke-width:1;fill:none;}#my-svg .dashed-line{stroke-dasharray:3;}#my-svg .dotted-line{stroke-dasharray:1 2;}#my-svg #compositionStart,#my-svg .composition{fill:#333333!important;stroke:#333333!important;stroke-width:1;}#my-svg #compositionEnd,#my-svg .composition{fill:#333333!important;stroke:#333333!important;stroke-width:1;}#my-svg #dependencyStart,#my-svg .dependency{fill:#333333!important;stroke:#333333!important;stroke-width:1;}#my-svg #dependencyStart,#my-svg .dependency{fill:#333333!important;stroke:#333333!important;stroke-width:1;}#my-svg #extensionStart,#my-svg .extension{fill:transparent!important;stroke:#333333!important;stroke-width:1;}#my-svg #extensionEnd,#my-svg .extension{fill:transparent!important;stroke:#333333!important;stroke-width:1;}#my-svg #aggregationStart,#my-svg .aggregation{fill:transparent!important;stroke:#333333!important;stroke-width:1;}#my-svg #aggregationEnd,#my-svg .aggregation{fill:transparent!important;stroke:#333333!important;stroke-width:1;}#my-svg #lollipopStart,#my-svg .lollipop{fill:#ECECFF!important;stroke:#333333!important;stroke-width:1;}#my-svg #lollipopEnd,#my-svg .lollipop{fill:#ECECFF!important;stroke:#333333!important;stroke-width:1;}#my-svg .edgeTerminals{font-size:11px;line-height:initial;}#my-svg .classTitleText{text-anchor:middle;font-size:18px;fill:#333;}#my-svg :root{--mermaid-font-family:"trebuchet ms",verdana,arial,sans-serif;}</style><g><defs><marker orient="auto" markerHeight="240" markerWidth="190" refY="7" refX="18" class="marker aggregation classDiagram" id="my-svg_classDiagram-aggregationStart"><path d="M 18,7 L9,13 L1,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="28" markerWidth="20" refY="7" refX="1" class="marker aggregation classDiagram" id="my-svg_classDiagram-aggregationEnd"><path d="M 18,7 L9,13 L1,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="240" markerWidth="190" refY="7" refX="18" class="marker extension classDiagram" id="my-svg_classDiagram-extensionStart"><path d="M 1,7 L18,13 V 1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="28" markerWidth="20" refY="7" refX="1" class="marker extension classDiagram" id="my-svg_classDiagram-extensionEnd"><path d="M 1,1 V 13 L18,7 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="240" markerWidth="190" refY="7" refX="18" class="marker composition classDiagram" id="my-svg_classDiagram-compositionStart"><path d="M 18,7 L9,13 L1,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="28" markerWidth="20" refY="7" refX="1" class="marker composition classDiagram" id="my-svg_classDiagram-compositionEnd"><path d="M 18,7 L9,13 L1,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="240" markerWidth="190" refY="7" refX="6" class="marker dependency classDiagram" id="my-svg_classDiagram-dependencyStart"><path d="M 5,7 L9,13 L1,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="28" markerWidth="20" refY="7" refX="13" class="marker dependency classDiagram" id="my-svg_classDiagram-dependencyEnd"><path d="M 18,7 L9,13 L14,7 L9,1 Z"></path></marker></defs><defs><marker orient="auto" markerHeight="240" markerWidth="190" refY="7" refX="13" class="marker lollipop classDiagram" id="my-svg_classDiagram-lollipopStart"><circle r="6" cy="7" cx="7" fill="transparent" stroke="black"></circle></marker></defs><defs><marker orient="auto" markerHeight="240" markerWidth="190" refY="7" refX="1" class="marker lollipop classDiagram" id="my-svg_classDiagram-lollipopEnd"><circle r="6" cy="7" cx="7" fill="transparent" stroke="black"></circle></marker></defs><g class="root"><g class="clusters"></g><g class="edgePaths"><path marker-start="url(#my-svg_classDiagram-extensionStart)" style="fill:none" class="edge-pattern-solid relation" id="id_AbstractClass_ConcreteClass_1" d="M79.977,149L79.977,150.167C79.977,151.333,79.977,153.667,79.977,159C79.977,164.333,79.977,172.667,79.977,176.833L79.977,181"></path></g><g class="edgeLabels"><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="edgeLabel"></span></div></foreignObject></g></g></g><g class="nodes"><g transform="translate(79.9765625, 69.5)" id="classId-AbstractClass-0" class="node default"><rect height="123" width="143.953125" y="-61.5" x="-71.9765625" class="outer title-state" style=""></rect><line y2="-31.5" y1="-31.5" x2="71.9765625" x1="-71.9765625" class="divider"></line><line y2="-15.5" y1="-15.5" x2="71.9765625" x1="-71.9765625" class="divider"></line><g class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel"></span></div></foreignObject><foreignObject transform="translate( -53.8046875, -54)" height="18" width="107.609375" class="classTitle"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">AbstractClass</span></div></foreignObject><foreignObject transform="translate( -64.4765625, -8)" height="18" width="128.953125"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">TemplateMethod()</span></div></foreignObject><foreignObject transform="translate( -64.4765625, 14)" height="18" width="102.234375"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">PrimitiveOp1()</span></div></foreignObject><foreignObject transform="translate( -64.4765625, 36)" height="18" width="102.234375"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">PrimitiveOp2()</span></div></foreignObject></g></g><g transform="translate(79.9765625, 231.5)" id="classId-ConcreteClass-1" class="node default"><rect height="101" width="127.046875" y="-50.5" x="-63.5234375" class="outer title-state" style=""></rect><line y2="-20.5" y1="-20.5" x2="63.5234375" x1="-63.5234375" class="divider"></line><line y2="-4.5" y1="-4.5" x2="63.5234375" x1="-63.5234375" class="divider"></line><g class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel"></span></div></foreignObject><foreignObject transform="translate( -56.0234375, -43)" height="18" width="112.046875" class="classTitle"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">ConcreteClass</span></div></foreignObject><foreignObject transform="translate( -56.0234375, 3)" height="18" width="102.234375"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">PrimitiveOp1()</span></div></foreignObject><foreignObject transform="translate( -56.0234375, 25)" height="18" width="102.234375"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">PrimitiveOp2()</span></div></foreignObject></g></g></g></g></g></svg></div>
+
+```mermaid
+classDiagram
+
+    class AbstractClass {
+        TemplateMethod()
+        PrimitiveOp1()
+        PrimitiveOp2()
+    }
+
+    class ConcreteClass {
+        PrimitiveOp1()
+        PrimitiveOp2()
+    }
+
+AbstractClass <|-- ConcreteClass
+```
 
 </div>
 <div class="col">
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">abstract</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">AbstractClass</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">TemplateMethod</span>() {
-</span></span><span style="display:flex;"><span>        <span style="color:#177500">// ...</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#000">PrimitiveOp1</span>();
-</span></span><span style="display:flex;"><span>        <span style="color:#177500">// ...</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#000">PrimitiveOp2</span>();
-</span></span><span style="display:flex;"><span>        <span style="color:#177500">// ...</span>
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">abstract</span> <span style="color:#a90d91">void</span> <span style="color:#000">PrimitiveOp1</span>();
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">abstract</span> <span style="color:#a90d91">void</span> <span style="color:#000">PrimitiveOp2</span>();
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">ConcreteClass</span> <span style="color:#a90d91">extends</span> <span style="color:#000">AbstractClass</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">PrimitiveOp1</span>() { <span style="color:#177500">/* ... */</span> }
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">PrimitiveOp2</span>() { <span style="color:#177500">/* ... */</span> }
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div></div></div>
-</section><section>
+
+```java
+abstract class AbstractClass {
+    public void TemplateMethod() {
+        // ...
+        PrimitiveOp1();
+        // ...
+        PrimitiveOp2();
+        // ...
+    }
+    public abstract void PrimitiveOp1();
+    public abstract void PrimitiveOp2();
+}
+
+class ConcreteClass extends AbstractClass {
+    public void PrimitiveOp1() { /* ... */ }
+    public void PrimitiveOp2() { /* ... */ }
+}
+```
+
+</div></div>
+
+---
+
 <!--
 
 ## Template Method: Una estensione di `InputStream`
@@ -938,41 +1128,53 @@ public class UseRandomInputStream {
 ---
 
 -->
-<h2 id="template-method-esempio-bankaccount">Template Method: esempio <code>BankAccount</code></h2>
+<!--
+## Template Method: esempio `BankAccount`
+
 <div class="smaller">
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">abstract</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">BankAccount</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">private</span> <span style="color:#a90d91">int</span> <span style="color:#000">amount</span>;
-</span></span><span style="display:flex;"><span>	
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#000">BankAccount</span>(<span style="color:#a90d91">int</span> <span style="color:#000">amount</span>){
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span>.<span style="color:#836c28">amount</span> <span style="color:#000">=</span> <span style="color:#000">amount</span>;
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>	
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">abstract</span> <span style="color:#a90d91">int</span> <span style="color:#000">operationFee</span>(); <span style="color:#177500">// costo bancario operazione</span>
-</span></span><span style="display:flex;"><span>	
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">int</span> <span style="color:#000">getAmount</span>(){
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">amount</span>;
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>	
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">withdraw</span>(<span style="color:#a90d91">int</span> <span style="color:#000">n</span>){	<span style="color:#177500">// template method</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span>.<span style="color:#836c28">amount</span> <span style="color:#000">=</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">amount</span> <span style="color:#000">-</span> <span style="color:#000">n</span> <span style="color:#000">-</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">operationFee</span>();
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span>){
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">BankAccount</span> <span style="color:#000">b</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">BankAccountWithConstantFee</span>(<span style="color:#000">100</span>);
-</span></span><span style="display:flex;"><span>		<span style="color:#000">b</span>.<span style="color:#836c28">withdraw</span>(<span style="color:#000">20</span>);
-</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">b</span>.<span style="color:#836c28">getAmount</span>()); <span style="color:#177500">// 79</span>
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">BankAccountWithConstantFee</span> <span style="color:#a90d91">extends</span> <span style="color:#000">BankAccount</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#000">BankAccountWithConstantFee</span>(<span style="color:#a90d91">int</span> <span style="color:#000">amount</span>) {
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">super</span>(<span style="color:#000">amount</span>);
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">int</span> <span style="color:#000">operationFee</span>(){ <span style="color:#a90d91">return</span> <span style="color:#000">1</span>; }	
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div></div>
-</section><section>
+
+
+
+```java
+public abstract class BankAccount {
+	private int amount;
+	
+	public BankAccount(int amount){
+		this.amount = amount;
+	}
+	
+	public abstract int operationFee(); // costo bancario operazione
+	
+	public int getAmount(){
+		return this.amount;
+	}
+	
+	public void withdraw(int n){	// template method
+		this.amount = this.amount - n - this.operationFee();
+	}
+
+	public static void main(String[] args){
+		final BankAccount b = new BankAccountWithConstantFee(100);
+		b.withdraw(20);
+		System.out.println(b.getAmount()); // 79
+	}
+}
+
+class BankAccountWithConstantFee extends BankAccount {
+	public BankAccountWithConstantFee(int amount) {
+		super(amount);
+	}
+
+	public int operationFee(){ return 1; }	
+}
+```
+
+
+    
+</div>
+
+---
+
 <!--
 
 ## Pattern **Decorator**: strutturale, su oggetti
@@ -1226,7 +1428,7 @@ public class GlutFree extends IngredientDecorator {
 <li>Tipi a run-time e boxing</li>
 </ul>
 </section><section>
-<h1 id="polimorfismo-classi-astratte-tipi-a-runtime-1">Polimorfismo, classi astratte, tipi a runtime</h1>
+<h1 id="polimorfismo-e-tipi-a-runtime-1">Polimorfismo e tipi a runtime</h1>
 <h4 id="progettazione-e-sviluppo-del-software">Progettazione e Sviluppo del Software</h4>
 <h4 id="cdl-tecnologie-dei-sistemi-informatici">C.D.L. Tecnologie dei Sistemi Informatici</h4>
 <h3 id="danilo-pianini"><a href="mailto:danilo.pianini@unibo.it">Danilo Pianini — <code>danilo.pianini@unibo.it</code></a></h3>
@@ -1375,8 +1577,6 @@ public class GlutFree extends IngredientDecorator {
   
   
 
-  
-    
   
   
 

@@ -219,68 +219,6 @@
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></div>
 </section><section>
-<h2 id="un-altro-caso-di-collection-la-list-linkata-objectlist">Un altro caso di collection, la list linkata <code>ObjectList</code></h2>
-<ul>
-<li>Una <em>lista</em> è una struttura dati ricorsivamente definita:
-<ul>
-<li>caso base: lista vuota</li>
-<li>caso ricorsivo: ha una <em>testa</em> (elemento), e una <em>coda</em> (che è una <em>lista</em> a sua volta)</li>
-</ul>
-</li>
-</ul>
-<div class="smaller">
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#177500">/* Lista linkata di oggetti, con soli metodi getter */</span>
-</span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">ObjectList</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#000">Object</span> <span style="color:#000">head</span>;
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#000">ObjectList</span> <span style="color:#000">tail</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#000">ObjectList</span>(<span style="color:#a90d91">final</span> <span style="color:#000">Object</span> <span style="color:#000">head</span>, <span style="color:#a90d91">final</span> <span style="color:#000">ObjectList</span> <span style="color:#000">tail</span>) {
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span>.<span style="color:#836c28">head</span> <span style="color:#000">=</span> <span style="color:#000">head</span>;
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span>.<span style="color:#836c28">tail</span> <span style="color:#000">=</span> <span style="color:#000">tail</span>;
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#000">Object</span> <span style="color:#000">getHead</span>() { <span style="color:#177500">// Testa della lista</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">head</span>;
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#000">ObjectList</span> <span style="color:#000">getTail</span>() { <span style="color:#177500">// Coda della lista</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">tail</span>;
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">int</span> <span style="color:#000">getLength</span>() { <span style="color:#177500">// Dimensione della lista</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> (<span style="color:#a90d91">this</span>.<span style="color:#836c28">tail</span> <span style="color:#000">==</span> <span style="color:#a90d91">null</span>) <span style="color:#000">?</span> <span style="color:#000">1</span> : <span style="color:#000">1</span> <span style="color:#000">+</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">tail</span>.<span style="color:#836c28">getLength</span>();
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#000">String</span> <span style="color:#000">toString</span>() { <span style="color:#177500">// Rappr. a stringa</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#c41a16">"|"</span> <span style="color:#000">+</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">head</span>
-</span></span><span style="display:flex;"><span>				<span style="color:#000">+</span> ((<span style="color:#a90d91">this</span>.<span style="color:#836c28">tail</span> <span style="color:#000">==</span> <span style="color:#a90d91">null</span>) <span style="color:#000">?</span> <span style="color:#c41a16">"|"</span> : <span style="color:#a90d91">this</span>.<span style="color:#836c28">tail</span>.<span style="color:#836c28">toString</span>());
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div></div>
-</section><section>
-<h2 id="useobjectlist"><code>UseObjectList</code></h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseObjectList</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">s</span>) {
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">ObjectList</span> <span style="color:#000">list</span> <span style="color:#000">=</span> 
-</span></span><span style="display:flex;"><span>				<span style="color:#a90d91">new</span> <span style="color:#000">ObjectList</span>(<span style="color:#000">10</span>, <span style="color:#a90d91">new</span> <span style="color:#000">ObjectList</span>(<span style="color:#000">20</span>, 
-</span></span><span style="display:flex;"><span>				<span style="color:#a90d91">new</span> <span style="color:#000">ObjectList</span>(<span style="color:#000">30</span>, <span style="color:#a90d91">new</span> <span style="color:#000">ObjectList</span>(<span style="color:#000">40</span>, <span style="color:#a90d91">null</span>))));
-</span></span><span style="display:flex;"><span>		<span style="color:#177500">// Cast necessari, eccezioni possibili</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">first</span> <span style="color:#000">=</span> (<span style="color:#000">Integer</span>) <span style="color:#000">list</span>.<span style="color:#836c28">getHead</span>(); <span style="color:#177500">// Unboxing</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">second</span> <span style="color:#000">=</span> (<span style="color:#000">Integer</span>) <span style="color:#000">list</span>.<span style="color:#836c28">getTail</span>().<span style="color:#836c28">getHead</span>();
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">third</span> <span style="color:#000">=</span> (<span style="color:#000">Integer</span>) <span style="color:#000">list</span>.<span style="color:#836c28">getTail</span>().<span style="color:#836c28">getTail</span>().<span style="color:#836c28">getHead</span>();
-</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">first</span> <span style="color:#000">+</span> <span style="color:#c41a16">" "</span> <span style="color:#000">+</span> <span style="color:#000">second</span> <span style="color:#000">+</span> <span style="color:#c41a16">" "</span> <span style="color:#000">+</span> <span style="color:#000">third</span>);
-</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">list</span>.<span style="color:#836c28">toString</span>());
-</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">list</span>.<span style="color:#836c28">getLength</span>());
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>		<span style="color:#177500">// Usabile anche con le stringhe</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">ObjectList</span> <span style="color:#000">list2</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">ObjectList</span>(<span style="color:#c41a16">"a"</span>, 
-</span></span><span style="display:flex;"><span>				<span style="color:#a90d91">new</span> <span style="color:#000">ObjectList</span>(<span style="color:#c41a16">"b"</span>,
-</span></span><span style="display:flex;"><span>				<span style="color:#a90d91">new</span> <span style="color:#000">ObjectList</span>(<span style="color:#c41a16">"c"</span>, 
-</span></span><span style="display:flex;"><span>				<span style="color:#a90d91">new</span> <span style="color:#000">ObjectList</span>(<span style="color:#c41a16">"d"</span>, <span style="color:#a90d91">null</span>))));
-</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">list2</span>.<span style="color:#836c28">toString</span>());
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div></section><section>
 <h2 id="la-necessità-di-un-approccio-a-polimorfismo-parametrico">La necessità di un approccio a polimorfismo parametrico</h2>
 <h3 id="prima-di-java-5">Prima di Java 5</h3>
 <ul>
@@ -325,60 +263,50 @@
 </section><section>
 <h1 id="classi-generiche">Classi generiche</h1>
 </section><section>
-<h2 id="la-classe-generica-list">La classe generica <code>List</code></h2>
+<h2 id="la-classe-generica-vectorx">La classe generica <code>Vector&lt;X&gt;</code></h2>
 <ul>
-<li><code>List</code> si dice che è un <strong>tipo parametrico</strong> (in quanto accetta il “parametro di tipo” <code>X</code>)</li>
+<li><code>Vector</code> si dice che è un <strong>tipo parametrico</strong> (in quanto accetta il “parametro di tipo” <code>X</code>)</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#177500">/* Classe generica in X:
-</span></span></span><span style="display:flex;"><span><span style="color:#177500">   - X è il tipo degli elementi della lista */</span>
-</span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">List</span><span style="color:#000">&lt;</span><span style="color:#000">X</span><span style="color:#000">&gt;</span> {	
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Vector</span><span style="color:#000">&lt;</span><span style="color:#000">X</span><span style="color:#000">&gt;</span>{ 
+</span></span><span style="display:flex;"><span>    <span style="color:#177500">// X è la type-variable, ossia il tipo degli elementi</span>
 </span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#000">X</span> <span style="color:#000">head</span>;	   <span style="color:#177500">// Testa della lista, tipo X</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">X</span><span style="color:#000">&gt;</span> <span style="color:#000">tail</span>;  <span style="color:#177500">// Coda della lista, tipo List&lt;X&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">Vector</span>() { <span style="color:#177500">/* ... */</span> }
 </span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">List</span>(<span style="color:#a90d91">final</span> <span style="color:#000">X</span> <span style="color:#000">head</span>, <span style="color:#a90d91">final</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">X</span><span style="color:#000">&gt;</span> <span style="color:#000">tail</span>) {
-</span></span><span style="display:flex;"><span>    	<span style="color:#a90d91">this</span>.<span style="color:#836c28">head</span> <span style="color:#000">=</span> <span style="color:#000">head</span>;
-</span></span><span style="display:flex;"><span>    	<span style="color:#a90d91">this</span>.<span style="color:#836c28">tail</span> <span style="color:#000">=</span> <span style="color:#000">tail</span>;
-</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">addElement</span>(<span style="color:#000">X</span> <span style="color:#000">e</span>) { <span style="color:#177500">/* ... */</span> } 	<span style="color:#177500">// Input di tipo X</span>
 </span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">X</span> <span style="color:#000">getHead</span>() {			
-</span></span><span style="display:flex;"><span>    	<span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">head</span>;
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">X</span><span style="color:#000">&gt;</span> <span style="color:#000">getTail</span>() {	
-</span></span><span style="display:flex;"><span>    	<span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">tail</span>;
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    <span style="color:#177500">// getLength() e toString() invariate</span>
-</span></span><span style="display:flex;"><span>    ...
-</span></span><span style="display:flex;"><span>} 
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">X</span> <span style="color:#000">getElementAt</span>(<span style="color:#a90d91">int</span> <span style="color:#000">pos</span>) { <span style="color:#177500">/* ... */</span> } <span style="color:#177500">// Output di tipo X</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">int</span> <span style="color:#000">getLength</span>() { <span style="color:#177500">/* ... */</span> }
+</span></span><span style="display:flex;"><span>   
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">String</span> <span style="color:#000">toString</span>() { <span style="color:#177500">/* ... */</span> }
+</span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></section><section>
 <h2 id="uso-di-una-classe-generica">Uso di una classe generica</h2>
 <ul>
 <li>Si istanzia il <strong>parametro di tipo</strong> generico <code>X</code> in un tipo specifico (<strong>argomento di tipo</strong>), ad es. <code>Integer</code></li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseList</span> {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseVector</span> {
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">s</span>) {
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> <span style="color:#000">list</span> <span style="color:#000">=</span> 
-</span></span><span style="display:flex;"><span>			<span style="color:#a90d91">new</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span>(<span style="color:#000">10</span>, <span style="color:#177500">// Autoboxing</span>
-</span></span><span style="display:flex;"><span>				<span style="color:#a90d91">new</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span>(<span style="color:#000">20</span>,
-</span></span><span style="display:flex;"><span>					<span style="color:#a90d91">new</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span>(<span style="color:#000">30</span>,
-</span></span><span style="display:flex;"><span>						<span style="color:#a90d91">new</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span>(<span style="color:#000">40</span>, <span style="color:#a90d91">null</span>))));
-</span></span><span style="display:flex;"><span>		<span style="color:#177500">// Cast NON necessari</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">first</span> <span style="color:#000">=</span> <span style="color:#000">list</span>.<span style="color:#836c28">getHead</span>(); <span style="color:#177500">// Unboxing</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">second</span> <span style="color:#000">=</span> <span style="color:#000">list</span>.<span style="color:#836c28">getTail</span>().<span style="color:#836c28">getHead</span>();
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">third</span> <span style="color:#000">=</span> <span style="color:#000">list</span>.<span style="color:#836c28">getTail</span>().<span style="color:#836c28">getTail</span>().<span style="color:#836c28">getHead</span>();
-</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">first</span> <span style="color:#000">+</span> <span style="color:#c41a16">" "</span> <span style="color:#000">+</span> <span style="color:#000">second</span> <span style="color:#000">+</span> <span style="color:#c41a16">" "</span> <span style="color:#000">+</span> <span style="color:#000">third</span>);
-</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">list</span>.<span style="color:#836c28">toString</span>());
-</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">list</span>.<span style="color:#836c28">getLength</span>());
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>		<span style="color:#177500">// Usabile anche con le stringhe</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">String</span><span style="color:#000">&gt;</span> <span style="color:#000">list2</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">String</span><span style="color:#000">&gt;</span>(<span style="color:#c41a16">"a"</span>,
-</span></span><span style="display:flex;"><span>			<span style="color:#a90d91">new</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">String</span><span style="color:#000">&gt;</span>(<span style="color:#c41a16">"b"</span>,
-</span></span><span style="display:flex;"><span>				<span style="color:#a90d91">new</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">String</span><span style="color:#000">&gt;</span>(<span style="color:#c41a16">"c"</span>,
-</span></span><span style="display:flex;"><span>					<span style="color:#a90d91">new</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">String</span><span style="color:#000">&gt;</span>(<span style="color:#c41a16">"d"</span>, <span style="color:#a90d91">null</span>))));
-</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">list2</span>.<span style="color:#836c28">toString</span>());
-</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>    	<span style="color:#177500">// Il tipo di vs è Vector&lt;String&gt;</span>
+</span></span><span style="display:flex;"><span>    	<span style="color:#177500">// Ma la sua classe è Vector&lt;X&gt;</span>
+</span></span><span style="display:flex;"><span>    	<span style="color:#a90d91">final</span> <span style="color:#000">Vector</span><span style="color:#000">&lt;</span><span style="color:#000">String</span><span style="color:#000">&gt;</span> <span style="color:#000">vs</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Vector</span><span style="color:#000">&lt;</span><span style="color:#000">String</span><span style="color:#000">&gt;</span>(); 
+</span></span><span style="display:flex;"><span>    	<span style="color:#000">vs</span>.<span style="color:#836c28">addElement</span>(<span style="color:#c41a16">"Prova"</span>);		
+</span></span><span style="display:flex;"><span>    	<span style="color:#000">vs</span>.<span style="color:#836c28">addElement</span>(<span style="color:#c41a16">"di"</span>);		
+</span></span><span style="display:flex;"><span>    	<span style="color:#000">vs</span>.<span style="color:#836c28">addElement</span>(<span style="color:#c41a16">"Vettore"</span>);
+</span></span><span style="display:flex;"><span>    	<span style="color:#a90d91">final</span> <span style="color:#000">String</span> <span style="color:#000">str</span> <span style="color:#000">=</span> <span style="color:#000">vs</span>.<span style="color:#836c28">getElementAt</span>(<span style="color:#000">0</span>) <span style="color:#000">+</span> <span style="color:#c41a16">" "</span> <span style="color:#000">+</span> 
+</span></span><span style="display:flex;"><span>    		<span style="color:#000">vs</span>.<span style="color:#836c28">getElementAt</span>(<span style="color:#000">1</span>) <span style="color:#000">+</span> <span style="color:#c41a16">" "</span> <span style="color:#000">+</span>
+</span></span><span style="display:flex;"><span>    		<span style="color:#000">vs</span>.<span style="color:#836c28">getElementAt</span>(<span style="color:#000">2</span>); <span style="color:#177500">// Nota, nessun cast!</span>
+</span></span><span style="display:flex;"><span>    	<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">str</span>);
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>    	<span style="color:#a90d91">final</span> <span style="color:#000">Vector</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> <span style="color:#000">vi</span><span style="color:#000">=</span><span style="color:#a90d91">new</span> <span style="color:#000">Vector</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span>(); 
+</span></span><span style="display:flex;"><span>    	<span style="color:#000">vi</span>.<span style="color:#836c28">addElement</span>(<span style="color:#000">10</span>); <span style="color:#177500">// Autoboxing</span>
+</span></span><span style="display:flex;"><span>    	<span style="color:#000">vi</span>.<span style="color:#836c28">addElement</span>(<span style="color:#000">20</span>);
+</span></span><span style="display:flex;"><span>    	<span style="color:#000">vi</span>.<span style="color:#836c28">addElement</span>(<span style="color:#000">30</span>);
+</span></span><span style="display:flex;"><span>    	<span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">i</span> <span style="color:#000">=</span> <span style="color:#000">vi</span>.<span style="color:#836c28">getElementAt</span>(<span style="color:#000">0</span>) <span style="color:#000">+</span> <span style="color:#177500">// Unboxing </span>
+</span></span><span style="display:flex;"><span>    		<span style="color:#000">vi</span>.<span style="color:#836c28">getElementAt</span>(<span style="color:#000">1</span>) <span style="color:#000">+</span>
+</span></span><span style="display:flex;"><span>    		<span style="color:#000">vi</span>.<span style="color:#836c28">getElementAt</span>(<span style="color:#000">2</span>);
+</span></span><span style="display:flex;"><span>    	<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">i</span>);
+</span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></section><section>
 <h2 id="terminologia-e-elementi-essenziali">Terminologia, e elementi essenziali</h2>
@@ -407,46 +335,6 @@
 </li>
 </ul>
 </section><section>
-<h2 id="la-classe-generica-vector">La classe generica <code>Vector</code></h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Vector</span><span style="color:#000">&lt;</span><span style="color:#000">X</span><span style="color:#000">&gt;</span>{ 
-</span></span><span style="display:flex;"><span>    <span style="color:#177500">// X è la type-variable, ossia il tipo degli elementi</span>
-</span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">Vector</span>() { <span style="color:#177500">/* ... */</span> }
-</span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">addElement</span>(<span style="color:#000">X</span> <span style="color:#000">e</span>) { <span style="color:#177500">/* ... */</span> } 	<span style="color:#177500">// Input di tipo X</span>
-</span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">X</span> <span style="color:#000">getElementAt</span>(<span style="color:#a90d91">int</span> <span style="color:#000">pos</span>) { <span style="color:#177500">/* ... */</span> } <span style="color:#177500">// Output di tipo X</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">int</span> <span style="color:#000">getLength</span>() { <span style="color:#177500">/* ... */</span> }
-</span></span><span style="display:flex;"><span>   
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">String</span> <span style="color:#000">toString</span>() { <span style="color:#177500">/* ... */</span> }
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div></section><section>
-<h2 id="uso-di-vectorx">Uso di <code>Vector&lt;X&gt;</code></h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseVector</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">s</span>) {
-</span></span><span style="display:flex;"><span>    	<span style="color:#177500">// Il tipo di vs è Vector&lt;String&gt;</span>
-</span></span><span style="display:flex;"><span>    	<span style="color:#177500">// Ma la sua classe è Vector&lt;X&gt;</span>
-</span></span><span style="display:flex;"><span>    	<span style="color:#a90d91">final</span> <span style="color:#000">Vector</span><span style="color:#000">&lt;</span><span style="color:#000">String</span><span style="color:#000">&gt;</span> <span style="color:#000">vs</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Vector</span><span style="color:#000">&lt;</span><span style="color:#000">String</span><span style="color:#000">&gt;</span>(); 
-</span></span><span style="display:flex;"><span>    	<span style="color:#000">vs</span>.<span style="color:#836c28">addElement</span>(<span style="color:#c41a16">"Prova"</span>);		
-</span></span><span style="display:flex;"><span>    	<span style="color:#000">vs</span>.<span style="color:#836c28">addElement</span>(<span style="color:#c41a16">"di"</span>);		
-</span></span><span style="display:flex;"><span>    	<span style="color:#000">vs</span>.<span style="color:#836c28">addElement</span>(<span style="color:#c41a16">"Vettore"</span>);
-</span></span><span style="display:flex;"><span>    	<span style="color:#a90d91">final</span> <span style="color:#000">String</span> <span style="color:#000">str</span> <span style="color:#000">=</span> <span style="color:#000">vs</span>.<span style="color:#836c28">getElementAt</span>(<span style="color:#000">0</span>) <span style="color:#000">+</span> <span style="color:#c41a16">" "</span> <span style="color:#000">+</span> 
-</span></span><span style="display:flex;"><span>    		<span style="color:#000">vs</span>.<span style="color:#836c28">getElementAt</span>(<span style="color:#000">1</span>) <span style="color:#000">+</span> <span style="color:#c41a16">" "</span> <span style="color:#000">+</span>
-</span></span><span style="display:flex;"><span>    		<span style="color:#000">vs</span>.<span style="color:#836c28">getElementAt</span>(<span style="color:#000">2</span>); <span style="color:#177500">// Nota, nessun cast!</span>
-</span></span><span style="display:flex;"><span>    	<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">str</span>);
-</span></span><span style="display:flex;"><span>        
-</span></span><span style="display:flex;"><span>    	<span style="color:#a90d91">final</span> <span style="color:#000">Vector</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> <span style="color:#000">vi</span><span style="color:#000">=</span><span style="color:#a90d91">new</span> <span style="color:#000">Vector</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span>(); 
-</span></span><span style="display:flex;"><span>    	<span style="color:#000">vi</span>.<span style="color:#836c28">addElement</span>(<span style="color:#000">10</span>); <span style="color:#177500">// Autoboxing</span>
-</span></span><span style="display:flex;"><span>    	<span style="color:#000">vi</span>.<span style="color:#836c28">addElement</span>(<span style="color:#000">20</span>);
-</span></span><span style="display:flex;"><span>    	<span style="color:#000">vi</span>.<span style="color:#836c28">addElement</span>(<span style="color:#000">30</span>);
-</span></span><span style="display:flex;"><span>    	<span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">i</span> <span style="color:#000">=</span> <span style="color:#000">vi</span>.<span style="color:#836c28">getElementAt</span>(<span style="color:#000">0</span>) <span style="color:#000">+</span> <span style="color:#177500">// Unboxing </span>
-</span></span><span style="display:flex;"><span>    		<span style="color:#000">vi</span>.<span style="color:#836c28">getElementAt</span>(<span style="color:#000">1</span>) <span style="color:#000">+</span>
-</span></span><span style="display:flex;"><span>    		<span style="color:#000">vi</span>.<span style="color:#836c28">getElementAt</span>(<span style="color:#000">2</span>);
-</span></span><span style="display:flex;"><span>    	<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">i</span>);
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div></section><section>
 <h2 id="implementazione-di-vector-pt-1">Implementazione di <code>Vector</code> pt 1</h2>
 <ul>
 <li>Nota: in Java NON si può istanziare un array di tipo generico: <code>new X[10]</code> (errore statico)</li>
@@ -531,16 +419,6 @@
 </span></span><span style="display:flex;"><span>				<span style="color:#000">v</span>.<span style="color:#836c28">getElementAt</span>(<span style="color:#000">1</span>).<span style="color:#836c28">getFirst</span>(); <span style="color:#177500">// Nota, nessun cast!</span>
 </span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">str</span>);
 </span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">v</span>);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">Pair</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span>, <span style="color:#000">Integer</span><span style="color:#000">&gt;&gt;</span> <span style="color:#000">l</span> <span style="color:#000">=</span> 
-</span></span><span style="display:flex;"><span>			<span style="color:#a90d91">new</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">Pair</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span>, <span style="color:#000">Integer</span><span style="color:#000">&gt;&gt;</span>(
-</span></span><span style="display:flex;"><span>				<span style="color:#a90d91">new</span> <span style="color:#000">Pair</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span>, <span style="color:#000">Integer</span><span style="color:#000">&gt;</span>(<span style="color:#000">1</span>, <span style="color:#000">1</span>),
-</span></span><span style="display:flex;"><span>				<span style="color:#a90d91">new</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">Pair</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span>, <span style="color:#000">Integer</span><span style="color:#000">&gt;&gt;</span>(
-</span></span><span style="display:flex;"><span>					<span style="color:#a90d91">new</span> <span style="color:#000">Pair</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span>, <span style="color:#000">Integer</span><span style="color:#000">&gt;</span>(<span style="color:#000">2</span>, <span style="color:#000">2</span>),
-</span></span><span style="display:flex;"><span>					<span style="color:#a90d91">new</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">Pair</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span>, <span style="color:#000">Integer</span><span style="color:#000">&gt;&gt;</span>(
-</span></span><span style="display:flex;"><span>						<span style="color:#a90d91">new</span> <span style="color:#000">Pair</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span>, <span style="color:#000">Integer</span><span style="color:#000">&gt;</span>(<span style="color:#000">3</span>, <span style="color:#000">3</span>),
-</span></span><span style="display:flex;"><span>						<span style="color:#a90d91">null</span>)));
-</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">l</span>);
 </span></span><span style="display:flex;"><span>	}
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></div>
@@ -576,18 +454,7 @@
 </span></span><span style="display:flex;"><span>			<span style="color:#000">v</span>.<span style="color:#836c28">getElementAt</span>(<span style="color:#000">1</span>).<span style="color:#836c28">getFirst</span>(); <span style="color:#177500">// Nota, nessun cast!</span>
 </span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">str</span>);
 </span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">v</span>);
-</span></span><span style="display:flex;"><span>        
-</span></span><span style="display:flex;"><span>        <span style="color:#177500">// Inferenza grazie agli argomenti e tipo variabile..</span>
-</span></span><span style="display:flex;"><span>    	<span style="color:#a90d91">final</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">Pair</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span>,<span style="color:#000">Integer</span><span style="color:#000">&gt;&gt;</span> <span style="color:#000">l</span> <span style="color:#000">=</span> 
-</span></span><span style="display:flex;"><span>        	<span style="color:#a90d91">new</span> <span style="color:#000">List</span><span style="color:#000">&lt;&gt;</span>(<span style="color:#a90d91">new</span> <span style="color:#000">Pair</span><span style="color:#000">&lt;&gt;</span>(<span style="color:#000">1</span>,<span style="color:#000">1</span>), 
-</span></span><span style="display:flex;"><span>        		<span style="color:#a90d91">new</span> <span style="color:#000">List</span><span style="color:#000">&lt;&gt;</span>(<span style="color:#a90d91">new</span> <span style="color:#000">Pair</span><span style="color:#000">&lt;&gt;</span>(<span style="color:#000">2</span>,<span style="color:#000">2</span>),
-</span></span><span style="display:flex;"><span>        			<span style="color:#a90d91">new</span> <span style="color:#000">List</span><span style="color:#000">&lt;&gt;</span>(<span style="color:#a90d91">new</span> <span style="color:#000">Pair</span><span style="color:#000">&lt;&gt;</span>(<span style="color:#000">3</span>,<span style="color:#000">3</span>), <span style="color:#a90d91">null</span>)));
-</span></span><span style="display:flex;"><span>    	<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">l</span>);
-</span></span><span style="display:flex;"><span>    	
-</span></span><span style="display:flex;"><span>    	<span style="color:#177500">// Local variable type inference</span>
-</span></span><span style="display:flex;"><span>    	<span style="color:#a90d91">final</span> <span style="color:#a90d91">var</span> <span style="color:#000">v2</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Vector</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span>();
-</span></span><span style="display:flex;"><span>    	<span style="color:#000">v2</span>.<span style="color:#836c28">addElement</span>(<span style="color:#000">1</span>);		
-</span></span><span style="display:flex;"><span>    	<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">v2</span>);
+</span></span><span style="display:flex;"><span>    
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></div>
@@ -665,7 +532,7 @@
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></section><section>
-<h2 id="implementazione-3-vectoriterator">Implementazione 3: <code>VectorIterator</code></h2>
+<h2 id="implementazione-2-vectoriterator">Implementazione 2: <code>VectorIterator</code></h2>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#177500">/* Itera tutti gli elementi di un Vector */</span>
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">VectorIterator</span><span style="color:#000">&lt;</span><span style="color:#000">E</span><span style="color:#000">&gt;</span> <span style="color:#a90d91">implements</span> <span style="color:#000">Iterator</span><span style="color:#000">&lt;</span><span style="color:#000">E</span><span style="color:#000">&gt;</span> {
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#000">Vector</span><span style="color:#000">&lt;</span><span style="color:#000">E</span><span style="color:#000">&gt;</span> <span style="color:#000">vector</span>; <span style="color:#177500">// Vettore da iterare</span>
@@ -688,23 +555,17 @@
 <h2 id="useiterators-nota-laccesso-uniforme"><code>UseIterators</code>: nota l’accesso uniforme!</h2>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseIterators</span> {
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">s</span>) {
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">String</span><span style="color:#000">&gt;</span> <span style="color:#000">list</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">List</span><span style="color:#000">&lt;&gt;</span>(<span style="color:#c41a16">"a"</span>,
-</span></span><span style="display:flex;"><span>			<span style="color:#a90d91">new</span> <span style="color:#000">List</span><span style="color:#000">&lt;&gt;</span>(<span style="color:#c41a16">"b"</span>,
-</span></span><span style="display:flex;"><span>				<span style="color:#a90d91">new</span> <span style="color:#000">List</span><span style="color:#000">&lt;&gt;</span>(<span style="color:#c41a16">"c"</span>, <span style="color:#a90d91">null</span>)));
-</span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">Vector</span><span style="color:#000">&lt;</span><span style="color:#000">java</span>.<span style="color:#836c28">util</span>.<span style="color:#836c28">Date</span><span style="color:#000">&gt;</span> <span style="color:#000">vector</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Vector</span><span style="color:#000">&lt;&gt;</span>();
 </span></span><span style="display:flex;"><span>		<span style="color:#000">vector</span>.<span style="color:#836c28">addElement</span>(<span style="color:#a90d91">new</span> <span style="color:#000">java</span>.<span style="color:#836c28">util</span>.<span style="color:#836c28">Date</span>());
 </span></span><span style="display:flex;"><span>		<span style="color:#000">vector</span>.<span style="color:#836c28">addElement</span>(<span style="color:#a90d91">new</span> <span style="color:#000">java</span>.<span style="color:#836c28">util</span>.<span style="color:#836c28">Date</span>());
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>		<span style="color:#177500">// creo 3 iteratori..</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">Iterator</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> <span style="color:#000">iterator</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">IntRangeIterator</span>(<span style="color:#000">5</span>, <span style="color:#000">10</span>);
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">Iterator</span><span style="color:#000">&lt;</span><span style="color:#000">String</span><span style="color:#000">&gt;</span> <span style="color:#000">iterator2</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">ListIterator</span><span style="color:#000">&lt;&gt;</span>(<span style="color:#000">list</span>);
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">Iterator</span><span style="color:#000">&lt;</span><span style="color:#000">java</span>.<span style="color:#836c28">util</span>.<span style="color:#836c28">Date</span><span style="color:#000">&gt;</span> <span style="color:#000">iterator3</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">VectorIterator</span><span style="color:#000">&lt;&gt;</span>(<span style="color:#000">vector</span>);
+</span></span><span style="display:flex;"><span>		<span style="color:#177500">// creo 2 iteratori..</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">Iterator</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> <span style="color:#000">iterator1</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">IntRangeIterator</span>(<span style="color:#000">5</span>, <span style="color:#000">10</span>);
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">Iterator</span><span style="color:#000">&lt;</span><span style="color:#000">java</span>.<span style="color:#836c28">util</span>.<span style="color:#836c28">Date</span><span style="color:#000">&gt;</span> <span style="color:#000">iterator2</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">VectorIterator</span><span style="color:#000">&lt;&gt;</span>(<span style="color:#000">vector</span>);
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>		<span style="color:#177500">// ne stampo il contenuto..</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#000">printAll</span>(<span style="color:#000">iterator</span>);
+</span></span><span style="display:flex;"><span>		<span style="color:#000">printAll</span>(<span style="color:#000">iterator1</span>);
 </span></span><span style="display:flex;"><span>		<span style="color:#000">printAll</span>(<span style="color:#000">iterator2</span>);
-</span></span><span style="display:flex;"><span>		<span style="color:#000">printAll</span>(<span style="color:#000">iterator3</span>);
 </span></span><span style="display:flex;"><span>	}
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">static</span> <span style="color:#000">&lt;</span><span style="color:#000">X</span><span style="color:#000">&gt;</span> <span style="color:#a90d91">void</span> <span style="color:#000">printAll</span>(<span style="color:#000">Iterator</span><span style="color:#000">&lt;</span><span style="color:#000">X</span><span style="color:#000">&gt;</span> <span style="color:#000">iterator</span>) {
@@ -752,23 +613,18 @@
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#000">&lt;</span><span style="color:#000">E</span><span style="color:#000">&gt;</span> <span style="color:#a90d91">void</span> <span style="color:#000">printAll</span>(<span style="color:#000">Iterator</span><span style="color:#000">&lt;</span><span style="color:#000">E</span><span style="color:#000">&gt;</span> <span style="color:#000">iterator</span>){ <span style="color:#177500">/* ... */</span> }
 </span></span><span style="display:flex;"><span>    
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">s</span>) {
-</span></span><span style="display:flex;"><span>        <span style="color:#000">Iterator</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> <span style="color:#000">iterator</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">IntRangeIterator</span>(<span style="color:#000">5</span>, <span style="color:#000">10</span>);
-</span></span><span style="display:flex;"><span>   
-</span></span><span style="display:flex;"><span>        <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">String</span><span style="color:#000">&gt;</span> <span style="color:#000">list</span> <span style="color:#000">=</span> <span style="color:#177500">// ...</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#000">Iterator</span><span style="color:#000">&lt;</span><span style="color:#000">String</span><span style="color:#000">&gt;</span> <span style="color:#000">iterator2</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">ListIterator</span>(<span style="color:#000">list</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#000">Iterator</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> <span style="color:#000">iterator1</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">IntRangeIterator</span>(<span style="color:#000">5</span>, <span style="color:#000">10</span>);
 </span></span><span style="display:flex;"><span>    
 </span></span><span style="display:flex;"><span>        <span style="color:#000">Vector</span><span style="color:#000">&lt;</span><span style="color:#000">Date</span><span style="color:#000">&gt;</span> <span style="color:#000">vector</span><span style="color:#000">=</span> <span style="color:#177500">// ...</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#000">Iterator</span><span style="color:#000">&lt;</span><span style="color:#000">Date</span><span style="color:#000">&gt;</span> <span style="color:#000">iterator3</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">VectorIterator</span>(<span style="color:#000">vector</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#000">Iterator</span><span style="color:#000">&lt;</span><span style="color:#000">Date</span><span style="color:#000">&gt;</span> <span style="color:#000">iterator2</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">VectorIterator</span>(<span style="color:#000">vector</span>);
 </span></span><span style="display:flex;"><span>    
 </span></span><span style="display:flex;"><span>        <span style="color:#177500">// Attenzione, il nome della classe è obbligatorio</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#000">UseIterators2</span>.<span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span><span style="color:#000">printAll</span>(<span style="color:#000">iterator</span>);	      
-</span></span><span style="display:flex;"><span>        <span style="color:#000">UseIterators2</span>.<span style="color:#000">&lt;</span><span style="color:#000">String</span><span style="color:#000">&gt;</span><span style="color:#000">printAll</span>(<span style="color:#000">iterator2</span>);	     
-</span></span><span style="display:flex;"><span>        <span style="color:#000">UseIterators2</span>.<span style="color:#000">&lt;</span><span style="color:#000">Date</span><span style="color:#000">&gt;</span><span style="color:#000">printAll</span>(<span style="color:#000">iterator3</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#000">UseIterators2</span>.<span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span><span style="color:#000">printAll</span>(<span style="color:#000">iterator1</span>);	        
+</span></span><span style="display:flex;"><span>        <span style="color:#000">UseIterators2</span>.<span style="color:#000">&lt;</span><span style="color:#000">Date</span><span style="color:#000">&gt;</span><span style="color:#000">printAll</span>(<span style="color:#000">iterator2</span>);
 </span></span><span style="display:flex;"><span>        
 </span></span><span style="display:flex;"><span>        <span style="color:#177500">// Con inferenza, il nome della classe non è obbligatorio</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#000">printAll</span>(<span style="color:#000">iterator</span>);	      
-</span></span><span style="display:flex;"><span>        <span style="color:#000">printAll</span>(<span style="color:#000">iterator2</span>);	     
-</span></span><span style="display:flex;"><span>        <span style="color:#000">printAll</span>(<span style="color:#000">iterator3</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#000">printAll</span>(<span style="color:#000">iterator1</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#000">printAll</span>(<span style="color:#000">iterator2</span>);
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></section><section>
@@ -1085,8 +941,6 @@
   
 
   
-    
-  
   
 
   
@@ -1103,8 +957,6 @@
   
   
 
-  
-    
   
   
 
