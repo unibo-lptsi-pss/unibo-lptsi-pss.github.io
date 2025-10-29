@@ -97,7 +97,7 @@
 <h2 id="una-nota-su-eccezioni-e-jcf">Una nota su eccezioni e JCF</h2>
 <h3 id="eccezioni-un-argomento-che-tratteremo-in-dettaglio">Eccezioni: un argomento che tratteremo in dettaglio</h3>
 <p>Un meccanismo usato per gestire eventi ritenuti fuori dalla normale esecuzione (errori), ossia per dichiararli, lanciarli, intercettarli</p>
-<h3 id="jcf-e-eccezioni">JCF e eccezioni</h3>
+<h3 id="jcf-ed-eccezioni">JCF ed eccezioni</h3>
 <ul>
 <li>Ogni collection ha sue regole di funzionamento, e non ammette certe operazioni che richiedono controlli a tempo di esecuzione
 <ul>
@@ -115,17 +115,24 @@
 <ul>
 <li>Abbiamo visto che può essere usato per iterare su un array in modo più astratto (compatto, leggibile)</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">for</span>(<span style="color:#a90d91">int</span> <span style="color:#000">i</span>: <span style="color:#000">array</span>) { ... }
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">for</span> (<span style="color:#a90d91">final</span> <span style="color:#a90d91">var</span> <span style="color:#000">i</span>: <span style="color:#000">array</span>) { ... }
 </span></span></code></pre></div><ul>
 <li>Java fornisce anche un meccanismo per <em>usare il foreach su qualunque collection, in particolare, su qualunque oggetto che implementa l’interfaccia</em> <code>java.lang.Iterable&lt;X&gt;</code></li>
 </ul>
 <h3 id="iterable-e-iterator"><code>Iterable</code> e <code>Iterator</code></h3>
 <ul>
 <li>L’interfaccia <code>Iterable</code> (contratto degli oggetti <em>iterabili</em>) ha un metodo per generare e restituire un (nuovo) <code>Iterator</code></li>
-<li>Un <em>iteratore</em> è un oggetto con metodi <code>next()</code>, <code>hasNext()</code> (e <code>remove()</code>)</li>
-<li>Dato l’oggetto <code>coll</code> che implementa <code>Iterable&lt;T&gt;</code> allora il foreach diventa:</li>
+<li>Un <em>iteratore</em> è un oggetto con metodi <code>next()</code>, <code>hasNext()</code> (e <code>remove()</code>), che può quindi <em>iterare</em> su una collezione <em>una sola volta</em>
+<ul>
+<li>È “<em>monouso</em>”: una volta terminata l’iterazione, non si può più riutilizzare lo stesso iteratore</li>
+<li>Ne va creato uno nuovo, chiedendolo all’<code>Iterable</code></li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">for</span>(<span style="color:#a90d91">final</span> <span style="color:#000">T</span> <span style="color:#000">element</span>: <span style="color:#000">coll</span>) { ... }
+</li>
+<li>Dato l’oggetto <code>collection</code> che implementa <code>Iterable&lt;T&gt;</code> allora il foreach diventa:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">for</span> (<span style="color:#a90d91">final</span> <span style="color:#000">T</span> <span style="color:#000">element</span>: <span style="color:#000">collection</span>) { ... }
+</span></span><span style="display:flex;"><span><span style="color:#177500">// o, equivalentemente:</span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">for</span> (<span style="color:#a90d91">final</span> <span style="color:#a90d91">var</span> <span style="color:#000">element</span>: <span style="color:#000">collection</span>) { ... }
 </span></span></code></pre></div></section><section>
 <h2 id="interfacce-per-literazione">Interfacce per l’iterazione</h2>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">package</span> <span style="color:#000">java.lang</span>;
@@ -149,30 +156,27 @@
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">interface</span> <span style="color:#3f6e75">Collection</span><span style="color:#000">&lt;</span><span style="color:#000">E</span><span style="color:#000">&gt;</span> <span style="color:#a90d91">implements</span> <span style="color:#000">Iterable</span><span style="color:#000">&lt;</span><span style="color:#000">E</span><span style="color:#000">&gt;</span> { .. }
 </span></span></code></pre></div></section><section>
-<h2 id="interfacce-per-literazione--uml">Interfacce per l’iterazione – UML</h2>
-<p><img src="imgs/uml-iter.png" alt=""></p>
-</section><section>
 <h2 id="iteratori-e-collezioni-preview">Iteratori e collezioni: preview</h2>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.*</span>;
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseCollectionIterator</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">s</span>) {
-</span></span><span style="display:flex;"><span>		<span style="color:#177500">// Uso la LinkedList</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">Double</span><span style="color:#000">&gt;</span> <span style="color:#000">list</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">LinkedList</span><span style="color:#000">&lt;&gt;</span>();
-</span></span><span style="display:flex;"><span>		<span style="color:#177500">// Inserisco 50 elementi</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">for</span> (<span style="color:#a90d91">int</span> <span style="color:#000">i</span> <span style="color:#000">=</span> <span style="color:#000">0</span>; <span style="color:#000">i</span> <span style="color:#000">&lt;</span> <span style="color:#000">50</span>; <span style="color:#000">i</span><span style="color:#000">++</span>) {
-</span></span><span style="display:flex;"><span>			<span style="color:#000">list</span>.<span style="color:#836c28">add</span>(<span style="color:#000">Math</span>.<span style="color:#836c28">random</span>());
-</span></span><span style="display:flex;"><span>		}
-</span></span><span style="display:flex;"><span>		<span style="color:#177500">// Stampo con un foreach</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">int</span> <span style="color:#000">count</span> <span style="color:#000">=</span> <span style="color:#000">0</span>;
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">for</span> (<span style="color:#a90d91">final</span> <span style="color:#a90d91">double</span> <span style="color:#000">d</span>: <span style="color:#000">list</span>) {
-</span></span><span style="display:flex;"><span>			<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">count</span><span style="color:#000">++</span> <span style="color:#000">+</span> <span style="color:#c41a16">"\t"</span> <span style="color:#000">+</span> <span style="color:#000">d</span>);
-</span></span><span style="display:flex;"><span>		}
-</span></span><span style="display:flex;"><span>		<span style="color:#177500">// 0 0.10230513602737423</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#177500">// 1 0.4318582138894327</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#177500">// 2 0.5239222319032795</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#177500">// ..</span>
-</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#177500">// Uso la LinkedList</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">final</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">Double</span><span style="color:#000">&gt;</span> <span style="color:#000">list</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">LinkedList</span><span style="color:#000">&lt;&gt;</span>();
+</span></span><span style="display:flex;"><span>        <span style="color:#177500">// Inserisco 50 elementi</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">for</span> (<span style="color:#a90d91">int</span> <span style="color:#000">i</span> <span style="color:#000">=</span> <span style="color:#000">0</span>; <span style="color:#000">i</span> <span style="color:#000">&lt;</span> <span style="color:#000">50</span>; <span style="color:#000">i</span><span style="color:#000">++</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#000">list</span>.<span style="color:#836c28">add</span>(<span style="color:#000">Math</span>.<span style="color:#836c28">random</span>());
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#177500">// Stampo con un foreach</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">int</span> <span style="color:#000">count</span> <span style="color:#000">=</span> <span style="color:#000">0</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">for</span> (<span style="color:#a90d91">final</span> <span style="color:#a90d91">double</span> <span style="color:#000">d</span>: <span style="color:#000">list</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">++</span><span style="color:#000">count</span> <span style="color:#000">+</span> <span style="color:#c41a16">" "</span> <span style="color:#000">+</span> <span style="color:#000">d</span>);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#177500">// 1 0.10230513602737423</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#177500">// 2 0.4318582138894327</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#177500">// 3 0.5239222319032795</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#177500">// ..</span>
+</span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></section><section>
 <h1 id="collection-list-set">Collection, List, Set</h1>
@@ -232,30 +236,34 @@
 </span></span></code></pre></div></section><section>
 <h2 id="usare-le-collezioni">Usare le collezioni</h2>
 <ul>
-<li>Nota: invocazione metodi dell’interfaccia <code>Collection</code></li>
-<li>Interazione con array via ad es. <code>Arrays.asList()</code> e <code>Collection.toArray()</code></li>
+<li>Interazione fra collezioni e array tramite metodi:
+<ul>
+<li><code>Arrays.asList()</code>, metodo statico che converte un array in una <code>List</code></li>
+<li><code>Collection.toArray()</code>, metodo istanza che converte una collezione in un array</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseCollection</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">s</span>) {
-</span></span><span style="display:flex;"><span>        <span style="color:#177500">// Uso una incarnazione, ma poi lavoro sull'interfaccia</span>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">package</span> <span style="color:#000">it.unibo.collections.collection</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.*</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseCollection</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#177500">// Uso ArrayList come implementazione, ma dichiaro e uso l'interfaccia</span>
 </span></span><span style="display:flex;"><span>        <span style="color:#a90d91">final</span> <span style="color:#000">Collection</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> <span style="color:#000">coll</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">ArrayList</span><span style="color:#000">&lt;&gt;</span>();
 </span></span><span style="display:flex;"><span>        <span style="color:#000">coll</span>.<span style="color:#836c28">addAll</span>(<span style="color:#000">Arrays</span>.<span style="color:#836c28">asList</span>(<span style="color:#000">1</span>, <span style="color:#000">3</span>, <span style="color:#000">5</span>, <span style="color:#000">7</span>, <span style="color:#000">9</span>, <span style="color:#000">11</span>)); <span style="color:#177500">// var-args</span>
 </span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">coll</span>); <span style="color:#177500">// [1, 3, 5, 7, 9, 11]</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        <span style="color:#000">coll</span>.<span style="color:#836c28">add</span>(<span style="color:#000">13</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#000">coll</span>.<span style="color:#836c28">add</span>(<span style="color:#000">13</span>); <span style="color:#177500">// Invocazione di metodi dell'interfaccia Collection</span>
 </span></span><span style="display:flex;"><span>        <span style="color:#000">coll</span>.<span style="color:#836c28">add</span>(<span style="color:#000">15</span>);
 </span></span><span style="display:flex;"><span>        <span style="color:#000">coll</span>.<span style="color:#836c28">add</span>(<span style="color:#000">15</span>);
 </span></span><span style="display:flex;"><span>        <span style="color:#000">coll</span>.<span style="color:#836c28">remove</span>(<span style="color:#000">7</span>);
 </span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">coll</span>); <span style="color:#177500">// [1, 3, 5, 9, 11, 13, 15, 15]</span>
-</span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>        <span style="color:#000">coll</span>.<span style="color:#836c28">removeAll</span>(<span style="color:#000">Arrays</span>.<span style="color:#836c28">asList</span>(<span style="color:#000">11</span>, <span style="color:#000">13</span>, <span style="color:#000">15</span>));
 </span></span><span style="display:flex;"><span>        <span style="color:#000">coll</span>.<span style="color:#836c28">retainAll</span>(<span style="color:#000">Arrays</span>.<span style="color:#836c28">asList</span>(<span style="color:#000">1</span>, <span style="color:#000">2</span>, <span style="color:#000">3</span>, <span style="color:#000">4</span>, <span style="color:#000">5</span>));
 </span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">coll</span>); <span style="color:#177500">// [1, 3, 5]</span>
 </span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">coll</span>.<span style="color:#836c28">contains</span>(<span style="color:#000">3</span>)); <span style="color:#177500">// true</span>
 </span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">Arrays</span>.<span style="color:#836c28">toString</span>(<span style="color:#000">coll</span>.<span style="color:#836c28">toArray</span>()));
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">var</span> <span style="color:#000">a</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Integer</span><span style="color:#000">[</span><span style="color:#000">2</span><span style="color:#000">]</span>;
-</span></span><span style="display:flex;"><span>        <span style="color:#000">a</span> <span style="color:#000">=</span> <span style="color:#000">coll</span>.<span style="color:#836c28">toArray</span>(<span style="color:#000">a</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">final</span> <span style="color:#a90d91">var</span> <span style="color:#000">a</span> <span style="color:#000">=</span> <span style="color:#000">coll</span>.<span style="color:#836c28">toArray</span>();
 </span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">Arrays</span>.<span style="color:#836c28">deepToString</span>(<span style="color:#000">a</span>));
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
@@ -264,25 +272,24 @@
 <ul>
 <li>Metodi statici factory <code>.of(...)</code> e <code>.copyOf(c)</code> su <code>List</code>, <code>Set</code>, …
 <ul>
-<li>Nota: <code>Arrays.ofList</code> visto precedentemente, invece, crea una lista mutabile (e consente valori <code>null</code>)</li>
+<li>Nota: <code>Arrays.asList</code> visto precedentemente, invece, crea una lista mutabile (e consente valori <code>null</code>)</li>
 </ul>
 </li>
 </ul>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseFactories</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">s</span>) {
-</span></span><span style="display:flex;"><span>		<span style="color:#177500">// Metodi statici di creazione per Set e List immutabili</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">s</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#177500">// Metodi statici di creazione per Set e List *immutabili*</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">final</span> <span style="color:#000">Set</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> <span style="color:#000">set</span> <span style="color:#000">=</span> <span style="color:#000">Set</span>.<span style="color:#836c28">of</span>(<span style="color:#000">1</span>, <span style="color:#000">2</span>, <span style="color:#000">3</span>, <span style="color:#000">4</span>, <span style="color:#000">5</span>, <span style="color:#000">6</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">set</span>);
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">Set</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> <span style="color:#000">set</span> <span style="color:#000">=</span> <span style="color:#000">Set</span>.<span style="color:#836c28">of</span>(<span style="color:#000">1</span>, <span style="color:#000">2</span>, <span style="color:#000">3</span>, <span style="color:#000">4</span>, <span style="color:#000">5</span>, <span style="color:#000">6</span>);
-</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">set</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">final</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">String</span><span style="color:#000">&gt;</span> <span style="color:#000">list</span> <span style="color:#000">=</span> <span style="color:#000">List</span>.<span style="color:#836c28">of</span>(<span style="color:#c41a16">"a"</span>, <span style="color:#c41a16">"b"</span>, <span style="color:#c41a16">"c"</span>, <span style="color:#c41a16">"a"</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">list</span>);
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">String</span><span style="color:#000">&gt;</span> <span style="color:#000">list</span> <span style="color:#000">=</span> <span style="color:#000">List</span>.<span style="color:#836c28">of</span>(<span style="color:#c41a16">"a"</span>, <span style="color:#c41a16">"b"</span>, <span style="color:#c41a16">"c"</span>, <span style="color:#c41a16">"a"</span>);
-</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">list</span>);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">Set</span><span style="color:#000">&lt;</span><span style="color:#000">String</span><span style="color:#000">&gt;</span> <span style="color:#000">set2</span> <span style="color:#000">=</span> <span style="color:#000">Set</span>.<span style="color:#836c28">copyOf</span>(<span style="color:#000">list</span>);
-</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">set2</span>);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">list</span>.<span style="color:#836c28">hashCode</span>());
-</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">final</span> <span style="color:#a90d91">var</span> <span style="color:#000">set2</span> <span style="color:#000">=</span> <span style="color:#000">Set</span>.<span style="color:#836c28">copyOf</span>(<span style="color:#000">list</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">set2</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#177500">// set2.add("d"); // UnsupportedOperationException</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">list</span>.<span style="color:#836c28">hashCode</span>());
+</span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></section><section>
 <h2 id="set-e-list-introduzione"><code>Set</code> e <code>List</code>: introduzione</h2>
@@ -299,10 +306,10 @@
 </ul>
 <h3 id="list"><code>List</code></h3>
 <ul>
-<li>Rappresenta <em>sequenze di elementi</em></li>
+<li>Rappresenta <em>sequenze ordinate di elementi</em></li>
 <li>Rispetto alle collezioni generiche:
 <ul>
-<li>Ha metodi per accedere ad un elemento per <em>posizione</em> (0-based)</li>
+<li>Ha metodi per accedere a un elemento per <em>posizione</em> (0-indicizzata)</li>
 </ul>
 </li>
 </ul>
@@ -336,14 +343,14 @@
 <ul>
 <li><em>In variabili, argomenti, tipi di ritorno, si usano le interfacce</em></li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">void</span> <span style="color:#000">m</span>(<span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> <span style="color:#000">lst</span>) {
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">final</span> <span style="color:#000">Set</span><span style="color:#000">&lt;</span><span style="color:#000">String</span><span style="color:#000">&gt;</span> <span style="color:#000">names</span> <span style="color:#000">=</span> <span style="color:#177500">// Dichiaro Set, non HashSet o altra implementazione</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">void</span> <span style="color:#000">m</span>(<span style="color:#a90d91">final</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> <span style="color:#000">lst</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#177500">// Dichiaro Set, non HashSet o altra implementazione, e istanzio una sua implementazione</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">final</span> <span style="color:#000">Set</span><span style="color:#000">&lt;</span><span style="color:#000">String</span><span style="color:#000">&gt;</span> <span style="color:#000">names</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">LinkedHashSet</span><span style="color:#000">&lt;&gt;</span>();
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><ul>
 <li><em>Le classi concrete solo in fase di istanziazione</em>, nella <code>new</code>, a parte casi molto particolari</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">final</span> <span style="color:#000">Set</span><span style="color:#000">&lt;</span><span style="color:#000">String</span><span style="color:#000">&gt;</span> <span style="color:#000">names</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">HashSet</span><span style="color:#000">&lt;&gt;</span>();
-</span></span></code></pre></div></section><section>
+</section><section>
 <h1 id="implementazioni-di-set">Implementazioni di <code>Set</code></h1>
 </section><section>
 <h2 id="implementazioni-di-set-1">Implementazioni di <code>Set</code></h2>
@@ -436,7 +443,7 @@ usata per posizionare gli elementi in uno store di elevate dimensioni</li>
 </section><section>
 <h2 id="treesete"><code>TreeSet&lt;E&gt;</code></h2>
 <ul>
-<li>Assume che esista un <em>ordine totale</em> fra gli elementi</li>
+<li>Assume che esista un <em>ordine</em> fra gli elementi</li>
 <li>Quindi ogni elemento ha una sua <em>posizione</em> nell’elenco</li>
 <li>Questo consente l’approccio dicotomico alla ricerca</li>
 </ul>
@@ -445,6 +452,7 @@ usata per posizionare gli elementi in uno store di elevate dimensioni</li>
 <li>O con elementi che implementano direttamente <code>Comparable</code>
 <ul>
 <li>Nota che, p.e., <code>Integer</code> implementa <code>Comparable&lt;Integer&gt;</code></li>
+<li>Detto anche <em>ordine naturale</em></li>
 </ul>
 </li>
 <li>O attraverso un <code>Comparator</code> esterno fornito alla <code>new</code></li>
@@ -479,9 +487,7 @@ usata per posizionare gli elementi in uno store di elevate dimensioni</li>
 </span></span></span><span style="display:flex;"><span><span style="color:#177500">     * Sort by year, and if they are equal by name
 </span></span></span><span style="display:flex;"><span><span style="color:#177500">     */</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">int</span> <span style="color:#000">compareTo</span>(<span style="color:#a90d91">final</span> <span style="color:#000">Person</span> <span style="color:#000">other</span>) {
-</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">final</span> <span style="color:#a90d91">var</span> <span style="color:#000">byYear</span> <span style="color:#000">=</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">birthYear</span> <span style="color:#000">&gt;</span> <span style="color:#000">other</span>.<span style="color:#836c28">birthYear</span>
-</span></span><span style="display:flex;"><span>            <span style="color:#000">?</span> <span style="color:#000">1</span>
-</span></span><span style="display:flex;"><span>            : (<span style="color:#a90d91">this</span>.<span style="color:#836c28">birthYear</span> <span style="color:#000">&lt;</span> <span style="color:#000">other</span>.<span style="color:#836c28">birthYear</span> <span style="color:#000">?</span> <span style="color:#000">-</span><span style="color:#000">1</span> : <span style="color:#000">0</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">final</span> <span style="color:#a90d91">var</span> <span style="color:#000">byYear</span> <span style="color:#000">=</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">birthYear</span> <span style="color:#000">&gt;</span> <span style="color:#000">other</span>.<span style="color:#836c28">birthYear</span> <span style="color:#000">?</span> <span style="color:#000">1</span> : (<span style="color:#a90d91">this</span>.<span style="color:#836c28">birthYear</span> <span style="color:#000">&lt;</span> <span style="color:#000">other</span>.<span style="color:#836c28">birthYear</span> <span style="color:#000">?</span> <span style="color:#000">-</span><span style="color:#000">1</span> : <span style="color:#000">0</span>);
 </span></span><span style="display:flex;"><span>        <span style="color:#177500">// Alternatively, just:</span>
 </span></span><span style="display:flex;"><span>        <span style="color:#177500">// final var byYear = Integer.compare(this.birthYear, other.birthYear)</span>
 </span></span><span style="display:flex;"><span>        <span style="color:#a90d91">return</span> <span style="color:#000">byYear</span> <span style="color:#000">==</span> <span style="color:#000">0</span> <span style="color:#000">?</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">name</span>.<span style="color:#836c28">compareTo</span>(<span style="color:#000">other</span>.<span style="color:#836c28">name</span>) : <span style="color:#000">byYear</span>;
@@ -529,12 +535,30 @@ allora sfrutterà l’ordinamento naturale del tipo degli elementi
 <h3 id="è-corretto">È corretto</h3>
 <ul>
 <li><code>Comparator</code> ha metodi che hanno <code>E</code> solo come argomento</li>
-<li>quindi l’uso di <code>Comparator&lt;? super E&gt;</code> è una generalizzazione di <code>Comparator&lt;E&gt;</code></li>
+<li>quindi l’uso di <code>Comparator&lt;? super E&gt;</code> è una generalizzazione <em>contravariante</em> di <code>Comparator&lt;E&gt;</code>
+<ul>
+<li>Provate a leggerla alla Kotlin/C#: <code>Comparator&lt;in E&gt;</code>:
+<ul>
+<li>$\Rightarrow$ <code>Comparator</code> che accetta oggetti di tipo <code>E</code> in input</li>
+<li>$\Rightarrow$ <code>Comparator</code> che non restituisce mai oggetti di tipo <code>E</code></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 <h3 id="è-utile">È utile</h3>
 <ul>
-<li>Supponiamo di aver costruito un comparatore per <code>SimpleLamp</code>, e che questo sia usabile anche per tutte le specializzazioni successivamente costruite (è la situazione tipica)</li>
-<li>Anche un <code>SortedSet&lt;UnlimitedLamp&gt;</code> deve poter usare il <code>Comparator&lt;SimpleLamp&gt;</code>, ma questo è possibile solo grazie al suo tipo atteso <code>Comparator&lt;? super E&gt;</code></li>
+<li>Supponiamo di aver costruito un comparatore per <code>Person</code>, e che questo sia usabile anche per tutte le specializzazioni successivamente costruite (è la situazione tipica)</li>
+<li>Anche un <code>SortedSet&lt;Student&gt;</code> deve poter usare il <code>Comparator&lt;Person&gt;</code>!
+<ul>
+<li>Se so confrontare due persone, so confrontare anche due studenti</li>
+</ul>
+</li>
+<li>Questo è possibile solo grazie al suo tipo atteso <code>Comparator&lt;? super E&gt;</code>
+<ul>
+<li>altrimenti, sarebbe <em>invariante</em> e non potrei passare un <code>Comparator&lt;Person&gt;</code> a un <code>SortedSet&lt;Student&gt;</code></li>
+</ul>
+</li>
 </ul>
 </section><section>
 <h1 id="implementazioni-di-list">Implementazioni di <code>List</code></h1>
@@ -543,16 +567,18 @@ allora sfrutterà l’ordinamento naturale del tipo degli elementi
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">interface</span> <span style="color:#3f6e75">List</span><span style="color:#000">&lt;</span><span style="color:#000">E</span><span style="color:#000">&gt;</span> <span style="color:#a90d91">extends</span> <span style="color:#000">Collection</span><span style="color:#000">&lt;</span><span style="color:#000">E</span><span style="color:#000">&gt;</span> {
 </span></span><span style="display:flex;"><span>    <span style="color:#177500">// Additional Bulk Operations </span>
 </span></span><span style="display:flex;"><span>    <span style="color:#177500">// aggiunge gli elementi in pos. index</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">boolean</span> <span style="color:#000">addAll</span>(<span style="color:#a90d91">int</span> <span style="color:#000">index</span>, <span style="color:#000">Collection</span><span style="color:#000">&lt;?</span> <span style="color:#a90d91">extends</span> <span style="color:#000">E</span><span style="color:#000">&gt;</span> <span style="color:#000">c</span>); 
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">boolean</span> <span style="color:#000">addAll</span>(<span style="color:#a90d91">int</span> <span style="color:#000">index</span>, <span style="color:#000">Collection</span><span style="color:#000">&lt;?</span> <span style="color:#a90d91">extends</span> <span style="color:#000">E</span><span style="color:#000">&gt;</span> <span style="color:#000">c</span>);
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#177500">// Positional Access Operations</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#000">E</span> <span style="color:#000">get</span>(<span style="color:#a90d91">int</span> <span style="color:#000">index</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#000">E</span> <span style="color:#000">getFirst</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#000">E</span> <span style="color:#000">getLast</span>();
 </span></span><span style="display:flex;"><span>    <span style="color:#000">E</span> <span style="color:#000">set</span>(<span style="color:#a90d91">int</span> <span style="color:#000">index</span>, <span style="color:#000">E</span> <span style="color:#000">element</span>);
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">void</span> <span style="color:#000">add</span>(<span style="color:#a90d91">int</span> <span style="color:#000">index</span>, <span style="color:#000">E</span> <span style="color:#000">element</span>);
 </span></span><span style="display:flex;"><span>    <span style="color:#000">E</span> <span style="color:#000">remove</span>(<span style="color:#a90d91">int</span> <span style="color:#000">index</span>);
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#177500">// Search Operations</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">int</span> <span style="color:#000">indexOf</span>(<span style="color:#000">Object</span> <span style="color:#000">o</span>);	<span style="color:#177500">// basato su Object.equals</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">int</span> <span style="color:#000">indexOf</span>(<span style="color:#000">Object</span> <span style="color:#000">o</span>);  <span style="color:#177500">// basato su Object.equals</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">int</span> <span style="color:#000">lastIndexOf</span>(<span style="color:#000">Object</span> <span style="color:#000">o</span>);  <span style="color:#177500">// basato su Object.equals</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#177500">// List Iterators</span>
@@ -616,69 +642,6 @@ usata per rappresentare una coda bidirezionale
 (<em>double-ended queue</em>), potenzialmente con dimensione limitata</li>
 </ul>
 </section><section>
-<h2 id="linkedlist-funzioni-aggiuntive-relative-a-code-e-stack"><code>LinkedList</code>: funzioni aggiuntive relative a code (e stack)</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">interface</span> <span style="color:#3f6e75">Queue</span><span style="color:#000">&lt;</span><span style="color:#000">E</span><span style="color:#000">&gt;</span> <span style="color:#a90d91">extends</span> <span style="color:#000">Collection</span><span style="color:#000">&lt;</span><span style="color:#000">E</span><span style="color:#000">&gt;</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">boolean</span> <span style="color:#000">offer</span>(<span style="color:#000">E</span> <span style="color:#000">e</span>); <span style="color:#177500">// inserisce se c'è spazio</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#000">E</span> <span style="color:#000">poll</span>();		<span style="color:#177500">// preleva se c'è il primo</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#000">E</span> <span style="color:#000">element</span>();        <span style="color:#177500">// legge se c'è il primo, altrimenti eccezione</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#000">E</span> <span style="color:#000">peek</span>();		<span style="color:#177500">// legge se c'è il primo, altrimenti null</span>
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#177500">// a "deque" (pronounced "deck") is a "double-ended queue"</span>
-</span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">interface</span> <span style="color:#3f6e75">Deque</span><span style="color:#000">&lt;</span><span style="color:#000">E</span><span style="color:#000">&gt;</span> <span style="color:#a90d91">extends</span> <span style="color:#000">Queue</span><span style="color:#000">&lt;</span><span style="color:#000">E</span><span style="color:#000">&gt;</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">void</span> <span style="color:#000">addFirst</span>(<span style="color:#000">E</span> <span style="color:#000">e</span>);
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">void</span> <span style="color:#000">addLast</span>(<span style="color:#000">E</span> <span style="color:#000">e</span>);
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">boolean</span> <span style="color:#000">offerFirst</span>(<span style="color:#000">E</span> <span style="color:#000">e</span>);
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">boolean</span> <span style="color:#000">offerLast</span>(<span style="color:#000">E</span> <span style="color:#000">e</span>);
-</span></span><span style="display:flex;"><span>    <span style="color:#000">E</span> <span style="color:#000">removeFirst</span>();
-</span></span><span style="display:flex;"><span>    <span style="color:#000">E</span> <span style="color:#000">removeLast</span>();
-</span></span><span style="display:flex;"><span>    <span style="color:#000">E</span> <span style="color:#000">pollFirst</span>();
-</span></span><span style="display:flex;"><span>    <span style="color:#000">E</span> <span style="color:#000">pollLast</span>();
-</span></span><span style="display:flex;"><span>    <span style="color:#000">E</span> <span style="color:#000">getFirst</span>();
-</span></span><span style="display:flex;"><span>    <span style="color:#000">E</span> <span style="color:#000">getLast</span>();
-</span></span><span style="display:flex;"><span>    <span style="color:#000">E</span> <span style="color:#000">peekFirst</span>();
-</span></span><span style="display:flex;"><span>    <span style="color:#000">E</span> <span style="color:#000">peekLast</span>();
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">boolean</span> <span style="color:#000">removeFirstOccurrence</span>(<span style="color:#000">Object</span> <span style="color:#000">o</span>);
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">boolean</span> <span style="color:#000">removeLastOccurrence</span>(<span style="color:#000">Object</span> <span style="color:#000">o</span>);
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">void</span> <span style="color:#000">push</span>(<span style="color:#000">E</span> <span style="color:#000">e</span>); <span style="color:#177500">// identical to addFirst()</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#000">E</span> <span style="color:#000">pop</span>();        <span style="color:#177500">// identical to removeFirst()</span>
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div></section><section>
-<h2 id="linkedlist-costruzione"><code>LinkedList</code>: costruzione</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">LinkedList</span><span style="color:#000">&lt;</span><span style="color:#000">E</span><span style="color:#000">&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">extends</span> <span style="color:#000">AbstractSequentialList</span><span style="color:#000">&lt;</span><span style="color:#000">E</span><span style="color:#000">&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">implements</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">E</span><span style="color:#000">&gt;</span>, <span style="color:#000">Deque</span><span style="color:#000">&lt;</span><span style="color:#000">E</span><span style="color:#000">&gt;</span>, <span style="color:#000">Cloneable</span>, <span style="color:#000">java</span>.<span style="color:#836c28">io</span>.<span style="color:#836c28">Serializable</span> {
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">LinkedList</span>() {...}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">LinkedList</span>(<span style="color:#000">Collection</span><span style="color:#000">&lt;?</span> <span style="color:#a90d91">extends</span> <span style="color:#000">E</span><span style="color:#000">&gt;</span> <span style="color:#000">c</span>) {...}
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div></section><section>
-<h2 id="uselinkedlist"><code>UseLinkedList</code></h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseLinkedList</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">private</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">final</span> <span style="color:#000">String</span> <span style="color:#000">ELEMS</span> <span style="color:#000">=</span> <span style="color:#c41a16">"A B C D E F G H I L M"</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">s</span>) {
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">LinkedList</span><span style="color:#000">&lt;</span><span style="color:#000">String</span><span style="color:#000">&gt;</span> <span style="color:#000">llist</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">LinkedList</span><span style="color:#000">&lt;&gt;</span>(<span style="color:#000">Arrays</span>.<span style="color:#836c28">asList</span>(<span style="color:#000">ELEMS</span>.<span style="color:#836c28">split</span>(<span style="color:#c41a16">" "</span>)));
-</span></span><span style="display:flex;"><span>		<span style="color:#000">llist</span>.<span style="color:#836c28">addFirst</span>(<span style="color:#c41a16">"*"</span>);
-</span></span><span style="display:flex;"><span>		<span style="color:#000">llist</span>.<span style="color:#836c28">addLast</span>(<span style="color:#c41a16">"*"</span>);
-</span></span><span style="display:flex;"><span>		<span style="color:#000">llist</span>.<span style="color:#836c28">removeFirstOccurrence</span>(<span style="color:#c41a16">"*"</span>);
-</span></span><span style="display:flex;"><span>		<span style="color:#000">llist</span>.<span style="color:#836c28">removeLastOccurrence</span>(<span style="color:#c41a16">"*"</span>);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>		<span style="color:#177500">// bad performance</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#000">llist</span>.<span style="color:#836c28">add</span>(<span style="color:#000">llist</span>.<span style="color:#836c28">indexOf</span>(<span style="color:#c41a16">"L"</span>), <span style="color:#c41a16">"K"</span>);
-</span></span><span style="display:flex;"><span>		<span style="color:#177500">// better performance</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">ListIterator</span><span style="color:#000">&lt;</span><span style="color:#000">String</span><span style="color:#000">&gt;</span> <span style="color:#000">it</span> <span style="color:#000">=</span> <span style="color:#000">llist</span>.<span style="color:#836c28">listIterator</span>();
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">while</span> (<span style="color:#000">it</span>.<span style="color:#836c28">hasNext</span>()) {
-</span></span><span style="display:flex;"><span>			<span style="color:#a90d91">if</span> (<span style="color:#000">it</span>.<span style="color:#836c28">next</span>().<span style="color:#836c28">equals</span>(<span style="color:#c41a16">"I"</span>)) {
-</span></span><span style="display:flex;"><span>				<span style="color:#000">it</span>.<span style="color:#836c28">add</span>(<span style="color:#c41a16">"J"</span>);
-</span></span><span style="display:flex;"><span>				<span style="color:#a90d91">break</span>;
-</span></span><span style="display:flex;"><span>			}
-</span></span><span style="display:flex;"><span>		}
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">str</span> <span style="color:#000">=</span> <span style="color:#000">llist</span>.<span style="color:#836c28">toArray</span>(<span style="color:#a90d91">new</span> <span style="color:#000">String</span><span style="color:#000">[</span><span style="color:#000">0</span><span style="color:#000">]</span>);
-</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">Arrays</span>.<span style="color:#836c28">toString</span>(<span style="color:#000">str</span>));
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div></section><section>
 <h1 id="altre-classi-di-utilità-arrays-e-collections">Altre classi di utilità: <code>Arrays</code> e <code>Collections</code></h1>
 </section><section>
 <h2 id="classi-di-utilità-moduli-arrays-e-collections">Classi di utilità (moduli): <code>Arrays</code> e <code>Collections</code></h2>
@@ -720,34 +683,6 @@ usata per rappresentare una coda bidirezionale
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></section><section>
-<h2 id="usearrays-qualche-esempio-di-applicazione"><code>UseArrays</code>: qualche esempio di applicazione</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseArrays</span> <span style="color:#a90d91">implements</span> <span style="color:#000">Comparator</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">int</span> <span style="color:#000">compare</span>(<span style="color:#000">Integer</span> <span style="color:#000">a</span>, <span style="color:#000">Integer</span> <span style="color:#000">b</span>) {
-</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">return</span> <span style="color:#000">b</span>.<span style="color:#836c28">compareTo</span>(<span style="color:#000">a</span>); <span style="color:#177500">// ordine inverso</span>
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">s</span>) {
-</span></span><span style="display:flex;"><span>        <span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">array</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">String</span><span style="color:#000">[]</span> { <span style="color:#c41a16">"a"</span>, <span style="color:#c41a16">"b"</span>, <span style="color:#c41a16">"c"</span>, <span style="color:#c41a16">"d"</span>, <span style="color:#c41a16">"e"</span>, <span style="color:#c41a16">"f"</span> };
-</span></span><span style="display:flex;"><span>        <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">String</span><span style="color:#000">&gt;</span> <span style="color:#000">list</span> <span style="color:#000">=</span> <span style="color:#000">Arrays</span>.<span style="color:#836c28">asList</span>(<span style="color:#c41a16">"a"</span>, <span style="color:#c41a16">"b"</span>, <span style="color:#c41a16">"c"</span>, <span style="color:#c41a16">"d"</span>, <span style="color:#c41a16">"e"</span>, <span style="color:#c41a16">"f"</span>);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">final</span> <span style="color:#000">Integer</span><span style="color:#000">[]</span> <span style="color:#000">a</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Integer</span><span style="color:#000">[</span><span style="color:#000">20</span><span style="color:#000">]</span>;
-</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">for</span> (<span style="color:#a90d91">int</span> <span style="color:#000">i</span> <span style="color:#000">=</span> <span style="color:#000">0</span>; <span style="color:#000">i</span> <span style="color:#000">&lt;</span> <span style="color:#000">20</span>; <span style="color:#000">i</span><span style="color:#000">++</span>) {
-</span></span><span style="display:flex;"><span>            <span style="color:#000">a</span><span style="color:#000">[</span><span style="color:#000">i</span><span style="color:#000">]</span> <span style="color:#000">=</span> (<span style="color:#a90d91">int</span>) (<span style="color:#000">Math</span>.<span style="color:#836c28">random</span>() <span style="color:#000">*</span> <span style="color:#000">100</span>);
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"rand: "</span> <span style="color:#000">+</span> <span style="color:#000">Arrays</span>.<span style="color:#836c28">toString</span>(<span style="color:#000">a</span>));
-</span></span><span style="display:flex;"><span>        <span style="color:#000">Arrays</span>.<span style="color:#836c28">sort</span>(<span style="color:#000">a</span>); <span style="color:#177500">// sort in ordine naturale</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"sort1: "</span> <span style="color:#000">+</span> <span style="color:#000">Arrays</span>.<span style="color:#836c28">toString</span>(<span style="color:#000">a</span>));
-</span></span><span style="display:flex;"><span>        <span style="color:#000">Arrays</span>.<span style="color:#836c28">sort</span>(<span style="color:#000">a</span>, <span style="color:#a90d91">new</span> <span style="color:#000">UseArrays</span>()); <span style="color:#177500">// sort col comparator</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"sort2: "</span> <span style="color:#000">+</span> <span style="color:#000">Arrays</span>.<span style="color:#836c28">toString</span>(<span style="color:#000">a</span>));
-</span></span><span style="display:flex;"><span>        <span style="color:#000">Arrays</span>.<span style="color:#836c28">fill</span>(<span style="color:#000">a</span>, <span style="color:#000">10</span>, <span style="color:#000">15</span>, <span style="color:#000">0</span>); <span style="color:#177500">// fill nel range</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"fill: "</span> <span style="color:#000">+</span> <span style="color:#000">Arrays</span>.<span style="color:#836c28">toString</span>(<span style="color:#000">a</span>));
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">final</span> <span style="color:#000">Integer</span><span style="color:#000">[][]</span> <span style="color:#000">b</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Integer</span><span style="color:#000">[</span><span style="color:#000">10</span><span style="color:#000">][]</span>;
-</span></span><span style="display:flex;"><span>        <span style="color:#000">Arrays</span>.<span style="color:#836c28">fill</span>(<span style="color:#000">b</span>, <span style="color:#000">a</span>); <span style="color:#177500">// fill di un array di array</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"recu: "</span> <span style="color:#000">+</span> <span style="color:#000">Arrays</span>.<span style="color:#836c28">deepToString</span>(<span style="color:#000">b</span>));
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div></section><section>
 <h2 id="collections-qualche-esempio-di-metodi"><code>Collections</code>: qualche esempio di metodi</h2>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#177500">// nota: tutti metodi public static!!</span>
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Collections</span> { 
@@ -776,79 +711,47 @@ usata per rappresentare una coda bidirezionale
 </span></span><span style="display:flex;"><span>    <span style="color:#000">&lt;</span><span style="color:#000">T</span><span style="color:#000">&gt;</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">T</span><span style="color:#000">&gt;</span> <span style="color:#000">singletonList</span>(<span style="color:#000">T</span> <span style="color:#000">o</span>) {...}
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></section><section>
-<h2 id="usecollections-qualche-esempio-di-applicazione"><code>UseCollections</code>: qualche esempio di applicazione</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseCollections</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">s</span>) {
-</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">final</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> <span style="color:#000">list</span> <span style="color:#000">=</span> <span style="color:#000">Arrays</span>.<span style="color:#836c28">asList</span>(<span style="color:#a90d91">new</span> <span style="color:#000">Integer</span><span style="color:#000">[]</span> { <span style="color:#000">0</span>, <span style="color:#000">1</span>, <span style="color:#000">2</span>, <span style="color:#000">3</span>, <span style="color:#000">4</span> });
-</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">final</span> <span style="color:#000">Set</span><span style="color:#000">&lt;</span><span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;&gt;</span> <span style="color:#000">set</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">HashSet</span><span style="color:#000">&lt;&gt;</span>();
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">for</span> (<span style="color:#a90d91">int</span> <span style="color:#000">i</span> <span style="color:#000">=</span> <span style="color:#000">0</span>; <span style="color:#000">i</span> <span style="color:#000">&lt;</span> <span style="color:#000">5</span>; <span style="color:#000">i</span><span style="color:#000">++</span>) {
-</span></span><span style="display:flex;"><span>            <span style="color:#a90d91">final</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> <span style="color:#000">l2</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">ArrayList</span><span style="color:#000">&lt;&gt;</span>(<span style="color:#000">list</span>);
-</span></span><span style="display:flex;"><span>            <span style="color:#000">Collections</span>.<span style="color:#836c28">shuffle</span>(<span style="color:#000">l2</span>);<span style="color:#177500">// permuto</span>
-</span></span><span style="display:flex;"><span>            <span style="color:#a90d91">if</span> (<span style="color:#000">!</span><span style="color:#000">set</span>.<span style="color:#836c28">contains</span>(<span style="color:#000">l2</span>)) { <span style="color:#177500">// no duplicazione!</span>
-</span></span><span style="display:flex;"><span>                <span style="color:#000">set</span>.<span style="color:#836c28">add</span>(<span style="color:#000">l2</span>); <span style="color:#177500">// aggiungo</span>
-</span></span><span style="display:flex;"><span>            }
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"shuf: "</span> <span style="color:#000">+</span> <span style="color:#000">set</span>); <span style="color:#177500">// [[4,1,2,3,0],[3,1,4,0,2],..</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">int</span> <span style="color:#000">ct</span> <span style="color:#000">=</span> <span style="color:#000">0</span>;
-</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">for</span> (<span style="color:#a90d91">final</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> <span style="color:#000">l</span> : <span style="color:#000">set</span>) {
-</span></span><span style="display:flex;"><span>            <span style="color:#000">Collections</span>.<span style="color:#836c28">fill</span>(<span style="color:#000">l</span>, <span style="color:#000">ct</span><span style="color:#000">++</span>);
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"inc: "</span> <span style="color:#000">+</span> <span style="color:#000">set</span>); <span style="color:#177500">// [[0,0,0,0,0],[1,1,1,1,1],..</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"cop: "</span> <span style="color:#000">+</span> <span style="color:#000">Collections</span>.<span style="color:#836c28">nCopies</span>(<span style="color:#000">5</span>, <span style="color:#000">list</span>));
-</span></span><span style="display:flex;"><span>        <span style="color:#177500">// [[0,1,2,3,4],[0,1,2,3,4],..</span>
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div></section><section>
 <h1 id="javautilmap"><code>java.util.Map</code></h1>
 <h1 id="mappe-associative-o-dizionari">mappe associative (o dizionari)</h1>
 </section><section>
-<h2 id="map"><code>Map</code></h2>
+<h2 id="mapkv"><code>Map&lt;K,V&gt;</code></h2>
 <ul>
 <li>Una <strong>mappa</strong> (anche detta <strong>mappa associativa</strong> o <strong>dizionario</strong>) è una corrispondenza tra <strong>chiavi</strong> e <strong>valori</strong>, dove le chiavi (e quindi le coppie) formano un set (non ci sono chiavi duplicate)</li>
 </ul>
+<ul>
+<li>Rappresenta una funzione dal dominio <code>K</code> in <code>V</code></li>
+<li>La mappa tiene tutte le associazioni (o “entry”)</li>
+<li>Non posso esistere due entry con stessa chiave (<code>Object.equals</code>)</li>
+</ul>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">interface</span> <span style="color:#3f6e75">Map</span><span style="color:#000">&lt;</span><span style="color:#000">K</span>,<span style="color:#000">V</span><span style="color:#000">&gt;</span> {
-</span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#177500">// Query Operations</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">int</span> <span style="color:#000">size</span>();
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">boolean</span> <span style="color:#000">isEmpty</span>();
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">boolean</span> <span style="color:#000">containsKey</span>(<span style="color:#000">Object</span> <span style="color:#000">key</span>);        <span style="color:#177500">// usa Object.equals</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">boolean</span> <span style="color:#000">containsValue</span>(<span style="color:#000">Object</span> <span style="color:#000">value</span>);    <span style="color:#177500">// usa Object.equals</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#000">V</span> <span style="color:#000">get</span>(<span style="color:#000">Object</span> <span style="color:#000">key</span>);                      <span style="color:#177500">// accesso a valore</span>
-</span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#177500">// Modification Operations</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#000">V</span> <span style="color:#000">put</span>(<span style="color:#000">K</span> <span style="color:#000">key</span>, <span style="color:#000">V</span> <span style="color:#000">value</span>);          <span style="color:#177500">// inserimento chiave-valore</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#000">V</span> <span style="color:#000">remove</span>(<span style="color:#000">Object</span> <span style="color:#000">key</span>);           <span style="color:#177500">// rimozione chiave(-valore)</span>
-</span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#177500">// Bulk Operations</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">void</span> <span style="color:#000">putAll</span>(<span style="color:#000">Map</span><span style="color:#000">&lt;?</span> <span style="color:#a90d91">extends</span> <span style="color:#000">K</span>, <span style="color:#000">?</span> <span style="color:#a90d91">extends</span> <span style="color:#000">V</span><span style="color:#000">&gt;</span> <span style="color:#000">m</span>);
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">void</span> <span style="color:#000">clear</span>();                   <span style="color:#177500">// cancella tutti</span>
-</span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#177500">// Views</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#000">Set</span><span style="color:#000">&lt;</span><span style="color:#000">K</span><span style="color:#000">&gt;</span> <span style="color:#000">keySet</span>();                    <span style="color:#177500">// set di valori</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#000">Collection</span><span style="color:#000">&lt;</span><span style="color:#000">V</span><span style="color:#000">&gt;</span> <span style="color:#000">values</span>();             <span style="color:#177500">// collezione di chiavi</span>
-</span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    ... <span style="color:#177500">// qualche altro</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">Set</span><span style="color:#000">&lt;</span><span style="color:#000">K</span><span style="color:#000">&gt;</span> <span style="color:#000">keySet</span>();         <span style="color:#177500">// vista sul set dei valori</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">Collection</span><span style="color:#000">&lt;</span><span style="color:#000">V</span><span style="color:#000">&gt;</span> <span style="color:#000">values</span>();  <span style="color:#177500">// vista sulla collezione di chiavi</span>
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></section><section>
 <h2 id="implementazioni-notevoli-di-map">Implementazioni notevoli di <code>Map</code></h2>
-<h3 id="mapkv"><code>Map&lt;K,V&gt;</code></h3>
-<ul>
-<li>Rappresenta una funzione dal dominio <code>K</code> in <code>V</code></li>
-<li>La mappa tiene tutte le associazioni (o “entry”)</li>
-<li>Non posso esistere due entry con stessa chiave (<code>Object.equals</code>)</li>
-</ul>
 <h3 id="hashmap"><code>HashMap</code></h3>
 <ul>
 <li>Sostanzialmente un <code>HashSet</code> di coppie <code>Key</code>, <code>Value</code></li>
 <li>L’accesso ad un valore tramite la chiave è fatto con hashing</li>
 <li>Accesso a tempo costante, a discapito di overhead in memoria</li>
 </ul>
-<h3 id="linkedhashmap"><code>LinkedHashMap</code></h3>
+<h3 id="-linkedhashmap">⭐ <code>LinkedHashMap</code></h3>
 <ul>
 <li>Come sopra, ma l’ordine di iterazione è <em>predicibile</em> (è l’ordine di inserimento)</li>
+<li>Usata <em>preferibilmente</em></li>
 </ul>
 <h3 id="treemap"><code>TreeMap</code></h3>
 <ul>
@@ -859,31 +762,32 @@ usata per rappresentare una coda bidirezionale
 </ul>
 </section><section>
 <h2 id="usare-le-mappe">Usare le mappe</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseMap</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span>) {
-</span></span><span style="display:flex;"><span>		<span style="color:#177500">// Uso una incarnazione, ma poi lavoro sull'interfaccia</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">Map</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span>, <span style="color:#000">String</span><span style="color:#000">&gt;</span> <span style="color:#000">map</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">HashMap</span><span style="color:#000">&lt;&gt;</span>();
-</span></span><span style="display:flex;"><span>		<span style="color:#177500">// Una mappa è una funzione discreta</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#000">map</span>.<span style="color:#836c28">put</span>(<span style="color:#000">345211</span>, <span style="color:#c41a16">"Bianchi"</span>);
-</span></span><span style="display:flex;"><span>		<span style="color:#000">map</span>.<span style="color:#836c28">put</span>(<span style="color:#000">345122</span>, <span style="color:#c41a16">"Rossi"</span>);
-</span></span><span style="display:flex;"><span>		<span style="color:#000">map</span>.<span style="color:#836c28">put</span>(<span style="color:#000">243001</span>, <span style="color:#c41a16">"Verdi"</span>);
-</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">map</span>); <span style="color:#177500">// {345211=Bianchi, 243001=Verdi, 345122=Rossi}</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#000">map</span>.<span style="color:#836c28">put</span>(<span style="color:#000">243001</span>, <span style="color:#c41a16">"Neri"</span>); <span style="color:#177500">// Rimpiazza Verdi</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">Map</span><span style="color:#000">&lt;</span><span style="color:#000">String</span>,<span style="color:#000">Integer</span><span style="color:#000">&gt;</span> <span style="color:#000">map2</span> <span style="color:#000">=</span> <span style="color:#000">Map</span>.<span style="color:#836c28">of</span>(<span style="color:#c41a16">"foo"</span>, <span style="color:#000">5</span>, <span style="color:#c41a16">"bar"</span>, <span style="color:#000">7</span>);
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">package</span> <span style="color:#000">it.unibo.collections.generic.map</span>;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>		<span style="color:#177500">// modo prestante per accedere alle coppie</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">for</span>(<span style="color:#a90d91">final</span> <span style="color:#000">Map</span>.<span style="color:#836c28">Entry</span><span style="color:#000">&lt;</span><span style="color:#000">String</span>,<span style="color:#000">Integer</span><span style="color:#000">&gt;</span> <span style="color:#000">kv</span> : <span style="color:#000">map2</span>.<span style="color:#836c28">entrySet</span>()) {
-</span></span><span style="display:flex;"><span>			<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Chiave: "</span> <span style="color:#000">+</span> <span style="color:#000">kv</span>.<span style="color:#836c28">getKey</span>() <span style="color:#000">+</span> <span style="color:#c41a16">" Valore: "</span> <span style="color:#000">+</span> <span style="color:#000">kv</span>.<span style="color:#836c28">getValue</span>());
-</span></span><span style="display:flex;"><span>		}
-</span></span><span style="display:flex;"><span>		<span style="color:#177500">// modo poco prestante per accedere alle coppie chiave-valore</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">for</span> (<span style="color:#a90d91">final</span> <span style="color:#000">Integer</span> <span style="color:#000">i</span> : <span style="color:#000">map</span>.<span style="color:#836c28">keySet</span>()) {
-</span></span><span style="display:flex;"><span>			<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Chiave: "</span> <span style="color:#000">+</span> <span style="color:#000">i</span> <span style="color:#000">+</span> <span style="color:#c41a16">" Valore: "</span> <span style="color:#000">+</span> <span style="color:#000">map</span>.<span style="color:#836c28">get</span>(<span style="color:#000">i</span>));
-</span></span><span style="display:flex;"><span>		}
-</span></span><span style="display:flex;"><span>		<span style="color:#177500">// modo prestante per accedere ai soli valori</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">for</span> (<span style="color:#a90d91">final</span> <span style="color:#000">String</span> <span style="color:#000">s</span> : <span style="color:#000">map</span>.<span style="color:#836c28">values</span>()) {
-</span></span><span style="display:flex;"><span>			<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Valore: "</span> <span style="color:#000">+</span> <span style="color:#000">s</span>);
-</span></span><span style="display:flex;"><span>		}
-</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.LinkedHashMap</span>;
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.Map</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseMap</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#177500">// Dichiaro l'interfaccia, istanzio un'implementazione concreta</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">final</span> <span style="color:#000">Map</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span>, <span style="color:#000">String</span><span style="color:#000">&gt;</span> <span style="color:#000">map</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">LinkedHashMap</span><span style="color:#000">&lt;&gt;</span>();
+</span></span><span style="display:flex;"><span>        <span style="color:#000">map</span>.<span style="color:#836c28">put</span>(<span style="color:#000">345211</span>, <span style="color:#c41a16">"Bianchi"</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#000">map</span>.<span style="color:#836c28">put</span>(<span style="color:#000">345122</span>, <span style="color:#c41a16">"Rossi"</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#000">map</span>.<span style="color:#836c28">put</span>(<span style="color:#000">243001</span>, <span style="color:#c41a16">"Verdi"</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">map</span>); <span style="color:#177500">// {345211=Bianchi, 243001=Verdi, 345122=Rossi}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">map</span>.<span style="color:#836c28">put</span>(<span style="color:#000">243001</span>, <span style="color:#c41a16">"Neri"</span>); <span style="color:#177500">// Rimpiazza Verdi</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">final</span> <span style="color:#000">Map</span><span style="color:#000">&lt;</span><span style="color:#000">String</span>,<span style="color:#000">Integer</span><span style="color:#000">&gt;</span> <span style="color:#000">map2</span> <span style="color:#000">=</span> <span style="color:#000">Map</span>.<span style="color:#836c28">of</span>(<span style="color:#c41a16">"foo"</span>, <span style="color:#000">5</span>, <span style="color:#c41a16">"bar"</span>, <span style="color:#000">7</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">for</span>(<span style="color:#a90d91">final</span> <span style="color:#000">Map</span>.<span style="color:#836c28">Entry</span><span style="color:#000">&lt;</span><span style="color:#000">String</span>,<span style="color:#000">Integer</span><span style="color:#000">&gt;</span> <span style="color:#000">entry</span>: <span style="color:#000">map2</span>.<span style="color:#836c28">entrySet</span>()) { <span style="color:#177500">// modo prestante per accedere alle coppie</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Chiave: "</span> <span style="color:#000">+</span> <span style="color:#000">entry</span>.<span style="color:#836c28">getKey</span>() <span style="color:#000">+</span> <span style="color:#c41a16">", Valore: "</span> <span style="color:#000">+</span> <span style="color:#000">entry</span>.<span style="color:#836c28">getValue</span>());
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">for</span> (<span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">i</span>: <span style="color:#000">map</span>.<span style="color:#836c28">keySet</span>()) { <span style="color:#177500">// modo per accedere alle sole chiavi</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Chiave: "</span> <span style="color:#000">+</span> <span style="color:#000">i</span>);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">for</span> (<span style="color:#a90d91">final</span> <span style="color:#000">String</span> <span style="color:#000">s</span>: <span style="color:#000">map</span>.<span style="color:#836c28">values</span>()) { <span style="color:#177500">// modo per accedere ai soli valori</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Valore: "</span> <span style="color:#000">+</span> <span style="color:#000">s</span>);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></section><section>
 <h1 id="collezioni-1">Collezioni</h1>
