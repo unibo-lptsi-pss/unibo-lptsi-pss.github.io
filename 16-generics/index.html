@@ -445,16 +445,15 @@
 <div class="smaller">
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UsePair2</span> {
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">s</span>) {
-</span></span><span style="display:flex;"><span>    	<span style="color:#177500">// Parametri in new Vector() inferiti dal tipo della variabile  	</span>
-</span></span><span style="display:flex;"><span>    	<span style="color:#a90d91">final</span> <span style="color:#000">Vector</span><span style="color:#000">&lt;</span><span style="color:#000">Pair</span><span style="color:#000">&lt;</span><span style="color:#000">String</span>,<span style="color:#000">Integer</span><span style="color:#000">&gt;&gt;</span> <span style="color:#000">v</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Vector</span><span style="color:#000">&lt;&gt;</span>(); 
-</span></span><span style="display:flex;"><span>    	<span style="color:#177500">// Parametri in new Pair(..) inferiti dal tipo degli argomenti</span>
-</span></span><span style="display:flex;"><span>    	<span style="color:#000">v</span>.<span style="color:#836c28">addElement</span>(<span style="color:#a90d91">new</span> <span style="color:#000">Pair</span><span style="color:#000">&lt;&gt;</span>(<span style="color:#c41a16">"Prova"</span>,<span style="color:#000">1</span>));		
-</span></span><span style="display:flex;"><span>    	<span style="color:#000">v</span>.<span style="color:#836c28">addElement</span>(<span style="color:#a90d91">new</span> <span style="color:#000">Pair</span><span style="color:#000">&lt;&gt;</span>(<span style="color:#c41a16">"Vettore"</span>,<span style="color:#000">2</span>));
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">String</span> <span style="color:#000">str</span> <span style="color:#000">=</span> <span style="color:#000">v</span>.<span style="color:#836c28">getElementAt</span>(<span style="color:#000">0</span>).<span style="color:#836c28">getFirst</span>() <span style="color:#000">+</span> <span style="color:#c41a16">" "</span> <span style="color:#000">+</span>
-</span></span><span style="display:flex;"><span>			<span style="color:#000">v</span>.<span style="color:#836c28">getElementAt</span>(<span style="color:#000">1</span>).<span style="color:#836c28">getFirst</span>(); <span style="color:#177500">// Nota, nessun cast!</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">str</span>);
-</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">v</span>);
-</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>        <span style="color:#177500">// Parametri in new Vector() inferiti dal tipo della variabile</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">final</span> <span style="color:#000">Vector</span><span style="color:#000">&lt;</span><span style="color:#000">Pair</span><span style="color:#000">&lt;</span><span style="color:#000">String</span>, <span style="color:#000">Integer</span><span style="color:#000">&gt;&gt;</span> <span style="color:#000">v</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Vector</span><span style="color:#000">&lt;&gt;</span>();
+</span></span><span style="display:flex;"><span>        <span style="color:#177500">// Parametri in new Pair(..) inferiti dal tipo degli argomenti</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">v</span>.<span style="color:#836c28">addElement</span>(<span style="color:#a90d91">new</span> <span style="color:#000">Pair</span><span style="color:#000">&lt;&gt;</span>(<span style="color:#c41a16">"Prova"</span>, <span style="color:#000">1</span>));
+</span></span><span style="display:flex;"><span>        <span style="color:#000">v</span>.<span style="color:#836c28">addElement</span>(<span style="color:#a90d91">new</span> <span style="color:#000">Pair</span><span style="color:#000">&lt;&gt;</span>(<span style="color:#c41a16">"Vettore"</span>, <span style="color:#000">2</span>));
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">v1second</span> <span style="color:#000">=</span> <span style="color:#000">v</span>.<span style="color:#836c28">getElementAt</span>(<span style="color:#000">1</span>).<span style="color:#836c28">getSecond</span>(); <span style="color:#177500">// Nota, nessun cast!</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">final</span> <span style="color:#000">String</span> <span style="color:#000">str</span> <span style="color:#000">=</span> <span style="color:#000">v</span>.<span style="color:#836c28">getElementAt</span>(<span style="color:#000">0</span>).<span style="color:#836c28">getFirst</span>() <span style="color:#000">+</span> <span style="color:#c41a16">" "</span> <span style="color:#000">+</span> <span style="color:#000">v1second</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">str</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">v</span>);
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></div>
@@ -957,6 +956,8 @@
   
   
 
+  
+    
   
   
 
