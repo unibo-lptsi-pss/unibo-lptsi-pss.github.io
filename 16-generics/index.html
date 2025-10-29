@@ -52,9 +52,13 @@
 <h3 id="estensione-ereditarietà">Estensione (ereditarietà)</h3>
 <p>Una nuova classe è ottenuta riusando il codice di una classe pre-esistente</p>
 <h3 id="polimorfismo-inclusivo-subtyping">Polimorfismo inclusivo (subtyping)</h3>
-<p>Una funzionalità realizzata per lavorare su valori/oggetti del tipo <code>A</code>, può lavorare con qualunque valore/oggetto del sottotipo <code>B</code> (p.e., se <code>B</code> estende la classe <code>A</code>, o se <code>B</code> implementa l’interfaccia <code>A</code>)</p>
+<p>Una funzionalità realizzata per lavorare su valori/oggetti del tipo <code>A</code>,
+può lavorare con qualunque valore/oggetto del sottotipo <code>B</code>
+(p.e., se <code>B</code> estende la classe <code>A</code>, o se <code>B</code> implementa l’interfaccia <code>A</code>)</p>
 <h3 id="polimorfismo-parametrico-javac-generics-c-templates">Polimorfismo parametrico (Java/C# generics, C++ templates,..)</h3>
-<p>Una funzionalità (classe o metodo) generica è costruita in modo tale da lavorare uniformemente su valori/oggetti indipendentemente dal loro tipo: tale tipo diventa quindi una sorta di parametro addizionale</p>
+<p>Una funzionalità (classe o metodo)
+generica è costruita in modo tale da lavorare uniformemente su valori/oggetti indipendentemente dal loro tipo:
+tale tipo diventa quindi una sorta di parametro addizionale</p>
 </section><section>
 <h2 id="astrazioni-uniformi-con-le-classi">Astrazioni uniformi con le classi</h2>
 <h3 id="astrazioni-uniformi-per-problemi-ricorrenti">Astrazioni uniformi per problemi ricorrenti</h3>
@@ -458,23 +462,14 @@
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></div>
 </section><section>
-<h2 id="i-vantaggi-dei-generici">I vantaggi dei generici</h2>
+<h2 id="conseguenze-delluso-dei-generici">Conseguenze dell’uso dei generici</h2>
 <p>Coi generici, Java diventa un linguaggio molto più espressivo!</p>
-<h3 id="svantaggi">Svantaggi</h3>
 <ul>
-<li>Il linguaggio risulta più sofisticato, e quindi complesso</li>
-<li>Se non ben usati, possono minare la comprensibilità del software
-<ul>
-<li>Non vanno abusati!!</li>
-</ul>
-</li>
-<li>Gli aspetti più avanzati dei generici (covarianza etc.), che NON vedremo, sono considerati troppo complessi</li>
-</ul>
-<h3 id="vantaggi--se-ben-usati">Vantaggi – se ben usati</h3>
-<ul>
-<li>Codice più comprensibile</li>
-<li><em>Maggiore riusabilità</em> (quasi d’obbligo oramai)</li>
+<li>Il linguaggio risulta più sofisticato, e quindi più espressivo, ma anche più complesso</li>
 <li>Codice più sicuro (safe) – il compilatore segnala errori difficili da trovare altrimenti</li>
+<li><em>Maggiore riusabilità</em></li>
+<li>Se ben usati, rendono il codice più comprensibile</li>
+<li>Se non ben usati, possono minare la comprensibilità del software</li>
 </ul>
 </section><section>
 <h1 id="interfacce-generiche">Interfacce generiche</h1>
@@ -498,7 +493,9 @@
 </ul>
 </section><section>
 <h2 id="linterfaccia-iterator">L’interfaccia <code>Iterator</code></h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">interface</span> <span style="color:#3f6e75">Iterator</span><span style="color:#000">&lt;</span><span style="color:#000">E</span><span style="color:#000">&gt;</span> {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">package</span> <span style="color:#000">it.unibo.generics.iterators</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">interface</span> <span style="color:#3f6e75">Iterator</span><span style="color:#000">&lt;</span><span style="color:#000">E</span><span style="color:#000">&gt;</span> {
 </span></span><span style="display:flex;"><span>    <span style="color:#177500">/*
 </span></span></span><span style="display:flex;"><span><span style="color:#177500">     * Restituisce il prossimo elemento dell'iterazione
 </span></span></span><span style="display:flex;"><span><span style="color:#177500">     *
@@ -512,7 +509,9 @@
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></section><section>
 <h2 id="implementazione-1-intrangeiterator">Implementazione 1: <code>IntRangeIterator</code></h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#177500">/* Itera tutti i numeri interi fra 'start' e 'stop' inclusi */</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">package</span> <span style="color:#000">it.unibo.generics.iterators</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#177500">/* Itera tutti i numeri interi fra 'start' e 'stop' inclusi */</span>
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">IntRangeIterator</span> <span style="color:#a90d91">implements</span> <span style="color:#000">Iterator</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> {
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">int</span> <span style="color:#000">current</span>; <span style="color:#177500">// valore corrente</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">stop</span>; <span style="color:#177500">// valore finale</span>
@@ -532,7 +531,9 @@
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></section><section>
 <h2 id="implementazione-2-vectoriterator">Implementazione 2: <code>VectorIterator</code></h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#177500">/* Itera tutti gli elementi di un Vector */</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">package</span> <span style="color:#000">it.unibo.generics.iterators</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#177500">/* Itera tutti gli elementi di un Vector */</span>
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">VectorIterator</span><span style="color:#000">&lt;</span><span style="color:#000">E</span><span style="color:#000">&gt;</span> <span style="color:#a90d91">implements</span> <span style="color:#000">Iterator</span><span style="color:#000">&lt;</span><span style="color:#000">E</span><span style="color:#000">&gt;</span> {
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#000">Vector</span><span style="color:#000">&lt;</span><span style="color:#000">E</span><span style="color:#000">&gt;</span> <span style="color:#000">vector</span>; <span style="color:#177500">// Vettore da iterare</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">int</span> <span style="color:#000">current</span>; <span style="color:#177500">// Posizione nel vettore</span>
@@ -552,7 +553,9 @@
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></section><section>
 <h2 id="useiterators-nota-laccesso-uniforme"><code>UseIterators</code>: nota l’accesso uniforme!</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.Calendar</span>;
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">package</span> <span style="color:#000">it.unibo.generics.iterators</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.Calendar</span>;
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.GregorianCalendar</span>;
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseIterators</span> {
@@ -582,132 +585,146 @@
 <p>Un metodo che lavora su qualche argomento e/o valore di ritorno in modo independente dal suo tipo effettivo. Tale tipo viene quindi astratto in una type-variable del metodo.</p>
 <h3 id="sintassi">Sintassi</h3>
 <ul>
-<li>definizione: <code>&lt;X1,..,Xn&gt; ReturnType nomeMetodo(ArgType1 argName1, ...) { ... }</code></li>
-<li>chiamata: <code>receiver.&lt;X1,..,Xn&gt;nomeMetodo(ArgType1 argName1, ...)</code></li>
-<li>chiamata con inferenza (uso molto frequente): <code>receiver.nomeMetodo(ArgType1 argName1, ...)</code></li>
+<li>definizione: <code>&lt;X1, ..., Xn&gt; ReturnType nomeMetodo(ArgType1 argName1, ...) { ... }</code></li>
+<li>chiamata: <code>receiver.&lt;X1, ..., Xn&gt;nomeMetodo(ArgType1 argName1, ...)</code></li>
+<li>chiamata con inferenza (uso tipico): <code>receiver.nomeMetodo(ArgType1 argName1, ...)</code></li>
 </ul>
-<h3 id="due-casi-principali-con-medesima-gestione">Due casi principali, con medesima gestione</h3>
+<h3 id="generici-a-livello-di-classe-e-metodo">Generici a livello di classe e metodo</h3>
 <ul>
-<li>Metodo generico (statico o non-statico) in una classe non generica</li>
-<li>Metodo generico (non-statico) in una classe generica</li>
-<li>$\Rightarrow$ Il primo dei due molto più comune…</li>
+<li>I <em>metodi istanza</em> possono vedere i parametri di tipo della classe che li ospita</li>
+<li>I <em>metodi <code>static</code></em> <strong>non</strong> possono vedere i parametri di tipo della classe che li ospita
+<ul>
+<li>in quanto non legati ad una istanza, ma alla classe stessa</li>
+</ul>
+</li>
+<li>Entrambi i tipi di metodi possono essere generici, dichiarando le proprie variabili di tipo,
+che avranno visibilità solo all’interno del metodo stesso
+<ul>
+<li>È molto più frequente vedere metodi <code>static</code> generici</li>
+<li>In effetti tipicamente i metodi istanza lavorano tipicamente usando i generici della classe</li>
+</ul>
+</li>
 </ul>
 </section><section>
-<h2 id="definizione-di-un-metodo-generico">Definizione di un metodo generico</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.Date</span>;
+<h2 id="definizione-di-un-metodo-generico-static-e-suo-utilizzo">Definizione di un metodo generico <code>static</code> e suo utilizzo</h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">package</span> <span style="color:#000">it.unibo.generics.iterators</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.Calendar</span>;
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.GregorianCalendar</span>;
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseIterators2</span> {
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#000">&lt;</span><span style="color:#000">E</span><span style="color:#000">&gt;</span> <span style="color:#a90d91">void</span> <span style="color:#000">printAll</span>(<span style="color:#000">Iterator</span><span style="color:#000">&lt;</span><span style="color:#000">E</span><span style="color:#000">&gt;</span> <span style="color:#000">iterator</span>) {
-</span></span><span style="display:flex;"><span>    	<span style="color:#a90d91">while</span> (<span style="color:#000">iterator</span>.<span style="color:#836c28">hasNext</span>()) {
-</span></span><span style="display:flex;"><span>    	    <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Elemento : "</span> <span style="color:#000">+</span> <span style="color:#000">iterator</span>.<span style="color:#836c28">next</span>());
-</span></span><span style="display:flex;"><span>    	}
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#177500">// ...</span>
-</span></span></code></pre></div></section><section>
-<h2 id="chiamata-a-metodo-generico">Chiamata a metodo generico</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.Date</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseIterators2</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#000">&lt;</span><span style="color:#000">E</span><span style="color:#000">&gt;</span> <span style="color:#a90d91">void</span> <span style="color:#000">printAll</span>(<span style="color:#000">Iterator</span><span style="color:#000">&lt;</span><span style="color:#000">E</span><span style="color:#000">&gt;</span> <span style="color:#000">iterator</span>){ <span style="color:#177500">/* ... */</span> }
-</span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">s</span>) {
-</span></span><span style="display:flex;"><span>        <span style="color:#000">Iterator</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> <span style="color:#000">iterator1</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">IntRangeIterator</span>(<span style="color:#000">5</span>, <span style="color:#000">10</span>);
-</span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>        <span style="color:#000">Vector</span><span style="color:#000">&lt;</span><span style="color:#000">Date</span><span style="color:#000">&gt;</span> <span style="color:#000">vector</span><span style="color:#000">=</span> <span style="color:#177500">// ...</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#000">Iterator</span><span style="color:#000">&lt;</span><span style="color:#000">Date</span><span style="color:#000">&gt;</span> <span style="color:#000">iterator2</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">VectorIterator</span>(<span style="color:#000">vector</span>);
-</span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>        <span style="color:#177500">// Attenzione, il nome della classe è obbligatorio</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#000">UseIterators2</span>.<span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span><span style="color:#000">printAll</span>(<span style="color:#000">iterator1</span>);	        
-</span></span><span style="display:flex;"><span>        <span style="color:#000">UseIterators2</span>.<span style="color:#000">&lt;</span><span style="color:#000">Date</span><span style="color:#000">&gt;</span><span style="color:#000">printAll</span>(<span style="color:#000">iterator2</span>);
-</span></span><span style="display:flex;"><span>        
-</span></span><span style="display:flex;"><span>        <span style="color:#177500">// Con inferenza, il nome della classe non è obbligatorio</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#000">printAll</span>(<span style="color:#000">iterator1</span>);
-</span></span><span style="display:flex;"><span>        <span style="color:#000">printAll</span>(<span style="color:#000">iterator2</span>);
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div></section><section>
-<h2 id="esempio-di-metodo-generico-in-classe-generica">Esempio di metodo generico in classe generica</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Vector</span><span style="color:#000">&lt;</span><span style="color:#000">X</span><span style="color:#000">&gt;</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#177500">// ...</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#000">&lt;</span><span style="color:#000">E</span><span style="color:#000">&gt;</span> <span style="color:#000">Vector</span><span style="color:#000">&lt;</span><span style="color:#000">Pair</span><span style="color:#000">&lt;</span><span style="color:#000">X</span>, <span style="color:#000">E</span><span style="color:#000">&gt;&gt;</span> <span style="color:#000">genVectorPair</span>(<span style="color:#000">E</span> <span style="color:#000">e</span>) {
-</span></span><span style="display:flex;"><span>        <span style="color:#000">Vector</span><span style="color:#000">&lt;</span><span style="color:#000">Pair</span><span style="color:#000">&lt;</span><span style="color:#000">X</span>, <span style="color:#000">E</span><span style="color:#000">&gt;&gt;</span> <span style="color:#000">vp</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Vector</span><span style="color:#000">&lt;&gt;</span>(); <span style="color:#177500">// Inferenza</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">for</span> (<span style="color:#a90d91">int</span> <span style="color:#000">i</span> <span style="color:#000">=</span> <span style="color:#000">0</span>; <span style="color:#000">i</span> <span style="color:#000">&lt;</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">size</span>; <span style="color:#000">i</span><span style="color:#000">++</span>) {
-</span></span><span style="display:flex;"><span>            <span style="color:#000">vp</span>.<span style="color:#836c28">addElement</span>(<span style="color:#a90d91">new</span> <span style="color:#000">Pair</span><span style="color:#000">&lt;&gt;</span>(<span style="color:#a90d91">this</span>.<span style="color:#836c28">getElementAt</span>(<span style="color:#000">i</span>), <span style="color:#000">e</span>));
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#000">&lt;</span><span style="color:#000">E</span><span style="color:#000">&gt;</span> <span style="color:#a90d91">void</span> <span style="color:#000">printAll</span>(<span style="color:#a90d91">final</span> <span style="color:#000">Iterator</span><span style="color:#000">&lt;</span><span style="color:#000">E</span><span style="color:#000">&gt;</span> <span style="color:#000">iterator</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">while</span> (<span style="color:#000">iterator</span>.<span style="color:#836c28">hasNext</span>()) {
+</span></span><span style="display:flex;"><span>            <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Elemento : "</span> <span style="color:#000">+</span> <span style="color:#000">iterator</span>.<span style="color:#836c28">next</span>());
 </span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">return</span> <span style="color:#000">vp</span>;
 </span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseGenMeth</span> {
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">s</span>) {
-</span></span><span style="display:flex;"><span>        <span style="color:#000">Vector</span><span style="color:#000">&lt;</span><span style="color:#000">String</span><span style="color:#000">&gt;</span> <span style="color:#000">vs</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Vector</span><span style="color:#000">&lt;&gt;</span>();
-</span></span><span style="display:flex;"><span>        <span style="color:#000">vs</span>.<span style="color:#836c28">addElement</span>(<span style="color:#c41a16">"prova"</span>);
-</span></span><span style="display:flex;"><span>        <span style="color:#000">vs</span>.<span style="color:#836c28">addElement</span>(<span style="color:#c41a16">"di"</span>);
-</span></span><span style="display:flex;"><span>        <span style="color:#000">vs</span>.<span style="color:#836c28">addElement</span>(<span style="color:#c41a16">"vettore"</span>);
-</span></span><span style="display:flex;"><span>        <span style="color:#000">Vector</span><span style="color:#000">&lt;</span><span style="color:#000">Pair</span><span style="color:#000">&lt;</span><span style="color:#000">String</span>, <span style="color:#000">Integer</span><span style="color:#000">&gt;&gt;</span> <span style="color:#000">vp</span> <span style="color:#000">=</span> <span style="color:#000">vs</span>.<span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span><span style="color:#000">genVectorPair</span>(<span style="color:#000">101</span>);
-</span></span><span style="display:flex;"><span>        <span style="color:#177500">// versione con inferenza..</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#177500">// Vector&lt;Pair&lt;String,Integer&gt;&gt; vp2 = vs.genVectorPair(101);</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">vp</span>);
-</span></span><span style="display:flex;"><span>        <span style="color:#177500">// |&lt;prova,101&gt;|&lt;di,101&gt;|&lt;vettore,101&gt;|</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">final</span> <span style="color:#000">Iterator</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> <span style="color:#000">iterator</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">IntRangeIterator</span>(<span style="color:#000">5</span>, <span style="color:#000">10</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">final</span> <span style="color:#000">LList</span><span style="color:#000">&lt;</span><span style="color:#000">String</span><span style="color:#000">&gt;</span> <span style="color:#000">list</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">LList</span><span style="color:#000">&lt;&gt;</span>(<span style="color:#c41a16">"a"</span>, <span style="color:#a90d91">new</span> <span style="color:#000">LList</span><span style="color:#000">&lt;&gt;</span>(<span style="color:#c41a16">"b"</span>, <span style="color:#a90d91">new</span> <span style="color:#000">LList</span><span style="color:#000">&lt;&gt;</span>(<span style="color:#c41a16">"c"</span>, <span style="color:#a90d91">new</span> <span style="color:#000">LList</span><span style="color:#000">&lt;&gt;</span>(<span style="color:#c41a16">"d"</span>, <span style="color:#a90d91">null</span>))));
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">final</span> <span style="color:#000">Iterator</span><span style="color:#000">&lt;</span><span style="color:#000">String</span><span style="color:#000">&gt;</span> <span style="color:#000">iterator2</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">LListIterator</span><span style="color:#000">&lt;&gt;</span>(<span style="color:#000">list</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">final</span> <span style="color:#000">Vector</span><span style="color:#000">&lt;</span><span style="color:#000">Calendar</span><span style="color:#000">&gt;</span> <span style="color:#000">vector</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Vector</span><span style="color:#000">&lt;&gt;</span>();
+</span></span><span style="display:flex;"><span>        <span style="color:#000">vector</span>.<span style="color:#836c28">addElement</span>(<span style="color:#a90d91">new</span> <span style="color:#000">GregorianCalendar</span>());
+</span></span><span style="display:flex;"><span>        <span style="color:#000">vector</span>.<span style="color:#836c28">addElement</span>(<span style="color:#a90d91">new</span> <span style="color:#000">GregorianCalendar</span>());
+</span></span><span style="display:flex;"><span>        <span style="color:#000">vector</span>.<span style="color:#836c28">addElement</span>(<span style="color:#a90d91">new</span> <span style="color:#000">GregorianCalendar</span>());
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">final</span> <span style="color:#000">Iterator</span><span style="color:#000">&lt;</span><span style="color:#000">Calendar</span><span style="color:#000">&gt;</span> <span style="color:#000">iterator3</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">VectorIterator</span><span style="color:#000">&lt;&gt;</span>(<span style="color:#000">vector</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#177500">// con inferenza:</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">UseIterators2</span>.<span style="color:#836c28">printAll</span>(<span style="color:#000">iterator</span>); <span style="color:#177500">// Equivale a: UseIterators2.&lt;Integer&gt;printAll(iterator)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">UseIterators2</span>.<span style="color:#836c28">printAll</span>(<span style="color:#000">iterator2</span>); <span style="color:#177500">// Equivale a: UseIterators2.&lt;String&gt;printAll(iterator)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">UseIterators2</span>.<span style="color:#836c28">printAll</span>(<span style="color:#000">iterator3</span>); <span style="color:#177500">// Equivale a: UseIterators2.&lt;Calendar&gt;printAll(iterator)</span>
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></section><section>
-<h1 id="java-wildcards">Java Wildcards</h1>
+<h2 id="definizione-di-metodi-generico-istanza-e-loro-utilizzo">Definizione di metodi generico <em>istanza</em> e loro utilizzo</h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">package</span> <span style="color:#000">it.unibo.generics.iterators</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">PairReplacer</span><span style="color:#000">&lt;</span><span style="color:#000">X</span>, <span style="color:#000">Y</span><span style="color:#000">&gt;</span> {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#000">Pair</span><span style="color:#000">&lt;</span><span style="color:#000">X</span>, <span style="color:#000">Y</span><span style="color:#000">&gt;</span> <span style="color:#000">pair</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">PairReplacer</span>(<span style="color:#a90d91">final</span> <span style="color:#000">Pair</span><span style="color:#000">&lt;</span><span style="color:#000">X</span>, <span style="color:#000">Y</span><span style="color:#000">&gt;</span> <span style="color:#000">pair</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">this</span>.<span style="color:#836c28">pair</span> <span style="color:#000">=</span> <span style="color:#000">pair</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">&lt;</span><span style="color:#000">Z</span><span style="color:#000">&gt;</span> <span style="color:#000">Pair</span><span style="color:#000">&lt;</span><span style="color:#000">Z</span>, <span style="color:#000">Y</span><span style="color:#000">&gt;</span> <span style="color:#000">replaceFirst</span>(<span style="color:#a90d91">final</span> <span style="color:#000">Z</span> <span style="color:#000">newFirst</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">return</span> <span style="color:#a90d91">new</span> <span style="color:#000">Pair</span><span style="color:#000">&lt;&gt;</span>(<span style="color:#000">newFirst</span>, <span style="color:#a90d91">this</span>.<span style="color:#836c28">pair</span>.<span style="color:#836c28">getSecond</span>());
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">&lt;</span><span style="color:#000">Z</span><span style="color:#000">&gt;</span> <span style="color:#000">Pair</span><span style="color:#000">&lt;</span><span style="color:#000">X</span>, <span style="color:#000">Z</span><span style="color:#000">&gt;</span> <span style="color:#000">replaceSecond</span>(<span style="color:#a90d91">final</span> <span style="color:#000">Z</span> <span style="color:#000">newSecond</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">return</span> <span style="color:#a90d91">new</span> <span style="color:#000">Pair</span><span style="color:#000">&lt;&gt;</span>(<span style="color:#a90d91">this</span>.<span style="color:#836c28">pair</span>.<span style="color:#836c28">getFirst</span>(), <span style="color:#000">newSecond</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">final</span> <span style="color:#a90d91">var</span> <span style="color:#000">replacer</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">PairReplacer</span><span style="color:#000">&lt;&gt;</span>(<span style="color:#a90d91">new</span> <span style="color:#000">Pair</span><span style="color:#000">&lt;&gt;</span>(<span style="color:#c41a16">"Hello"</span>, <span style="color:#000">42</span>));
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">final</span> <span style="color:#a90d91">var</span> <span style="color:#000">newFirstPair</span> <span style="color:#000">=</span> <span style="color:#000">replacer</span>.<span style="color:#836c28">replaceFirst</span>(<span style="color:#000">3</span>.<span style="color:#836c28">14</span>); <span style="color:#177500">// Con inferenza, uso tipico</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Replaced First: "</span> <span style="color:#000">+</span> <span style="color:#000">newFirstPair</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#000">Pair</span><span style="color:#000">&lt;</span><span style="color:#000">String</span>, <span style="color:#000">Boolean</span><span style="color:#000">&gt;</span> <span style="color:#000">newSecondPair</span> <span style="color:#000">=</span> <span style="color:#000">replacer</span>.<span style="color:#000">&lt;</span><span style="color:#000">Boolean</span><span style="color:#000">&gt;</span><span style="color:#000">replaceSecond</span>(<span style="color:#a90d91">true</span>); <span style="color:#177500">// Senza inferenza</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Replaced Second: "</span> <span style="color:#000">+</span> <span style="color:#000">newSecondPair</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></section><section>
+<h1 id="covarianza-contravarianza-wildcards">Covarianza, contravarianza, wildcards</h1>
 </section><section>
-<h2 id="java-wildcards-1">Java Wildcards</h2>
+<h2 id="java-wildcards">Java Wildcards</h2>
 <h3 id="osservazione">Osservazione</h3>
 <ul>
-<li>Esistono situazioni in cui un metodo debba accettare come argomento non solo oggetti di un tipo <code>C&lt;T&gt;</code>, ma di ogni <code>C&lt;S&gt;</code> dove <code>S &lt;: T</code></li>
-<li>Esempio: un metodo statico <code>printAll()</code> che prende in ingresso un iteratore e ne stampa gli elementi</li>
-<li>È realizzabile con un metodo generico, ma ci sono casi in cui si vorrebbe esprimere <em>un tipo che raccolga istanziazioni diverse di una classe generica</em></li>
+<li>In generale, dato un tipo <code>C&lt;T&gt;</code>, se <code>S</code> è sottotipo di <code>T</code>, <strong>non</strong> vale che <code>C&lt;S&gt;</code> è sottotipo di <code>C&lt;T&gt;</code>
+<ul>
+<li>Esempio: <code>Student extends Person</code> non implica che <code>Vector&lt;Student&gt;</code> estenda <code>Vector&lt;Person&gt;</code>
+<ul>
+<li>Se lo estendesse, ogni chiamata a metodi di <code>Vector&lt;Person&gt;</code> sarebbe valida anche per <code>Vector&lt;Student&gt;</code></li>
+<li>Incluso il metodo <code>add(Person p)</code></li>
+<li>Ma se posso aggiungere un <code>Person</code> ad un <code>Vector&lt;Student&gt;</code>, starei violando la sicurezza dei tipi!</li>
 </ul>
-<h3 id="java-wildcards-2">Java Wildcards</h3>
- <!--  *  Un meccanismo avanzato, quello inventato più di recente (2004-2006)
-     *  (Igarashi \& Viroli) + (Bracha \& Gafter) + (Torgersen \& Hansen \& von der Ahé) -->
+</li>
+</ul>
+</li>
+<li>Questo comportamento è detto <strong>invarianza</strong> dei generici in Java</li>
+<li>A volte è utile poter esprimere relazioni di sottotipo fra tipi generici
+<ul>
+<li>Sia del tipo “qualunque sottotipo di T” (<em>covarianza</em>), tipicamente in lettura
+<ul>
+<li>Ad esempio, un <code>Vector</code> di un sottotipo non noto di <code>Number</code>
+<ul>
+<li>Non potrò aggiungere nulla, ma potrò leggere <code>Number</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Sia del tipo “qualunque supertipo di T” (<em>contravarianza</em>), tipicamente in scrittura
+<ul>
+<li>Ad esempio, un <code>Vector</code> di un supertipo non noto di <code>Double</code>
+<ul>
+<li>Potrò aggiungere <code>Double</code>, ma non potrò leggere nulla di più specifico di <code>Object</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="java-wildcards-1">Java Wildcards</h3>
 <ul>
 <li>Un meccanismo che fornisce dei nuovi tipi, chiamati Wildcards</li>
 <li>Simili a interfacce (non generano oggetti, descrivono solo contratti)</li>
 <li>Generalmente usati come tipo dell’argomento di metodi</li>
 </ul>
 </section><section>
-<h2 id="java-wildcards-3">Java Wildcards</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#177500">// Gerarchia dei wrapper Numbers in java.lang</span>
-</span></span><span style="display:flex;"><span><span style="color:#a90d91">abstract</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Number</span> <span style="color:#a90d91">extends</span> <span style="color:#000">Object</span> { <span style="color:#177500">/* ... */</span> }
-</span></span><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">Integer</span> <span style="color:#a90d91">extends</span> <span style="color:#000">Number</span> { <span style="color:#177500">/* ... */</span> }
-</span></span><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">Double</span> <span style="color:#a90d91">extends</span> <span style="color:#000">Number</span> { <span style="color:#177500">/* ... */</span> }
-</span></span><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">Long</span> <span style="color:#a90d91">extends</span> <span style="color:#000">Number</span> { <span style="color:#177500">/* ... */</span> }
-</span></span><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">Float</span> <span style="color:#a90d91">extends</span> <span style="color:#000">Number</span> { <span style="color:#177500">/* ... */</span> }
-</span></span><span style="display:flex;"><span> <span style="color:#177500">/* ... */</span> 
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#177500">// Accetta qualunque Vector&lt;T&gt; con T &lt;: Number</span>
-</span></span><span style="display:flex;"><span><span style="color:#177500">// Vector&lt;Integer&gt;, Vector&lt;Double&gt;, Vector&lt;Float&gt;, ...</span>
-</span></span><span style="display:flex;"><span><span style="color:#a90d91">void</span> <span style="color:#000">m</span>(<span style="color:#000">Vector</span><span style="color:#000">&lt;?</span> <span style="color:#a90d91">extends</span> <span style="color:#000">Number</span><span style="color:#000">&gt;</span> <span style="color:#000">arg</span>){ <span style="color:#177500">/* ... */</span> }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#177500">// Accetta qualunque Vector&lt;T&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#a90d91">void</span> <span style="color:#000">m</span>(<span style="color:#000">Vector</span><span style="color:#000">&lt;?&gt;</span> <span style="color:#000">arg</span>){ <span style="color:#177500">/* ... */</span> }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#177500">// Accetta qualunque Vector&lt;T&gt; con Integer &lt;: T </span>
-</span></span><span style="display:flex;"><span><span style="color:#177500">// Vector&lt;Integer&gt;, Vector&lt;Number&gt;, e Vector&lt;Object&gt; solo!</span>
-</span></span><span style="display:flex;"><span><span style="color:#a90d91">void</span> <span style="color:#000">m</span>(<span style="color:#000">Vector</span><span style="color:#000">&lt;?</span> <span style="color:#a90d91">super</span> <span style="color:#000">Integer</span><span style="color:#000">&gt;</span> <span style="color:#000">arg</span>){ <span style="color:#177500">/* ... */</span> }
-</span></span></code></pre></div></section><section>
-<h2 id="java-wildcards-4">Java Wildcards</h2>
+<h2 id="java-wildcards-2">Java Wildcards</h2>
 <h3 id="3-tipi-di-wildcard">3 tipi di wildcard</h3>
 <ul>
-<li>
-<p>Bounded (covariante): <code>C&lt;? extends T&gt;</code></p>
+<li>Bounded (covariante): <code>C&lt;? extends T&gt;</code>
 <ul>
-<li>accetta un qualunque <code>C&lt;S&gt;</code> con <code>S &lt;: T</code></li>
+<li>accetta un qualunque <code>C&lt;S&gt;</code> con <code>S</code> sottotipo di <code>T</code></li>
 </ul>
 </li>
-<li>
-<p>Bounded (controvariante): <code>C&lt;? super T&gt;</code></p>
+<li>Bounded (contravariante): <code>C&lt;? super T&gt;</code>
 <ul>
-<li>accetta un qualunque <code>C&lt;S&gt;</code> con <code>S &gt;: T</code></li>
+<li>accetta un qualunque <code>C&lt;S&gt;</code> con <code>S</code> supertipo di <code>T</code></li>
 </ul>
 </li>
-<li>
-<p>Unbounded: <code>C&lt;?&gt;</code></p>
+<li>Unbounded: <code>C&lt;?&gt;</code>
 <ul>
 <li>accetta un qualunque <code>C&lt;S&gt;</code></li>
 </ul>
@@ -723,72 +740,106 @@
 </ul>
 </section><section>
 <h2 id="esempio-wildcard-1-unbounded">Esempio Wildcard 1 (unbounded)</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Wildcard</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#177500">// Metodo che usa la wildcard</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">printAll</span>(<span style="color:#000">Iterator</span><span style="color:#000">&lt;?&gt;</span> <span style="color:#000">it</span>) {
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">while</span> (<span style="color:#000">it</span>.<span style="color:#836c28">hasNext</span>()) {
-</span></span><span style="display:flex;"><span>			<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">it</span>.<span style="color:#836c28">next</span>());
-</span></span><span style="display:flex;"><span>		}
-</span></span><span style="display:flex;"><span>	}
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">package</span> <span style="color:#000">it.unibo.generics.wildcard</span>;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#177500">// Analoga versione con metodo generico</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#000">&lt;</span><span style="color:#000">T</span><span style="color:#000">&gt;</span> <span style="color:#a90d91">void</span> <span style="color:#000">printAll2</span>(<span style="color:#000">Iterator</span><span style="color:#000">&lt;</span><span style="color:#000">T</span><span style="color:#000">&gt;</span> <span style="color:#000">it</span>) {
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">while</span> (<span style="color:#000">it</span>.<span style="color:#836c28">hasNext</span>()) {
-</span></span><span style="display:flex;"><span>			<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">it</span>.<span style="color:#836c28">next</span>());
-</span></span><span style="display:flex;"><span>		}
-</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">it.unibo.generics.iterators.IntRangeIterator</span>;
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">it.unibo.generics.iterators.Iterator</span>;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#177500">// Quale versione preferibile?</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">s</span>) {
-</span></span><span style="display:flex;"><span>		<span style="color:#000">Wildcard</span>.<span style="color:#836c28">printAll</span>(<span style="color:#a90d91">new</span> <span style="color:#000">IntRangeIterator</span>(<span style="color:#000">1</span>, <span style="color:#000">5</span>));
-</span></span><span style="display:flex;"><span>		<span style="color:#000">Wildcard</span>.<span style="color:#836c28">printAll2</span>(<span style="color:#a90d91">new</span> <span style="color:#000">IntRangeIterator</span>(<span style="color:#000">1</span>, <span style="color:#000">5</span>));
-</span></span><span style="display:flex;"><span>		<span style="color:#000">Wildcard</span>.<span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span><span style="color:#000">printAll2</span>(<span style="color:#a90d91">new</span> <span style="color:#000">IntRangeIterator</span>(<span style="color:#000">1</span>, <span style="color:#000">5</span>));
-</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Wildcard</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#177500">// Metodo che usa la wildcard</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">printAll</span>(<span style="color:#000">Iterator</span><span style="color:#000">&lt;?&gt;</span> <span style="color:#000">it</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">while</span> (<span style="color:#000">it</span>.<span style="color:#836c28">hasNext</span>()) {
+</span></span><span style="display:flex;"><span>            <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">it</span>.<span style="color:#836c28">next</span>());
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#177500">// Analoga versione con metodo generico</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#000">&lt;</span><span style="color:#000">T</span><span style="color:#000">&gt;</span> <span style="color:#a90d91">void</span> <span style="color:#000">printAll2</span>(<span style="color:#000">Iterator</span><span style="color:#000">&lt;</span><span style="color:#000">T</span><span style="color:#000">&gt;</span> <span style="color:#000">it</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">while</span> (<span style="color:#000">it</span>.<span style="color:#836c28">hasNext</span>()) {
+</span></span><span style="display:flex;"><span>            <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">it</span>.<span style="color:#836c28">next</span>());
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#177500">// Quale versione preferibile?</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#000">Wildcard</span>.<span style="color:#836c28">printAll</span>(<span style="color:#a90d91">new</span> <span style="color:#000">IntRangeIterator</span>(<span style="color:#000">1</span>, <span style="color:#000">5</span>));
+</span></span><span style="display:flex;"><span>        <span style="color:#000">Wildcard</span>.<span style="color:#836c28">printAll2</span>(<span style="color:#a90d91">new</span> <span style="color:#000">IntRangeIterator</span>(<span style="color:#000">1</span>, <span style="color:#000">5</span>));
+</span></span><span style="display:flex;"><span>        <span style="color:#000">Wildcard</span>.<span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span><span style="color:#000">printAll2</span>(<span style="color:#a90d91">new</span> <span style="color:#000">IntRangeIterator</span>(<span style="color:#000">1</span>, <span style="color:#000">5</span>));
+</span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></section><section>
 <h2 id="esempio-wildcard-2-bounded">Esempio Wildcard 2 (bounded)</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Wildcard2</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#177500">// Metodo che usa la wildcard</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#000">Vector</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> <span style="color:#000">toIntVector</span>(<span style="color:#000">Vector</span><span style="color:#000">&lt;?</span> <span style="color:#a90d91">extends</span> <span style="color:#000">Number</span><span style="color:#000">&gt;</span> <span style="color:#000">vec</span>) {
-</span></span><span style="display:flex;"><span>		<span style="color:#000">Vector</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> <span style="color:#000">out</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Vector</span><span style="color:#000">&lt;&gt;</span>();
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">for</span>(<span style="color:#a90d91">int</span> <span style="color:#000">i</span> <span style="color:#000">=</span> <span style="color:#000">0</span>; <span style="color:#000">i</span> <span style="color:#000">&lt;</span> <span style="color:#000">vec</span>.<span style="color:#836c28">getLength</span>(); <span style="color:#000">i</span><span style="color:#000">++</span>) {
-</span></span><span style="display:flex;"><span>			<span style="color:#177500">// Si noti accesso al metodo intValue() del contratto di Number</span>
-</span></span><span style="display:flex;"><span>			<span style="color:#000">out</span>.<span style="color:#836c28">addElement</span>(<span style="color:#000">vec</span>.<span style="color:#836c28">getElementAt</span>(<span style="color:#000">i</span>).<span style="color:#836c28">intValue</span>());
-</span></span><span style="display:flex;"><span>		}
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#000">out</span>;
-</span></span><span style="display:flex;"><span>	}
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">package</span> <span style="color:#000">it.unibo.generics.wildcard</span>;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">s</span>) {
-</span></span><span style="display:flex;"><span>		<span style="color:#000">Vector</span><span style="color:#000">&lt;</span><span style="color:#000">Double</span><span style="color:#000">&gt;</span> <span style="color:#000">vd</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Vector</span><span style="color:#000">&lt;&gt;</span>();
-</span></span><span style="display:flex;"><span>		<span style="color:#000">vd</span>.<span style="color:#836c28">addElement</span>(<span style="color:#000">1</span>.<span style="color:#836c28">5</span>);
-</span></span><span style="display:flex;"><span>		<span style="color:#000">vd</span>.<span style="color:#836c28">addElement</span>(<span style="color:#000">6</span>.<span style="color:#836c28">7</span>);
-</span></span><span style="display:flex;"><span>		<span style="color:#000">Vector</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> <span style="color:#000">vi</span> <span style="color:#000">=</span> <span style="color:#000">toIntVector</span>(<span style="color:#000">vd</span>);
-</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">""</span> <span style="color:#000">+</span> <span style="color:#000">vi</span>.<span style="color:#836c28">getElementAt</span>(<span style="color:#000">0</span>) <span style="color:#000">+</span> <span style="color:#c41a16">", "</span> <span style="color:#000">+</span> <span style="color:#000">vi</span>.<span style="color:#836c28">getElementAt</span>(<span style="color:#000">1</span>));
-</span></span><span style="display:flex;"><span>		<span style="color:#177500">// var vd2 = toIntVector(new Vector&lt;String&gt;()); // ERROR: method not applicable</span>
-</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">it.unibo.generics.generics.Vector</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Wildcard2</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#177500">// Metodo che usa la wildcard</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#000">Vector</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> <span style="color:#000">toIntVector</span>(<span style="color:#000">Vector</span><span style="color:#000">&lt;?</span> <span style="color:#a90d91">extends</span> <span style="color:#000">Number</span><span style="color:#000">&gt;</span> <span style="color:#000">vec</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">final</span> <span style="color:#000">Vector</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> <span style="color:#000">out</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Vector</span><span style="color:#000">&lt;&gt;</span>();
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">for</span>(<span style="color:#a90d91">int</span> <span style="color:#000">i</span> <span style="color:#000">=</span> <span style="color:#000">0</span>; <span style="color:#000">i</span> <span style="color:#000">&lt;</span> <span style="color:#000">vec</span>.<span style="color:#836c28">getLength</span>(); <span style="color:#000">i</span><span style="color:#000">++</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#177500">// Si noti accesso al metodo intValue() del contratto di Number</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#000">out</span>.<span style="color:#836c28">addElement</span>(<span style="color:#000">vec</span>.<span style="color:#836c28">getElementAt</span>(<span style="color:#000">i</span>).<span style="color:#836c28">intValue</span>());
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">return</span> <span style="color:#000">out</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">final</span> <span style="color:#000">Vector</span><span style="color:#000">&lt;</span><span style="color:#000">Double</span><span style="color:#000">&gt;</span> <span style="color:#000">vd</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Vector</span><span style="color:#000">&lt;&gt;</span>();
+</span></span><span style="display:flex;"><span>        <span style="color:#000">vd</span>.<span style="color:#836c28">addElement</span>(<span style="color:#000">1</span>.<span style="color:#836c28">5</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#000">vd</span>.<span style="color:#836c28">addElement</span>(<span style="color:#000">6</span>.<span style="color:#836c28">7</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#000">Vector</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> <span style="color:#000">vi</span> <span style="color:#000">=</span> <span style="color:#000">toIntVector</span>(<span style="color:#000">vd</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">vi</span>.<span style="color:#836c28">getElementAt</span>(<span style="color:#000">0</span>) <span style="color:#000">+</span> <span style="color:#c41a16">", "</span> <span style="color:#000">+</span> <span style="color:#000">vi</span>.<span style="color:#836c28">getElementAt</span>(<span style="color:#000">1</span>));
+</span></span><span style="display:flex;"><span>        <span style="color:#177500">// var vd2 = toIntVector(new Vector&lt;String&gt;()); // ERROR: method not applicable</span>
+</span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></section><section>
 <h2 id="esempio-wildcard-3-bounded-limitazioni">Esempio Wildcard 3 (bounded, limitazioni)</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Wildcard3</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#177500">// Le wildcard pongono limiti sulle operazioni eseguibili</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">addElementToVector</span>(<span style="color:#000">Vector</span><span style="color:#000">&lt;?</span> <span style="color:#a90d91">extends</span> <span style="color:#000">Number</span><span style="color:#000">&gt;</span> <span style="color:#000">vec</span>) {
-</span></span><span style="display:flex;"><span>		<span style="color:#177500">// Per Vector&lt;T&gt; covariante non possiamo invocare metodi che accettano T in input.. </span>
-</span></span><span style="display:flex;"><span>		<span style="color:#000">Number</span> <span style="color:#000">n</span> <span style="color:#000">=</span> <span style="color:#000">vec</span>.<span style="color:#836c28">getElementAt</span>(<span style="color:#000">0</span>); <span style="color:#177500">// questo è ok</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#000">Number</span> <span style="color:#000">toAdd</span> <span style="color:#000">=</span> <span style="color:#000">n</span>.<span style="color:#836c28">doubleValue</span>() <span style="color:#000">+</span> <span style="color:#000">1</span>;
-</span></span><span style="display:flex;"><span>		<span style="color:#177500">// vec.addElement(toAdd); // ERROR!</span>
-</span></span><span style="display:flex;"><span>	}
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">package</span> <span style="color:#000">it.unibo.generics.wildcard</span>;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#000">Number</span> <span style="color:#000">returnFirstNumber</span>(<span style="color:#000">Vector</span><span style="color:#000">&lt;?</span> <span style="color:#a90d91">super</span> <span style="color:#000">Integer</span><span style="color:#000">&gt;</span> <span style="color:#000">vec</span>) {
-</span></span><span style="display:flex;"><span>		<span style="color:#177500">// Per Vector&lt;T&gt; contravariante non possiamo invocare metodi che restituiscono T in output.. </span>
-</span></span><span style="display:flex;"><span>		<span style="color:#000">vec</span>.<span style="color:#836c28">addElement</span>(<span style="color:#000">Integer</span>.<span style="color:#836c28">valueOf</span>(<span style="color:#000">7</span>)); <span style="color:#177500">// questo è ok</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#000">Number</span> <span style="color:#000">out</span> <span style="color:#000">=</span> <span style="color:#a90d91">null</span>;
-</span></span><span style="display:flex;"><span>		<span style="color:#177500">// out = vec.getElementAt(0); // ERROR!</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#000">out</span>;
-</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">it.unibo.generics.generics.Vector</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Wildcard3</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#177500">// Le wildcard pongono limiti sulle operazioni eseguibili</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">addElementToVector</span>(<span style="color:#000">Vector</span><span style="color:#000">&lt;?</span> <span style="color:#a90d91">extends</span> <span style="color:#000">Number</span><span style="color:#000">&gt;</span> <span style="color:#000">vec</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#177500">// Per Vector&lt;T&gt; covariante non possiamo invocare metodi che accettano T in input</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">final</span> <span style="color:#000">Number</span> <span style="color:#000">n</span> <span style="color:#000">=</span> <span style="color:#000">vec</span>.<span style="color:#836c28">getElementAt</span>(<span style="color:#000">0</span>); <span style="color:#177500">// questo è ok</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">Number</span> <span style="color:#000">toAdd</span> <span style="color:#000">=</span> <span style="color:#000">n</span>.<span style="color:#836c28">doubleValue</span>() <span style="color:#000">+</span> <span style="color:#000">1</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#177500">// vec.addElement(toAdd); // ERROR!</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#000">Number</span> <span style="color:#000">returnFirstNumber</span>(<span style="color:#000">Vector</span><span style="color:#000">&lt;?</span> <span style="color:#a90d91">super</span> <span style="color:#000">Integer</span><span style="color:#000">&gt;</span> <span style="color:#000">vec</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#177500">// Per Vector&lt;T&gt; contravariante non possiamo invocare metodi che restituiscono T in output</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">vec</span>.<span style="color:#836c28">addElement</span>(<span style="color:#000">Integer</span>.<span style="color:#836c28">valueOf</span>(<span style="color:#000">7</span>)); <span style="color:#177500">// questo è ok</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">Number</span> <span style="color:#000">out</span> <span style="color:#000">=</span> <span style="color:#a90d91">null</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#177500">// out = vec.getElementAt(0); // ERROR!</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">return</span> <span style="color:#000">out</span>;
+</span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><ul>
-<li><code>Vector&lt;? extends Number&gt;</code> si può leggere come “<code>Vector</code> che può fornire ma non accettare <code>Number</code>” (cf. in C# dove la keyword <code>out</code> è usata per specificare parametri di tipo covarianti)</li>
-<li><code>Vector&lt;? super Number&gt;</code> si può leggere come “<code>Vector</code> che può accettare ma non fornire <code>Number</code>” (cf. in C# dove la keyword <code>in</code> è usata per specificare parametri di tipo controvarianti)</li>
+</span></span></code></pre></div></section><section>
+<h2 id="interpretazione-come-input--output">Interpretazione come Input / Output</h2>
+<p>Un modo più intuitivo di interpretare le wildcard è quello di considerare i tipi generici come
+<em>produttori</em> o <em>consumatori</em> di valori del tipo specificato.</p>
+<ul>
+<li>In diversi linguaggi (fra cui C# e Kotlin) questo concetto è formalizzato con le keywords <code>in</code> e <code>out</code>.
+<ul>
+<li>In Kotlin o C#, ad esempio, si dichiara la covarianza di un tipo generico <code>C</code> con <code>C&lt;out T&gt;</code>, e la contravarianza con <code>C&lt;in T&gt;</code>.</li>
+<li>L’equivalente in Java sarebbe <code>C&lt;? extends T&gt;</code> per la covarianza e <code>C&lt;? super T&gt;</code> per la contravarianza.</li>
+</ul>
+</li>
+</ul>
+<h3 id="ne-consegue-che">Ne consegue che:</h3>
+<ul>
+<li><code>Vector&lt;? extends Number&gt;</code> si può leggere “<code>Vector</code> che può <strong>fornire</strong> ma <em>non accettare</em> <code>Number</code>”
+<ul>
+<li>come per <code>Vector&lt;out Number&gt;</code> in Kotlin o C#, dove la keyword <code>out</code> è usata per specificare parametri di tipo covarianti</li>
+</ul>
+</li>
+<li><code>Vector&lt;? super Number&gt;</code> si può leggere “<code>Vector</code> che può <strong>accettare</strong> ma <em>non fornire</em> <code>Number</code>”
+<ul>
+<li>come per <code>Vector&lt;in Number&gt;</code> in Kotlin o C#, dove la keyword <code>in</code> è usata per specificare parametri di tipo contravarianti</li>
+</ul>
+</li>
 </ul>
 </section><section>
 <h1 id="generici-1">Generici</h1>
@@ -957,8 +1008,6 @@
   
   
 
-  
-    
   
   
 
