@@ -20,7 +20,8 @@
       <div class="slides">
   
 
-    <section><h1 id="esecuzione-di-applicazioni-java-tramite-gradle">Esecuzione di applicazioni Java tramite Gradle</h1>
+    <section><h1 id="progettazione-di-interfacce-grafiche">Progettazione di interfacce Grafiche</h1>
+<h2 id="pattern-model-view-controller-mvc">Pattern Model-View-Controller (MVC)</h2>
 <h4 id="progettazione-e-sviluppo-del-software">Progettazione e Sviluppo del Software</h4>
 <h4 id="cdl-tecnologie-dei-sistemi-informatici">C.D.L. Tecnologie dei Sistemi Informatici</h4>
 <h3 id="danilo-pianini"><a href="mailto:danilo.pianini@unibo.it">Danilo Pianini — <code>danilo.pianini@unibo.it</code></a></h3>
@@ -30,71 +31,141 @@
  — <a href="?print-pdf&amp;pdfSeparateFragments=false"><i class="fa fa-print" aria-hidden="true"></i> versione stampabile</a></p>
 <p><a href=".."><i class="fa fa-undo" aria-hidden="true"></i> back</a></p>
 </section><section>
-<h2 id="riconoscimenti">Riconoscimenti</h2>
+<h2 id="architettura-del-software">Architettura del Software</h2>
+<h3 id="definizione">Definizione</h3>
 <ul>
-<li>
-<p>Questo materiale è ampiamente basato su quello realizzato dai Prof.
-Mirko Viroli e Roberto Casadei, che ringrazio.</p>
+<li>L’<strong>architettura del software</strong> descrive la struttura complessiva di un sistema software</li>
+<li>Definisce i componenti principali, le loro responsabilità e le interazioni tra di essi</li>
+<li>Fornisce una visione ad alto livello che guida lo sviluppo e l’evoluzione del sistema</li>
+</ul>
+<h3 id="obiettivi-principali">Obiettivi principali</h3>
+<ul>
+<li><strong>Separazione delle responsabilità</strong>: dividere il sistema in parti con compiti ben definiti</li>
+<li><strong>Modularità</strong>: facilitare la manutenzione e l’evoluzione del codice</li>
+<li><strong>Riusabilità</strong>: permettere il riutilizzo di componenti in contesti diversi</li>
+<li><strong>Testabilità</strong>: rendere più semplice il testing delle varie parti</li>
+</ul>
+</section><section>
+<h2 id="pattern-architetturali-per-le-gui">Pattern Architetturali per le GUI</h2>
+<h3 id="problematiche-delle-applicazioni-con-interfacce-grafiche">Problematiche delle applicazioni con interfacce grafiche</h3>
+<ul>
+<li>Mescolamento tra logica di dominio e logica di presentazione</li>
+<li>Difficoltà nel testare la logica applicativa senza l’interfaccia</li>
+<li>Codice difficile da mantenere e modificare</li>
+<li>Impossibilità di cambiare facilmente l’interfaccia utente</li>
+</ul>
+<h3 id="focus-del-corso">Focus del corso</h3>
+<ul>
+<li><strong>MVC</strong> (Model-View-Controller): separa modello, vista e controllo</li>
+<li>Permette una chiara separazione delle responsabilità</li>
+<li>Facilita lo sviluppo di applicazioni GUI ben strutturate</li>
+</ul>
+</section><section>
+<h2 id="mvc-descrizione-sintetica-del-pattern">MVC: descrizione sintetica del pattern</h2>
+<h3 id="mvc--divide-lapplicazione-in-3-parti">MVC – divide l’applicazione in 3 parti</h3>
+<ul>
+<li><code>Model</code>: modello OO del dominio applicativo del sistema</li>
+<li><code>View</code>: gestisce le interazioni con l’utente (input e output)</li>
+<li><code>Controller</code>: gestisce il coordinamento fra Model e View</li>
+</ul>
+</section><section>
+<h2 id="applicazione-del-mvc">Applicazione del MVC</h2>
+<h3 id="sulla-costruzione-di-applicazioni-con-gui">Sulla costruzione di applicazioni con GUI</h3>
+<ul>
+<li>Specialmente se non esperti, possono essere alquanto laboriose</li>
+<li>Usare un approccio strutturato sembra richiedere più tempo nel complesso, ma in realtà porta a soluzione più facilmente modificabili e controllabili</li>
+</ul>
+<h3 id="alcune-linee-guida">Alcune linee guida</h3>
+<ul>
+<li>Usare il pattern MVC per la struttura generale</li>
+<li>Identificate le varie “interazioni”, e quindi costruire le interfacce dei vari componenti bene fin dall’inizio</li>
+<li>Cercare massima indipendenza fra i vari componenti (interfacce con meno metodi possibile)</li>
+<li>Costruire e testare modello e GUI separatamente (M e V), poi collegare il tutto col controllore (C) che risulterà particolarmente esile</li>
+</ul>
+</section><section>
+<h2 id="mvc-con-le-gui-un-esempio-di-struttura">MVC con le GUI: un esempio di struttura</h2>
+<p><img src="imgs/MVC-abstract.png" alt=""></p>
+</section><section>
+<h2 id="componenti-e-loro-interazioni">Componenti e loro interazioni</h2>
+<h3 id="mvc">MVC</h3>
+<ul>
+<li><code>Model</code>: incapsula dati e logica relativi al dominio della applicazione</li>
+<li><code>View</code>: incapsula la GUI, le sue sottoparti, e la logica di notifica</li>
+<li><code>Controller</code>: intercetta gli eventi della View, comanda le modifiche al modello, cambia di conseguenza la View</li>
+</ul>
+<h3 id="interfacce--nomi-da-modificare-in-una-applicazione-concreta">Interfacce – nomi da modificare in una applicazione concreta</h3>
+<ul>
+<li><code>ModelInterface</code>: letture/modifiche da parte del Controller</li>
+<li><code>ViewObserver</code>: comandi inviati dalla view al controller (<code>void</code>)</li>
+<li><code>ViewInterface</code>: comandi per settare la view, notifiche a fronte dei comandi (errori..)</li>
+</ul>
+</section><section>
+<h2 id="un-esempio-di-applicazione-drawnumber">Un esempio di applicazione: <code>DrawNumber</code></h2>
+<ul>
+<li>Elementi di dominio (Model):
+<ul>
+<li><code>DrawNumber</code>: interfaccia del modello che espone i metodi di gioco:
+<ul>
+<li><code>void</code> reset(): resetta il gioco</li>
+<li><code>DrawResult</code> drawNumber(int number): esegue una estrazione e restituisce il risultato</li>
+</ul>
 </li>
-<li>
-<p>Ogni errore riscontratovi è esclusiva responsabilità degli autori di questo documento.</p>
+</ul>
+</li>
+<li>Elementi di presentazione:
+<ul>
+<li><code>DrawNumberView</code>: interfaccia della view che espone i metodi di visualizzazione</li>
+</ul>
+</li>
+<li>Elementi di controllo:
+<ul>
+<li><code>DrawNumberViewObserver</code>: interfaccia del controller che espone i comandi della view</li>
+</ul>
 </li>
 </ul>
 </section><section>
-<h2 id="lanciare-applicazioni-java-da-gradle">Lanciare applicazioni Java da Gradle</h2>
-<p>Gradle offre supporto all’esecuzione dell’applicazione,
-oltre che alla sua compilazione,
-utilizzando il task <code>run</code> che viene aggiunto dal plugin <code>application</code>.</p>
-<p>Per eseguire ci servono due cose:</p>
-
-
-<span class="fragment ">
-  <ol>
-<li>il <em>nome qualificato</em> della classe da eseguire <br></li>
-</ol>
-
-</span>
-
-
-
-<span class="fragment ">
-  <ol start="2">
-<li>il <em>classpath</em> da cui caricare tutte le classi</li>
-</ol>
-
-</span>
-
-
-
-<span class="fragment ">
-  <p>Il classpath è noto perché specificato (in questo caso grazie a <strong>Convention over Configuration</strong>);</p>
-<p>Il nome della classe, invece, va specificato manualmente</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#000">plugins</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#000">java</span> <span style="color:#177500">// Carica il necessario per la compilazione di Java
-</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>  <span style="color:#000">application</span> <span style="color:#177500">// Carica il necessario per l'esecuzione di classi con la JVM
-</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>}
-</span></span><span style="display:flex;"><span><span style="color:#000">application</span> { <span style="color:#177500">// Configurazione dell'esecuzione, la main class è sufficiente
-</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#000">mainClass</span>.<span style="color:#a90d91">set</span>(<span style="color:#c41a16">"it.unibo.sampleapp.SimplerRateAMovie"</span>)
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>Possiamo ora lanciare la nostra applicazione tramite:</p>
+<h2 id="linee-guida-generali-consigliate-su-mvc">Linee guida generali consigliate su MVC</h2>
+<h3 id="metodologia-proposta">Metodologia proposta</h3>
 <ul>
-<li><code>gradle run</code></li>
-</ul>
-
-</span>
-
-</section><section>
-<h2 id="verso-una-gestione-next-level-del-software">Verso una gestione NEXT LEVEL del software</h2>
-<p><img src="tech.jpg" alt="Meme del tizio che dice stonks ma invece dice tech"></p>
-<p>Abbiamo sempre più elementi che ci permettono di creare software di qualità:</p>
+<li>
+<p>progettare le 3 interfacce</p>
 <ul>
-<li>Grazie a <strong>git</strong> possiamo tenere traccia delle modifiche che apportiamo al software;</li>
-<li>Grazie a <strong>Gradle</strong> possiamo automatizzare la compilazione e l’esecuzione del software;
-<ul>
-<li>Inoltre esistono numerosi plugin che ci aiutano ad automatizzare altri aspetti come la qualità del codice (vedi <strong>Checkstyle</strong>);</li>
+<li>M: metodi di “dominio”, chiamati da C</li>
+<li>C: metodi (<code>void</code>) chiamati da V, esprimono “azioni utente”</li>
+<li>V: metodi (<code>void</code>) chiamati da C, esprimono richieste di visualizzazione</li>
 </ul>
 </li>
+<li>
+<p>la tecnologia scelta per le GUI sia interna a V, e mai menzionata altrove o nelle interfacce</p>
+</li>
+<li>
+<p>implementare separatamente M, V e C, poi comporre e testare</p>
+</li>
+<li>
+<p>in progetti reali, M, V e C si compongono di varie parti</p>
+</li>
 </ul>
+<h3 id="aspetti">Aspetti</h3>
+<ul>
+<li>MVC è implementato in vari modi, o esiste in diverse varianti
+<ul>
+<li>Model-View-ViewModel (MVVM), Model-View-Presenter (MVP), …</li>
+</ul>
+</li>
+<li>l’approccio proposto è particolarmente indicato per la sua semplicità</li>
+<li>si usino altri approcci se non peggiorativi</li>
+</ul>
+</section><section>
+<h1 id="progettazione-di-interfacce-grafiche-1">Progettazione di interfacce Grafiche</h1>
+<h2 id="pattern-model-view-controller-mvc-1">Pattern Model-View-Controller (MVC)</h2>
+<h4 id="progettazione-e-sviluppo-del-software">Progettazione e Sviluppo del Software</h4>
+<h4 id="cdl-tecnologie-dei-sistemi-informatici">C.D.L. Tecnologie dei Sistemi Informatici</h4>
+<h3 id="danilo-pianini"><a href="mailto:danilo.pianini@unibo.it">Danilo Pianini — <code>danilo.pianini@unibo.it</code></a></h3>
+<h3 id="gianluca-aguzzi"><a href="mailto:gianluca.aguzzi@unibo.it">Gianluca Aguzzi — <code>gianluca.aguzzi@unibo.it</code></a></h3>
+<h3 id="angelo-filaseta"><a href="mailto:angelo.filaseta@unibo.it">Angelo Filaseta — <code>angelo.filaseta@unibo.it</code></a></h3>
+<p>Compiled on: 2025-10-30
+ — <a href="?print-pdf&amp;pdfSeparateFragments=false"><i class="fa fa-print" aria-hidden="true"></i> versione stampabile</a></p>
+<p><a href=".."><i class="fa fa-undo" aria-hidden="true"></i> back</a></p>
 </section>
 
   
@@ -284,8 +355,6 @@ utilizzando il task <code>run</code> che viene aggiunto dal plugin <code>applica
   
   
 
-  
-    
   
   
 
