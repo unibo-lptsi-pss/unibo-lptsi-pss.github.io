@@ -827,15 +827,11 @@ for(int i=0; i<10; i++){ /* .. */ }
   
 
   
-    
-  
   
 
   
   
 
-  
-    
   
   
 
@@ -936,30 +932,6 @@ for(int i=0; i<10; i++){ /* .. */ }
   
 
 
-
-  <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.3/dist/mermaid.min.js"></script>
-  <script>
-    mermaid.initialize({"startOnLoad":false});
-
-    let render = (event) => {
-      let mermaidElems = event.currentSlide.querySelectorAll('.mermaid');
-      if (!mermaidElems.length){
-          return
-      }
-      mermaidElems.forEach(mermaidElem => {
-          let processed = mermaidElem.getAttribute('data-processed');
-          if (!processed){
-              
-              mermaid.init(undefined, mermaidElem);
-          }
-      });
-    };
-    
-    render({currentSlide: Reveal.getCurrentSlide()});
-
-    Reveal.on('slidechanged', render);
-    Reveal.on('ready', render);
-  </script>
 
 
 
