@@ -174,12 +174,12 @@ ma che <em>non vogliamo esporre come classi esterne</em></p>
 <p>Spesso classi di questo tipo non devono essere visibili dall’esterno, quindi vengono indicate come <code>private</code></p>
 </section><section>
 <h2 id="classe-range-e-suo-rangeiterator-innestato">Classe <code>Range</code> e suo <code>RangeIterator</code> innestato</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Range</span> <span style="color:#a90d91">implements</span> <span style="color:#000">Iterable</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">RangeNested</span> <span style="color:#a90d91">implements</span> <span style="color:#000">Iterable</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> {
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">start</span>;
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">stop</span>;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">Range</span>(<span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">start</span>, <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">stop</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">RangeNested</span>(<span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">start</span>, <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">stop</span>) {
 </span></span><span style="display:flex;"><span>        <span style="color:#a90d91">this</span>.<span style="color:#836c28">start</span> <span style="color:#000">=</span> <span style="color:#000">start</span>;
 </span></span><span style="display:flex;"><span>        <span style="color:#a90d91">this</span>.<span style="color:#836c28">stop</span> <span style="color:#000">=</span> <span style="color:#000">stop</span>;
 </span></span><span style="display:flex;"><span>    }
@@ -360,11 +360,11 @@ ma che <em>non vogliamo esporre come classi esterne</em></p>
 </ul>
 </section><section>
 <h2 id="una-variante-di-range">Una variante di <code>Range</code></h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Range2</span> <span style="color:#a90d91">implements</span> <span style="color:#000">Iterable</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">RangeInner</span> <span style="color:#a90d91">implements</span> <span style="color:#000">Iterable</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> {
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">start</span>;
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">stop</span>;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">Range2</span>(<span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">start</span>, <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">stop</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">RangeInner</span>(<span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">start</span>, <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">stop</span>) {
 </span></span><span style="display:flex;"><span>        <span style="color:#a90d91">this</span>.<span style="color:#836c28">start</span> <span style="color:#000">=</span> <span style="color:#000">start</span>;
 </span></span><span style="display:flex;"><span>        <span style="color:#a90d91">this</span>.<span style="color:#836c28">stop</span> <span style="color:#000">=</span> <span style="color:#000">stop</span>;
 </span></span><span style="display:flex;"><span>    }
@@ -377,14 +377,14 @@ ma che <em>non vogliamo esporre come classi esterne</em></p>
 </span></span><span style="display:flex;"><span>        <span style="color:#a90d91">private</span> <span style="color:#a90d91">int</span> <span style="color:#000">current</span>;
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>        <span style="color:#a90d91">public</span> <span style="color:#000">RangeIterator</span>() {
-</span></span><span style="display:flex;"><span>            <span style="color:#a90d91">this</span>.<span style="color:#836c28">current</span> <span style="color:#000">=</span> <span style="color:#000">Range2</span>.<span style="color:#836c28">this</span>.<span style="color:#836c28">start</span>; <span style="color:#177500">// this.current = start</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#a90d91">this</span>.<span style="color:#836c28">current</span> <span style="color:#000">=</span> <span style="color:#000">RangeInner</span>.<span style="color:#836c28">this</span>.<span style="color:#836c28">start</span>; <span style="color:#177500">// this.current = start</span>
 </span></span><span style="display:flex;"><span>        }
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>        <span style="color:#a90d91">public</span> <span style="color:#000">Integer</span> <span style="color:#000">next</span>() { <span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">current</span><span style="color:#000">++</span>; }
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>        <span style="color:#a90d91">public</span> <span style="color:#a90d91">boolean</span> <span style="color:#000">hasNext</span>() {
 </span></span><span style="display:flex;"><span>            <span style="color:#177500">// Accesso diretto ai campi non-statici della classe esterna!</span>
-</span></span><span style="display:flex;"><span>            <span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">current</span> <span style="color:#000">&lt;=</span> <span style="color:#000">Range2</span>.<span style="color:#836c28">this</span>.<span style="color:#836c28">stop</span>; <span style="color:#177500">// Equivalente: return current &lt;= stop;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">current</span> <span style="color:#000">&lt;=</span> <span style="color:#000">RangeInner</span>.<span style="color:#836c28">this</span>.<span style="color:#836c28">stop</span>; <span style="color:#177500">// Equivalente: return current &lt;= stop;</span>
 </span></span><span style="display:flex;"><span>        }
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>        <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">remove</span>() { <span style="color:#a90d91">throw</span> <span style="color:#a90d91">new</span> <span style="color:#000">UnsupportedOperationException</span>(); }
@@ -420,11 +420,11 @@ ma che <em>non vogliamo esporre come classi esterne</em></p>
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></section><section>
 <h2 id="range-tramite-classe-locale"><code>Range</code> tramite classe locale</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Range3</span> <span style="color:#a90d91">implements</span> <span style="color:#000">Iterable</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">RangeLocalClass</span> <span style="color:#a90d91">implements</span> <span style="color:#000">Iterable</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> {
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">start</span>;
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">stop</span>;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">Range3</span>(<span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">start</span>, <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">stop</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">RangeLocalClass</span>(<span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">start</span>, <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">stop</span>) {
 </span></span><span style="display:flex;"><span>        <span style="color:#a90d91">this</span>.<span style="color:#836c28">start</span> <span style="color:#000">=</span> <span style="color:#000">start</span>;
 </span></span><span style="display:flex;"><span>        <span style="color:#a90d91">this</span>.<span style="color:#836c28">stop</span> <span style="color:#000">=</span> <span style="color:#000">stop</span>;
 </span></span><span style="display:flex;"><span>    }
@@ -433,11 +433,11 @@ ma che <em>non vogliamo esporre come classi esterne</em></p>
 </span></span><span style="display:flex;"><span>        <span style="color:#a90d91">class</span> <span style="color:#3f6e75">RangeIterator</span> <span style="color:#a90d91">implements</span> <span style="color:#000">Iterator</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> {
 </span></span><span style="display:flex;"><span>            <span style="color:#a90d91">private</span> <span style="color:#a90d91">int</span> <span style="color:#000">current</span>;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>            <span style="color:#a90d91">public</span> <span style="color:#000">RangeIterator</span>() { <span style="color:#a90d91">this</span>.<span style="color:#836c28">current</span> <span style="color:#000">=</span> <span style="color:#000">Range3</span>.<span style="color:#836c28">this</span>.<span style="color:#836c28">start</span>; }
+</span></span><span style="display:flex;"><span>            <span style="color:#a90d91">public</span> <span style="color:#000">RangeIterator</span>() { <span style="color:#a90d91">this</span>.<span style="color:#836c28">current</span> <span style="color:#000">=</span> <span style="color:#000">RangeLocalClass</span>.<span style="color:#836c28">this</span>.<span style="color:#836c28">start</span>; }
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>            <span style="color:#a90d91">public</span> <span style="color:#000">Integer</span> <span style="color:#000">next</span>() { <span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">current</span><span style="color:#000">++</span>; }
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>            <span style="color:#a90d91">public</span> <span style="color:#a90d91">boolean</span> <span style="color:#000">hasNext</span>() { <span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">current</span> <span style="color:#000">&lt;=</span> <span style="color:#000">Range3</span>.<span style="color:#836c28">this</span>.<span style="color:#836c28">stop</span>; }
+</span></span><span style="display:flex;"><span>            <span style="color:#a90d91">public</span> <span style="color:#a90d91">boolean</span> <span style="color:#000">hasNext</span>() { <span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">current</span> <span style="color:#000">&lt;=</span> <span style="color:#000">RangeLocalClass</span>.<span style="color:#836c28">this</span>.<span style="color:#836c28">stop</span>; }
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>            <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">remove</span>() { }
 </span></span><span style="display:flex;"><span>        }
@@ -453,7 +453,9 @@ ma che <em>non vogliamo esporre come classi esterne</em></p>
 </ul>
 <h3 id="pragmaticamente">Pragmaticamente</h3>
 <ul>
-<li>Mai viste usarle.. si usano invece le <em>classi anonime</em>…</li>
+<li>Spesso usate “spot” in un solo punto</li>
+<li>Difatti, il nome praticamente viene usato solo per invocare una volta il costruttore</li>
+<li>Sarebbe comodo poter evitare di assegnare un nome da usare una sola volta, costruendo direttamente l’oggetto</li>
 </ul>
 </section><section>
 <h1 id="classi-anonime">Classi anonime</h1>
@@ -468,7 +470,7 @@ ma che <em>non vogliamo esporre come classi esterne</em></p>
 </li>
 <li>Viene creata al volo una classe locale, e da lì se ne crea un oggetto
 <ul>
-<li>Tale oggetto, come per le classi locali, ha enclosing instance e “vede” anche le variabili <em><strong>final</strong></em> (o di fatto finali) nello scope del metodo in cui è definita</li>
+<li>Tale oggetto, come per le classi locali, ha enclosing instance e “vede” anche le variabili <code>final</code> (o di fatto finali) nello scope del metodo in cui è definita</li>
 </ul>
 </li>
 </ul>
@@ -480,9 +482,40 @@ ma che <em>non vogliamo esporre come classi esterne</em></p>
 </span></span><span style="display:flex;"><span>        }
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div></section><section>
+</span></span></code></pre></div><ul>
+<li>In pratica, una local class, ma senza nome, e con un solo oggetto istanziato.</li>
+</ul>
+</section><section>
 <h2 id="range-tramite-classe-anonima--la-soluzione-ottimale"><code>Range</code> tramite classe anonima – la soluzione ottimale</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""></code></pre></div></section><section>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.Iterator</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">RangeAnonymous</span> <span style="color:#a90d91">implements</span> <span style="color:#000">Iterable</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">start</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">stop</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">RangeAnonymous</span>(<span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">start</span>, <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">stop</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">this</span>.<span style="color:#836c28">start</span> <span style="color:#000">=</span> <span style="color:#000">start</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">this</span>.<span style="color:#836c28">stop</span> <span style="color:#000">=</span> <span style="color:#000">stop</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">Iterator</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> <span style="color:#000">iterator</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">return</span> <span style="color:#a90d91">new</span> <span style="color:#000">Iterator</span><span style="color:#000">&lt;&gt;</span>() {
+</span></span><span style="display:flex;"><span>            <span style="color:#177500">// Non ci può essere costruttore!</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#a90d91">private</span> <span style="color:#a90d91">int</span> <span style="color:#000">current</span> <span style="color:#000">=</span> <span style="color:#000">start</span>; <span style="color:#177500">// o anche Range4.this.start</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#a90d91">public</span> <span style="color:#000">Integer</span> <span style="color:#000">next</span>() {
+</span></span><span style="display:flex;"><span>                <span style="color:#a90d91">return</span> <span style="color:#000">current</span><span style="color:#000">++</span>;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#a90d91">public</span> <span style="color:#a90d91">boolean</span> <span style="color:#000">hasNext</span>() {
+</span></span><span style="display:flex;"><span>                <span style="color:#a90d91">return</span> <span style="color:#000">current</span> <span style="color:#000">&lt;=</span> <span style="color:#000">stop</span>; <span style="color:#177500">// o anche Range4.this.stop</span>
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">remove</span>() { }
+</span></span><span style="display:flex;"><span>        }; <span style="color:#177500">// questo è il ; del return</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></section><section>
 <h2 id="classi-anonime--motivazioni">Classi anonime – motivazioni</h2>
 <h3 id="perchè-usare-una-classe-anonima">Perchè usare una classe anonima?</h3>
 <ul>
@@ -492,7 +525,29 @@ ma che <em>non vogliamo esporre come classi esterne</em></p>
 </ul>
 </section><section>
 <h2 id="altro-esempio-classe-anonima-da--comparable">Altro esempio: classe anonima da  <code>Comparable</code></h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""></code></pre></div></section><section>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.Comparator</span>;
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.List</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseSort</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">final</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> <span style="color:#000">list</span> <span style="color:#000">=</span> <span style="color:#000">Arrays</span>.<span style="color:#836c28">asList</span>(<span style="color:#000">10</span>, <span style="color:#000">40</span>, <span style="color:#000">7</span>, <span style="color:#000">57</span>, <span style="color:#000">13</span>, <span style="color:#000">19</span>, <span style="color:#000">21</span>, <span style="color:#000">35</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">list</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#177500">// classe anonima a partire da una interfaccia</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">Collections</span>.<span style="color:#836c28">sort</span>(<span style="color:#000">list</span>, <span style="color:#a90d91">new</span> <span style="color:#000">Comparator</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span>() {
+</span></span><span style="display:flex;"><span>            <span style="color:#a90d91">public</span> <span style="color:#a90d91">int</span> <span style="color:#000">compare</span>(<span style="color:#000">Integer</span> <span style="color:#000">a</span>, <span style="color:#000">Integer</span> <span style="color:#000">b</span>) {
+</span></span><span style="display:flex;"><span>                <span style="color:#a90d91">return</span> <span style="color:#000">Integer</span>.<span style="color:#836c28">compare</span>(<span style="color:#000">a</span>, <span style="color:#000">b</span>);
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        });
+</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">list</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#000">Collections</span>.<span style="color:#836c28">sort</span>(<span style="color:#000">list</span>, <span style="color:#a90d91">new</span> <span style="color:#000">Comparator</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span>() {
+</span></span><span style="display:flex;"><span>            <span style="color:#a90d91">public</span> <span style="color:#a90d91">int</span> <span style="color:#000">compare</span>(<span style="color:#000">Integer</span> <span style="color:#000">a</span>, <span style="color:#000">Integer</span> <span style="color:#000">b</span>) {
+</span></span><span style="display:flex;"><span>                <span style="color:#a90d91">return</span> <span style="color:#000">Integer</span>.<span style="color:#836c28">compare</span>(<span style="color:#000">b</span>, <span style="color:#000">a</span>);
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        });
+</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">list</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></section><section>
 <h2 id="riassunto-e-linee-guida">Riassunto e linee guida</h2>
 <h3 id="inner-class-e-varianti">Inner class (e varianti)</h3>
 <p>Utili quando si vuole isolare un sotto-comportamento in una classe a sé, senza dichiararne una nuova che si affianchi alla lista di quelle fornite dal package, ma stia “dentro” una classe più importante</p>
