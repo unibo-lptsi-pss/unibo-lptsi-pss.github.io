@@ -1,7 +1,7 @@
 <!DOCTYPE html><html lang="en"><head>
     <meta charset="utf-8">
-<title>Progettazione e Sviluppo del Software</title>
-<meta name="description" content="Progettazione e Sviluppo del Software, Tecnologie dei Sistemi Informatici">
+<title>Laboratorio di Programmazione ad Oggetti</title>
+<meta name="description" content="Laboratorio di Programmazione ad Oggetti, Ingegneria e Scienze Informatiche">
 <meta name="author" content="Danilo Pianini">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -20,7 +20,7 @@
       <div class="slides">
   
 
-    <section><h1 id="dipendenze-e-librerie-in-gradle">Dipendenze e Librerie in Gradle</h1>
+    <section><h1 id="dipendenze-e-librerie">Dipendenze e librerie</h1>
 <h4 id="progettazione-e-sviluppo-del-software">Progettazione e Sviluppo del Software</h4>
 <h4 id="cdl-tecnologie-dei-sistemi-informatici">C.D.L. Tecnologie dei Sistemi Informatici</h4>
 <h3 id="danilo-pianini"><a href="mailto:danilo.pianini@unibo.it">Danilo Pianini — <code>danilo.pianini@unibo.it</code></a></h3>
@@ -30,19 +30,21 @@
  — <a href="?print-pdf&amp;pdfSeparateFragments=false"><i class="fa fa-print" aria-hidden="true"></i> versione stampabile</a></p>
 <p><a href=".."><i class="fa fa-undo" aria-hidden="true"></i> back</a></p>
 </section><section>
-<h2 id="riconoscimenti">Riconoscimenti</h2>
+<h2 id="outline">Outline</h2>
 <ul>
-<li>
-<p>Questo materiale è ampiamente basato su quello realizzato dai Prof.
-Mirko Viroli e Roberto Casadei, che ringrazio.</p>
-</li>
-<li>
-<p>Ogni errore riscontratovi è esclusiva responsabilità degli autori di questo documento.</p>
-</li>
+<li>Cos’è una libreria?</li>
+<li>Gestione delle dipendenze con Gradle</li>
+<li>Librerie Java particolarmente utili</li>
+</ul>
+<h2 id="obiettivi">Obiettivi</h2>
+<ul>
+<li>Comprendere il concetto di libreria software</li>
+<li>Saper utilizzare un build system per la gestione delle dipendenze</li>
+<li>Conoscere alcune librerie Java comunemente usate</li>
 </ul>
 </section><section>
-<!-- this file includes generated content. Do not edit. Edit content/lab/05-dependencies/generator.md, instead. -->
-<h1 id="dipendenze-e-librerie">Dipendenze e librerie</h1>
+<!-- this file includes generated content. Do not edit. Edit content/25-dependecies/generator.md, instead. -->
+<h1 id="dipendenze-e-librerie-1">Dipendenze e librerie</h1>
 </section><section>
 <h2 id="dipendenze-nel-software">Dipendenze nel software</h2>
 <blockquote>
@@ -348,34 +350,71 @@ Dobbiamo solo:</p>
 <li>includerla nel classpath di compilazione!</li>
 </ul>
 </section><section>
-<h2 id="junit-5-e-gradle">JUnit 5 e Gradle</h2>
+<h3 id="librerie-particolarmente-utili">Librerie particolarmente utili</h3>
 <ul>
-<li><code>build.gradle.kts</code>: supporto per i test
-<a href="https://github.com/junit-team/junit5-samples/junit5-jupiter-starter-gradle"><i class="fa-solid fa-link"></i></a>
-<a href="https://docs.gradle.org/current/userguide/java_testing.html#java_testing"><i class="fa-solid fa-link"></i></a></li>
+<li>
+<p><strong>Google Guava</strong> (<a href="https://github.com/google/guava">https://github.com/google/guava</a>)</p>
+<ul>
+<li>Il progetto Guava di Google raccoglie diverse librerie core sviluppate da Google che possono essere utilizzate per lo sviluppo di applicazioni.</li>
+<li>Ad esempio, sono disponibili librerie per Collections Management, Concurrency, I/O, String Processing, …</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#000">plugins</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#000">java</span> <span style="color:#177500">// JavaPlugin aggiunge un source set "test" e un task "test"
-</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#000">repositories</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#000">mavenCentral</span>() <span style="color:#177500">// occorre per risolvere le dipendenze di JUnit
-</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#000">dependencies</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#177500">// Dipendenza per scrivere i test
-</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#000">testImplementation</span>(<span style="color:#c41a16">"org.junit.jupiter:junit-jupiter-api:5.9.1"</span>)
-</span></span><span style="display:flex;"><span>    <span style="color:#177500">// Dipendenza per eseguire i test
-</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#000">testRuntimeOnly</span>(<span style="color:#c41a16">"org.junit.jupiter:junit-jupiter-engine:5.9.1"</span>)
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#000">tasks</span>.<span style="color:#000">test</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#000">useJUnitPlatform</span>() <span style="color:#177500">// configura il task "test" per usare la JUnit Platform
-</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#000">testLogging</span> { <span style="color:#000">events</span>(<span style="color:#c41a16">"passed"</span>, <span style="color:#c41a16">"skipped"</span>, <span style="color:#c41a16">"failed"</span>) } <span style="color:#177500">// per stampare l'esito di ogni test
-</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>}
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span>$ ./gradlew <span style="color:#a90d91">test</span> 
-</span></span><span style="display:flex;"><span>$ ./gradlew <span style="color:#a90d91">test</span> --tests it.unibo.*.Buggy*Test <span style="color:#177500"># filtra i test da eseguire</span>
-</span></span></code></pre></div></section>
+</li>
+<li>
+<p><strong>Apache Commons</strong> (<a href="https://commons.apache.org">https://commons.apache.org</a>)</p>
+<ul>
+<li>Estensioni al linguaggio (Commons Lang3)</li>
+<li>Libreria matematica estesa (Commons Math3)</li>
+<li>Accesso semplificato all’I/O (Commons IO)</li>
+<li>Costruzione semi automatica di una command line (Commons CLI)</li>
+<li>Encoding e crittazione (Commons Codec), compressione (Commons Compress)</li>
+</ul>
+</li>
+<li>
+<p><strong>Static Logger Facade for Java (SLF4J)</strong> (<a href="http://www.slf4j.org">http://www.slf4j.org</a>)</p>
+<ul>
+<li>Backend-independent logging (addio <code>println</code>)</li>
+</ul>
+</li>
+</ul>
+</section><section>
+<h3 id="top-20-java-library">Top 20 Java Library</h3>
+<p><a href="http://blog.takipi.com/we-analyzed-60678-libraries-on-github-here-are-the-top-100">
+<img src="imgs/top-20-java-libraries.png" alt="">
+</a></p>
+</section><section>
+<h3 id="awesome-java">Awesome Java</h3>
+<p>Esiste una lista, costantemente manutenuta, che elenca le più comuni, diffuse e stabili librerie per una pletora di usi: <a href="https://bit.ly/awesome-java">https://bit.ly/awesome-java</a></p>
+<h4 id="usatele">USATELE!</h4>
+<ul>
+<li><strong>Usare librerie e non reinventare la ruota è IMPORTANTE</strong> e valutato
+positivamente.</li>
+<li>Attenzione però a scegliere le librerie dopo aver fatto il <strong>modello del dominio</strong>
+dell’applicazione: <strong>PRIMA</strong> si studia il problema, <strong>DOPO</strong> si implementa una soluzione:
+siete aspiranti ingegneri, cercate di lavorare sempre top-down quando possibile, non partite dalla libreria per costruirci sopra un software, ma partite dai requisiti e - se utile - sfruttate le librerie per soddisfarli.</li>
+</ul>
+<h4 id="attenzione-ai-framework">Attenzione ai framework!</h4>
+<p>Alcune librerie sono costruite come <em>Framework</em>,
+ossia come ossature di applicazioni,
+pensate per velocizzare la costruzione di un certo tipo di software</p>
+<ul>
+<li>Esempio tipico: l’engine per videogames <a href="%60https://libgdx.com/%60">libGDX</a></li>
+</ul>
+<p>Uno degli scopi del progetto di OOP è quello di misurare se siate bravi designer,
+ma per farlo è necessario che il design della vostra applicazione l’abbiate fatto voi e non chi ha costruito il framework.</p>
+<p>Vi raccomandiamo quindi di <strong>evitare i framework</strong>!
+O, al più, usarli solo <em>dopo che il progetto è avviato</em> come semplice libreria
+(non semplice e non sempre possibile)</p>
+</section><section>
+<h1 id="dipendenze-e-librerie-2">Dipendenze e librerie</h1>
+<h4 id="progettazione-e-sviluppo-del-software">Progettazione e Sviluppo del Software</h4>
+<h4 id="cdl-tecnologie-dei-sistemi-informatici">C.D.L. Tecnologie dei Sistemi Informatici</h4>
+<h3 id="danilo-pianini"><a href="mailto:danilo.pianini@unibo.it">Danilo Pianini — <code>danilo.pianini@unibo.it</code></a></h3>
+<h3 id="gianluca-aguzzi"><a href="mailto:gianluca.aguzzi@unibo.it">Gianluca Aguzzi — <code>gianluca.aguzzi@unibo.it</code></a></h3>
+<h3 id="angelo-filaseta"><a href="mailto:angelo.filaseta@unibo.it">Angelo Filaseta — <code>angelo.filaseta@unibo.it</code></a></h3>
+<p>Compiled on: 2025-11-13
+ — <a href="?print-pdf&amp;pdfSeparateFragments=false"><i class="fa fa-print" aria-hidden="true"></i> versione stampabile</a></p>
+<p><a href=".."><i class="fa fa-undo" aria-hidden="true"></i> back</a></p>
+</section>
 
   
 
@@ -559,8 +598,6 @@ Dobbiamo solo:</p>
   
 
   
-    
-  
   
 
   
@@ -569,8 +606,6 @@ Dobbiamo solo:</p>
   
   
 
-  
-    
   
   
 
