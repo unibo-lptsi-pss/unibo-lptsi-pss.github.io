@@ -420,7 +420,31 @@ ma che <em>non vogliamo esporre come classi esterne</em></p>
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></section><section>
 <h2 id="range-tramite-classe-locale"><code>Range</code> tramite classe locale</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""></code></pre></div></section><section>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Range3</span> <span style="color:#a90d91">implements</span> <span style="color:#000">Iterable</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">start</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">stop</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">Range3</span>(<span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">start</span>, <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">stop</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">this</span>.<span style="color:#836c28">start</span> <span style="color:#000">=</span> <span style="color:#000">start</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">this</span>.<span style="color:#836c28">stop</span> <span style="color:#000">=</span> <span style="color:#000">stop</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">java</span>.<span style="color:#836c28">util</span>.<span style="color:#836c28">Iterator</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> <span style="color:#000">iterator</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">class</span> <span style="color:#3f6e75">RangeIterator</span> <span style="color:#a90d91">implements</span> <span style="color:#000">Iterator</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#a90d91">private</span> <span style="color:#a90d91">int</span> <span style="color:#000">current</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#a90d91">public</span> <span style="color:#000">RangeIterator</span>() { <span style="color:#a90d91">this</span>.<span style="color:#836c28">current</span> <span style="color:#000">=</span> <span style="color:#000">Range3</span>.<span style="color:#836c28">this</span>.<span style="color:#836c28">start</span>; }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#a90d91">public</span> <span style="color:#000">Integer</span> <span style="color:#000">next</span>() { <span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">current</span><span style="color:#000">++</span>; }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#a90d91">public</span> <span style="color:#a90d91">boolean</span> <span style="color:#000">hasNext</span>() { <span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">current</span> <span style="color:#000">&lt;=</span> <span style="color:#000">Range3</span>.<span style="color:#836c28">this</span>.<span style="color:#836c28">stop</span>; }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">remove</span>() { }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">return</span> <span style="color:#a90d91">new</span> <span style="color:#000">RangeIterator</span>();
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></section><section>
 <h2 id="classi-locali--motivazioni">Classi locali – motivazioni</h2>
 <h3 id="perché-usare-una-classe-locale-invece-di-una-inner-class">Perché usare una classe locale invece di una inner class</h3>
 <ul>
