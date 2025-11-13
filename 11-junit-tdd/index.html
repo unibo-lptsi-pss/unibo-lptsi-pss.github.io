@@ -165,28 +165,22 @@
 </li>
 </ul>
 </section><section>
-<h2 id="introduzione-al-testing-concetti-preliminari">Introduzione al testing: concetti preliminari</h2>
-<h3 id="errore-vs-fallimento-vs-difettobug">Errore vs. fallimento vs. difetto/bug</h3>
-<ul>
-<li><em><strong>Fallimento</strong> (<strong>problema</strong>, <strong>anomalia</strong>)</em>: differenza osservata fra un <em>risultato attuale</em> rispetto a un <em>risultato atteso</em></li>
-<li><em><strong>Falla</strong> (<strong>difetto</strong>, <strong>bug</strong>)</em>: <em>causa</em> di un’anomalia
-<ul>
-<li>Un fallimento può essere causato da <em>più bug</em></li>
-<li>Un singolo bug può causare varie anomalie</li>
-<li>Un bug potrebbe rimanere <em>latente</em>, se non osserviamo anomalie</li>
-</ul>
-</li>
-<li><em><strong>Errore</strong></em>: l’azione che ha causato una falla
-<ul>
-<li>ad esempio, una distrazione del programmatore</li>
-</ul>
-</li>
-<li>Quindi la progressione è <em>Errore $\to$ Difetto/Bug $\to$ Fallimento</em></li>
-</ul>
-<h3 id="una-prima-definizione-di-testing">Una prima definizione di <em>testing</em></h3>
-<ul>
-<li>Il <em><strong>testing del software</strong></em> è quell’attività di <em>ricerca di anomalie</em> al fine di <em>localizzare e rimuovere i difetti</em> nel software</li>
-</ul>
+<!--
+## Introduzione al testing: concetti preliminari
+
+### Errore vs. fallimento vs. difetto/bug
+
+- *__Fallimento__ (__problema__, __anomalia__)*: differenza osservata fra un *risultato attuale* rispetto a un *risultato atteso*
+- *__Falla__ (__difetto__, __bug__)*: *causa* di un'anomalia
+	* Un fallimento può essere causato da *più bug*
+	* Un singolo bug può causare varie anomalie
+    * Un bug potrebbe rimanere *latente*, se non osserviamo anomalie
+- *__Errore__*: l'azione che ha causato una falla 
+    - ad esempio, una distrazione del programmatore
+- Quindi la progressione è *Errore $\to$ Difetto/Bug $\to$ Fallimento*
+-->
+<h2 id="una-prima-definizione-di-testing">Una prima definizione di <em>testing</em></h2>
+<h3 id="il-testing-del-software-è-quellattività-di-ricerca-di-anomalie-al-fine-di-localizzare-e-rimuovere-i-difetti-nel-software">Il <em><strong>testing del software</strong></em> è quell’attività di <em>ricerca di anomalie</em> al fine di <em>localizzare e rimuovere i difetti</em> nel software</h3>
 </section><section>
 <h3 id="verifica-vs-validazione">Verifica vs. validazione</h3>
 <ul>
@@ -204,18 +198,19 @@
 </li>
 </ul>
 </section><section>
-<h2 id="definizione-di-software-testing">Definizione di “software testing”</h2>
-<h3 id="definizioni-di-software-testing">Definizioni di <em>software testing</em></h3>
-<ul>
-<li>“An <em>investigation</em> conducted to provide stakeholders with information about the <em>quality</em> of the software product or service under test” (Cem Kaner/Wikipedia)</li>
-</ul>
-<ul>
-<li>“<em>Activity</em> in which a system or component is executed
-under specified conditions, the results are observed or recorded, and an evaluation is made of some aspect of the system or component” (ISO/IEC/IEEE 24765:2010 Systems and software engineering – Vocabulary)</li>
-<li>“The process consisting of <em>all lifecycle activities</em>, both static and dynamic, concerned with planning, preparation and evaluation of software products and related work products to determine that they <em>satisfy specified requirements</em>, to demonstrate that they are <em>fit for purpose</em> and to <em>detect defects</em>.” (ISTQB–International Software Testing Qualifications Board)</li>
-<li>“The <em>overall process</em> of planning, preparing, and carrying out a suite of <em>different types of tests</em> designed to validate a system under development, in order to achieve an acceptable level of <em>quality</em> and to avoid unacceptable <em>risks</em>”</li>
-</ul>
-</section><section>
+<!---
+## Definizione di "software testing"
+
+### Definizioni di *software testing*
+
+- "An *investigation* conducted to provide stakeholders with information about the *quality* of the software product or service under test" (Cem Kaner/Wikipedia)
+ * "*Activity* in which a system or component is executed
+under specified conditions, the results are observed or recorded, and an evaluation is made of some aspect of the system or component" (ISO/IEC/IEEE 24765:2010 Systems and software engineering -- Vocabulary)
+ * "The process consisting of *all lifecycle activities*, both static and dynamic, concerned with planning, preparation and evaluation of software products and related work products to determine that they *satisfy specified requirements*, to demonstrate that they are *fit for purpose* and to *detect defects*." (ISTQB--International Software Testing Qualifications Board) 
+ * "The *overall process* of planning, preparing, and carrying out a suite of *different types of tests* designed to validate a system under development, in order to achieve an acceptable level of *quality* and to avoid unacceptable *risks*"
+
+---
+--->
 <h3 id="elementi-chiave">Elementi chiave</h3>
 <ul>
 <li>Attività/processo
@@ -247,7 +242,7 @@ under specified conditions, the results are observed or recorded, and an evaluat
 </section><section>
 <h1 id="testing-in-pratica">Testing in pratica</h1>
 </section><section>
-<h2 id="junit-5">JUnit 5</h2>
+<h2 id="junit-6">JUnit 6</h2>
 <ul>
 <li>Scriviamo un test per la classe <code>BuggyNumFinder</code></li>
 </ul>
@@ -296,7 +291,7 @@ under specified conditions, the results are observed or recorded, and an evaluat
 <div class="col">
 <ul>
 <li>La classe è una <em>test suite</em> che raccoglie <em>test case</em> associati all’<em>unit under test (UUT)</em> <code>BuggyNumFinder</code></li>
-<li>La classe usa l’API della libreria <strong>JUnit 5</strong>
+<li>La classe usa l’API della libreria <strong>JUnit 6</strong>
 <ul>
 <li>cf. import <code>org.junit.jupiter.api.*</code></li>
 </ul>
@@ -364,35 +359,33 @@ under specified conditions, the results are observed or recorded, and an evaluat
 </li>
 </ul>
 </section><section>
-<h2 id="junit-5-e-gradle">JUnit 5 e Gradle</h2>
+<h2 id="junit-6-e-gradle">JUnit 6 e Gradle</h2>
 <ul>
 <li><code>build.gradle.kts</code>: supporto per i test
-<a href="https://github.com/junit-team/junit5-samples/junit5-jupiter-starter-gradle"><i class="fa-solid fa-link"></i></a>
 <a href="https://docs.gradle.org/current/userguide/java_testing.html#java_testing"><i class="fa-solid fa-link"></i></a></li>
 </ul>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#000">plugins</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#000">java</span> <span style="color:#177500">// JavaPlugin aggiunge un source set "test" e un task "test"
-</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>}
+</span></span><span style="display:flex;"><span>    <span style="color:#000">id</span>(<span style="color:#c41a16">"java"</span>)
+</span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#000">repositories</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#000">mavenCentral</span>() <span style="color:#177500">// occorre per risolvere le dipendenze di JUnit
-</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>}
-</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000">repositories</span> { <span style="color:#177500">// Where to search for dependencies
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#000">mavenCentral</span>()
+</span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span><span style="color:#000">dependencies</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#177500">// Dipendenza per scrivere i test
-</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#000">testImplementation</span>(<span style="color:#c41a16">"org.junit.jupiter:junit-jupiter-api:5.9.1"</span>)
-</span></span><span style="display:flex;"><span>    <span style="color:#177500">// Dipendenza per eseguire i test
-</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#000">testRuntimeOnly</span>(<span style="color:#c41a16">"org.junit.jupiter:junit-jupiter-engine:5.9.1"</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#177500">// JUnit API and testing engine
+</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#000">testImplementation</span>(<span style="color:#000">platform</span>(<span style="color:#c41a16">"org.junit:junit-bom:6.0.1"</span>))
+</span></span><span style="display:flex;"><span>    <span style="color:#000">testImplementation</span>(<span style="color:#c41a16">"org.junit.jupiter:junit-jupiter-api"</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#000">testRuntimeOnly</span>(<span style="color:#c41a16">"org.junit.platform:junit-platform-launcher"</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#000">testRuntimeOnly</span>(<span style="color:#c41a16">"org.junit.jupiter:junit-jupiter-engine"</span>)
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#000">tasks</span>.<span style="color:#000">test</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#000">useJUnitPlatform</span>() <span style="color:#177500">// configura il task "test" per usare la JUnit Platform
-</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>    <span style="color:#000">testLogging</span> { <span style="color:#000">events</span>(<span style="color:#c41a16">"passed"</span>, <span style="color:#c41a16">"skipped"</span>, <span style="color:#c41a16">"failed"</span>) } <span style="color:#177500">// per stampare l'esito di ogni test
-</span></span></span><span style="display:flex;"><span><span style="color:#177500"></span>}
+</span></span><span style="display:flex;"><span>    <span style="color:#000">useJUnitPlatform</span>()
+</span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span>$ ./gradlew <span style="color:#a90d91">test</span> 
 </span></span><span style="display:flex;"><span>$ ./gradlew <span style="color:#a90d91">test</span> --tests it.unibo.*.Buggy*Test <span style="color:#177500"># filtra i test da eseguire</span>
 </span></span></code></pre></div></section><section>
-<h2 id="junit-5-architettura">JUnit 5: architettura</h2>
+<h2 id="junit-6-architettura">JUnit 6: architettura</h2>
 <ul>
 <li><strong>JUnit Platform</strong>: piattaforma comune per l’<em>esecuzione</em> dei test attraverso l’astrazione di <em>engine</em>
 <ul>
@@ -406,15 +399,10 @@ under specified conditions, the results are observed or recorded, and an evaluat
 </li>
 <li>varie librerie di testing consentono di scrivere test per l’esecuzione sulla JUnit Platform
 <ul>
-<li><strong>JUnit Jupiter</strong> (JUnit 5):
+<li><strong>JUnit Jupiter</strong> (JUnit 6):
 <ul>
 <li><code>org.junit.jupiter:junit-jupiter-api:_</code> API per <em>scrivere</em> test</li>
 <li><code>org.junit.jupiter:junit-jupiter-engine:_</code> engine corrispondente</li>
-</ul>
-</li>
-<li><strong>JUnit Vintage</strong> (JUnit 4):
-<ul>
-<li><code>org.junit.vintage:junit-vintage-engine:_</code> engine per test JUnit 4</li>
 </ul>
 </li>
 </ul>
@@ -728,7 +716,7 @@ o verificare la conformità con uno specifico requisito.</li>
 </li>
 </ul>
 </section><section>
-<h1 id="unit-testing-e-test-driven-development-in-java-con-junit-5-1">Unit Testing e Test-Driven Development in Java con JUnit 5</h1>
+<h1 id="unit-testing-e-test-driven-development-in-java-con-junit-6">Unit Testing e Test-Driven Development in Java con JUnit 6</h1>
 <h4 id="progettazione-e-sviluppo-del-software">Progettazione e Sviluppo del Software</h4>
 <h4 id="cdl-tecnologie-dei-sistemi-informatici">C.D.L. Tecnologie dei Sistemi Informatici</h4>
 <h3 id="danilo-pianini"><a href="mailto:danilo.pianini@unibo.it">Danilo Pianini — <code>danilo.pianini@unibo.it</code></a></h3>
@@ -883,8 +871,6 @@ o verificare la conformità con uno specifico requisito.</li>
   
   
 
-  
-    
   
   
 
