@@ -1,0 +1,796 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="utf-8">
+<title>Progettazione e Sviluppo del Software</title>
+<meta name="description" content="Progettazione e Sviluppo del Software, Tecnologie dei Sistemi Informatici">
+<meta name="author" content="Danilo Pianini">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><link rel="stylesheet" href="/reveal-js/dist/reset.css">
+<link rel="stylesheet" href="/reveal-js/dist/reveal.css">
+  <link rel="stylesheet" href="/css/custom-theme.min.c5d5307c22aeba26e5f63813bdbc90c5483e809383467a8e6f523d7f756010c5.css" id="theme"><link rel="stylesheet" href="/highlight-js/default.min.css">
+<link href="https://fonts.googleapis.com/css?family=Roboto Mono" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Oxygen Mono" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Ubuntu Mono" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+
+  </head>
+  <body>
+    
+    <div class="reveal">
+      <div class="slides">
+  
+
+    <section><h1 id="classi-innestate">Classi innestate</h1>
+<h4 id="progettazione-e-sviluppo-del-software">Progettazione e Sviluppo del Software</h4>
+<h4 id="cdl-tecnologie-dei-sistemi-informatici">C.D.L. Tecnologie dei Sistemi Informatici</h4>
+<h3 id="danilo-pianini"><a href="mailto:danilo.pianini@unibo.it">Danilo Pianini — <code>danilo.pianini@unibo.it</code></a></h3>
+<h3 id="gianluca-aguzzi"><a href="mailto:gianluca.aguzzi@unibo.it">Gianluca Aguzzi — <code>gianluca.aguzzi@unibo.it</code></a></h3>
+<h3 id="angelo-filaseta"><a href="mailto:angelo.filaseta@unibo.it">Angelo Filaseta — <code>angelo.filaseta@unibo.it</code></a></h3>
+<p>Compiled on: 2025-11-13
+ — <a href="?print-pdf&amp;pdfSeparateFragments=false"><i class="fa fa-print" aria-hidden="true"></i> versione stampabile</a></p>
+<p><a href=".."><i class="fa fa-undo" aria-hidden="true"></i> back</a></p>
+</section><section>
+<h1 id="classi-innestate-statiche">Classi innestate statiche</h1>
+</section><section>
+<h2 id="classi-innestate-statiche--idea-e-terminologia">Classi innestate statiche – idea e terminologia</h2>
+<h3 id="principali-elementi">Principali elementi</h3>
+<ul>
+<li>Dentro una classe <code>A</code>, chiamata <em><strong>outer</strong></em> è possibile innestare la definizione di un’altra classe <code>B</code>, chiamata <em><strong>innestata (statica)</strong></em> – in inglese, <em><strong>static nested</strong></em></li>
+<li><code>B</code> viene quindi vista come se fosse una proprietà <code>statica</code> di <code>A</code>
+<ul>
+<li>richiamabile via <code>A</code>, come le <code>new</code> e le chiamate statiche</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#177500">// situazione di partenza</span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">A</span> {...}
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">B</span> {...}
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#177500">// modifica, usando le inner class</span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">A</span> {
+</span></span><span style="display:flex;"><span>    ...
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">static</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">B</span> { .. }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></section><section>
+<h2 id="classi-innestate-statiche--casistica">Classi innestate statiche – casistica</h2>
+<h3 id="possibilità-di-innestamento">Possibilità di innestamento</h3>
+<ul>
+<li>Anche una interfaccia può fungere da <code>Outer</code></li>
+<li>Si possono innestare anche interfacce</li>
+<li>Il nesting può essere multiplo e/o <em>multilivello</em></li>
+<li>L’accesso alle classi/interfacce innestate statiche avviene con sintassi <code>Outer.A</code>, <code>Outer.B</code>, <code>Outer.I</code>, <code>Outer.A.C</code></li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">Outer</span> {
+</span></span><span style="display:flex;"><span>    ...
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">static</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">A</span> { ... <span style="color:#a90d91">static</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">C</span> { ... } ... }
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">static</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">B</span> { ... }
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">interface</span> <span style="color:#3f6e75">I</span> { ... } <span style="color:#177500">// static è implicito nelle interfacce</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></section><section>
+<h2 id="classi-innestate-statiche--accesso">Classi innestate statiche – accesso</h2>
+<h3 id="uso">Uso</h3>
+<ul>
+<li>L’accesso alle classi/interfacce innestate statiche avviene con sintassi <code>Outer.StaticNested</code>
+<ul>
+<li>ovvero, come se fosse un membro statico della classe</li>
+</ul>
+</li>
+<li>Da dentro <code>Outer</code> si può accedere anche direttamente con <code>StaticNested</code></li>
+<li>L’accesso da fuori <code>Outer</code> di <code>StaticNested</code> segue le regole del suo modificatore d’accesso</li>
+<li><em>Esterna e interna si vedono a vicenda anche le proprietà <code>private</code></em></li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">Outer</span> {
+</span></span><span style="display:flex;"><span>    ...
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">static</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">StaticNested</span> { 
+</span></span><span style="display:flex;"><span>       ...
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>..
+</span></span><span style="display:flex;"><span><span style="color:#000">Outer</span>.<span style="color:#836c28">StaticNested</span> <span style="color:#000">obj</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Outer</span>.<span style="color:#836c28">StaticNested</span>(...);
+</span></span></code></pre></div></section><section>
+<h2 id="motivazioni">Motivazioni</h2>
+<h3 id="una-necessità-generale">Una necessità generale</h3>
+<p>Vi sono situazioni in cui per risolvere un singolo problema è opportuno generare più classi, e non si vuole affiancarle solo come classi dello stesso package</p>
+<h3 id="almeno-tre-motivazioni-non-necessariamente-contemporanee">Almeno tre motivazioni (non necessariamente contemporanee)</h3>
+<ol>
+<li><em>Evitare il proliferare di classi</em> in un package, specialmente quando solo una di queste debba essere pubblica</li>
+<li>Migliorare l’<em>incapsulamento</em>, con un meccanismo per consentire un accesso locale anche a proprietà <code>private</code></li>
+<li>Migliorare la <em>leggibilità</em>, inserendo classi là dove serve (con <em>nomi qualificati</em>, quindi più espressivi)</li>
+</ol>
+</section><section>
+<h2 id="esempio-specializzazioni-come-classi-innestate">Esempio: specializzazioni come classi innestate</h2>
+<ul>
+<li>La classe astratta, o comunque base, è la outer</li>
+<li>Alcune specializzazioni ritenute frequenti e ovvie vengono innestate, ma comunque rese pubbliche</li>
+<li>due implicazioni:
+<ul>
+<li>schema di nome delle inner class</li>
+<li>possibilità di accedere alle proprietà statiche</li>
+</ul>
+</li>
+</ul>
+<h3 id="note">Note</h3>
+<ul>
+<li>Un’indicazione che sia opportuno usare classi innestate è la presenza di nomi composti da una parte comune</li>
+<li>Ad esempio:
+<ul>
+<li><code>Counter</code> che modella un contatore</li>
+<li><code>BidirectionalCounter</code>, sempre un contatore, ma che può incrementare di più step alla volta</li>
+<li><code>MultiCounter</code>, sempre un contatore, ma che conta anche all’indietro</li>
+</ul>
+</li>
+</ul>
+</section><section>
+<h2 id="classe-counter-e-specializzazioni-innestate">Classe <code>Counter</code> e specializzazioni innestate</h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">package</span> <span style="color:#000">it.unibo.nested</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Counter</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">int</span> <span style="color:#000">value</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">Counter</span>(<span style="color:#a90d91">int</span> <span style="color:#000">initialValue</span>) { <span style="color:#a90d91">this</span>.<span style="color:#836c28">value</span> <span style="color:#000">=</span> <span style="color:#000">initialValue</span>; }
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">increment</span>() { <span style="color:#a90d91">this</span>.<span style="color:#836c28">value</span><span style="color:#000">++</span>; }
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">int</span> <span style="color:#000">getValue</span>() { <span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">value</span>; }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Multi</span> <span style="color:#a90d91">extends</span> <span style="color:#000">Counter</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">public</span> <span style="color:#000">Multi</span>(<span style="color:#a90d91">int</span> <span style="color:#000">initialValue</span>) { <span style="color:#a90d91">super</span>(<span style="color:#000">initialValue</span>); }
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">multiIncrement</span>(<span style="color:#a90d91">int</span> <span style="color:#000">n</span>) { <span style="color:#a90d91">super</span>.<span style="color:#836c28">value</span> <span style="color:#000">+=</span> <span style="color:#000">n</span>; }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Bidirectional</span> <span style="color:#a90d91">extends</span> <span style="color:#000">Counter</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">public</span> <span style="color:#000">Bidirectional</span>(<span style="color:#a90d91">int</span> <span style="color:#000">initialValue</span>) { <span style="color:#a90d91">super</span>(<span style="color:#000">initialValue</span>); }
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">decrement</span>() { <span style="color:#a90d91">super</span>.<span style="color:#836c28">value</span><span style="color:#000">--</span>; }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></section><section>
+<h2 id="uso-di-counter-e-specializzazioni-innestate">Uso di <code>Counter</code> e specializzazioni innestate</h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">package</span> <span style="color:#000">it.unibo.nested</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.ArrayList</span>;
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.List</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseCounter</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">final</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">Counter</span><span style="color:#000">&gt;</span> <span style="color:#000">list</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">ArrayList</span><span style="color:#000">&lt;&gt;</span>();
+</span></span><span style="display:flex;"><span>        <span style="color:#000">list</span>.<span style="color:#836c28">add</span>(<span style="color:#a90d91">new</span> <span style="color:#000">Counter</span>(<span style="color:#000">100</span>));
+</span></span><span style="display:flex;"><span>        <span style="color:#000">list</span>.<span style="color:#836c28">add</span>(<span style="color:#a90d91">new</span> <span style="color:#000">Counter</span>.<span style="color:#836c28">Bidirectional</span>(<span style="color:#000">100</span>));
+</span></span><span style="display:flex;"><span>        <span style="color:#000">list</span>.<span style="color:#836c28">add</span>(<span style="color:#a90d91">new</span> <span style="color:#000">Counter</span>.<span style="color:#836c28">Multi</span>(<span style="color:#000">100</span>));
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">for</span> (<span style="color:#a90d91">final</span> <span style="color:#000">Counter</span> <span style="color:#000">c</span> : <span style="color:#000">list</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#000">c</span>.<span style="color:#836c28">increment</span>();
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></section><section>
+<h2 id="esempio-implementazione-interna-di-una-classe-separata">Esempio: implementazione interna di una classe separata</h2>
+<p>In una classe potrebbero servire sotto-comportamenti che debbano:
+implementare una data interfaccia o estendere una data classe,
+ma che <em>non vogliamo esporre come classi esterne</em></p>
+<ul>
+<li>Per esempio, il concetto di <code>Range</code>, un <code>Iterable</code> che deve quindi produrre un  <code>Iterator</code>
+<ul>
+<li>Non vogliamo esporre il nostro concetto di <code>RangeIterator</code> pubblicamente</li>
+<li>Vogliamo che sia incapsulato dentro <code>Range</code></li>
+</ul>
+</li>
+</ul>
+<p>Spesso classi di questo tipo non devono essere visibili dall’esterno, quindi vengono indicate come <code>private</code></p>
+</section><section>
+<h2 id="classe-range-e-suo-rangeiterator-innestato">Classe <code>Range</code> e suo <code>RangeIterator</code> innestato</h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Range</span> <span style="color:#a90d91">implements</span> <span style="color:#000">Iterable</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">start</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">stop</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">Range</span>(<span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">start</span>, <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">stop</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">this</span>.<span style="color:#836c28">start</span> <span style="color:#000">=</span> <span style="color:#000">start</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">this</span>.<span style="color:#836c28">stop</span> <span style="color:#000">=</span> <span style="color:#000">stop</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">Iterator</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> <span style="color:#000">iterator</span>() { <span style="color:#a90d91">return</span> <span style="color:#a90d91">new</span> <span style="color:#000">RangeIterator</span>(<span style="color:#a90d91">this</span>.<span style="color:#836c28">start</span>, <span style="color:#a90d91">this</span>.<span style="color:#836c28">stop</span>); }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">RangeIterator</span> <span style="color:#a90d91">implements</span> <span style="color:#000">Iterator</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">private</span> <span style="color:#a90d91">int</span> <span style="color:#000">current</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">stop</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">public</span> <span style="color:#000">RangeIterator</span>(<span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">start</span>, <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">stop</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#a90d91">this</span>.<span style="color:#836c28">current</span> <span style="color:#000">=</span> <span style="color:#000">start</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#a90d91">this</span>.<span style="color:#836c28">stop</span> <span style="color:#000">=</span> <span style="color:#000">stop</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">public</span> <span style="color:#000">Integer</span> <span style="color:#000">next</span>() { <span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">current</span><span style="color:#000">++</span>; }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">public</span> <span style="color:#a90d91">boolean</span> <span style="color:#000">hasNext</span>() { <span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">current</span> <span style="color:#000">&lt;=</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">stop</span>; }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">remove</span>() { <span style="color:#a90d91">throw</span> <span style="color:#a90d91">new</span> <span style="color:#000">UnsupportedOperationException</span>(); }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></section><section>
+<h2 id="esempio-tratto-dal-collection-framework">Esempio tratto dal Collection Framework</h2>
+<ul>
+<li><code>Map</code>, <code>Map.Entry</code></li>
+<li>una mappa è “osservabile” come set di entry, ossia come collezione di coppie chiave-valore</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">interface</span> <span style="color:#3f6e75">Map</span><span style="color:#000">&lt;</span><span style="color:#000">K</span>,<span style="color:#000">V</span><span style="color:#000">&gt;</span> {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#177500">// Query Operations</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">int</span> <span style="color:#000">size</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">boolean</span> <span style="color:#000">isEmpty</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">boolean</span> <span style="color:#000">containsKey</span>(<span style="color:#000">Object</span> <span style="color:#000">key</span>);        <span style="color:#177500">// usa Object.equals</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">boolean</span> <span style="color:#000">containsValue</span>(<span style="color:#000">Object</span> <span style="color:#000">value</span>);    <span style="color:#177500">// usa Object.equals</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">V</span> <span style="color:#000">get</span>(<span style="color:#000">Object</span> <span style="color:#000">key</span>);                      <span style="color:#177500">// accesso a valore</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#177500">// Modification Operations</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">V</span> <span style="color:#000">put</span>(<span style="color:#000">K</span> <span style="color:#000">key</span>, <span style="color:#000">V</span> <span style="color:#000">value</span>);          <span style="color:#177500">// inserimento chiave-valore</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">V</span> <span style="color:#000">remove</span>(<span style="color:#000">Object</span> <span style="color:#000">key</span>);           <span style="color:#177500">// rimozione chiave(-valore)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#177500">// Bulk Operations</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">void</span> <span style="color:#000">putAll</span>(<span style="color:#000">Map</span><span style="color:#000">&lt;?</span> <span style="color:#a90d91">extends</span> <span style="color:#000">K</span>, <span style="color:#000">?</span> <span style="color:#a90d91">extends</span> <span style="color:#000">V</span><span style="color:#000">&gt;</span> <span style="color:#000">m</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">void</span> <span style="color:#000">clear</span>();                   <span style="color:#177500">// cancella tutti</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#177500">// Views</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">Set</span><span style="color:#000">&lt;</span><span style="color:#000">K</span><span style="color:#000">&gt;</span> <span style="color:#000">keySet</span>();                    <span style="color:#177500">// set di chiavi</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">Collection</span><span style="color:#000">&lt;</span><span style="color:#000">V</span><span style="color:#000">&gt;</span> <span style="color:#000">values</span>();             <span style="color:#177500">// collezione di valori</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">Set</span><span style="color:#000">&lt;</span><span style="color:#000">Map</span>.<span style="color:#836c28">Entry</span><span style="color:#000">&lt;</span><span style="color:#000">K</span>, <span style="color:#000">V</span><span style="color:#000">&gt;&gt;</span> <span style="color:#000">entrySet</span>();    <span style="color:#177500">// set di chiavi-valore</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">interface</span> <span style="color:#3f6e75">Entry</span><span style="color:#000">&lt;</span><span style="color:#000">K</span>,<span style="color:#000">V</span><span style="color:#000">&gt;</span> {...}          <span style="color:#177500">// public static implicito!</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></section><section>
+<h2 id="riassunto-classi-innestate-statiche">Riassunto classi innestate statiche</h2>
+<h3 id="principali-aspetti">Principali aspetti</h3>
+<ul>
+<li>Da fuori (se pubblica) vi si accede con nome <code>Outer.StaticNested</code></li>
+<li><code>Outer</code> e <code>StaticNested</code> sono co-locate: si vedono le proprietà <code>private</code></li>
+</ul>
+<h3 id="motivazione-generale">Motivazione generale</h3>
+<ul>
+<li></li>
+<li>Voglio evitare la proliferazione di classi nel package</li>
+<li>Voglio sfruttare l’incapsulamento</li>
+</ul>
+<h3 id="motivazione-per-il-caso-public">Motivazione per il caso <code>public</code></h3>
+<ul>
+<li>Voglio enfatizzare i nomi <code>Out.C1</code>, <code>Out.C2</code>,..</li>
+</ul>
+<h3 id="motivazione-per-il-caso-private--è-il-caso-più-frequente">Motivazione per il caso <code>private</code> – è il caso più frequente</h3>
+<ul>
+<li>Voglio realizzare una classe a solo uso della outer, invisibile all’esterno (incapsulato)</li>
+</ul>
+</section><section>
+<h2 id="mapentry"><code>Map.Entry</code></h2>
+<h3 id="ruolo-di-mapentry">Ruolo di <code>Map.Entry</code></h3>
+<ul>
+<li></li>
+<li>Una mappa può essere vista come una collezione di coppie chiave-valore, ognuna incapsulata in un <code>Map.Entry</code></li>
+<li>Quindi, una mappa è composta da un set di <code>Map.Entry</code></li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">interface</span> <span style="color:#3f6e75">Map</span><span style="color:#000">&lt;</span><span style="color:#000">K</span>,<span style="color:#000">V</span><span style="color:#000">&gt;</span> {
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    ...
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#000">Set</span><span style="color:#000">&lt;</span><span style="color:#000">Map</span>.<span style="color:#836c28">Entry</span><span style="color:#000">&lt;</span><span style="color:#000">K</span>, <span style="color:#000">V</span><span style="color:#000">&gt;&gt;</span> <span style="color:#000">entrySet</span>();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">interface</span> <span style="color:#3f6e75">Entry</span><span style="color:#000">&lt;</span><span style="color:#000">K</span>,<span style="color:#000">V</span><span style="color:#000">&gt;</span> { <span style="color:#177500">// public e static implicite! </span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">K</span> <span style="color:#000">getKey</span>();
+</span></span><span style="display:flex;"><span>        <span style="color:#000">V</span> <span style="color:#000">getValue</span>();
+</span></span><span style="display:flex;"><span>        <span style="color:#000">V</span> <span style="color:#000">setValue</span>(<span style="color:#000">V</span> <span style="color:#000">value</span>);
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></section><section>
+<h1 id="inner-class">Inner Class</h1>
+</section><section>
+<h2 id="inner-class--idea">Inner Class – idea</h2>
+<h3 id="principali-elementi-1">Principali elementi</h3>
+<ul>
+<li>Dentro una classe <code>Outer</code>, è possibile innestare la definizione di un’altra classe <code>InnerClass</code>, senza indicazione <code>static</code></li>
+<li><code>InnerClass</code> è vista come se fosse una proprietà <em><strong>non-statica</strong></em> di <code>Outer</code> al pari di altri campi o metodi</li>
+<li>L’effetto è che una istanza di <code>InnerClass</code> ha sempre un riferimento ad una istanza di <code>Outer</code> (enclosing instance) che ne rappresenta il <em><strong>contesto</strong></em>, accessibile con la sintassi <code>Outer.this</code>, e ai suoi campi (privati)</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">Outer</span> {
+</span></span><span style="display:flex;"><span>    ...
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">class</span> <span style="color:#3f6e75">InnerClass</span> { <span style="color:#177500">// Nota.. non è static!</span>
+</span></span><span style="display:flex;"><span>        ...
+</span></span><span style="display:flex;"><span>        <span style="color:#177500">// ogni oggetto di InnerClass avrà un riferimento ad</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#177500">// un oggetto di Outer, denominato Outer.this</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></section><section>
+<h2 id="un-semplice-esempio">Un semplice esempio</h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Outer</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">i</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">Outer</span>(<span style="color:#a90d91">int</span> <span style="color:#000">i</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">this</span>.<span style="color:#836c28">i</span> <span style="color:#000">=</span> <span style="color:#000">i</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">Inner</span> <span style="color:#000">createInner</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">return</span> <span style="color:#a90d91">new</span> <span style="color:#000">Inner</span>();
+</span></span><span style="display:flex;"><span>        <span style="color:#177500">// oppure: return this.new Inner();</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Inner</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">private</span> <span style="color:#a90d91">int</span> <span style="color:#000">j</span> <span style="color:#000">=</span> <span style="color:#000">0</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">update</span>() {
+</span></span><span style="display:flex;"><span>            <span style="color:#a90d91">this</span>.<span style="color:#836c28">j</span> <span style="color:#000">=</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">j</span> <span style="color:#000">+</span> <span style="color:#000">Outer</span>.<span style="color:#836c28">this</span>.<span style="color:#836c28">i</span>; <span style="color:#177500">// si usa l'oggetto di outer</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">public</span> <span style="color:#a90d91">int</span> <span style="color:#000">getValue</span>() {
+</span></span><span style="display:flex;"><span>            <span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">j</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></section><section>
+<h2 id="uso-di-inner-e-outer">Uso di <code>Inner</code> e <code>Outer</code></h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseOuter</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#000">Outer</span> <span style="color:#000">o</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Outer</span>(<span style="color:#000">5</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#000">Outer</span>.<span style="color:#836c28">Inner</span> <span style="color:#000">in</span> <span style="color:#000">=</span> <span style="color:#000">o</span>.<span style="color:#836c28">new</span> <span style="color:#000">Inner</span>();
+</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">in</span>.<span style="color:#836c28">getValue</span>()); <span style="color:#177500">// 0</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">in</span>.<span style="color:#836c28">update</span>();
+</span></span><span style="display:flex;"><span>        <span style="color:#000">in</span>.<span style="color:#836c28">update</span>();
+</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">in</span>.<span style="color:#836c28">getValue</span>()); <span style="color:#177500">// 5</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">Outer</span>.<span style="color:#836c28">Inner</span> <span style="color:#000">in2</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Outer</span>(<span style="color:#000">10</span>).<span style="color:#836c28">createInner</span>();
+</span></span><span style="display:flex;"><span>        <span style="color:#000">in2</span>.<span style="color:#836c28">update</span>();
+</span></span><span style="display:flex;"><span>        <span style="color:#000">in2</span>.<span style="color:#836c28">update</span>();
+</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">in2</span>.<span style="color:#836c28">getValue</span>()); <span style="color:#177500">// 20</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></section><section>
+<h2 id="enclosing-instance--istanza-esterna">Enclosing instance – istanza esterna</h2>
+<h3 id="gli-oggetti-delle-inner-class">Gli oggetti delle inner class</h3>
+<ul>
+<li>Sono creati con espressioni: <code>&lt;obj-outer&gt;.new &lt;classe-inner&gt;(&lt;args&gt;)</code></li>
+<li>(la parte <code>&lt;obj-outer&gt;</code> è omettibile quando sarebbe <code>this</code>)</li>
+<li>Possono accedere all’enclosing instance con notazione <code>&lt;classe-outer&gt;.this</code></li>
+<li></li>
+</ul>
+<h3 id="motivazioni-quelle-relative-alle-classi-innestate-statiche-ma">Motivazioni: quelle relative alle classi innestate statiche, ma:</h3>
+<ul>
+<li>è necessario che ogni oggetto inner tenga un riferimento all’oggetto outer</li>
+<li>pragmaticamente: usato quasi esclusivamente il caso <code>private</code></li>
+</ul>
+<h3 id="esempio">Esempio</h3>
+<ul>
+<li>La classe <code>Range</code> già vista usa una static nested class
+<ul>
+<li>Se fosse inner, avrebbe accesso diretto a <code>start</code> e <code>stop</code> tramite l’<em>enclosing instance</em>!</li>
+</ul>
+</li>
+</ul>
+</section><section>
+<h2 id="una-variante-di-range">Una variante di <code>Range</code></h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Range2</span> <span style="color:#a90d91">implements</span> <span style="color:#000">Iterable</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">start</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">stop</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">Range2</span>(<span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">start</span>, <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">stop</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">this</span>.<span style="color:#836c28">start</span> <span style="color:#000">=</span> <span style="color:#000">start</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">this</span>.<span style="color:#836c28">stop</span> <span style="color:#000">=</span> <span style="color:#000">stop</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">Iterator</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> <span style="color:#000">iterator</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">new</span> <span style="color:#000">RangeIterator</span>();
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">RangeIterator</span> <span style="color:#a90d91">implements</span> <span style="color:#000">Iterator</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">private</span> <span style="color:#a90d91">int</span> <span style="color:#000">current</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">public</span> <span style="color:#000">RangeIterator</span>() {
+</span></span><span style="display:flex;"><span>            <span style="color:#a90d91">this</span>.<span style="color:#836c28">current</span> <span style="color:#000">=</span> <span style="color:#000">Range2</span>.<span style="color:#836c28">this</span>.<span style="color:#836c28">start</span>; <span style="color:#177500">// this.current = start</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">public</span> <span style="color:#000">Integer</span> <span style="color:#000">next</span>() { <span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">current</span><span style="color:#000">++</span>; }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">public</span> <span style="color:#a90d91">boolean</span> <span style="color:#000">hasNext</span>() {
+</span></span><span style="display:flex;"><span>            <span style="color:#177500">// Accesso diretto ai campi non-statici della classe esterna!</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">current</span> <span style="color:#000">&lt;=</span> <span style="color:#000">Range2</span>.<span style="color:#836c28">this</span>.<span style="color:#836c28">stop</span>; <span style="color:#177500">// Equivalente: return current &lt;= stop;</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">remove</span>() { <span style="color:#a90d91">throw</span> <span style="color:#a90d91">new</span> <span style="color:#000">UnsupportedOperationException</span>(); }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></section><section>
+<h1 id="classi-locali">Classi locali</h1>
+</section><section>
+<h2 id="classi-locali--idea">Classi locali – idea</h2>
+<h3 id="principali-elementi-2">Principali elementi</h3>
+<ul>
+<li><em>Dentro un metodo</em> di una classe <code>Outer</code>, è possibile innestare la definizione di un’altra classe <code>LocalClass</code></li>
+<li>La <code>LocalClass</code> è a tutti gli effetti una inner class (e quindi ha enclosing instance)
+<ul>
+<li>Non è possibile creare classi <code>static</code> locali (innestate in un metodo)</li>
+</ul>
+</li>
+<li>In più, la <code>LocalClass</code> “vede” anche le variabili nello scope del metodo in cui è definita, <em><strong>usabili solo se <code>final</code></strong></em>
+<ul>
+<li>o se “effectively final”, ossia il compilatore può verificare che non vengano mai modificate dopo l’inizializzazione</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">Outer</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#177500">// ...</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">void</span> <span style="color:#000">m</span>(<span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">x</span>){
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">final</span> <span style="color:#000">String</span> <span style="color:#000">s</span> <span style="color:#000">=</span> <span style="color:#177500">/* ... */</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">class</span> <span style="color:#3f6e75">LocalClass</span> { <span style="color:#177500">// Nota.. non è static!</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#177500">// ... può usare Outer.this, s e x</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#000">LocalClass</span> <span style="color:#000">c</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">LocalClass</span>(...);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></section><section>
+<h2 id="range-tramite-classe-locale"><code>Range</code> tramite classe locale</h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""></code></pre></div></section><section>
+<h2 id="classi-locali--motivazioni">Classi locali – motivazioni</h2>
+<h3 id="perché-usare-una-classe-locale-invece-di-una-inner-class">Perché usare una classe locale invece di una inner class</h3>
+<ul>
+<li>Tale classe è <em>necessaria solo dentro ad un metodo, e lì la si vuole confinare</em></li>
+<li>È eventualmente utile accedere anche alle variabili del metodo</li>
+</ul>
+<h3 id="pragmaticamente">Pragmaticamente</h3>
+<ul>
+<li>Mai viste usarle.. si usano invece le <em>classi anonime</em>…</li>
+</ul>
+</section><section>
+<h1 id="classi-anonime">Classi anonime</h1>
+</section><section>
+<h2 id="classi-anonime--idea">Classi anonime – idea</h2>
+<h3 id="principali-elementi-3">Principali elementi</h3>
+<ul>
+<li>Con una variante dell’istruzione <code>new</code>, è possibile innestare la definizione di un’altra classe senza indicarne il nome
+<ul>
+<li>In tale definizione non possono comparire costruttori</li>
+</ul>
+</li>
+<li>Viene creata al volo una classe locale, e da lì se ne crea un oggetto
+<ul>
+<li>Tale oggetto, come per le classi locali, ha enclosing instance e “vede” anche le variabili <em><strong>final</strong></em> (o di fatto finali) nello scope del metodo in cui è definita</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">C</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#177500">// ...</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">Object</span> <span style="color:#000">m</span>(<span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">x</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">return</span> <span style="color:#a90d91">new</span> <span style="color:#000">Object</span>() {
+</span></span><span style="display:flex;"><span>             <span style="color:#a90d91">public</span> <span style="color:#000">String</span> <span style="color:#000">toString</span>() { <span style="color:#a90d91">return</span> <span style="color:#c41a16">"Valgo "</span> <span style="color:#000">+</span> <span style="color:#000">x</span>; }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></section><section>
+<h2 id="range-tramite-classe-anonima--la-soluzione-ottimale"><code>Range</code> tramite classe anonima – la soluzione ottimale</h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""></code></pre></div></section><section>
+<h2 id="classi-anonime--motivazioni">Classi anonime – motivazioni</h2>
+<h3 id="perchè-usare-una-classe-anonima">Perchè usare una classe anonima?</h3>
+<ul>
+<li>Se ne deve creare un solo oggetto, quindi è inutile anche solo nominarla</li>
+<li>Si vuole evitare la proliferazione di classi</li>
+<li>Tipicamente: per implementare “al volo” una interfaccia</li>
+</ul>
+</section><section>
+<h2 id="altro-esempio-classe-anonima-da--comparable">Altro esempio: classe anonima da  <code>Comparable</code></h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""></code></pre></div></section><section>
+<h2 id="riassunto-e-linee-guida">Riassunto e linee guida</h2>
+<h3 id="inner-class-e-varianti">Inner class (e varianti)</h3>
+<p>Utili quando si vuole isolare un sotto-comportamento in una classe a sé, senza dichiararne una nuova che si affianchi alla lista di quelle fornite dal package, ma stia “dentro” una classe più importante</p>
+<h3 id="se-deve-essere-visibile-alle-altre-classi">Se deve essere visibile alle altre classi</h3>
+<ul>
+<li>Quasi sicuramente, una static nested class</li>
+</ul>
+<h3 id="se-deve-essere-invisibile-da-fuori">Se deve essere invisibile da fuori</h3>
+<ul>
+<li>Si sceglie uno dei quattro casi a seconda della visibilità che la inner class deve avere/dare
+<ol>
+<li><em>static nested class</em>: solo parte statica</li>
+<li><em>inner class</em>: anche enclosing class, accessibile ovunque dall’outer</li>
+<li><em>local class</em>: anche argomenti/variabili, accessibile da un solo metodo</li>
+<li><em>anonymous class</em>: per creare un oggetto, senza un nuovo costruttore</li>
+</ol>
+</li>
+</ul>
+</section><section>
+<h1 id="classi-innestate-1">Classi innestate</h1>
+<h4 id="progettazione-e-sviluppo-del-software">Progettazione e Sviluppo del Software</h4>
+<h4 id="cdl-tecnologie-dei-sistemi-informatici">C.D.L. Tecnologie dei Sistemi Informatici</h4>
+<h3 id="danilo-pianini"><a href="mailto:danilo.pianini@unibo.it">Danilo Pianini — <code>danilo.pianini@unibo.it</code></a></h3>
+<h3 id="gianluca-aguzzi"><a href="mailto:gianluca.aguzzi@unibo.it">Gianluca Aguzzi — <code>gianluca.aguzzi@unibo.it</code></a></h3>
+<h3 id="angelo-filaseta"><a href="mailto:angelo.filaseta@unibo.it">Angelo Filaseta — <code>angelo.filaseta@unibo.it</code></a></h3>
+<p>Compiled on: 2025-11-13
+ — <a href="?print-pdf&amp;pdfSeparateFragments=false"><i class="fa fa-print" aria-hidden="true"></i> versione stampabile</a></p>
+<p><a href=".."><i class="fa fa-undo" aria-hidden="true"></i> back</a></p>
+</section>
+
+  
+
+
+</div>
+      
+
+    </div>
+<script type="text/javascript" src="/reveal-hugo/object-assign.js"></script>
+
+<a href="/reveal-js/dist/print/" id="print-location" style="display: none;"></a>
+
+<script type="application/json" id="reveal-hugo-site-params">{"custom_theme":"custom-theme.scss","custom_theme_compile":true,"custom_theme_options":{"enablesourcemap":true,"targetpath":"css/custom-theme.css"},"height":"900","highlight_theme":"default","history":true,"mermaid":[{"startOnLoad":false}],"slide_number":true,"theme":"white","transition":"slide","transition_speed":"fast","width":"1440"}</script>
+<script type="application/json" id="reveal-hugo-page-params">null</script>
+
+<script src="/reveal-js/dist/reveal.js"></script>
+
+
+  
+  
+  <script type="text/javascript" src="/reveal-js/plugin/markdown/markdown.js"></script>
+  
+  <script type="text/javascript" src="/reveal-js/plugin/highlight/highlight.js"></script>
+  
+  <script type="text/javascript" src="/reveal-js/plugin/zoom/zoom.js"></script>
+  
+  <script type="text/javascript" src="/reveal-js/plugin/notes/notes.js"></script>
+  
+  
+  <script type="text/javascript" src="/reveal-js/plugin/notes/notes.js"></script>
+
+
+
+
+<script type="text/javascript">
+  
+  
+  function camelize(map) {
+    if (map) {
+      Object.keys(map).forEach(function(k) {
+        newK = k.replace(/(\_\w)/g, function(m) { return m[1].toUpperCase() });
+        if (newK != k) {
+          map[newK] = map[k];
+          delete map[k];
+        }
+      });
+    }
+    return map;
+  }
+
+  var revealHugoDefaults = { center: true, controls: true, history: true, progress: true, transition: "slide" };
+
+  var revealHugoPlugins = {
+    plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealZoom ]
+   };
+  var revealHugoSiteParams = JSON.parse(document.getElementById('reveal-hugo-site-params').innerHTML);
+  var revealHugoPageParams = JSON.parse(document.getElementById('reveal-hugo-page-params').innerHTML);
+  
+  var options = Object.assign({},
+    camelize(revealHugoDefaults),
+    camelize(revealHugoSiteParams),
+    camelize(revealHugoPageParams),
+    camelize(revealHugoPlugins));
+  Reveal.initialize(options);
+</script>
+
+
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+    
+  
+  
+
+  
+  
+
+  
+    
+  
+  
+
+  
+  
+
+  
+  
+
+  
+    
+  
+  
+
+  
+  
+
+  
+  
+
+  
+    
+  
+  
+
+  
+    
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+    
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+    
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.3/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({"startOnLoad":false});
+
+    let render = (event) => {
+      let mermaidElems = event.currentSlide.querySelectorAll('.mermaid');
+      if (!mermaidElems.length){
+          return
+      }
+      mermaidElems.forEach(mermaidElem => {
+          let processed = mermaidElem.getAttribute('data-processed');
+          if (!processed){
+              
+              mermaid.init(undefined, mermaidElem);
+          }
+      });
+    };
+    
+    render({currentSlide: Reveal.getCurrentSlide()});
+
+    Reveal.on('slidechanged', render);
+    Reveal.on('ready', render);
+  </script>
+
+
+
+    <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+</script>
+
+<script type="text/javascript" id="MathJax-script" async="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+</script>
+
+<script>
+  if (/.*?(\?|&)print-pdf/.test(window.location.toString())) {
+      var ytVideos = document.getElementsByTagName("iframe")
+      for (let i = 0; i < ytVideos.length; i++) {
+          var videoFrame = ytVideos[i]
+          var isYouTube = /^https?:\/\/(www.)youtube\.com\/.*/.test(videoFrame.src)
+          if (isYouTube) {
+              console.log(`Removing ${videoFrame.src}`)
+              var parent = videoFrame.parentElement
+              videoFrame.remove()
+              var p = document.createElement('p')
+              p.append(
+                  document.createTextNode(
+                      "There was an embedded video here, but it is disabled in the printed version of the slides."
+                  )
+              )
+              p.append(document.createElement('br'))
+              p.append(
+                  document.createTextNode(
+                      `Visit instead ${
+                          videoFrame.src
+                      } or ${
+                          videoFrame.src.replace(
+                              /(^https?:\/\/(www.)youtube\.com)\/(embed\/)(\w+).*/,
+                              "https://www.youtube.com/watch?v=$4"
+                          )
+                      }`
+                  )
+              )
+              parent.appendChild(p)
+          }
+      }
+  }
+</script>
+
+    
+  
+
+</body></html>
