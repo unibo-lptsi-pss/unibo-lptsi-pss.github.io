@@ -26,7 +26,7 @@
 <h3 id="danilo-pianini"><a href="mailto:danilo.pianini@unibo.it">Danilo Pianini — <code>danilo.pianini@unibo.it</code></a></h3>
 <h3 id="gianluca-aguzzi"><a href="mailto:gianluca.aguzzi@unibo.it">Gianluca Aguzzi — <code>gianluca.aguzzi@unibo.it</code></a></h3>
 <h3 id="angelo-filaseta"><a href="mailto:angelo.filaseta@unibo.it">Angelo Filaseta — <code>angelo.filaseta@unibo.it</code></a></h3>
-<p>Compiled on: 2025-11-13
+<p>Compiled on: 2025-11-14
  — <a href="?print-pdf&amp;pdfSeparateFragments=false"><i class="fa fa-print" aria-hidden="true"></i> versione stampabile</a></p>
 <p><a href=".."><i class="fa fa-undo" aria-hidden="true"></i> back</a></p>
 </section><section>
@@ -51,14 +51,22 @@
 <li>Si consideri la seguente funzionalità: trovare il <em>più piccolo</em> <em><strong>e</strong></em> il <em>più grande</em> elemento in un array di interi</li>
 </ul>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">BuggyNumFinder</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">int</span> <span style="color:#000">smallest</span> <span style="color:#000">=</span> <span style="color:#000">Integer</span>.<span style="color:#836c28">MAX_VALUE</span>;
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">int</span> <span style="color:#000">largest</span> <span style="color:#000">=</span> <span style="color:#000">Integer</span>.<span style="color:#836c28">MIN_VALUE</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">int</span> <span style="color:#000">smallest</span> <span style="color:#000">=</span> <span style="color:#000">Integer</span>.<span style="color:#836c28">MAX_VALUE</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">int</span> <span style="color:#000">largest</span> <span style="color:#000">=</span> <span style="color:#000">Integer</span>.<span style="color:#836c28">MIN_VALUE</span>;
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">find</span>(<span style="color:#a90d91">int</span><span style="color:#000">[]</span> <span style="color:#000">numbers</span>){
 </span></span><span style="display:flex;"><span>        <span style="color:#a90d91">for</span>(<span style="color:#a90d91">int</span> <span style="color:#000">n</span> : <span style="color:#000">numbers</span>){
 </span></span><span style="display:flex;"><span>            <span style="color:#a90d91">if</span>(<span style="color:#000">n</span> <span style="color:#000">&lt;</span> <span style="color:#000">smallest</span>) <span style="color:#000">smallest</span> <span style="color:#000">=</span> <span style="color:#000">n</span>;
 </span></span><span style="display:flex;"><span>            <span style="color:#a90d91">else</span> <span style="color:#a90d91">if</span>(<span style="color:#000">n</span> <span style="color:#000">&gt;</span> <span style="color:#000">largest</span>) <span style="color:#000">largest</span> <span style="color:#000">=</span> <span style="color:#000">n</span>;
 </span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">int</span> <span style="color:#000">getSmallest</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">smallest</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">int</span> <span style="color:#000">getLargest</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">largest</span>;
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><ul>
@@ -88,8 +96,8 @@
 </span></span><span style="display:flex;"><span>        <span style="color:#177500">// Esecuzione della funzionalità</span>
 </span></span><span style="display:flex;"><span>        <span style="color:#000">nf</span>.<span style="color:#836c28">find</span>(<span style="color:#000">array</span>);
 </span></span><span style="display:flex;"><span>        <span style="color:#177500">// Stampa dei risultati</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Smallest: "</span> <span style="color:#000">+</span> <span style="color:#000">nf</span>.<span style="color:#836c28">smallest</span>);
-</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Largest: "</span> <span style="color:#000">+</span> <span style="color:#000">nf</span>.<span style="color:#836c28">largest</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Smallest: "</span> <span style="color:#000">+</span> <span style="color:#000">nf</span>.<span style="color:#836c28">getSmallest</span>());
+</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Largest: "</span> <span style="color:#000">+</span> <span style="color:#000">nf</span>.<span style="color:#836c28">getLargest</span>());
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><ul>
@@ -108,21 +116,21 @@
 </span></span><span style="display:flex;"><span>        <span style="color:#a90d91">int</span><span style="color:#000">[]</span> <span style="color:#000">input1</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#a90d91">int</span><span style="color:#000">[]</span>{ <span style="color:#000">4</span>, <span style="color:#000">25</span>, <span style="color:#000">7</span>, <span style="color:#000">9</span> };
 </span></span><span style="display:flex;"><span>        <span style="color:#000">numFinder</span>.<span style="color:#836c28">find</span>(<span style="color:#000">input1</span>);
 </span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Apply to { 4, 25, 7, 9 } =&gt; "</span> <span style="color:#000">+</span>
-</span></span><span style="display:flex;"><span>            <span style="color:#c41a16">" - smallest: "</span> <span style="color:#000">+</span> <span style="color:#000">numFinder</span>.<span style="color:#836c28">smallest</span> <span style="color:#000">+</span>
-</span></span><span style="display:flex;"><span>            <span style="color:#c41a16">" - largest: "</span> <span style="color:#000">+</span> <span style="color:#000">numFinder</span>.<span style="color:#836c28">largest</span>);
+</span></span><span style="display:flex;"><span>            <span style="color:#c41a16">" - smallest: "</span> <span style="color:#000">+</span> <span style="color:#000">numFinder</span>.<span style="color:#836c28">getSmallest</span>() <span style="color:#000">+</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#c41a16">" - largest: "</span> <span style="color:#000">+</span> <span style="color:#000">numFinder</span>.<span style="color:#836c28">getLargest</span>());
 </span></span><span style="display:flex;"><span>        <span style="color:#177500">// Test case 2: monotonically increasing sequence</span>
 </span></span><span style="display:flex;"><span>        <span style="color:#a90d91">int</span><span style="color:#000">[]</span> <span style="color:#000">input2</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#a90d91">int</span><span style="color:#000">[]</span>{ <span style="color:#000">10</span>, <span style="color:#000">20</span>, <span style="color:#000">30</span> };
 </span></span><span style="display:flex;"><span>        <span style="color:#000">numFinder</span>.<span style="color:#836c28">find</span>(<span style="color:#000">input2</span>);
 </span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Apply to { 10, 20, 30 }  =&gt; "</span> <span style="color:#000">+</span>
-</span></span><span style="display:flex;"><span>            <span style="color:#c41a16">" - smallest: "</span> <span style="color:#000">+</span> <span style="color:#000">numFinder</span>.<span style="color:#836c28">smallest</span> <span style="color:#000">+</span>
-</span></span><span style="display:flex;"><span>            <span style="color:#c41a16">" - largest: "</span> <span style="color:#000">+</span> <span style="color:#000">numFinder</span>.<span style="color:#836c28">largest</span>);
+</span></span><span style="display:flex;"><span>            <span style="color:#c41a16">" - smallest: "</span> <span style="color:#000">+</span> <span style="color:#000">numFinder</span>.<span style="color:#836c28">getSmallest</span>() <span style="color:#000">+</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#c41a16">" - largest: "</span> <span style="color:#000">+</span> <span style="color:#000">numFinder</span>.<span style="color:#836c28">getLargest</span>());
 </span></span><span style="display:flex;"><span>        <span style="color:#177500">// Test case 3: monotonically decreasing sequence</span>
 </span></span><span style="display:flex;"><span>        <span style="color:#000">numFinder</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">BuggyNumFinder</span>();
 </span></span><span style="display:flex;"><span>        <span style="color:#a90d91">int</span><span style="color:#000">[]</span> <span style="color:#000">input3</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#a90d91">int</span><span style="color:#000">[]</span>{ <span style="color:#000">4</span>, <span style="color:#000">3</span>, <span style="color:#000">2</span>, <span style="color:#000">1</span> };
 </span></span><span style="display:flex;"><span>        <span style="color:#000">numFinder</span>.<span style="color:#836c28">find</span>(<span style="color:#000">input3</span>);
 </span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Apply to { 4, 3, 2, 1 }  =&gt; "</span> <span style="color:#000">+</span>
-</span></span><span style="display:flex;"><span>            <span style="color:#c41a16">" - smallest: "</span> <span style="color:#000">+</span> <span style="color:#000">numFinder</span>.<span style="color:#836c28">smallest</span> <span style="color:#000">+</span>
-</span></span><span style="display:flex;"><span>            <span style="color:#c41a16">" - largest: "</span> <span style="color:#000">+</span> <span style="color:#000">numFinder</span>.<span style="color:#836c28">largest</span>);
+</span></span><span style="display:flex;"><span>            <span style="color:#c41a16">" - smallest: "</span> <span style="color:#000">+</span> <span style="color:#000">numFinder</span>.<span style="color:#836c28">getSmallest</span>() <span style="color:#000">+</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#c41a16">" - largest: "</span> <span style="color:#000">+</span> <span style="color:#000">numFinder</span>.<span style="color:#836c28">getLargest</span>());
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><ul>
@@ -139,20 +147,20 @@
 </span></span><span style="display:flex;"><span>        <span style="color:#000">BuggyNumFinder</span> <span style="color:#000">numFinder</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">BuggyNumFinder</span>();
 </span></span><span style="display:flex;"><span>        <span style="color:#a90d91">int</span><span style="color:#000">[]</span> <span style="color:#000">input1</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#a90d91">int</span><span style="color:#000">[]</span>{ <span style="color:#000">4</span>, <span style="color:#000">25</span>, <span style="color:#000">7</span>, <span style="color:#000">9</span> };
 </span></span><span style="display:flex;"><span>        <span style="color:#000">numFinder</span>.<span style="color:#836c28">find</span>(<span style="color:#000">input1</span>);
-</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">if</span>(<span style="color:#000">!</span>(<span style="color:#000">numFinder</span>.<span style="color:#836c28">smallest</span> <span style="color:#000">==</span> <span style="color:#000">4</span> <span style="color:#000">&amp;&amp;</span> <span style="color:#000">numFinder</span>.<span style="color:#836c28">largest</span> <span style="color:#000">==</span> <span style="color:#000">25</span>)){
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">if</span>(<span style="color:#000">!</span>(<span style="color:#000">numFinder</span>.<span style="color:#836c28">getSmallest</span>() <span style="color:#000">==</span> <span style="color:#000">4</span> <span style="color:#000">&amp;&amp;</span> <span style="color:#000">numFinder</span>.<span style="color:#836c28">getLargest</span>() <span style="color:#000">==</span> <span style="color:#000">25</span>)){
 </span></span><span style="display:flex;"><span>            <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Test Case #1 failed"</span>);
 </span></span><span style="display:flex;"><span>        }
 </span></span><span style="display:flex;"><span>        <span style="color:#177500">// Test case 2: monotonically increasing sequence</span>
 </span></span><span style="display:flex;"><span>        <span style="color:#a90d91">int</span><span style="color:#000">[]</span> <span style="color:#000">input2</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#a90d91">int</span><span style="color:#000">[]</span>{ <span style="color:#000">10</span>, <span style="color:#000">20</span>, <span style="color:#000">30</span> };
 </span></span><span style="display:flex;"><span>        <span style="color:#000">numFinder</span>.<span style="color:#836c28">find</span>(<span style="color:#000">input2</span>);
-</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">if</span>(<span style="color:#000">!</span>(<span style="color:#000">numFinder</span>.<span style="color:#836c28">smallest</span> <span style="color:#000">==</span> <span style="color:#000">10</span> <span style="color:#000">&amp;&amp;</span> <span style="color:#000">numFinder</span>.<span style="color:#836c28">largest</span> <span style="color:#000">==</span> <span style="color:#000">30</span>)){
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">if</span>(<span style="color:#000">!</span>(<span style="color:#000">numFinder</span>.<span style="color:#836c28">getSmallest</span>() <span style="color:#000">==</span> <span style="color:#000">10</span> <span style="color:#000">&amp;&amp;</span> <span style="color:#000">numFinder</span>.<span style="color:#836c28">getLargest</span>() <span style="color:#000">==</span> <span style="color:#000">30</span>)){
 </span></span><span style="display:flex;"><span>            <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Test Case #2 failed"</span>);
 </span></span><span style="display:flex;"><span>        }
 </span></span><span style="display:flex;"><span>        <span style="color:#177500">// Test case 3: monotonically decreasing sequence</span>
 </span></span><span style="display:flex;"><span>        <span style="color:#000">numFinder</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">BuggyNumFinder</span>();
 </span></span><span style="display:flex;"><span>        <span style="color:#a90d91">int</span><span style="color:#000">[]</span> <span style="color:#000">input3</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#a90d91">int</span><span style="color:#000">[]</span>{ <span style="color:#000">4</span>, <span style="color:#000">3</span>, <span style="color:#000">2</span>, <span style="color:#000">1</span> };
 </span></span><span style="display:flex;"><span>        <span style="color:#000">numFinder</span>.<span style="color:#836c28">find</span>(<span style="color:#000">input3</span>);
-</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">if</span>(<span style="color:#000">!</span>(<span style="color:#000">numFinder</span>.<span style="color:#836c28">smallest</span> <span style="color:#000">==</span> <span style="color:#000">1</span> <span style="color:#000">&amp;&amp;</span> <span style="color:#000">numFinder</span>.<span style="color:#836c28">largest</span> <span style="color:#000">==</span> <span style="color:#000">4</span>)){
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">if</span>(<span style="color:#000">!</span>(<span style="color:#000">numFinder</span>.<span style="color:#836c28">getSmallest</span>() <span style="color:#000">==</span> <span style="color:#000">1</span> <span style="color:#000">&amp;&amp;</span> <span style="color:#000">numFinder</span>.<span style="color:#836c28">getLargest</span>() <span style="color:#000">==</span> <span style="color:#000">4</span>)){
 </span></span><span style="display:flex;"><span>            <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Test Case #3 failed"</span>);
 </span></span><span style="display:flex;"><span>        }
 </span></span><span style="display:flex;"><span>    }
@@ -266,24 +274,24 @@ under specified conditions, the results are observed or recorded, and an evaluat
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">someNumbers</span>() {
 </span></span><span style="display:flex;"><span>        <span style="color:#a90d91">int</span><span style="color:#000">[]</span> <span style="color:#000">input1</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#a90d91">int</span><span style="color:#000">[]</span>{ <span style="color:#000">4</span>, <span style="color:#000">25</span>, <span style="color:#000">7</span>, <span style="color:#000">9</span> };
 </span></span><span style="display:flex;"><span>        <span style="color:#000">numFinder</span>.<span style="color:#836c28">find</span>(<span style="color:#000">input1</span>);
-</span></span><span style="display:flex;"><span>        <span style="color:#000">Assertions</span>.<span style="color:#836c28">assertEquals</span>(<span style="color:#000">4</span>, <span style="color:#000">numFinder</span>.<span style="color:#836c28">smallest</span>);
-</span></span><span style="display:flex;"><span>        <span style="color:#000">Assertions</span>.<span style="color:#836c28">assertEquals</span>(<span style="color:#000">25</span>, <span style="color:#000">numFinder</span>.<span style="color:#836c28">largest</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#000">Assertions</span>.<span style="color:#836c28">assertEquals</span>(<span style="color:#000">4</span>, <span style="color:#000">numFinder</span>.<span style="color:#836c28">getSmallest</span>());
+</span></span><span style="display:flex;"><span>        <span style="color:#000">Assertions</span>.<span style="color:#836c28">assertEquals</span>(<span style="color:#000">25</span>, <span style="color:#000">numFinder</span>.<span style="color:#836c28">getLargest</span>());
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#000">@Test</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">positiveMonotonicallyIncreasingSequence</span>() {
 </span></span><span style="display:flex;"><span>        <span style="color:#a90d91">int</span><span style="color:#000">[]</span> <span style="color:#000">input1</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#a90d91">int</span><span style="color:#000">[]</span>{ <span style="color:#000">10</span>, <span style="color:#000">20</span>, <span style="color:#000">30</span> };
 </span></span><span style="display:flex;"><span>        <span style="color:#000">numFinder</span>.<span style="color:#836c28">find</span>(<span style="color:#000">input1</span>);
-</span></span><span style="display:flex;"><span>        <span style="color:#000">Assertions</span>.<span style="color:#836c28">assertEquals</span>(<span style="color:#000">10</span>, <span style="color:#000">numFinder</span>.<span style="color:#836c28">smallest</span>);
-</span></span><span style="display:flex;"><span>        <span style="color:#000">Assertions</span>.<span style="color:#836c28">assertEquals</span>(<span style="color:#000">30</span>, <span style="color:#000">numFinder</span>.<span style="color:#836c28">largest</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#000">Assertions</span>.<span style="color:#836c28">assertEquals</span>(<span style="color:#000">10</span>, <span style="color:#000">numFinder</span>.<span style="color:#836c28">getSmallest</span>());
+</span></span><span style="display:flex;"><span>        <span style="color:#000">Assertions</span>.<span style="color:#836c28">assertEquals</span>(<span style="color:#000">30</span>, <span style="color:#000">numFinder</span>.<span style="color:#836c28">getLargest</span>());
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#000">@Test</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">positiveMonotonicallyDecreasingSequence</span>() {
 </span></span><span style="display:flex;"><span>        <span style="color:#a90d91">int</span><span style="color:#000">[]</span> <span style="color:#000">input1</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#a90d91">int</span><span style="color:#000">[]</span>{ <span style="color:#000">30</span>, <span style="color:#000">20</span>, <span style="color:#000">10</span> };
 </span></span><span style="display:flex;"><span>        <span style="color:#000">numFinder</span>.<span style="color:#836c28">find</span>(<span style="color:#000">input1</span>);
-</span></span><span style="display:flex;"><span>        <span style="color:#000">Assertions</span>.<span style="color:#836c28">assertEquals</span>(<span style="color:#000">10</span>, <span style="color:#000">numFinder</span>.<span style="color:#836c28">smallest</span>);
-</span></span><span style="display:flex;"><span>        <span style="color:#000">Assertions</span>.<span style="color:#836c28">assertEquals</span>(<span style="color:#000">30</span>, <span style="color:#000">numFinder</span>.<span style="color:#836c28">largest</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#000">Assertions</span>.<span style="color:#836c28">assertEquals</span>(<span style="color:#000">10</span>, <span style="color:#000">numFinder</span>.<span style="color:#836c28">getSmallest</span>());
+</span></span><span style="display:flex;"><span>        <span style="color:#000">Assertions</span>.<span style="color:#836c28">assertEquals</span>(<span style="color:#000">30</span>, <span style="color:#000">numFinder</span>.<span style="color:#836c28">getLargest</span>());
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></div>
@@ -722,7 +730,7 @@ o verificare la conformità con uno specifico requisito.</li>
 <h3 id="danilo-pianini"><a href="mailto:danilo.pianini@unibo.it">Danilo Pianini — <code>danilo.pianini@unibo.it</code></a></h3>
 <h3 id="gianluca-aguzzi"><a href="mailto:gianluca.aguzzi@unibo.it">Gianluca Aguzzi — <code>gianluca.aguzzi@unibo.it</code></a></h3>
 <h3 id="angelo-filaseta"><a href="mailto:angelo.filaseta@unibo.it">Angelo Filaseta — <code>angelo.filaseta@unibo.it</code></a></h3>
-<p>Compiled on: 2025-11-13
+<p>Compiled on: 2025-11-14
  — <a href="?print-pdf&amp;pdfSeparateFragments=false"><i class="fa fa-print" aria-hidden="true"></i> versione stampabile</a></p>
 <p><a href=".."><i class="fa fa-undo" aria-hidden="true"></i> back</a></p>
 </section>
@@ -871,6 +879,8 @@ o verificare la conformità con uno specifico requisito.</li>
   
   
 
+  
+    
   
   
 
