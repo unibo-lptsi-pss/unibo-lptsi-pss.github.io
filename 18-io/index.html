@@ -868,13 +868,28 @@ interpretando i <code>byte</code> del file come testo usando il <code>Charset</c
 <li>Per esempio, l’implementazione di base ricerca nel <code>CLASSPATH</code></li>
 </ul>
 </li>
-<li>L’argomento di <code>getSystemResource</code> e <code>getSystemResourceAsStream</code> è il <strong>nome di una risorsa</strong> (<strong>non un percorso del filesystem!</strong>), che è una stringa separata da <code>/</code> che identifica la risorsa
+<li>L’argomento di <code>getSystemResource</code> e <code>getSystemResourceAsStream</code> è il <strong>nome di una risorsa</strong>
+(<strong>non un percorso del filesystem!</strong>), che è una stringa separata da <code>/</code> che identifica la risorsa
 <ul>
 <li>L’interpretazione del nome della risorsa dipende dall’implementazione</li>
 <li>Il system class loader usa il nome come un path per cercare la risorsa a partire dalle entry del classpath</li>
 </ul>
 </li>
 <li><code>ClassLoader.getSystemResource()</code> equivale a <code>ClassLoader.getSystemClassLoader().getResource()</code></li>
+</ul>
+<h4 id="nota-dal-classpath-è-possibile-solo-leggere-risorse-non-scriverle">Nota: dal classpath è possibile solo <strong>leggere</strong> risorse, non <strong>scriverle</strong></h4>
+<ul>
+<li>Le risorse caricate dal classpath sono <strong>in sola lettura</strong>
+<ul>
+<li>Per esempio, se la risorsa è dentro un JAR, non è possibile modificarla “dentro” il JAR</li>
+</ul>
+</li>
+<li>Se si ha la necessità di modificare una risorsa, è necessario copiarla in
+un percorso su cui l’utente abbia diritto di scrittura e lavorare su quella copia
+<ul>
+<li>Tipicamente, una cartella nascosta nella la home utente: <code>System.getProperty("user.home")</code></li>
+</ul>
+</li>
 </ul>
 </section><section>
 <h3 id="risorse-caricate-dal-classpath--esempi">Risorse caricate dal classpath – Esempi</h3>
