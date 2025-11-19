@@ -30,19 +30,6 @@
  — <a href="?print-pdf&amp;pdfSeparateFragments=false"><i class="fa fa-print" aria-hidden="true"></i> versione stampabile</a></p>
 <p><a href=".."><i class="fa fa-undo" aria-hidden="true"></i> back</a></p>
 </section><section>
-<h2 id="riconoscimenti">Riconoscimenti</h2>
-<ul>
-<li>
-<p>Questo materiale è ampiamente basato su quello realizzato dai Prof.
-Mirko Viroli e Roberto Casadei, che ringrazio.</p>
-</li>
-<li>
-<p>Ogni errore riscontratovi è esclusiva responsabilità degli autori di questo documento.</p>
-</li>
-</ul>
-</section><section>
-<h1 id="introduzione-alle-lambda">Introduzione alle lambda</h1>
-</section><section>
 <h2 id="a-partire-da-java-8">A partire da Java 8</h2>
 <ul>
 <li>Principale novità: <em>lambda</em> (ossia uno degli elementi fondamentali dello stile di <em>programmazione funzionale</em>)
@@ -60,40 +47,35 @@ Mirko Viroli e Roberto Casadei, che ringrazio.</p>
 <li><a href="http://cr.openjdk.java.net/~dlsmith/jsr335/jsr335-final/">Java Specification Request (JSR)-335: Lambda Expressions for the Java Programming Language</a></li>
 </ul>
 </section><section>
-<h2 id="da-classimetodi-alle-lambda-il-caso-dei-comparatori">Da classi/metodi alle lambda: il caso dei comparatori</h2>
-</section><section>
 <h3 id="comparatori-definiti-attraverso-classi">Comparatori definiti attraverso classi</h3>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">FirstComparableBasic</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span>) {
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">Person</span><span style="color:#000">&gt;</span> <span style="color:#000">list</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">ArrayList</span><span style="color:#000">&lt;</span><span style="color:#000">Person</span><span style="color:#000">&gt;</span>();
-</span></span><span style="display:flex;"><span>		<span style="color:#000">list</span>.<span style="color:#836c28">add</span>(<span style="color:#a90d91">new</span> <span style="color:#000">Person</span>(<span style="color:#c41a16">"Mario"</span>, <span style="color:#000">1960</span>, <span style="color:#a90d91">true</span>));
-</span></span><span style="display:flex;"><span>		<span style="color:#000">list</span>.<span style="color:#836c28">add</span>(<span style="color:#a90d91">new</span> <span style="color:#000">Person</span>(<span style="color:#c41a16">"Gino"</span>, <span style="color:#000">1970</span>, <span style="color:#a90d91">false</span>));
-</span></span><span style="display:flex;"><span>		<span style="color:#000">list</span>.<span style="color:#836c28">add</span>(<span style="color:#a90d91">new</span> <span style="color:#000">Person</span>(<span style="color:#c41a16">"Rino"</span>, <span style="color:#000">1951</span>, <span style="color:#a90d91">true</span>));
-</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">list</span>);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>		<span style="color:#000">Collections</span>.<span style="color:#836c28">sort</span>(<span style="color:#000">list</span>, <span style="color:#a90d91">new</span> <span style="color:#000">AgeComparator</span>());
-</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">list</span>);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>		<span style="color:#000">Collections</span>.<span style="color:#836c28">sort</span>(<span style="color:#000">list</span>, <span style="color:#a90d91">new</span> <span style="color:#000">AgeComparator</span>().<span style="color:#836c28">reversed</span>());
-</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">list</span>);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>		<span style="color:#000">Collections</span>.<span style="color:#836c28">sort</span>(<span style="color:#000">list</span>, <span style="color:#a90d91">new</span> <span style="color:#000">NameComparator</span>());
-</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">list</span>);
-</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">final</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">Person</span><span style="color:#000">&gt;</span> <span style="color:#000">list</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">ArrayList</span><span style="color:#000">&lt;&gt;</span>();
+</span></span><span style="display:flex;"><span>        <span style="color:#000">list</span>.<span style="color:#836c28">add</span>(<span style="color:#a90d91">new</span> <span style="color:#000">Person</span>(<span style="color:#c41a16">"Mario"</span>, <span style="color:#000">1960</span>, <span style="color:#a90d91">true</span>));
+</span></span><span style="display:flex;"><span>        <span style="color:#000">list</span>.<span style="color:#836c28">add</span>(<span style="color:#a90d91">new</span> <span style="color:#000">Person</span>(<span style="color:#c41a16">"Gino"</span>, <span style="color:#000">1970</span>, <span style="color:#a90d91">false</span>));
+</span></span><span style="display:flex;"><span>        <span style="color:#000">list</span>.<span style="color:#836c28">add</span>(<span style="color:#a90d91">new</span> <span style="color:#000">Person</span>(<span style="color:#c41a16">"Rino"</span>, <span style="color:#000">1951</span>, <span style="color:#a90d91">true</span>));
+</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">list</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#000">list</span>.<span style="color:#836c28">sort</span>(<span style="color:#a90d91">new</span> <span style="color:#000">AgeComparator</span>());
+</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">list</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#000">list</span>.<span style="color:#836c28">sort</span>(<span style="color:#a90d91">new</span> <span style="color:#000">AgeComparator</span>().<span style="color:#836c28">reversed</span>());
+</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">list</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#000">list</span>.<span style="color:#836c28">sort</span>(<span style="color:#a90d91">new</span> <span style="color:#000">NameComparator</span>());
+</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">list</span>);
+</span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">AgeComparator</span> <span style="color:#a90d91">implements</span> <span style="color:#000">Comparator</span><span style="color:#000">&lt;</span><span style="color:#000">Person</span><span style="color:#000">&gt;</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#000">@Override</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">int</span> <span style="color:#000">compare</span>(<span style="color:#000">Person</span> <span style="color:#000">o1</span>, <span style="color:#000">Person</span> <span style="color:#000">o2</span>) {
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#000">Integer</span>.<span style="color:#836c28">compare</span>(<span style="color:#000">o1</span>.<span style="color:#836c28">getYearOfBirth</span>(), <span style="color:#000">o2</span>.<span style="color:#836c28">getYearOfBirth</span>());
-</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>    <span style="color:#000">@Override</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">int</span> <span style="color:#000">compare</span>(<span style="color:#000">Person</span> <span style="color:#000">o1</span>, <span style="color:#000">Person</span> <span style="color:#000">o2</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">return</span> <span style="color:#000">Integer</span>.<span style="color:#836c28">compare</span>(<span style="color:#000">o1</span>.<span style="color:#836c28">getYearOfBirth</span>(), <span style="color:#000">o2</span>.<span style="color:#836c28">getYearOfBirth</span>());
+</span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">NameComparator</span> <span style="color:#a90d91">implements</span> <span style="color:#000">Comparator</span><span style="color:#000">&lt;</span><span style="color:#000">Person</span><span style="color:#000">&gt;</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#000">@Override</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">int</span> <span style="color:#000">compare</span>(<span style="color:#000">Person</span> <span style="color:#000">o1</span>, <span style="color:#000">Person</span> <span style="color:#000">o2</span>) {
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#000">o1</span>.<span style="color:#836c28">getName</span>().<span style="color:#836c28">compareTo</span>(<span style="color:#000">o2</span>.<span style="color:#836c28">getName</span>());
-</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>    <span style="color:#000">@Override</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">int</span> <span style="color:#000">compare</span>(<span style="color:#000">Person</span> <span style="color:#000">o1</span>, <span style="color:#000">Person</span> <span style="color:#000">o2</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">return</span> <span style="color:#000">o1</span>.<span style="color:#836c28">getName</span>().<span style="color:#836c28">compareTo</span>(<span style="color:#000">o2</span>.<span style="color:#836c28">getName</span>());
+</span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></section><section>
 <h3 id="comparatori-definiti-attraverso-classi-innestate">Comparatori definiti attraverso classi innestate</h3>
@@ -105,36 +87,29 @@ Mirko Viroli e Roberto Casadei, che ringrazio.</p>
 </li>
 </ul>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">FirstComparableNested</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span>) {
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">Person</span><span style="color:#000">&gt;</span> <span style="color:#000">list</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">ArrayList</span><span style="color:#000">&lt;</span><span style="color:#000">Person</span><span style="color:#000">&gt;</span>();
-</span></span><span style="display:flex;"><span>		<span style="color:#000">list</span>.<span style="color:#836c28">add</span>(<span style="color:#a90d91">new</span> <span style="color:#000">Person</span>(<span style="color:#c41a16">"Mario"</span>, <span style="color:#000">1960</span>, <span style="color:#a90d91">true</span>));
-</span></span><span style="display:flex;"><span>		<span style="color:#000">list</span>.<span style="color:#836c28">add</span>(<span style="color:#a90d91">new</span> <span style="color:#000">Person</span>(<span style="color:#c41a16">"Gino"</span>, <span style="color:#000">1970</span>, <span style="color:#a90d91">false</span>));
-</span></span><span style="display:flex;"><span>		<span style="color:#000">list</span>.<span style="color:#836c28">add</span>(<span style="color:#a90d91">new</span> <span style="color:#000">Person</span>(<span style="color:#c41a16">"Rino"</span>, <span style="color:#000">1951</span>, <span style="color:#a90d91">true</span>));
-</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">list</span>);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>		<span style="color:#000">Collections</span>.<span style="color:#836c28">sort</span>(<span style="color:#000">list</span>, <span style="color:#a90d91">new</span> <span style="color:#000">AgeComparator</span>());
-</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">list</span>);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>		<span style="color:#000">Collections</span>.<span style="color:#836c28">sort</span>(<span style="color:#000">list</span>, <span style="color:#a90d91">new</span> <span style="color:#000">AgeComparator</span>().<span style="color:#836c28">reversed</span>());
-</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">list</span>);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>		<span style="color:#000">Collections</span>.<span style="color:#836c28">sort</span>(<span style="color:#000">list</span>, <span style="color:#a90d91">new</span> <span style="color:#000">NameComparator</span>());
-</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">list</span>);
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">private</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">AgeComparator</span> <span style="color:#a90d91">implements</span> <span style="color:#000">Comparator</span><span style="color:#000">&lt;</span><span style="color:#000">Person</span><span style="color:#000">&gt;</span> {
-</span></span><span style="display:flex;"><span>		<span style="color:#000">@Override</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">public</span> <span style="color:#a90d91">int</span> <span style="color:#000">compare</span>(<span style="color:#000">Person</span> <span style="color:#000">o1</span>, <span style="color:#000">Person</span> <span style="color:#000">o2</span>) {
-</span></span><span style="display:flex;"><span>			<span style="color:#a90d91">return</span> <span style="color:#000">Integer</span>.<span style="color:#836c28">compare</span>(<span style="color:#000">o1</span>.<span style="color:#836c28">getYearOfBirth</span>(), <span style="color:#000">o2</span>.<span style="color:#836c28">getYearOfBirth</span>());
-</span></span><span style="display:flex;"><span>		}
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>	
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">private</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">NameComparator</span> <span style="color:#a90d91">implements</span> <span style="color:#000">Comparator</span><span style="color:#000">&lt;</span><span style="color:#000">Person</span><span style="color:#000">&gt;</span> {
-</span></span><span style="display:flex;"><span>		<span style="color:#000">@Override</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">public</span> <span style="color:#a90d91">int</span> <span style="color:#000">compare</span>(<span style="color:#000">Person</span> <span style="color:#000">o1</span>, <span style="color:#000">Person</span> <span style="color:#000">o2</span>) {
-</span></span><span style="display:flex;"><span>			<span style="color:#a90d91">return</span> <span style="color:#000">o1</span>.<span style="color:#836c28">getName</span>().<span style="color:#836c28">compareTo</span>(<span style="color:#000">o2</span>.<span style="color:#836c28">getName</span>());
-</span></span><span style="display:flex;"><span>		}
-</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">final</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">Person</span><span style="color:#000">&gt;</span> <span style="color:#000">list</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">ArrayList</span><span style="color:#000">&lt;&gt;</span>();
+</span></span><span style="display:flex;"><span>        <span style="color:#000">list</span>.<span style="color:#836c28">add</span>(<span style="color:#a90d91">new</span> <span style="color:#000">Person</span>(<span style="color:#c41a16">"Mario"</span>, <span style="color:#000">1960</span>, <span style="color:#a90d91">true</span>));
+</span></span><span style="display:flex;"><span>        <span style="color:#000">list</span>.<span style="color:#836c28">add</span>(<span style="color:#a90d91">new</span> <span style="color:#000">Person</span>(<span style="color:#c41a16">"Gino"</span>, <span style="color:#000">1970</span>, <span style="color:#a90d91">false</span>));
+</span></span><span style="display:flex;"><span>        <span style="color:#000">list</span>.<span style="color:#836c28">add</span>(<span style="color:#a90d91">new</span> <span style="color:#000">Person</span>(<span style="color:#c41a16">"Rino"</span>, <span style="color:#000">1951</span>, <span style="color:#a90d91">true</span>));
+</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">list</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#000">list</span>.<span style="color:#836c28">sort</span>(<span style="color:#a90d91">new</span> <span style="color:#000">AgeComparator</span>());
+</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">list</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#000">list</span>.<span style="color:#836c28">sort</span>(<span style="color:#a90d91">new</span> <span style="color:#000">AgeComparator</span>().<span style="color:#836c28">reversed</span>());
+</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">list</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#000">list</span>.<span style="color:#836c28">sort</span>(<span style="color:#a90d91">new</span> <span style="color:#000">NameComparator</span>());
+</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">list</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">AgeComparator</span> <span style="color:#a90d91">implements</span> <span style="color:#000">Comparator</span><span style="color:#000">&lt;</span><span style="color:#000">Person</span><span style="color:#000">&gt;</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#000">@Override</span> <span style="color:#a90d91">public</span> <span style="color:#a90d91">int</span> <span style="color:#000">compare</span>(<span style="color:#000">Person</span> <span style="color:#000">o1</span>, <span style="color:#000">Person</span> <span style="color:#000">o2</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#a90d91">return</span> <span style="color:#000">Integer</span>.<span style="color:#836c28">compare</span>(<span style="color:#000">o1</span>.<span style="color:#836c28">getYearOfBirth</span>(), <span style="color:#000">o2</span>.<span style="color:#836c28">getYearOfBirth</span>());
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">NameComparator</span> <span style="color:#a90d91">implements</span> <span style="color:#000">Comparator</span><span style="color:#000">&lt;</span><span style="color:#000">Person</span><span style="color:#000">&gt;</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#000">@Override</span> <span style="color:#a90d91">public</span> <span style="color:#a90d91">int</span> <span style="color:#000">compare</span>(<span style="color:#000">Person</span> <span style="color:#000">o1</span>, <span style="color:#000">Person</span> <span style="color:#000">o2</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#a90d91">return</span> <span style="color:#000">o1</span>.<span style="color:#836c28">getName</span>().<span style="color:#836c28">compareTo</span>(<span style="color:#000">o2</span>.<span style="color:#836c28">getName</span>());
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></section><section>
 <h3 id="comparatori-definiti-attraverso-classi-anonime">Comparatori definiti attraverso classi anonime</h3>
@@ -146,70 +121,69 @@ Mirko Viroli e Roberto Casadei, che ringrazio.</p>
 </li>
 </ul>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">FirstComparableWithAnonymousClasses</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span>) {
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">Person</span><span style="color:#000">&gt;</span> <span style="color:#000">list</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">ArrayList</span><span style="color:#000">&lt;</span><span style="color:#000">Person</span><span style="color:#000">&gt;</span>();
-</span></span><span style="display:flex;"><span>		<span style="color:#000">list</span>.<span style="color:#836c28">add</span>(<span style="color:#a90d91">new</span> <span style="color:#000">Person</span>(<span style="color:#c41a16">"Mario"</span>, <span style="color:#000">1960</span>, <span style="color:#a90d91">true</span>));
-</span></span><span style="display:flex;"><span>		<span style="color:#000">list</span>.<span style="color:#836c28">add</span>(<span style="color:#a90d91">new</span> <span style="color:#000">Person</span>(<span style="color:#c41a16">"Gino"</span>, <span style="color:#000">1970</span>, <span style="color:#a90d91">false</span>));
-</span></span><span style="display:flex;"><span>		<span style="color:#000">list</span>.<span style="color:#836c28">add</span>(<span style="color:#a90d91">new</span> <span style="color:#000">Person</span>(<span style="color:#c41a16">"Rino"</span>, <span style="color:#000">1951</span>, <span style="color:#a90d91">true</span>));
-</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">list</span>);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>		<span style="color:#000">Comparator</span><span style="color:#000">&lt;</span><span style="color:#000">Person</span><span style="color:#000">&gt;</span> <span style="color:#000">ageComparator</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Comparator</span><span style="color:#000">&lt;</span><span style="color:#000">Person</span><span style="color:#000">&gt;</span>() {
-</span></span><span style="display:flex;"><span>			<span style="color:#000">@Override</span>
-</span></span><span style="display:flex;"><span>			<span style="color:#a90d91">public</span> <span style="color:#a90d91">int</span> <span style="color:#000">compare</span>(<span style="color:#000">Person</span> <span style="color:#000">o1</span>, <span style="color:#000">Person</span> <span style="color:#000">o2</span>) {
-</span></span><span style="display:flex;"><span>				<span style="color:#a90d91">return</span> <span style="color:#000">Integer</span>.<span style="color:#836c28">compare</span>(<span style="color:#000">o1</span>.<span style="color:#836c28">getYearOfBirth</span>(), <span style="color:#000">o2</span>.<span style="color:#836c28">getYearOfBirth</span>());
-</span></span><span style="display:flex;"><span>			}
-</span></span><span style="display:flex;"><span>		};
-</span></span><span style="display:flex;"><span>		<span style="color:#000">Collections</span>.<span style="color:#836c28">sort</span>(<span style="color:#000">list</span>, <span style="color:#000">ageComparator</span>);
-</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">list</span>);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>		<span style="color:#000">Collections</span>.<span style="color:#836c28">sort</span>(<span style="color:#000">list</span>, <span style="color:#000">ageComparator</span>.<span style="color:#836c28">reversed</span>());
-</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">list</span>);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>		<span style="color:#000">Collections</span>.<span style="color:#836c28">sort</span>(<span style="color:#000">list</span>, <span style="color:#a90d91">new</span> <span style="color:#000">Comparator</span><span style="color:#000">&lt;</span><span style="color:#000">Person</span><span style="color:#000">&gt;</span>() {
-</span></span><span style="display:flex;"><span>			<span style="color:#000">@Override</span>
-</span></span><span style="display:flex;"><span>			<span style="color:#a90d91">public</span> <span style="color:#a90d91">int</span> <span style="color:#000">compare</span>(<span style="color:#000">Person</span> <span style="color:#000">o1</span>, <span style="color:#000">Person</span> <span style="color:#000">o2</span>) {
-</span></span><span style="display:flex;"><span>				<span style="color:#a90d91">return</span> <span style="color:#000">o1</span>.<span style="color:#836c28">getName</span>().<span style="color:#836c28">compareTo</span>(<span style="color:#000">o2</span>.<span style="color:#836c28">getName</span>());
-</span></span><span style="display:flex;"><span>			}
-</span></span><span style="display:flex;"><span>		});
-</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">list</span>);
-</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">final</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">Person</span><span style="color:#000">&gt;</span> <span style="color:#000">list</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">ArrayList</span><span style="color:#000">&lt;&gt;</span>();
+</span></span><span style="display:flex;"><span>        <span style="color:#000">list</span>.<span style="color:#836c28">add</span>(<span style="color:#a90d91">new</span> <span style="color:#000">Person</span>(<span style="color:#c41a16">"Mario"</span>, <span style="color:#000">1960</span>, <span style="color:#a90d91">true</span>));
+</span></span><span style="display:flex;"><span>        <span style="color:#000">list</span>.<span style="color:#836c28">add</span>(<span style="color:#a90d91">new</span> <span style="color:#000">Person</span>(<span style="color:#c41a16">"Gino"</span>, <span style="color:#000">1970</span>, <span style="color:#a90d91">false</span>));
+</span></span><span style="display:flex;"><span>        <span style="color:#000">list</span>.<span style="color:#836c28">add</span>(<span style="color:#a90d91">new</span> <span style="color:#000">Person</span>(<span style="color:#c41a16">"Rino"</span>, <span style="color:#000">1951</span>, <span style="color:#a90d91">true</span>));
+</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">list</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">final</span> <span style="color:#000">Comparator</span><span style="color:#000">&lt;</span><span style="color:#000">Person</span><span style="color:#000">&gt;</span> <span style="color:#000">ageComparator</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Comparator</span><span style="color:#000">&lt;</span><span style="color:#000">Person</span><span style="color:#000">&gt;</span>() {
+</span></span><span style="display:flex;"><span>            <span style="color:#000">@Override</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#a90d91">public</span> <span style="color:#a90d91">int</span> <span style="color:#000">compare</span>(<span style="color:#000">Person</span> <span style="color:#000">o1</span>, <span style="color:#000">Person</span> <span style="color:#000">o2</span>) {
+</span></span><span style="display:flex;"><span>                <span style="color:#a90d91">return</span> <span style="color:#000">Integer</span>.<span style="color:#836c28">compare</span>(<span style="color:#000">o1</span>.<span style="color:#836c28">getYearOfBirth</span>(), <span style="color:#000">o2</span>.<span style="color:#836c28">getYearOfBirth</span>());
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        };
+</span></span><span style="display:flex;"><span>        <span style="color:#000">list</span>.<span style="color:#836c28">sort</span>(<span style="color:#000">ageComparator</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">list</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#000">list</span>.<span style="color:#836c28">sort</span>(<span style="color:#000">ageComparator</span>.<span style="color:#836c28">reversed</span>());
+</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">list</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#000">list</span>.<span style="color:#836c28">sort</span>(<span style="color:#a90d91">new</span> <span style="color:#000">Comparator</span><span style="color:#000">&lt;</span><span style="color:#000">Person</span><span style="color:#000">&gt;</span>() {
+</span></span><span style="display:flex;"><span>            <span style="color:#000">@Override</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#a90d91">public</span> <span style="color:#a90d91">int</span> <span style="color:#000">compare</span>(<span style="color:#000">Person</span> <span style="color:#000">o1</span>, <span style="color:#000">Person</span> <span style="color:#000">o2</span>) {
+</span></span><span style="display:flex;"><span>                <span style="color:#a90d91">return</span> <span style="color:#000">o1</span>.<span style="color:#836c28">getName</span>().<span style="color:#836c28">compareTo</span>(<span style="color:#000">o2</span>.<span style="color:#836c28">getName</span>());
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        });
+</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">list</span>);
+</span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></section><section>
 <h3 id="comparatori-attraverso-lambda">Comparatori attraverso lambda</h3>
 <ul>
-<li>Una <strong>lambda</strong> è una <em>funzione anonima</em>, creata “al volo”
+<li>Una <strong>lambda</strong> è una <em>funzione anonima</em>, creata “al volo”</li>
+<li>internamente implementata come <em>istanza</em> di un’<strong>interfaccia funzionale</strong>
 <ul>
-<li>internamente implementata come <em>istanza</em> di un’<strong>interfaccia funzionale</strong> (un’interfaccia che definisce un solo metodo astratto)</li>
+<li>un’interfaccia “SAM” (single abstract method), ossia che definisce un solo metodo astratto</li>
 </ul>
 </li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">FirstComparableWithLambdas</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span>) {
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">Person</span><span style="color:#000">&gt;</span> <span style="color:#000">list</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">ArrayList</span><span style="color:#000">&lt;</span><span style="color:#000">Person</span><span style="color:#000">&gt;</span>();
-</span></span><span style="display:flex;"><span>		<span style="color:#000">list</span>.<span style="color:#836c28">add</span>(<span style="color:#a90d91">new</span> <span style="color:#000">Person</span>(<span style="color:#c41a16">"Mario"</span>, <span style="color:#000">1960</span>, <span style="color:#a90d91">true</span>));
-</span></span><span style="display:flex;"><span>		<span style="color:#000">list</span>.<span style="color:#836c28">add</span>(<span style="color:#a90d91">new</span> <span style="color:#000">Person</span>(<span style="color:#c41a16">"Gino"</span>, <span style="color:#000">1970</span>, <span style="color:#a90d91">false</span>));
-</span></span><span style="display:flex;"><span>		<span style="color:#000">list</span>.<span style="color:#836c28">add</span>(<span style="color:#a90d91">new</span> <span style="color:#000">Person</span>(<span style="color:#c41a16">"Rino"</span>, <span style="color:#000">1951</span>, <span style="color:#a90d91">true</span>));
-</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">list</span>);
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">package</span> <span style="color:#000">it.unibo.lambdas.intro</span>;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>		<span style="color:#000">Collections</span>.<span style="color:#836c28">sort</span>(<span style="color:#000">list</span>, 
-</span></span><span style="display:flex;"><span>			(<span style="color:#000">Person</span> <span style="color:#000">o1</span>, <span style="color:#000">Person</span> <span style="color:#000">o2</span>) <span style="color:#000">-&gt;</span> <span style="color:#000">Integer</span>.<span style="color:#836c28">compare</span>(<span style="color:#000">o1</span>.<span style="color:#836c28">getYearOfBirth</span>(), <span style="color:#000">o2</span>.<span style="color:#836c28">getYearOfBirth</span>()));
-</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">list</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.ArrayList</span>;
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.List</span>;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>		<span style="color:#000">Collections</span>.<span style="color:#836c28">sort</span>(<span style="color:#000">list</span>, 
-</span></span><span style="display:flex;"><span>			(<span style="color:#000">o1</span>, <span style="color:#000">o2</span>) <span style="color:#000">-&gt;</span> { <span style="color:#a90d91">return</span> <span style="color:#000">Integer</span>.<span style="color:#836c28">compare</span>(<span style="color:#000">o2</span>.<span style="color:#836c28">getYearOfBirth</span>(), <span style="color:#000">o1</span>.<span style="color:#836c28">getYearOfBirth</span>()); } );
-</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">list</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">FirstComparableWithLambdas</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">final</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">Person</span><span style="color:#000">&gt;</span> <span style="color:#000">list</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">ArrayList</span><span style="color:#000">&lt;&gt;</span>();
+</span></span><span style="display:flex;"><span>        <span style="color:#000">list</span>.<span style="color:#836c28">add</span>(<span style="color:#a90d91">new</span> <span style="color:#000">Person</span>(<span style="color:#c41a16">"Mario"</span>, <span style="color:#000">1960</span>, <span style="color:#a90d91">true</span>));
+</span></span><span style="display:flex;"><span>        <span style="color:#000">list</span>.<span style="color:#836c28">add</span>(<span style="color:#a90d91">new</span> <span style="color:#000">Person</span>(<span style="color:#c41a16">"Gino"</span>, <span style="color:#000">1970</span>, <span style="color:#a90d91">false</span>));
+</span></span><span style="display:flex;"><span>        <span style="color:#000">list</span>.<span style="color:#836c28">add</span>(<span style="color:#a90d91">new</span> <span style="color:#000">Person</span>(<span style="color:#c41a16">"Rino"</span>, <span style="color:#000">1951</span>, <span style="color:#a90d91">true</span>));
+</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">list</span>);
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>		<span style="color:#000">Collections</span>.<span style="color:#836c28">sort</span>(<span style="color:#000">list</span>, (<span style="color:#000">o1</span>, <span style="color:#000">o2</span>) <span style="color:#000">-&gt;</span> <span style="color:#000">o1</span>.<span style="color:#836c28">getName</span>().<span style="color:#836c28">compareTo</span>(<span style="color:#000">o2</span>.<span style="color:#836c28">getName</span>()));
-</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">list</span>);
-</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>        <span style="color:#000">list</span>.<span style="color:#836c28">sort</span>((<span style="color:#000">Person</span> <span style="color:#000">o1</span>, <span style="color:#000">Person</span> <span style="color:#000">o2</span>) <span style="color:#000">-&gt;</span> <span style="color:#000">Integer</span>.<span style="color:#836c28">compare</span>(<span style="color:#000">o1</span>.<span style="color:#836c28">getYearOfBirth</span>(), <span style="color:#000">o2</span>.<span style="color:#836c28">getYearOfBirth</span>()));
+</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">list</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">list</span>.<span style="color:#836c28">sort</span>((<span style="color:#000">o1</span>, <span style="color:#000">o2</span>) <span style="color:#000">-&gt;</span> <span style="color:#000">Integer</span>.<span style="color:#836c28">compare</span>(<span style="color:#000">o2</span>.<span style="color:#836c28">getYearOfBirth</span>(), <span style="color:#000">o1</span>.<span style="color:#836c28">getYearOfBirth</span>()));
+</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">list</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">list</span>.<span style="color:#836c28">sort</span>((<span style="color:#000">o1</span>, <span style="color:#000">o2</span>) <span style="color:#000">-&gt;</span> <span style="color:#000">o1</span>.<span style="color:#836c28">getName</span>().<span style="color:#836c28">compareTo</span>(<span style="color:#000">o2</span>.<span style="color:#836c28">getName</span>()));
+</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">list</span>);
+</span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></section><section>
-<h1 id="lambda-expressions">Lambda expressions</h1>
-</section><section>
 <h2 id="elementi-delle-lambda-expression">Elementi delle lambda expression</h2>
 <h3 id="che-cosè-una-lambda">Che cos’è una lambda</h3>
 <ul>
-<li>è una <em>funzione (anonima)</em> con <em>accesso ad uno scope locale</em> (cf. <em>closure</em>)</li>
+<li>è una <em>funzione (anonima)</em> con <em>accesso a uno scope locale</em> (cf. <em>chiusura</em> o <em>closure</em>)</li>
 <li>è applicabile a certi input, e dà un risultato (oppure <code>void</code>)
 <ul>
 <li>per calcolare il risultato potrebbe usare qualche variabile nello scope in cui è definita</li>
@@ -224,7 +198,7 @@ Mirko Viroli e Roberto Casadei, che ringrazio.</p>
 <h3 id="caratteristica-specifica-di-java">Caratteristica specifica di Java</h3>
 <ul>
 <li>come vedremo, una lambda è un oggetto, e il suo tipo è sempre quello di una <code>interface</code> detta “funzionale”</li>
-<li>metodi statici o istanza possono essere usati a mo’ di lambda (chiamati “method reference”, perché sono interpretabili come funzioni (come i <code>delegate</code> di C#)</li>
+<li>metodi statici o istanza possono essere usati a mo’ di lambda (chiamati “method reference”, perché sono interpretabili come funzioni)</li>
 </ul>
 </section><section>
 <h2 id="come-si-esprime-una-lambda">Come si esprime una lambda</h2>
@@ -245,33 +219,39 @@ Mirko Viroli e Roberto Casadei, che ringrazio.</p>
 <li>Il body può essere direttamente una singola espressione/istruzione</li>
 </ul>
 </section><section>
-<h2 id="esempi-di-lambda"><code>Esempi di Lambda</code></h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">FilteringWithLambdas</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span>) {
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">String</span><span style="color:#000">&gt;</span> <span style="color:#000">list</span> <span style="color:#000">=</span> <span style="color:#000">Arrays</span>.<span style="color:#836c28">asList</span>(<span style="color:#c41a16">"foo"</span>, <span style="color:#c41a16">"bar"</span>, <span style="color:#c41a16">"foobar!"</span>, <span style="color:#c41a16">"AAAAAAA"</span>, <span style="color:#c41a16">"!!!"</span>);
+<h2 id="esempi-di-sintassi-di-lambda-expressions">Esempi di sintassi di Lambda expressions</h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">package</span> <span style="color:#000">it.unibo.lambdas.intro</span>;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">var</span> <span style="color:#000">l1</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">ArrayList</span><span style="color:#000">&lt;</span><span style="color:#000">String</span><span style="color:#000">&gt;</span>(<span style="color:#000">list</span>);
-</span></span><span style="display:flex;"><span>		<span style="color:#000">l1</span>.<span style="color:#836c28">removeIf</span>((<span style="color:#000">String</span> <span style="color:#000">s</span>) <span style="color:#000">-&gt;</span> { <span style="color:#a90d91">return</span> <span style="color:#000">s</span>.<span style="color:#836c28">length</span>() <span style="color:#000">&gt;</span> <span style="color:#000">3</span>; });
-</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">l1</span>); <span style="color:#177500">// [foo, bar, !!!]</span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.ArrayList</span>;
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.Arrays</span>;
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.List</span>;
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.function.Predicate</span>;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">var</span> <span style="color:#000">l2</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">ArrayList</span><span style="color:#000">&lt;</span><span style="color:#000">String</span><span style="color:#000">&gt;</span>(<span style="color:#000">list</span>);
-</span></span><span style="display:flex;"><span>		<span style="color:#000">l2</span>.<span style="color:#836c28">removeIf</span>(<span style="color:#000">s</span> <span style="color:#000">-&gt;</span> { <span style="color:#a90d91">return</span> <span style="color:#000">s</span>.<span style="color:#836c28">startsWith</span>(<span style="color:#c41a16">"f"</span>); });
-</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">l2</span>); <span style="color:#177500">// [bar, AAAAAAA, !!!]</span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">FilteringWithLambdas</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">final</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">String</span><span style="color:#000">&gt;</span> <span style="color:#000">list</span> <span style="color:#000">=</span> <span style="color:#000">Arrays</span>.<span style="color:#836c28">asList</span>(<span style="color:#c41a16">"foo"</span>, <span style="color:#c41a16">"bar"</span>, <span style="color:#c41a16">"foobar!"</span>, <span style="color:#c41a16">"AAAAAAA"</span>, <span style="color:#c41a16">"!!!"</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">var</span> <span style="color:#000">l1</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">ArrayList</span><span style="color:#000">&lt;&gt;</span>(<span style="color:#000">list</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#000">l1</span>.<span style="color:#836c28">removeIf</span>((<span style="color:#000">String</span> <span style="color:#000">s</span>) <span style="color:#000">-&gt;</span> { <span style="color:#a90d91">return</span> <span style="color:#000">s</span>.<span style="color:#836c28">length</span>() <span style="color:#000">&gt;</span> <span style="color:#000">3</span>; }); <span style="color:#177500">// Sintassi "completa"</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">l1</span>); <span style="color:#177500">// [foo, bar, !!!]</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">var</span> <span style="color:#000">l3</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">ArrayList</span><span style="color:#000">&lt;</span><span style="color:#000">String</span><span style="color:#000">&gt;</span>(<span style="color:#000">list</span>);
-</span></span><span style="display:flex;"><span>		<span style="color:#000">l3</span>.<span style="color:#836c28">removeIf</span>((<span style="color:#000">String</span> <span style="color:#000">s</span>) <span style="color:#000">-&gt;</span> <span style="color:#000">s</span>.<span style="color:#836c28">contains</span>(<span style="color:#c41a16">"!"</span>));
-</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">l3</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">var</span> <span style="color:#000">l2</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">ArrayList</span><span style="color:#000">&lt;&gt;</span>(<span style="color:#000">list</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#000">l2</span>.<span style="color:#836c28">removeIf</span>(<span style="color:#000">s</span> <span style="color:#000">-&gt;</span> { <span style="color:#a90d91">return</span> <span style="color:#000">s</span>.<span style="color:#836c28">startsWith</span>(<span style="color:#c41a16">"f"</span>); }); <span style="color:#177500">// Sintassi con tipo dell'argomento inferito</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">l2</span>); <span style="color:#177500">// [bar, AAAAAAA, !!!]</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">var</span> <span style="color:#000">l4</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">ArrayList</span><span style="color:#000">&lt;</span><span style="color:#000">String</span><span style="color:#000">&gt;</span>(<span style="color:#000">list</span>);
-</span></span><span style="display:flex;"><span>		<span style="color:#000">java</span>.<span style="color:#836c28">util</span>.<span style="color:#836c28">function</span>.<span style="color:#836c28">Predicate</span><span style="color:#000">&lt;</span><span style="color:#000">String</span><span style="color:#000">&gt;</span> <span style="color:#000">p</span> <span style="color:#000">=</span> <span style="color:#000">s</span> <span style="color:#000">-&gt;</span> <span style="color:#000">s</span>.<span style="color:#836c28">matches</span>(<span style="color:#c41a16">"(foo)|(bar)"</span>);
-</span></span><span style="display:flex;"><span>		<span style="color:#000">l4</span>.<span style="color:#836c28">removeIf</span>(<span style="color:#000">p</span>.<span style="color:#836c28">negate</span>());
-</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">l4</span>);
-</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">var</span> <span style="color:#000">l3</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">ArrayList</span><span style="color:#000">&lt;&gt;</span>(<span style="color:#000">list</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#000">l3</span>.<span style="color:#836c28">removeIf</span>((<span style="color:#000">String</span> <span style="color:#000">s</span>) <span style="color:#000">-&gt;</span> <span style="color:#000">s</span>.<span style="color:#836c28">contains</span>(<span style="color:#c41a16">"!"</span>)); <span style="color:#177500">// Sintassi con corpo dell'espressione semplificato</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">l3</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">var</span> <span style="color:#000">l4</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">ArrayList</span><span style="color:#000">&lt;&gt;</span>(<span style="color:#000">list</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#000">l4</span>.<span style="color:#836c28">removeIf</span>(<span style="color:#000">s</span> <span style="color:#000">-&gt;</span> <span style="color:#000">s</span>.<span style="color:#836c28">matches</span>(<span style="color:#c41a16">"(foo)|(bar)"</span>)); <span style="color:#177500">// Sintassi più concisa</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">l4</span>);
+</span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></section><section>
-<h2 id="come-si-esprime-una-lambda-i-method-reference">Come si esprime una lambda: i <strong>method reference</strong></h2>
+<h2 id="method-references">Method references</h2>
 <h3 id="sintassi-possibili-1">Sintassi possibili</h3>
 <ul>
+<li></li>
 <li><code>&lt;class&gt;::&lt;static-method&gt;</code>
 <ul>
 <li>sta per <code>(x1, ..., xn) -&gt; &lt;class&gt;.&lt;static-method&gt;(x1, ..., xn)</code></li>
@@ -300,39 +280,40 @@ Mirko Viroli e Roberto Casadei, che ringrazio.</p>
 </ul>
 </section><section>
 <h2 id="esempi-di-method-reference-casi-123"><code>Esempi di Method Reference (casi 1,2,3)</code></h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">AllLambdas2</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">private</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">int</span> <span style="color:#000">staticMyCompare</span>(<span style="color:#a90d91">final</span> <span style="color:#000">String</span> <span style="color:#000">a</span>, <span style="color:#a90d91">final</span> <span style="color:#000">String</span> <span style="color:#000">b</span>) {
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#000">a</span>.<span style="color:#836c28">compareTo</span>(<span style="color:#000">b</span>);
-</span></span><span style="display:flex;"><span>	}
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">package</span> <span style="color:#000">it.unibo.lambdas.first</span>;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">private</span> <span style="color:#a90d91">int</span> <span style="color:#000">instanceMyCompare</span>(<span style="color:#a90d91">final</span> <span style="color:#000">String</span> <span style="color:#000">a</span>, <span style="color:#a90d91">final</span> <span style="color:#000">String</span> <span style="color:#000">b</span>) {
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#000">b</span>.<span style="color:#836c28">compareTo</span>(<span style="color:#000">a</span>);
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>	
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span>) {
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">String</span><span style="color:#000">&gt;</span> <span style="color:#000">list</span> <span style="color:#000">=</span> <span style="color:#000">Arrays</span>.<span style="color:#836c28">asList</span>(<span style="color:#c41a16">"a"</span>, <span style="color:#c41a16">"bb"</span>, <span style="color:#c41a16">"c"</span>, <span style="color:#c41a16">"ddd"</span>);
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">AllLambdas2</span> <span style="color:#000">objAL</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">AllLambdas2</span>();
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.Arrays</span>;
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.List</span>;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>		<span style="color:#000">Collections</span>.<span style="color:#836c28">sort</span>(<span style="color:#000">list</span>, (<span style="color:#000">x</span>,<span style="color:#000">y</span>) <span style="color:#000">-&gt;</span> <span style="color:#000">staticMyCompare</span>(<span style="color:#000">x</span>,<span style="color:#000">y</span>));
-</span></span><span style="display:flex;"><span>		<span style="color:#000">Collections</span>.<span style="color:#836c28">sort</span>(<span style="color:#000">list</span>, <span style="color:#000">AllLambdas2</span>::<span style="color:#000">staticMyCompare</span>);  <span style="color:#177500">// same as above</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">list</span>); <span style="color:#177500">// [a, bb, c, ddd]</span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">AllLambdas2</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">int</span> <span style="color:#000">staticMyCompare</span>(<span style="color:#a90d91">final</span> <span style="color:#000">String</span> <span style="color:#000">a</span>, <span style="color:#a90d91">final</span> <span style="color:#000">String</span> <span style="color:#000">b</span>) { <span style="color:#a90d91">return</span> <span style="color:#000">a</span>.<span style="color:#836c28">compareTo</span>(<span style="color:#000">b</span>); }
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>		<span style="color:#000">Collections</span>.<span style="color:#836c28">sort</span>(<span style="color:#000">list</span>, (<span style="color:#000">x</span>,<span style="color:#000">y</span>) <span style="color:#000">-&gt;</span> <span style="color:#000">objAL</span>.<span style="color:#836c28">instanceMyCompare</span>(<span style="color:#000">x</span>, <span style="color:#000">y</span>));
-</span></span><span style="display:flex;"><span>		<span style="color:#000">Collections</span>.<span style="color:#836c28">sort</span>(<span style="color:#000">list</span>, <span style="color:#000">objAL</span>::<span style="color:#000">instanceMyCompare</span>);  <span style="color:#177500">// same as above</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">list</span>); <span style="color:#177500">// [ddd, c, bb, a]</span>
-</span></span><span style="display:flex;"><span>		
-</span></span><span style="display:flex;"><span>		<span style="color:#000">Collections</span>.<span style="color:#836c28">sort</span>(<span style="color:#000">list</span>, (<span style="color:#000">x</span>,<span style="color:#000">y</span>) <span style="color:#000">-&gt;</span> <span style="color:#000">x</span>.<span style="color:#836c28">compareTo</span>(<span style="color:#000">y</span>));
-</span></span><span style="display:flex;"><span>		<span style="color:#000">Collections</span>.<span style="color:#836c28">sort</span>(<span style="color:#000">list</span>, <span style="color:#000">String</span>::<span style="color:#000">compareTo</span>);  <span style="color:#177500">// same as above</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">list</span>); <span style="color:#177500">// [ddd, c, bb, a]</span>
-</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">int</span> <span style="color:#000">instanceMyCompare</span>(<span style="color:#a90d91">final</span> <span style="color:#000">String</span> <span style="color:#000">a</span>, <span style="color:#a90d91">final</span> <span style="color:#000">String</span> <span style="color:#000">b</span>) { <span style="color:#a90d91">return</span> <span style="color:#000">b</span>.<span style="color:#836c28">compareTo</span>(<span style="color:#000">a</span>); }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">final</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">String</span><span style="color:#000">&gt;</span> <span style="color:#000">list</span> <span style="color:#000">=</span> <span style="color:#000">Arrays</span>.<span style="color:#836c28">asList</span>(<span style="color:#c41a16">"a"</span>, <span style="color:#c41a16">"bb"</span>, <span style="color:#c41a16">"c"</span>, <span style="color:#c41a16">"ddd"</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">final</span> <span style="color:#000">AllLambdas2</span> <span style="color:#000">objAL</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">AllLambdas2</span>();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">list</span>.<span style="color:#836c28">sort</span>((<span style="color:#000">x</span>, <span style="color:#000">y</span>) <span style="color:#000">-&gt;</span> <span style="color:#000">staticMyCompare</span>(<span style="color:#000">x</span>, <span style="color:#000">y</span>));
+</span></span><span style="display:flex;"><span>        <span style="color:#000">list</span>.<span style="color:#836c28">sort</span>(<span style="color:#000">AllLambdas2</span>::<span style="color:#000">staticMyCompare</span>);  <span style="color:#177500">// same as above</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">list</span>); <span style="color:#177500">// [a, bb, c, ddd]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">list</span>.<span style="color:#836c28">sort</span>((<span style="color:#000">x</span>, <span style="color:#000">y</span>) <span style="color:#000">-&gt;</span> <span style="color:#000">objAL</span>.<span style="color:#836c28">instanceMyCompare</span>(<span style="color:#000">x</span>, <span style="color:#000">y</span>));
+</span></span><span style="display:flex;"><span>        <span style="color:#000">list</span>.<span style="color:#836c28">sort</span>(<span style="color:#000">objAL</span>::<span style="color:#000">instanceMyCompare</span>);  <span style="color:#177500">// same as above</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">list</span>); <span style="color:#177500">// [ddd, c, bb, a]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">list</span>.<span style="color:#836c28">sort</span>((<span style="color:#000">x</span>, <span style="color:#000">y</span>) <span style="color:#000">-&gt;</span> <span style="color:#000">x</span>.<span style="color:#836c28">compareTo</span>(<span style="color:#000">y</span>));
+</span></span><span style="display:flex;"><span>        <span style="color:#000">list</span>.<span style="color:#836c28">sort</span>(<span style="color:#000">String</span>::<span style="color:#000">compareTo</span>);  <span style="color:#177500">// same as above</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">list</span>); <span style="color:#177500">// [ddd, c, bb, a]</span>
+</span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></section><section>
 <h2 id="dove-si-può-usare-una-lambda">Dove si può usare una lambda?</h2>
 <h3 id="definizione-di-interfaccia">Definizione di <strong>interfaccia “funzionale”</strong></h3>
 <ul>
-<li>E’ una <code>interface</code> con un singolo metodo astratto
+<li>È una <code>interface</code> con un <strong>singolo metodo astratto</strong>
 <ul>
-<li>Ma potrebbero esserci più metodi di default (cf. keyword <code>default</code>)</li>
+<li>Non c’è ambiguità circa quale metodo implementare</li>
 </ul>
 </li>
 </ul>
@@ -354,87 +335,92 @@ Mirko Viroli e Roberto Casadei, che ringrazio.</p>
 </ul>
 </section><section>
 <h2 id="generazione-automatica-della-classe-anonima">Generazione automatica della classe anonima</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">FirstComparable2</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span>) {
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">Person</span><span style="color:#000">&gt;</span> <span style="color:#000">list</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">ArrayList</span><span style="color:#000">&lt;</span><span style="color:#000">Person</span><span style="color:#000">&gt;</span>();
-</span></span><span style="display:flex;"><span>		<span style="color:#000">list</span>.<span style="color:#836c28">add</span>(<span style="color:#a90d91">new</span> <span style="color:#000">Person</span>(<span style="color:#c41a16">"Mario"</span>, <span style="color:#000">1960</span>, <span style="color:#a90d91">true</span>));
-</span></span><span style="display:flex;"><span>		<span style="color:#000">list</span>.<span style="color:#836c28">add</span>(<span style="color:#a90d91">new</span> <span style="color:#000">Person</span>(<span style="color:#c41a16">"Gino"</span>, <span style="color:#000">1970</span>, <span style="color:#a90d91">false</span>));
-</span></span><span style="display:flex;"><span>		<span style="color:#000">list</span>.<span style="color:#836c28">add</span>(<span style="color:#a90d91">new</span> <span style="color:#000">Person</span>(<span style="color:#c41a16">"Rino"</span>, <span style="color:#000">1951</span>, <span style="color:#a90d91">true</span>));
-</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">list</span>);
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">package</span> <span style="color:#000">it.unibo.lambdas.first</span>;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>		<span style="color:#177500">// Sorting with a lambda</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#000">Collections</span>.<span style="color:#836c28">sort</span>(<span style="color:#000">list</span>, (<span style="color:#000">p1</span>, <span style="color:#000">p2</span>) <span style="color:#000">-&gt;</span> <span style="color:#000">Integer</span>.<span style="color:#836c28">compare</span>(<span style="color:#000">p2</span>.<span style="color:#836c28">getYear</span>(), <span style="color:#000">p1</span>.<span style="color:#836c28">getYear</span>()));
-</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">list</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.ArrayList</span>;
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.Comparator</span>;
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.List</span>;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>		<span style="color:#177500">// Nota che sort richiede un Comparator&lt;Persona&gt;, che ha il solo metodo:</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#177500">// int compare(Persona p1, Persona p2)</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#177500">// Quindi il codice equivalente generato da javac è:</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#000">Collections</span>.<span style="color:#836c28">sort</span>(<span style="color:#000">list</span>, <span style="color:#a90d91">new</span> <span style="color:#000">Comparator</span><span style="color:#000">&lt;</span><span style="color:#000">Person</span><span style="color:#000">&gt;</span>() {
-</span></span><span style="display:flex;"><span>			<span style="color:#a90d91">public</span> <span style="color:#a90d91">int</span> <span style="color:#000">compare</span>(<span style="color:#000">Person</span> <span style="color:#000">p1</span>, <span style="color:#000">Person</span> <span style="color:#000">p2</span>) {
-</span></span><span style="display:flex;"><span>				<span style="color:#a90d91">return</span> <span style="color:#000">Integer</span>.<span style="color:#836c28">compare</span>(<span style="color:#000">p2</span>.<span style="color:#836c28">getYear</span>(), <span style="color:#000">p1</span>.<span style="color:#836c28">getYear</span>());
-</span></span><span style="display:flex;"><span>			}
-</span></span><span style="display:flex;"><span>		});
-</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">list</span>);
-</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">FirstComparable2</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">final</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">Person</span><span style="color:#000">&gt;</span> <span style="color:#000">list</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">ArrayList</span><span style="color:#000">&lt;&gt;</span>();
+</span></span><span style="display:flex;"><span>        <span style="color:#000">list</span>.<span style="color:#836c28">add</span>(<span style="color:#a90d91">new</span> <span style="color:#000">Person</span>(<span style="color:#c41a16">"Mario"</span>, <span style="color:#000">1960</span>, <span style="color:#a90d91">true</span>));
+</span></span><span style="display:flex;"><span>        <span style="color:#000">list</span>.<span style="color:#836c28">add</span>(<span style="color:#a90d91">new</span> <span style="color:#000">Person</span>(<span style="color:#c41a16">"Gino"</span>, <span style="color:#000">1970</span>, <span style="color:#a90d91">false</span>));
+</span></span><span style="display:flex;"><span>        <span style="color:#000">list</span>.<span style="color:#836c28">add</span>(<span style="color:#a90d91">new</span> <span style="color:#000">Person</span>(<span style="color:#c41a16">"Rino"</span>, <span style="color:#000">1951</span>, <span style="color:#a90d91">true</span>));
+</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">list</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#177500">// Sorting with a lambda</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">list</span>.<span style="color:#836c28">sort</span>((<span style="color:#000">p1</span>, <span style="color:#000">p2</span>) <span style="color:#000">-&gt;</span> <span style="color:#000">Integer</span>.<span style="color:#836c28">compare</span>(<span style="color:#000">p2</span>.<span style="color:#836c28">getYear</span>(), <span style="color:#000">p1</span>.<span style="color:#836c28">getYear</span>()));
+</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">list</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#177500">// Nota che sort richiede un Comparator&lt;Persona&gt;, che ha il solo metodo:</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#177500">// int compare(Persona p1, Persona p2)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#177500">// Quindi il codice equivalente generato da javac è:</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">list</span>.<span style="color:#836c28">sort</span>(<span style="color:#a90d91">new</span> <span style="color:#000">Comparator</span><span style="color:#000">&lt;</span><span style="color:#000">Person</span><span style="color:#000">&gt;</span>() {
+</span></span><span style="display:flex;"><span>            <span style="color:#a90d91">public</span> <span style="color:#a90d91">int</span> <span style="color:#000">compare</span>(<span style="color:#000">Person</span> <span style="color:#000">p1</span>, <span style="color:#000">Person</span> <span style="color:#000">p2</span>) {
+</span></span><span style="display:flex;"><span>                <span style="color:#a90d91">return</span> <span style="color:#000">Integer</span>.<span style="color:#836c28">compare</span>(<span style="color:#000">p2</span>.<span style="color:#836c28">getYear</span>(), <span style="color:#000">p1</span>.<span style="color:#836c28">getYear</span>());
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        });
+</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">list</span>);
+</span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></section><section>
 <h2 id="esempio-funzione-riusabile-di-filtraggio">Esempio: funzione riusabile di filtraggio</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#177500">// Similar to java.util.functions.Predicate&lt;T&gt;</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">package</span> <span style="color:#000">it.unibo.lambdas.first</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#177500">// Similar to java.util.functions.Predicate&lt;T&gt;</span>
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">interface</span> <span style="color:#3f6e75">Filter</span><span style="color:#000">&lt;</span><span style="color:#000">X</span><span style="color:#000">&gt;</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">boolean</span> <span style="color:#000">applyFilter</span>(<span style="color:#000">X</span> <span style="color:#000">x</span>); <span style="color:#177500">// Does element x pass the filter?</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">boolean</span> <span style="color:#000">applyFilter</span>(<span style="color:#000">X</span> <span style="color:#000">x</span>); <span style="color:#177500">// Does element x pass the filter?</span>
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">FilterUtility</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#000">&lt;</span><span style="color:#000">X</span><span style="color:#000">&gt;</span> <span style="color:#000">Set</span><span style="color:#000">&lt;</span><span style="color:#000">X</span><span style="color:#000">&gt;</span> <span style="color:#000">filterAll</span>(<span style="color:#000">Collection</span><span style="color:#000">&lt;</span><span style="color:#000">X</span><span style="color:#000">&gt;</span> <span style="color:#000">set</span>, <span style="color:#000">Filter</span><span style="color:#000">&lt;</span><span style="color:#000">X</span><span style="color:#000">&gt;</span> <span style="color:#000">filter</span>) {
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">Set</span><span style="color:#000">&lt;</span><span style="color:#000">X</span><span style="color:#000">&gt;</span> <span style="color:#000">newSet</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">HashSet</span><span style="color:#000">&lt;&gt;</span>();
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">for</span> (<span style="color:#a90d91">final</span> <span style="color:#000">X</span> <span style="color:#000">x</span> : <span style="color:#000">set</span>) {
-</span></span><span style="display:flex;"><span>			<span style="color:#a90d91">if</span> (<span style="color:#000">filter</span>.<span style="color:#836c28">applyFilter</span>(<span style="color:#000">x</span>)) { <span style="color:#000">newSet</span>.<span style="color:#836c28">add</span>(<span style="color:#000">x</span>); }
-</span></span><span style="display:flex;"><span>		}
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#000">newSet</span>;
-</span></span><span style="display:flex;"><span>	}
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.LinkedHashSet</span>;
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.List</span>;
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.Set</span>;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span>) {
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> <span style="color:#000">ls</span> <span style="color:#000">=</span> <span style="color:#000">Arrays</span>.<span style="color:#836c28">asList</span>(<span style="color:#000">10</span>, <span style="color:#000">20</span>, <span style="color:#000">30</span>, <span style="color:#000">40</span>, <span style="color:#000">50</span>, <span style="color:#000">60</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">FilterUtility</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#000">&lt;</span><span style="color:#000">X</span><span style="color:#000">&gt;</span> <span style="color:#000">Set</span><span style="color:#000">&lt;</span><span style="color:#000">X</span><span style="color:#000">&gt;</span> <span style="color:#000">filterAll</span>(<span style="color:#000">Collection</span><span style="color:#000">&lt;</span><span style="color:#000">X</span><span style="color:#000">&gt;</span> <span style="color:#000">set</span>, <span style="color:#000">Filter</span><span style="color:#000">&lt;</span><span style="color:#000">X</span><span style="color:#000">&gt;</span> <span style="color:#000">filter</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">final</span> <span style="color:#000">Set</span><span style="color:#000">&lt;</span><span style="color:#000">X</span><span style="color:#000">&gt;</span> <span style="color:#000">newSet</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">LinkedHashSet</span><span style="color:#000">&lt;&gt;</span>();
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">for</span> (<span style="color:#a90d91">final</span> <span style="color:#000">X</span> <span style="color:#000">x</span> : <span style="color:#000">set</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#a90d91">if</span> (<span style="color:#000">filter</span>.<span style="color:#836c28">applyFilter</span>(<span style="color:#000">x</span>)) {
+</span></span><span style="display:flex;"><span>                <span style="color:#000">newSet</span>.<span style="color:#836c28">add</span>(<span style="color:#000">x</span>);
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">return</span> <span style="color:#000">newSet</span>;
+</span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>		<span style="color:#177500">// Nota che il nome del metodo in Filter non è mai menzionato qui</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">filterAll</span>(<span style="color:#000">ls</span>, <span style="color:#000">x</span> <span style="color:#000">-&gt;</span> <span style="color:#000">x</span> <span style="color:#000">&gt;</span> <span style="color:#000">20</span>)); <span style="color:#177500">// [30,40,50,60]</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">filterAll</span>(<span style="color:#000">ls</span>, <span style="color:#000">x</span> <span style="color:#000">-&gt;</span> <span style="color:#000">x</span> <span style="color:#000">&gt;</span> <span style="color:#000">20</span> <span style="color:#000">&amp;&amp;</span> <span style="color:#000">x</span> <span style="color:#000">&lt;</span> <span style="color:#000">60</span>)); <span style="color:#177500">// [30,40,50]</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">filterAll</span>(<span style="color:#000">ls</span>, <span style="color:#000">x</span> <span style="color:#000">-&gt;</span> <span style="color:#000">x</span> <span style="color:#000">%</span> <span style="color:#000">20</span> <span style="color:#000">==</span> <span style="color:#000">0</span>)); <span style="color:#177500">// [20,40,60]</span>
-</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">final</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> <span style="color:#000">ls</span> <span style="color:#000">=</span> <span style="color:#000">List</span>.<span style="color:#836c28">of</span>(<span style="color:#000">10</span>, <span style="color:#000">20</span>, <span style="color:#000">30</span>, <span style="color:#000">40</span>, <span style="color:#000">50</span>, <span style="color:#000">60</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#177500">// Nota che il nome del metodo in Filter non è mai menzionato qui</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">filterAll</span>(<span style="color:#000">ls</span>, <span style="color:#000">x</span> <span style="color:#000">-&gt;</span> <span style="color:#000">x</span> <span style="color:#000">&gt;</span> <span style="color:#000">20</span>)); <span style="color:#177500">// [30,40,50,60]</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">filterAll</span>(<span style="color:#000">ls</span>, <span style="color:#000">x</span> <span style="color:#000">-&gt;</span> <span style="color:#000">x</span> <span style="color:#000">&gt;</span> <span style="color:#000">20</span> <span style="color:#000">&amp;&amp;</span> <span style="color:#000">x</span> <span style="color:#000">&lt;</span> <span style="color:#000">60</span>)); <span style="color:#177500">// [30,40,50]</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">filterAll</span>(<span style="color:#000">ls</span>, <span style="color:#000">x</span> <span style="color:#000">-&gt;</span> <span style="color:#000">x</span> <span style="color:#000">%</span> <span style="color:#000">20</span> <span style="color:#000">==</span> <span style="color:#000">0</span>)); <span style="color:#177500">// [20,40,60]</span>
+</span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></section><section>
 <h2 id="metodi-default-nelle-interfacce">Metodi <code>default</code> nelle interfacce</h2>
-<h3 id="da-java-8-è-possibile-fornire-implementazioni-ai-metodi-delle-interface">Da Java 8 è possibile fornire implementazioni ai metodi delle <code>interface</code></h3>
+<h3 id="è-possibile-fornire-implementazioni-di-default-ai-metodi-delle-interface">È possibile fornire implementazioni <em>di default</em> ai metodi delle <code>interface</code></h3>
 <ul>
 <li>sintassi: <code>interface I { ... default int m(){ ... } }</code></li>
 <li>significato: non è necessario implementarli nelle sottoclassi</li>
 </ul>
-<!-- *  .. è possibile avere anche metodi statici -->
 <h3 id="utilità">Utilità</h3>
 <ul>
 <li>consente di aggiungere metodi a interfacce senza rompere la compatibilità con classi esistenti che le implementano</li>
-<li>fornire “behaviour” ereditabile in modalità multipla</li>
+<li>fornire comportamento ereditabile in modalità multipla</li>
 <li><em>costruire più facilmente interfacce funzionali</em>: <em><strong>queste devono in effetti avere un unico metodo senza default</strong></em></li>
 <li>consente di realizzare il pattern template method solo con interfacce</li>
 </ul>
-<h3 id="esempi-di-interfacce-con-metodi-di-default">Esempi di interfacce con metodi di default</h3>
+<h3 id="esempi-di-interfacce-con-metodi-di-default-nella-java-api">Esempi di interfacce con metodi di default nella Java API:</h3>
 <ul>
 <li><code>Iterable</code>, <code>Iterator</code>, <code>Collection</code>, <code>Comparator</code></li>
 </ul>
-</section><section>
-<h2 id="annotazione-functionalinterface">Annotazione <code>@FunctionalInterface</code></h2>
+<h3 id="annotazione-functionalinterface">Annotazione <code>@FunctionalInterface</code></h3>
 <ul>
-<li>da usare opzionalmente per interfacce funzionali, affinché il compilatore controlli che l’interfaccia sia funzionale (ossia che vi sia un solo metodo “astratto”)</li>
-<li>nella Java API viene usata spesso</li>
+<li>da usare per interfacce funzionali, affinché il compilatore controlli che l’interfaccia sia funzionale
+<ul>
+<li>ossia che vi sia un solo metodo “astratto”</li>
 </ul>
-<!--
-  
-### Nota
-
-*  le annotazioni sono usate per vari scopi, ad esempio per indicare al compilatore di fare ulteriori controlli   
-
--->
-</section><section>
-<h1 id="lambda-expressions-nellapi-di-java">Lambda expressions nell’API di Java</h1>
+</li>
+</ul>
 </section><section>
 <h2 id="interfacce-funzionali-di-libreria--package-javautilfunction">Interfacce funzionali di libreria – package <code>java.util.function</code></h2>
 <h3 id="perché-scriversi-una-nuova-interfaccia-funzionale-alloccorrenza">Perché scriversi una nuova interfaccia funzionale all’occorrenza?</h3>
@@ -449,116 +435,347 @@ Mirko Viroli e Roberto Casadei, che ringrazio.</p>
 <li>Hanno un metodo “astratto” chiamato, a seconda: <code>apply</code>, <code>accept</code>, <code>test</code> o <code>get</code></li>
 </ul>
 </section><section>
-<h2 id="package-javautilfunction">Package <code>java.util.function</code></h2>
-<h3 id="interfacce-base">Interfacce base</h3>
-<ul>
-<li><code>Consumer&lt;T&gt;</code>: <code>accept:(T)-&gt;void</code></li>
-<li><code>Function&lt;T,R&gt;</code>: <code>apply:(T)-&gt;R</code></li>
-<li><code>Predicate&lt;T&gt;</code>: <code>test:(T)-&gt;boolean</code></li>
-<li><code>Supplier&lt;T&gt;</code>: <code>get:()-&gt;T</code></li>
-<li><code>UnaryOperator&lt;T&gt;</code>: <code>apply:(T)-&gt;T</code>
-<ul>
-<li><code>BiConsumer&lt;T,U&gt;</code>: <code>accept:(T,U)-&gt;void</code></li>
-</ul>
-</li>
-<li><code>BiFunction&lt;T,U,R&gt;</code>:	<code>apply:(T,U)-&gt;R</code></li>
-<li><code>BinaryOperator&lt;T&gt;</code>: 	<code>apply:(T,T)-&gt;T</code></li>
-<li><code>BiPredicate&lt;T,U&gt;</code>: <code>test:(T,U)-&gt;boolean</code></li>
-<li><code>java.lang.Runnable</code>: <code>run:()-&gt;void</code></li>
-</ul>
-<h3 id="altre-interfacce-usano-i-tipi-primitivi-senza-boxing">Altre interfacce (usano i tipi primitivi senza boxing)</h3>
-<ul>
-<li><code>BooleanSupplier</code>: <code>get:()-&gt;boolean</code></li>
-<li><code>IntConsumer</code>: <code>accept:(int)-&gt;void</code></li>
-<li>…</li>
-</ul>
+<h2 id="package-javautilfunction-funzioni-che-lavorano-su-oggetti-generici">Package <code>java.util.function</code>, funzioni che lavorano su oggetti generici</h2>
+<table>
+  <thead>
+      <tr>
+          <th>Interface</th>
+          <th>Method signature</th>
+          <th>Lambda type</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>Consumer&lt;T&gt;</code></td>
+          <td><code>void accept(T t)</code></td>
+          <td><code>(T) -&gt; void</code></td>
+      </tr>
+      <tr>
+          <td><code>BiConsumer&lt;T,U&gt;</code></td>
+          <td><code>void accept(T t, U u)</code></td>
+          <td><code>(T, U) -&gt; void</code></td>
+      </tr>
+      <tr>
+          <td><code>Function&lt;T,R&gt;</code></td>
+          <td><code>R apply(T t)</code></td>
+          <td><code>(T) -&gt; R</code></td>
+      </tr>
+      <tr>
+          <td><code>BiFunction&lt;T,U,R&gt;</code></td>
+          <td><code>R apply(T t, U u)</code></td>
+          <td><code>(T, U) -&gt; R</code></td>
+      </tr>
+      <tr>
+          <td><code>UnaryOperator&lt;T&gt;</code></td>
+          <td><code>T apply(T t)</code></td>
+          <td><code>(T) -&gt; T</code></td>
+      </tr>
+      <tr>
+          <td><code>BinaryOperator&lt;T&gt;</code></td>
+          <td><code>T apply(T t1, T t2)</code></td>
+          <td><code>(T, T) -&gt; T</code></td>
+      </tr>
+      <tr>
+          <td><code>Predicate&lt;T&gt;</code></td>
+          <td><code>boolean test(T t)</code></td>
+          <td><code>(T) -&gt; boolean</code></td>
+      </tr>
+      <tr>
+          <td><code>BiPredicate&lt;T,U&gt;</code></td>
+          <td><code>boolean test(T t, U u)</code></td>
+          <td><code>(T, U) -&gt; boolean</code></td>
+      </tr>
+      <tr>
+          <td><code>Supplier&lt;T&gt;</code></td>
+          <td><code>T get()</code></td>
+          <td><code>() -&gt; T</code></td>
+      </tr>
+      <tr>
+          <td><code>java.lang.Runnable</code></td>
+          <td><code>void run()</code></td>
+          <td><code>() -&gt; void</code></td>
+      </tr>
+  </tbody>
+</table>
+</section><section>
+<h2 id="package-javautilfunction-funzioni-che-lavorano-su-int">Package <code>java.util.function</code>, funzioni che lavorano su <code>int</code></h2>
+<table>
+  <thead>
+      <tr>
+          <th>Interface</th>
+          <th>Method signature</th>
+          <th>Lambda type</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>IntConsumer</code></td>
+          <td><code>void accept(int value)</code></td>
+          <td><code>(int) -&gt; void</code></td>
+      </tr>
+      <tr>
+          <td><code>IntFunction&lt;R&gt;</code></td>
+          <td><code>R apply(int value)</code></td>
+          <td><code>(int) -&gt; R</code></td>
+      </tr>
+      <tr>
+          <td><code>ToIntFunction&lt;T&gt;</code></td>
+          <td><code>int applyAsInt(T value)</code></td>
+          <td><code>(T) -&gt; int</code></td>
+      </tr>
+      <tr>
+          <td><code>ToIntBiFunction&lt;T,U&gt;</code></td>
+          <td><code>int applyAsInt(T t, U u)</code></td>
+          <td><code>(T, U) -&gt; int</code></td>
+      </tr>
+      <tr>
+          <td><code>IntSupplier</code></td>
+          <td><code>int getAsInt()</code></td>
+          <td><code>() -&gt; int</code></td>
+      </tr>
+      <tr>
+          <td><code>IntUnaryOperator</code></td>
+          <td><code>int applyAsInt(int operand)</code></td>
+          <td><code>(int) -&gt; int</code></td>
+      </tr>
+      <tr>
+          <td><code>IntBinaryOperator</code></td>
+          <td><code>int applyAsInt(int left, int right)</code></td>
+          <td><code>(int, int) -&gt; int</code></td>
+      </tr>
+      <tr>
+          <td><code>IntPredicate</code></td>
+          <td><code>boolean test(int value)</code></td>
+          <td><code>(int) -&gt; boolean</code></td>
+      </tr>
+      <tr>
+          <td><code>IntToLongFunction</code></td>
+          <td><code>long applyAsLong(int value)</code></td>
+          <td><code>(int) -&gt; long</code></td>
+      </tr>
+      <tr>
+          <td><code>IntToDoubleFunction</code></td>
+          <td><code>double applyAsDouble(int value)</code></td>
+          <td><code>(int) -&gt; double</code></td>
+      </tr>
+  </tbody>
+</table>
+</section><section>
+<h2 id="package-javautilfunction-funzioni-che-lavorano-su-long">Package <code>java.util.function</code>, funzioni che lavorano su <code>long</code></h2>
+<table>
+  <thead>
+      <tr>
+          <th>Interface</th>
+          <th>Method signature</th>
+          <th>Lambda type</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>LongConsumer</code></td>
+          <td><code>void accept(long value)</code></td>
+          <td><code>(long) -&gt; void</code></td>
+      </tr>
+      <tr>
+          <td><code>LongFunction&lt;R&gt;</code></td>
+          <td><code>R apply(long value)</code></td>
+          <td><code>(long) -&gt; R</code></td>
+      </tr>
+      <tr>
+          <td><code>ToLongFunction&lt;T&gt;</code></td>
+          <td><code>long applyAsLong(T value)</code></td>
+          <td><code>(T) -&gt; long</code></td>
+      </tr>
+      <tr>
+          <td><code>ToLongBiFunction&lt;T,U&gt;</code></td>
+          <td><code>long applyAsLong(T t, U u)</code></td>
+          <td><code>(T, U) -&gt; long</code></td>
+      </tr>
+      <tr>
+          <td><code>LongSupplier</code></td>
+          <td><code>long getAsLong()</code></td>
+          <td><code>() -&gt; long</code></td>
+      </tr>
+      <tr>
+          <td><code>LongUnaryOperator</code></td>
+          <td><code>long applyAsLong(long operand)</code></td>
+          <td><code>(long) -&gt; long</code></td>
+      </tr>
+      <tr>
+          <td><code>LongBinaryOperator</code></td>
+          <td><code>long applyAsLong(long left, long right)</code></td>
+          <td><code>(long, long) -&gt; long</code></td>
+      </tr>
+      <tr>
+          <td><code>LongPredicate</code></td>
+          <td><code>boolean test(long value)</code></td>
+          <td><code>(long) -&gt; boolean</code></td>
+      </tr>
+      <tr>
+          <td><code>LongToIntFunction</code></td>
+          <td><code>int applyAsInt(long value)</code></td>
+          <td><code>(long) -&gt; int</code></td>
+      </tr>
+      <tr>
+          <td><code>LongToDoubleFunction</code></td>
+          <td><code>double applyAsDouble(long value)</code></td>
+          <td><code>(long) -&gt; double</code></td>
+      </tr>
+  </tbody>
+</table>
+</section><section>
+<h2 id="package-javautilfunction-funzioni-che-lavorano-su-double">Package <code>java.util.function</code>, funzioni che lavorano su <code>double</code></h2>
+<table>
+  <thead>
+      <tr>
+          <th>Interface</th>
+          <th>Method signature</th>
+          <th>Lambda type</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>DoubleConsumer</code></td>
+          <td><code>void accept(double value)</code></td>
+          <td><code>(double) -&gt; void</code></td>
+      </tr>
+      <tr>
+          <td><code>DoubleFunction&lt;R&gt;</code></td>
+          <td><code>R apply(double value)</code></td>
+          <td><code>(double) -&gt; R</code></td>
+      </tr>
+      <tr>
+          <td><code>ToDoubleFunction&lt;T&gt;</code></td>
+          <td><code>double applyAsDouble(T value)</code></td>
+          <td><code>(T) -&gt; double</code></td>
+      </tr>
+      <tr>
+          <td><code>ToDoubleBiFunction&lt;T,U&gt;</code></td>
+          <td><code>double applyAsDouble(T t, U u)</code></td>
+          <td><code>(T, U) -&gt; double</code></td>
+      </tr>
+      <tr>
+          <td><code>DoubleSupplier</code></td>
+          <td><code>double getAsDouble()</code></td>
+          <td><code>() -&gt; double</code></td>
+      </tr>
+      <tr>
+          <td><code>DoubleUnaryOperator</code></td>
+          <td><code>double applyAsDouble(double operand)</code></td>
+          <td><code>(double) -&gt; double</code></td>
+      </tr>
+      <tr>
+          <td><code>DoubleBinaryOperator</code></td>
+          <td><code>double applyAsDouble(double left, double right)</code></td>
+          <td><code>(double, double) -&gt; double</code></td>
+      </tr>
+      <tr>
+          <td><code>DoublePredicate</code></td>
+          <td><code>boolean test(double value)</code></td>
+          <td><code>(double) -&gt; boolean</code></td>
+      </tr>
+      <tr>
+          <td><code>DoubleToIntFunction</code></td>
+          <td><code>int applyAsInt(double value)</code></td>
+          <td><code>(double) -&gt; int</code></td>
+      </tr>
+      <tr>
+          <td><code>DoubleToLongFunction</code></td>
+          <td><code>long applyAsLong(double value)</code></td>
+          <td><code>(double) -&gt; long</code></td>
+      </tr>
+  </tbody>
+</table>
 </section><section>
 <h2 id="esempio-funzione-riusabile-di-filtraggio-via-predicate">Esempio: funzione riusabile di filtraggio via <code>Predicate</code></h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.*</span>;
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">package</span> <span style="color:#000">it.unibo.lambdas.first</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.Arrays</span>;
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.Collection</span>;
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.LinkedHashSet</span>;
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.List</span>;
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.Set</span>;
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.function.Predicate</span>;
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">FilterUtility2</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#000">&lt;</span><span style="color:#000">X</span><span style="color:#000">&gt;</span> <span style="color:#000">Set</span><span style="color:#000">&lt;</span><span style="color:#000">X</span><span style="color:#000">&gt;</span> <span style="color:#000">filterAll</span>(<span style="color:#000">Collection</span><span style="color:#000">&lt;</span><span style="color:#000">X</span><span style="color:#000">&gt;</span> <span style="color:#000">set</span>, <span style="color:#000">Predicate</span><span style="color:#000">&lt;</span><span style="color:#000">X</span><span style="color:#000">&gt;</span> <span style="color:#000">filter</span>) {
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">Set</span><span style="color:#000">&lt;</span><span style="color:#000">X</span><span style="color:#000">&gt;</span> <span style="color:#000">newSet</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">HashSet</span><span style="color:#000">&lt;&gt;</span>();
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">for</span> (<span style="color:#a90d91">final</span> <span style="color:#000">X</span> <span style="color:#000">x</span> : <span style="color:#000">set</span>) {
-</span></span><span style="display:flex;"><span>			<span style="color:#a90d91">if</span> (<span style="color:#000">filter</span>.<span style="color:#836c28">test</span>(<span style="color:#000">x</span>)) {
-</span></span><span style="display:flex;"><span>				<span style="color:#000">newSet</span>.<span style="color:#836c28">add</span>(<span style="color:#000">x</span>);
-</span></span><span style="display:flex;"><span>			}
-</span></span><span style="display:flex;"><span>		}
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#000">newSet</span>;
-</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#000">&lt;</span><span style="color:#000">X</span><span style="color:#000">&gt;</span> <span style="color:#000">Set</span><span style="color:#000">&lt;</span><span style="color:#000">X</span><span style="color:#000">&gt;</span> <span style="color:#000">filterAll</span>(<span style="color:#000">Collection</span><span style="color:#000">&lt;</span><span style="color:#000">X</span><span style="color:#000">&gt;</span> <span style="color:#000">set</span>, <span style="color:#000">Predicate</span><span style="color:#000">&lt;</span><span style="color:#000">X</span><span style="color:#000">&gt;</span> <span style="color:#000">filter</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">final</span> <span style="color:#000">Set</span><span style="color:#000">&lt;</span><span style="color:#000">X</span><span style="color:#000">&gt;</span> <span style="color:#000">newSet</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">LinkedHashSet</span><span style="color:#000">&lt;&gt;</span>();
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">for</span> (<span style="color:#a90d91">final</span> <span style="color:#000">X</span> <span style="color:#000">x</span> : <span style="color:#000">set</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#a90d91">if</span> (<span style="color:#000">filter</span>.<span style="color:#836c28">test</span>(<span style="color:#000">x</span>)) {
+</span></span><span style="display:flex;"><span>                <span style="color:#000">newSet</span>.<span style="color:#836c28">add</span>(<span style="color:#000">x</span>);
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">return</span> <span style="color:#000">newSet</span>;
+</span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span>) {
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> <span style="color:#000">ls</span> <span style="color:#000">=</span> <span style="color:#000">Arrays</span>.<span style="color:#836c28">asList</span>(<span style="color:#000">10</span>, <span style="color:#000">20</span>, <span style="color:#000">30</span>, <span style="color:#000">40</span>, <span style="color:#000">50</span>, <span style="color:#000">60</span>);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>		<span style="color:#177500">// Note that the name of the method in Filter is never mentioned here</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">filterAll</span>(<span style="color:#000">ls</span>, <span style="color:#000">x</span> <span style="color:#000">-&gt;</span> <span style="color:#000">x</span> <span style="color:#000">&gt;</span> <span style="color:#000">20</span>)); <span style="color:#177500">// [30,40,50,60]</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">filterAll</span>(<span style="color:#000">ls</span>, <span style="color:#000">x</span> <span style="color:#000">-&gt;</span> <span style="color:#000">x</span> <span style="color:#000">&gt;</span> <span style="color:#000">20</span> <span style="color:#000">&amp;&amp;</span> <span style="color:#000">x</span> <span style="color:#000">&lt;</span> <span style="color:#000">60</span>)); <span style="color:#177500">// [30,40,50]</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">filterAll</span>(<span style="color:#000">ls</span>, <span style="color:#000">x</span> <span style="color:#000">-&gt;</span> <span style="color:#000">x</span> <span style="color:#000">%</span> <span style="color:#000">20</span> <span style="color:#000">==</span> <span style="color:#000">0</span>)); <span style="color:#177500">// [20,40,60]</span>
-</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">final</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> <span style="color:#000">ls</span> <span style="color:#000">=</span> <span style="color:#000">List</span>.<span style="color:#836c28">of</span>(<span style="color:#000">10</span>, <span style="color:#000">20</span>, <span style="color:#000">30</span>, <span style="color:#000">40</span>, <span style="color:#000">50</span>, <span style="color:#000">60</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#177500">// Note that the name of the method in Filter is never mentioned here</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">filterAll</span>(<span style="color:#000">ls</span>, <span style="color:#000">x</span> <span style="color:#000">-&gt;</span> <span style="color:#000">x</span> <span style="color:#000">&gt;</span> <span style="color:#000">20</span>)); <span style="color:#177500">// [30,40,50,60]</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">filterAll</span>(<span style="color:#000">ls</span>, <span style="color:#000">x</span> <span style="color:#000">-&gt;</span> <span style="color:#000">x</span> <span style="color:#000">&gt;</span> <span style="color:#000">20</span> <span style="color:#000">&amp;&amp;</span> <span style="color:#000">x</span> <span style="color:#000">&lt;</span> <span style="color:#000">60</span>)); <span style="color:#177500">// [30,40,50]</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">filterAll</span>(<span style="color:#000">ls</span>, <span style="color:#000">x</span> <span style="color:#000">-&gt;</span> <span style="color:#000">x</span> <span style="color:#000">%</span> <span style="color:#000">20</span> <span style="color:#000">==</span> <span style="color:#000">0</span>)); <span style="color:#177500">// [20,40,60]</span>
+</span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></section><section>
 <h2 id="esempio-comandi-programmati-via-runnable">Esempio: comandi “programmati” via <code>Runnable</code></h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">RunnableUtility</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">private</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">iterate</span>(<span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">howMany</span>, <span style="color:#a90d91">final</span> <span style="color:#000">Runnable</span> <span style="color:#000">r</span>) {
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">for</span> (<span style="color:#a90d91">int</span> <span style="color:#000">i</span> <span style="color:#000">=</span> <span style="color:#000">0</span>; <span style="color:#000">i</span> <span style="color:#000">&lt;</span> <span style="color:#000">howMany</span>; <span style="color:#000">i</span><span style="color:#000">++</span>) {
-</span></span><span style="display:flex;"><span>			<span style="color:#000">r</span>.<span style="color:#836c28">run</span>();
-</span></span><span style="display:flex;"><span>		}
-</span></span><span style="display:flex;"><span>	}
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">package</span> <span style="color:#000">it.unibo.lambdas.first</span>;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">private</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">batchExecution</span>(<span style="color:#a90d91">final</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">Runnable</span><span style="color:#000">&gt;</span> <span style="color:#000">list</span>) {
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">for</span> (<span style="color:#a90d91">final</span> <span style="color:#000">Runnable</span> <span style="color:#000">r</span> : <span style="color:#000">list</span>) {
-</span></span><span style="display:flex;"><span>			<span style="color:#000">r</span>.<span style="color:#836c28">run</span>();
-</span></span><span style="display:flex;"><span>		}
-</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.List</span>;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span>) {
-</span></span><span style="display:flex;"><span>		<span style="color:#000">iterate</span>(<span style="color:#000">10</span>, () <span style="color:#000">-&gt;</span> <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"ok"</span>));
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">Runnable</span><span style="color:#000">&gt;</span> <span style="color:#000">list</span> <span style="color:#000">=</span> <span style="color:#000">Arrays</span>.<span style="color:#836c28">asList</span>(
-</span></span><span style="display:flex;"><span>				() <span style="color:#000">-&gt;</span> <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"a"</span>),
-</span></span><span style="display:flex;"><span>				() <span style="color:#000">-&gt;</span> <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"b"</span>),
-</span></span><span style="display:flex;"><span>				() <span style="color:#000">-&gt;</span> <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"c"</span>),
-</span></span><span style="display:flex;"><span>				() <span style="color:#000">-&gt;</span> <span style="color:#000">System</span>.<span style="color:#836c28">exit</span>(<span style="color:#000">0</span>)); <span style="color:#177500">// Inferenza su asList automatica!</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#000">batchExecution</span>(<span style="color:#000">list</span>);
-</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">RunnableUtility</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">repeat</span>(<span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">howMany</span>, <span style="color:#a90d91">final</span> <span style="color:#000">Runnable</span> <span style="color:#000">r</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">for</span> (<span style="color:#a90d91">int</span> <span style="color:#000">i</span> <span style="color:#000">=</span> <span style="color:#000">0</span>; <span style="color:#000">i</span> <span style="color:#000">&lt;</span> <span style="color:#000">howMany</span>; <span style="color:#000">i</span><span style="color:#000">++</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#000">r</span>.<span style="color:#836c28">run</span>();
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">batchExecution</span>(<span style="color:#a90d91">final</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">Runnable</span><span style="color:#000">&gt;</span> <span style="color:#000">list</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">for</span> (<span style="color:#a90d91">final</span> <span style="color:#000">Runnable</span> <span style="color:#000">r</span> : <span style="color:#000">list</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#000">r</span>.<span style="color:#836c28">run</span>();
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#000">repeat</span>(<span style="color:#000">10</span>, () <span style="color:#000">-&gt;</span> <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"ok"</span>));
+</span></span><span style="display:flex;"><span>        <span style="color:#000">batchExecution</span>(
+</span></span><span style="display:flex;"><span>            <span style="color:#000">List</span>.<span style="color:#836c28">of</span>(
+</span></span><span style="display:flex;"><span>                () <span style="color:#000">-&gt;</span> <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"a"</span>),
+</span></span><span style="display:flex;"><span>                () <span style="color:#000">-&gt;</span> <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"b"</span>),
+</span></span><span style="display:flex;"><span>                () <span style="color:#000">-&gt;</span> <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"c"</span>),
+</span></span><span style="display:flex;"><span>                () <span style="color:#000">-&gt;</span> <span style="color:#000">System</span>.<span style="color:#836c28">exit</span>(<span style="color:#000">0</span>)
+</span></span><span style="display:flex;"><span>            )
+</span></span><span style="display:flex;"><span>        );
+</span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></section><section>
-<h2 id="esempio-funzioni-di-ordine-superiore">Esempio: funzioni di ordine superiore</h2>
+<h2 id="funzioni-di-ordine-superiore">Funzioni di ordine superiore</h2>
 <ul>
 <li>Le <strong>funzioni di ordine superiore</strong> sono funzioni che accettano in ingresso funzioni e/o che restituiscono in output funzioni</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.function.*</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#000">Function</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span>, <span style="color:#000">Function</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span>, <span style="color:#000">Integer</span><span style="color:#000">&gt;&gt;</span> <span style="color:#000">multiplier</span> <span style="color:#000">=</span> <span style="color:#000">x</span> <span style="color:#000">-&gt;</span> (<span style="color:#000">y</span> <span style="color:#000">-&gt;</span> <span style="color:#000">x</span> <span style="color:#000">*</span> <span style="color:#000">y</span>);
-</span></span><span style="display:flex;"><span><span style="color:#000">Function</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span>, <span style="color:#000">Integer</span><span style="color:#000">&gt;</span> <span style="color:#000">doubler</span> <span style="color:#000">=</span> <span style="color:#000">multiplier</span>.<span style="color:#836c28">apply</span>(<span style="color:#000">2</span>);
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">final</span> <span style="color:#000">Function</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span>, <span style="color:#000">Function</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span>, <span style="color:#000">Integer</span><span style="color:#000">&gt;&gt;</span> <span style="color:#000">multiplier</span> <span style="color:#000">=</span> <span style="color:#000">x</span> <span style="color:#000">-&gt;</span> (<span style="color:#000">y</span> <span style="color:#000">-&gt;</span> <span style="color:#000">x</span> <span style="color:#000">*</span> <span style="color:#000">y</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">final</span> <span style="color:#000">Function</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span>, <span style="color:#000">Integer</span><span style="color:#000">&gt;</span> <span style="color:#000">doubler</span> <span style="color:#000">=</span> <span style="color:#000">multiplier</span>.<span style="color:#836c28">apply</span>(<span style="color:#000">2</span>);
 </span></span><span style="display:flex;"><span><span style="color:#000">assertEquals</span>(<span style="color:#000">10</span>, <span style="color:#000">doubler</span>.<span style="color:#836c28">apply</span>(<span style="color:#000">5</span>));
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#000">BiFunction</span><span style="color:#000">&lt;</span><span style="color:#000">Predicate</span><span style="color:#000">&lt;</span><span style="color:#000">String</span><span style="color:#000">&gt;</span>, <span style="color:#000">Predicate</span><span style="color:#000">&lt;</span><span style="color:#000">String</span><span style="color:#000">&gt;</span>, <span style="color:#000">Predicate</span><span style="color:#000">&lt;</span><span style="color:#000">String</span><span style="color:#000">&gt;&gt;</span> <span style="color:#000">and</span> <span style="color:#000">=</span> 
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">final</span> <span style="color:#000">BiFunction</span><span style="color:#000">&lt;</span><span style="color:#000">Predicate</span><span style="color:#000">&lt;</span><span style="color:#000">String</span><span style="color:#000">&gt;</span>, <span style="color:#000">Predicate</span><span style="color:#000">&lt;</span><span style="color:#000">String</span><span style="color:#000">&gt;</span>, <span style="color:#000">Predicate</span><span style="color:#000">&lt;</span><span style="color:#000">String</span><span style="color:#000">&gt;&gt;</span> <span style="color:#000">and</span> <span style="color:#000">=</span> 
 </span></span><span style="display:flex;"><span>  (<span style="color:#000">p1</span>, <span style="color:#000">p2</span>) <span style="color:#000">-&gt;</span> (<span style="color:#000">s</span> <span style="color:#000">-&gt;</span> <span style="color:#000">p1</span>.<span style="color:#836c28">test</span>(<span style="color:#000">s</span>) <span style="color:#000">&amp;&amp;</span> <span style="color:#000">p2</span>.<span style="color:#836c28">test</span>(<span style="color:#000">s</span>));
 </span></span><span style="display:flex;"><span><span style="color:#000">Predicate</span><span style="color:#000">&lt;</span><span style="color:#000">String</span><span style="color:#000">&gt;</span> <span style="color:#000">p</span> <span style="color:#000">=</span> <span style="color:#000">and</span>.<span style="color:#836c28">apply</span>(<span style="color:#000">s</span> <span style="color:#000">-&gt;</span> <span style="color:#000">s</span>.<span style="color:#836c28">length</span>() <span style="color:#000">&lt;</span> <span style="color:#000">5</span>, <span style="color:#000">s</span> <span style="color:#000">-&gt;</span> <span style="color:#000">s</span>.<span style="color:#836c28">toUpperCase</span>().<span style="color:#836c28">equals</span>(<span style="color:#000">s</span>));
 </span></span><span style="display:flex;"><span><span style="color:#000">assertFalse</span>(<span style="color:#000">p</span>.<span style="color:#836c28">test</span>(<span style="color:#c41a16">"abc"</span>));
 </span></span><span style="display:flex;"><span><span style="color:#000">assertFalse</span>(<span style="color:#000">p</span>.<span style="color:#836c28">test</span>(<span style="color:#c41a16">"ABCDEFG"</span>));
 </span></span><span style="display:flex;"><span><span style="color:#000">assertTrue</span>(<span style="color:#000">p</span>.<span style="color:#836c28">test</span>(<span style="color:#c41a16">"ABC"</span>));
-</span></span></code></pre></div><!--
-
----
-
-## Esempio: chiusure lessicali
-
-- Una *chiusura (lessicale)* o (in inglese) **closure** è una funzione che accede a simboli visibili nello scope
-    - Limitazione: le variabili nello scope referenziate in una lambda devono essere `final`
-
-```java
-import java.util.function.*;
-
-final int K = 10;
-Predicate<String> p = (s) -> s.length() > K;
-p.test("hello"); // false
-p.test("hello world"); // true
-```
-
--->
-</section><section>
+</span></span></code></pre></div></section><section>
+<h2 id="chiusure-lessicali">Chiusure lessicali</h2>
+<ul>
+<li>Una <em>chiusura (lessicale)</em> o (in inglese) <strong>closure</strong> è una funzione che accede a simboli visibili nello scope
+<ul>
+<li>Limitazione: le variabili nello scope referenziate in una lambda devono essere <code>final</code></li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">k</span> <span style="color:#000">=</span> <span style="color:#000">10</span>;
+</span></span><span style="display:flex;"><span><span style="color:#000">Predicate</span><span style="color:#000">&lt;</span><span style="color:#000">String</span><span style="color:#000">&gt;</span> <span style="color:#000">p</span> <span style="color:#000">=</span> (<span style="color:#000">s</span>) <span style="color:#000">-&gt;</span> <span style="color:#000">s</span>.<span style="color:#836c28">length</span>() <span style="color:#000">&gt;</span> <span style="color:#000">k</span>;
+</span></span><span style="display:flex;"><span><span style="color:#000">p</span>.<span style="color:#836c28">test</span>(<span style="color:#c41a16">"hello"</span>); <span style="color:#177500">// false</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">p</span>.<span style="color:#836c28">test</span>(<span style="color:#c41a16">"hello world"</span>); <span style="color:#177500">// true</span>
+</span></span></code></pre></div></section><section>
 <h2 id="motivazioni-e-vantaggi-nelluso-delle-lambda-in-java">Motivazioni e vantaggi nell’uso delle lambda in Java</h2>
 <h3 id="elementi-di-programmazione-funzionale-in-java">Elementi di <strong>programmazione funzionale</strong> in Java</h3>
 <ul>
@@ -572,21 +789,6 @@ p.test("hello world"); // true
 <li>Supporto più diretto ad alcuni pattern: Command, Strategy, Observer</li>
 <li>Alcune migliorie “varie” nelle API</li>
 </ul>
-<!-- *  Facilitare la costruzioni di software "parallelo" (multicore) 
-
-  
-
-
----
-
-
-## Goal delle lambda, in una frase
-
-
-  
-**Realizzare "più algoritmi possibili su sequenze" in una sola istruzione**
-
--->
 </section><section>
 <h2 id="interfaccia-javautilmap--metodi-aggiuntivi">Interfaccia <code>java.util.Map</code> – metodi aggiuntivi</h2>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">interface</span> <span style="color:#3f6e75">Map</span><span style="color:#000">&lt;</span><span style="color:#000">K</span>,<span style="color:#000">V</span><span style="color:#000">&gt;</span> {
@@ -616,37 +818,43 @@ p.test("hello world"); // true
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></section><section>
 <h2 id="esempi-su-map">Esempi su <code>Map</code></h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseMap</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span>) {
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">Map</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span>, <span style="color:#000">String</span><span style="color:#000">&gt;</span> <span style="color:#000">map</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">HashMap</span><span style="color:#000">&lt;&gt;</span>();
-</span></span><span style="display:flex;"><span>		<span style="color:#000">map</span>.<span style="color:#836c28">put</span>(<span style="color:#000">10</span>, <span style="color:#c41a16">"a"</span>);
-</span></span><span style="display:flex;"><span>		<span style="color:#000">map</span>.<span style="color:#836c28">put</span>(<span style="color:#000">20</span>, <span style="color:#c41a16">"bb"</span>);
-</span></span><span style="display:flex;"><span>		<span style="color:#000">map</span>.<span style="color:#836c28">put</span>(<span style="color:#000">30</span>, <span style="color:#c41a16">"ccc"</span>);
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">package</span> <span style="color:#000">it.unibo.lambdas.first</span>;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>		<span style="color:#000">map</span>.<span style="color:#836c28">forEach</span>((<span style="color:#000">k</span>, <span style="color:#000">v</span>) <span style="color:#000">-&gt;</span> <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">k</span> <span style="color:#000">+</span> <span style="color:#c41a16">" "</span> <span style="color:#000">+</span> <span style="color:#000">v</span>));
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.LinkedHashMap</span>;
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.Map</span>;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>		<span style="color:#000">map</span>.<span style="color:#836c28">replaceAll</span>((<span style="color:#000">k</span>, <span style="color:#000">v</span>) <span style="color:#000">-&gt;</span> <span style="color:#000">v</span> <span style="color:#000">+</span> <span style="color:#000">k</span>); <span style="color:#177500">// nuovi valori</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">map</span>);
-</span></span><span style="display:flex;"><span>		<span style="color:#177500">// {20=bb20, 10=a10, 30=ccc30}</span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseMap</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">final</span> <span style="color:#000">Map</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span>, <span style="color:#000">String</span><span style="color:#000">&gt;</span> <span style="color:#000">map</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">LinkedHashMap</span><span style="color:#000">&lt;&gt;</span>();
+</span></span><span style="display:flex;"><span>        <span style="color:#000">map</span>.<span style="color:#836c28">put</span>(<span style="color:#000">10</span>, <span style="color:#c41a16">"a"</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#000">map</span>.<span style="color:#836c28">put</span>(<span style="color:#000">20</span>, <span style="color:#c41a16">"bb"</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#000">map</span>.<span style="color:#836c28">put</span>(<span style="color:#000">30</span>, <span style="color:#c41a16">"ccc"</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#000">map</span>.<span style="color:#836c28">forEach</span>((<span style="color:#000">k</span>, <span style="color:#000">v</span>) <span style="color:#000">-&gt;</span> <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">k</span> <span style="color:#000">+</span> <span style="color:#c41a16">" "</span> <span style="color:#000">+</span> <span style="color:#000">v</span>));
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>		<span style="color:#000">map</span>.<span style="color:#836c28">merge</span>(<span style="color:#000">5</span>, <span style="color:#c41a16">"."</span>, <span style="color:#000">String</span>::<span style="color:#000">concat</span>);
-</span></span><span style="display:flex;"><span>		<span style="color:#000">map</span>.<span style="color:#836c28">merge</span>(<span style="color:#000">10</span>, <span style="color:#c41a16">"."</span>, <span style="color:#000">String</span>::<span style="color:#000">concat</span>);
-</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">map</span>);
-</span></span><span style="display:flex;"><span>		<span style="color:#177500">// {20=bb20, 5=., 10=a10., 30=ccc30}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">map</span>.<span style="color:#836c28">replaceAll</span>((<span style="color:#000">k</span>, <span style="color:#000">v</span>) <span style="color:#000">-&gt;</span> <span style="color:#000">v</span> <span style="color:#000">+</span> <span style="color:#000">k</span>); <span style="color:#177500">// nuovi valori</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">map</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#177500">// {20=bb20, 10=a10, 30=ccc30}</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">map</span>.<span style="color:#836c28">getOrDefault</span>(<span style="color:#000">5</span>, <span style="color:#c41a16">"no"</span>)); <span style="color:#177500">// "."</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">map</span>.<span style="color:#836c28">getOrDefault</span>(<span style="color:#000">6</span>, <span style="color:#c41a16">"no"</span>)); <span style="color:#177500">// "no"</span>
-</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>        <span style="color:#000">map</span>.<span style="color:#836c28">merge</span>(<span style="color:#000">5</span>, <span style="color:#c41a16">"."</span>, <span style="color:#000">String</span>::<span style="color:#000">concat</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#000">map</span>.<span style="color:#836c28">merge</span>(<span style="color:#000">10</span>, <span style="color:#c41a16">"."</span>, <span style="color:#000">String</span>::<span style="color:#000">concat</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">map</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#177500">// {20=bb20, 5=., 10=a10., 30=ccc30}</span>
+</span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></section><section>
-<h2 id="il-concetto-di-stream">Il concetto di Stream</h2>
+<h2 id="il-concetto-di-stream">Il concetto di <code>Stream</code></h2>
 <h3 id="idee">Idee</h3>
 <ul>
-<li>Uno Stream rappresenta un flusso sequenziale (anche infinito) di dati omogenei, usabile una volta sola, e dal quale si vuole ottenere una informazione complessiva e/o aggregata</li>
-<li>Assomiglia al concetto di Iteratore, ma lo Stream è più dichiarativo, perché non indica passo-passo come l’informazione viene processata, e quindi è concettualmente più astratto</li>
-<li>Ove possibile, uno Stream manipola i suoi elementi in modo “lazy” (ritardato): i dati vengono processati mano a mano che servono, non sono memorizzati tutti assieme come nelle Collection</li>
-<li>E’ possibile creare “catene” di trasformazioni di Stream (implementate con decorazioni successive) in modo funzionale, per ottenere flessibilmente computazioni non banali dei loro elementi, con codice più compatto e leggibile</li>
-<li>Questa modalità di lavoro rende le computazioni (automaticamente) parallelizzabili, ossia computabili da un set arbitrario di Thread</li>
+<li>Uno <code>Stream</code> rappresenta un <em>flusso sequenziale (anche infinito)</em> di <em>dati omogenei</em>,
+<em>usabile una volta sola</em></li>
+<li>Assomiglia al concetto di <code>Iterator</code>, ma lo Stream è più dichiarativo,
+perché non indica passo-passo come l’informazione viene processata, e quindi è concettualmente più astratto</li>
+<li>Ove possibile, uno <code>Stream</code> manipola i suoi elementi in modo “lazy” (ritardato):
+i dati vengono processati mano a mano che servono,
+non sono memorizzati tutti assieme come nelle Collection</li>
+<li>È possibile creare <em>pipeline</em> (catene) di trasformazioni di Stream (implementate con decorazioni successive) in modo funzionale,
+per ottenere flessibilmente computazioni non banali dei loro elementi, con codice più compatto e leggibile</li>
+<li>Questa modalità di lavoro rende alcune computazioni (automaticamente) parallelizzabili</li>
 </ul>
 </section><section>
 <h2 id="computazioni-con-gli-stream">Computazioni con gli Stream</h2>
@@ -659,12 +867,12 @@ p.test("hello world"); // true
 </li>
 <li>Una sequenza di trasformazioni:
 <ul>
-<li>mappe e filtri, ma non solo..</li>
+<li>trasformare (mappare), filtrare, raggruppare, ma non solo</li>
 </ul>
 </li>
 <li>Un terminatore, che aggrega i dati dello Stream:
 <ul>
-<li>una riduzione ad un valore, una Collection/array, un Iteratore</li>
+<li>una riduzione a un valore, una Collection/array, un Iteratore</li>
 </ul>
 </li>
 </ul>
@@ -683,66 +891,64 @@ p.test("hello world"); // true
 </ul>
 </section><section>
 <h2 id="classe-person--equals-hashcode-e-tostring-omessi">Classe <code>Person</code> – <code>equals</code>, <code>hashCode</code> e <code>toString</code> omessi</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Person</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#000">String</span> <span style="color:#000">name</span>;
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#000">Optional</span><span style="color:#000">&lt;</span><span style="color:#000">String</span><span style="color:#000">&gt;</span> <span style="color:#000">city</span>;
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">double</span> <span style="color:#000">income</span>;
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#000">Set</span><span style="color:#000">&lt;</span><span style="color:#000">String</span><span style="color:#000">&gt;</span> <span style="color:#000">jobs</span>;
-</span></span><span style="display:flex;"><span>	
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#000">Person</span>(<span style="color:#000">String</span> <span style="color:#000">name</span>, <span style="color:#000">String</span> <span style="color:#000">city</span>, <span style="color:#a90d91">double</span> <span style="color:#000">income</span>, <span style="color:#000">String</span>... <span style="color:#000">jobs</span>) {
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span>.<span style="color:#836c28">name</span> <span style="color:#000">=</span> <span style="color:#000">Objects</span>.<span style="color:#836c28">requireNonNull</span>(<span style="color:#000">name</span>);
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span>.<span style="color:#836c28">city</span> <span style="color:#000">=</span> <span style="color:#000">Optional</span>.<span style="color:#836c28">ofNullable</span>(<span style="color:#000">city</span>); <span style="color:#177500">// null in ingresso indica città assente</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span>.<span style="color:#836c28">income</span> <span style="color:#000">=</span> <span style="color:#000">income</span>;
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span>.<span style="color:#836c28">jobs</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">HashSet</span><span style="color:#000">&lt;&gt;</span>(<span style="color:#000">Arrays</span>.<span style="color:#836c28">asList</span>(<span style="color:#000">jobs</span>)); <span style="color:#177500">// conversione a set</span>
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#000">String</span> <span style="color:#000">getName</span>() {
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">name</span>;
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#000">Optional</span><span style="color:#000">&lt;</span><span style="color:#000">String</span><span style="color:#000">&gt;</span> <span style="color:#000">getCity</span>() {
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">city</span>;
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">double</span> <span style="color:#000">getIncome</span>() {
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">income</span>;
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>	
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#000">Set</span><span style="color:#000">&lt;</span><span style="color:#000">String</span><span style="color:#000">&gt;</span> <span style="color:#000">getJobs</span>(){
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#000">Collections</span>.<span style="color:#836c28">unmodifiableSet</span>(<span style="color:#a90d91">this</span>.<span style="color:#836c28">jobs</span>);	<span style="color:#177500">// copia difensiva</span>
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>	
-</span></span><span style="display:flex;"><span>	<span style="color:#177500">//.. seguono hashCode, equals e toString</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Person</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#000">String</span> <span style="color:#000">name</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#000">String</span> <span style="color:#000">city</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">double</span> <span style="color:#000">income</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#000">Set</span><span style="color:#000">&lt;</span><span style="color:#000">String</span><span style="color:#000">&gt;</span> <span style="color:#000">jobs</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">Person</span>(<span style="color:#000">String</span> <span style="color:#000">name</span>, <span style="color:#000">String</span> <span style="color:#000">city</span>, <span style="color:#a90d91">double</span> <span style="color:#000">income</span>, <span style="color:#000">String</span>... <span style="color:#000">jobs</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">this</span>.<span style="color:#836c28">name</span> <span style="color:#000">=</span> <span style="color:#000">Objects</span>.<span style="color:#836c28">requireNonNull</span>(<span style="color:#000">name</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">this</span>.<span style="color:#836c28">city</span> <span style="color:#000">=</span> <span style="color:#000">city</span>; <span style="color:#177500">// null in ingresso indica città assente</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">this</span>.<span style="color:#836c28">income</span> <span style="color:#000">=</span> <span style="color:#000">income</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">this</span>.<span style="color:#836c28">jobs</span> <span style="color:#000">=</span> <span style="color:#000">Set</span>.<span style="color:#836c28">copyOf</span>(<span style="color:#000">Arrays</span>.<span style="color:#836c28">asList</span>(<span style="color:#000">jobs</span>)); <span style="color:#177500">// conversione a set</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#177500">// Getters</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">String</span> <span style="color:#000">getName</span>() { <span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">name</span>; }
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">String</span> <span style="color:#000">getCity</span>() { <span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">city</span>; }
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">double</span> <span style="color:#000">getIncome</span>() { <span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">income</span>; }
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">Set</span><span style="color:#000">&lt;</span><span style="color:#000">String</span><span style="color:#000">&gt;</span> <span style="color:#000">getJobs</span>() { <span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">jobs</span>; } <span style="color:#177500">// Set immutabile, non serve copia</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#177500">// Hashcode, equals, toString</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">@Override</span> <span style="color:#a90d91">public</span> <span style="color:#a90d91">int</span> <span style="color:#000">hashCode</span>() { <span style="color:#a90d91">return</span> <span style="color:#000">Objects</span>.<span style="color:#836c28">hash</span>(<span style="color:#000">name</span>, <span style="color:#000">city</span>, <span style="color:#000">income</span>, <span style="color:#000">jobs</span>); }
+</span></span><span style="display:flex;"><span>    <span style="color:#000">@Override</span> <span style="color:#a90d91">public</span> <span style="color:#a90d91">boolean</span> <span style="color:#000">equals</span>(<span style="color:#000">Object</span> <span style="color:#000">obj</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span> <span style="color:#000">==</span> <span style="color:#000">obj</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#000">||</span> <span style="color:#000">obj</span> <span style="color:#a90d91">instanceof</span> <span style="color:#000">Person</span> <span style="color:#000">person</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#000">&amp;&amp;</span> <span style="color:#000">Objects</span>.<span style="color:#836c28">equals</span>(<span style="color:#000">name</span>, <span style="color:#000">person</span>.<span style="color:#836c28">name</span>)
+</span></span><span style="display:flex;"><span>            <span style="color:#000">&amp;&amp;</span> <span style="color:#000">Objects</span>.<span style="color:#836c28">equals</span>(<span style="color:#000">city</span>, <span style="color:#000">person</span>.<span style="color:#836c28">city</span>)
+</span></span><span style="display:flex;"><span>            <span style="color:#000">&amp;&amp;</span> <span style="color:#000">Double</span>.<span style="color:#836c28">compare</span>(<span style="color:#000">income</span>, <span style="color:#000">person</span>.<span style="color:#836c28">income</span>) <span style="color:#000">==</span> <span style="color:#000">0</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#000">&amp;&amp;</span> <span style="color:#000">Objects</span>.<span style="color:#836c28">equals</span>(<span style="color:#000">jobs</span>, <span style="color:#000">person</span>.<span style="color:#836c28">jobs</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#000">@Override</span> <span style="color:#a90d91">public</span> <span style="color:#000">String</span> <span style="color:#000">toString</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">return</span> <span style="color:#c41a16">"Person [name="</span> <span style="color:#000">+</span> <span style="color:#000">name</span> <span style="color:#000">+</span> <span style="color:#c41a16">", city="</span> <span style="color:#000">+</span> <span style="color:#000">city</span> <span style="color:#000">+</span> <span style="color:#c41a16">", income="</span> <span style="color:#000">+</span> <span style="color:#000">income</span> <span style="color:#000">+</span> <span style="color:#c41a16">", jobs="</span> <span style="color:#000">+</span> <span style="color:#000">jobs</span> <span style="color:#000">+</span> <span style="color:#c41a16">"]"</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></section><section>
-<h2 id="realizzazione-dellesempio-in-java-8">Realizzazione dell’esempio in Java 8</h2>
+<h2 id="realizzazione-dellesempio-con-gli-stream">Realizzazione dell’esempio con gli Stream</h2>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseStreamsOnPerson</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span>) {
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">Person</span><span style="color:#000">&gt;</span> <span style="color:#000">list</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">ArrayList</span><span style="color:#000">&lt;&gt;</span>();
-</span></span><span style="display:flex;"><span>		<span style="color:#000">list</span>.<span style="color:#836c28">add</span>(<span style="color:#a90d91">new</span> <span style="color:#000">Person</span>(<span style="color:#c41a16">"Mario"</span>,<span style="color:#c41a16">"Cesena"</span>,<span style="color:#000">20000</span>,<span style="color:#c41a16">"Teacher"</span>));
-</span></span><span style="display:flex;"><span>		<span style="color:#000">list</span>.<span style="color:#836c28">add</span>(<span style="color:#a90d91">new</span> <span style="color:#000">Person</span>(<span style="color:#c41a16">"Rino"</span>,<span style="color:#c41a16">"Forlì"</span>,<span style="color:#000">50000</span>,<span style="color:#c41a16">"Professor"</span>));
-</span></span><span style="display:flex;"><span>		<span style="color:#000">list</span>.<span style="color:#836c28">add</span>(<span style="color:#a90d91">new</span> <span style="color:#000">Person</span>(<span style="color:#c41a16">"Lino"</span>,<span style="color:#c41a16">"Cesena"</span>,<span style="color:#000">110000</span>,<span style="color:#c41a16">"Professor"</span>,<span style="color:#c41a16">"Dean"</span>));
-</span></span><span style="display:flex;"><span>		<span style="color:#000">list</span>.<span style="color:#836c28">add</span>(<span style="color:#a90d91">new</span> <span style="color:#000">Person</span>(<span style="color:#c41a16">"Ugo"</span>,<span style="color:#c41a16">"Cesena"</span>,<span style="color:#000">20000</span>,<span style="color:#c41a16">"Secretary"</span>));
-</span></span><span style="display:flex;"><span>		<span style="color:#000">list</span>.<span style="color:#836c28">add</span>(<span style="color:#a90d91">new</span> <span style="color:#000">Person</span>(<span style="color:#c41a16">"Marco"</span>,<span style="color:#a90d91">null</span>,<span style="color:#000">4000</span>,<span style="color:#c41a16">"Contractor"</span>));
-</span></span><span style="display:flex;"><span>		
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#a90d91">double</span> <span style="color:#000">result</span> <span style="color:#000">=</span> <span style="color:#000">list</span>.<span style="color:#836c28">stream</span>()
-</span></span><span style="display:flex;"><span>								  .<span style="color:#836c28">filter</span>(<span style="color:#000">p</span><span style="color:#000">-&gt;</span><span style="color:#000">p</span>.<span style="color:#836c28">getCity</span>().<span style="color:#836c28">isPresent</span>())
-</span></span><span style="display:flex;"><span>								  .<span style="color:#836c28">filter</span>(<span style="color:#000">p</span><span style="color:#000">-&gt;</span><span style="color:#000">p</span>.<span style="color:#836c28">getCity</span>().<span style="color:#836c28">get</span>().<span style="color:#836c28">equals</span>(<span style="color:#c41a16">"Cesena"</span>))
-</span></span><span style="display:flex;"><span>								  .<span style="color:#836c28">mapToDouble</span>(<span style="color:#000">Person</span>::<span style="color:#000">getIncome</span>)
-</span></span><span style="display:flex;"><span>								  .<span style="color:#836c28">sum</span>();
-</span></span><span style="display:flex;"><span>	
-</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">result</span>);
-</span></span><span style="display:flex;"><span>		
-</span></span><span style="display:flex;"><span>		<span style="color:#177500">// alternativa con iteratore: qual è la più leggibile?</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">double</span> <span style="color:#000">res2</span> <span style="color:#000">=</span> <span style="color:#000">0</span>.<span style="color:#836c28">0</span>;
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">for</span> (<span style="color:#a90d91">final</span> <span style="color:#000">Person</span> <span style="color:#000">p</span>: <span style="color:#000">list</span>){
-</span></span><span style="display:flex;"><span>			<span style="color:#a90d91">if</span> (<span style="color:#000">p</span>.<span style="color:#836c28">getCity</span>().<span style="color:#836c28">isPresent</span>() <span style="color:#000">&amp;&amp;</span> <span style="color:#000">p</span>.<span style="color:#836c28">getCity</span>().<span style="color:#836c28">get</span>().<span style="color:#836c28">equals</span>(<span style="color:#c41a16">"Cesena"</span>)){
-</span></span><span style="display:flex;"><span>				<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">p</span>);
-</span></span><span style="display:flex;"><span>				<span style="color:#000">res2</span> <span style="color:#000">=</span> <span style="color:#000">res2</span> <span style="color:#000">+</span> <span style="color:#000">p</span>.<span style="color:#836c28">getIncome</span>();
-</span></span><span style="display:flex;"><span>			}
-</span></span><span style="display:flex;"><span>		}
-</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">res2</span>);
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>}   
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">final</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">Person</span><span style="color:#000">&gt;</span> <span style="color:#000">list</span> <span style="color:#000">=</span> <span style="color:#000">List</span>.<span style="color:#836c28">of</span>(
+</span></span><span style="display:flex;"><span>            <span style="color:#a90d91">new</span> <span style="color:#000">Person</span>(<span style="color:#c41a16">"Mario"</span>, <span style="color:#c41a16">"Cesena"</span>, <span style="color:#000">20000</span>, <span style="color:#c41a16">"Teacher"</span>),
+</span></span><span style="display:flex;"><span>            <span style="color:#a90d91">new</span> <span style="color:#000">Person</span>(<span style="color:#c41a16">"Rino"</span>, <span style="color:#c41a16">"Forlì"</span>, <span style="color:#000">50000</span>, <span style="color:#c41a16">"Professor"</span>),
+</span></span><span style="display:flex;"><span>            <span style="color:#a90d91">new</span> <span style="color:#000">Person</span>(<span style="color:#c41a16">"Lino"</span>, <span style="color:#c41a16">"Cesena"</span>, <span style="color:#000">110000</span>, <span style="color:#c41a16">"Professor"</span>, <span style="color:#c41a16">"Dean"</span>),
+</span></span><span style="display:flex;"><span>            <span style="color:#a90d91">new</span> <span style="color:#000">Person</span>(<span style="color:#c41a16">"Ugo"</span>, <span style="color:#c41a16">"Cesena"</span>, <span style="color:#000">20000</span>, <span style="color:#c41a16">"Secretary"</span>),
+</span></span><span style="display:flex;"><span>            <span style="color:#a90d91">new</span> <span style="color:#000">Person</span>(<span style="color:#c41a16">"Marco"</span>, <span style="color:#a90d91">null</span>, <span style="color:#000">4000</span>, <span style="color:#c41a16">"Contractor"</span>)
+</span></span><span style="display:flex;"><span>        );
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">final</span> <span style="color:#a90d91">double</span> <span style="color:#000">result</span> <span style="color:#000">=</span> <span style="color:#000">list</span>.<span style="color:#836c28">stream</span>()
+</span></span><span style="display:flex;"><span>            .<span style="color:#836c28">filter</span>(<span style="color:#000">it</span> <span style="color:#000">-&gt;</span> <span style="color:#c41a16">"Cesena"</span>.<span style="color:#836c28">equals</span>(<span style="color:#000">it</span>.<span style="color:#836c28">getCity</span>())) <span style="color:#177500">// Tieni solo i cesenati</span>
+</span></span><span style="display:flex;"><span>            .<span style="color:#836c28">mapToDouble</span>(<span style="color:#000">Person</span>::<span style="color:#000">getIncome</span>) <span style="color:#177500">// Prendi il loro reddito</span>
+</span></span><span style="display:flex;"><span>            .<span style="color:#836c28">sum</span>(); <span style="color:#177500">// Somma</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">result</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#177500">// alternativa con iteratore: qual è la più leggibile?</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">double</span> <span style="color:#000">totalIncome</span> <span style="color:#000">=</span> <span style="color:#000">0</span>; <span style="color:#177500">// inizializza somma</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">for</span> (<span style="color:#a90d91">final</span> <span style="color:#000">Person</span> <span style="color:#000">p</span>: <span style="color:#000">list</span>) { <span style="color:#177500">// per ogni persona nella lista</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#a90d91">if</span> (<span style="color:#c41a16">"Cesena"</span>.<span style="color:#836c28">equals</span>(<span style="color:#000">p</span>.<span style="color:#836c28">getCity</span>())) { <span style="color:#177500">// se la città è cesena</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#000">totalIncome</span> <span style="color:#000">=</span> <span style="color:#000">totalIncome</span> <span style="color:#000">+</span> <span style="color:#000">p</span>.<span style="color:#836c28">getIncome</span>(); <span style="color:#177500">// allora la somma aumenta del suo reddito</span>
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">totalIncome</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></section><section>
 <p>Questa è solo una introduzione alle lambda in Java.
 Nel blocco di <a href="/stream">approfondimento</a> si trovano ulteriori informazioni su come:</p>
