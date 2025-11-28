@@ -26,7 +26,7 @@
 <h3 id="danilo-pianini"><a href="mailto:danilo.pianini@unibo.it">Danilo Pianini — <code>danilo.pianini@unibo.it</code></a></h3>
 <h3 id="gianluca-aguzzi"><a href="mailto:gianluca.aguzzi@unibo.it">Gianluca Aguzzi — <code>gianluca.aguzzi@unibo.it</code></a></h3>
 <h3 id="angelo-filaseta"><a href="mailto:angelo.filaseta@unibo.it">Angelo Filaseta — <code>angelo.filaseta@unibo.it</code></a></h3>
-<p>Compiled on: 2025-11-25
+<p>Compiled on: 2025-11-28
  — <a href="?print-pdf&amp;pdfSeparateFragments=false"><i class="fa fa-print" aria-hidden="true"></i> versione stampabile</a></p>
 <p><a href=".."><i class="fa fa-undo" aria-hidden="true"></i> back</a></p>
 </section><section>
@@ -178,10 +178,10 @@
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">File</span><span style="color:#000">&gt;</span> <span style="color:#000">findFilesInHomeDirectoryByExtension</span>(<span style="color:#a90d91">final</span> <span style="color:#000">String</span> <span style="color:#000">ext</span>) {
 </span></span><span style="display:flex;"><span>        <span style="color:#a90d91">final</span> <span style="color:#a90d91">var</span> <span style="color:#000">userHome</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">File</span>(<span style="color:#000">USER_HOME</span>);
-</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">final</span> <span style="color:#a90d91">var</span> <span style="color:#000">allFiles</span> <span style="color:#000">=</span> <span style="color:#000">userHome</span>.<span style="color:#836c28">listFiles</span>();
 </span></span><span style="display:flex;"><span>        <span style="color:#a90d91">if</span> (<span style="color:#000">!</span><span style="color:#000">userHome</span>.<span style="color:#836c28">isDirectory</span>()) {
 </span></span><span style="display:flex;"><span>            <span style="color:#a90d91">throw</span> <span style="color:#a90d91">new</span> <span style="color:#000">IllegalStateException</span>(<span style="color:#c41a16">"The user home is not a directory!"</span>);
 </span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">final</span> <span style="color:#a90d91">var</span> <span style="color:#000">allFiles</span> <span style="color:#000">=</span> <span style="color:#000">userHome</span>.<span style="color:#836c28">listFiles</span>();
 </span></span><span style="display:flex;"><span>        <span style="color:#a90d91">final</span> <span style="color:#a90d91">var</span> <span style="color:#000">result</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">ArrayList</span><span style="color:#000">&lt;</span><span style="color:#000">File</span><span style="color:#000">&gt;</span>();
 </span></span><span style="display:flex;"><span>        <span style="color:#a90d91">for</span> (<span style="color:#a90d91">final</span> <span style="color:#a90d91">var</span> <span style="color:#000">file</span>: <span style="color:#000">allFiles</span>) {
 </span></span><span style="display:flex;"><span>            <span style="color:#a90d91">if</span> (<span style="color:#000">file</span>.<span style="color:#836c28">isFile</span>() <span style="color:#000">&amp;&amp;</span> <span style="color:#000">file</span>.<span style="color:#836c28">getName</span>().<span style="color:#836c28">endsWith</span>(<span style="color:#c41a16">"."</span> <span style="color:#000">+</span> <span style="color:#000">ext</span>)) {
@@ -277,7 +277,7 @@
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.io.InputStream</span>;
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseByteArrayStream</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span>) <span style="color:#a90d91">throws</span> <span style="color:#000">IOException</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>() <span style="color:#a90d91">throws</span> <span style="color:#000">IOException</span> {
 </span></span><span style="display:flex;"><span>        <span style="color:#a90d91">final</span> <span style="color:#a90d91">byte</span><span style="color:#000">[]</span> <span style="color:#000">b</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#a90d91">byte</span><span style="color:#000">[]</span> { <span style="color:#000">10</span>, <span style="color:#000">20</span>, <span style="color:#000">-</span><span style="color:#000">1</span>, <span style="color:#000">40</span>, <span style="color:#000">-</span><span style="color:#000">58</span> };
 </span></span><span style="display:flex;"><span>        <span style="color:#a90d91">final</span> <span style="color:#000">InputStream</span> <span style="color:#000">in</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">ByteArrayInputStream</span>(<span style="color:#000">b</span>);
 </span></span><span style="display:flex;"><span>        <span style="color:#a90d91">try</span> {
@@ -326,7 +326,7 @@
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.io.IOException</span>;
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.io.InputStream</span>;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">StreamDumper</span> {
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">StreamDumper</span> {
 </span></span><span style="display:flex;"><span>    <span style="color:#177500">// rendo inaccessibile il costruttore</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#000">StreamDumper</span>() {}
 </span></span><span style="display:flex;"><span>
@@ -342,24 +342,20 @@
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">...</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseStreamDumper</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span>) <span style="color:#a90d91">throws</span> <span style="color:#000">IOException</span> {
-</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">final</span> <span style="color:#a90d91">byte</span><span style="color:#000">[]</span> <span style="color:#000">bytes</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#a90d91">byte</span><span style="color:#000">[]</span>{ <span style="color:#000">10</span>, <span style="color:#000">20</span>, <span style="color:#000">30</span> };
-</span></span><span style="display:flex;"><span>        <span style="color:#177500">// Cerco un file txt nella home folder dell'utente</span>
 </span></span><span style="display:flex;"><span>        <span style="color:#a90d91">final</span> <span style="color:#a90d91">var</span> <span style="color:#000">txtFiles</span> <span style="color:#000">=</span> <span style="color:#000">FileUtil</span>.<span style="color:#836c28">findFilesInHomeDirectoryByExtension</span>(<span style="color:#c41a16">"txt"</span>);
 </span></span><span style="display:flex;"><span>        <span style="color:#a90d91">if</span> (<span style="color:#000">txtFiles</span>.<span style="color:#836c28">isEmpty</span>()) {
 </span></span><span style="display:flex;"><span>            <span style="color:#a90d91">throw</span> <span style="color:#a90d91">new</span> <span style="color:#000">IllegalStateException</span>(<span style="color:#c41a16">"No txt files on the user home directory!"</span>);
 </span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">final</span> <span style="color:#a90d91">var</span> <span style="color:#000">file</span> <span style="color:#000">=</span> <span style="color:#000">txtFiles</span>.<span style="color:#836c28">get</span>(<span style="color:#000">0</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">final</span> <span style="color:#a90d91">var</span> <span style="color:#000">file</span> <span style="color:#000">=</span> <span style="color:#000">txtFiles</span>.<span style="color:#836c28">getFirst</span>();
 </span></span><span style="display:flex;"><span>        <span style="color:#a90d91">try</span>(
-</span></span><span style="display:flex;"><span>            <span style="color:#a90d91">final</span> <span style="color:#000">InputStream</span> <span style="color:#000">input</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">ByteArrayInputStream</span>(<span style="color:#000">bytes</span>);
-</span></span><span style="display:flex;"><span>            <span style="color:#a90d91">final</span> <span style="color:#000">InputStream</span> <span style="color:#000">input2</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">FileInputStream</span>(<span style="color:#000">file</span>);
+</span></span><span style="display:flex;"><span>            <span style="color:#a90d91">final</span> <span style="color:#000">InputStream</span> <span style="color:#000">memoryInput</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">ByteArrayInputStream</span>(<span style="color:#000">bytes</span>);
+</span></span><span style="display:flex;"><span>            <span style="color:#a90d91">final</span> <span style="color:#000">InputStream</span> <span style="color:#000">fileInput</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">FileInputStream</span>(<span style="color:#000">file</span>)
 </span></span><span style="display:flex;"><span>        ) {
 </span></span><span style="display:flex;"><span>            <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">txtFiles</span>.<span style="color:#836c28">get</span>(<span style="color:#000">0</span>).<span style="color:#836c28">getAbsolutePath</span>());
 </span></span><span style="display:flex;"><span>            <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"First stream (from memory):"</span>);
-</span></span><span style="display:flex;"><span>            <span style="color:#000">StreamDumper</span>.<span style="color:#836c28">dump</span>(<span style="color:#000">input</span>);
+</span></span><span style="display:flex;"><span>            <span style="color:#000">StreamDumper</span>.<span style="color:#836c28">dump</span>(<span style="color:#000">memoryInput</span>);
 </span></span><span style="display:flex;"><span>            <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"\nSecond stream (from file "</span> <span style="color:#000">+</span> <span style="color:#000">file</span>.<span style="color:#836c28">getPath</span>() <span style="color:#000">+</span> <span style="color:#c41a16">":"</span>);
-</span></span><span style="display:flex;"><span>            <span style="color:#000">StreamDumper</span>.<span style="color:#836c28">dump</span>(<span style="color:#000">input2</span>);
+</span></span><span style="display:flex;"><span>            <span style="color:#000">StreamDumper</span>.<span style="color:#836c28">dump</span>(<span style="color:#000">fileInput</span>);
 </span></span><span style="display:flex;"><span>            <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>();
 </span></span><span style="display:flex;"><span>        }
 </span></span><span style="display:flex;"><span>    }
@@ -398,10 +394,8 @@
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.Random</span>;
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseOutputStream</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#a90d91">final</span> <span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span>) <span style="color:#a90d91">throws</span> <span style="color:#000">IOException</span> {
-</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">try</span> (
-</span></span><span style="display:flex;"><span>            <span style="color:#a90d91">final</span> <span style="color:#000">OutputStream</span> <span style="color:#000">output</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">FileOutputStream</span>(<span style="color:#000">UseFile</span>.<span style="color:#836c28">FILE_NAME</span>);
-</span></span><span style="display:flex;"><span>        ) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>() <span style="color:#a90d91">throws</span> <span style="color:#000">IOException</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">try</span> (<span style="color:#a90d91">final</span> <span style="color:#000">OutputStream</span> <span style="color:#000">output</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">FileOutputStream</span>(<span style="color:#000">UseFile</span>.<span style="color:#836c28">FILE_NAME</span>)) {
 </span></span><span style="display:flex;"><span>            <span style="color:#177500">// Aggiungo byte random</span>
 </span></span><span style="display:flex;"><span>            <span style="color:#a90d91">final</span> <span style="color:#000">Random</span> <span style="color:#000">r</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Random</span>();
 </span></span><span style="display:flex;"><span>            <span style="color:#a90d91">for</span> (<span style="color:#a90d91">int</span> <span style="color:#000">i</span> <span style="color:#000">=</span> <span style="color:#000">0</span>; <span style="color:#000">i</span> <span style="color:#000">&lt;</span> <span style="color:#000">100</span>; <span style="color:#000">i</span><span style="color:#000">++</span>) {
@@ -958,7 +952,7 @@ e, laddove le prestazioni e lo spazio non siano stringenti, preferiti</p>
 <h3 id="danilo-pianini"><a href="mailto:danilo.pianini@unibo.it">Danilo Pianini — <code>danilo.pianini@unibo.it</code></a></h3>
 <h3 id="gianluca-aguzzi"><a href="mailto:gianluca.aguzzi@unibo.it">Gianluca Aguzzi — <code>gianluca.aguzzi@unibo.it</code></a></h3>
 <h3 id="angelo-filaseta"><a href="mailto:angelo.filaseta@unibo.it">Angelo Filaseta — <code>angelo.filaseta@unibo.it</code></a></h3>
-<p>Compiled on: 2025-11-25
+<p>Compiled on: 2025-11-28
  — <a href="?print-pdf&amp;pdfSeparateFragments=false"><i class="fa fa-print" aria-hidden="true"></i> versione stampabile</a></p>
 <p><a href=".."><i class="fa fa-undo" aria-hidden="true"></i> back</a></p>
 </section>
