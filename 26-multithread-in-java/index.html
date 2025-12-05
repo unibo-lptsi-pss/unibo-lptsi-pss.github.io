@@ -1,0 +1,927 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="utf-8">
+<title>Progettazione e Sviluppo del Software</title>
+<meta name="description" content="Progettazione e Sviluppo del Software, Tecnologie dei Sistemi Informatici">
+<meta name="author" content="Danilo Pianini">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><link rel="stylesheet" href="/reveal-js/dist/reset.css">
+<link rel="stylesheet" href="/reveal-js/dist/reveal.css">
+  <link rel="stylesheet" href="/css/custom-theme.min.c5d5307c22aeba26e5f63813bdbc90c5483e809383467a8e6f523d7f756010c5.css" id="theme"><link rel="stylesheet" href="/highlight-js/default.min.css">
+<link href="https://fonts.googleapis.com/css?family=Roboto Mono" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Oxygen Mono" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Ubuntu Mono" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+
+  </head>
+  <body>
+    
+    <div class="reveal">
+      <div class="slides">
+  
+
+    <section><h1 id="introduzione-alla-programmazione-concorrente-in-java">Introduzione alla Programmazione Concorrente in Java</h1>
+<h4 id="progettazione-e-sviluppo-del-software">Progettazione e Sviluppo del Software</h4>
+<h4 id="cdl-tecnologie-dei-sistemi-informatici">C.D.L. Tecnologie dei Sistemi Informatici</h4>
+<h3 id="danilo-pianini"><a href="mailto:danilo.pianini@unibo.it">Danilo Pianini — <code>danilo.pianini@unibo.it</code></a></h3>
+<h3 id="gianluca-aguzzi"><a href="mailto:gianluca.aguzzi@unibo.it">Gianluca Aguzzi — <code>gianluca.aguzzi@unibo.it</code></a></h3>
+<h3 id="angelo-filaseta"><a href="mailto:angelo.filaseta@unibo.it">Angelo Filaseta — <code>angelo.filaseta@unibo.it</code></a></h3>
+<p>Compiled on: 2025-12-05
+ — <a href="?print-pdf&amp;pdfSeparateFragments=false"><i class="fa fa-print" aria-hidden="true"></i> versione stampabile</a></p>
+<p><a href=".."><i class="fa fa-undo" aria-hidden="true"></i> back</a></p>
+</section><section>
+<h2 id="outline">Outline</h2>
+<h3 id="goal-della-lezione">Goal della lezione</h3>
+<ul>
+<li>Capire le basi della programmazione concorrente in Java</li>
+<li>Vedere come creare e gestire thread in Java</li>
+<li>Introdurre concetti di sincronizzazione e comunicazione tra thread</li>
+<li>Uso della programmazione concorrente nelle interfacce JavaFX</li>
+</ul>
+<h3 id="argomenti">Argomenti</h3>
+<ul>
+<li>Thread in Java: creazione e gestione</li>
+<li>Sincronizzazione e comunicazione tra thread</li>
+<li>Concorrenza in JavaFX</li>
+</ul>
+</section><section>
+<h1 id="thread-in-java">Thread in Java</h1>
+</section><section>
+<h2 id="perché-la-programmazione-concorrente">Perché la programmazione concorrente?</h2>
+<ul>
+<li>Le applicazioni moderne sono di fatto quasi sempre concorrenti
+<ul>
+<li>I server web gestiscono più richieste contemporaneamente</li>
+<li>Le interfacce grafiche devono rimanere reattive mentre eseguono calcoli in background</li>
+</ul>
+</li>
+<li>Sulla notazione:</li>
+</ul>
+<blockquote>
+<p><em>Programmazione asincrona</em>: esecuzione di operazioni che possono completarsi in momenti diversi senza bloccare il flusso principale del programma.</p>
+</blockquote>
+<blockquote>
+<p><em>Programmazione concorrente</em>: esecuzione di più operazioni in parallelo, spesso utilizzando thread o processi separati.</p>
+</blockquote>
+</section><section>
+<h2 id="meccanismo-di-concorrenza-in-java">Meccanismo di concorrenza in Java</h2>
+<ul>
+<li>Java fornisce il supporto <em>nativo</em> per la programmazione concorrente attraverso l’uso di <strong>thread</strong></li>
+</ul>
+<blockquote>
+<p>Thread: Un thread è un’unità di esecuzione all’interno di un processo. Ogni thread ha il proprio stack di esecuzione, ma condivide lo spazio di memoria del processo con altri thread.</p>
+</blockquote>
+<ul>
+<li>Come?
+<ul>
+<li>Everything is an Object</li>
+<li>Quindi anche i thread sono oggetti :)</li>
+</ul>
+</li>
+</ul>
+</section><section>
+<h2 id="la-classe-thread">La classe Thread</h2>
+<blockquote>
+<p>Un thread è rappresentato dalla classe Thread, caratterizzata
+dal metodo <code>run</code>, che definisce il comportamento (attività) del
+thread</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">Thread</span> {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">run</span>();
+</span></span><span style="display:flex;"><span>    ...
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></section><section>
+<h2 id="ciclo-di-vita-di-un-thread">Ciclo di vita di un Thread</h2>
+<div class="mermaid" data-processed="true" pre-rendered="true"><svg aria-roledescription="stateDiagram" role="graphics-document document" viewBox="0 0 447.22265625 526" style="max-width: 447.22265625px;" class="statediagram" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" width="100%" id="my-svg"><style>#my-svg{font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:16px;fill:#333;}#my-svg .error-icon{fill:#552222;}#my-svg .error-text{fill:#552222;stroke:#552222;}#my-svg .edge-thickness-normal{stroke-width:1px;}#my-svg .edge-thickness-thick{stroke-width:3.5px;}#my-svg .edge-pattern-solid{stroke-dasharray:0;}#my-svg .edge-thickness-invisible{stroke-width:0;fill:none;}#my-svg .edge-pattern-dashed{stroke-dasharray:3;}#my-svg .edge-pattern-dotted{stroke-dasharray:2;}#my-svg .marker{fill:#333333;stroke:#333333;}#my-svg .marker.cross{stroke:#333333;}#my-svg svg{font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:16px;}#my-svg p{margin:0;}#my-svg defs #statediagram-barbEnd{fill:#333333;stroke:#333333;}#my-svg g.stateGroup text{fill:#9370DB;stroke:none;font-size:10px;}#my-svg g.stateGroup text{fill:#333;stroke:none;font-size:10px;}#my-svg g.stateGroup .state-title{font-weight:bolder;fill:#131300;}#my-svg g.stateGroup rect{fill:#ECECFF;stroke:#9370DB;}#my-svg g.stateGroup line{stroke:#333333;stroke-width:1;}#my-svg .transition{stroke:#333333;stroke-width:1;fill:none;}#my-svg .stateGroup .composit{fill:white;border-bottom:1px;}#my-svg .stateGroup .alt-composit{fill:#e0e0e0;border-bottom:1px;}#my-svg .state-note{stroke:#aaaa33;fill:#fff5ad;}#my-svg .state-note text{fill:black;stroke:none;font-size:10px;}#my-svg .stateLabel .box{stroke:none;stroke-width:0;fill:#ECECFF;opacity:0.5;}#my-svg .edgeLabel .label rect{fill:#ECECFF;opacity:0.5;}#my-svg .edgeLabel{background-color:rgba(232,232,232, 0.8);text-align:center;}#my-svg .edgeLabel p{background-color:rgba(232,232,232, 0.8);}#my-svg .edgeLabel rect{opacity:0.5;background-color:rgba(232,232,232, 0.8);fill:rgba(232,232,232, 0.8);}#my-svg .edgeLabel .label text{fill:#333;}#my-svg .label div .edgeLabel{color:#333;}#my-svg .stateLabel text{fill:#131300;font-size:10px;font-weight:bold;}#my-svg .node circle.state-start{fill:#333333;stroke:#333333;}#my-svg .node .fork-join{fill:#333333;stroke:#333333;}#my-svg .node circle.state-end{fill:#9370DB;stroke:white;stroke-width:1.5;}#my-svg .end-state-inner{fill:white;stroke-width:1.5;}#my-svg .node rect{fill:#ECECFF;stroke:#9370DB;stroke-width:1px;}#my-svg .node polygon{fill:#ECECFF;stroke:#9370DB;stroke-width:1px;}#my-svg #statediagram-barbEnd{fill:#333333;}#my-svg .statediagram-cluster rect{fill:#ECECFF;stroke:#9370DB;stroke-width:1px;}#my-svg .cluster-label,#my-svg .nodeLabel{color:#131300;}#my-svg .statediagram-cluster rect.outer{rx:5px;ry:5px;}#my-svg .statediagram-state .divider{stroke:#9370DB;}#my-svg .statediagram-state .title-state{rx:5px;ry:5px;}#my-svg .statediagram-cluster.statediagram-cluster .inner{fill:white;}#my-svg .statediagram-cluster.statediagram-cluster-alt .inner{fill:#f0f0f0;}#my-svg .statediagram-cluster .inner{rx:0;ry:0;}#my-svg .statediagram-state rect.basic{rx:5px;ry:5px;}#my-svg .statediagram-state rect.divider{stroke-dasharray:10,10;fill:#f0f0f0;}#my-svg .note-edge{stroke-dasharray:5;}#my-svg .statediagram-note rect{fill:#fff5ad;stroke:#aaaa33;stroke-width:1px;rx:0;ry:0;}#my-svg .statediagram-note rect{fill:#fff5ad;stroke:#aaaa33;stroke-width:1px;rx:0;ry:0;}#my-svg .statediagram-note text{fill:black;}#my-svg .statediagram-note .nodeLabel{color:black;}#my-svg .statediagram .edgeLabel{color:red;}#my-svg #dependencyStart,#my-svg #dependencyEnd{fill:#333333;stroke:#333333;stroke-width:1;}#my-svg .statediagramTitleText{text-anchor:middle;font-size:18px;fill:#333;}#my-svg :root{--mermaid-font-family:"trebuchet ms",verdana,arial,sans-serif;}</style><g><defs><marker orient="auto" markerUnits="userSpaceOnUse" markerHeight="14" markerWidth="20" refY="7" refX="19" id="my-svg_stateDiagram-barbEnd"><path d="M 19,7 L9,13 L14,7 L9,1 Z"></path></marker></defs><g class="root"><g class="clusters"></g><g class="edgePaths"><path marker-end="url(#my-svg_stateDiagram-barbEnd)" style=";fill:none" class="edge-thickness-normal edge-pattern-solid transition" id="edge0" d="M197.34,22L197.34,26.167C197.34,30.333,197.34,38.667,197.34,44.917C197.34,51.167,197.34,55.333,197.34,59.5C197.34,63.667,197.34,67.833,197.34,69.917L197.34,72"></path><path marker-end="url(#my-svg_stateDiagram-barbEnd)" style=";fill:none" class="edge-thickness-normal edge-pattern-solid transition" id="edge1" d="M197.34,112L197.34,118.167C197.34,124.333,197.34,136.667,197.34,145.917C197.34,155.167,197.34,161.333,197.34,167.5C197.34,173.667,197.34,179.833,197.34,182.917L197.34,186"></path><path marker-end="url(#my-svg_stateDiagram-barbEnd)" style=";fill:none" class="edge-thickness-normal edge-pattern-solid transition" id="edge2" d="M239.59,220.881L259.521,227.901C279.452,234.921,319.314,248.96,334.868,259.063C350.421,269.167,341.667,275.333,332.913,281.5C324.159,287.667,315.404,293.833,311.027,296.917L306.65,300"></path><path marker-end="url(#my-svg_stateDiagram-barbEnd)" style=";fill:none" class="edge-thickness-normal edge-pattern-solid transition" id="edge3" d="M249.866,300L241.111,293.833C232.357,287.667,214.848,275.333,206.094,266.083C197.34,256.833,197.34,250.667,197.34,244.5C197.34,238.333,197.34,232.167,197.34,229.083L197.34,226"></path><path marker-end="url(#my-svg_stateDiagram-barbEnd)" style=";fill:none" class="edge-thickness-normal edge-pattern-solid transition" id="edge4" d="M252.205,340L244.172,346.167C236.139,352.333,220.074,364.667,208.051,373.917C196.029,383.167,188.05,389.333,180.071,395.5C172.093,401.667,164.114,407.833,160.124,410.917L156.135,414"></path><path marker-end="url(#my-svg_stateDiagram-barbEnd)" style=";fill:none" class="edge-thickness-normal edge-pattern-solid transition" id="edge5" d="M113.569,414L108.424,407.833C103.278,401.667,92.987,389.333,87.841,373.667C82.695,358,82.695,339,82.695,320C82.695,301,82.695,282,88.897,269.417C95.098,256.833,107.501,250.667,119.905,244.5C132.308,238.333,144.711,232.167,150.912,229.083L157.114,226"></path><path marker-end="url(#my-svg_stateDiagram-barbEnd)" style=";fill:none" class="edge-thickness-normal edge-pattern-solid transition" id="edge6" d="M303.059,340L310.706,346.167C318.353,352.333,333.647,364.667,341.294,373.917C348.941,383.167,348.941,389.333,348.941,395.5C348.941,401.667,348.941,407.833,348.941,410.917L348.941,414"></path><path marker-end="url(#my-svg_stateDiagram-barbEnd)" style=";fill:none" class="edge-thickness-normal edge-pattern-solid transition" id="edge7" d="M348.941,454L348.941,458.167C348.941,462.333,348.941,470.667,348.941,476.917C348.941,483.167,348.941,487.333,348.941,491.5C348.941,495.667,348.941,499.833,348.941,501.917L348.941,504"></path></g><g class="edgeLabels"><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" class="labelBkg" xmlns="http://www.w3.org/1999/xhtml"><span class="edgeLabel"></span></div></foreignObject></g></g><g transform="translate(197.33984375, 149)" class="edgeLabel"><g transform="translate(-20.890625, -12)" class="label"><foreignObject height="24" width="41.78125"><div style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" class="labelBkg" xmlns="http://www.w3.org/1999/xhtml"><span class="edgeLabel"><p>start()</p></span></div></foreignObject></g></g><g transform="translate(359.17578125, 263)" class="edgeLabel"><g transform="translate(-80.046875, -12)" class="label"><foreignObject height="24" width="160.09375"><div style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" class="labelBkg" xmlns="http://www.w3.org/1999/xhtml"><span class="edgeLabel"><p>scheduler picks thread</p></span></div></foreignObject></g></g><g transform="translate(197.33984375, 263)" class="edgeLabel"><g transform="translate(-61.7890625, -12)" class="label"><foreignObject height="24" width="123.578125"><div style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" class="labelBkg" xmlns="http://www.w3.org/1999/xhtml"><span class="edgeLabel"><p>yield() / time slice</p></span></div></foreignObject></g></g><g transform="translate(204.0078125, 377)" class="edgeLabel"><g transform="translate(-75.125, -12)" class="label"><foreignObject height="24" width="150.25"><div style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" class="labelBkg" xmlns="http://www.w3.org/1999/xhtml"><span class="edgeLabel"><p>wait() / sleep() / join()</p></span></div></foreignObject></g></g><g transform="translate(82.6953125, 320)" class="edgeLabel"><g transform="translate(-74.6953125, -12)" class="label"><foreignObject height="24" width="149.390625"><div style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" class="labelBkg" xmlns="http://www.w3.org/1999/xhtml"><span class="edgeLabel"><p>notify() / time expired</p></span></div></foreignObject></g></g><g transform="translate(348.94140625, 377)" class="edgeLabel"><g transform="translate(-46.2421875, -12)" class="label"><foreignObject height="24" width="92.484375"><div style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" class="labelBkg" xmlns="http://www.w3.org/1999/xhtml"><span class="edgeLabel"><p>run() finishes</p></span></div></foreignObject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" class="labelBkg" xmlns="http://www.w3.org/1999/xhtml"><span class="edgeLabel"></span></div></foreignObject></g></g></g><g class="nodes"><g transform="translate(197.33984375, 15)" id="state-root_start-0" class="node default"><circle height="14" width="14" r="7" class="state-start"></circle></g><g transform="translate(197.33984375, 92)" id="state-New-1" class="node  statediagram-state"><rect height="40" width="48.015625" y="-20" x="-24.0078125" ry="5" rx="5" style="" class="basic label-container"></rect><g transform="translate(-16.0078125, -12)" style="" class="label"><rect></rect><foreignObject height="24" width="32.015625"><div style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel"><p>New</p></span></div></foreignObject></g></g><g transform="translate(197.33984375, 206)" id="state-Runnable-5" class="node  statediagram-state"><rect height="40" width="84.5" y="-20" x="-42.25" ry="5" rx="5" style="" class="basic label-container"></rect><g transform="translate(-34.25, -12)" style="" class="label"><rect></rect><foreignObject height="24" width="68.5"><div style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel"><p>Runnable</p></span></div></foreignObject></g></g><g transform="translate(278.2578125, 320)" id="state-Running-6" class="node  statediagram-state"><rect height="40" width="75.609375" y="-20" x="-37.8046875" ry="5" rx="5" style="" class="basic label-container"></rect><g transform="translate(-29.8046875, -12)" style="" class="label"><rect></rect><foreignObject height="24" width="59.609375"><div style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel"><p>Running</p></span></div></foreignObject></g></g><g transform="translate(130.2578125, 434)" id="state-Waiting-5" class="node  statediagram-state"><rect height="40" width="68.765625" y="-20" x="-34.3828125" ry="5" rx="5" style="" class="basic label-container"></rect><g transform="translate(-26.3828125, -12)" style="" class="label"><rect></rect><foreignObject height="24" width="52.765625"><div style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel"><p>Waiting</p></span></div></foreignObject></g></g><g transform="translate(348.94140625, 434)" id="state-Terminated-7" class="node  statediagram-state"><rect height="40" width="95.15625" y="-20" x="-47.578125" ry="5" rx="5" style="" class="basic label-container"></rect><g transform="translate(-39.578125, -12)" style="" class="label"><rect></rect><foreignObject height="24" width="79.15625"><div style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel"><p>Terminated</p></span></div></foreignObject></g></g><g transform="translate(348.94140625, 511)" id="state-root_end-7" class="node default"><g><path style="" fill="#ECECFF" stroke-width="0" stroke="none" d="M7 0 C7 0.40517908122283747, 6.964012880168563 0.816513743121899, 6.893654271085456 1.2155372436685123 C6.823295662002349 1.6145607442151257, 6.716427752933756 2.013397210557766, 6.5778483455013586 2.394141003279681 C6.439268938068961 2.7748847960015954, 6.26476736710249 3.149104622578984, 6.062177826491071 3.4999999999999996 C5.859588285879653 3.8508953774210153, 5.622755194947063 4.189128084166967, 5.362311101832846 4.499513267805774 C5.10186700871863 4.809898451444582, 4.809898451444583 5.10186700871863, 4.499513267805775 5.362311101832846 C4.189128084166968 5.622755194947063, 3.8508953774210166 5.859588285879652, 3.500000000000001 6.06217782649107 C3.149104622578985 6.264767367102489, 2.7748847960015963 6.439268938068961, 2.3941410032796817 6.5778483455013586 C2.013397210557767 6.716427752933756, 1.6145607442151264 6.823295662002349, 1.2155372436685128 6.893654271085456 C0.8165137431218992 6.964012880168563, 0.4051790812228379 7, 4.286263797015736e-16 7 C-0.405179081222837 7, -0.8165137431218985 6.964012880168563, -1.2155372436685121 6.893654271085456 C-1.6145607442151257 6.823295662002349, -2.0133972105577667 6.716427752933756, -2.394141003279681 6.5778483455013586 C-2.774884796001595 6.439268938068961, -3.149104622578983 6.26476736710249, -3.4999999999999982 6.062177826491071 C-3.8508953774210135 5.859588285879653, -4.189128084166966 5.6227551949470636, -4.499513267805773 5.362311101832848 C-4.809898451444581 5.101867008718632, -5.101867008718628 4.809898451444586, -5.3623111018328435 4.499513267805779 C-5.622755194947059 4.189128084166971, -5.859588285879649 3.8508953774210206, -6.062177826491068 3.5000000000000053 C-6.264767367102486 3.14910462257899, -6.439268938068958 2.774884796001602, -6.577848345501356 2.394141003279688 C-6.716427752933754 2.0133972105577738, -6.823295662002347 1.614560744215134, -6.893654271085454 1.215537243668521 C-6.9640128801685615 0.816513743121908, -6.999999999999999 0.4051790812228472, -7 1.0183126166254463e-14 C-7.000000000000001 -0.40517908122282686, -6.964012880168565 -0.8165137431218878, -6.893654271085459 -1.215537243668501 C-6.823295662002352 -1.6145607442151142, -6.716427752933759 -2.0133972105577542, -6.577848345501363 -2.394141003279669 C-6.439268938068967 -2.7748847960015834, -6.264767367102496 -3.149104622578972, -6.062177826491078 -3.4999999999999876 C-5.859588285879661 -3.8508953774210033, -5.6227551949470715 -4.1891280841669545, -5.362311101832856 -4.499513267805763 C-5.10186700871864 -4.809898451444571, -4.809898451444594 -5.10186700871862, -4.499513267805787 -5.362311101832836 C-4.189128084166979 -5.622755194947053, -3.850895377421028 -5.859588285879643, -3.5000000000000133 -6.062177826491062 C-3.1491046225789985 -6.264767367102482, -2.774884796001611 -6.439268938068954, -2.3941410032796973 -6.577848345501353 C-2.0133972105577835 -6.716427752933752, -1.6145607442151435 -6.823295662002345, -1.2155372436685306 -6.893654271085453 C-0.8165137431219176 -6.9640128801685615, -0.40517908122285695 -6.999999999999999, -1.9937625952807352e-14 -7 C0.4051790812228171 -7.000000000000001, 0.8165137431218781 -6.964012880168565, 1.2155372436684913 -6.89365427108546 C1.6145607442151044 -6.823295662002354, 2.013397210557745 -6.716427752933763, 2.3941410032796595 -6.5778483455013665 C2.774884796001574 -6.43926893806897, 3.149104622578963 -6.2647673671025, 3.499999999999979 -6.062177826491083 C3.8508953774209953 -5.859588285879665, 4.189128084166947 -5.622755194947077, 4.499513267805756 -5.362311101832862 C4.809898451444564 -5.1018670087186475, 5.101867008718613 -4.809898451444602, 5.362311101832829 -4.499513267805796 C5.622755194947046 -4.189128084166989, 5.859588285879637 -3.8508953774210393, 6.062177826491056 -3.500000000000025 C6.2647673671024755 -3.1491046225790105, 6.439268938068949 -2.774884796001623, 6.577848345501348 -2.3941410032797092 C6.716427752933747 -2.0133972105577955, 6.823295662002342 -1.6145607442151562, 6.893654271085451 -1.2155372436685434 C6.96401288016856 -0.8165137431219307, 6.982275711847575 -0.2025895406114567, 7 -3.2800750208310675e-14 C7.017724288152425 0.2025895406113911, 7.017724288152424 -0.2025895406114242, 7 0"></path><path style="" fill="none" stroke-width="2" stroke="#333333" d="M7 0 C7 0.40517908122283747, 6.964012880168563 0.816513743121899, 6.893654271085456 1.2155372436685123 C6.823295662002349 1.6145607442151257, 6.716427752933756 2.013397210557766, 6.5778483455013586 2.394141003279681 C6.439268938068961 2.7748847960015954, 6.26476736710249 3.149104622578984, 6.062177826491071 3.4999999999999996 C5.859588285879653 3.8508953774210153, 5.622755194947063 4.189128084166967, 5.362311101832846 4.499513267805774 C5.10186700871863 4.809898451444582, 4.809898451444583 5.10186700871863, 4.499513267805775 5.362311101832846 C4.189128084166968 5.622755194947063, 3.8508953774210166 5.859588285879652, 3.500000000000001 6.06217782649107 C3.149104622578985 6.264767367102489, 2.7748847960015963 6.439268938068961, 2.3941410032796817 6.5778483455013586 C2.013397210557767 6.716427752933756, 1.6145607442151264 6.823295662002349, 1.2155372436685128 6.893654271085456 C0.8165137431218992 6.964012880168563, 0.4051790812228379 7, 4.286263797015736e-16 7 C-0.405179081222837 7, -0.8165137431218985 6.964012880168563, -1.2155372436685121 6.893654271085456 C-1.6145607442151257 6.823295662002349, -2.0133972105577667 6.716427752933756, -2.394141003279681 6.5778483455013586 C-2.774884796001595 6.439268938068961, -3.149104622578983 6.26476736710249, -3.4999999999999982 6.062177826491071 C-3.8508953774210135 5.859588285879653, -4.189128084166966 5.6227551949470636, -4.499513267805773 5.362311101832848 C-4.809898451444581 5.101867008718632, -5.101867008718628 4.809898451444586, -5.3623111018328435 4.499513267805779 C-5.622755194947059 4.189128084166971, -5.859588285879649 3.8508953774210206, -6.062177826491068 3.5000000000000053 C-6.264767367102486 3.14910462257899, -6.439268938068958 2.774884796001602, -6.577848345501356 2.394141003279688 C-6.716427752933754 2.0133972105577738, -6.823295662002347 1.614560744215134, -6.893654271085454 1.215537243668521 C-6.9640128801685615 0.816513743121908, -6.999999999999999 0.4051790812228472, -7 1.0183126166254463e-14 C-7.000000000000001 -0.40517908122282686, -6.964012880168565 -0.8165137431218878, -6.893654271085459 -1.215537243668501 C-6.823295662002352 -1.6145607442151142, -6.716427752933759 -2.0133972105577542, -6.577848345501363 -2.394141003279669 C-6.439268938068967 -2.7748847960015834, -6.264767367102496 -3.149104622578972, -6.062177826491078 -3.4999999999999876 C-5.859588285879661 -3.8508953774210033, -5.6227551949470715 -4.1891280841669545, -5.362311101832856 -4.499513267805763 C-5.10186700871864 -4.809898451444571, -4.809898451444594 -5.10186700871862, -4.499513267805787 -5.362311101832836 C-4.189128084166979 -5.622755194947053, -3.850895377421028 -5.859588285879643, -3.5000000000000133 -6.062177826491062 C-3.1491046225789985 -6.264767367102482, -2.774884796001611 -6.439268938068954, -2.3941410032796973 -6.577848345501353 C-2.0133972105577835 -6.716427752933752, -1.6145607442151435 -6.823295662002345, -1.2155372436685306 -6.893654271085453 C-0.8165137431219176 -6.9640128801685615, -0.40517908122285695 -6.999999999999999, -1.9937625952807352e-14 -7 C0.4051790812228171 -7.000000000000001, 0.8165137431218781 -6.964012880168565, 1.2155372436684913 -6.89365427108546 C1.6145607442151044 -6.823295662002354, 2.013397210557745 -6.716427752933763, 2.3941410032796595 -6.5778483455013665 C2.774884796001574 -6.43926893806897, 3.149104622578963 -6.2647673671025, 3.499999999999979 -6.062177826491083 C3.8508953774209953 -5.859588285879665, 4.189128084166947 -5.622755194947077, 4.499513267805756 -5.362311101832862 C4.809898451444564 -5.1018670087186475, 5.101867008718613 -4.809898451444602, 5.362311101832829 -4.499513267805796 C5.622755194947046 -4.189128084166989, 5.859588285879637 -3.8508953774210393, 6.062177826491056 -3.500000000000025 C6.2647673671024755 -3.1491046225790105, 6.439268938068949 -2.774884796001623, 6.577848345501348 -2.3941410032797092 C6.716427752933747 -2.0133972105577955, 6.823295662002342 -1.6145607442151562, 6.893654271085451 -1.2155372436685434 C6.96401288016856 -0.8165137431219307, 6.982275711847575 -0.2025895406114567, 7 -3.2800750208310675e-14 C7.017724288152425 0.2025895406113911, 7.017724288152424 -0.2025895406114242, 7 0"></path><g><path style="" fill="#9370DB" stroke-width="0" stroke="none" d="M2.5 0 C2.5 0.14470681472244193, 2.487147457203058 0.29161205111496386, 2.46201938253052 0.4341204441673258 C2.436891307857982 0.5766288372196877, 2.3987241974763416 0.7190704323420595, 2.3492315519647713 0.8550503583141718 C2.299738906453201 0.991030284286284, 2.2374169168223177 1.124680222349637, 2.165063509461097 1.2499999999999998 C2.092710102099876 1.3753197776503625, 2.0081268553382365 1.496117172916774, 1.915111107797445 1.6069690242163481 C1.8220953602566536 1.7178208755159223, 1.7178208755159226 1.8220953602566536, 1.6069690242163484 1.915111107797445 C1.4961171729167742 2.0081268553382365, 1.375319777650363 2.0927101020998755, 1.2500000000000002 2.1650635094610964 C1.1246802223496375 2.2374169168223172, 0.9910302842862845 2.2997389064532, 0.8550503583141721 2.349231551964771 C0.7190704323420597 2.3987241974763416, 0.576628837219688 2.436891307857982, 0.43412044416732604 2.46201938253052 C0.291612051114964 2.487147457203058, 0.14470681472244212 2.5, 1.5308084989341916e-16 2.5 C-0.1447068147224418 2.5, -0.2916120511149638 2.487147457203058, -0.43412044416732576 2.46201938253052 C-0.5766288372196877 2.436891307857982, -0.7190704323420595 2.3987241974763416, -0.8550503583141718 2.3492315519647713 C-0.991030284286284 2.299738906453201, -1.124680222349637 2.2374169168223177, -1.2499999999999996 2.165063509461097 C-1.375319777650362 2.092710102099876, -1.4961171729167733 2.008126855338237, -1.6069690242163475 1.9151111077974459 C-1.7178208755159217 1.8220953602566548, -1.822095360256653 1.7178208755159234, -1.9151111077974443 1.6069690242163495 C-2.0081268553382357 1.4961171729167755, -2.0927101020998746 1.3753197776503645, -2.1650635094610955 1.250000000000002 C-2.2374169168223164 1.1246802223496395, -2.2997389064531992 0.9910302842862865, -2.34923155196477 0.8550503583141743 C-2.3987241974763407 0.7190704323420621, -2.436891307857981 0.5766288372196907, -2.4620193825305194 0.434120444167329 C-2.487147457203058 0.29161205111496724, -2.5 0.14470681472244545, -2.5 3.636830773662308e-15 C-2.5 -0.14470681472243818, -2.4871474572030587 -0.2916120511149599, -2.4620193825305208 -0.4341204441673218 C-2.436891307857983 -0.5766288372196837, -2.398724197476343 -0.7190704323420553, -2.3492315519647726 -0.8550503583141675 C-2.2997389064532023 -0.9910302842862798, -2.23741691682232 -1.1246802223496328, -2.165063509461099 -1.2499999999999956 C-2.092710102099878 -1.3753197776503583, -2.00812685533824 -1.4961171729167695, -1.9151111077974488 -1.606969024216344 C-1.8220953602566576 -1.7178208755159183, -1.7178208755159263 -1.82209536025665, -1.6069690242163523 -1.9151111077974416 C-1.4961171729167784 -2.0081268553382334, -1.3753197776503672 -2.0927101020998724, -1.2500000000000047 -2.1650635094610937 C-1.1246802223496422 -2.237416916822315, -0.9910302842862897 -2.299738906453198, -0.8550503583141776 -2.3492315519647686 C-0.7190704323420656 -2.3987241974763394, -0.5766288372196942 -2.4368913078579806, -0.43412044416733236 -2.462019382530519 C-0.29161205111497057 -2.4871474572030574, -0.1447068147224489 -2.4999999999999996, -7.120580697431198e-15 -2.5 C0.14470681472243463 -2.5000000000000004, 0.29161205111495647 -2.487147457203059, 0.4341204441673183 -2.4620193825305217 C0.5766288372196802 -2.436891307857984, 0.7190704323420518 -2.3987241974763442, 0.8550503583141642 -2.349231551964774 C0.9910302842862766 -2.2997389064532037, 1.1246802223496295 -2.2374169168223212, 1.2499999999999925 -2.165063509461101 C1.3753197776503554 -2.0927101020998804, 1.4961171729167668 -2.008126855338242, 1.6069690242163412 -1.915111107797451 C1.7178208755159157 -1.82209536025666, 1.8220953602566472 -1.7178208755159294, 1.915111107797439 -1.6069690242163557 C2.0081268553382308 -1.496117172916782, 2.09271010209987 -1.3753197776503712, 2.1650635094610915 -1.2500000000000089 C2.237416916822313 -1.1246802223496466, 2.299738906453196 -0.9910302842862939, 2.3492315519647673 -0.855050358314182 C2.3987241974763385 -0.71907043234207, 2.4368913078579792 -0.5766288372196986, 2.462019382530518 -0.4341204441673369 C2.487147457203057 -0.29161205111497523, 2.4936698970884197 -0.07235340736123454, 2.5 -1.1714553645825241e-14 C2.5063301029115803 0.07235340736121111, 2.50633010291158 -0.07235340736122292, 2.5 0"></path><path style="" fill="none" stroke-width="2" stroke="#9370DB" d="M2.5 0 C2.5 0.14470681472244193, 2.487147457203058 0.29161205111496386, 2.46201938253052 0.4341204441673258 C2.436891307857982 0.5766288372196877, 2.3987241974763416 0.7190704323420595, 2.3492315519647713 0.8550503583141718 C2.299738906453201 0.991030284286284, 2.2374169168223177 1.124680222349637, 2.165063509461097 1.2499999999999998 C2.092710102099876 1.3753197776503625, 2.0081268553382365 1.496117172916774, 1.915111107797445 1.6069690242163481 C1.8220953602566536 1.7178208755159223, 1.7178208755159226 1.8220953602566536, 1.6069690242163484 1.915111107797445 C1.4961171729167742 2.0081268553382365, 1.375319777650363 2.0927101020998755, 1.2500000000000002 2.1650635094610964 C1.1246802223496375 2.2374169168223172, 0.9910302842862845 2.2997389064532, 0.8550503583141721 2.349231551964771 C0.7190704323420597 2.3987241974763416, 0.576628837219688 2.436891307857982, 0.43412044416732604 2.46201938253052 C0.291612051114964 2.487147457203058, 0.14470681472244212 2.5, 1.5308084989341916e-16 2.5 C-0.1447068147224418 2.5, -0.2916120511149638 2.487147457203058, -0.43412044416732576 2.46201938253052 C-0.5766288372196877 2.436891307857982, -0.7190704323420595 2.3987241974763416, -0.8550503583141718 2.3492315519647713 C-0.991030284286284 2.299738906453201, -1.124680222349637 2.2374169168223177, -1.2499999999999996 2.165063509461097 C-1.375319777650362 2.092710102099876, -1.4961171729167733 2.008126855338237, -1.6069690242163475 1.9151111077974459 C-1.7178208755159217 1.8220953602566548, -1.822095360256653 1.7178208755159234, -1.9151111077974443 1.6069690242163495 C-2.0081268553382357 1.4961171729167755, -2.0927101020998746 1.3753197776503645, -2.1650635094610955 1.250000000000002 C-2.2374169168223164 1.1246802223496395, -2.2997389064531992 0.9910302842862865, -2.34923155196477 0.8550503583141743 C-2.3987241974763407 0.7190704323420621, -2.436891307857981 0.5766288372196907, -2.4620193825305194 0.434120444167329 C-2.487147457203058 0.29161205111496724, -2.5 0.14470681472244545, -2.5 3.636830773662308e-15 C-2.5 -0.14470681472243818, -2.4871474572030587 -0.2916120511149599, -2.4620193825305208 -0.4341204441673218 C-2.436891307857983 -0.5766288372196837, -2.398724197476343 -0.7190704323420553, -2.3492315519647726 -0.8550503583141675 C-2.2997389064532023 -0.9910302842862798, -2.23741691682232 -1.1246802223496328, -2.165063509461099 -1.2499999999999956 C-2.092710102099878 -1.3753197776503583, -2.00812685533824 -1.4961171729167695, -1.9151111077974488 -1.606969024216344 C-1.8220953602566576 -1.7178208755159183, -1.7178208755159263 -1.82209536025665, -1.6069690242163523 -1.9151111077974416 C-1.4961171729167784 -2.0081268553382334, -1.3753197776503672 -2.0927101020998724, -1.2500000000000047 -2.1650635094610937 C-1.1246802223496422 -2.237416916822315, -0.9910302842862897 -2.299738906453198, -0.8550503583141776 -2.3492315519647686 C-0.7190704323420656 -2.3987241974763394, -0.5766288372196942 -2.4368913078579806, -0.43412044416733236 -2.462019382530519 C-0.29161205111497057 -2.4871474572030574, -0.1447068147224489 -2.4999999999999996, -7.120580697431198e-15 -2.5 C0.14470681472243463 -2.5000000000000004, 0.29161205111495647 -2.487147457203059, 0.4341204441673183 -2.4620193825305217 C0.5766288372196802 -2.436891307857984, 0.7190704323420518 -2.3987241974763442, 0.8550503583141642 -2.349231551964774 C0.9910302842862766 -2.2997389064532037, 1.1246802223496295 -2.2374169168223212, 1.2499999999999925 -2.165063509461101 C1.3753197776503554 -2.0927101020998804, 1.4961171729167668 -2.008126855338242, 1.6069690242163412 -1.915111107797451 C1.7178208755159157 -1.82209536025666, 1.8220953602566472 -1.7178208755159294, 1.915111107797439 -1.6069690242163557 C2.0081268553382308 -1.496117172916782, 2.09271010209987 -1.3753197776503712, 2.1650635094610915 -1.2500000000000089 C2.237416916822313 -1.1246802223496466, 2.299738906453196 -0.9910302842862939, 2.3492315519647673 -0.855050358314182 C2.3987241974763385 -0.71907043234207, 2.4368913078579792 -0.5766288372196986, 2.462019382530518 -0.4341204441673369 C2.487147457203057 -0.29161205111497523, 2.4936698970884197 -0.07235340736123454, 2.5 -1.1714553645825241e-14 C2.5063301029115803 0.07235340736121111, 2.50633010291158 -0.07235340736122292, 2.5 0"></path></g></g></g></g></g></g></svg></div>
+
+</section><section>
+<h2 id="linea-guida-per-creare-un-thread">Linea guida per creare un thread</h2>
+<ol>
+<li>Creare una classe che implementa l’interfaccia Runnable</li>
+<li>Implementare il metodo run() con il codice che si vuole eseguire nel thread</li>
+<li>Creare un’istanza della classe Thread, passando un’istanza della classe Runnable al costruttore</li>
+<li>Avviare il thread chiamando il metodo start()</li>
+</ol>
+<p><em>Nota</em>: In generale è sconsigliato estendere direttamente la classe Thread</p>
+</section><section>
+<h2 id="esempio-clock">Esempio: clock</h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Clock</span> <span style="color:#a90d91">implements</span> <span style="color:#000">Runnable</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#000">String</span> <span style="color:#000">name</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">int</span> <span style="color:#000">amount</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">Clock</span>(<span style="color:#000">String</span> <span style="color:#000">name</span>, <span style="color:#a90d91">int</span> <span style="color:#000">amount</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">this</span>.<span style="color:#836c28">name</span> <span style="color:#000">=</span> <span style="color:#000">name</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">this</span>.<span style="color:#836c28">amount</span> <span style="color:#000">=</span> <span style="color:#000">amount</span>; 
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#000">@Override</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">run</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">while</span>(<span style="color:#a90d91">true</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Clock "</span> <span style="color:#000">+</span> <span style="color:#000">name</span> <span style="color:#000">+</span> <span style="color:#c41a16">": "</span> <span style="color:#000">+</span> <span style="color:#000">System</span>.<span style="color:#836c28">currentTimeMillis</span>());
+</span></span><span style="display:flex;"><span>            <span style="color:#a90d91">try</span> {
+</span></span><span style="display:flex;"><span>                <span style="color:#000">Thread</span>.<span style="color:#836c28">sleep</span>(<span style="color:#a90d91">this</span>.<span style="color:#836c28">amount</span>); <span style="color:#177500">// Pausa di 1 secondo</span>
+</span></span><span style="display:flex;"><span>            } <span style="color:#a90d91">catch</span> (<span style="color:#000">InterruptedException</span> <span style="color:#000">e</span>) {
+</span></span><span style="display:flex;"><span>                <span style="color:#000">e</span>.<span style="color:#836c28">printStackTrace</span>();
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></section><section>
+<h2 id="esempio-avvio-dei-thread">Esempio: avvio dei thread</h2>
+<ul>
+<li>Dato un oggetto Clock, possiamo avviare due thread che eseguono due orologi distinti</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#000">Clock</span> <span style="color:#000">clock1</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Clock</span>(<span style="color:#c41a16">"A"</span>, <span style="color:#000">500</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#000">Thread</span> <span style="color:#000">thread1</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Thread</span>(<span style="color:#000">clock1</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#000">thread1</span>.<span style="color:#836c28">start</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#000">Clock</span> <span style="color:#000">clock2</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Clock</span>(<span style="color:#c41a16">"B"</span>, <span style="color:#000">1000</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#000">Thread</span> <span style="color:#000">thread2</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Thread</span>(<span style="color:#000">clock2</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#000">thread2</span>.<span style="color:#836c28">start</span>();
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Un possibile output sarà:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#000">Clock</span> <span style="color:#000">A</span>: <span style="color:#000">1700000000000</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">Clock</span> <span style="color:#000">A</span>: <span style="color:#000">1700000000500</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">Clock</span> <span style="color:#000">B</span>: <span style="color:#000">1700000001000</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">Clock</span> <span style="color:#000">A</span>: <span style="color:#000">1700000001500</span>
+</span></span></code></pre></div><ul>
+<li>Notate: i due orologi funzionano in modo indipendente e concorrente!</li>
+<li>Altra nota: il metodo <code>start()</code> non dà garanzie sull’ordine di esecuzione dei thread! (quindi thread1 potrebbe partire dopo thread2)</li>
+</ul>
+</section><section>
+<h2 id="come-dare-garanzie-sullesecuzione-dei-thread">Come dare garanzie sull’esecuzione dei thread?</h2>
+<ul>
+<li>Non ci sono mai garanzie sull’ordine di esecuzione dei thread</li>
+<li>Ad esempio:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">void</span> <span style="color:#000">main</span>() <span style="color:#a90d91">throws</span> <span style="color:#000">InterruptedException</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#000">Thread</span> <span style="color:#000">t1</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Thread</span>(() <span style="color:#000">-&gt;</span> <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Thread 1"</span>));
+</span></span><span style="display:flex;"><span>    <span style="color:#000">Thread</span> <span style="color:#000">t2</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Thread</span>(() <span style="color:#000">-&gt;</span> <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Thread 2"</span>));
+</span></span><span style="display:flex;"><span>    <span style="color:#000">t1</span>.<span style="color:#836c28">start</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#000">t2</span>.<span style="color:#836c28">start</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"after start"</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><ul>
+<li>Quale sarà l’output?</li>
+<li>Potrebbe essere:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#000">Thread</span> <span style="color:#000">1</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">Thread</span> <span style="color:#000">2</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">after</span> <span style="color:#000">start</span>
+</span></span></code></pre></div><ul>
+<li>Oppure (e molte altre…):</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#000">Thread</span> <span style="color:#000">2</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">after</span> <span style="color:#000">start</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">Thread</span> <span style="color:#000">1</span>
+</span></span></code></pre></div><ul>
+<li>Perché? Perché i thread vengono eseguiti in modo concorrente e l’ordine di esecuzione non è deterministico!</li>
+</ul>
+</section><section>
+<h2 id="come-sapere-quando-un-thread-ha-finito">Come sapere quando un thread ha finito?</h2>
+<ul>
+<li>Se volessi per dire usare diversi thread per ordinare una lista?</li>
+<li>Come facciamo a sapere quando tutti i thread hanno finito?</li>
+<li>Possiamo usare il metodo <code>join()</code> della classe Thread!</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">void</span> <span style="color:#000">main</span>() <span style="color:#a90d91">throws</span> <span style="color:#000">InterruptedException</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#000">Thread</span> <span style="color:#000">t1</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Thread</span>(() <span style="color:#000">-&gt;</span> <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Thread 1"</span>));
+</span></span><span style="display:flex;"><span>    <span style="color:#000">Thread</span> <span style="color:#000">t2</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Thread</span>(() <span style="color:#000">-&gt;</span> <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Thread 2"</span>));
+</span></span><span style="display:flex;"><span>    <span style="color:#000">t1</span>.<span style="color:#836c28">start</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#000">t2</span>.<span style="color:#836c28">start</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#000">t1</span>.<span style="color:#836c28">join</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#000">t2</span>.<span style="color:#836c28">join</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"after join"</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Tutti i thread hanno finito!"</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><ul>
+<li>Il metodo <code>join()</code> blocca il thread chiamante finché il thread su cui viene chiamato non termina</li>
+</ul>
+</section><section>
+<h2 id="accesso-concorrente-a-risorse-condivise">Accesso concorrente a risorse condivise</h2>
+<ul>
+<li>Supponiamo di avere questo esempio:</li>
+</ul>
+<div class="smaller">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">Counter</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">int</span> <span style="color:#000">counter</span> <span style="color:#000">=</span> <span style="color:#000">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">increment</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#000">counter</span><span style="color:#000">++</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">int</span> <span style="color:#000">getCounter</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">return</span> <span style="color:#000">counter</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#000">Runnable</span> <span style="color:#000">incrementFor</span>(<span style="color:#a90d91">int</span> <span style="color:#000">amount</span>, <span style="color:#000">Counter</span> <span style="color:#000">counter</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">return</span> () <span style="color:#000">-&gt;</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#a90d91">for</span>(<span style="color:#a90d91">int</span> <span style="color:#000">i</span> <span style="color:#000">=</span> <span style="color:#000">0</span>; <span style="color:#000">i</span> <span style="color:#000">&lt;</span> <span style="color:#000">amount</span>; <span style="color:#000">i</span><span style="color:#000">++</span>) {
+</span></span><span style="display:flex;"><span>                <span style="color:#000">counter</span>.<span style="color:#836c28">increment</span>();
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        };
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">void</span> <span style="color:#000">main</span>() <span style="color:#a90d91">throws</span> <span style="color:#000">InterruptedException</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">var</span> <span style="color:#000">shared</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Counter</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">var</span> <span style="color:#000">thread1</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Thread</span>(<span style="color:#000">Counter</span>.<span style="color:#836c28">incrementFor</span>(<span style="color:#000">1000</span>, <span style="color:#000">shared</span>));
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">var</span> <span style="color:#000">thread2</span> <span style="color:#000">=</span><span style="color:#a90d91">new</span> <span style="color:#000">Thread</span>(<span style="color:#000">Counter</span>.<span style="color:#836c28">incrementFor</span>(<span style="color:#000">1000</span>, <span style="color:#000">shared</span>));
+</span></span><span style="display:flex;"><span>    <span style="color:#000">thread1</span>.<span style="color:#836c28">start</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#000">thread2</span>.<span style="color:#836c28">start</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#000">thread2</span>.<span style="color:#836c28">join</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#000">thread1</span>.<span style="color:#836c28">join</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Final counter value: "</span> <span style="color:#000">+</span> <span style="color:#000">shared</span>.<span style="color:#836c28">getCounter</span>());
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></div>
+<ul>
+<li>Cosa ci aspettiamo come output?</li>
+<li>Ci aspettiamo <code>Final counter value: 2000</code></li>
+<li>Ma in realtà potremmo ottenere un valore inferiore a 2000!</li>
+<li>Perché? La variabile <code>counter</code> viene letta e scritta da due thread contemporaneamente, causando una <strong>corsa critica</strong></li>
+</ul>
+</section><section>
+<h2 id="corse-critiche">Corse Critiche</h2>
+<blockquote>
+<p>Una corsa critica si verifica quando due o più thread accedono contemporaneamente a una risorsa condivisa (ad esempio, una variabile) e almeno uno di essi modifica la risorsa. Questo può portare a risultati imprevedibili e incoerenti.</p>
+</blockquote>
+<ul>
+<li>Nel nostro esempio, entrambi i thread leggono il valore di <code>counter</code>, lo incrementano e lo riscrivono. Se entrambi leggono il valore prima che uno di loro lo riscriva, perderemo un incremento.</li>
+<li>Come risolvere questo problema? Usando la <strong>sincronizzazione</strong></li>
+<li>Cioè, vorremo che solo un thread alla volta possa eseguire il metodo <code>increment()</code> (in mutua esclusione)</li>
+<li>In Java, si possono usare i <em>monitor</em> per fare questo</li>
+</ul>
+</section><section>
+<h2 id="monitor">Monitor</h2>
+<blockquote>
+<p>Un monitor è una struttura di sincronizzazione che consente a un solo thread alla volta di eseguire un blocco di codice protetto. In Java, ogni oggetto ha un monitor associato, e i metodi sincronizzati utilizzano questo monitor per garantire l’accesso esclusivo.</p>
+</blockquote>
+<ul>
+<li>Un monitor, in Java è una classe che ha <em>tutti</em> i metodi pubblici sincronizzati</li>
+<li>Esempio, un <code>Counter</code> sincronizzato:</li>
+</ul>
+<div class="smaller">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">SynchronizedCounter</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">int</span> <span style="color:#000">counter</span> <span style="color:#000">=</span> <span style="color:#000">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">synchronized</span> <span style="color:#a90d91">void</span> <span style="color:#000">increment</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#000">counter</span><span style="color:#000">++</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">synchronized</span> <span style="color:#a90d91">int</span> <span style="color:#000">getCounter</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">return</span> <span style="color:#000">counter</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">static</span> <span style="color:#000">Runnable</span> <span style="color:#000">incrementFor</span>(<span style="color:#a90d91">int</span> <span style="color:#000">amount</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">return</span> () <span style="color:#000">-&gt;</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#a90d91">for</span>(<span style="color:#a90d91">int</span> <span style="color:#000">i</span> <span style="color:#000">=</span> <span style="color:#000">0</span>; <span style="color:#000">i</span> <span style="color:#000">&lt;</span> <span style="color:#000">amount</span>; <span style="color:#000">i</span><span style="color:#000">++</span>) {
+</span></span><span style="display:flex;"><span>                <span style="color:#000">increment</span>();
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        };
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></div>
+</section><section>
+<h2 id="uso-del-synchronizedcounter">Uso del SynchronizedCounter</h2>
+<ul>
+<li>Ora, usiamo <code>SynchronizedCounter</code> nel nostro esempio:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span>) <span style="color:#a90d91">throws</span> <span style="color:#000">InterruptedException</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">var</span> <span style="color:#000">shared</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">SynchronizedCounter</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">var</span> <span style="color:#000">thread1</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Thread</span>(<span style="color:#000">SynchronizedCounter</span>.<span style="color:#836c28">incrementFor</span>(<span style="color:#000">1000</span>, <span style="color:#000">shared</span>));
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">var</span> <span style="color:#000">thread2</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Thread</span>(<span style="color:#000">SynchronizedCounter</span>.<span style="color:#836c28">incrementFor</span>(<span style="color:#000">1000</span>, <span style="color:#000">shared</span>));
+</span></span><span style="display:flex;"><span>    <span style="color:#000">thread1</span>.<span style="color:#836c28">start</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#000">thread2</span>.<span style="color:#836c28">start</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#000">thread2</span>.<span style="color:#836c28">join</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#000">thread1</span>.<span style="color:#836c28">join</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Final counter value: "</span> <span style="color:#000">+</span> <span style="color:#000">shared</span>.<span style="color:#836c28">getCounter</span>());
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><ul>
+<li>Ora, se usiamo <code>SynchronizedCounter</code> al posto di <code>Counter</code>, i due thread non potranno eseguire <code>increment()</code> contemporaneamente, evitando la corsa critica</li>
+<li>Così, otterremo sempre <code>Final counter value: 2000</code></li>
+</ul>
+</section><section>
+<h2 id="comunicazione-tra-thread">Comunicazione tra thread</h2>
+<ul>
+<li>A volte, i thread devono comunicare tra loro</li>
+<li>Java espone un meccanismo di comunicazione tra thread basato sui metodi <code>wait()</code>, <code>notify()</code> e <code>notifyAll()</code></li>
+</ul>
+<blockquote>
+<p><code>wait()</code>: sospende l’esecuzione del thread corrente fino a quando un altro thread non chiama <code>notify()</code> o <code>notifyAll()</code> sullo stesso oggetto.
+<code>notify()</code>: risveglia un thread in attesa sul monitor dell’oggetto.
+<code>notifyAll()</code>: risveglia tutti i thread in attesa sul monitor dell’oggetto.</p>
+</blockquote>
+</section><section>
+<h2 id="esempio-di-comunicazione-tra-thread---produttoreconsumatore">Esempio di comunicazione tra thread - Produttore/Consumatore</h2>
+<ul>
+<li>Supponiamo di avere un buffer condiviso tra un thread produttore e un thread consumatore</li>
+<li>Il produttore produce dati e li mette nel buffer, mentre il consumatore prende i dati dal buffer</li>
+<li>Se il buffer è pieno, il produttore deve aspettare; se il buffer è vuoto, il consumatore deve aspettare</li>
+<li>Possiamo usare <code>wait()</code> e <code>notify()</code> per gestire questa comunicazione</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">UnboundedBuffer</span><span style="color:#000">&lt;</span><span style="color:#000">T</span><span style="color:#000">&gt;</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#000">Queue</span><span style="color:#000">&lt;</span><span style="color:#000">T</span><span style="color:#000">&gt;</span> <span style="color:#000">buffer</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">LinkedList</span><span style="color:#000">&lt;&gt;</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">synchronized</span> <span style="color:#a90d91">void</span> <span style="color:#000">put</span>(<span style="color:#000">T</span> <span style="color:#000">item</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#000">buffer</span>.<span style="color:#836c28">add</span>(<span style="color:#000">item</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#000">notify</span>(); <span style="color:#177500">// Notifica un consumatore in attesa</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">synchronized</span> <span style="color:#000">T</span> <span style="color:#000">take</span>() <span style="color:#a90d91">throws</span> <span style="color:#000">InterruptedException</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">while</span> (<span style="color:#000">buffer</span>.<span style="color:#836c28">isEmpty</span>()) {
+</span></span><span style="display:flex;"><span>            <span style="color:#000">wait</span>(); <span style="color:#177500">// Aspetta che ci sia un elemento</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">return</span> <span style="color:#000">buffer</span>.<span style="color:#836c28">remove</span>();
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></section><section>
+<h2 id="esempio-uso-del-unboundedbuffer">Esempio uso del UnboundedBuffer</h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#000">UnboundedBuffer</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> <span style="color:#000">buffer</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">UnboundedBuffer</span><span style="color:#000">&lt;&gt;</span>();
+</span></span><span style="display:flex;"><span><span style="color:#177500">// put 10 elements before</span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">for</span> (<span style="color:#a90d91">int</span> <span style="color:#000">i</span> <span style="color:#000">=</span> <span style="color:#000">0</span>; <span style="color:#000">i</span> <span style="color:#000">&lt;</span> <span style="color:#000">10</span>; <span style="color:#000">i</span><span style="color:#000">++</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#000">buffer</span>.<span style="color:#836c28">put</span>(<span style="color:#000">i</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#000">Thread</span> <span style="color:#000">producer</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Thread</span>(() <span style="color:#000">-&gt;</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">for</span> (<span style="color:#a90d91">int</span> <span style="color:#000">i</span> <span style="color:#000">=</span> <span style="color:#000">10</span>; <span style="color:#000">i</span> <span style="color:#000">&lt;</span> <span style="color:#000">20</span>; <span style="color:#000">i</span><span style="color:#000">++</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#000">buffer</span>.<span style="color:#836c28">put</span>(<span style="color:#000">i</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Produced: "</span> <span style="color:#000">+</span> <span style="color:#000">i</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>});
+</span></span><span style="display:flex;"><span><span style="color:#000">Thread</span> <span style="color:#000">consumer</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Thread</span>(() <span style="color:#000">-&gt;</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">for</span> (<span style="color:#a90d91">int</span> <span style="color:#000">i</span> <span style="color:#000">=</span> <span style="color:#000">0</span>; <span style="color:#000">i</span> <span style="color:#000">&lt;</span> <span style="color:#000">10</span>; <span style="color:#000">i</span><span style="color:#000">++</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">try</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#000">Object</span> <span style="color:#000">item</span> <span style="color:#000">=</span> <span style="color:#000">buffer</span>.<span style="color:#836c28">take</span>();
+</span></span><span style="display:flex;"><span>            <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Consumed: "</span> <span style="color:#000">+</span> <span style="color:#000">i</span>);
+</span></span><span style="display:flex;"><span>        } <span style="color:#a90d91">catch</span> (<span style="color:#000">InterruptedException</span> <span style="color:#000">e</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#000">e</span>.<span style="color:#836c28">printStackTrace</span>();
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>});
+</span></span><span style="display:flex;"><span><span style="color:#000">producer</span>.<span style="color:#836c28">start</span>();
+</span></span><span style="display:flex;"><span><span style="color:#000">consumer</span>.<span style="color:#836c28">start</span>();
+</span></span></code></pre></div></section><section>
+<h2 id="come-stoppare-un-thread">Come stoppare un thread?</h2>
+<ul>
+<li>Il Thread, una volta avviato, continua a eseguire il metodo <code>run()</code> fino a quando non termina</li>
+<li>Se metto un ciclo infinito in <code>run()</code>, il thread non terminerà mai!</li>
+<li>Come posso fermare un thread in modo sicuro?</li>
+<li>La soluzione più comune è usare un flag booleano che il thread controlla periodicamente!</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">StopSignal</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">boolean</span> <span style="color:#000">stop</span> <span style="color:#000">=</span> <span style="color:#a90d91">false</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">synchronized</span> <span style="color:#a90d91">void</span> <span style="color:#000">requestStop</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#000">stop</span> <span style="color:#000">=</span> <span style="color:#a90d91">true</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">synchronized</span> <span style="color:#a90d91">boolean</span> <span style="color:#000">shouldStop</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">return</span> <span style="color:#000">stop</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></section><section>
+<h2 id="uso-dello-stopsignal">Uso dello StopSignal</h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">StoppableTask</span> <span style="color:#a90d91">implements</span> <span style="color:#000">Runnable</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#000">StopSignal</span> <span style="color:#000">stopSignal</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">StoppableTask</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">this</span>.<span style="color:#836c28">stopSignal</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">StopSignal</span>();
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#000">@Override</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">run</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">while</span> (<span style="color:#000">!</span><span style="color:#000">stopSignal</span>.<span style="color:#836c28">shouldStop</span>()) {
+</span></span><span style="display:flex;"><span>            <span style="color:#177500">// Esegui il lavoro</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Working..."</span>);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">kill</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#000">stopSignal</span>.<span style="color:#836c28">requestStop</span>();
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><ul>
+<li>In questo modo, il thread può essere fermato in modo sicuro chiamando il metodo <code>kill()</code>
+Esempio:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#000">StoppableTask</span> <span style="color:#000">task</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">StoppableTask</span>();
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">new</span> <span style="color:#000">Thread</span>(<span style="color:#000">task</span>).<span style="color:#836c28">start</span>();
+</span></span><span style="display:flex;"><span><span style="color:#000">thread</span>.<span style="color:#836c28">start</span>();
+</span></span><span style="display:flex;"><span><span style="color:#000">task</span>.<span style="color:#836c28">kill</span>(); <span style="color:#177500">// Chiede al thread di fermarsi</span>
+</span></span></code></pre></div></section><section>
+<h1 id="concorrenza-in-javafx">Concorrenza in JavaFX</h1>
+</section><section>
+<h2 id="problema-della-reattività">Problema della reattività</h2>
+<ul>
+<li>Immaginate di avere una interfaccia grafica che esegue un calcolo pesante quando si preme un bottone</li>
+<li>Ad esempio:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UnresponsiveUI</span> <span style="color:#a90d91">extends</span> <span style="color:#000">Application</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#000">@Override</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">start</span>(<span style="color:#000">Stage</span> <span style="color:#000">primaryStage</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#000">Button</span> <span style="color:#000">btn</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Button</span>(<span style="color:#c41a16">"Calcola"</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#000">TextField</span> <span style="color:#000">result</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">TextField</span>();
+</span></span><span style="display:flex;"><span>        <span style="color:#000">btn</span>.<span style="color:#836c28">setOnAction</span>(<span style="color:#000">event</span> <span style="color:#000">-&gt;</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#a90d91">long</span> <span style="color:#000">sum</span> <span style="color:#000">=</span> <span style="color:#000">0</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#a90d91">for</span> (<span style="color:#a90d91">long</span> <span style="color:#000">i</span> <span style="color:#000">=</span> <span style="color:#000">0</span>; <span style="color:#000">i</span> <span style="color:#000">&lt;</span> <span style="color:#000">1_000_000_000_0L</span>; <span style="color:#000">i</span><span style="color:#000">++</span>) { <span style="color:#000">sum</span> <span style="color:#000">++</span>; }
+</span></span><span style="display:flex;"><span>            <span style="color:#000">result</span>.<span style="color:#836c28">setText</span>(<span style="color:#c41a16">"Somma: "</span> <span style="color:#000">+</span> <span style="color:#000">sum</span>);
+</span></span><span style="display:flex;"><span>        });
+</span></span><span style="display:flex;"><span>        <span style="color:#000">VBox</span> <span style="color:#000">root</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">VBox</span>();
+</span></span><span style="display:flex;"><span>        <span style="color:#000">root</span>.<span style="color:#836c28">getChildren</span>().<span style="color:#836c28">addAll</span>(<span style="color:#000">btn</span>, <span style="color:#000">result</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#000">Scene</span> <span style="color:#000">scene</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Scene</span>(<span style="color:#000">root</span>, <span style="color:#000">300</span>, <span style="color:#000">250</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#000">primaryStage</span>.<span style="color:#836c28">setTitle</span>(<span style="color:#c41a16">"Esempio JavaFX"</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#000">primaryStage</span>.<span style="color:#836c28">setScene</span>(<span style="color:#000">scene</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#000">primaryStage</span>.<span style="color:#836c28">show</span>();
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><ul>
+<li>Perché l’interfaccia grafica si blocca quando premo il bottone?</li>
+</ul>
+</section><section>
+<h2 id="javafx-application-thread">JavaFX Application Thread</h2>
+<ul>
+<li>In JavaFX, c’è un thread speciale chiamato <strong>JavaFX Application Thread</strong> che gestisce l’interfaccia grafica</li>
+<li>Tutte le operazioni che modificano l’interfaccia grafica devono essere eseguite su questo thread</li>
+<li>Se eseguiamo un calcolo pesante sul JavaFX Application Thread, l’interfaccia grafica si blocca fino a quando il calcolo non termina</li>
+<li>Per evitare questo, dobbiamo eseguire i calcoli pesanti su un thread separato :)</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">ResponsiveUI</span> <span style="color:#a90d91">extends</span> <span style="color:#000">Application</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#000">@Override</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">start</span>(<span style="color:#000">Stage</span> <span style="color:#000">primaryStage</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#000">Button</span> <span style="color:#000">btn</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Button</span>(<span style="color:#c41a16">"Calcola"</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#000">TextField</span> <span style="color:#000">result</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">TextField</span>();
+</span></span><span style="display:flex;"><span>        <span style="color:#000">btn</span>.<span style="color:#836c28">setOnAction</span>(<span style="color:#000">event</span> <span style="color:#000">-&gt;</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#a90d91">new</span> <span style="color:#000">Thread</span>(() <span style="color:#000">-&gt;</span> {
+</span></span><span style="display:flex;"><span>                <span style="color:#a90d91">long</span> <span style="color:#000">sum</span> <span style="color:#000">=</span> <span style="color:#000">0</span>;
+</span></span><span style="display:flex;"><span>                <span style="color:#a90d91">for</span> (<span style="color:#a90d91">long</span> <span style="color:#000">i</span> <span style="color:#000">=</span> <span style="color:#000">0</span>; <span style="color:#000">i</span> <span style="color:#000">&lt;</span> <span style="color:#000">1_000_000_000_0L</span>; <span style="color:#000">i</span><span style="color:#000">++</span>) { <span style="color:#000">sum</span> <span style="color:#000">++</span>; }
+</span></span><span style="display:flex;"><span>                <span style="color:#a90d91">final</span> <span style="color:#a90d91">long</span> <span style="color:#000">finalSum</span> <span style="color:#000">=</span> <span style="color:#000">sum</span>;
+</span></span><span style="display:flex;"><span>            }).<span style="color:#836c28">start</span>();
+</span></span><span style="display:flex;"><span>        });
+</span></span><span style="display:flex;"><span>        <span style="color:#000">VBox</span> <span style="color:#000">root</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">VBox</span>();
+</span></span><span style="display:flex;"><span>        <span style="color:#000">root</span>.<span style="color:#836c28">getChildren</span>().<span style="color:#836c28">addAll</span>(<span style="color:#000">btn</span>, <span style="color:#000">result</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#000">Scene</span> <span style="color:#000">scene</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Scene</span>(<span style="color:#000">root</span>, <span style="color:#000">300</span>, <span style="color:#000">250</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#000">primaryStage</span>.<span style="color:#836c28">setTitle</span>(<span style="color:#c41a16">"Esempio JavaFX"</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#000">primaryStage</span>.<span style="color:#836c28">setScene</span>(<span style="color:#000">scene</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#000">primaryStage</span>.<span style="color:#836c28">show</span>();
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><ul>
+<li>Funziona?</li>
+<li>No! Perché stiamo cercando di aggiornare l’interfaccia grafica da un thread separato!</li>
+<li>Come risolviamo questo problema?</li>
+</ul>
+<h2 id="far-eseguire-codice-sul-javafx-application-thread">Far eseguire codice sul JavaFX Application Thread</h2>
+<ul>
+<li>JavaFX fornisce il metodo <code>Platform.runLater(Runnable r)</code> per eseguire codice sul JavaFX Application Thread</li>
+<li>Si usa in questo modo:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#000">Platform</span>.<span style="color:#836c28">runLater</span>(() <span style="color:#000">-&gt;</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#000">result</span>.<span style="color:#836c28">setText</span>(<span style="color:#c41a16">"Somma: "</span> <span style="color:#000">+</span> <span style="color:#000">finalSum</span>);
+</span></span><span style="display:flex;"><span>});
+</span></span></code></pre></div><ul>
+<li>Così facendo, il codice all’interno di <code>runLater</code> verrà eseguito sul JavaFX Application Thread, evitando problemi di concorrenza con l’interfaccia grafica</li>
+<li><em>Nota</em>: Non si dovrebbero MAI eseguire operazioni bloccanti all’interno di <code>runLater</code>, altrimenti si bloccherà l’interfaccia grafica!</li>
+</ul>
+</section><section>
+<h2 id="concorrenza-e-videogiochi">Concorrenza e Videogiochi</h2>
+<ul>
+<li>Nei videogiochi, la concorrenza è spesso usata per gestire diverse componenti del gioco in modo indipendente</li>
+<li>Tipicamente, l’aggiornamento della logica di gioco e il rendering grafico sono eseguiti su thread separati
+<ul>
+<li>Nota!! Anche se si potrebbe pensare di usare un thread per ogni entità del gioco, questo è inefficiente e non scalabile</li>
+</ul>
+</li>
+<li>Un approccio comune è usare un <strong>game loop</strong> che aggiorna la logica di gioco e il rendering a intervalli regolari</li>
+<li>Idea base del game loop:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">while</span> (<span style="color:#000">gameIsRunning</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#000">inputHandling</span>(); <span style="color:#177500">// Gestisce l'input dell'utente</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">updateGameLogic</span>(); <span style="color:#177500">// Aggiorna la logica di gioco</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">renderGraphics</span>();  <span style="color:#177500">// Esegue il rendering grafico</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">sleepUntilNextFrame</span>(); <span style="color:#177500">// Attende fino al prossimo frame</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></section><section>
+<h2 id="diagramma-del-game-loop">Diagramma del Game Loop</h2>
+<div class="mermaid" data-processed="true" pre-rendered="true"><svg aria-roledescription="flowchart-v2" role="graphics-document document" viewBox="0 0 353.0625 829.3125" style="max-width: 353.0625px;" class="flowchart" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" width="100%" id="my-svg"><style>#my-svg{font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:16px;fill:#333;}#my-svg .error-icon{fill:#552222;}#my-svg .error-text{fill:#552222;stroke:#552222;}#my-svg .edge-thickness-normal{stroke-width:1px;}#my-svg .edge-thickness-thick{stroke-width:3.5px;}#my-svg .edge-pattern-solid{stroke-dasharray:0;}#my-svg .edge-thickness-invisible{stroke-width:0;fill:none;}#my-svg .edge-pattern-dashed{stroke-dasharray:3;}#my-svg .edge-pattern-dotted{stroke-dasharray:2;}#my-svg .marker{fill:#333333;stroke:#333333;}#my-svg .marker.cross{stroke:#333333;}#my-svg svg{font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:16px;}#my-svg p{margin:0;}#my-svg .label{font-family:"trebuchet ms",verdana,arial,sans-serif;color:#333;}#my-svg .cluster-label text{fill:#333;}#my-svg .cluster-label span{color:#333;}#my-svg .cluster-label span p{background-color:transparent;}#my-svg .label text,#my-svg span{fill:#333;color:#333;}#my-svg .node rect,#my-svg .node circle,#my-svg .node ellipse,#my-svg .node polygon,#my-svg .node path{fill:#ECECFF;stroke:#9370DB;stroke-width:1px;}#my-svg .rough-node .label text,#my-svg .node .label text,#my-svg .image-shape .label,#my-svg .icon-shape .label{text-anchor:middle;}#my-svg .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#my-svg .rough-node .label,#my-svg .node .label,#my-svg .image-shape .label,#my-svg .icon-shape .label{text-align:center;}#my-svg .node.clickable{cursor:pointer;}#my-svg .root .anchor path{fill:#333333!important;stroke-width:0;stroke:#333333;}#my-svg .arrowheadPath{fill:#333333;}#my-svg .edgePath .path{stroke:#333333;stroke-width:2.0px;}#my-svg .flowchart-link{stroke:#333333;fill:none;}#my-svg .edgeLabel{background-color:rgba(232,232,232, 0.8);text-align:center;}#my-svg .edgeLabel p{background-color:rgba(232,232,232, 0.8);}#my-svg .edgeLabel rect{opacity:0.5;background-color:rgba(232,232,232, 0.8);fill:rgba(232,232,232, 0.8);}#my-svg .labelBkg{background-color:rgba(232, 232, 232, 0.5);}#my-svg .cluster rect{fill:#ffffde;stroke:#aaaa33;stroke-width:1px;}#my-svg .cluster text{fill:#333;}#my-svg .cluster span{color:#333;}#my-svg div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:12px;background:hsl(80, 100%, 96.2745098039%);border:1px solid #aaaa33;border-radius:2px;pointer-events:none;z-index:100;}#my-svg .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#333;}#my-svg rect.text{fill:none;stroke-width:0;}#my-svg .icon-shape,#my-svg .image-shape{background-color:rgba(232,232,232, 0.8);text-align:center;}#my-svg .icon-shape p,#my-svg .image-shape p{background-color:rgba(232,232,232, 0.8);padding:2px;}#my-svg .icon-shape rect,#my-svg .image-shape rect{opacity:0.5;background-color:rgba(232,232,232, 0.8);fill:rgba(232,232,232, 0.8);}#my-svg :root{--mermaid-font-family:"trebuchet ms",verdana,arial,sans-serif;}</style><g><marker orient="auto" markerHeight="8" markerWidth="8" markerUnits="userSpaceOnUse" refY="5" refX="5" viewBox="0 0 10 10" class="marker flowchart-v2" id="my-svg_flowchart-v2-pointEnd"><path style="stroke-width: 1; stroke-dasharray: 1, 0;" class="arrowMarkerPath" d="M 0 0 L 10 5 L 0 10 z"></path></marker><marker orient="auto" markerHeight="8" markerWidth="8" markerUnits="userSpaceOnUse" refY="5" refX="4.5" viewBox="0 0 10 10" class="marker flowchart-v2" id="my-svg_flowchart-v2-pointStart"><path style="stroke-width: 1; stroke-dasharray: 1, 0;" class="arrowMarkerPath" d="M 0 5 L 10 10 L 10 0 z"></path></marker><marker orient="auto" markerHeight="11" markerWidth="11" markerUnits="userSpaceOnUse" refY="5" refX="11" viewBox="0 0 10 10" class="marker flowchart-v2" id="my-svg_flowchart-v2-circleEnd"><circle style="stroke-width: 1; stroke-dasharray: 1, 0;" class="arrowMarkerPath" r="5" cy="5" cx="5"></circle></marker><marker orient="auto" markerHeight="11" markerWidth="11" markerUnits="userSpaceOnUse" refY="5" refX="-1" viewBox="0 0 10 10" class="marker flowchart-v2" id="my-svg_flowchart-v2-circleStart"><circle style="stroke-width: 1; stroke-dasharray: 1, 0;" class="arrowMarkerPath" r="5" cy="5" cx="5"></circle></marker><marker orient="auto" markerHeight="11" markerWidth="11" markerUnits="userSpaceOnUse" refY="5.2" refX="12" viewBox="0 0 11 11" class="marker cross flowchart-v2" id="my-svg_flowchart-v2-crossEnd"><path style="stroke-width: 2; stroke-dasharray: 1, 0;" class="arrowMarkerPath" d="M 1,1 l 9,9 M 10,1 l -9,9"></path></marker><marker orient="auto" markerHeight="11" markerWidth="11" markerUnits="userSpaceOnUse" refY="5.2" refX="-1" viewBox="0 0 11 11" class="marker cross flowchart-v2" id="my-svg_flowchart-v2-crossStart"><path style="stroke-width: 2; stroke-dasharray: 1, 0;" class="arrowMarkerPath" d="M 1,1 l 9,9 M 10,1 l -9,9"></path></marker><g class="root"><g class="clusters"></g><g class="edgePaths"><path marker-end="url(#my-svg_flowchart-v2-pointEnd)" style="" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" id="L_Start_Init_0" d="M259.805,56.797L259.805,60.964C259.805,65.13,259.805,73.464,259.805,79.714C259.805,85.964,259.805,90.13,259.805,93.63C259.805,97.13,259.805,99.964,259.805,101.38L259.805,102.797"></path><path marker-end="url(#my-svg_flowchart-v2-pointEnd)" style="" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" id="L_Init_Loop_1" d="M259.805,160.797L259.805,164.964C259.805,169.13,259.805,177.464,259.846,183.755C259.888,190.047,259.971,194.297,260.042,197.88C260.112,201.464,260.169,204.381,260.198,205.839L260.226,207.298"></path><path marker-end="url(#my-svg_flowchart-v2-pointEnd)" style="" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" id="L_Loop_Input_2" d="M213.241,334.749L195.894,348.676C178.546,362.603,143.851,390.458,126.504,407.469C109.156,424.479,109.156,430.646,109.156,436.146C109.156,441.646,109.156,446.479,109.156,448.896L109.156,451.313"></path><path marker-end="url(#my-svg_flowchart-v2-pointEnd)" style="" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" id="L_Input_Update_3" d="M109.156,509.313L109.156,513.479C109.156,517.646,109.156,525.979,109.156,532.229C109.156,538.479,109.156,542.646,109.156,546.146C109.156,549.646,109.156,552.479,109.156,553.896L109.156,555.313"></path><path marker-end="url(#my-svg_flowchart-v2-pointEnd)" style="" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" id="L_Update_Render_4" d="M109.156,613.313L109.156,617.479C109.156,621.646,109.156,629.979,109.156,636.229C109.156,642.479,109.156,646.646,109.156,650.146C109.156,653.646,109.156,656.479,109.156,657.896L109.156,659.313"></path><path marker-end="url(#my-svg_flowchart-v2-pointEnd)" style="" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" id="L_Render_Sleep_5" d="M109.156,717.313L109.156,721.479C109.156,725.646,109.156,733.979,113.311,740.229C117.465,746.479,125.773,750.646,133.486,754.514C141.199,758.381,148.316,761.95,151.874,763.735L155.432,765.519"></path><path marker-end="url(#my-svg_flowchart-v2-pointEnd)" style="" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" id="L_Sleep_Loop_6" d="M266.687,767.313L274.996,763.146C283.305,758.979,299.922,750.646,308.23,737.813C316.539,724.979,316.539,707.646,316.539,690.313C316.539,672.979,316.539,655.646,316.539,638.313C316.539,620.979,316.539,603.646,316.539,586.313C316.539,568.979,316.539,551.646,316.539,534.313C316.539,516.979,316.539,499.646,316.539,480.313C316.539,460.979,316.539,439.646,314.105,423.686C311.671,407.725,306.802,397.138,302.212,387.156C297.622,377.175,293.311,367.799,291.155,363.111L289,358.423"></path><path marker-end="url(#my-svg_flowchart-v2-pointEnd)" style="" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" id="L_Loop_End_7" d="M260.305,381.813L260.221,387.896C260.138,393.979,259.971,406.146,259.888,415.751C259.805,425.357,259.805,432.401,259.805,438.779C259.805,445.156,259.805,450.867,259.805,453.723L259.805,456.578"></path></g><g class="edgeLabels"><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" class="labelBkg" xmlns="http://www.w3.org/1999/xhtml"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" class="labelBkg" xmlns="http://www.w3.org/1999/xhtml"><span class="edgeLabel"></span></div></foreignObject></g></g><g transform="translate(109.15625, 418.3125)" class="edgeLabel"><g transform="translate(-13.0546875, -12)" class="label"><foreignObject height="24" width="26.109375"><div style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" class="labelBkg" xmlns="http://www.w3.org/1999/xhtml"><span class="edgeLabel"><p>Yes</p></span></div></foreignObject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" class="labelBkg" xmlns="http://www.w3.org/1999/xhtml"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" class="labelBkg" xmlns="http://www.w3.org/1999/xhtml"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" class="labelBkg" xmlns="http://www.w3.org/1999/xhtml"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" class="labelBkg" xmlns="http://www.w3.org/1999/xhtml"><span class="edgeLabel"></span></div></foreignObject></g></g><g transform="translate(259.8046875, 418.3125)" class="edgeLabel"><g transform="translate(-10.2265625, -12)" class="label"><foreignObject height="24" width="20.453125"><div style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" class="labelBkg" xmlns="http://www.w3.org/1999/xhtml"><span class="edgeLabel"><p>No</p></span></div></foreignObject></g></g></g><g class="nodes"><g transform="translate(259.8046875, 32.3984375)" id="flowchart-Start-0" class="node default"><circle cy="0" cx="0" r="24.3984375" style="" class="basic label-container"></circle><g transform="translate(-16.8984375, -12)" style="" class="label"><rect></rect><foreignObject height="24" width="33.796875"><div style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel"><p>Start</p></span></div></foreignObject></g></g><g transform="translate(259.8046875, 133.796875)" id="flowchart-Init-1" class="node default"><rect height="54" width="165.828125" y="-27" x="-82.9140625" style="" class="basic label-container"></rect><g transform="translate(-52.9140625, -12)" style="" class="label"><rect></rect><foreignObject height="24" width="105.828125"><div style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel"><p>Initialize Game</p></span></div></foreignObject></g></g><g transform="translate(259.8046875, 296.0546875)" id="flowchart-Loop-3" class="node default"><polygon transform="translate(-85.2578125,85.2578125)" class="label-container" points="85.2578125,0 170.515625,-85.2578125 85.2578125,-170.515625 0,-85.2578125"></polygon><g transform="translate(-58.2578125, -12)" style="" class="label"><rect></rect><foreignObject height="24" width="116.515625"><div style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel"><p>Game Running?</p></span></div></foreignObject></g></g><g transform="translate(109.15625, 482.3125)" id="flowchart-Input-5" class="node default"><rect height="54" width="157.828125" y="-27" x="-78.9140625" style="" class="basic label-container"></rect><g transform="translate(-48.9140625, -12)" style="" class="label"><rect></rect><foreignObject height="24" width="97.828125"><div style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel"><p>Process Input</p></span></div></foreignObject></g></g><g transform="translate(109.15625, 586.3125)" id="flowchart-Update-7" class="node default"><rect height="54" width="202.3125" y="-27" x="-101.15625" style="" class="basic label-container"></rect><g transform="translate(-71.15625, -12)" style="" class="label"><rect></rect><foreignObject height="24" width="142.3125"><div style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel"><p>Update Game Logic</p></span></div></foreignObject></g></g><g transform="translate(109.15625, 690.3125)" id="flowchart-Render-9" class="node default"><rect height="54" width="180.953125" y="-27" x="-90.4765625" style="" class="basic label-container"></rect><g transform="translate(-60.4765625, -12)" style="" class="label"><rect></rect><foreignObject height="24" width="120.953125"><div style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel"><p>Render Graphics</p></span></div></foreignObject></g></g><g transform="translate(212.84765625, 794.3125)" id="flowchart-Sleep-11" class="node default"><rect height="54" width="136.78125" y="-27" x="-68.390625" style="" class="basic label-container"></rect><g transform="translate(-38.390625, -12)" style="" class="label"><rect></rect><foreignObject height="24" width="76.78125"><div style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel"><p>Sleep/Wait</p></span></div></foreignObject></g></g><g transform="translate(259.8046875, 482.3125)" id="flowchart-End-15" class="node default"><circle cy="0" cx="0" r="21.734375" style="" class="basic label-container"></circle><g transform="translate(-14.234375, -12)" style="" class="label"><rect></rect><foreignObject height="24" width="28.46875"><div style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel"><p>End</p></span></div></foreignObject></g></g></g></g></g></svg></div>
+
+<ul>
+<li>Nota: process input deve essere non bloccante!</li>
+<li>Render, allo stesso mode, deve essere eseguito sul JavaFX Application Thread</li>
+<li>Proviamo a farlo in JavaFX!</li>
+</ul>
+</section><section>
+<h2 id="jumping-ball">Jumping Ball</h2>
+<ul>
+<li>Supponiamo di fare un semplice gioco in cui una palla può saltare su e giù</li>
+<li>Il sistema deve gestire:
+<ul>
+<li>la fisica della palla (gravità, salto)</li>
+<li>il rendering grafico della palla</li>
+<li>l’input dell’utente (premere spazio per saltare)</li>
+</ul>
+</li>
+<li>Usiamo un game loop per gestire tutto questo in modo concorrente!</li>
+</ul>
+</section><section>
+<h2 id="game-loop">Game Loop</h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">abstract</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">GameLoop</span><span style="color:#000">&lt;</span><span style="color:#000">I</span>, <span style="color:#000">O</span><span style="color:#000">&gt;</span> <span style="color:#a90d91">implements</span> <span style="color:#000">Runnable</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#000">@Override</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">run</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">while</span>(<span style="color:#a90d91">true</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#a90d91">var</span> <span style="color:#000">start</span> <span style="color:#000">=</span> <span style="color:#000">System</span>.<span style="color:#836c28">currentTimeMillis</span>();
+</span></span><span style="display:flex;"><span>            <span style="color:#000">processInput</span>();
+</span></span><span style="display:flex;"><span>            <span style="color:#000">updateGame</span>();
+</span></span><span style="display:flex;"><span>            <span style="color:#000">waitForNextFrame</span>(<span style="color:#000">start</span>);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">void</span> <span style="color:#000">processInput</span>() { ... }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">void</span> <span style="color:#000">updateGame</span>() { ... }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">void</span> <span style="color:#000">waitForNextFrame</span>(<span style="color:#a90d91">long</span> <span style="color:#000">startTime</span>) { ... }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">protected</span> <span style="color:#a90d91">abstract</span> <span style="color:#a90d91">void</span> <span style="color:#000">processInput</span>(<span style="color:#000">I</span> <span style="color:#000">input</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">protected</span> <span style="color:#a90d91">abstract</span> <span style="color:#000">O</span> <span style="color:#000">logic</span>(<span style="color:#a90d91">float</span> <span style="color:#000">deltaTimeMillis</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></section><section>
+<h2 id="gestione-dellinputoutput">Gestione dell’input/output</h2>
+<ul>
+<li>L’input può essere gestito tramite code thread-safe</li>
+<li>L’output (rendering) deve essere eseguito sul JavaFX Application Thread</li>
+<li>Uso un meccanismo di sincronizzazione per passare i dati tra il game loop e il thread grafico</li>
+</ul>
+<div class="smaller">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">SynchValue</span><span style="color:#000">&lt;</span><span style="color:#000">V</span><span style="color:#000">&gt;</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#000">V</span> <span style="color:#000">value</span> <span style="color:#000">=</span> <span style="color:#a90d91">null</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">synchronized</span> <span style="color:#a90d91">void</span> <span style="color:#000">setValue</span>(<span style="color:#000">V</span> <span style="color:#000">value</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">this</span>.<span style="color:#836c28">value</span> <span style="color:#000">=</span> <span style="color:#000">value</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">this</span>.<span style="color:#836c28">notifyAll</span>();
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">synchronized</span> <span style="color:#000">V</span> <span style="color:#000">getValue</span>() <span style="color:#a90d91">throws</span> <span style="color:#000">InterruptedException</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">while</span> (<span style="color:#000">value</span> <span style="color:#000">==</span> <span style="color:#a90d91">null</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#000">wait</span>();
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">var</span> <span style="color:#000">result</span> <span style="color:#000">=</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">value</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">this</span>.<span style="color:#836c28">value</span> <span style="color:#000">=</span> <span style="color:#a90d91">null</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">return</span> <span style="color:#000">result</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">synchronized</span> <span style="color:#000">Optional</span><span style="color:#000">&lt;</span><span style="color:#000">V</span><span style="color:#000">&gt;</span> <span style="color:#000">tryGetValue</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">if</span> (<span style="color:#000">value</span> <span style="color:#000">==</span> <span style="color:#a90d91">null</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#a90d91">return</span> <span style="color:#000">Optional</span>.<span style="color:#836c28">empty</span>();
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">var</span> <span style="color:#000">result</span> <span style="color:#000">=</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">value</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">this</span>.<span style="color:#836c28">value</span> <span style="color:#000">=</span> <span style="color:#a90d91">null</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">return</span> <span style="color:#000">Optional</span>.<span style="color:#836c28">of</span>(<span style="color:#000">result</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></div>
+</section><section>
+<h2 id="come-usare-synchvalue-nel-gameloop">Come usare SynchValue nel GameLoop?</h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">GameLoop</span><span style="color:#000">&lt;</span><span style="color:#000">I</span>, <span style="color:#000">O</span><span style="color:#000">&gt;</span> <span style="color:#a90d91">implements</span> <span style="color:#000">Runnable</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#000">SynchValue</span><span style="color:#000">&lt;</span><span style="color:#000">I</span><span style="color:#000">&gt;</span> <span style="color:#000">inputBuffer</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">SynchValue</span><span style="color:#000">&lt;&gt;</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#000">SynchValue</span><span style="color:#000">&lt;</span><span style="color:#000">O</span><span style="color:#000">&gt;</span> <span style="color:#000">outputBuffer</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">SynchValue</span><span style="color:#000">&lt;&gt;</span>();
+</span></span><span style="display:flex;"><span>    ...
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">void</span> <span style="color:#000">processInput</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">var</span> <span style="color:#000">input</span> <span style="color:#000">=</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">inputBuffer</span>.<span style="color:#836c28">tryGetValue</span>(); <span style="color:#177500">// non bloccante</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">input</span>.<span style="color:#836c28">ifPresent</span>(<span style="color:#a90d91">this</span>::<span style="color:#000">processInput</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">void</span> <span style="color:#000">updateGame</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">var</span> <span style="color:#000">result</span> <span style="color:#000">=</span> <span style="color:#000">logic</span>(<span style="color:#000">expectedFrameTimeMillis</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">this</span>.<span style="color:#836c28">outputBuffer</span>.<span style="color:#836c28">setValue</span>(<span style="color:#000">result</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">sendInput</span>(<span style="color:#000">I</span> <span style="color:#000">input</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">this</span>.<span style="color:#836c28">inputBuffer</span>.<span style="color:#836c28">setValue</span>(<span style="color:#000">input</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></section><section>
+<h2 id="piccolo-esempio-di-jumping-ball--demo">Piccolo esempio di Jumping Ball – Demo</h2>
+</section><section>
+<h2 id="piccolo-esempio-di-many-balls--demo">Piccolo esempio di Many Balls – Demo</h2>
+</section><section>
+<h2 id="conclusioni">Conclusioni</h2>
+<ul>
+<li>La programmazione concorrente è fondamentale per applicazioni moderne reattive e performanti</li>
+<li>Java fornisce un supporto nativo per la concorrenza attraverso i thread</li>
+<li>La sincronizzazione è essenziale per evitare corse critiche e garantire l’integrità dei dati</li>
+<li>In JavaFX, è importante eseguire le operazioni di interfaccia grafica sul JavaFX Application Thread</li>
+<li>I game loop sono un pattern comune per gestire la logica di gioco e il rendering in modo concorrente</li>
+<li>Queste sono solo le basi della programmazione concorrente in Java (ma è quello che vi serve per il progetto!)</li>
+</ul>
+</section><section>
+<h1 id="introduzione-alla-programmazione-concorrente-in-java-1">Introduzione alla Programmazione Concorrente in Java</h1>
+<h4 id="progettazione-e-sviluppo-del-software">Progettazione e Sviluppo del Software</h4>
+<h4 id="cdl-tecnologie-dei-sistemi-informatici">C.D.L. Tecnologie dei Sistemi Informatici</h4>
+<h3 id="danilo-pianini"><a href="mailto:danilo.pianini@unibo.it">Danilo Pianini — <code>danilo.pianini@unibo.it</code></a></h3>
+<h3 id="gianluca-aguzzi"><a href="mailto:gianluca.aguzzi@unibo.it">Gianluca Aguzzi — <code>gianluca.aguzzi@unibo.it</code></a></h3>
+<h3 id="angelo-filaseta"><a href="mailto:angelo.filaseta@unibo.it">Angelo Filaseta — <code>angelo.filaseta@unibo.it</code></a></h3>
+<p>Compiled on: 2025-12-05
+ — <a href="?print-pdf&amp;pdfSeparateFragments=false"><i class="fa fa-print" aria-hidden="true"></i> versione stampabile</a></p>
+<p><a href=".."><i class="fa fa-undo" aria-hidden="true"></i> back</a></p>
+</section>
+
+  
+
+
+</div>
+      
+
+    </div>
+<script type="text/javascript" src="/reveal-hugo/object-assign.js"></script>
+
+<a href="/reveal-js/dist/print/" id="print-location" style="display: none;"></a>
+
+<script type="application/json" id="reveal-hugo-site-params">{"custom_theme":"custom-theme.scss","custom_theme_compile":true,"custom_theme_options":{"enablesourcemap":true,"targetpath":"css/custom-theme.css"},"height":"900","highlight_theme":"default","history":true,"mermaid":[{"startOnLoad":false}],"slide_number":true,"theme":"white","transition":"slide","transition_speed":"fast","width":"1440"}</script>
+<script type="application/json" id="reveal-hugo-page-params">null</script>
+
+<script src="/reveal-js/dist/reveal.js"></script>
+
+
+  
+  
+  <script type="text/javascript" src="/reveal-js/plugin/markdown/markdown.js"></script>
+  
+  <script type="text/javascript" src="/reveal-js/plugin/highlight/highlight.js"></script>
+  
+  <script type="text/javascript" src="/reveal-js/plugin/zoom/zoom.js"></script>
+  
+  <script type="text/javascript" src="/reveal-js/plugin/notes/notes.js"></script>
+  
+  
+  <script type="text/javascript" src="/reveal-js/plugin/notes/notes.js"></script>
+
+
+
+
+<script type="text/javascript">
+  
+  
+  function camelize(map) {
+    if (map) {
+      Object.keys(map).forEach(function(k) {
+        newK = k.replace(/(\_\w)/g, function(m) { return m[1].toUpperCase() });
+        if (newK != k) {
+          map[newK] = map[k];
+          delete map[k];
+        }
+      });
+    }
+    return map;
+  }
+
+  var revealHugoDefaults = { center: true, controls: true, history: true, progress: true, transition: "slide" };
+
+  var revealHugoPlugins = {
+    plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealZoom ]
+   };
+  var revealHugoSiteParams = JSON.parse(document.getElementById('reveal-hugo-site-params').innerHTML);
+  var revealHugoPageParams = JSON.parse(document.getElementById('reveal-hugo-page-params').innerHTML);
+  
+  var options = Object.assign({},
+    camelize(revealHugoDefaults),
+    camelize(revealHugoSiteParams),
+    camelize(revealHugoPageParams),
+    camelize(revealHugoPlugins));
+  Reveal.initialize(options);
+</script>
+
+
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+    
+  
+  
+
+  
+  
+
+  
+    
+  
+  
+
+  
+  
+
+  
+  
+
+  
+    
+  
+  
+
+  
+  
+
+  
+  
+
+  
+    
+  
+  
+
+  
+    
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+    
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+    
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+    
+  
+  
+
+  
+    
+  
+  
+
+  
+  
+
+  
+  
+
+  
+    
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.3/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({"startOnLoad":false});
+
+    let render = (event) => {
+      let mermaidElems = event.currentSlide.querySelectorAll('.mermaid');
+      if (!mermaidElems.length){
+          return
+      }
+      mermaidElems.forEach(mermaidElem => {
+          let processed = mermaidElem.getAttribute('data-processed');
+          if (!processed){
+              
+              mermaid.init(undefined, mermaidElem);
+          }
+      });
+    };
+    
+    render({currentSlide: Reveal.getCurrentSlide()});
+
+    Reveal.on('slidechanged', render);
+    Reveal.on('ready', render);
+  </script>
+
+
+
+    <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+</script>
+
+<script type="text/javascript" id="MathJax-script" async="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+</script>
+
+<script>
+  if (/.*?(\?|&)print-pdf/.test(window.location.toString())) {
+      var ytVideos = document.getElementsByTagName("iframe")
+      for (let i = 0; i < ytVideos.length; i++) {
+          var videoFrame = ytVideos[i]
+          var isYouTube = /^https?:\/\/(www.)youtube\.com\/.*/.test(videoFrame.src)
+          if (isYouTube) {
+              console.log(`Removing ${videoFrame.src}`)
+              var parent = videoFrame.parentElement
+              videoFrame.remove()
+              var p = document.createElement('p')
+              p.append(
+                  document.createTextNode(
+                      "There was an embedded video here, but it is disabled in the printed version of the slides."
+                  )
+              )
+              p.append(document.createElement('br'))
+              p.append(
+                  document.createTextNode(
+                      `Visit instead ${
+                          videoFrame.src
+                      } or ${
+                          videoFrame.src.replace(
+                              /(^https?:\/\/(www.)youtube\.com)\/(embed\/)(\w+).*/,
+                              "https://www.youtube.com/watch?v=$4"
+                          )
+                      }`
+                  )
+              )
+              parent.appendChild(p)
+          }
+      }
+  }
+</script>
+
+    
+  
+
+</body></html>
