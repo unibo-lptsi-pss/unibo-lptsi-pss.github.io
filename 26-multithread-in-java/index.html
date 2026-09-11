@@ -116,7 +116,7 @@ thread</p>
 </span></span><span style="display:flex;"><span>    <span style="color:#000">@Override</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">run</span>() {
 </span></span><span style="display:flex;"><span>        <span style="color:#a90d91">while</span>(<span style="color:#a90d91">true</span>) {
-</span></span><span style="display:flex;"><span>            <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Clock "</span> <span style="color:#000">+</span> <span style="color:#000">name</span> <span style="color:#000">+</span> <span style="color:#c41a16">": "</span> <span style="color:#000">+</span> <span style="color:#000">System</span>.<span style="color:#836c28">currentTimeMillis</span>());
+</span></span><span style="display:flex;"><span>            <span style="color:#000">IO</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Clock "</span> <span style="color:#000">+</span> <span style="color:#000">name</span> <span style="color:#000">+</span> <span style="color:#c41a16">": "</span> <span style="color:#000">+</span> <span style="color:#000">System</span>.<span style="color:#836c28">currentTimeMillis</span>());
 </span></span><span style="display:flex;"><span>            <span style="color:#a90d91">try</span> {
 </span></span><span style="display:flex;"><span>                <span style="color:#000">Thread</span>.<span style="color:#836c28">sleep</span>(<span style="color:#a90d91">this</span>.<span style="color:#836c28">amount</span>); <span style="color:#177500">// Pausa di 1 secondo</span>
 </span></span><span style="display:flex;"><span>            } <span style="color:#a90d91">catch</span> (<span style="color:#000">InterruptedException</span> <span style="color:#000">e</span>) {
@@ -154,11 +154,11 @@ thread</p>
 <li>Ad esempio:</li>
 </ul>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">void</span> <span style="color:#000">main</span>() <span style="color:#a90d91">throws</span> <span style="color:#000">InterruptedException</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#000">Thread</span> <span style="color:#000">t1</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Thread</span>(() <span style="color:#000">-&gt;</span> <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Thread 1"</span>));
-</span></span><span style="display:flex;"><span>    <span style="color:#000">Thread</span> <span style="color:#000">t2</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Thread</span>(() <span style="color:#000">-&gt;</span> <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Thread 2"</span>));
+</span></span><span style="display:flex;"><span>    <span style="color:#000">Thread</span> <span style="color:#000">t1</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Thread</span>(() <span style="color:#000">-&gt;</span> <span style="color:#000">IO</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Thread 1"</span>));
+</span></span><span style="display:flex;"><span>    <span style="color:#000">Thread</span> <span style="color:#000">t2</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Thread</span>(() <span style="color:#000">-&gt;</span> <span style="color:#000">IO</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Thread 2"</span>));
 </span></span><span style="display:flex;"><span>    <span style="color:#000">t1</span>.<span style="color:#836c28">start</span>();
 </span></span><span style="display:flex;"><span>    <span style="color:#000">t2</span>.<span style="color:#836c28">start</span>();
-</span></span><span style="display:flex;"><span>    <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"after start"</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#000">IO</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"after start"</span>);
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><ul>
 <li>Quale sarà l’output?</li>
@@ -184,14 +184,14 @@ thread</p>
 <li>Possiamo usare il metodo <code>join()</code> della classe Thread!</li>
 </ul>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">void</span> <span style="color:#000">main</span>() <span style="color:#a90d91">throws</span> <span style="color:#000">InterruptedException</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#000">Thread</span> <span style="color:#000">t1</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Thread</span>(() <span style="color:#000">-&gt;</span> <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Thread 1"</span>));
-</span></span><span style="display:flex;"><span>    <span style="color:#000">Thread</span> <span style="color:#000">t2</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Thread</span>(() <span style="color:#000">-&gt;</span> <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Thread 2"</span>));
+</span></span><span style="display:flex;"><span>    <span style="color:#000">Thread</span> <span style="color:#000">t1</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Thread</span>(() <span style="color:#000">-&gt;</span> <span style="color:#000">IO</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Thread 1"</span>));
+</span></span><span style="display:flex;"><span>    <span style="color:#000">Thread</span> <span style="color:#000">t2</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Thread</span>(() <span style="color:#000">-&gt;</span> <span style="color:#000">IO</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Thread 2"</span>));
 </span></span><span style="display:flex;"><span>    <span style="color:#000">t1</span>.<span style="color:#836c28">start</span>();
 </span></span><span style="display:flex;"><span>    <span style="color:#000">t2</span>.<span style="color:#836c28">start</span>();
 </span></span><span style="display:flex;"><span>    <span style="color:#000">t1</span>.<span style="color:#836c28">join</span>();
 </span></span><span style="display:flex;"><span>    <span style="color:#000">t2</span>.<span style="color:#836c28">join</span>();
-</span></span><span style="display:flex;"><span>    <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"after join"</span>);
-</span></span><span style="display:flex;"><span>    <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Tutti i thread hanno finito!"</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#000">IO</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"after join"</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#000">IO</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Tutti i thread hanno finito!"</span>);
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><ul>
 <li>Il metodo <code>join()</code> blocca il thread chiamante finché il thread su cui viene chiamato non termina</li>
@@ -226,7 +226,7 @@ thread</p>
 </span></span><span style="display:flex;"><span>    <span style="color:#000">thread2</span>.<span style="color:#836c28">start</span>();
 </span></span><span style="display:flex;"><span>    <span style="color:#000">thread2</span>.<span style="color:#836c28">join</span>();
 </span></span><span style="display:flex;"><span>    <span style="color:#000">thread1</span>.<span style="color:#836c28">join</span>();
-</span></span><span style="display:flex;"><span>    <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Final counter value: "</span> <span style="color:#000">+</span> <span style="color:#000">shared</span>.<span style="color:#836c28">getCounter</span>());
+</span></span><span style="display:flex;"><span>    <span style="color:#000">IO</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Final counter value: "</span> <span style="color:#000">+</span> <span style="color:#000">shared</span>.<span style="color:#836c28">getCounter</span>());
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></div>
 <ul>
@@ -286,7 +286,7 @@ thread</p>
 </span></span><span style="display:flex;"><span>    <span style="color:#000">thread2</span>.<span style="color:#836c28">start</span>();
 </span></span><span style="display:flex;"><span>    <span style="color:#000">thread2</span>.<span style="color:#836c28">join</span>();
 </span></span><span style="display:flex;"><span>    <span style="color:#000">thread1</span>.<span style="color:#836c28">join</span>();
-</span></span><span style="display:flex;"><span>    <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Final counter value: "</span> <span style="color:#000">+</span> <span style="color:#000">shared</span>.<span style="color:#836c28">getCounter</span>());
+</span></span><span style="display:flex;"><span>    <span style="color:#000">IO</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Final counter value: "</span> <span style="color:#000">+</span> <span style="color:#000">shared</span>.<span style="color:#836c28">getCounter</span>());
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><ul>
 <li>Ora, se usiamo <code>SynchronizedCounter</code> al posto di <code>Counter</code>, i due thread non potranno eseguire <code>increment()</code> contemporaneamente, evitando la corsa critica</li>
@@ -334,14 +334,14 @@ thread</p>
 </span></span><span style="display:flex;"><span><span style="color:#000">Thread</span> <span style="color:#000">producer</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Thread</span>(() <span style="color:#000">-&gt;</span> {
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">for</span> (<span style="color:#a90d91">int</span> <span style="color:#000">i</span> <span style="color:#000">=</span> <span style="color:#000">10</span>; <span style="color:#000">i</span> <span style="color:#000">&lt;</span> <span style="color:#000">20</span>; <span style="color:#000">i</span><span style="color:#000">++</span>) {
 </span></span><span style="display:flex;"><span>        <span style="color:#000">buffer</span>.<span style="color:#836c28">put</span>(<span style="color:#000">i</span>);
-</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Produced: "</span> <span style="color:#000">+</span> <span style="color:#000">i</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#000">IO</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Produced: "</span> <span style="color:#000">+</span> <span style="color:#000">i</span>);
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>});
 </span></span><span style="display:flex;"><span><span style="color:#000">Thread</span> <span style="color:#000">consumer</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Thread</span>(() <span style="color:#000">-&gt;</span> {
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">for</span> (<span style="color:#a90d91">int</span> <span style="color:#000">i</span> <span style="color:#000">=</span> <span style="color:#000">0</span>; <span style="color:#000">i</span> <span style="color:#000">&lt;</span> <span style="color:#000">10</span>; <span style="color:#000">i</span><span style="color:#000">++</span>) {
 </span></span><span style="display:flex;"><span>        <span style="color:#a90d91">try</span> {
 </span></span><span style="display:flex;"><span>            <span style="color:#000">Object</span> <span style="color:#000">item</span> <span style="color:#000">=</span> <span style="color:#000">buffer</span>.<span style="color:#836c28">take</span>();
-</span></span><span style="display:flex;"><span>            <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Consumed: "</span> <span style="color:#000">+</span> <span style="color:#000">i</span>);
+</span></span><span style="display:flex;"><span>            <span style="color:#000">IO</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Consumed: "</span> <span style="color:#000">+</span> <span style="color:#000">i</span>);
 </span></span><span style="display:flex;"><span>        } <span style="color:#a90d91">catch</span> (<span style="color:#000">InterruptedException</span> <span style="color:#000">e</span>) {
 </span></span><span style="display:flex;"><span>            <span style="color:#000">e</span>.<span style="color:#836c28">printStackTrace</span>();
 </span></span><span style="display:flex;"><span>        }
@@ -377,7 +377,7 @@ thread</p>
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">run</span>() {
 </span></span><span style="display:flex;"><span>        <span style="color:#a90d91">while</span> (<span style="color:#000">!</span><span style="color:#000">stopSignal</span>.<span style="color:#836c28">shouldStop</span>()) {
 </span></span><span style="display:flex;"><span>            <span style="color:#177500">// Esegui il lavoro</span>
-</span></span><span style="display:flex;"><span>            <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Working..."</span>);
+</span></span><span style="display:flex;"><span>            <span style="color:#000">IO</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Working..."</span>);
 </span></span><span style="display:flex;"><span>        }
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>
@@ -835,8 +835,6 @@ Esempio:</li>
   
   
 
-  
-    
   
   
 

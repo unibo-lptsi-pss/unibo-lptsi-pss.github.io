@@ -210,7 +210,8 @@
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></section><section>
 <h2 id="useperson"><code>UsePerson</code></h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UsePerson</span> {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UsePerson</span> {
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span>) {
 </span></span><span style="display:flex;"><span>	    
@@ -224,7 +225,7 @@
 </span></span><span style="display:flex;"><span>		};
 </span></span><span style="display:flex;"><span>		
 </span></span><span style="display:flex;"><span>		<span style="color:#a90d91">for</span> (<span style="color:#a90d91">final</span> <span style="color:#a90d91">var</span> <span style="color:#000">p</span>: <span style="color:#000">people</span>){
-</span></span><span style="display:flex;"><span>			<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">p</span>.<span style="color:#836c28">getName</span>()<span style="color:#000">+</span><span style="color:#c41a16">": "</span><span style="color:#000">+</span><span style="color:#000">p</span>);
+</span></span><span style="display:flex;"><span>			<span style="color:#000">IO</span>.<span style="color:#836c28">println</span>(<span style="color:#000">p</span>.<span style="color:#836c28">getName</span>()<span style="color:#000">+</span><span style="color:#c41a16">": "</span><span style="color:#000">+</span><span style="color:#000">p</span>);
 </span></span><span style="display:flex;"><span>		}
 </span></span><span style="display:flex;"><span>	}
 </span></span><span style="display:flex;"><span>}
@@ -328,6 +329,7 @@
 </section><section>
 <h2 id="uso-di-object">Uso di <code>Object[]</code></h2>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.Arrays</span>;
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.io.IO</span>;
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#177500">/* Tutti gli oggetti possono formare un elenco Object[] */</span>
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">AObject</span> {
@@ -339,13 +341,13 @@
 </span></span><span style="display:flex;"><span>		<span style="color:#000">os</span><span style="color:#000">[</span><span style="color:#000">3</span><span style="color:#000">]</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#a90d91">int</span><span style="color:#000">[]</span> { <span style="color:#000">10</span>, <span style="color:#000">20</span>, <span style="color:#000">30</span> };
 </span></span><span style="display:flex;"><span>		<span style="color:#000">os</span><span style="color:#000">[</span><span style="color:#000">4</span><span style="color:#000">]</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">java</span>.<span style="color:#836c28">util</span>.<span style="color:#836c28">Date</span>();
 </span></span><span style="display:flex;"><span>		<span style="color:#000">printAll</span>(<span style="color:#000">os</span>);
-</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">Arrays</span>.<span style="color:#836c28">toString</span>(<span style="color:#000">os</span>));
-</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">Arrays</span>.<span style="color:#836c28">deepToString</span>(<span style="color:#000">os</span>));
+</span></span><span style="display:flex;"><span>		<span style="color:#000">IO</span>.<span style="color:#836c28">println</span>(<span style="color:#000">Arrays</span>.<span style="color:#836c28">toString</span>(<span style="color:#000">os</span>));
+</span></span><span style="display:flex;"><span>		<span style="color:#000">IO</span>.<span style="color:#836c28">println</span>(<span style="color:#000">Arrays</span>.<span style="color:#836c28">deepToString</span>(<span style="color:#000">os</span>));
 </span></span><span style="display:flex;"><span>	}
 </span></span><span style="display:flex;"><span>	
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">printAll</span>(<span style="color:#a90d91">final</span> <span style="color:#000">Object</span><span style="color:#000">[]</span> <span style="color:#000">array</span>) {
 </span></span><span style="display:flex;"><span>		<span style="color:#a90d91">for</span> (<span style="color:#a90d91">final</span> <span style="color:#000">Object</span> <span style="color:#000">o</span> : <span style="color:#000">array</span>) {
-</span></span><span style="display:flex;"><span>			<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Oggetto:"</span> <span style="color:#000">+</span> <span style="color:#000">o</span>.<span style="color:#836c28">toString</span>());
+</span></span><span style="display:flex;"><span>			<span style="color:#000">IO</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Oggetto:"</span> <span style="color:#000">+</span> <span style="color:#000">o</span>.<span style="color:#836c28">toString</span>());
 </span></span><span style="display:flex;"><span>		}
 </span></span><span style="display:flex;"><span>	}
 </span></span><span style="display:flex;"><span>}
@@ -363,7 +365,7 @@
 <h3 id="esempio-nel-codice-di-printall-dentro-al-for">Esempio nel codice di <code>printAll()</code>, dentro al <code>for</code></h3>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">printAll</span>(<span style="color:#a90d91">final</span> <span style="color:#000">Object</span><span style="color:#000">[]</span> <span style="color:#000">array</span>) {
 </span></span><span style="display:flex;"><span>		<span style="color:#a90d91">for</span> (<span style="color:#a90d91">final</span> <span style="color:#000">Object</span> <span style="color:#000">o</span> : <span style="color:#000">array</span>) {
-</span></span><span style="display:flex;"><span>			<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Oggetto:"</span> <span style="color:#000">+</span> <span style="color:#000">o</span>.<span style="color:#836c28">toString</span>());
+</span></span><span style="display:flex;"><span>			<span style="color:#000">IO</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Oggetto:"</span> <span style="color:#000">+</span> <span style="color:#000">o</span>.<span style="color:#836c28">toString</span>());
 </span></span><span style="display:flex;"><span>		}
 </span></span><span style="display:flex;"><span>	}
 </span></span></code></pre></div><ul>
@@ -377,7 +379,8 @@
 </ul>
 </section><section>
 <h2 id="instanceof-e-conversione-di-tipo"><code>instanceof</code> e conversione di tipo</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#177500">/* Everything is an Object, ma quale?? */</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#177500">/* Everything is an Object, ma quale?? */</span>
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">AObject2</span> {
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">s</span>) {
 </span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">Object</span><span style="color:#000">[]</span> <span style="color:#000">os</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Object</span><span style="color:#000">[</span><span style="color:#000">5</span><span style="color:#000">]</span>;
@@ -393,13 +396,13 @@
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">printAllAndSum</span>(<span style="color:#a90d91">final</span> <span style="color:#000">Object</span><span style="color:#000">[]</span> <span style="color:#000">array</span>) {
 </span></span><span style="display:flex;"><span>		<span style="color:#a90d91">int</span> <span style="color:#000">sum</span> <span style="color:#000">=</span> <span style="color:#000">0</span>;
 </span></span><span style="display:flex;"><span>		<span style="color:#a90d91">for</span> (<span style="color:#a90d91">final</span> <span style="color:#000">Object</span> <span style="color:#000">o</span> : <span style="color:#000">array</span>) {
-</span></span><span style="display:flex;"><span>			<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Oggetto:"</span> <span style="color:#000">+</span> <span style="color:#000">o</span>.<span style="color:#836c28">toString</span>());
+</span></span><span style="display:flex;"><span>			<span style="color:#000">IO</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Oggetto:"</span> <span style="color:#000">+</span> <span style="color:#000">o</span>.<span style="color:#836c28">toString</span>());
 </span></span><span style="display:flex;"><span>			<span style="color:#a90d91">if</span> (<span style="color:#000">o</span> <span style="color:#a90d91">instanceof</span> <span style="color:#000">Integer</span>) { <span style="color:#177500">// test a runtime</span>
 </span></span><span style="display:flex;"><span>				<span style="color:#a90d91">final</span> <span style="color:#000">Integer</span> <span style="color:#000">i</span> <span style="color:#000">=</span> (<span style="color:#000">Integer</span>) <span style="color:#000">o</span>; <span style="color:#177500">// (down)cast</span>
 </span></span><span style="display:flex;"><span>				<span style="color:#000">sum</span> <span style="color:#000">=</span> <span style="color:#000">sum</span> <span style="color:#000">+</span> <span style="color:#000">i</span>.<span style="color:#836c28">intValue</span>();
 </span></span><span style="display:flex;"><span>			}
 </span></span><span style="display:flex;"><span>		}
-</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Somme degli Integer: "</span> <span style="color:#000">+</span> <span style="color:#000">sum</span>);
+</span></span><span style="display:flex;"><span>		<span style="color:#000">IO</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Somme degli Integer: "</span> <span style="color:#000">+</span> <span style="color:#000">sum</span>);
 </span></span><span style="display:flex;"><span>	}
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></section><section>
@@ -455,7 +458,8 @@ Integer i3 = (Integer) o; // ClassCastException
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></section><section>
 <h2 id="instanceof-conversioni-e-person"><code>instanceof</code>, conversioni e <code>Person</code></h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UsePerson2</span> {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UsePerson2</span> {
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span>) {
 </span></span><span style="display:flex;"><span>
@@ -469,7 +473,7 @@ Integer i3 = (Integer) o; // ClassCastException
 </span></span><span style="display:flex;"><span>		<span style="color:#a90d91">for</span> (<span style="color:#a90d91">final</span> <span style="color:#000">Person</span> <span style="color:#000">p</span> : <span style="color:#000">people</span>) {
 </span></span><span style="display:flex;"><span>			<span style="color:#a90d91">if</span> (<span style="color:#000">p</span> <span style="color:#a90d91">instanceof</span> <span style="color:#000">Student</span>) {
 </span></span><span style="display:flex;"><span>				<span style="color:#a90d91">final</span> <span style="color:#000">Student</span> <span style="color:#000">s</span> <span style="color:#000">=</span> (<span style="color:#000">Student</span>) <span style="color:#000">p</span>; <span style="color:#177500">// Qui non fallisce</span>
-</span></span><span style="display:flex;"><span>				<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">s</span>.<span style="color:#836c28">getName</span>() <span style="color:#000">+</span> <span style="color:#c41a16">" "</span> <span style="color:#000">+</span> 
+</span></span><span style="display:flex;"><span>				<span style="color:#000">IO</span>.<span style="color:#836c28">println</span>(<span style="color:#000">s</span>.<span style="color:#836c28">getName</span>() <span style="color:#000">+</span> <span style="color:#c41a16">" "</span> <span style="color:#000">+</span> 
 </span></span><span style="display:flex;"><span>				                   <span style="color:#000">s</span>.<span style="color:#836c28">getMatriculationYear</span>());
 </span></span><span style="display:flex;"><span>			}
 </span></span><span style="display:flex;"><span>		}
@@ -769,35 +773,36 @@ public class ExpirationTimeLamp extends LimitedLamp {
 
 
 ```java
+
 public class UseLamps {
     // clausola throws Exception qui sotto necessaria!!
     public static void main(String[] s) throws Exception {
         LimitedLamp lamp = new UnlimitedLamp();
         lamp.switchOn();
-        System.out.println("ul| " + lamp);
+        IO.println("ul| " + lamp);
         for (int i = 0; i < 1000; i++) {
             lamp.switchOff();
             lamp.switchOn();
         }
-        System.out.println("ul| " + lamp); // non si è esaurita
+        IO.println("ul| " + lamp); // non si è esaurita
 
         lamp = new CountdownLamp(5);
         for (int i = 0; i < 4; i++) {
             lamp.switchOn();
             lamp.switchOff();
         }
-        System.out.println("cl| " + lamp);
+        IO.println("cl| " + lamp);
         lamp.switchOn();
-        System.out.println("cl| " + lamp); // al quinto switch si esaurisce
+        IO.println("cl| " + lamp); // al quinto switch si esaurisce
 
         lamp = new ExpirationTimeLamp(1000); // 1 sec
         lamp.switchOn();
-        System.out.println("el| " + lamp);
+        IO.println("el| " + lamp);
         Thread.sleep(3000); // attendo 1.1 secs
-        System.out.println("el| " + lamp); // dopo 1.1 secs si è esaurita
+        IO.println("el| " + lamp); // dopo 1.1 secs si è esaurita
         lamp.switchOff();
         lamp.switchOn();
-        System.out.println("el| " + lamp);
+        IO.println("el| " + lamp);
     }
 }
 
@@ -936,7 +941,8 @@ abstract class CA extends D implements I, J, K, L { ... }
 </ul>
 </section><section>
 <h2 id="uso-dellautoboxing">Uso dell’autoboxing</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#177500">/* Showcase dell'autoboxing */</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#177500">/* Showcase dell'autoboxing */</span>
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Boxing</span> {
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">s</span>) {
 </span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">Object</span><span style="color:#000">[]</span> <span style="color:#000">os</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Object</span><span style="color:#000">[</span><span style="color:#000">5</span><span style="color:#000">]</span>;
@@ -949,7 +955,7 @@ abstract class CA extends D implements I, J, K, L { ... }
 </span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">i</span> <span style="color:#000">=</span> <span style="color:#000">is</span><span style="color:#000">[</span><span style="color:#000">0</span><span style="color:#000">]</span> <span style="color:#000">+</span> <span style="color:#000">is</span><span style="color:#000">[</span><span style="color:#000">1</span><span style="color:#000">]</span> <span style="color:#000">+</span> <span style="color:#000">is</span><span style="color:#000">[</span><span style="color:#000">2</span><span style="color:#000">]</span> <span style="color:#000">+</span> <span style="color:#000">is</span><span style="color:#000">[</span><span style="color:#000">3</span><span style="color:#000">]</span>;
 </span></span><span style="display:flex;"><span>		<span style="color:#177500">// equivale a: is[0].intValue()+ is[1].intValue()+..</span>
 </span></span><span style="display:flex;"><span>		<span style="color:#177500">// non funzionerebbe se 'is' avesse tipo Object[]..</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Somma: "</span> <span style="color:#000">+</span> <span style="color:#000">i</span>); <span style="color:#177500">// 100</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">IO</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Somma: "</span> <span style="color:#000">+</span> <span style="color:#000">i</span>); <span style="color:#177500">// 100</span>
 </span></span><span style="display:flex;"><span>	}
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></section><section>
@@ -972,7 +978,8 @@ abstract class CA extends D implements I, J, K, L { ... }
 </ul>
 </section><section>
 <h2 id="uso-dei-variable-arguments">Uso dei variable arguments</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">VarArgs</span> {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">VarArgs</span> {
 </span></span><span style="display:flex;"><span>	<span style="color:#177500">// somma un numero variabile di Integer</span>
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">int</span> <span style="color:#000">sum</span>(<span style="color:#a90d91">final</span> <span style="color:#000">Integer</span>... <span style="color:#000">args</span>) {
 </span></span><span style="display:flex;"><span>		<span style="color:#a90d91">int</span> <span style="color:#000">sum</span> <span style="color:#000">=</span> <span style="color:#000">0</span>;
@@ -984,16 +991,16 @@ abstract class CA extends D implements I, J, K, L { ... }
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>	<span style="color:#177500">// stampa il contenuto degli argomenti, se meno di 10</span>
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">printAll</span>(<span style="color:#a90d91">final</span> <span style="color:#000">String</span> <span style="color:#000">start</span>, <span style="color:#a90d91">final</span> <span style="color:#000">Object</span>... <span style="color:#000">args</span>) {
-</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">start</span>);
+</span></span><span style="display:flex;"><span>		<span style="color:#000">IO</span>.<span style="color:#836c28">println</span>(<span style="color:#000">start</span>);
 </span></span><span style="display:flex;"><span>		<span style="color:#a90d91">if</span> (<span style="color:#000">args</span>.<span style="color:#836c28">length</span> <span style="color:#000">&lt;</span> <span style="color:#000">10</span>) {
 </span></span><span style="display:flex;"><span>			<span style="color:#a90d91">for</span> (<span style="color:#a90d91">final</span> <span style="color:#000">Object</span> <span style="color:#000">o</span> : <span style="color:#000">args</span>) {
-</span></span><span style="display:flex;"><span>				<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">o</span>);
+</span></span><span style="display:flex;"><span>				<span style="color:#000">IO</span>.<span style="color:#836c28">println</span>(<span style="color:#000">o</span>);
 </span></span><span style="display:flex;"><span>			}
 </span></span><span style="display:flex;"><span>		}
 </span></span><span style="display:flex;"><span>	}
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">s</span>) {
-</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">sum</span>(<span style="color:#000">10</span>, <span style="color:#000">20</span>, <span style="color:#000">30</span>, <span style="color:#000">40</span>, <span style="color:#000">50</span>, <span style="color:#000">60</span>, <span style="color:#000">70</span>, <span style="color:#000">80</span>));
+</span></span><span style="display:flex;"><span>		<span style="color:#000">IO</span>.<span style="color:#836c28">println</span>(<span style="color:#000">sum</span>(<span style="color:#000">10</span>, <span style="color:#000">20</span>, <span style="color:#000">30</span>, <span style="color:#000">40</span>, <span style="color:#000">50</span>, <span style="color:#000">60</span>, <span style="color:#000">70</span>, <span style="color:#000">80</span>));
 </span></span><span style="display:flex;"><span>		<span style="color:#000">printAll</span>(<span style="color:#c41a16">"inizio"</span>, <span style="color:#000">1</span>, <span style="color:#000">2</span>, <span style="color:#000">3</span>.<span style="color:#836c28">2</span>, <span style="color:#a90d91">true</span>, <span style="color:#a90d91">new</span> <span style="color:#a90d91">int</span><span style="color:#000">[]</span> { <span style="color:#000">10</span> }, <span style="color:#a90d91">new</span> <span style="color:#000">Object</span>());
 </span></span><span style="display:flex;"><span>		
 </span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">format</span>(<span style="color:#c41a16">"%d %d\n"</span>, <span style="color:#000">10</span>, <span style="color:#000">20</span>); <span style="color:#177500">// C-like printf</span>
@@ -1098,6 +1105,7 @@ class ConcreteClass extends AbstractClass {
 ```java
 import java.io.*;
 import java.util.*;
+import java.io.IO;
 
 public class UseRandomInputStream {
 
@@ -1117,7 +1125,7 @@ public class UseRandomInputStream {
 		// Ora provo InputStream.read(byte[]) e lo trovo concretizzato
 		final byte[] b = new byte[100];
 		input.read(b);
-		System.out.println(Arrays.toString(b));
+		IO.println(Arrays.toString(b));
 		// [0,1,2,3,4,5,6,..]
 	}
 }
@@ -1136,6 +1144,7 @@ public class UseRandomInputStream {
 
 
 ```java
+
 public abstract class BankAccount {
 	private int amount;
 	
@@ -1156,7 +1165,7 @@ public abstract class BankAccount {
 	public static void main(String[] args){
 		final BankAccount b = new BankAccountWithConstantFee(100);
 		b.withdraw(20);
-		System.out.println(b.getAmount()); // 79
+		IO.println(b.getAmount()); // 79
 	}
 }
 

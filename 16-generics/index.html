@@ -93,7 +93,8 @@ tale tipo diventa quindi una sorta di parametro addizionale</p>
 <p><img src="imgs/uml-int-vector-abstracted.png" alt=""></p>
 </section><section>
 <h2 id="useintvector"><code>UseIntVector</code></h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseIntVector</span> {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseIntVector</span> {
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">s</span>) {
 </span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">IntVector</span> <span style="color:#000">vi</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">IntVector</span>();
 </span></span><span style="display:flex;"><span>		<span style="color:#177500">// Serie di Fibonacci: fib(0)=fib(1)=1, fib(N)=fib(N-1)+fib(N-2) if N&gt;1</span>
@@ -105,7 +106,7 @@ tale tipo diventa quindi una sorta di parametro addizionale</p>
 </span></span><span style="display:flex;"><span>				<span style="color:#000">vi</span>.<span style="color:#836c28">getElementAt</span>(<span style="color:#000">vi</span>.<span style="color:#836c28">getLength</span>() <span style="color:#000">-</span> <span style="color:#000">2</span>)   <span style="color:#177500">// penultimo</span>
 </span></span><span style="display:flex;"><span>			);
 </span></span><span style="display:flex;"><span>		}
-</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">vi</span>);
+</span></span><span style="display:flex;"><span>		<span style="color:#000">IO</span>.<span style="color:#836c28">println</span>(<span style="color:#000">vi</span>);
 </span></span><span style="display:flex;"><span>		<span style="color:#177500">// |1|1|2|3|5|8|13|21|34|55|89|144|233|..</span>
 </span></span><span style="display:flex;"><span>		<span style="color:#177500">// 377|610|987|1597|2584|4181|6765|10946|17711|</span>
 </span></span><span style="display:flex;"><span>	}
@@ -194,7 +195,8 @@ tale tipo diventa quindi una sorta di parametro addizionale</p>
 <li>NOTA: <strong>necessità di downcast espliciti</strong></li>
 </ul>
 <div class="smaller">
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseObjectVector</span> {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseObjectVector</span> {
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">s</span>) {
 </span></span><span style="display:flex;"><span>		<span style="color:#177500">// Serie di Fibonacci</span>
 </span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">ObjectVector</span> <span style="color:#000">vobj</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">ObjectVector</span>();
@@ -206,7 +208,7 @@ tale tipo diventa quindi una sorta di parametro addizionale</p>
 </span></span><span style="display:flex;"><span>			(<span style="color:#000">Integer</span>) <span style="color:#000">vobj</span>.<span style="color:#836c28">getElementAt</span>(<span style="color:#000">vobj</span>.<span style="color:#836c28">getLength</span>() <span style="color:#000">-</span> <span style="color:#000">1</span>)
 </span></span><span style="display:flex;"><span>					<span style="color:#000">+</span> (<span style="color:#000">Integer</span>) <span style="color:#000">vobj</span>.<span style="color:#836c28">getElementAt</span>(<span style="color:#000">vobj</span>.<span style="color:#836c28">getLength</span>() <span style="color:#000">-</span> <span style="color:#000">2</span>));
 </span></span><span style="display:flex;"><span>		}
-</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">vobj</span>);
+</span></span><span style="display:flex;"><span>		<span style="color:#000">IO</span>.<span style="color:#836c28">println</span>(<span style="color:#000">vobj</span>);
 </span></span><span style="display:flex;"><span>		<span style="color:#177500">// |1|1|2|3|5|8|13|21|34|55|89|144|233|..</span>
 </span></span><span style="display:flex;"><span>		<span style="color:#177500">// 377|610|987|1597|2584|4181|6765|10946|17711|</span>
 </span></span><span style="display:flex;"><span>
@@ -216,7 +218,7 @@ tale tipo diventa quindi una sorta di parametro addizionale</p>
 </span></span><span style="display:flex;"><span>		<span style="color:#000">vobj2</span>.<span style="color:#836c28">addElement</span>(<span style="color:#c41a16">"di"</span>);
 </span></span><span style="display:flex;"><span>		<span style="color:#000">vobj2</span>.<span style="color:#836c28">addElement</span>(<span style="color:#c41a16">"vettore"</span>);
 </span></span><span style="display:flex;"><span>		<span style="color:#000">vobj2</span>.<span style="color:#836c28">addElement</span>(<span style="color:#a90d91">new</span> <span style="color:#000">Object</span>());
-</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">vobj2</span>);
+</span></span><span style="display:flex;"><span>		<span style="color:#000">IO</span>.<span style="color:#836c28">println</span>(<span style="color:#000">vobj2</span>);
 </span></span><span style="display:flex;"><span>		<span style="color:#000">String</span> <span style="color:#000">str</span> <span style="color:#000">=</span> (<span style="color:#000">String</span>) <span style="color:#000">vobj2</span>.<span style="color:#836c28">getElementAt</span>(<span style="color:#000">1</span>); <span style="color:#177500">// "di"</span>
 </span></span><span style="display:flex;"><span>		<span style="color:#177500">// String str2 = (String)vobj2.getElementAt(3); // Exception</span>
 </span></span><span style="display:flex;"><span>	}
@@ -289,7 +291,8 @@ tale tipo diventa quindi una sorta di parametro addizionale</p>
 <ul>
 <li>Si istanzia il <strong>parametro di tipo</strong> generico <code>X</code> in un tipo specifico (<strong>argomento di tipo</strong>), ad es. <code>Integer</code></li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseVector</span> {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseVector</span> {
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">s</span>) {
 </span></span><span style="display:flex;"><span>    	<span style="color:#177500">// Il tipo di vs è Vector&lt;String&gt;</span>
 </span></span><span style="display:flex;"><span>    	<span style="color:#177500">// Ma la sua classe è Vector&lt;X&gt;</span>
@@ -300,7 +303,7 @@ tale tipo diventa quindi una sorta di parametro addizionale</p>
 </span></span><span style="display:flex;"><span>    	<span style="color:#a90d91">final</span> <span style="color:#000">String</span> <span style="color:#000">str</span> <span style="color:#000">=</span> <span style="color:#000">vs</span>.<span style="color:#836c28">getElementAt</span>(<span style="color:#000">0</span>) <span style="color:#000">+</span> <span style="color:#c41a16">" "</span> <span style="color:#000">+</span> 
 </span></span><span style="display:flex;"><span>    		<span style="color:#000">vs</span>.<span style="color:#836c28">getElementAt</span>(<span style="color:#000">1</span>) <span style="color:#000">+</span> <span style="color:#c41a16">" "</span> <span style="color:#000">+</span>
 </span></span><span style="display:flex;"><span>    		<span style="color:#000">vs</span>.<span style="color:#836c28">getElementAt</span>(<span style="color:#000">2</span>); <span style="color:#177500">// Nota, nessun cast!</span>
-</span></span><span style="display:flex;"><span>    	<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">str</span>);
+</span></span><span style="display:flex;"><span>    	<span style="color:#000">IO</span>.<span style="color:#836c28">println</span>(<span style="color:#000">str</span>);
 </span></span><span style="display:flex;"><span>        
 </span></span><span style="display:flex;"><span>    	<span style="color:#a90d91">final</span> <span style="color:#000">Vector</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> <span style="color:#000">vi</span><span style="color:#000">=</span><span style="color:#a90d91">new</span> <span style="color:#000">Vector</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span>(); 
 </span></span><span style="display:flex;"><span>    	<span style="color:#000">vi</span>.<span style="color:#836c28">addElement</span>(<span style="color:#000">10</span>); <span style="color:#177500">// Autoboxing</span>
@@ -309,7 +312,7 @@ tale tipo diventa quindi una sorta di parametro addizionale</p>
 </span></span><span style="display:flex;"><span>    	<span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">i</span> <span style="color:#000">=</span> <span style="color:#000">vi</span>.<span style="color:#836c28">getElementAt</span>(<span style="color:#000">0</span>) <span style="color:#000">+</span> <span style="color:#177500">// Unboxing </span>
 </span></span><span style="display:flex;"><span>    		<span style="color:#000">vi</span>.<span style="color:#836c28">getElementAt</span>(<span style="color:#000">1</span>) <span style="color:#000">+</span>
 </span></span><span style="display:flex;"><span>    		<span style="color:#000">vi</span>.<span style="color:#836c28">getElementAt</span>(<span style="color:#000">2</span>);
-</span></span><span style="display:flex;"><span>    	<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">i</span>);
+</span></span><span style="display:flex;"><span>    	<span style="color:#000">IO</span>.<span style="color:#836c28">println</span>(<span style="color:#000">i</span>);
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></section><section>
@@ -409,20 +412,21 @@ tale tipo diventa quindi una sorta di parametro addizionale</p>
 </span></span></code></pre></div></section><section>
 <h2 id="uso-di-pairxy">Uso di <code>Pair&lt;X,Y&gt;</code></h2>
 <div class="smaller">
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UsePair</span> {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UsePair</span> {
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">s</span>) {
 </span></span><span style="display:flex;"><span>		<span style="color:#000">Pair</span><span style="color:#000">&lt;</span><span style="color:#000">String</span>, <span style="color:#000">Integer</span><span style="color:#000">&gt;</span> <span style="color:#000">p</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Pair</span><span style="color:#000">&lt;</span><span style="color:#000">String</span>, <span style="color:#000">Integer</span><span style="color:#000">&gt;</span>(<span style="color:#c41a16">"aa"</span>, <span style="color:#000">1</span>);
 </span></span><span style="display:flex;"><span>		<span style="color:#000">String</span> <span style="color:#000">fst</span> <span style="color:#000">=</span> <span style="color:#000">p</span>.<span style="color:#836c28">getFirst</span>();
 </span></span><span style="display:flex;"><span>		<span style="color:#a90d91">int</span> <span style="color:#000">snd</span> <span style="color:#000">=</span> <span style="color:#000">p</span>.<span style="color:#836c28">getSecond</span>();
-</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">fst</span> <span style="color:#000">+</span> <span style="color:#c41a16">" "</span> <span style="color:#000">+</span> <span style="color:#000">snd</span>);
+</span></span><span style="display:flex;"><span>		<span style="color:#000">IO</span>.<span style="color:#836c28">println</span>(<span style="color:#000">fst</span> <span style="color:#000">+</span> <span style="color:#c41a16">" "</span> <span style="color:#000">+</span> <span style="color:#000">snd</span>);
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">Vector</span><span style="color:#000">&lt;</span><span style="color:#000">Pair</span><span style="color:#000">&lt;</span><span style="color:#000">String</span>, <span style="color:#000">Integer</span><span style="color:#000">&gt;&gt;</span> <span style="color:#000">v</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Vector</span><span style="color:#000">&lt;</span><span style="color:#000">Pair</span><span style="color:#000">&lt;</span><span style="color:#000">String</span>, <span style="color:#000">Integer</span><span style="color:#000">&gt;&gt;</span>();
 </span></span><span style="display:flex;"><span>		<span style="color:#000">v</span>.<span style="color:#836c28">addElement</span>(<span style="color:#a90d91">new</span> <span style="color:#000">Pair</span><span style="color:#000">&lt;</span><span style="color:#000">String</span>, <span style="color:#000">Integer</span><span style="color:#000">&gt;</span>(<span style="color:#c41a16">"Prova"</span>, <span style="color:#000">1</span>));
 </span></span><span style="display:flex;"><span>		<span style="color:#000">v</span>.<span style="color:#836c28">addElement</span>(<span style="color:#a90d91">new</span> <span style="color:#000">Pair</span><span style="color:#000">&lt;</span><span style="color:#000">String</span>, <span style="color:#000">Integer</span><span style="color:#000">&gt;</span>(<span style="color:#c41a16">"Vettore"</span>, <span style="color:#000">2</span>));
 </span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">String</span> <span style="color:#000">str</span> <span style="color:#000">=</span> <span style="color:#000">v</span>.<span style="color:#836c28">getElementAt</span>(<span style="color:#000">0</span>).<span style="color:#836c28">getFirst</span>() <span style="color:#000">+</span> <span style="color:#c41a16">" "</span> <span style="color:#000">+</span>
 </span></span><span style="display:flex;"><span>				<span style="color:#000">v</span>.<span style="color:#836c28">getElementAt</span>(<span style="color:#000">1</span>).<span style="color:#836c28">getFirst</span>(); <span style="color:#177500">// Nota, nessun cast!</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">str</span>);
-</span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">v</span>);
+</span></span><span style="display:flex;"><span>		<span style="color:#000">IO</span>.<span style="color:#836c28">println</span>(<span style="color:#000">str</span>);
+</span></span><span style="display:flex;"><span>		<span style="color:#000">IO</span>.<span style="color:#836c28">println</span>(<span style="color:#000">v</span>);
 </span></span><span style="display:flex;"><span>	}
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></div>
@@ -447,7 +451,8 @@ tale tipo diventa quindi una sorta di parametro addizionale</p>
 </section><section>
 <h2 id="esempi-di-inferenza">Esempi di inferenza</h2>
 <div class="smaller">
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UsePair2</span> {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UsePair2</span> {
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">s</span>) {
 </span></span><span style="display:flex;"><span>        <span style="color:#177500">// Parametri in new Vector() inferiti dal tipo della variabile</span>
 </span></span><span style="display:flex;"><span>        <span style="color:#a90d91">final</span> <span style="color:#000">Vector</span><span style="color:#000">&lt;</span><span style="color:#000">Pair</span><span style="color:#000">&lt;</span><span style="color:#000">String</span>, <span style="color:#000">Integer</span><span style="color:#000">&gt;&gt;</span> <span style="color:#000">v</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Vector</span><span style="color:#000">&lt;&gt;</span>();
@@ -456,8 +461,8 @@ tale tipo diventa quindi una sorta di parametro addizionale</p>
 </span></span><span style="display:flex;"><span>        <span style="color:#000">v</span>.<span style="color:#836c28">addElement</span>(<span style="color:#a90d91">new</span> <span style="color:#000">Pair</span><span style="color:#000">&lt;&gt;</span>(<span style="color:#c41a16">"Vettore"</span>, <span style="color:#000">2</span>));
 </span></span><span style="display:flex;"><span>        <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">v1second</span> <span style="color:#000">=</span> <span style="color:#000">v</span>.<span style="color:#836c28">getElementAt</span>(<span style="color:#000">1</span>).<span style="color:#836c28">getSecond</span>(); <span style="color:#177500">// Nota, nessun cast!</span>
 </span></span><span style="display:flex;"><span>        <span style="color:#a90d91">final</span> <span style="color:#000">String</span> <span style="color:#000">str</span> <span style="color:#000">=</span> <span style="color:#000">v</span>.<span style="color:#836c28">getElementAt</span>(<span style="color:#000">0</span>).<span style="color:#836c28">getFirst</span>() <span style="color:#000">+</span> <span style="color:#c41a16">" "</span> <span style="color:#000">+</span> <span style="color:#000">v1second</span>;
-</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">str</span>);
-</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">v</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#000">IO</span>.<span style="color:#836c28">println</span>(<span style="color:#000">str</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#000">IO</span>.<span style="color:#836c28">println</span>(<span style="color:#000">v</span>);
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></div>
@@ -557,6 +562,7 @@ tale tipo diventa quindi una sorta di parametro addizionale</p>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.Calendar</span>;
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.GregorianCalendar</span>;
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.io.IO</span>;
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseIterators</span> {
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">s</span>) {
@@ -573,7 +579,7 @@ tale tipo diventa quindi una sorta di parametro addizionale</p>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">static</span> <span style="color:#000">&lt;</span><span style="color:#000">X</span><span style="color:#000">&gt;</span> <span style="color:#a90d91">void</span> <span style="color:#000">printAll</span>(<span style="color:#000">Iterator</span><span style="color:#000">&lt;</span><span style="color:#000">X</span><span style="color:#000">&gt;</span> <span style="color:#000">iterator</span>) {
 </span></span><span style="display:flex;"><span>        <span style="color:#a90d91">while</span> (<span style="color:#000">iterator</span>.<span style="color:#836c28">hasNext</span>()) {
-</span></span><span style="display:flex;"><span>            <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Elemento : "</span> <span style="color:#000">+</span> <span style="color:#000">iterator</span>.<span style="color:#836c28">next</span>());
+</span></span><span style="display:flex;"><span>            <span style="color:#000">IO</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Elemento : "</span> <span style="color:#000">+</span> <span style="color:#000">iterator</span>.<span style="color:#836c28">next</span>());
 </span></span><span style="display:flex;"><span>        }
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
@@ -611,12 +617,13 @@ che avranno visibilità solo all’interno del metodo stesso
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.Calendar</span>;
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.GregorianCalendar</span>;
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.io.IO</span>;
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseIterators2</span> {
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#000">&lt;</span><span style="color:#000">E</span><span style="color:#000">&gt;</span> <span style="color:#a90d91">void</span> <span style="color:#000">printAll</span>(<span style="color:#a90d91">final</span> <span style="color:#000">Iterator</span><span style="color:#000">&lt;</span><span style="color:#000">E</span><span style="color:#000">&gt;</span> <span style="color:#000">iterator</span>) {
 </span></span><span style="display:flex;"><span>        <span style="color:#a90d91">while</span> (<span style="color:#000">iterator</span>.<span style="color:#836c28">hasNext</span>()) {
-</span></span><span style="display:flex;"><span>            <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Elemento : "</span> <span style="color:#000">+</span> <span style="color:#000">iterator</span>.<span style="color:#836c28">next</span>());
+</span></span><span style="display:flex;"><span>            <span style="color:#000">IO</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Elemento : "</span> <span style="color:#000">+</span> <span style="color:#000">iterator</span>.<span style="color:#836c28">next</span>());
 </span></span><span style="display:flex;"><span>        }
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>
@@ -638,6 +645,7 @@ che avranno visibilità solo all’interno del metodo stesso
 </span></span></code></pre></div></section><section>
 <h2 id="definizione-di-metodi-generico-istanza-e-loro-utilizzo">Definizione di metodi generico <em>istanza</em> e loro utilizzo</h2>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">package</span> <span style="color:#000">it.unibo.generics.iterators</span>;
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.io.IO</span>;
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">PairReplacer</span><span style="color:#000">&lt;</span><span style="color:#000">X</span>, <span style="color:#000">Y</span><span style="color:#000">&gt;</span> {
 </span></span><span style="display:flex;"><span>
@@ -658,9 +666,9 @@ che avranno visibilità solo all’interno del metodo stesso
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>() {
 </span></span><span style="display:flex;"><span>        <span style="color:#a90d91">final</span> <span style="color:#a90d91">var</span> <span style="color:#000">replacer</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">PairReplacer</span><span style="color:#000">&lt;&gt;</span>(<span style="color:#a90d91">new</span> <span style="color:#000">Pair</span><span style="color:#000">&lt;&gt;</span>(<span style="color:#c41a16">"Hello"</span>, <span style="color:#000">42</span>));
 </span></span><span style="display:flex;"><span>        <span style="color:#a90d91">final</span> <span style="color:#a90d91">var</span> <span style="color:#000">newFirstPair</span> <span style="color:#000">=</span> <span style="color:#000">replacer</span>.<span style="color:#836c28">replaceFirst</span>(<span style="color:#000">3</span>.<span style="color:#836c28">14</span>); <span style="color:#177500">// Con inferenza, uso tipico</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Replaced First: "</span> <span style="color:#000">+</span> <span style="color:#000">newFirstPair</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#000">IO</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Replaced First: "</span> <span style="color:#000">+</span> <span style="color:#000">newFirstPair</span>);
 </span></span><span style="display:flex;"><span>        <span style="color:#000">Pair</span><span style="color:#000">&lt;</span><span style="color:#000">String</span>, <span style="color:#000">Boolean</span><span style="color:#000">&gt;</span> <span style="color:#000">newSecondPair</span> <span style="color:#000">=</span> <span style="color:#000">replacer</span>.<span style="color:#000">&lt;</span><span style="color:#000">Boolean</span><span style="color:#000">&gt;</span><span style="color:#000">replaceSecond</span>(<span style="color:#a90d91">true</span>); <span style="color:#177500">// Senza inferenza</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Replaced Second: "</span> <span style="color:#000">+</span> <span style="color:#000">newSecondPair</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#000">IO</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Replaced Second: "</span> <span style="color:#000">+</span> <span style="color:#000">newSecondPair</span>);
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></section><section>
@@ -744,19 +752,20 @@ che avranno visibilità solo all’interno del metodo stesso
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">it.unibo.generics.iterators.IntRangeIterator</span>;
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">it.unibo.generics.iterators.Iterator</span>;
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.io.IO</span>;
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Wildcard</span> {
 </span></span><span style="display:flex;"><span>    <span style="color:#177500">// Metodo che usa la wildcard</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">printAll</span>(<span style="color:#000">Iterator</span><span style="color:#000">&lt;?&gt;</span> <span style="color:#000">it</span>) {
 </span></span><span style="display:flex;"><span>        <span style="color:#a90d91">while</span> (<span style="color:#000">it</span>.<span style="color:#836c28">hasNext</span>()) {
-</span></span><span style="display:flex;"><span>            <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">it</span>.<span style="color:#836c28">next</span>());
+</span></span><span style="display:flex;"><span>            <span style="color:#000">IO</span>.<span style="color:#836c28">println</span>(<span style="color:#000">it</span>.<span style="color:#836c28">next</span>());
 </span></span><span style="display:flex;"><span>        }
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#177500">// Analoga versione con metodo generico</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#000">&lt;</span><span style="color:#000">T</span><span style="color:#000">&gt;</span> <span style="color:#a90d91">void</span> <span style="color:#000">printAll2</span>(<span style="color:#000">Iterator</span><span style="color:#000">&lt;</span><span style="color:#000">T</span><span style="color:#000">&gt;</span> <span style="color:#000">it</span>) {
 </span></span><span style="display:flex;"><span>        <span style="color:#a90d91">while</span> (<span style="color:#000">it</span>.<span style="color:#836c28">hasNext</span>()) {
-</span></span><span style="display:flex;"><span>            <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">it</span>.<span style="color:#836c28">next</span>());
+</span></span><span style="display:flex;"><span>            <span style="color:#000">IO</span>.<span style="color:#836c28">println</span>(<span style="color:#000">it</span>.<span style="color:#836c28">next</span>());
 </span></span><span style="display:flex;"><span>        }
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>
@@ -772,6 +781,7 @@ che avranno visibilità solo all’interno del metodo stesso
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">package</span> <span style="color:#000">it.unibo.generics.wildcard</span>;
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">it.unibo.generics.generics.Vector</span>;
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.io.IO</span>;
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Wildcard2</span> {
 </span></span><span style="display:flex;"><span>    <span style="color:#177500">// Metodo che usa la wildcard</span>
@@ -789,7 +799,7 @@ che avranno visibilità solo all’interno del metodo stesso
 </span></span><span style="display:flex;"><span>        <span style="color:#000">vd</span>.<span style="color:#836c28">addElement</span>(<span style="color:#000">1</span>.<span style="color:#836c28">5</span>);
 </span></span><span style="display:flex;"><span>        <span style="color:#000">vd</span>.<span style="color:#836c28">addElement</span>(<span style="color:#000">6</span>.<span style="color:#836c28">7</span>);
 </span></span><span style="display:flex;"><span>        <span style="color:#000">Vector</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> <span style="color:#000">vi</span> <span style="color:#000">=</span> <span style="color:#000">toIntVector</span>(<span style="color:#000">vd</span>);
-</span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">vi</span>.<span style="color:#836c28">getElementAt</span>(<span style="color:#000">0</span>) <span style="color:#000">+</span> <span style="color:#c41a16">", "</span> <span style="color:#000">+</span> <span style="color:#000">vi</span>.<span style="color:#836c28">getElementAt</span>(<span style="color:#000">1</span>));
+</span></span><span style="display:flex;"><span>        <span style="color:#000">IO</span>.<span style="color:#836c28">println</span>(<span style="color:#000">vi</span>.<span style="color:#836c28">getElementAt</span>(<span style="color:#000">0</span>) <span style="color:#000">+</span> <span style="color:#c41a16">", "</span> <span style="color:#000">+</span> <span style="color:#000">vi</span>.<span style="color:#836c28">getElementAt</span>(<span style="color:#000">1</span>));
 </span></span><span style="display:flex;"><span>        <span style="color:#177500">// var vd2 = toIntVector(new Vector&lt;String&gt;()); // ERROR: method not applicable</span>
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
