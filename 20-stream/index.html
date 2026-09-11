@@ -25,8 +25,8 @@
 <h4 id="cdl-tecnologie-dei-sistemi-informatici">C.D.L. Tecnologie dei Sistemi Informatici</h4>
 <h3 id="danilo-pianini"><a href="mailto:danilo.pianini@unibo.it">Danilo Pianini — <code>danilo.pianini@unibo.it</code></a></h3>
 <h3 id="gianluca-aguzzi"><a href="mailto:gianluca.aguzzi@unibo.it">Gianluca Aguzzi — <code>gianluca.aguzzi@unibo.it</code></a></h3>
-<h3 id="angelo-filaseta"><a href="mailto:angelo.filaseta@unibo.it">Angelo Filaseta — <code>angelo.filaseta@unibo.it</code></a></h3>
-<p>Compiled on: 2025-12-05
+<h3 id="paolo-baldini"><a href="mailto:p.baldini@unibo.it">Paolo Baldini — <code>p.baldini@unibo.it</code></a></h3>
+<p>Compiled on: 2026-09-11
  — <a href="?print-pdf&amp;pdfSeparateFragments=false"><i class="fa fa-print" aria-hidden="true"></i> versione stampabile</a></p>
 <p><a href=".."><i class="fa fa-undo" aria-hidden="true"></i> back</a></p>
 </section><section>
@@ -83,7 +83,7 @@
 </ul>
 </section><section>
 <h2 id="classe-person--equals-hashcode-e-tostring-omessi">Classe <code>Person</code> – <code>equals</code>, <code>hashCode</code> e <code>toString</code> omessi</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.Set</span>;
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.Set</span>;
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Person</span> {
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#000">String</span> <span style="color:#000">name</span>;
@@ -115,7 +115,7 @@
 </span></span><span style="display:flex;"><span>        <span style="color:#a90d91">return</span> <span style="color:#c41a16">"Person [name="</span> <span style="color:#000">+</span> <span style="color:#000">name</span> <span style="color:#000">+</span> <span style="color:#c41a16">", city="</span> <span style="color:#000">+</span> <span style="color:#000">city</span> <span style="color:#000">+</span> <span style="color:#c41a16">", income="</span> <span style="color:#000">+</span> <span style="color:#000">income</span> <span style="color:#000">+</span> <span style="color:#c41a16">", jobs="</span> <span style="color:#000">+</span> <span style="color:#000">jobs</span> <span style="color:#000">+</span> <span style="color:#c41a16">"]"</span>;
 </span></span></code></pre></div></section><section>
 <h2 id="realizzazione-dellesempio-in-java-8">Realizzazione dell’esempio in Java 8</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseStreamsOnPerson</span> {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseStreamsOnPerson</span> {
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>() {
 </span></span><span style="display:flex;"><span>        <span style="color:#a90d91">final</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">Person</span><span style="color:#000">&gt;</span> <span style="color:#000">list</span> <span style="color:#000">=</span> <span style="color:#000">List</span>.<span style="color:#836c28">of</span>(
 </span></span><span style="display:flex;"><span>            <span style="color:#a90d91">new</span> <span style="color:#000">Person</span>(<span style="color:#c41a16">"Mario"</span>, <span style="color:#c41a16">"Cesena"</span>, <span style="color:#000">20000</span>, <span style="color:#c41a16">"Teacher"</span>),
@@ -156,7 +156,7 @@
 </ul>
 </section><section>
 <h2 id="le-collection-generano-stream">Le collection generano Stream!</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">interface</span> <span style="color:#3f6e75">Collection</span><span style="color:#000">&lt;</span><span style="color:#000">E</span><span style="color:#000">&gt;</span> <span style="color:#a90d91">extends</span> <span style="color:#000">Iterable</span><span style="color:#000">&lt;</span><span style="color:#000">E</span><span style="color:#000">&gt;</span> {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">interface</span> <span style="color:#3f6e75">Collection</span><span style="color:#000">&lt;</span><span style="color:#000">E</span><span style="color:#000">&gt;</span> <span style="color:#a90d91">extends</span> <span style="color:#000">Iterable</span><span style="color:#000">&lt;</span><span style="color:#000">E</span><span style="color:#000">&gt;</span> {
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    ..
 </span></span><span style="display:flex;"><span>
@@ -173,7 +173,7 @@
 </span></span><span style="display:flex;"><span> 
 </span></span></code></pre></div></section><section>
 <h2 id="linterfaccia-javautilbasestream">L’interfaccia <code>java.util.BaseStream</code></h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">interface</span> <span style="color:#3f6e75">BaseStream</span><span style="color:#000">&lt;</span><span style="color:#000">T</span>, <span style="color:#000">S</span> <span style="color:#a90d91">extends</span> <span style="color:#000">BaseStream</span><span style="color:#000">&lt;</span><span style="color:#000">T</span>, <span style="color:#000">S</span><span style="color:#000">&gt;&gt;</span> <span style="color:#a90d91">extends</span> ... {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">interface</span> <span style="color:#3f6e75">BaseStream</span><span style="color:#000">&lt;</span><span style="color:#000">T</span>, <span style="color:#000">S</span> <span style="color:#a90d91">extends</span> <span style="color:#000">BaseStream</span><span style="color:#000">&lt;</span><span style="color:#000">T</span>, <span style="color:#000">S</span><span style="color:#000">&gt;&gt;</span> <span style="color:#a90d91">extends</span> ... {
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#177500">// Torna un iteratore sugli elementi rimasti dello stream, e lo chiude</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#000">Iterator</span><span style="color:#000">&lt;</span><span style="color:#000">T</span><span style="color:#000">&gt;</span> <span style="color:#000">iterator</span>();
@@ -221,7 +221,7 @@
 </ul>
 </section><section>
 <h2 id="javautilstream-costruzione-stream-13"><code>java.util.Stream</code>: costruzione stream, 1/3</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">interface</span> <span style="color:#3f6e75">Stream</span><span style="color:#000">&lt;</span><span style="color:#000">T</span><span style="color:#000">&gt;</span> <span style="color:#a90d91">extends</span> <span style="color:#000">BaseStream</span><span style="color:#000">&lt;</span><span style="color:#000">T</span>, <span style="color:#000">Stream</span><span style="color:#000">&lt;</span><span style="color:#000">T</span><span style="color:#000">&gt;&gt;</span> {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">interface</span> <span style="color:#3f6e75">Stream</span><span style="color:#000">&lt;</span><span style="color:#000">T</span><span style="color:#000">&gt;</span> <span style="color:#a90d91">extends</span> <span style="color:#000">BaseStream</span><span style="color:#000">&lt;</span><span style="color:#000">T</span>, <span style="color:#000">Stream</span><span style="color:#000">&lt;</span><span style="color:#000">T</span><span style="color:#000">&gt;&gt;</span> {
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#177500">// Static factories</span>
 </span></span><span style="display:flex;"><span>
@@ -248,7 +248,7 @@
 </span></span><span style="display:flex;"><span>    }
 </span></span></code></pre></div></section><section>
 <h2 id="javautilstream-trasformazione-stream-23"><code>java.util.Stream</code>: trasformazione stream, 2/3</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#177500">// Stream transformation</span>
 </span></span><span style="display:flex;"><span>    
 </span></span><span style="display:flex;"><span>    <span style="color:#000">Stream</span><span style="color:#000">&lt;</span><span style="color:#000">T</span><span style="color:#000">&gt;</span> <span style="color:#000">filter</span>(<span style="color:#000">Predicate</span><span style="color:#000">&lt;?</span> <span style="color:#a90d91">super</span> <span style="color:#000">T</span><span style="color:#000">&gt;</span> <span style="color:#000">predicate</span>);
@@ -269,7 +269,7 @@
 </span></span><span style="display:flex;"><span>    <span style="color:#000">DoubleStream</span> <span style="color:#000">flatMapToDouble</span>(<span style="color:#000">Function</span><span style="color:#000">&lt;?</span> <span style="color:#a90d91">super</span> <span style="color:#000">T</span>, <span style="color:#000">?</span> <span style="color:#a90d91">extends</span> <span style="color:#000">DoubleStream</span><span style="color:#000">&gt;</span> <span style="color:#000">mapper</span>);
 </span></span></code></pre></div></section><section>
 <h2 id="javautilstream-terminazione-stream-33"><code>java.util.Stream</code>: terminazione stream, 3/3</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span>    <span style="color:#177500">// Terminal Operations</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span>    <span style="color:#177500">// Terminal Operations</span>
 </span></span><span style="display:flex;"><span>    
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">void</span> <span style="color:#000">forEach</span>(<span style="color:#000">Consumer</span><span style="color:#000">&lt;?</span> <span style="color:#a90d91">super</span> <span style="color:#000">T</span><span style="color:#000">&gt;</span> <span style="color:#000">action</span>);
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">void</span> <span style="color:#000">forEachOrdered</span>(<span style="color:#000">Consumer</span><span style="color:#000">&lt;?</span> <span style="color:#a90d91">super</span> <span style="color:#000">T</span><span style="color:#000">&gt;</span> <span style="color:#000">action</span>);
@@ -293,7 +293,7 @@
 </span></span><span style="display:flex;"><span> 
 </span></span></code></pre></div></section><section>
 <h2 id="trasformazioni-di-stream-esempi">Trasformazioni di Stream: esempi</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseTransformations</span> {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseTransformations</span> {
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span>) {
 </span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> <span style="color:#000">li</span> <span style="color:#000">=</span> <span style="color:#000">List</span>.<span style="color:#836c28">of</span>(<span style="color:#000">10</span>, <span style="color:#000">20</span>, <span style="color:#000">30</span>, <span style="color:#000">5</span>, <span style="color:#000">6</span>, <span style="color:#000">7</span>, <span style="color:#000">10</span>, <span style="color:#000">20</span>, <span style="color:#000">100</span>);
 </span></span><span style="display:flex;"><span>
@@ -320,7 +320,7 @@
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></section><section>
 <h2 id="trasformazioni-di-stream-esempi-pt2">Trasformazioni di Stream: esempi pt.2</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseTransformations2</span> {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseTransformations2</span> {
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span>) {
 </span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> <span style="color:#000">li</span> <span style="color:#000">=</span> <span style="color:#000">List</span>.<span style="color:#836c28">of</span>(<span style="color:#000">10</span>,<span style="color:#000">20</span>,<span style="color:#000">30</span>,<span style="color:#000">5</span>,<span style="color:#000">6</span>,<span style="color:#000">7</span>,<span style="color:#000">10</span>,<span style="color:#000">20</span>,<span style="color:#000">100</span>);
 </span></span><span style="display:flex;"><span>		
@@ -347,7 +347,7 @@
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></section><section>
 <h2 id="creazione-di-stream-esempi">Creazione di Stream: esempi</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseFactories</span> {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseFactories</span> {
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span>) {
 </span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> <span style="color:#000">li</span> <span style="color:#000">=</span> <span style="color:#000">List</span>.<span style="color:#836c28">of</span>(<span style="color:#000">10</span>,<span style="color:#000">20</span>,<span style="color:#000">30</span>,<span style="color:#000">5</span>,<span style="color:#000">6</span>,<span style="color:#000">7</span>,<span style="color:#000">10</span>,<span style="color:#000">20</span>,<span style="color:#000">100</span>);
 </span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">print</span>(<span style="color:#c41a16">"Collection: "</span>);
@@ -370,7 +370,7 @@
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></section><section>
 <h2 id="creazione-di-stream-esempi-pt2">Creazione di Stream: esempi pt.2</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseFactories2</span> {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseFactories2</span> {
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span>) {
 </span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">print</span>(<span style="color:#c41a16">"\nSuppl(random): "</span>);
 </span></span><span style="display:flex;"><span>		<span style="color:#000">Stream</span>.<span style="color:#836c28">generate</span>(()<span style="color:#000">-&gt;</span><span style="color:#000">Math</span>.<span style="color:#836c28">random</span>()) <span style="color:#177500">// rand,rand,rand,...</span>
@@ -396,7 +396,7 @@
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></section><section>
 <h2 id="creazione-di-stream-file-di-testo-e-stringhe">Creazione di Stream: file di testo e stringhe</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseOtherFactories</span> {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseOtherFactories</span> {
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">static</span> <span style="color:#000">String</span> <span style="color:#000">aDir</span> <span style="color:#000">=</span> <span style="color:#c41a16">"/home/mirko/aula"</span>;
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">static</span> <span style="color:#000">String</span> <span style="color:#000">aFile</span> <span style="color:#000">=</span> <span style="color:#c41a16">"/home/mirko/aula/oop/17/Counter.java"</span>;
 </span></span><span style="display:flex;"><span>	
@@ -426,7 +426,7 @@
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></section><section>
 <h2 id="terminazioni-ad-hoc-di-stream-esempi">Terminazioni ad-hoc di Stream: esempi</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseTerminations</span> {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseTerminations</span> {
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span>) {
 </span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> <span style="color:#000">li</span> <span style="color:#000">=</span> <span style="color:#000">List</span>.<span style="color:#836c28">of</span>(<span style="color:#000">10</span>,<span style="color:#000">20</span>,<span style="color:#000">30</span>,<span style="color:#000">5</span>,<span style="color:#000">6</span>,<span style="color:#000">7</span>,<span style="color:#000">10</span>,<span style="color:#000">20</span>,<span style="color:#000">100</span>);
 </span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">print</span>(<span style="color:#c41a16">"ForEach:\t "</span>);
@@ -458,7 +458,7 @@
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></section><section>
 <h2 id="terminazione-generalizzata-con-streamcollect">Terminazione generalizzata con <code>Stream.collect</code></h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseGeneralizedCollectors</span> {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseGeneralizedCollectors</span> {
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span>) {
 </span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> <span style="color:#000">li</span> <span style="color:#000">=</span> <span style="color:#000">List</span>.<span style="color:#836c28">of</span>(<span style="color:#000">10</span>,<span style="color:#000">20</span>,<span style="color:#000">30</span>,<span style="color:#000">5</span>,<span style="color:#000">6</span>,<span style="color:#000">7</span>,<span style="color:#000">10</span>,<span style="color:#000">20</span>,<span style="color:#000">100</span>);
 </span></span><span style="display:flex;"><span>		
@@ -487,7 +487,7 @@
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></section><section>
 <h2 id="collettori-di-libreria-la-classe-collectors">Collettori di libreria: la classe <code>Collectors</code></h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">Collectors</span> { <span style="color:#177500">// some methods, all public static and generic..</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">Collectors</span> { <span style="color:#177500">// some methods, all public static and generic..</span>
 </span></span><span style="display:flex;"><span>   
 </span></span><span style="display:flex;"><span>    <span style="color:#000">Collector</span><span style="color:#000">&lt;</span><span style="color:#000">T</span>, <span style="color:#000">?</span>, <span style="color:#000">C</span><span style="color:#000">&gt;</span> <span style="color:#000">toCollection</span>(<span style="color:#000">Supplier</span><span style="color:#000">&lt;</span><span style="color:#000">C</span><span style="color:#000">&gt;</span> <span style="color:#000">collectionFactory</span>) 
 </span></span><span style="display:flex;"><span>    <span style="color:#000">Collector</span><span style="color:#000">&lt;</span><span style="color:#000">T</span>, <span style="color:#000">?</span>, <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">T</span><span style="color:#000">&gt;&gt;</span> <span style="color:#000">toList</span>() 
@@ -521,7 +521,7 @@
 </span></span><span style="display:flex;"><span> 
 </span></span></code></pre></div></section><section>
 <h2 id="usecollectors-collettori-di-base"><code>UseCollectors</code>: collettori di base</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">import static</span> <span style="color:#000">java.util.stream.Collectors.*</span>;
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">import static</span> <span style="color:#000">java.util.stream.Collectors.*</span>;
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseCollectors</span> {
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span>) {
@@ -541,7 +541,7 @@
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></section><section>
 <h2 id="usecollectors-collettori-di-base-pt-2"><code>UseCollectors</code>: collettori di base pt 2</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">import static</span> <span style="color:#000">java.util.stream.Collectors.*</span>;
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">import static</span> <span style="color:#000">java.util.stream.Collectors.*</span>;
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseCollectors2</span> {
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span>) {
@@ -567,7 +567,7 @@
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></section><section>
 <h2 id="esempi-avanzati-su-person">Esempi avanzati su <code>Person</code></h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span>	<span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>() {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span>	<span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>() {
 </span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">Person</span><span style="color:#000">&gt;</span> <span style="color:#000">list</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">ArrayList</span><span style="color:#000">&lt;&gt;</span>();
 </span></span><span style="display:flex;"><span>		<span style="color:#000">list</span>.<span style="color:#836c28">add</span>(<span style="color:#a90d91">new</span> <span style="color:#000">Person</span>(<span style="color:#c41a16">"Mario"</span>,<span style="color:#c41a16">"Cesena"</span>,<span style="color:#000">20000</span>,<span style="color:#c41a16">"Teacher"</span>));
 </span></span><span style="display:flex;"><span>		<span style="color:#000">list</span>.<span style="color:#836c28">add</span>(<span style="color:#a90d91">new</span> <span style="color:#000">Person</span>(<span style="color:#c41a16">"Rino"</span>,<span style="color:#c41a16">"Forlì"</span>,<span style="color:#000">50000</span>,<span style="color:#c41a16">"Professor"</span>));
@@ -599,7 +599,7 @@
 </span></span><span style="display:flex;"><span>}   
 </span></span></code></pre></div></section><section>
 <h2 id="algoritmi-funzionali--cosa-realizzano">Algoritmi funzionali – cosa realizzano?</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseStreamsForAlgorithms</span> {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseStreamsForAlgorithms</span> {
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span>) {
 </span></span><span style="display:flex;"><span>		<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(
 </span></span><span style="display:flex;"><span>			<span style="color:#000">LongStream</span>.<span style="color:#836c28">iterate</span>(<span style="color:#000">2</span>, <span style="color:#000">x</span><span style="color:#000">-&gt;</span><span style="color:#000">x</span><span style="color:#000">+</span><span style="color:#000">1</span>)
@@ -633,8 +633,8 @@
 <h4 id="cdl-tecnologie-dei-sistemi-informatici">C.D.L. Tecnologie dei Sistemi Informatici</h4>
 <h3 id="danilo-pianini"><a href="mailto:danilo.pianini@unibo.it">Danilo Pianini — <code>danilo.pianini@unibo.it</code></a></h3>
 <h3 id="gianluca-aguzzi"><a href="mailto:gianluca.aguzzi@unibo.it">Gianluca Aguzzi — <code>gianluca.aguzzi@unibo.it</code></a></h3>
-<h3 id="angelo-filaseta"><a href="mailto:angelo.filaseta@unibo.it">Angelo Filaseta — <code>angelo.filaseta@unibo.it</code></a></h3>
-<p>Compiled on: 2025-12-05
+<h3 id="paolo-baldini"><a href="mailto:p.baldini@unibo.it">Paolo Baldini — <code>p.baldini@unibo.it</code></a></h3>
+<p>Compiled on: 2026-09-11
  — <a href="?print-pdf&amp;pdfSeparateFragments=false"><i class="fa fa-print" aria-hidden="true"></i> versione stampabile</a></p>
 <p><a href=".."><i class="fa fa-undo" aria-hidden="true"></i> back</a></p>
 </section>

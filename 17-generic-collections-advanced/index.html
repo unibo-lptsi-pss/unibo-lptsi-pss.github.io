@@ -25,8 +25,8 @@
 <h4 id="cdl-tecnologie-dei-sistemi-informatici">C.D.L. Tecnologie dei Sistemi Informatici</h4>
 <h3 id="danilo-pianini"><a href="mailto:danilo.pianini@unibo.it">Danilo Pianini — <code>danilo.pianini@unibo.it</code></a></h3>
 <h3 id="gianluca-aguzzi"><a href="mailto:gianluca.aguzzi@unibo.it">Gianluca Aguzzi — <code>gianluca.aguzzi@unibo.it</code></a></h3>
-<h3 id="angelo-filaseta"><a href="mailto:angelo.filaseta@unibo.it">Angelo Filaseta — <code>angelo.filaseta@unibo.it</code></a></h3>
-<p>Compiled on: 2025-12-05
+<h3 id="paolo-baldini"><a href="mailto:p.baldini@unibo.it">Paolo Baldini — <code>p.baldini@unibo.it</code></a></h3>
+<p>Compiled on: 2026-09-11
  — <a href="?print-pdf&amp;pdfSeparateFragments=false"><i class="fa fa-print" aria-hidden="true"></i> versione stampabile</a></p>
 <p><a href=".."><i class="fa fa-undo" aria-hidden="true"></i> back</a></p>
 </section><section>
@@ -45,7 +45,7 @@
 <h1 id="il-problema-della-type-erasure">Il problema della <strong>type-erasure</strong></h1>
 </section><section>
 <h2 id="la-classe-generica-list">La classe generica <code>List</code></h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#177500">/* Classe generica in X:
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#177500">/* Classe generica in X:
 </span></span></span><span style="display:flex;"><span><span style="color:#177500">   - X è il tipo degli elementi della lista */</span>
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">List</span><span style="color:#000">&lt;</span><span style="color:#000">X</span><span style="color:#000">&gt;</span> {	
 </span></span><span style="display:flex;"><span>    
@@ -70,7 +70,7 @@
 </span></span><span style="display:flex;"><span>} 
 </span></span></code></pre></div></section><section>
 <h2 id="uso-di-una-classe-generica">Uso di una classe generica</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseList</span>{
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseList</span>{
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">s</span>){
 </span></span><span style="display:flex;"><span>    	<span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> <span style="color:#000">list</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span>(<span style="color:#000">10</span>, <span style="color:#177500">// Autoboxing</span>
 </span></span><span style="display:flex;"><span>    	    		     <span style="color:#a90d91">new</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span>(<span style="color:#000">20</span>,
@@ -141,7 +141,7 @@
 </ul>
 </section><section>
 <h2 id="qualche-prova">Qualche prova</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.List</span>;
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.List</span>;
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">P</span><span style="color:#000">&lt;</span><span style="color:#000">X</span><span style="color:#000">&gt;</span> {
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">void</span> <span style="color:#000">m</span>() {
@@ -164,7 +164,7 @@
 <h2 id="la-classe-generica-vector">La classe generica <code>Vector</code></h2>
 <h3 id="un-dettaglio-della-sua-implementazione">Un dettaglio della sua implementazione:</h3>
 <p>Per via della type erasure, il suo campo non può essere di tipo <code>X[]</code>, bensì <code>Object[]</code></p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Vector</span><span style="color:#000">&lt;</span><span style="color:#000">X</span><span style="color:#000">&gt;</span>{ 
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Vector</span><span style="color:#000">&lt;</span><span style="color:#000">X</span><span style="color:#000">&gt;</span>{ 
 </span></span><span style="display:flex;"><span>    <span style="color:#177500">// X è la type-variable, ossia il tipo degli elementi</span>
 </span></span><span style="display:flex;"><span>    
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">Vector</span>() { <span style="color:#177500">/* ... */</span> }
@@ -179,7 +179,7 @@
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></section><section>
 <h2 id="uso-di-vectorx">Uso di <code>Vector&lt;X&gt;</code></h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseVector</span> {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseVector</span> {
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">s</span>) {
 </span></span><span style="display:flex;"><span>    	<span style="color:#177500">// Il tipo di vs è Vector&lt;String&gt;</span>
 </span></span><span style="display:flex;"><span>    	<span style="color:#177500">// Ma la sua classe è Vector&lt;X&gt;</span>
@@ -204,7 +204,7 @@
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></section><section>
 <h2 id="implementazione-di-vector-pt-1">Implementazione di <code>Vector</code> pt 1</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Vector</span><span style="color:#000">&lt;</span><span style="color:#000">X</span><span style="color:#000">&gt;</span> {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Vector</span><span style="color:#000">&lt;</span><span style="color:#000">X</span><span style="color:#000">&gt;</span> {
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">int</span> <span style="color:#000">INITIAL_SIZE</span> <span style="color:#000">=</span> <span style="color:#000">10</span>;
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#000">Object</span><span style="color:#000">[]</span> <span style="color:#000">elements</span>; 	<span style="color:#177500">// Deposito elementi, non posso usare X[]!!</span>
@@ -229,7 +229,7 @@
 </span></span><span style="display:flex;"><span>    }
 </span></span></code></pre></div></section><section>
 <h2 id="implementazione-di-vector-pt-2">Implementazione di <code>Vector</code> pt 2</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">int</span> <span style="color:#000">getLength</span>(){
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">int</span> <span style="color:#000">getLength</span>(){
 </span></span><span style="display:flex;"><span>        <span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">size</span>;
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>
@@ -251,7 +251,7 @@
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></section><section>
 <h2 id="ancora-sugli-unchecked-warning-coi-generici">Ancora sugli “unchecked warning” coi generici</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">ShowCast</span> {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">ShowCast</span> {
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span>) {
 </span></span><span style="display:flex;"><span>		<span style="color:#000">Vector</span><span style="color:#000">&lt;</span><span style="color:#000">String</span><span style="color:#000">&gt;</span> <span style="color:#000">v</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Vector</span><span style="color:#000">&lt;&gt;</span>();
 </span></span><span style="display:flex;"><span>		<span style="color:#000">v</span>.<span style="color:#836c28">addElement</span>(<span style="color:#c41a16">"a"</span>);
@@ -285,7 +285,7 @@
 </ul>
 </section><section>
 <h2 id="lampsrow-generica-definizione"><code>LampsRow</code> generica: Definizione</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">LampsRow</span><span style="color:#000">&lt;</span><span style="color:#000">L</span> <span style="color:#a90d91">extends</span> <span style="color:#000">SimpleLamp</span><span style="color:#000">&gt;</span> {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">LampsRow</span><span style="color:#000">&lt;</span><span style="color:#000">L</span> <span style="color:#a90d91">extends</span> <span style="color:#000">SimpleLamp</span><span style="color:#000">&gt;</span> {
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#000">Vector</span><span style="color:#000">&lt;</span><span style="color:#000">L</span><span style="color:#000">&gt;</span> <span style="color:#000">lamps</span>;
 </span></span><span style="display:flex;"><span>
@@ -318,7 +318,7 @@
 <li>si ritiene molto frequente l’uso di <code>SimpleLamp</code> simili tra loro, ossia di una comune specializzazione (classe)</li>
 <li>è frequente l’uso di <code>getLamp()</code>  e quindi del cast</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseLampsRow</span> {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseLampsRow</span> {
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">s</span>) {
 </span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">LampsRow</span><span style="color:#000">&lt;</span><span style="color:#000">UnlimitedLamp</span><span style="color:#000">&gt;</span> <span style="color:#000">lr</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">LampsRow</span><span style="color:#000">&lt;&gt;</span>();
@@ -336,14 +336,14 @@
 </span></span></code></pre></div></section><section>
 <h1 id="java-wildcards-e-sostituibilità">Java Wildcards e sostituibilità</h1>
 <h2 id="java-wildcards">Java Wildcards</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#177500">// Gerarchia dei wrapper Numbers in java.lang</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#177500">// Gerarchia dei wrapper Numbers in java.lang</span>
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">abstract</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Number</span> <span style="color:#a90d91">extends</span> <span style="color:#000">Object</span> { <span style="color:#177500">/* ... */</span> }
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">Integer</span> <span style="color:#a90d91">extends</span> <span style="color:#000">Number</span> { <span style="color:#177500">/* ... */</span> }
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">Double</span> <span style="color:#a90d91">extends</span> <span style="color:#000">Number</span> { <span style="color:#177500">/* ... */</span> }
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">Long</span> <span style="color:#a90d91">extends</span> <span style="color:#000">Number</span> { <span style="color:#177500">/* ... */</span> }
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">Float</span> <span style="color:#a90d91">extends</span> <span style="color:#000">Number</span> { <span style="color:#177500">/* ... */</span> }
 </span></span><span style="display:flex;"><span> <span style="color:#177500">/* ... */</span> 
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#177500">// Accetta qualunque Vector&lt;T&gt; con T &lt;: Number</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#177500">// Accetta qualunque Vector&lt;T&gt; con T &lt;: Number</span>
 </span></span><span style="display:flex;"><span><span style="color:#177500">// Vector&lt;Integer&gt;, Vector&lt;Double&gt;, Vector&lt;Float&gt;, ...</span>
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">void</span> <span style="color:#000">m</span>(<span style="color:#000">Vector</span><span style="color:#000">&lt;?</span> <span style="color:#a90d91">extends</span> <span style="color:#000">Number</span><span style="color:#000">&gt;</span> <span style="color:#000">arg</span>){ <span style="color:#177500">/* ... */</span> }
 </span></span><span style="display:flex;"><span>
@@ -392,7 +392,7 @@
 <h3 id="risposta-no-sembrerebbe-di-si-ma">Risposta: no!! Sembrerebbe di si.. ma:</h3>
 <p>cosa succede se nel metodo qui sotto passiamo un <code>Vector&lt;Integer&gt;</code>?<br>
 $\Rightarrow$ potremmo facilmente compromettere l’integrità del vettore</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">void</span> <span style="color:#000">addAString</span>(<span style="color:#000">Vector</span><span style="color:#000">&lt;</span><span style="color:#000">Object</span><span style="color:#000">&gt;</span> <span style="color:#000">vector</span>){
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">void</span> <span style="color:#000">addAString</span>(<span style="color:#000">Vector</span><span style="color:#000">&lt;</span><span style="color:#000">Object</span><span style="color:#000">&gt;</span> <span style="color:#000">vector</span>){
 </span></span><span style="display:flex;"><span>    <span style="color:#000">vector</span>.<span style="color:#836c28">addElement</span>(<span style="color:#c41a16">"warning!"</span>);
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>...
@@ -442,7 +442,7 @@ $\Rightarrow$ potremmo facilmente compromettere l’integrità del vettore</p>
 </ul>
 </li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#000">Object</span><span style="color:#000">[]</span> <span style="color:#000">o</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Integer</span><span style="color:#000">[]</span>{<span style="color:#000">1</span>,<span style="color:#000">2</span>,<span style="color:#000">3</span>}; <span style="color:#177500">// OK per covarianza</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#000">Object</span><span style="color:#000">[]</span> <span style="color:#000">o</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Integer</span><span style="color:#000">[]</span>{<span style="color:#000">1</span>,<span style="color:#000">2</span>,<span style="color:#000">3</span>}; <span style="color:#177500">// OK per covarianza</span>
 </span></span><span style="display:flex;"><span><span style="color:#000">o</span><span style="color:#000">[</span><span style="color:#000">0</span><span style="color:#000">]</span> <span style="color:#000">=</span> <span style="color:#c41a16">"a"</span>; <span style="color:#177500">// Lancia ArrayStoreException</span>
 </span></span><span style="display:flex;"><span><span style="color:#177500">// per prevenire la unsafety di successive istruzioni come:</span>
 </span></span><span style="display:flex;"><span><span style="color:#177500">// Integer[] ar=((Integer[])o);</span>
@@ -477,7 +477,7 @@ $\Rightarrow$ potremmo facilmente compromettere l’integrità del vettore</p>
 <ul>
 <li>Visto che <code>printAll(Vector&lt;X extends Number&gt;)</code> usa solo <code>X getElementAt(int)</code>, l’input può essere covariante</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Cov</span> {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Cov</span> {
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">printAll</span>(<span style="color:#000">Vector</span><span style="color:#000">&lt;?</span> <span style="color:#a90d91">extends</span> <span style="color:#000">Number</span><span style="color:#000">&gt;</span> <span style="color:#000">vect</span>) {
 </span></span><span style="display:flex;"><span>		<span style="color:#177500">// Questo metodo usa solo 'X getElementAt()'</span>
@@ -503,7 +503,7 @@ $\Rightarrow$ potremmo facilmente compromettere l’integrità del vettore</p>
 <ul>
 <li>Visto che <code>addStrings(Vector&lt;X super String&gt;)</code> usa solo <code>addElement(X)</code>, l’input può essere controvariante</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Contra</span> {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Contra</span> {
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">addStrings</span>(<span style="color:#000">Vector</span><span style="color:#000">&lt;?</span> <span style="color:#a90d91">super</span> <span style="color:#000">String</span><span style="color:#000">&gt;</span> <span style="color:#000">vect</span>, <span style="color:#000">String</span> <span style="color:#000">s</span>, <span style="color:#a90d91">int</span> <span style="color:#000">n</span>) {
 </span></span><span style="display:flex;"><span>		<span style="color:#177500">// Questo metodo usa solo 'void addElement(X x)'</span>
@@ -528,7 +528,7 @@ $\Rightarrow$ potremmo facilmente compromettere l’integrità del vettore</p>
 <ul>
 <li>Visto che <code>printLength(Vector&lt;X&gt;)</code> usa solo <code>int getLength()</code>, l’input può essere bivariante <!-- covariante rispetto `Vector<Object>` --></li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Unbounded</span> {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Unbounded</span> {
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">printLength</span>(<span style="color:#000">Vector</span><span style="color:#000">&lt;?&gt;</span> <span style="color:#000">vect</span>) {
 </span></span><span style="display:flex;"><span>		<span style="color:#177500">// Questo metodo usa solo 'int getLength()'</span>
@@ -548,7 +548,7 @@ $\Rightarrow$ potremmo facilmente compromettere l’integrità del vettore</p>
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></section><section>
 <h2 id="un-uso-tipico-metodi-in-classi-generiche">Un uso tipico: metodi in classi generiche</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Vector</span><span style="color:#000">&lt;</span><span style="color:#000">X</span><span style="color:#000">&gt;</span>{
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Vector</span><span style="color:#000">&lt;</span><span style="color:#000">X</span><span style="color:#000">&gt;</span>{
 </span></span><span style="display:flex;"><span>    ...
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">addAllFrom</span>(<span style="color:#000">Vector</span><span style="color:#000">&lt;?</span> <span style="color:#a90d91">extends</span> <span style="color:#000">X</span><span style="color:#000">&gt;</span> <span style="color:#000">vect</span>){
 </span></span><span style="display:flex;"><span>    	<span style="color:#a90d91">for</span> (<span style="color:#a90d91">int</span> <span style="color:#000">i</span><span style="color:#000">=</span><span style="color:#000">0</span>;<span style="color:#000">i</span><span style="color:#000">&lt;</span><span style="color:#000">vect</span>.<span style="color:#836c28">getLength</span>();<span style="color:#000">i</span><span style="color:#000">++</span>){
@@ -556,7 +556,7 @@ $\Rightarrow$ potremmo facilmente compromettere l’integrità del vettore</p>
 </span></span><span style="display:flex;"><span>    	}
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseVector</span> {
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseVector</span> {
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">s</span>) {
 </span></span><span style="display:flex;"><span>		<span style="color:#000">Vector</span><span style="color:#000">&lt;</span><span style="color:#000">Object</span><span style="color:#000">&gt;</span> <span style="color:#000">vo</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Vector</span><span style="color:#000">&lt;&gt;</span>();
 </span></span><span style="display:flex;"><span>		<span style="color:#000">vo</span>.<span style="color:#836c28">addElement</span>(<span style="color:#000">1</span>);
@@ -577,8 +577,8 @@ $\Rightarrow$ potremmo facilmente compromettere l’integrità del vettore</p>
 <h4 id="cdl-tecnologie-dei-sistemi-informatici">C.D.L. Tecnologie dei Sistemi Informatici</h4>
 <h3 id="danilo-pianini"><a href="mailto:danilo.pianini@unibo.it">Danilo Pianini — <code>danilo.pianini@unibo.it</code></a></h3>
 <h3 id="gianluca-aguzzi"><a href="mailto:gianluca.aguzzi@unibo.it">Gianluca Aguzzi — <code>gianluca.aguzzi@unibo.it</code></a></h3>
-<h3 id="angelo-filaseta"><a href="mailto:angelo.filaseta@unibo.it">Angelo Filaseta — <code>angelo.filaseta@unibo.it</code></a></h3>
-<p>Compiled on: 2025-12-05
+<h3 id="paolo-baldini"><a href="mailto:p.baldini@unibo.it">Paolo Baldini — <code>p.baldini@unibo.it</code></a></h3>
+<p>Compiled on: 2026-09-11
  — <a href="?print-pdf&amp;pdfSeparateFragments=false"><i class="fa fa-print" aria-hidden="true"></i> versione stampabile</a></p>
 <p><a href=".."><i class="fa fa-undo" aria-hidden="true"></i> back</a></p>
 </section>

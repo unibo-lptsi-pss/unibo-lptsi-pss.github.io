@@ -25,8 +25,8 @@
 <h4 id="cdl-tecnologie-dei-sistemi-informatici">C.D.L. Tecnologie dei Sistemi Informatici</h4>
 <h3 id="danilo-pianini"><a href="mailto:danilo.pianini@unibo.it">Danilo Pianini — <code>danilo.pianini@unibo.it</code></a></h3>
 <h3 id="gianluca-aguzzi"><a href="mailto:gianluca.aguzzi@unibo.it">Gianluca Aguzzi — <code>gianluca.aguzzi@unibo.it</code></a></h3>
-<h3 id="angelo-filaseta"><a href="mailto:angelo.filaseta@unibo.it">Angelo Filaseta — <code>angelo.filaseta@unibo.it</code></a></h3>
-<p>Compiled on: 2025-12-05
+<h3 id="paolo-baldini"><a href="mailto:p.baldini@unibo.it">Paolo Baldini — <code>p.baldini@unibo.it</code></a></h3>
+<p>Compiled on: 2026-09-11
  — <a href="?print-pdf&amp;pdfSeparateFragments=false"><i class="fa fa-print" aria-hidden="true"></i> versione stampabile</a></p>
 <p><a href=".."><i class="fa fa-undo" aria-hidden="true"></i> back</a></p>
 </section><section>
@@ -42,10 +42,10 @@
 </ul>
 </li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#177500">// situazione di partenza</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#177500">// situazione di partenza</span>
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">A</span> {...}
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">B</span> {...}
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#177500">// modifica, usando le inner class</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#177500">// modifica, usando le inner class</span>
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">A</span> {
 </span></span><span style="display:flex;"><span>    ...
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">static</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">B</span> { .. }
@@ -59,7 +59,7 @@
 <li>Il nesting può essere multiplo e/o <em>multilivello</em></li>
 <li>L’accesso alle classi/interfacce innestate statiche avviene con sintassi <code>Outer.A</code>, <code>Outer.B</code>, <code>Outer.I</code>, <code>Outer.A.C</code></li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">Outer</span> {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">Outer</span> {
 </span></span><span style="display:flex;"><span>    ...
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">static</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">A</span> { ... <span style="color:#a90d91">static</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">C</span> { ... } ... }
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">static</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">B</span> { ... }
@@ -78,7 +78,7 @@
 <li>L’accesso da fuori <code>Outer</code> di <code>StaticNested</code> segue le regole del suo modificatore d’accesso</li>
 <li><em>Esterna e interna si vedono a vicenda anche le proprietà <code>private</code></em></li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">Outer</span> {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">Outer</span> {
 </span></span><span style="display:flex;"><span>    ...
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">static</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">StaticNested</span> { 
 </span></span><span style="display:flex;"><span>       ...
@@ -121,7 +121,7 @@
 </ul>
 </section><section>
 <h2 id="classe-counter-e-specializzazioni-innestate">Classe <code>Counter</code> e specializzazioni innestate</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">package</span> <span style="color:#000">it.unibo.nested</span>;
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">package</span> <span style="color:#000">it.unibo.nested</span>;
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Counter</span> {
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">int</span> <span style="color:#000">value</span>;
@@ -141,7 +141,7 @@
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></section><section>
 <h2 id="uso-di-counter-e-specializzazioni-innestate">Uso di <code>Counter</code> e specializzazioni innestate</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">package</span> <span style="color:#000">it.unibo.nested</span>;
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">package</span> <span style="color:#000">it.unibo.nested</span>;
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.ArrayList</span>;
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.List</span>;
@@ -174,7 +174,7 @@ ma che <em>non vogliamo esporre come classi esterne</em></p>
 <p>Spesso classi di questo tipo non devono essere visibili dall’esterno, quindi vengono indicate come <code>private</code></p>
 </section><section>
 <h2 id="classe-range-e-suo-rangeiterator-innestato">Classe <code>Range</code> e suo <code>RangeIterator</code> innestato</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">RangeNested</span> <span style="color:#a90d91">implements</span> <span style="color:#000">Iterable</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">RangeNested</span> <span style="color:#a90d91">implements</span> <span style="color:#000">Iterable</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> {
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">start</span>;
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">stop</span>;
@@ -208,7 +208,7 @@ ma che <em>non vogliamo esporre come classi esterne</em></p>
 <li><code>Map</code>, <code>Map.Entry</code></li>
 <li>una mappa è “osservabile” come set di entry, ossia come collezione di coppie chiave-valore</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">interface</span> <span style="color:#3f6e75">Map</span><span style="color:#000">&lt;</span><span style="color:#000">K</span>,<span style="color:#000">V</span><span style="color:#000">&gt;</span> {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">interface</span> <span style="color:#3f6e75">Map</span><span style="color:#000">&lt;</span><span style="color:#000">K</span>,<span style="color:#000">V</span><span style="color:#000">&gt;</span> {
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#177500">// Query Operations</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">int</span> <span style="color:#000">size</span>();
@@ -261,7 +261,7 @@ ma che <em>non vogliamo esporre come classi esterne</em></p>
 <li>Una mappa può essere vista come una collezione di coppie chiave-valore, ognuna incapsulata in un <code>Map.Entry</code></li>
 <li>Quindi, una mappa è composta da un set di <code>Map.Entry</code></li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">interface</span> <span style="color:#3f6e75">Map</span><span style="color:#000">&lt;</span><span style="color:#000">K</span>,<span style="color:#000">V</span><span style="color:#000">&gt;</span> {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">interface</span> <span style="color:#3f6e75">Map</span><span style="color:#000">&lt;</span><span style="color:#000">K</span>,<span style="color:#000">V</span><span style="color:#000">&gt;</span> {
 </span></span><span style="display:flex;"><span>    
 </span></span><span style="display:flex;"><span>    ...
 </span></span><span style="display:flex;"><span>    
@@ -285,7 +285,7 @@ ma che <em>non vogliamo esporre come classi esterne</em></p>
 <li><code>InnerClass</code> è vista come se fosse una proprietà <em><strong>non-statica</strong></em> di <code>Outer</code> al pari di altri campi o metodi</li>
 <li>L’effetto è che una istanza di <code>InnerClass</code> ha sempre un riferimento ad una istanza di <code>Outer</code> (enclosing instance) che ne rappresenta il <em><strong>contesto</strong></em>, accessibile con la sintassi <code>Outer.this</code>, e ai suoi campi (privati)</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">Outer</span> {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">Outer</span> {
 </span></span><span style="display:flex;"><span>    ...
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">class</span> <span style="color:#3f6e75">InnerClass</span> { <span style="color:#177500">// Nota.. non è static!</span>
 </span></span><span style="display:flex;"><span>        ...
@@ -295,7 +295,7 @@ ma che <em>non vogliamo esporre come classi esterne</em></p>
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></section><section>
 <h2 id="un-semplice-esempio">Un semplice esempio</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Outer</span> {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Outer</span> {
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">i</span>;
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">Outer</span>(<span style="color:#a90d91">int</span> <span style="color:#000">i</span>) {
@@ -321,7 +321,7 @@ ma che <em>non vogliamo esporre come classi esterne</em></p>
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></section><section>
 <h2 id="uso-di-inner-e-outer">Uso di <code>Inner</code> e <code>Outer</code></h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseOuter</span> {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseOuter</span> {
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>() {
 </span></span><span style="display:flex;"><span>        <span style="color:#000">Outer</span> <span style="color:#000">o</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Outer</span>(<span style="color:#000">5</span>);
 </span></span><span style="display:flex;"><span>        <span style="color:#000">Outer</span>.<span style="color:#836c28">Inner</span> <span style="color:#000">in</span> <span style="color:#000">=</span> <span style="color:#000">o</span>.<span style="color:#836c28">new</span> <span style="color:#000">Inner</span>();
@@ -360,7 +360,7 @@ ma che <em>non vogliamo esporre come classi esterne</em></p>
 </ul>
 </section><section>
 <h2 id="una-variante-di-range">Una variante di <code>Range</code></h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">RangeInner</span> <span style="color:#a90d91">implements</span> <span style="color:#000">Iterable</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">RangeInner</span> <span style="color:#a90d91">implements</span> <span style="color:#000">Iterable</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> {
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">start</span>;
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">stop</span>;
 </span></span><span style="display:flex;"><span>
@@ -408,7 +408,7 @@ ma che <em>non vogliamo esporre come classi esterne</em></p>
 </ul>
 </li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">Outer</span> {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">Outer</span> {
 </span></span><span style="display:flex;"><span>    <span style="color:#177500">// ...</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">void</span> <span style="color:#000">m</span>(<span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">x</span>){
 </span></span><span style="display:flex;"><span>        <span style="color:#a90d91">final</span> <span style="color:#000">String</span> <span style="color:#000">s</span> <span style="color:#000">=</span> <span style="color:#177500">/* ... */</span>;
@@ -420,7 +420,7 @@ ma che <em>non vogliamo esporre come classi esterne</em></p>
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></section><section>
 <h2 id="range-tramite-classe-locale"><code>Range</code> tramite classe locale</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">RangeLocalClass</span> <span style="color:#a90d91">implements</span> <span style="color:#000">Iterable</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">RangeLocalClass</span> <span style="color:#a90d91">implements</span> <span style="color:#000">Iterable</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> {
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">start</span>;
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">stop</span>;
 </span></span><span style="display:flex;"><span>
@@ -474,7 +474,7 @@ ma che <em>non vogliamo esporre come classi esterne</em></p>
 </ul>
 </li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">C</span> {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">C</span> {
 </span></span><span style="display:flex;"><span>    <span style="color:#177500">// ...</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#000">Object</span> <span style="color:#000">m</span>(<span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">x</span>) {
 </span></span><span style="display:flex;"><span>        <span style="color:#a90d91">return</span> <span style="color:#a90d91">new</span> <span style="color:#000">Object</span>() {
@@ -487,7 +487,7 @@ ma che <em>non vogliamo esporre come classi esterne</em></p>
 </ul>
 </section><section>
 <h2 id="range-tramite-classe-anonima--la-soluzione-ottimale"><code>Range</code> tramite classe anonima – la soluzione ottimale</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.Iterator</span>;
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.Iterator</span>;
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">RangeAnonymous</span> <span style="color:#a90d91">implements</span> <span style="color:#000">Iterable</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> {
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">start</span>;
@@ -517,7 +517,7 @@ ma che <em>non vogliamo esporre come classi esterne</em></p>
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></section><section>
 <h2 id="altro-esempio-classe-anonima-da--comparable">Altro esempio: classe anonima da  <code>Comparable</code></h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.Comparator</span>;
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.Comparator</span>;
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.List</span>;
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseSort</span> {
@@ -564,7 +564,7 @@ ma che <em>non vogliamo esporre come classi esterne</em></p>
 </ul>
 </li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseSortLambda</span> {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseSortLambda</span> {
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>() {
 </span></span><span style="display:flex;"><span>        <span style="color:#a90d91">final</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> <span style="color:#000">list</span> <span style="color:#000">=</span> <span style="color:#000">Arrays</span>.<span style="color:#836c28">asList</span>(<span style="color:#000">10</span>, <span style="color:#000">40</span>, <span style="color:#000">7</span>, <span style="color:#000">57</span>, <span style="color:#000">13</span>, <span style="color:#000">19</span>, <span style="color:#000">21</span>, <span style="color:#000">35</span>);
 </span></span><span style="display:flex;"><span>        <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">list</span>);
@@ -601,8 +601,8 @@ ma che <em>non vogliamo esporre come classi esterne</em></p>
 <h4 id="cdl-tecnologie-dei-sistemi-informatici">C.D.L. Tecnologie dei Sistemi Informatici</h4>
 <h3 id="danilo-pianini"><a href="mailto:danilo.pianini@unibo.it">Danilo Pianini — <code>danilo.pianini@unibo.it</code></a></h3>
 <h3 id="gianluca-aguzzi"><a href="mailto:gianluca.aguzzi@unibo.it">Gianluca Aguzzi — <code>gianluca.aguzzi@unibo.it</code></a></h3>
-<h3 id="angelo-filaseta"><a href="mailto:angelo.filaseta@unibo.it">Angelo Filaseta — <code>angelo.filaseta@unibo.it</code></a></h3>
-<p>Compiled on: 2025-12-05
+<h3 id="paolo-baldini"><a href="mailto:p.baldini@unibo.it">Paolo Baldini — <code>p.baldini@unibo.it</code></a></h3>
+<p>Compiled on: 2026-09-11
  — <a href="?print-pdf&amp;pdfSeparateFragments=false"><i class="fa fa-print" aria-hidden="true"></i> versione stampabile</a></p>
 <p><a href=".."><i class="fa fa-undo" aria-hidden="true"></i> back</a></p>
 </section>

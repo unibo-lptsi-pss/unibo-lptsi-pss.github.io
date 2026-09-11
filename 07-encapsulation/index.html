@@ -25,8 +25,8 @@
 <h4 id="cdl-tecnologie-dei-sistemi-informatici">C.D.L. Tecnologie dei Sistemi Informatici</h4>
 <h3 id="danilo-pianini"><a href="mailto:danilo.pianini@unibo.it">Danilo Pianini — <code>danilo.pianini@unibo.it</code></a></h3>
 <h3 id="gianluca-aguzzi"><a href="mailto:gianluca.aguzzi@unibo.it">Gianluca Aguzzi — <code>gianluca.aguzzi@unibo.it</code></a></h3>
-<h3 id="angelo-filaseta"><a href="mailto:angelo.filaseta@unibo.it">Angelo Filaseta — <code>angelo.filaseta@unibo.it</code></a></h3>
-<p>Compiled on: 2025-12-05
+<h3 id="paolo-baldini"><a href="mailto:p.baldini@unibo.it">Paolo Baldini — <code>p.baldini@unibo.it</code></a></h3>
+<p>Compiled on: 2026-09-11
  — <a href="?print-pdf&amp;pdfSeparateFragments=false"><i class="fa fa-print" aria-hidden="true"></i> versione stampabile</a></p>
 <p><a href=".."><i class="fa fa-undo" aria-hidden="true"></i> back</a></p>
 </section><section>
@@ -198,7 +198,7 @@
 <ul>
 <li>dati e funzioni sono tenuti separati</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">package</span> <span style="color:#000">it.unibo.encapsulation.bad</span>;
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">package</span> <span style="color:#000">it.unibo.encapsulation.bad</span>;
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">CounterValue</span> {
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">value</span>;
@@ -207,7 +207,7 @@
 </span></span><span style="display:flex;"><span>        <span style="color:#a90d91">this</span>.<span style="color:#836c28">value</span> <span style="color:#000">=</span> <span style="color:#000">value</span>;
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">package</span> <span style="color:#000">it.unibo.encapsulation.bad</span>;
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">package</span> <span style="color:#000">it.unibo.encapsulation.bad</span>;
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">CounterFunctions</span> {
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">static</span> <span style="color:#000">CounterValue</span> <span style="color:#000">increment</span>(<span style="color:#000">CounterValue</span> <span style="color:#000">cv</span>) {
@@ -225,7 +225,7 @@
 <li>dati e funzioni sono tenuti insieme (cosa piuttosto naturale nella OOP)</li>
 <li>ma i dati sono ben visibili dall’esterno (no information hiding)</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">package</span> <span style="color:#000">it.unibo.encapsulation.bad</span>;
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">package</span> <span style="color:#000">it.unibo.encapsulation.bad</span>;
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Counter</span> {
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">int</span> <span style="color:#000">value</span>;
@@ -234,7 +234,7 @@
 </span></span><span style="display:flex;"><span>        <span style="color:#000">value</span><span style="color:#000">++</span>;
 </span></span><span style="display:flex;"><span>    } 
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">package</span> <span style="color:#000">it.unibo.encapsulation.bad</span>;
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">package</span> <span style="color:#000">it.unibo.encapsulation.bad</span>;
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseCounter</span> {
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span>){
@@ -248,7 +248,7 @@
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></section><section>
 <h2 id="esempio-base-classe-counter-ben-incapsulata">Esempio base: classe <code>Counter</code> (ben incapsulata)</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">Counter</span> {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">Counter</span> {
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>	<span style="color:#177500">/* Il campo è reso inaccessibile */</span>
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">private</span> <span style="color:#a90d91">int</span> <span style="color:#000">countValue</span>;
@@ -270,7 +270,7 @@
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></section><section>
 <h2 id="semplice-uso">Semplice uso</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseCounter</span> {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseCounter</span> {
 </span></span><span style="display:flex;"><span>	
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span>) {
 </span></span><span style="display:flex;"><span>		<span style="color:#000">Counter</span> <span style="color:#000">c</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Counter</span>();
@@ -291,7 +291,7 @@
 <li>Consende di agire sul conteggio solo con <code>getValue()</code> e <code>increment()</code></li>
 <li>$\Rightarrow$ è impossibile modificare il conteggio a piacimento (o per errore), ad esempio decrementando invece che incrementando, o azzerando</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseCounter2</span> {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseCounter2</span> {
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>   <span style="color:#177500">/* Conto su un array, con Contatore creato internamente */</span>
 </span></span><span style="display:flex;"><span>   <span style="color:#a90d91">static</span> <span style="color:#a90d91">int</span> <span style="color:#000">countElements</span>(<span style="color:#a90d91">int</span><span style="color:#000">[]</span> <span style="color:#000">array</span>, <span style="color:#a90d91">int</span> <span style="color:#000">elem</span>) {
@@ -311,7 +311,7 @@
 <li>Ciò consente un più ampio grado di riuso</li>
 <li>In generale, ho aperto nuove possibilità d’uso</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span>   <span style="color:#177500">/* Conto su un array, con Contatore passato in input */</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span>   <span style="color:#177500">/* Conto su un array, con Contatore passato in input */</span>
 </span></span><span style="display:flex;"><span>   <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">countInArray</span>(<span style="color:#a90d91">int</span><span style="color:#000">[]</span> <span style="color:#000">array</span>, <span style="color:#a90d91">int</span> <span style="color:#000">elem</span>, <span style="color:#000">Counter</span> <span style="color:#000">c</span>) {
 </span></span><span style="display:flex;"><span>      <span style="color:#a90d91">for</span> (<span style="color:#a90d91">int</span> <span style="color:#000">i</span> : <span style="color:#000">array</span>) {
 </span></span><span style="display:flex;"><span>         <span style="color:#a90d91">if</span> (<span style="color:#000">i</span> <span style="color:#000">==</span> <span style="color:#000">elem</span>) {
@@ -377,7 +377,7 @@
 </section><section>
 <h2 id="immutablepoint3d"><code>ImmutablePoint3D</code></h2>
 <div class="smaller">
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">ImmutablePoint3D</span> {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">ImmutablePoint3D</span> {
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>   <span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">double</span> <span style="color:#000">x</span>; <span style="color:#177500">// x coordinate</span>
 </span></span><span style="display:flex;"><span>   <span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">double</span> <span style="color:#000">y</span>; <span style="color:#177500">// y coordinate</span>
@@ -413,7 +413,7 @@
 </span></span></code></pre></div></div>
 </section><section>
 <h2 id="useimmutablepoint3d"><code>UseImmutablePoint3D</code></h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseImmutablePoint3D</span> {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseImmutablePoint3D</span> {
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>   <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span>) {
 </span></span><span style="display:flex;"><span>      <span style="color:#a90d91">final</span> <span style="color:#000">ImmutablePoint3D</span> <span style="color:#000">p</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">ImmutablePoint3D</span>(<span style="color:#000">10</span>, <span style="color:#000">20</span>, <span style="color:#000">30</span>);
@@ -477,7 +477,7 @@ Al primo avvio, le lampadine sono spente e il controllo di intensità è a zero 
 </ul>
 </section><section>
 <h2 id="parte-pubblica-della-classe-lamp">Parte pubblica della classe <code>Lamp</code></h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#177500">/* Classe d'esempio che modella il concetto di Lampadina
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#177500">/* Classe d'esempio che modella il concetto di Lampadina
 </span></span></span><span style="display:flex;"><span><span style="color:#177500">   in un sistema Domotico */</span>
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Lamp</span> {
 </span></span><span style="display:flex;"><span>    
@@ -514,7 +514,7 @@ Al primo avvio, le lampadine sono spente e il controllo di intensità è a zero 
 </ul>
 </section><section>
 <h2 id="classe-uselamp">Classe UseLamp</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseLamp</span> {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseLamp</span> {
 </span></span><span style="display:flex;"><span>   <span style="color:#a90d91">private</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">test1</span>() {
 </span></span><span style="display:flex;"><span>      <span style="color:#a90d91">final</span> <span style="color:#000">Lamp</span> <span style="color:#000">l</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Lamp</span>();
 </span></span><span style="display:flex;"><span>      <span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">l</span>);
@@ -558,7 +558,7 @@ Al primo avvio, le lampadine sono spente e il controllo di intensità è a zero 
 </ul>
 </section><section>
 <h2 id="stato-e-metodi-della-classe-lamp">Stato e metodi della classe <code>Lamp</code></h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#177500">/* Classe d'esempio che modella il concetto di Lampadina
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#177500">/* Classe d'esempio che modella il concetto di Lampadina
 </span></span></span><span style="display:flex;"><span><span style="color:#177500">   in un sistema Domotico */</span>
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Lamp</span>{
 </span></span><span style="display:flex;"><span>
@@ -595,7 +595,7 @@ Al primo avvio, le lampadine sono spente e il controllo di intensità è a zero 
 </section><section>
 <h2 id="prima-versione-classe-lamp">Prima versione Classe Lamp</h2>
 <div class="smaller">
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Lamp</span> {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Lamp</span> {
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">double</span> <span style="color:#000">intensity</span>;
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">boolean</span> <span style="color:#000">switchedOn</span>;
 </span></span><span style="display:flex;"><span>    
@@ -647,7 +647,7 @@ Al primo avvio, le lampadine sono spente e il controllo di intensità è a zero 
 <h2 id="versione-finale-classe-lamp">Versione finale Classe Lamp</h2>
 <div class="container">
 <div class="col">
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Lamp</span> {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Lamp</span> {
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>   <span style="color:#177500">/* Costanti luminosità */</span>
 </span></span><span style="display:flex;"><span>   <span style="color:#a90d91">private</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">LEVELS</span> <span style="color:#000">=</span> <span style="color:#000">10</span>;
@@ -678,7 +678,7 @@ Al primo avvio, le lampadine sono spente e il controllo di intensità è a zero 
 </span></span></code></pre></div></div>
 <div class="col">
 <div class="smaller">
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span>   <span style="color:#177500">/* Gestione intensita' */</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span>   <span style="color:#177500">/* Gestione intensita' */</span>
 </span></span><span style="display:flex;"><span>   <span style="color:#a90d91">private</span> <span style="color:#a90d91">void</span> <span style="color:#000">correctIntensity</span>() { <span style="color:#177500">// A solo uso interno</span>
 </span></span><span style="display:flex;"><span>      <span style="color:#a90d91">if</span> (<span style="color:#a90d91">this</span>.<span style="color:#836c28">intensity</span> <span style="color:#000">&lt;</span> <span style="color:#000">0</span>) {
 </span></span><span style="display:flex;"><span>         <span style="color:#a90d91">this</span>.<span style="color:#836c28">intensity</span> <span style="color:#000">=</span> <span style="color:#000">0</span>;
@@ -724,7 +724,7 @@ Al primo avvio, le lampadine sono spente e il controllo di intensità è a zero 
 </ul>
 </section><section>
 <h2 id="uselamp-uso-di-tostring">UseLamp: uso di toString</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseLampString</span> {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseLampString</span> {
 </span></span><span style="display:flex;"><span>  	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">s</span>) {
 </span></span><span style="display:flex;"><span>        <span style="color:#000">LampString</span> <span style="color:#000">l</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">LampString</span>();
 </span></span><span style="display:flex;"><span>        <span style="color:#000">l</span>.<span style="color:#836c28">switchOn</span>();
@@ -768,8 +768,8 @@ Al primo avvio, le lampadine sono spente e il controllo di intensità è a zero 
 <h4 id="cdl-tecnologie-dei-sistemi-informatici">C.D.L. Tecnologie dei Sistemi Informatici</h4>
 <h3 id="danilo-pianini"><a href="mailto:danilo.pianini@unibo.it">Danilo Pianini — <code>danilo.pianini@unibo.it</code></a></h3>
 <h3 id="gianluca-aguzzi"><a href="mailto:gianluca.aguzzi@unibo.it">Gianluca Aguzzi — <code>gianluca.aguzzi@unibo.it</code></a></h3>
-<h3 id="angelo-filaseta"><a href="mailto:angelo.filaseta@unibo.it">Angelo Filaseta — <code>angelo.filaseta@unibo.it</code></a></h3>
-<p>Compiled on: 2025-12-05
+<h3 id="paolo-baldini"><a href="mailto:p.baldini@unibo.it">Paolo Baldini — <code>p.baldini@unibo.it</code></a></h3>
+<p>Compiled on: 2026-09-11
  — <a href="?print-pdf&amp;pdfSeparateFragments=false"><i class="fa fa-print" aria-hidden="true"></i> versione stampabile</a></p>
 <p><a href=".."><i class="fa fa-undo" aria-hidden="true"></i> back</a></p>
 <!--

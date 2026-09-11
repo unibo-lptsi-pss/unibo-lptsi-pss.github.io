@@ -25,8 +25,8 @@
 <h4 id="cdl-tecnologie-dei-sistemi-informatici">C.D.L. Tecnologie dei Sistemi Informatici</h4>
 <h3 id="danilo-pianini"><a href="mailto:danilo.pianini@unibo.it">Danilo Pianini — <code>danilo.pianini@unibo.it</code></a></h3>
 <h3 id="gianluca-aguzzi"><a href="mailto:gianluca.aguzzi@unibo.it">Gianluca Aguzzi — <code>gianluca.aguzzi@unibo.it</code></a></h3>
-<h3 id="angelo-filaseta"><a href="mailto:angelo.filaseta@unibo.it">Angelo Filaseta — <code>angelo.filaseta@unibo.it</code></a></h3>
-<p>Compiled on: 2025-12-05
+<h3 id="paolo-baldini"><a href="mailto:p.baldini@unibo.it">Paolo Baldini — <code>p.baldini@unibo.it</code></a></h3>
+<p>Compiled on: 2026-09-11
  — <a href="?print-pdf&amp;pdfSeparateFragments=false"><i class="fa fa-print" aria-hidden="true"></i> versione stampabile</a></p>
 <p><a href=".."><i class="fa fa-undo" aria-hidden="true"></i> back</a></p>
 </section><section>
@@ -53,7 +53,7 @@
 <h3 id="ricordando-il-principio-di-sostituibilità">Ricordando il principio di sostituibilità</h3>
 <p>SE <code>B</code> è un <em>sottotipo</em> di <code>A</code></p>
 <p>ALLORA ogni oggetto di <code>B</code> può/“deve poter” essere utilizzabile dove ci si attende un oggetto di <code>A</code></p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">void</span> <span style="color:#000">m</span>(<span style="color:#000">A</span> <span style="color:#000">a</span>) { <span style="color:#177500">/* ... */</span> }
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">void</span> <span style="color:#000">m</span>(<span style="color:#000">A</span> <span style="color:#000">a</span>) { <span style="color:#177500">/* ... */</span> }
 </span></span><span style="display:flex;"><span><span style="color:#000">B</span> <span style="color:#000">b</span> <span style="color:#000">=</span> <span style="color:#177500">/* ... */</span>;
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#000">A</span> <span style="color:#000">a</span> <span style="color:#000">=</span> <span style="color:#000">b</span>; <span style="color:#177500">// OK</span>
@@ -90,7 +90,7 @@
 </ul>
 <div class="container">
 <div class="col">
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">C</span> { <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">foo</span>() { <span style="color:#177500">/*...*/</span> } }
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">C</span> { <span style="color:#a90d91">public</span> <span style="color:#a90d91">void</span> <span style="color:#000">foo</span>() { <span style="color:#177500">/*...*/</span> } }
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">D</span> { <span style="color:#177500">// rappresenta un generico "contesto"</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#000">C</span> <span style="color:#000">c</span>;
@@ -98,7 +98,7 @@
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></div>
 <div class="col">
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">C1</span> <span style="color:#a90d91">extends</span> <span style="color:#000">C</span> { }
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">C1</span> <span style="color:#a90d91">extends</span> <span style="color:#000">C</span> { }
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">class</span> <span style="color:#3f6e75">C2</span> <span style="color:#a90d91">extends</span> <span style="color:#000">C</span> { }
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#000">D</span> <span style="color:#000">d</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">D</span>();
@@ -137,7 +137,7 @@
 <p><img src="imgs/uml-person.png" alt=""></p>
 </section><section>
 <h2 id="person"><code>Person</code></h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Person</span> {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Person</span> {
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#000">String</span> <span style="color:#000">name</span>;
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">id</span>;
@@ -162,7 +162,7 @@
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></section><section>
 <h2 id="student"><code>Student</code></h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Student</span> <span style="color:#a90d91">extends</span> <span style="color:#000">Person</span> {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Student</span> <span style="color:#a90d91">extends</span> <span style="color:#000">Person</span> {
 </span></span><span style="display:flex;"><span>	
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">final</span> <span style="color:#a90d91">private</span> <span style="color:#a90d91">int</span> <span style="color:#000">matriculationYear</span>;
 </span></span><span style="display:flex;"><span>
@@ -185,7 +185,7 @@
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></section><section>
 <h2 id="teacher"><code>Teacher</code></h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.Arrays</span>;
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.Arrays</span>;
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Teacher</span> <span style="color:#a90d91">extends</span> <span style="color:#000">Person</span> {
 </span></span><span style="display:flex;"><span>	
@@ -210,7 +210,7 @@
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></section><section>
 <h2 id="useperson"><code>UsePerson</code></h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UsePerson</span> {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UsePerson</span> {
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span>) {
 </span></span><span style="display:flex;"><span>	    
@@ -284,7 +284,7 @@
 </section><section>
 <h2 id="come-simulare-ereditarietà-multipla-1">Come simulare ereditarietà multipla?</h2>
 <h3 id="definizioni">Definizioni</h3>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">interface</span> <span style="color:#3f6e75">Counter</span> { ... }
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">interface</span> <span style="color:#3f6e75">Counter</span> { ... }
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">interface</span> <span style="color:#3f6e75">MultiCounter</span> <span style="color:#a90d91">extends</span> <span style="color:#000">Counter</span> { ... }
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">interface</span> <span style="color:#3f6e75">BiCounter</span> <span style="color:#a90d91">extends</span> <span style="color:#000">Counter</span> { ... }
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">interface</span> <span style="color:#3f6e75">BiAndMultiCounter</span> <span style="color:#a90d91">extends</span> <span style="color:#000">MultiCounter</span>, <span style="color:#000">BiCounter</span> { ... }
@@ -327,7 +327,7 @@
 </ul>
 </section><section>
 <h2 id="uso-di-object">Uso di <code>Object[]</code></h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.Arrays</span>;
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.Arrays</span>;
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#177500">/* Tutti gli oggetti possono formare un elenco Object[] */</span>
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">AObject</span> {
@@ -361,7 +361,7 @@
 </li>
 </ul>
 <h3 id="esempio-nel-codice-di-printall-dentro-al-for">Esempio nel codice di <code>printAll()</code>, dentro al <code>for</code></h3>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">printAll</span>(<span style="color:#a90d91">final</span> <span style="color:#000">Object</span><span style="color:#000">[]</span> <span style="color:#000">array</span>) {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">printAll</span>(<span style="color:#a90d91">final</span> <span style="color:#000">Object</span><span style="color:#000">[]</span> <span style="color:#000">array</span>) {
 </span></span><span style="display:flex;"><span>		<span style="color:#a90d91">for</span> (<span style="color:#a90d91">final</span> <span style="color:#000">Object</span> <span style="color:#000">o</span> : <span style="color:#000">array</span>) {
 </span></span><span style="display:flex;"><span>			<span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Oggetto:"</span> <span style="color:#000">+</span> <span style="color:#000">o</span>.<span style="color:#836c28">toString</span>());
 </span></span><span style="display:flex;"><span>		}
@@ -377,7 +377,7 @@
 </ul>
 </section><section>
 <h2 id="instanceof-e-conversione-di-tipo"><code>instanceof</code> e conversione di tipo</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#177500">/* Everything is an Object, ma quale?? */</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#177500">/* Everything is an Object, ma quale?? */</span>
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">AObject2</span> {
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">s</span>) {
 </span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">Object</span><span style="color:#000">[]</span> <span style="color:#000">os</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Object</span><span style="color:#000">[</span><span style="color:#000">5</span><span style="color:#000">]</span>;
@@ -412,7 +412,7 @@
 <li>con la conversione si deposita il riferimento in una espressione con tipo statico <code>D</code></li>
 <li>a questo punto si può invocare il metodo</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#000">C</span> <span style="color:#000">x</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">java</span>.<span style="color:#836c28">util</span>.<span style="color:#836c28">Random</span>().<span style="color:#836c28">nextInt</span>() <span style="color:#000">&gt;</span> <span style="color:#000">0</span> <span style="color:#000">?</span> <span style="color:#a90d91">new</span> <span style="color:#000">D</span>() : <span style="color:#a90d91">null</span>;
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#000">C</span> <span style="color:#000">x</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">java</span>.<span style="color:#836c28">util</span>.<span style="color:#836c28">Random</span>().<span style="color:#836c28">nextInt</span>() <span style="color:#000">&gt;</span> <span style="color:#000">0</span> <span style="color:#000">?</span> <span style="color:#a90d91">new</span> <span style="color:#000">D</span>() : <span style="color:#a90d91">null</span>;
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">if</span>(<span style="color:#000">x</span> <span style="color:#a90d91">instanceof</span> <span style="color:#000">D</span> <span style="color:#000">d</span>) { <span style="color:#177500">/* codice che usa d */</span> }
 </span></span></code></pre></div><h3 id="solo-due-tipi-di-conversione-fra-classi-consentite">Solo due tipi di conversione fra classi consentite</h3>
 <ul>
@@ -443,7 +443,7 @@ Integer i3 = (Integer) o; // ClassCastException
 <ul>
 <li>Downcast verso una classe incompatibile col tipo dinamico, riportato come <code>ClassCastException</code></li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#177500">/* Showing ClassCastException */</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#177500">/* Showing ClassCastException */</span>
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">ShowCCE</span> {
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">as</span>) {
 </span></span><span style="display:flex;"><span>		<span style="color:#000">Object</span> <span style="color:#000">o</span> <span style="color:#000">=</span> <span style="color:#000">Integer</span>.<span style="color:#836c28">valueOf</span>(<span style="color:#000">10</span>);
@@ -455,7 +455,7 @@ Integer i3 = (Integer) o; // ClassCastException
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div></section><section>
 <h2 id="instanceof-conversioni-e-person"><code>instanceof</code>, conversioni e <code>Person</code></h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UsePerson2</span> {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UsePerson2</span> {
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span>) {
 </span></span><span style="display:flex;"><span>
@@ -914,7 +914,7 @@ abstract class CA extends D implements I, J, K, L { ... }
 </section><section>
 <h2 id="autoboxing-dei-tipi-primitivi">Autoboxing dei tipi primitivi</h2>
 <h3 id="già-conosciamo-i-wrapper-dei-tipi-primitivi">Già conosciamo i Wrapper dei tipi primitivi</h3>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#000">Integer</span> <span style="color:#000">i</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Integer</span>(<span style="color:#000">10</span>); <span style="color:#177500">// Deprecated in Java 17 (for removal)</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#000">Integer</span> <span style="color:#000">i</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Integer</span>(<span style="color:#000">10</span>); <span style="color:#177500">// Deprecated in Java 17 (for removal)</span>
 </span></span><span style="display:flex;"><span><span style="color:#000">i</span> <span style="color:#000">=</span> <span style="color:#000">Integer</span>.<span style="color:#836c28">valueOf</span>(<span style="color:#000">10</span>);  <span style="color:#177500">// recommended</span>
 </span></span><span style="display:flex;"><span><span style="color:#000">Double</span>  <span style="color:#000">d</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Double</span>(<span style="color:#000">10</span>.<span style="color:#836c28">5</span>); <span style="color:#177500">// Deprecated in Java 17 (for removal)</span>
 </span></span><span style="display:flex;"><span><span style="color:#000">d</span> <span style="color:#000">=</span> <span style="color:#000">Double</span>.<span style="color:#836c28">valueOf</span>(<span style="color:#000">10</span>.<span style="color:#836c28">5</span>); <span style="color:#177500">// recommended</span>
@@ -936,7 +936,7 @@ abstract class CA extends D implements I, J, K, L { ... }
 </ul>
 </section><section>
 <h2 id="uso-dellautoboxing">Uso dell’autoboxing</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#177500">/* Showcase dell'autoboxing */</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#177500">/* Showcase dell'autoboxing */</span>
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Boxing</span> {
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">s</span>) {
 </span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">Object</span><span style="color:#000">[]</span> <span style="color:#000">os</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Object</span><span style="color:#000">[</span><span style="color:#000">5</span><span style="color:#000">]</span>;
@@ -955,7 +955,7 @@ abstract class CA extends D implements I, J, K, L { ... }
 </span></span></code></pre></div></section><section>
 <h2 id="variable-arguments">Variable arguments</h2>
 <h3 id="a-volte-è-utile-che-i-metodi-abbiano-un-numero-variabile-di-argomenti">A volte è utile che i metodi abbiano un numero variabile di argomenti</h3>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">int</span> <span style="color:#000">i</span> <span style="color:#000">=</span> <span style="color:#000">sum</span>(<span style="color:#000">10</span>, <span style="color:#000">20</span>, <span style="color:#000">30</span>, <span style="color:#000">40</span>, <span style="color:#000">50</span>, <span style="color:#000">60</span>, <span style="color:#000">70</span>);
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">int</span> <span style="color:#000">i</span> <span style="color:#000">=</span> <span style="color:#000">sum</span>(<span style="color:#000">10</span>, <span style="color:#000">20</span>, <span style="color:#000">30</span>, <span style="color:#000">40</span>, <span style="color:#000">50</span>, <span style="color:#000">60</span>, <span style="color:#000">70</span>);
 </span></span><span style="display:flex;"><span><span style="color:#000">printAll</span>(<span style="color:#000">10</span>, <span style="color:#000">20</span>, <span style="color:#000">3</span>.<span style="color:#836c28">5</span>, <span style="color:#a90d91">new</span> <span style="color:#000">Object</span>());
 </span></span></code></pre></div><ul>
 <li>prima di Java 5 si simulava passando un unico array</li>
@@ -964,7 +964,7 @@ abstract class CA extends D implements I, J, K, L { ... }
 <ul>
 <li>L’ultimo (o unico) argomento di un metodo può essere del tipo “<code>Type... argname</code>”</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">void</span> <span style="color:#000">m</span>(<span style="color:#a90d91">int</span> <span style="color:#000">a</span>, <span style="color:#a90d91">float</span> <span style="color:#000">b</span>, <span style="color:#000">Object</span>... <span style="color:#000">argname</span>) { ... }
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">void</span> <span style="color:#000">m</span>(<span style="color:#a90d91">int</span> <span style="color:#000">a</span>, <span style="color:#a90d91">float</span> <span style="color:#000">b</span>, <span style="color:#000">Object</span>... <span style="color:#000">argname</span>) { ... }
 </span></span></code></pre></div><ul>
 <li>Nel body del metodo, <code>argname</code> è trattato come un <code>Type[]</code></li>
 <li>Chi chiama il metodo, invece che passare un array, passa una lista di argomenti di tipo <code>Type</code></li>
@@ -972,7 +972,7 @@ abstract class CA extends D implements I, J, K, L { ... }
 </ul>
 </section><section>
 <h2 id="uso-dei-variable-arguments">Uso dei variable arguments</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">VarArgs</span> {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">VarArgs</span> {
 </span></span><span style="display:flex;"><span>	<span style="color:#177500">// somma un numero variabile di Integer</span>
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">int</span> <span style="color:#000">sum</span>(<span style="color:#a90d91">final</span> <span style="color:#000">Integer</span>... <span style="color:#000">args</span>) {
 </span></span><span style="display:flex;"><span>		<span style="color:#a90d91">int</span> <span style="color:#000">sum</span> <span style="color:#000">=</span> <span style="color:#000">0</span>;
@@ -1433,8 +1433,8 @@ public class GlutFree extends IngredientDecorator {
 <h4 id="cdl-tecnologie-dei-sistemi-informatici">C.D.L. Tecnologie dei Sistemi Informatici</h4>
 <h3 id="danilo-pianini"><a href="mailto:danilo.pianini@unibo.it">Danilo Pianini — <code>danilo.pianini@unibo.it</code></a></h3>
 <h3 id="gianluca-aguzzi"><a href="mailto:gianluca.aguzzi@unibo.it">Gianluca Aguzzi — <code>gianluca.aguzzi@unibo.it</code></a></h3>
-<h3 id="angelo-filaseta"><a href="mailto:angelo.filaseta@unibo.it">Angelo Filaseta — <code>angelo.filaseta@unibo.it</code></a></h3>
-<p>Compiled on: 2025-12-05
+<h3 id="paolo-baldini"><a href="mailto:p.baldini@unibo.it">Paolo Baldini — <code>p.baldini@unibo.it</code></a></h3>
+<p>Compiled on: 2026-09-11
  — <a href="?print-pdf&amp;pdfSeparateFragments=false"><i class="fa fa-print" aria-hidden="true"></i> versione stampabile</a></p>
 <p><a href=".."><i class="fa fa-undo" aria-hidden="true"></i> back</a></p>
 </section>
