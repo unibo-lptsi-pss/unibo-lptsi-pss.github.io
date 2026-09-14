@@ -445,254 +445,254 @@
 </section><section>
 <h2 id="package-javautilfunction-funzioni-che-lavorano-su-oggetti-generici">Package <code>java.util.function</code>, funzioni che lavorano su oggetti generici</h2>
 <table>
-  <thead>
-      <tr>
-          <th>Interface</th>
-          <th>Method signature</th>
-          <th>Lambda type</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td><code>Consumer&lt;T&gt;</code></td>
-          <td><code>void accept(T t)</code></td>
-          <td><code>(T) -&gt; void</code></td>
-      </tr>
-      <tr>
-          <td><code>BiConsumer&lt;T,U&gt;</code></td>
-          <td><code>void accept(T t, U u)</code></td>
-          <td><code>(T, U) -&gt; void</code></td>
-      </tr>
-      <tr>
-          <td><code>Function&lt;T,R&gt;</code></td>
-          <td><code>R apply(T t)</code></td>
-          <td><code>(T) -&gt; R</code></td>
-      </tr>
-      <tr>
-          <td><code>BiFunction&lt;T,U,R&gt;</code></td>
-          <td><code>R apply(T t, U u)</code></td>
-          <td><code>(T, U) -&gt; R</code></td>
-      </tr>
-      <tr>
-          <td><code>UnaryOperator&lt;T&gt;</code></td>
-          <td><code>T apply(T t)</code></td>
-          <td><code>(T) -&gt; T</code></td>
-      </tr>
-      <tr>
-          <td><code>BinaryOperator&lt;T&gt;</code></td>
-          <td><code>T apply(T t1, T t2)</code></td>
-          <td><code>(T, T) -&gt; T</code></td>
-      </tr>
-      <tr>
-          <td><code>Predicate&lt;T&gt;</code></td>
-          <td><code>boolean test(T t)</code></td>
-          <td><code>(T) -&gt; boolean</code></td>
-      </tr>
-      <tr>
-          <td><code>BiPredicate&lt;T,U&gt;</code></td>
-          <td><code>boolean test(T t, U u)</code></td>
-          <td><code>(T, U) -&gt; boolean</code></td>
-      </tr>
-      <tr>
-          <td><code>Supplier&lt;T&gt;</code></td>
-          <td><code>T get()</code></td>
-          <td><code>() -&gt; T</code></td>
-      </tr>
-      <tr>
-          <td><code>java.lang.Runnable</code></td>
-          <td><code>void run()</code></td>
-          <td><code>() -&gt; void</code></td>
-      </tr>
-  </tbody>
+	<thead>
+			<tr>
+					<th>Interface</th>
+					<th>Method signature</th>
+					<th>Lambda type</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><code>Consumer&lt;T&gt;</code></td>
+					<td><code>void accept(T t)</code></td>
+					<td><code>(T) -&gt; void</code></td>
+			</tr>
+			<tr>
+					<td><code>BiConsumer&lt;T,U&gt;</code></td>
+					<td><code>void accept(T t, U u)</code></td>
+					<td><code>(T, U) -&gt; void</code></td>
+			</tr>
+			<tr>
+					<td><code>Function&lt;T,R&gt;</code></td>
+					<td><code>R apply(T t)</code></td>
+					<td><code>(T) -&gt; R</code></td>
+			</tr>
+			<tr>
+					<td><code>BiFunction&lt;T,U,R&gt;</code></td>
+					<td><code>R apply(T t, U u)</code></td>
+					<td><code>(T, U) -&gt; R</code></td>
+			</tr>
+			<tr>
+					<td><code>UnaryOperator&lt;T&gt;</code></td>
+					<td><code>T apply(T t)</code></td>
+					<td><code>(T) -&gt; T</code></td>
+			</tr>
+			<tr>
+					<td><code>BinaryOperator&lt;T&gt;</code></td>
+					<td><code>T apply(T t1, T t2)</code></td>
+					<td><code>(T, T) -&gt; T</code></td>
+			</tr>
+			<tr>
+					<td><code>Predicate&lt;T&gt;</code></td>
+					<td><code>boolean test(T t)</code></td>
+					<td><code>(T) -&gt; boolean</code></td>
+			</tr>
+			<tr>
+					<td><code>BiPredicate&lt;T,U&gt;</code></td>
+					<td><code>boolean test(T t, U u)</code></td>
+					<td><code>(T, U) -&gt; boolean</code></td>
+			</tr>
+			<tr>
+					<td><code>Supplier&lt;T&gt;</code></td>
+					<td><code>T get()</code></td>
+					<td><code>() -&gt; T</code></td>
+			</tr>
+			<tr>
+					<td><code>java.lang.Runnable</code></td>
+					<td><code>void run()</code></td>
+					<td><code>() -&gt; void</code></td>
+			</tr>
+	</tbody>
 </table>
 </section><section>
 <h2 id="package-javautilfunction-funzioni-che-lavorano-su-int">Package <code>java.util.function</code>, funzioni che lavorano su <code>int</code></h2>
 <table>
-  <thead>
-      <tr>
-          <th>Interface</th>
-          <th>Method signature</th>
-          <th>Lambda type</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td><code>IntConsumer</code></td>
-          <td><code>void accept(int value)</code></td>
-          <td><code>(int) -&gt; void</code></td>
-      </tr>
-      <tr>
-          <td><code>IntFunction&lt;R&gt;</code></td>
-          <td><code>R apply(int value)</code></td>
-          <td><code>(int) -&gt; R</code></td>
-      </tr>
-      <tr>
-          <td><code>ToIntFunction&lt;T&gt;</code></td>
-          <td><code>int applyAsInt(T value)</code></td>
-          <td><code>(T) -&gt; int</code></td>
-      </tr>
-      <tr>
-          <td><code>ToIntBiFunction&lt;T,U&gt;</code></td>
-          <td><code>int applyAsInt(T t, U u)</code></td>
-          <td><code>(T, U) -&gt; int</code></td>
-      </tr>
-      <tr>
-          <td><code>IntSupplier</code></td>
-          <td><code>int getAsInt()</code></td>
-          <td><code>() -&gt; int</code></td>
-      </tr>
-      <tr>
-          <td><code>IntUnaryOperator</code></td>
-          <td><code>int applyAsInt(int operand)</code></td>
-          <td><code>(int) -&gt; int</code></td>
-      </tr>
-      <tr>
-          <td><code>IntBinaryOperator</code></td>
-          <td><code>int applyAsInt(int left, int right)</code></td>
-          <td><code>(int, int) -&gt; int</code></td>
-      </tr>
-      <tr>
-          <td><code>IntPredicate</code></td>
-          <td><code>boolean test(int value)</code></td>
-          <td><code>(int) -&gt; boolean</code></td>
-      </tr>
-      <tr>
-          <td><code>IntToLongFunction</code></td>
-          <td><code>long applyAsLong(int value)</code></td>
-          <td><code>(int) -&gt; long</code></td>
-      </tr>
-      <tr>
-          <td><code>IntToDoubleFunction</code></td>
-          <td><code>double applyAsDouble(int value)</code></td>
-          <td><code>(int) -&gt; double</code></td>
-      </tr>
-  </tbody>
+	<thead>
+			<tr>
+					<th>Interface</th>
+					<th>Method signature</th>
+					<th>Lambda type</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><code>IntConsumer</code></td>
+					<td><code>void accept(int value)</code></td>
+					<td><code>(int) -&gt; void</code></td>
+			</tr>
+			<tr>
+					<td><code>IntFunction&lt;R&gt;</code></td>
+					<td><code>R apply(int value)</code></td>
+					<td><code>(int) -&gt; R</code></td>
+			</tr>
+			<tr>
+					<td><code>ToIntFunction&lt;T&gt;</code></td>
+					<td><code>int applyAsInt(T value)</code></td>
+					<td><code>(T) -&gt; int</code></td>
+			</tr>
+			<tr>
+					<td><code>ToIntBiFunction&lt;T,U&gt;</code></td>
+					<td><code>int applyAsInt(T t, U u)</code></td>
+					<td><code>(T, U) -&gt; int</code></td>
+			</tr>
+			<tr>
+					<td><code>IntSupplier</code></td>
+					<td><code>int getAsInt()</code></td>
+					<td><code>() -&gt; int</code></td>
+			</tr>
+			<tr>
+					<td><code>IntUnaryOperator</code></td>
+					<td><code>int applyAsInt(int operand)</code></td>
+					<td><code>(int) -&gt; int</code></td>
+			</tr>
+			<tr>
+					<td><code>IntBinaryOperator</code></td>
+					<td><code>int applyAsInt(int left, int right)</code></td>
+					<td><code>(int, int) -&gt; int</code></td>
+			</tr>
+			<tr>
+					<td><code>IntPredicate</code></td>
+					<td><code>boolean test(int value)</code></td>
+					<td><code>(int) -&gt; boolean</code></td>
+			</tr>
+			<tr>
+					<td><code>IntToLongFunction</code></td>
+					<td><code>long applyAsLong(int value)</code></td>
+					<td><code>(int) -&gt; long</code></td>
+			</tr>
+			<tr>
+					<td><code>IntToDoubleFunction</code></td>
+					<td><code>double applyAsDouble(int value)</code></td>
+					<td><code>(int) -&gt; double</code></td>
+			</tr>
+	</tbody>
 </table>
 </section><section>
 <h2 id="package-javautilfunction-funzioni-che-lavorano-su-long">Package <code>java.util.function</code>, funzioni che lavorano su <code>long</code></h2>
 <table>
-  <thead>
-      <tr>
-          <th>Interface</th>
-          <th>Method signature</th>
-          <th>Lambda type</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td><code>LongConsumer</code></td>
-          <td><code>void accept(long value)</code></td>
-          <td><code>(long) -&gt; void</code></td>
-      </tr>
-      <tr>
-          <td><code>LongFunction&lt;R&gt;</code></td>
-          <td><code>R apply(long value)</code></td>
-          <td><code>(long) -&gt; R</code></td>
-      </tr>
-      <tr>
-          <td><code>ToLongFunction&lt;T&gt;</code></td>
-          <td><code>long applyAsLong(T value)</code></td>
-          <td><code>(T) -&gt; long</code></td>
-      </tr>
-      <tr>
-          <td><code>ToLongBiFunction&lt;T,U&gt;</code></td>
-          <td><code>long applyAsLong(T t, U u)</code></td>
-          <td><code>(T, U) -&gt; long</code></td>
-      </tr>
-      <tr>
-          <td><code>LongSupplier</code></td>
-          <td><code>long getAsLong()</code></td>
-          <td><code>() -&gt; long</code></td>
-      </tr>
-      <tr>
-          <td><code>LongUnaryOperator</code></td>
-          <td><code>long applyAsLong(long operand)</code></td>
-          <td><code>(long) -&gt; long</code></td>
-      </tr>
-      <tr>
-          <td><code>LongBinaryOperator</code></td>
-          <td><code>long applyAsLong(long left, long right)</code></td>
-          <td><code>(long, long) -&gt; long</code></td>
-      </tr>
-      <tr>
-          <td><code>LongPredicate</code></td>
-          <td><code>boolean test(long value)</code></td>
-          <td><code>(long) -&gt; boolean</code></td>
-      </tr>
-      <tr>
-          <td><code>LongToIntFunction</code></td>
-          <td><code>int applyAsInt(long value)</code></td>
-          <td><code>(long) -&gt; int</code></td>
-      </tr>
-      <tr>
-          <td><code>LongToDoubleFunction</code></td>
-          <td><code>double applyAsDouble(long value)</code></td>
-          <td><code>(long) -&gt; double</code></td>
-      </tr>
-  </tbody>
+	<thead>
+			<tr>
+					<th>Interface</th>
+					<th>Method signature</th>
+					<th>Lambda type</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><code>LongConsumer</code></td>
+					<td><code>void accept(long value)</code></td>
+					<td><code>(long) -&gt; void</code></td>
+			</tr>
+			<tr>
+					<td><code>LongFunction&lt;R&gt;</code></td>
+					<td><code>R apply(long value)</code></td>
+					<td><code>(long) -&gt; R</code></td>
+			</tr>
+			<tr>
+					<td><code>ToLongFunction&lt;T&gt;</code></td>
+					<td><code>long applyAsLong(T value)</code></td>
+					<td><code>(T) -&gt; long</code></td>
+			</tr>
+			<tr>
+					<td><code>ToLongBiFunction&lt;T,U&gt;</code></td>
+					<td><code>long applyAsLong(T t, U u)</code></td>
+					<td><code>(T, U) -&gt; long</code></td>
+			</tr>
+			<tr>
+					<td><code>LongSupplier</code></td>
+					<td><code>long getAsLong()</code></td>
+					<td><code>() -&gt; long</code></td>
+			</tr>
+			<tr>
+					<td><code>LongUnaryOperator</code></td>
+					<td><code>long applyAsLong(long operand)</code></td>
+					<td><code>(long) -&gt; long</code></td>
+			</tr>
+			<tr>
+					<td><code>LongBinaryOperator</code></td>
+					<td><code>long applyAsLong(long left, long right)</code></td>
+					<td><code>(long, long) -&gt; long</code></td>
+			</tr>
+			<tr>
+					<td><code>LongPredicate</code></td>
+					<td><code>boolean test(long value)</code></td>
+					<td><code>(long) -&gt; boolean</code></td>
+			</tr>
+			<tr>
+					<td><code>LongToIntFunction</code></td>
+					<td><code>int applyAsInt(long value)</code></td>
+					<td><code>(long) -&gt; int</code></td>
+			</tr>
+			<tr>
+					<td><code>LongToDoubleFunction</code></td>
+					<td><code>double applyAsDouble(long value)</code></td>
+					<td><code>(long) -&gt; double</code></td>
+			</tr>
+	</tbody>
 </table>
 </section><section>
 <h2 id="package-javautilfunction-funzioni-che-lavorano-su-double">Package <code>java.util.function</code>, funzioni che lavorano su <code>double</code></h2>
 <table>
-  <thead>
-      <tr>
-          <th>Interface</th>
-          <th>Method signature</th>
-          <th>Lambda type</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td><code>DoubleConsumer</code></td>
-          <td><code>void accept(double value)</code></td>
-          <td><code>(double) -&gt; void</code></td>
-      </tr>
-      <tr>
-          <td><code>DoubleFunction&lt;R&gt;</code></td>
-          <td><code>R apply(double value)</code></td>
-          <td><code>(double) -&gt; R</code></td>
-      </tr>
-      <tr>
-          <td><code>ToDoubleFunction&lt;T&gt;</code></td>
-          <td><code>double applyAsDouble(T value)</code></td>
-          <td><code>(T) -&gt; double</code></td>
-      </tr>
-      <tr>
-          <td><code>ToDoubleBiFunction&lt;T,U&gt;</code></td>
-          <td><code>double applyAsDouble(T t, U u)</code></td>
-          <td><code>(T, U) -&gt; double</code></td>
-      </tr>
-      <tr>
-          <td><code>DoubleSupplier</code></td>
-          <td><code>double getAsDouble()</code></td>
-          <td><code>() -&gt; double</code></td>
-      </tr>
-      <tr>
-          <td><code>DoubleUnaryOperator</code></td>
-          <td><code>double applyAsDouble(double operand)</code></td>
-          <td><code>(double) -&gt; double</code></td>
-      </tr>
-      <tr>
-          <td><code>DoubleBinaryOperator</code></td>
-          <td><code>double applyAsDouble(double left, double right)</code></td>
-          <td><code>(double, double) -&gt; double</code></td>
-      </tr>
-      <tr>
-          <td><code>DoublePredicate</code></td>
-          <td><code>boolean test(double value)</code></td>
-          <td><code>(double) -&gt; boolean</code></td>
-      </tr>
-      <tr>
-          <td><code>DoubleToIntFunction</code></td>
-          <td><code>int applyAsInt(double value)</code></td>
-          <td><code>(double) -&gt; int</code></td>
-      </tr>
-      <tr>
-          <td><code>DoubleToLongFunction</code></td>
-          <td><code>long applyAsLong(double value)</code></td>
-          <td><code>(double) -&gt; long</code></td>
-      </tr>
-  </tbody>
+	<thead>
+			<tr>
+					<th>Interface</th>
+					<th>Method signature</th>
+					<th>Lambda type</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><code>DoubleConsumer</code></td>
+					<td><code>void accept(double value)</code></td>
+					<td><code>(double) -&gt; void</code></td>
+			</tr>
+			<tr>
+					<td><code>DoubleFunction&lt;R&gt;</code></td>
+					<td><code>R apply(double value)</code></td>
+					<td><code>(double) -&gt; R</code></td>
+			</tr>
+			<tr>
+					<td><code>ToDoubleFunction&lt;T&gt;</code></td>
+					<td><code>double applyAsDouble(T value)</code></td>
+					<td><code>(T) -&gt; double</code></td>
+			</tr>
+			<tr>
+					<td><code>ToDoubleBiFunction&lt;T,U&gt;</code></td>
+					<td><code>double applyAsDouble(T t, U u)</code></td>
+					<td><code>(T, U) -&gt; double</code></td>
+			</tr>
+			<tr>
+					<td><code>DoubleSupplier</code></td>
+					<td><code>double getAsDouble()</code></td>
+					<td><code>() -&gt; double</code></td>
+			</tr>
+			<tr>
+					<td><code>DoubleUnaryOperator</code></td>
+					<td><code>double applyAsDouble(double operand)</code></td>
+					<td><code>(double) -&gt; double</code></td>
+			</tr>
+			<tr>
+					<td><code>DoubleBinaryOperator</code></td>
+					<td><code>double applyAsDouble(double left, double right)</code></td>
+					<td><code>(double, double) -&gt; double</code></td>
+			</tr>
+			<tr>
+					<td><code>DoublePredicate</code></td>
+					<td><code>boolean test(double value)</code></td>
+					<td><code>(double) -&gt; boolean</code></td>
+			</tr>
+			<tr>
+					<td><code>DoubleToIntFunction</code></td>
+					<td><code>int applyAsInt(double value)</code></td>
+					<td><code>(double) -&gt; int</code></td>
+			</tr>
+			<tr>
+					<td><code>DoubleToLongFunction</code></td>
+					<td><code>long applyAsLong(double value)</code></td>
+					<td><code>(double) -&gt; long</code></td>
+			</tr>
+	</tbody>
 </table>
 </section><section>
 <h2 id="esempio-funzione-riusabile-di-filtraggio-via-predicate">Esempio: funzione riusabile di filtraggio via <code>Predicate</code></h2>
