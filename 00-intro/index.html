@@ -245,6 +245,101 @@
 </li>
 </ul>
 </section><section>
+<h2 id="llm-e-strumenti-di-ai">LLM e strumenti di AI</h2>
+<p>Esistono strumenti di intelligenza artificiale (tipicamente Large Language Models, LLM)
+che possono essere utilizzati per <strong>generare codice</strong>.</p>
+<ul>
+<li>Allenati a partire da grandi quantità di codice sorgente <em>preesistente</em>
+<ul>
+<li>Soggetti al problema “garbage in, garbage out”</li>
+<li>Risolvono molto bene (e velocemente) problemi semplici</li>
+<li>Vanno utilizzati con <strong>cautela</strong> per problemi complessi</li>
+</ul>
+</li>
+<li>Fruibili via web o integrati come <em>agenti</em> all’interno dell’ambiente di sviluppo</li>
+<li>Usati sempre di più, anche in contesti professionali
+<ul>
+<li>Con risultati variabili</li>
+</ul>
+</li>
+</ul>
+<h3 id="in-questo-corso-vietati">In questo corso: <strong>vietati</strong></h3>
+<ul>
+<li>Non sono consentiti in laboratorio</li>
+<li>Non sono consentiti a casa</li>
+<li>Non saranno disponibili per l’esame
+<ul>
+<li>E sono abbastanza riconoscibili usando la similarità fra progetti, per la quale abbiamo strumenti che già usiamo</li>
+</ul>
+</li>
+</ul>
+</section><section>
+<h3 id="motivazione">Motivazione</h3>
+<p>Sono strumenti <em>potentissimi</em>, ma è necessario saperli usare <strong>criticamente</strong>, altrimenti:</p>
+<ul>
+<li>Possono ostacolare e rallentare l’apprendimento
+<ul>
+<li>Problema del <em>cognitive offloading</em>: se non si impara a fare da soli, si impara meno</li>
+</ul>
+</li>
+<li>Possono generare codice di bassa qualità (con bug, inefficienze, o problemi di stile che non riconoscete)</li>
+<li>Possono usare parti del linguaggio che ancora non potete conoscere
+<ul>
+<li>Ergo, generare codice non ancora comprensibile</li>
+</ul>
+</li>
+</ul>
+</section><section>
+<h2 id="sviluppo-software-llm-e-perché-usarli-solo-dopo-che-si-è-diventati-esperti">Sviluppo software, LLM, e perché usarli solo <strong>dopo</strong> che si è diventati esperti</h2>
+<p>Scrivere codice è la parte <em>facile</em>: la parte difficile è <strong>decidere cosa scrivere</strong>
+e <strong>accorgersi quando è sbagliato</strong></p>
+<ul>
+<li>Un LLM produce codice <strong>plausibile</strong>, non necessariamente <em>corretto</em>
+<ul>
+<li>Distinguere i due casi richiede <em>esattamente</em> la competenza che state costruendo</li>
+</ul>
+</li>
+<li>Cosa fa un <strong>esperto</strong> con un assistente AI, misurato sul campo:
+<ul>
+<li>accetta meno del <strong>44%</strong> di ciò che il modello propone</li>
+<li>il <strong>75%</strong> dichiara di leggere <em>ogni riga</em> generata</li>
+<li>il <strong>56%</strong> deve fare <strong>pulizia importante</strong> su ciò che tiene</li>
+</ul>
+</li>
+<li>La qualità del codice finale regge <strong>perché c’è un esperto che filtra</strong>,
+non perché il modello la garantisca
+<ul>
+<li>Togliete il filtro e resta solo il codice plausibile: <em>voi non siete ancora quel filtro</em></li>
+</ul>
+</li>
+<li>Chi non ha il filtro accumula debito:
+stanno nascendo aziende e professionisti di “<strong>AI code cleanup</strong>”</li>
+</ul>
+<h3 id="in-sintesi">In sintesi</h3>
+<p>Prima si diventa il revisore, <strong>poi</strong> si usa l’acceleratore</p>
+</section><section>
+<h2 id="cosa-dice-davvero-la-letteratura-scientifica">Cosa dice davvero la letteratura scientifica</h2>
+<ul>
+<li>Sviluppatori <strong>esperti</strong>, su progetti maturi che conoscono bene: con AI <strong>19% più lenti</strong>
+(<a href="https://arxiv.org/abs/2507.09089">METR, 2025</a>) — il tempo se ne va in verifica e correzione
+<ul>
+<li>Gli stessi autori, nel <a href="https://metr.org/blog/2026-02-24-uplift-update/">follow-up 2026</a>,
+avvertono che con gli strumenti più recenti la stima non è più affidabile</li>
+</ul>
+</li>
+<li><strong>Manutenibilità</strong>: 151 partecipanti, nessuna differenza significativa nell’evolvere codice
+scritto con o senza AI (<a href="https://doi.org/10.1007/s10664-026-10889-1">Borg et al., EMSE 2026</a>)</li>
+<li><strong>Sicurezza</strong>: è l’area critica — più vulnerabilità ad alto rischio nel codice generato
+(<a href="https://doi.org/10.1109/ISSRE66568.2025.00035">Cotroneo et al., ISSRE 2025</a>),
+e gli LLM riconoscono il codice vulnerabile solo nel <strong>12-40%</strong> dei casi
+(<a href="https://doi.org/10.1007/s10664-025-10658-6">EMSE 2025</a>)</li>
+<li>A livello di organizzazione: +25% di adozione AI, qualità percepita <strong>+3.4%</strong>
+ma stabilità dei rilasci <strong>-7.2%</strong> (<a href="https://cloud.google.com/blog/products/devops-sre/announcing-the-2024-dora-report">DORA, 2024</a>)</li>
+</ul>
+</section><section>
+<p><img src="torvalds.jpg" alt=""></p>
+<p>Linus Torvalds, creatore di Linux, commentando un contributo contenente codice generato da un LLM</p>
+</section><section>
 <h1 id="prerequisiti">Prerequisiti</h1>
 <h2 id="buona-conoscenza">Buona conoscenza</h2>
 <ul>
@@ -364,8 +459,6 @@
   
 
   
-    
-  
   
 
   
@@ -483,30 +576,6 @@
   
 
 
-
-  <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.3/dist/mermaid.min.js"></script>
-  <script>
-    mermaid.initialize({"startOnLoad":false});
-
-    let render = (event) => {
-      let mermaidElems = event.currentSlide.querySelectorAll('.mermaid');
-      if (!mermaidElems.length){
-          return
-      }
-      mermaidElems.forEach(mermaidElem => {
-          let processed = mermaidElem.getAttribute('data-processed');
-          if (!processed){
-              
-              mermaid.init(undefined, mermaidElem);
-          }
-      });
-    };
-    
-    render({currentSlide: Reveal.getCurrentSlide()});
-
-    Reveal.on('slidechanged', render);
-    Reveal.on('ready', render);
-  </script>
 
 
 
