@@ -26,7 +26,7 @@
 <h3 id="danilo-pianini"><a href="mailto:danilo.pianini@unibo.it">Danilo Pianini — <code>danilo.pianini@unibo.it</code></a></h3>
 <h3 id="gianluca-aguzzi"><a href="mailto:gianluca.aguzzi@unibo.it">Gianluca Aguzzi — <code>gianluca.aguzzi@unibo.it</code></a></h3>
 <h3 id="paolo-baldini"><a href="mailto:p.baldini@unibo.it">Paolo Baldini — <code>p.baldini@unibo.it</code></a></h3>
-<p>Compiled on: 2026-09-23
+<p>Compiled on: 2026-09-24
  — <a href="?print-pdf&amp;pdfSeparateFragments=false"><i class="fa fa-print" aria-hidden="true"></i> versione stampabile</a></p>
 <p><a href=".."><i class="fa fa-undo" aria-hidden="true"></i> back</a></p>
 </section><section>
@@ -58,9 +58,9 @@
 <li>E infatti non hanno neppure bisogno di un oggetto per essere usati</li>
 <li>Pensate, ad esempio, a:
 <ul>
-<li>il campo <code>java.lang.System.out</code>: potete usarlo senza avere un oggetto <code>System</code>!
+<li>il metodo <code>java.lang.IO.println</code>: potete invocarlo senza creare un oggetto <code>IO</code>!
 <ul>
-<li>non fate <code>new System().out</code>!</li>
+<li>scrivete <code>IO.println("Ciao!")</code>, non <code>new IO().println("Ciao!")</code>!</li>
 </ul>
 </li>
 <li>il campo <code>Integer.MAX_VALUE</code></li>
@@ -114,7 +114,7 @@
 <p>I <strong>nomi di classe</strong> iniziano in <em>maiuscolo</em>, e ogni parola “interna” al nome usa la maiuscola</p>
 <ul>
 <li>notazione <code>PascalCase</code>, no underscore <code>_</code></li>
-<li>p.e.: <code>EnrolledStudent</code>, <code>System</code>, <code>Point3D</code>, <code>Integer</code>, <code>String</code></li>
+<li>p.e.: <code>EnrolledStudent</code>,  <code>Point3D</code>, <code>Integer</code>, <code>String</code></li>
 </ul>
 <p>I <strong>nomi di campi <em>istanza</em> e metodi</strong> iniziano in <em>minuscolo</em>, e ogni parola “interna” al nome usa la maiuscola</p>
 <ul>
@@ -823,7 +823,7 @@
 </ul>
 <h3 id="lettura-input">Lettura input</h3>
 <ul>
-<li><code>System.console().readLine()</code> legge una riga da console</li>
+<li><code>IO.readln()</code> legge una riga da console</li>
 <li><code>Integer.parseInt()</code> converte la stringa in intero</li>
 <li>Attenzione: possibili eccezioni se input non è un numero valido</li>
 </ul>
@@ -1057,7 +1057,7 @@
 <h3 id="danilo-pianini"><a href="mailto:danilo.pianini@unibo.it">Danilo Pianini — <code>danilo.pianini@unibo.it</code></a></h3>
 <h3 id="gianluca-aguzzi"><a href="mailto:gianluca.aguzzi@unibo.it">Gianluca Aguzzi — <code>gianluca.aguzzi@unibo.it</code></a></h3>
 <h3 id="paolo-baldini"><a href="mailto:p.baldini@unibo.it">Paolo Baldini — <code>p.baldini@unibo.it</code></a></h3>
-<p>Compiled on: 2026-09-23
+<p>Compiled on: 2026-09-24
  — <a href="?print-pdf&amp;pdfSeparateFragments=false"><i class="fa fa-print" aria-hidden="true"></i> versione stampabile</a></p>
 <p><a href=".."><i class="fa fa-undo" aria-hidden="true"></i> back</a></p>
 </section>
@@ -1192,6 +1192,8 @@
   
   
 
+  
+    
   
   
 
