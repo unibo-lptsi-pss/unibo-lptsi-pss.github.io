@@ -8,7 +8,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><link rel="stylesheet" href="/reveal-js/dist/reset.css">
 <link rel="stylesheet" href="/reveal-js/dist/reveal.css">
-  <link rel="stylesheet" href="/css/custom-theme.min.c5d5307c22aeba26e5f63813bdbc90c5483e809383467a8e6f523d7f756010c5.css" id="theme"><link rel="stylesheet" href="/highlight-js/default.min.css">
+  <link rel="stylesheet" href="/css/custom-theme.min.9928ca492af1c61383a723d81f888afc850760ba5f4b519e24bceefc96530179.css" id="theme"><link rel="stylesheet" href="/highlight-js/default.min.css">
 <link href="https://fonts.googleapis.com/css?family=Roboto Mono" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Oxygen Mono" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Ubuntu Mono" rel="stylesheet">
@@ -21,79 +21,111 @@
       <div class="slides">
   
 
-    <section><h1 id="progettazione-e-sviluppo-del-software">Progettazione e Sviluppo del Software</h1>
-<h2 id="indice-dei-contenuti">Indice dei contenuti</h2>
-<div class="smaller">
-<div class="container">
-<div class="col">
-<ol>
-<li><a href="intro/">Introduzione al corso</a></li>
-<li><a href="oo-abstraction/">Astrazione orientata agli oggetti</a></li>
-<li><a href="basics/">Introduzione al linguaggio Java</a></li>
-<li><a href="objects/">Oggetti e classi (parte 1/2)</a></li>
-<li><a href="objects-2/">Oggetti e classi (parte 2/2)</a></li>
-<li><a href="encapsulation/">Incapsulamento</a></li>
-<li><a href="codestyle/">Formattazione di codice Java</a></li>
-<li><a href="interfaces/">Interfacce e composizione</a></li>
-<li><a href="inheritance/">Ereditarietà</a></li>
-<li>Sistemi di controllo di versione distribuiti (DVCS) con Git:
+    
+<section data-noprocess="" data-shortcode-slide="" class="deck-index">
+  
+<h2 id="progettazione-e-sviluppo-del-software">Progettazione e Sviluppo del Software</h2>
+<div class="deck-index-subtitle">
+<p>C.d.L. in Tecnologie dei Sistemi Informatici &nbsp;·&nbsp; Indice dei contenuti</p>
+</div>
+
+<div class="deck-menu"><div class="deck-menu-group">
+<div class="deck-menu-group-title"><i class="fa-solid fa-graduation-cap"></i><span>Fondamenti</span></div>
 <ul>
-<li><a href="https://unibo-oop.github.io/lab-slides/dvcs-basics/#/">Git - introduzione</a></li>
-<li><a href="https://unibo-oop.github.io/lab-slides/dvcs-branching/#/">Git - Merging e branching</a></li>
-<li><a href="https://unibo-oop.github.io/lab-slides/dvcs-remote/#/">Git - Collaborazione remota</a></li>
+<li><a href="intro/"><i class="fa-solid fa-flag-checkered"></i> 1. Introduzione al corso</a></li>
+<li><a href="oo-abstraction/"><i class="fa-solid fa-shapes"></i> 2. Astrazione orientata agli oggetti</a></li>
+<li><a href="basics/"><i class="fa-brands fa-java"></i> 3. Introduzione al linguaggio Java</a></li>
+<li><a href="objects/"><i class="fa-solid fa-cube"></i> 4. Oggetti e classi (parte 1/2)</a></li>
+<li><a href="objects-2/"><i class="fa-solid fa-cubes"></i> 5. Oggetti e classi (parte 2/2)</a></li>
+<li><a href="encapsulation/"><i class="fa-solid fa-lock"></i> 6. Incapsulamento</a></li>
+</ul>
+</div>
+<div class="deck-menu-group">
+<div class="deck-menu-group-title"><i class="fa-solid fa-diagram-project"></i><span>Progettazione OO</span></div>
+<ul>
+<li><a href="interfaces/"><i class="fa-solid fa-plug"></i> 7. Interfacce e composizione</a></li>
+<li><a href="inheritance/"><i class="fa-solid fa-sitemap"></i> 8. Ereditarietà</a></li>
+<li><a href="polymorphism/"><i class="fa-solid fa-masks-theater"></i> 10. Polimorfismo e tipi a runtime</a></li>
+<li><a href="abstract-classes/"><i class="fa-solid fa-puzzle-piece"></i> 15. Classi astratte e template method</a></li>
+<li><a href="enums/"><i class="fa-solid fa-list-ol"></i> 16. Enumerazioni</a></li>
+<li><a href="nesting/"><i class="fa-solid fa-box-open"></i> 17. Classi innestate e anonime</a></li>
+</ul>
+<!--
+* [<i class="fa-solid fa-compass-drafting"></i> Progettazione efficace ed agile del software](intro-agile-sw-design-patterns/)
+-->
+</div>
+<div class="deck-menu-group">
+<div class="deck-menu-group-title"><i class="fa-solid fa-book-open"></i><span>Librerie e linguaggio</span></div>
+<ul>
+<li><a href="generics/"><i class="fa-solid fa-diamond"></i> 11. Generici</a></li>
+<li><a href="collections/"><i class="fa-solid fa-layer-group"></i> 12. Collezioni</a></li>
+<li><a href="exceptions/"><i class="fa-solid fa-triangle-exclamation"></i> 14. Eccezioni</a></li>
+<li><a href="lambdas/"><i class="fa-solid fa-arrow-right-long"></i> 18. Functional Java con Lambda e Stream</a></li>
+<li><a href="io/"><i class="fa-solid fa-file-arrow-down"></i> 21. Input/Output</a></li>
+<li><a href="multithread/"><i class="fa-solid fa-shuffle"></i> 22. Introduzione al multi-threading</a></li>
+</ul>
+<!--
+* [<i class="fa-solid fa-water"></i> Stream e manipolazione di flussi di dati](stream/)
+* [<i class="fa-solid fa-shapes"></i> Collezioni generiche, erasure, e wildcard](generic-collections-advanced/)
+-->
+</div>
+<div class="deck-menu-group">
+<div class="deck-menu-group-title"><i class="fa-solid fa-screwdriver-wrench"></i><span>Strumenti e pratiche</span></div>
+<ul>
+<li><span class="deck-menu-label"><i class="fa-brands fa-git-alt"></i> 9. Controllo di versione (DVCS) con Git</span>
+<ul>
+<li><a href="https://unibo-oop.github.io/lab-slides/dvcs-basics/#/"><i class="fa-solid fa-code-commit"></i> Introduzione</a></li>
+<li><a href="https://unibo-oop.github.io/lab-slides/dvcs-branching/#/"><i class="fa-solid fa-code-merge"></i> Merging e branching</a></li>
+<li><a href="https://unibo-oop.github.io/lab-slides/dvcs-remote/#/"><i class="fa-solid fa-cloud-arrow-up"></i> Collaborazione remota</a></li>
 </ul>
 </li>
-</ol>
+<li><a href="guis-javafx/"><i class="fa-solid fa-camera-retro"></i> 13. Interfacce grafiche (GUI) con JavaFX</a></li>
+<li><a href="dependencies/"><i class="fa-solid fa-cubes-stacked"></i> 19. Dipendenze e librerie</a></li>
+<li><a href="junit-tdd/"><i class="fa-solid fa-vial-circle-check"></i> 20. Unit Testing e TDD con JUnit 5</a></li>
+<li><a href="#/lab"><i class="fa-solid fa-flask"></i> Slide di laboratorio</a></li>
+</ul>
 <!--
-1. [Build system (Gradle), costruzione del software, e librerie](build-systems/)
-1. 
-1. [Unit Testing e Test-Driven Development con JUnit 5](junit-tdd/)
+* [<i class="fa-solid fa-gears"></i> Build system (Gradle), costruzione del software, e librerie](build-systems/)
+* [<i class="fa-solid fa-window-maximize"></i> Sviluppo di interfacce grafiche (GUI) con Swing](guis-swing/)
 -->
 </div>
-<div class="col">
-<ol start="11">
-<li><a href="polymorphism/">Polimorfismo e tipi a runtime</a></li>
-<li><a href="generics/">Generici</a></li>
-<li><a href="collections/">Collezioni</a></li>
-<li><a href="guis-javafx/">Sviluppo di interfacce grafiche (GUI) con la libreria JavaFX</a></li>
-<li><a href="exceptions/">Eccezioni</a></li>
-<li><a href="abstract-classes/">Classi astratte e template method</a></li>
-<li><a href="enums/">Enumerazioni</a></li>
-<li><a href="nesting/">Classi innestate e anonime</a></li>
-<li><a href="lambdas/">Functional Java con Lambda e Stream</a></li>
-<li><a href="dependencies/">Dipendenze e librerie</a></li>
-<li><a href="junit-tdd/">Unit Testing e Test-Driven Development con JUnit 5</a></li>
-<li><a href="io/">Input/Output</a></li>
-<li><a href="multithread/">Introduzione al multi-threading</a></li>
-</ol>
-<!--
-1. [Progettazione efficace ed agile del software](intro-agile-sw-design-patterns/)
--->
-<p>🧪 <a href="#2">Slide di laboratorio $\Rightarrow$</a></p>
-<!--
-1. [Sviluppo di interfacce grafiche (GUI) con Swing](guis-swing/)
--->
-<!-- 
-1. 
-1. [Stream e manipolazione di flussi di dati](stream/)
-1. [Collezioni generiche, erasure, e wildcard](generic-collections-advanced/) 
--->
-</div></div>
 </div>
+
+<div class="deck-index-note">
 <p>⚠️ Le slide con il simbolo 🚧 sono da considerarsi in costruzione, potrebbero essere incomplete, e saranno soggette a modifiche</p>
-</section><section>
+</div>
+</section>
+
+<section data-noprocess="" data-shortcode-slide="" class="deck-index" id="lab">
+  
 <h2 id="laboratorio-di-progettazione-e-sviluppo-del-software">Laboratorio di Progettazione e Sviluppo del Software</h2>
-<h3 id="indice-dei-contenuti-1">Indice dei contenuti</h3>
-<ol>
-<li><a href="lab/00-install-intellij/">Installazione di IntelliJ Idea</a></li>
-<li><a href="lab/01-basic-tools/">Strumenti del JDK</a></li>
-<li><a href="lab/02-advanced-tooling-gradle/">Compilazione avanzata</a></li>
-<li><a href="lab/03-build-systems/">Build Systems</a></li>
-<li><a href="lab/04-execution/">Esecuzione di applicazioni Java tramite Gradle</a></li>
-<li><a href="lab/05-checkstyle/">Checkstyle</a></li>
-<li><a href="lab/06-dependencies/">Dipendenze e Librerie in Gradle</a></li>
-<li><a href="lab/08-jar/">Costruzione degli artefatti</a></li>
-</ol>
+<div class="deck-index-subtitle">
+<p>C.d.L. in Tecnologie dei Sistemi Informatici &nbsp;·&nbsp; Indice dei contenuti</p>
+</div>
+
+<div class="deck-menu"><div class="deck-menu-group">
+<div class="deck-menu-group-title"><i class="fa-solid fa-toolbox"></i><span>Strumenti di base</span></div>
+<ul>
+<li><a href="lab/00-install-intellij/"><i class="fa-solid fa-download"></i> 1. Installazione di IntelliJ Idea</a></li>
+<li><a href="lab/01-basic-tools/"><i class="fa-brands fa-java"></i> 2. Strumenti del JDK</a></li>
+<li><a href="lab/02-advanced-tooling-gradle/"><i class="fa-solid fa-terminal"></i> 3. Compilazione avanzata</a></li>
+</ul>
+</div>
+<div class="deck-menu-group">
+<div class="deck-menu-group-title"><i class="fa-solid fa-gear"></i><span>Build automation</span></div>
+<ul>
+<li><a href="lab/03-build-systems/"><i class="fa-solid fa-gears"></i> 4. Build Systems</a></li>
+<li><a href="lab/04-execution/"><i class="fa-solid fa-play"></i> 5. Esecuzione di applicazioni Java tramite Gradle</a></li>
+<li><a href="lab/05-checkstyle/"><i class="fa-solid fa-magnifying-glass-chart"></i> 6. Checkstyle</a></li>
+<li><a href="lab/06-dependencies/"><i class="fa-solid fa-cubes"></i> 7. Dipendenze e Librerie in Gradle</a></li>
+<li><a href="lab/08-jar/"><i class="fa-solid fa-box"></i> 8. Costruzione degli artefatti</a></li>
+</ul>
+</div>
+</div>
+
+<div class="deck-cover-actions">
+<p><a href="#/"><i class="fa-solid fa-arrow-left"></i> lezioni</a></p>
+</div>
 </section>
 
   
