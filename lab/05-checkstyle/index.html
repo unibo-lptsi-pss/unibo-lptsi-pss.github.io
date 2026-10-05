@@ -20,7 +20,7 @@
       <div class="slides">
   
 
-    <section><h1 id="checkstyle">Checkstyle</h1>
+    <section><h1 id="analisi-statica-e-checkstyle">Analisi statica e checkstyle</h1>
 <div class="deck-cover">
 <div class="deck-cover-course">
 <p>Progettazione e Sviluppo del Software &nbsp;·&nbsp; C.d.L. in Tecnologie dei Sistemi Informatici</p>
@@ -35,103 +35,285 @@
 <a href=".."><i class="fa-solid fa-list"></i> menu principale</a></p>
 </div>
 <div class="deck-cover-date">
-<p><i class="fa-regular fa-calendar"></i> Slide compilate il 2026-10-02
+<p><i class="fa-regular fa-calendar"></i> Slide compilate il 2026-10-05
 </p>
 </div>
 </div>
 </section><section>
-<h3 id="cosè-checkstyle">Cos’è Checkstyle</h3>
-<p>Checkstyle si occupa di trovare errori di stile:</p>
+<!-- this file includes generated content. Do not edit. Edit content/lab/05-checkstyle/generator.md, instead. -->
+<h2 id="analisi-di-qualità-del-codice-sorgente">Analisi di qualità del codice sorgente</h2>
+<h3 id="software-di-analisi-statica-del-codice---definizione">“Software di analisi statica del codice” - Definizione</h3>
+<p>Software in grado di analizzare il codice sorgente per individuare:</p>
 <ul>
-<li>Mancanza di commento Javadoc, Spaziature non corrette, Parentesi assenti, Magic numbers…</li>
-<li>Altri check: <a href="http://checkstyle.sourceforge.net/checks.html">http://checkstyle.sourceforge.net/checks.html</a></li>
+<li>Potenziali bug, magari dovuti a distrazione</li>
+<li>Possibili miglioramenti, ottimizzazioni o pratiche difformi da quelle consigliate</li>
+<li>Codice duplicato, segnale di una progettazione discutibile</li>
+<li>Stile non conforme</li>
 </ul>
-<h3 id="come-funziona">Come funziona</h3>
+<h4 id="uso">Uso</h4>
+<p>L’analisi automatica del proprio codice consente di migliorare la qualità del codice,
+aiuta ad apprendere il modo corretto di scrivere,
+riduce il costo di manutenzione,
+e garantisce uniformità fra le parti sviluppate da persone diverse
+(aiutando quindi il sistema di controllo versione!).</p>
+</section><section>
+<h3 id="code-checking">Code checking</h3>
+<p>I software che vedremo sono eseguibili in due modalità:</p>
 <ul>
-<li>Si dichiara lo stile desiderato in un file <code>checkstyle.xml</code> (un <a href="https://github.com/DanySK/gradle-java-qa/blob/master/src/main/resources/org/danilopianini/javaqa/checkstyle.xml">esempio</a>)</li>
+<li><em>Stand-alone</em>: il software viene eseguito e genera un report</li>
+<li>Come <em>plug-in</em>: il software viene integrato con l’IDE (ad es. VS Code), e segnala i problemi sotto forma di warning</li>
+<li>Come <em>plugin Gradle</em>: Gradle viene configurato per eseguire il software nella prima modalità</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#633820">&lt;?xml version="1.0"?&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#633820">&lt;!DOCTYPE module PUBLIC
-</span></span></span><span style="display:flex;"><span><span style="color:#633820">        "-//Checkstyle//DTD Checkstyle Configuration 1.3//EN"
-</span></span></span><span style="display:flex;"><span><span style="color:#633820">        "https://checkstyle.org/dtds/configuration_1_3.dtd"&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#000">&lt;module</span> <span style="color:#836c28">name=</span><span style="color:#c41a16">"Checker"</span><span style="color:#000">&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#000">&lt;property</span> <span style="color:#836c28">name=</span><span style="color:#c41a16">"charset"</span> <span style="color:#836c28">value=</span><span style="color:#c41a16">"UTF-8"</span><span style="color:#000">/&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#000">&lt;module</span> <span style="color:#836c28">name=</span><span style="color:#c41a16">"NewlineAtEndOfFile"</span><span style="color:#000">&gt;</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#000">&lt;property</span> <span style="color:#836c28">name=</span><span style="color:#c41a16">"lineSeparator"</span> <span style="color:#836c28">value=</span><span style="color:#c41a16">"lf"</span><span style="color:#000">/&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#000">&lt;/module&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#000">&lt;module</span> <span style="color:#836c28">name=</span><span style="color:#c41a16">"LineLength"</span><span style="color:#000">&gt;</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#000">&lt;property</span> <span style="color:#836c28">name=</span><span style="color:#c41a16">"max"</span> <span style="color:#836c28">value=</span><span style="color:#c41a16">"85"</span><span style="color:#000">/&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#000">&lt;/module&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#177500">&lt;!-- ... --&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#000">&lt;/module&gt;</span>
-</span></span></code></pre></div><ul>
-<li>Si utilizza il tool <code>checkstyle</code> per analizzare codice rispetto allo stile configurato</li>
+<p>Noi vedremo la terza modalità.</p>
+</section><section>
+<h2 id="spotbugs-ex-findbugs">SpotBugs (ex FindBugs)</h2>
+<p>SpotBugs scansiona il <em>bytecode</em> generato dal compilatore, e dalla sua analisi cerca di scoprire potenziali bug nel sorgente, ad esempio:</p>
+<ul>
+<li>Uguaglianza esatta fra <code>float</code> o <code>double</code></li>
+<li>Utilizzo di <code>==</code> invece di <code>equals()</code></li>
+<li>Mancata annotazione di annotazioni usate a runtime via reflection</li>
+<li>Uso errato di meccanismi di sincronizzazione</li>
+<li>Assenza di copie difensive</li>
+<li>Variabili non utilizzate</li>
+<li>Vulnerabilità  di sicurezza</li>
+<li>Tanti altri! Si veda: <a href="https://spotbugs.readthedocs.io/en/stable/bugDescriptions.html">https://spotbugs.readthedocs.io/en/stable/bugDescriptions.html</a></li>
 </ul>
 </section><section>
-<h3 id="integrazione-con-gradle">Integrazione con Gradle</h3>
+<h2 id="pmd-e-cpd">PMD e CPD</h2>
+<p>PMD si occupa di trovare imperfezioni nel codice:</p>
 <ul>
-<li>Plugin <a href="https://docs.gradle.org/current/userguide/checkstyle_plugin.html"><code>checkstyle</code></a>, da dichiarare in <code>build.gradle.kts</code>:</li>
+<li>Campi pubblici, protetti o default</li>
+<li>Mancato uso di final</li>
+<li>Singular fields</li>
+<li>Integra CPD (copy/paste detector) per verificare se vi siano blocchi di codice copincollati</li>
+<li>Tanti altri! Si veda: <a href="https://pmd.github.io/latest/pmd_rules_java.html">https://pmd.github.io/latest/pmd_rules_java.html</a></li>
 </ul>
+</section><section>
+<h2 id="checkstyle">Checkstyle</h2>
+<p>Cos’è: Checkstyle si occupa di trovare errori di stile:</p>
+<ul>
+<li>Mancanza di commento Javadoc</li>
+<li>Spaziature non corrette</li>
+<li>Parentesi assenti</li>
+<li>Magic numbers</li>
+<li>Altro: <a href="http://checkstyle.sourceforge.net/checks.html">http://checkstyle.sourceforge.net/checks.html</a></li>
+</ul>
+</section><section>
+<h2 id="configurazione-e-utilizzo-tramite-gradle">Configurazione e utilizzo tramite Gradle</h2>
+<p>Ciascun tool di quelli introdotti ha un proprio plugin gradle che consente di attivarlo e configurarlo.</p>
+<p>Per gli scopi del corso,
+è stato sviluppato un plugin che applica i tre plugin precedenti,
+preconfigurandoli in modo “ragionevole”.</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#000">plugins</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#000">java</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#000">checkstyle</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">id</span>(<span style="color:#c41a16">"org.danilopianini.gradle-java-qa"</span>) <span style="color:#000">version</span> <span style="color:#c41a16">"1.75.0"</span>
 </span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#000">repositories</span> {
-</span></span><span style="display:flex;"><span>  <span style="color:#000">mavenCentral</span>()
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><ul>
-<li>Di default, il plugin si aspetta i seguenti file</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span>&lt;root&gt;
-</span></span><span style="display:flex;"><span>└── config
-</span></span><span style="display:flex;"><span>    └── checkstyle           
-</span></span><span style="display:flex;"><span>        └── checkstyle.xml   
-</span></span><span style="display:flex;"><span>        └── suppressions.xml
-</span></span></code></pre></div><ul>
-<li>Il plugin fornisce il task <code>check</code> (che include <code>checkstyleMain</code> e <code>checkstyleTest</code>)</li>
-<li>L’output dell’analisi viene riportato sotto <code>build/reports/checkstyle</code></li>
+</span></span></code></pre></div><p>di default, questo causa un fallimento della build se ci sono errori in analisi statica:</p>
+<ul>
+<li>
+<p>la configurazione è <em>aggressiva</em>.</p>
+</li>
+<li>
+<p>Plugin</p>
+</li>
+<li>
+<p>Aggressività</p>
+</li>
+<li>
+<p>Build reports</p>
+</li>
 </ul>
 </section><section>
+<h2 id="falsi-positivi-e-falsi-negativi">Falsi positivi e falsi negativi</h2>
+<table>
+	<thead>
+			<tr>
+					<th><em>Osservato</em> \ <strong>Reale</strong></th>
+					<th><strong>Vero</strong></th>
+					<th><strong>Falso</strong></th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><em>Vero</em></td>
+					<td>Positivo</td>
+					<td>Falso positivo</td>
+			</tr>
+			<tr>
+					<td><em>Falso</em></td>
+					<td>Falso negativo</td>
+					<td>Negativo</td>
+			</tr>
+	</tbody>
+</table>
 <ul>
-<li>Di default, <em>fallisce la build</em> se le regole di stile non sono rispettate</li>
+<li><strong>Sensibilità</strong>: capacità di un test di identificare i casi veri
+<ul>
+<li>Alta sensibilità $\Rightarrow$ pochi falsi negativi</li>
+<li>Un test molto sensibile tende a sbagliare “in eccesso”,
+preferendo i falsi positivi ai falsi negativi.</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span>$ ./gradlew check
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>&gt; Task :checkstyleMain
-</span></span><span style="display:flex;"><span>[ant:checkstyle] [ERROR] /&lt;PATH-TO-PROJ&gt;/src/main/java/.../File.java:4: 
-</span></span><span style="display:flex;"><span>                         Line is longer than 85 characters (found 102). [LineLength]
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>&gt; Task :checkstyleMain FAILED
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>FAILURE: Build failed with an exception.
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>* What went wrong:
-</span></span><span style="display:flex;"><span>Execution failed for task ':checkstyleMain'.
-</span></span><span style="display:flex;"><span>&gt; A failure occurred while executing org.gradle.api.plugins.quality.internal.CheckstyleAction
-</span></span><span style="display:flex;"><span>   &gt; Checkstyle rule violations were found. See the report at: file:///&lt;PATH-TO-PROJ&gt;/build/reports/checkstyle/main.html
-</span></span><span style="display:flex;"><span>     Checkstyle files with violations: 1
-</span></span><span style="display:flex;"><span>     Checkstyle violations by severity: [error:1]
+</li>
+<li><strong>Specificità</strong>: capacità di un test di identificare i casi negativi
+<ul>
+<li>Alta specificità $\Rightarrow$ pochi falsi positivi</li>
+<li>Un test molto specifico tende a sbagliare “in difetto”,
+preferendo i falsi negativi ai falsi positivi.</li>
+</ul>
+</li>
+</ul>
+<p>Sensibilità e specificità spesso vanno <em>bilanciate</em>,
+raramente in casi reali un test può essere sia molto sensibile che molto specifico</p>
+<h4 id="ci-saranno-casi-in-cui-lanalisi-statica-darà-dei-falsi-positivi">Ci saranno casi in cui l’analisi statica darà dei falsi positivi</h4>
+<p>(ci saranno anche falsi negativi, ma è più difficile trovarli…)</p>
+</section><section>
+<h2 id="gestire-falsi-positivi-soppressione">Gestire falsi positivi: soppressione</h2>
+<p>La <em>ragione</em> per cui un caso di problema sia da classificare come <em>falso positivo</em> va <em>studiata</em></p>
+<ul>
+<li>Potrebbe essere, in effetti, un <em>bug</em> o una limitazione del tool di analisi statica</li>
+<li>Potrebbe essere che il difetto ci sia veramente, <em>ma non dipenda da noi</em>
+(magari stiamo usando una libreria esterna che ci forza a fare le cose così)</li>
+<li>Potrebbe essere che il difetto sia presente, <em>ma sia voluto</em>
+<ul>
+<li>Abbiamo scientemente fatto una scelta di design, intendiamo mantenerla e sappiamo giustificarla</li>
+</ul>
+</li>
+<li>Potrebbe essere che il difetto sia presente, <em>ma l’alternativa sia peggiore</em>
+<ul>
+<li>caso specifico non supportato dal software</li>
+<li>impossibilità di utilizzo di una alternativa</li>
+<li>performance troppo basse (raro nei progetti di OOP…)</li>
+</ul>
+</li>
+</ul>
+<p>In questi casi, si <em>disabilita <strong>puntualmente</strong> l’analisi statica nel punto in cui è presente il falso positivo</em></p>
+<p>Questa operazione è detta <strong>soppressione</strong> e va <em>sempre giustificata</em></p>
+</section><section>
+<h2 id="soppressione-in-checkstyle">Soppressione in Checkstyle</h2>
+<ul>
+<li>La soppressione in checkstyle avviene tramite commenti, ed è configurabile</li>
+<li>Nella configurazione fornitavi, si sopprime con delle “comment fences”:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#177500">// CHECKSTYLE: &lt;ruleName&gt; OFF</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">&lt;</span><span style="color:#000">java</span> <span style="color:#000">code</span> <span style="color:#a90d91">with</span> <span style="color:#000">the</span> <span style="color:#a90d91">false</span> <span style="color:#000">positive</span><span style="color:#000">&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#177500">// CHECKSTYLE: &lt;ruleName&gt; ON</span>
+</span></span></code></pre></div><ul>
+<li>dove <code>&lt;ruleName&gt;</code> va sostituito col nome della regola di Checkstyle che si sta violando</li>
+</ul>
+<p>È bene aggiungere un commento che spieghi la ragione della soppressione</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#177500">// CHECKSTYLE: &lt;ruleName&gt; OFF</span>
+</span></span><span style="display:flex;"><span><span style="color:#177500">// Rule disabled due to false positives, see this bug report: https://...</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">&lt;</span><span style="color:#000">java</span> <span style="color:#000">code</span> <span style="color:#a90d91">with</span> <span style="color:#000">the</span> <span style="color:#a90d91">false</span> <span style="color:#000">positive</span><span style="color:#000">&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#177500">// CHECKSTYLE: &lt;ruleName&gt; ON</span>
 </span></span></code></pre></div></section><section>
-<h1 id="checkstyle-1">Checkstyle</h1>
-<div class="deck-cover">
-<div class="deck-cover-course">
-<p>Progettazione e Sviluppo del Software &nbsp;·&nbsp; C.d.L. in Tecnologie dei Sistemi Informatici</p>
-</div>
-<div class="deck-cover-author">
-<p><a href="mailto:danilo.pianini@unibo.it"><i class="fa-solid fa-envelope"></i> <strong>Danilo Pianini</strong> <code>danilo.pianini@unibo.it</code></a>
-<a href="mailto:gianluca.aguzzi@unibo.it"><i class="fa-solid fa-envelope"></i> <strong>Gianluca Aguzzi</strong> <code>gianluca.aguzzi@unibo.it</code></a>
-<a href="mailto:p.baldini@unibo.it"><i class="fa-solid fa-envelope"></i> <strong>Paolo Baldini</strong> <code>p.baldini@unibo.it</code></a></p>
-</div>
-<div class="deck-cover-actions">
-<p><a href="?print-pdf&amp;pdfSeparateFragments=false"><i class="fa-solid fa-print"></i> versione stampabile</a>
-<a href=".."><i class="fa-solid fa-list"></i> menu principale</a></p>
-</div>
-<div class="deck-cover-date">
-<p><i class="fa-regular fa-calendar"></i> Slide compilate il 2026-10-02
-</p>
-</div>
-</div>
+<h2 id="soppressione-in-pmd">Soppressione in PMD</h2>
+<ul>
+<li>La soppressione in PMD avviene tramite commento in linea</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#000">&lt;</span><span style="color:#000">java</span> <span style="color:#000">code</span> <span style="color:#a90d91">with</span> <span style="color:#000">the</span> <span style="color:#a90d91">false</span> <span style="color:#000">positive</span><span style="color:#000">&gt;</span> <span style="color:#177500">// NOPMD suppressed as it is a false positive</span>
+</span></span></code></pre></div><p>Se la linea di codice diventa troppo lunga, si può spezzare:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#000">&lt;</span><span style="color:#000">java</span> <span style="color:#000">code</span> <span style="color:#a90d91">with</span> <span style="color:#000">the</span> <span style="color:#a90d91">false</span> <span style="color:#000">positive</span><span style="color:#000">&gt;</span> <span style="color:#177500">// NOPMD</span>
+</span></span><span style="display:flex;"><span><span style="color:#177500">// suppressed as it is a false positive</span>
+</span></span></code></pre></div></section><section>
+<h2 id="soppressione-in-spotbugs">Soppressione in SpotBugs</h2>
+<p>SpotBugs lavora sul <em>bytecode</em>, quindi non può essere soppresso usando dei commenti</p>
+<p>Occorre invece usare una speciale <strong>annotazione</strong>,
+contenuta nella libreria:</p>
+<ul>
+<li><a href="https://search.maven.org/artifact/com.github.spotbugs/spotbugs-annotations"><code>com.github.spotbugs:spotbugs-annotations</code></a></li>
+</ul>
+<p>E quindi, in <code>build.gradle.kts</code></p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#000">dependencies</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#000">compileOnly</span>(<span style="color:#c41a16">"com.github.spotbugs:spotbugs-annotations:4.7.3"</span>) <span style="color:#177500">// Use the latest version
+</span></span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Sarà a questo punto disponibile l’annotazione <code>@SuppressFBWarnings</code>:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#000">@SuppressFBWarnings</span>(
+</span></span><span style="display:flex;"><span>    <span style="color:#000">value</span> <span style="color:#000">=</span> { <span style="color:#177500">// List of bugs to be suppressed</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#c41a16">"BC_UNCONFIRMED_CAST_OF_RETURN_VALUE"</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#c41a16">"RV_RETURN_VALUE_IGNORED_BAD_PRACTICE"</span>
+</span></span><span style="display:flex;"><span>    }, <span style="color:#177500">// String with the reasons for them to be suppressed</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">justification</span> <span style="color:#000">=</span> <span style="color:#c41a16">"A ChoiceDialog is always in its own stage"</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">+</span> <span style="color:#c41a16">", and we don't need the status of the Runnable"</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span><span style="color:#000">&lt;</span><span style="color:#000">java</span> <span style="color:#000">code</span> <span style="color:#a90d91">with</span> <span style="color:#000">the</span> <span style="color:#a90d91">false</span> <span style="color:#000">positive</span><span style="color:#000">&gt;</span>
+</span></span></code></pre></div><!-- 
+### Cos'è Checkstyle
+
+Checkstyle si occupa di trovare errori di stile:
+		
+* Mancanza di commento Javadoc, Spaziature non corrette, Parentesi assenti, Magic numbers...
+* Altri check: [http://checkstyle.sourceforge.net/checks.html](http://checkstyle.sourceforge.net/checks.html)
+
+### Come funziona
+
+- Si dichiara lo stile desiderato in un file `checkstyle.xml` (un [esempio](https://github.com/DanySK/gradle-java-qa/blob/master/src/main/resources/org/danilopianini/javaqa/checkstyle.xml))
+```xml
+<?xml version="1.0"?>
+<!DOCTYPE module PUBLIC
+        "-//Checkstyle//DTD Checkstyle Configuration 1.3//EN"
+        "https://checkstyle.org/dtds/configuration_1_3.dtd">
+<module name="Checker">
+    <property name="charset" value="UTF-8"/>
+    <module name="NewlineAtEndOfFile">
+        <property name="lineSeparator" value="lf"/>
+    </module>
+    <module name="LineLength">
+      <property name="max" value="85"/>
+    </module>
+    <!-- ... ––>
+</module>
+
+```
+- Si utilizza il tool `checkstyle` per analizzare codice rispetto allo stile configurato
+
+---
+
+### Integrazione con Gradle
+
+- Plugin [`checkstyle`](https://docs.gradle.org/current/userguide/checkstyle_plugin.html), da dichiarare in `build.gradle.kts`:
+```kotlin
+plugins {
+  java
+  checkstyle
+}
+
+repositories {
+  mavenCentral()
+}
+```
+- Di default, il plugin si aspetta i seguenti file
+```txt
+<root>
+└── config
+    └── checkstyle           
+        └── checkstyle.xml   
+        └── suppressions.xml
+```
+- Il plugin fornisce il task `check` (che include `checkstyleMain` e `checkstyleTest`)
+- L'output dell'analisi viene riportato sotto `build/reports/checkstyle`
+
+---
+
+- Di default, *fallisce la build* se le regole di stile non sono rispettate
+```txt
+$ ./gradlew check
+
+> Task :checkstyleMain
+[ant:checkstyle] [ERROR] /<PATH-TO-PROJ>/src/main/java/.../File.java:4: 
+                         Line is longer than 85 characters (found 102). [LineLength]
+
+> Task :checkstyleMain FAILED
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':checkstyleMain'.
+> A failure occurred while executing org.gradle.api.plugins.quality.internal.CheckstyleAction
+   > Checkstyle rule violations were found. See the report at: file:///<PATH-TO-PROJ>/build/reports/checkstyle/main.html
+     Checkstyle files with violations: 1
+     Checkstyle violations by severity: [error:1]
+```
+
+-->
 </section><section>
 <h2 id="riconoscimenti">Riconoscimenti</h2>
 <ul>
@@ -143,7 +325,10 @@ Mirko Viroli e Roberto Casadei, che ringrazio.</p>
 <p>Ogni errore riscontratovi è esclusiva responsabilità degli autori di questo documento.</p>
 </li>
 </ul>
-</section>
+<div class="deck-cover-actions">
+<p><a href=".."><i class="fa-solid fa-list"></i> menu principale</a></p>
+<div>
+</div></div></section>
 
   
 
@@ -368,8 +553,6 @@ Mirko Viroli e Roberto Casadei, che ringrazio.</p>
   
   
 
-  
-    
   
   
 
