@@ -13,6 +13,53 @@
 <link href="https://fonts.googleapis.com/css?family=Ubuntu Mono" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
 
+<script>
+  
+  
+  
+  
+  
+  
+  (function () {
+    let instance;
+    let counter = 0;
+    Object.defineProperty(window, 'mermaid', {
+      configurable: true,
+      get: () => instance,
+      set: (mermaid) => {
+        instance = mermaid;
+        mermaid.init = async function (config, element) {
+          if (!(element instanceof Element) || element.getAttribute('data-processed')) {
+            return;
+          }
+          element.setAttribute('data-processed', 'true');
+          const style = getComputedStyle(element);
+          const sandbox = document.createElement('div');
+          sandbox.style.cssText = 'position: absolute; top: 0; left: 0; visibility: hidden;';
+          for (const property of ['font-family', 'font-size', 'font-weight', 'letter-spacing']) {
+            sandbox.style.setProperty(property, style.getPropertyValue(property));
+          }
+          
+          const lineHeight = parseFloat(style.lineHeight) / parseFloat(style.fontSize);
+          if (lineHeight) {
+            sandbox.style.lineHeight = lineHeight;
+          }
+          (document.querySelector('.reveal') || document.body).appendChild(sandbox);
+          try {
+            const { svg, bindFunctions } = await mermaid.render(`mermaid-live-${counter++}`, element.textContent, sandbox);
+            element.innerHTML = svg;
+            if (bindFunctions) {
+              bindFunctions(element);
+            }
+          } finally {
+            sandbox.remove();
+          }
+        };
+      },
+    });
+  })();
+</script>
+
   </head>
   <body>
     
@@ -35,7 +82,7 @@
 <a href=".."><i class="fa-solid fa-list"></i> menu principale</a></p>
 </div>
 <div class="deck-cover-date">
-<p><i class="fa-regular fa-calendar"></i> Slide compilate il 2026-10-15
+<p><i class="fa-regular fa-calendar"></i> Slide compilate il 2026-10-19
 </p>
 </div>
 </div>
@@ -661,7 +708,7 @@
 <a href=".."><i class="fa-solid fa-list"></i> menu principale</a></p>
 </div>
 <div class="deck-cover-date">
-<p><i class="fa-regular fa-calendar"></i> Slide compilate il 2026-10-15
+<p><i class="fa-regular fa-calendar"></i> Slide compilate il 2026-10-19
 </p>
 </div>
 </div>
