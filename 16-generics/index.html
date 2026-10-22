@@ -82,7 +82,7 @@
 <a href=".."><i class="fa-solid fa-list"></i> menu principale</a></p>
 </div>
 <div class="deck-cover-date">
-<p><i class="fa-regular fa-calendar"></i> Slide compilate il 2026-10-21
+<p><i class="fa-regular fa-calendar"></i> Slide compilate il 2026-10-22
 </p>
 </div>
 </div>
@@ -686,8 +686,11 @@ che avranno visibilità solo all’interno del metodo stesso
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">s</span>) {
 </span></span><span style="display:flex;"><span>        <span style="color:#a90d91">final</span> <span style="color:#000">Iterator</span><span style="color:#000">&lt;</span><span style="color:#000">Integer</span><span style="color:#000">&gt;</span> <span style="color:#000">iterator</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">IntRangeIterator</span>(<span style="color:#000">5</span>, <span style="color:#000">10</span>);
-</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">final</span> <span style="color:#000">LList</span><span style="color:#000">&lt;</span><span style="color:#000">String</span><span style="color:#000">&gt;</span> <span style="color:#000">list</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">LList</span><span style="color:#000">&lt;&gt;</span>(<span style="color:#c41a16">"a"</span>, <span style="color:#a90d91">new</span> <span style="color:#000">LList</span><span style="color:#000">&lt;&gt;</span>(<span style="color:#c41a16">"b"</span>, <span style="color:#a90d91">new</span> <span style="color:#000">LList</span><span style="color:#000">&lt;&gt;</span>(<span style="color:#c41a16">"c"</span>, <span style="color:#a90d91">new</span> <span style="color:#000">LList</span><span style="color:#000">&lt;&gt;</span>(<span style="color:#c41a16">"d"</span>, <span style="color:#a90d91">null</span>))));
-</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">final</span> <span style="color:#000">Iterator</span><span style="color:#000">&lt;</span><span style="color:#000">String</span><span style="color:#000">&gt;</span> <span style="color:#000">iterator2</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">LListIterator</span><span style="color:#000">&lt;&gt;</span>(<span style="color:#000">list</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">final</span> <span style="color:#000">Vector</span><span style="color:#000">&lt;</span><span style="color:#000">String</span><span style="color:#000">&gt;</span> <span style="color:#000">strings</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Vector</span><span style="color:#000">&lt;&gt;</span>();
+</span></span><span style="display:flex;"><span>        <span style="color:#000">strings</span>.<span style="color:#836c28">addElement</span>(<span style="color:#c41a16">"a"</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#000">strings</span>.<span style="color:#836c28">addElement</span>(<span style="color:#c41a16">"b"</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#000">strings</span>.<span style="color:#836c28">addElement</span>(<span style="color:#c41a16">"c"</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">final</span> <span style="color:#000">Iterator</span><span style="color:#000">&lt;</span><span style="color:#000">String</span><span style="color:#000">&gt;</span> <span style="color:#000">iterator2</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">VectorIterator</span><span style="color:#000">&lt;&gt;</span>(<span style="color:#000">strings</span>);
 </span></span><span style="display:flex;"><span>        <span style="color:#a90d91">final</span> <span style="color:#000">Vector</span><span style="color:#000">&lt;</span><span style="color:#000">Calendar</span><span style="color:#000">&gt;</span> <span style="color:#000">vector</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Vector</span><span style="color:#000">&lt;&gt;</span>();
 </span></span><span style="display:flex;"><span>        <span style="color:#000">vector</span>.<span style="color:#836c28">addElement</span>(<span style="color:#a90d91">new</span> <span style="color:#000">GregorianCalendar</span>());
 </span></span><span style="display:flex;"><span>        <span style="color:#000">vector</span>.<span style="color:#836c28">addElement</span>(<span style="color:#a90d91">new</span> <span style="color:#000">GregorianCalendar</span>());
@@ -924,7 +927,7 @@ che avranno visibilità solo all’interno del metodo stesso
 <a href=".."><i class="fa-solid fa-list"></i> menu principale</a></p>
 </div>
 <div class="deck-cover-date">
-<p><i class="fa-regular fa-calendar"></i> Slide compilate il 2026-10-21
+<p><i class="fa-regular fa-calendar"></i> Slide compilate il 2026-10-22
 </p>
 </div>
 </div>
