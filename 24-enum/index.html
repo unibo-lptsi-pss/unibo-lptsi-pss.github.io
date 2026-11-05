@@ -67,7 +67,7 @@
       <div class="slides">
   
 
-    <section><h1 id="enumerazioni">Enumerazioni</h1>
+    <section><h1 id="enumerazioni-e-gerarchie-sealed">Enumerazioni e gerarchie sealed</h1>
 <div class="deck-cover">
 <div class="deck-cover-course">
 <p>Progettazione e Sviluppo del Software &nbsp;·&nbsp; C.d.L. in Tecnologie dei Sistemi Informatici</p>
@@ -82,7 +82,7 @@
 <a href=".."><i class="fa-solid fa-list"></i> menu principale</a></p>
 </div>
 <div class="deck-cover-date">
-<p><i class="fa-regular fa-calendar"></i> Slide compilate il 2026-11-04
+<p><i class="fa-regular fa-calendar"></i> Slide compilate il 2026-11-05
 </p>
 </div>
 </div>
@@ -91,9 +91,11 @@
 <h3 id="goal-della-lezione">Goal della lezione</h3>
 <ul>
 <li>Illustrare il concetto di enumerazione e le sue implementazioni in Java</li>
+<li>Modellare famiglie di sottotipi con interfacce e classi <code>sealed</code></li>
+<li>Distinguere un insieme chiuso di valori da una gerarchia con sottotipi controllati</li>
 </ul>
 </section><section>
-<h2 id="enumerazioni-1">Enumerazioni</h2>
+<h2 id="enumerazioni">Enumerazioni</h2>
 <h3 id="motivazioni">Motivazioni</h3>
 <ul>
 <li>in alcune situazioni occorre definire dei tipi che possono assumere solo un numero fissato e limitato di possibili valori</li>
@@ -624,7 +626,134 @@
 <li>$\Rightarrow$ Anche se i valori sono pochi, ma senza aggiungere troppi altri metodi..</li>
 </ul>
 </section><section>
-<h1 id="enumerazioni-2">Enumerazioni</h1>
+<h2 id="dalle-enumerazioni-alle-gerarchie-sealed">Dalle enumerazioni alle gerarchie <code>sealed</code></h2>
+<ul>
+<li>Una <code>enum</code> definisce un insieme fissato di <strong>oggetti</strong>, come i giorni della settimana</li>
+<li>Talvolta sono fissate le <strong>varianti</strong> del dominio, ma ogni variante ha molte istanze
+<ul>
+<li>Una figura può essere un cerchio o un rettangolo, ciascuno con dimensioni diverse</li>
+</ul>
+</li>
+<li>Un’interfaccia ordinaria può essere implementata da nuove classi senza restrizioni</li>
+<li>Una <code>sealed interface</code> permette di stabilire quali siano i suoi sottotipi diretti</li>
+</ul>
+<h3 id="supporto-del-linguaggio">Supporto del linguaggio</h3>
+<ul>
+<li>Classi e interfacce <code>sealed</code> sono una funzionalità definitiva da <strong>Java 17</strong></li>
+</ul>
+</section><section>
+<h2 id="una-sealed-interface-figura">Una <code>sealed interface</code>: <code>Figura</code></h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">sealed</span> <span style="color:#a90d91">interface</span> <span style="color:#3f6e75">Figura</span> <span style="color:#a90d91">permits</span> <span style="color:#000">Cerchio</span>, <span style="color:#000">Rettangolo</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">double</span> <span style="color:#000">area</span>();
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">final</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Cerchio</span> <span style="color:#a90d91">implements</span> <span style="color:#000">Figura</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">double</span> <span style="color:#000">raggio</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">Cerchio</span>(<span style="color:#a90d91">double</span> <span style="color:#000">raggio</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">this</span>.<span style="color:#836c28">raggio</span> <span style="color:#000">=</span> <span style="color:#000">raggio</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">double</span> <span style="color:#000">area</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">return</span> <span style="color:#000">Math</span>.<span style="color:#836c28">PI</span> <span style="color:#000">*</span> <span style="color:#000">raggio</span> <span style="color:#000">*</span> <span style="color:#000">raggio</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><ul>
+<li><code>permits</code> elenca i soli sottotipi diretti ammessi</li>
+<li><code>Cerchio</code> è <code>final</code>: nessuna classe può estenderlo</li>
+</ul>
+</section><section>
+<h2 id="laltra-variante-e-luso-polimorfo">L’altra variante e l’uso polimorfo</h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">final</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Rettangolo</span> <span style="color:#a90d91">implements</span> <span style="color:#000">Figura</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">double</span> <span style="color:#000">base</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">double</span> <span style="color:#000">altezza</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">Rettangolo</span>(<span style="color:#a90d91">double</span> <span style="color:#000">base</span>, <span style="color:#a90d91">double</span> <span style="color:#000">altezza</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">this</span>.<span style="color:#836c28">base</span> <span style="color:#000">=</span> <span style="color:#000">base</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">this</span>.<span style="color:#836c28">altezza</span> <span style="color:#000">=</span> <span style="color:#000">altezza</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">double</span> <span style="color:#000">area</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">return</span> <span style="color:#000">base</span> <span style="color:#000">*</span> <span style="color:#000">altezza</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#000">Figura</span> <span style="color:#000">prima</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Cerchio</span>(<span style="color:#000">2</span>);
+</span></span><span style="display:flex;"><span><span style="color:#000">Figura</span> <span style="color:#000">seconda</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Rettangolo</span>(<span style="color:#000">3</span>, <span style="color:#000">4</span>);
+</span></span><span style="display:flex;"><span><span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">prima</span>.<span style="color:#836c28">area</span>());   <span style="color:#177500">// circa 12.57</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">seconda</span>.<span style="color:#836c28">area</span>()); <span style="color:#177500">// 12.0</span>
+</span></span></code></pre></div></section><section>
+<h2 id="le-regole-di-una-gerarchia-sealed">Le regole di una gerarchia <code>sealed</code></h2>
+<ul>
+<li>Ogni sottotipo elencato in <code>permits</code> deve estendere o implementare direttamente il tipo sigillato</li>
+<li>Una classe direttamente derivata deve dichiararsi:
+<ul>
+<li><code>final</code>: termina il ramo della gerarchia</li>
+<li><code>sealed</code>: controlla a sua volta i propri sottotipi diretti</li>
+<li><code>non-sealed</code>: apre il ramo a ulteriori estensioni libere</li>
+</ul>
+</li>
+<li>Una sottointerfaccia diretta deve essere <code>sealed</code> oppure <code>non-sealed</code></li>
+<li>I sottotipi ammessi devono appartenere allo stesso package nel caso ordinario senza moduli
+<ul>
+<li>Con moduli nominati, devono appartenere allo stesso modulo</li>
+</ul>
+</li>
+<li><code>permits</code> può essere omesso se tutti i sottotipi diretti sono dichiarati nello stesso file</li>
+</ul>
+</section><section>
+<h2 id="classi-sealed-e-rami-aperti">Classi <code>sealed</code> e rami aperti</h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">sealed</span> <span style="color:#a90d91">abstract</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Messaggio</span> <span style="color:#a90d91">permits</span> <span style="color:#000">Testo</span>, <span style="color:#000">Estensione</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#a90d91">abstract</span> <span style="color:#000">String</span> <span style="color:#000">contenuto</span>();
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">final</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Testo</span> <span style="color:#a90d91">extends</span> <span style="color:#000">Messaggio</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a90d91">public</span> <span style="color:#000">String</span> <span style="color:#000">contenuto</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#a90d91">return</span> <span style="color:#c41a16">"Ciao"</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">non-sealed</span> <span style="color:#a90d91">abstract</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Estensione</span> <span style="color:#a90d91">extends</span> <span style="color:#000">Messaggio</span> { }
+</span></span></code></pre></div><ul>
+<li>Anche una classe, eventualmente astratta, può essere <code>sealed</code></li>
+<li>Altre classi possono estendere <code>Estensione</code> e fornire <code>contenuto()</code></li>
+<li><code>sealed</code> controlla i <strong>sottotipi diretti</strong>; un ramo <code>non-sealed</code> resta aperto</li>
+</ul>
+</section><section>
+<h2 id="enum-gerarchie-sealed-e-gerarchie-aperte"><code>enum</code>, gerarchie <code>sealed</code> e gerarchie aperte</h2>
+<table>
+	<thead>
+			<tr>
+					<th>Meccanismo</th>
+					<th>Cosa viene fissato</th>
+					<th>Esempio</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><code>enum</code></td>
+					<td>Le istanze dichiarate come costanti</td>
+					<td>Giorni della settimana</td>
+			</tr>
+			<tr>
+					<td><code>sealed</code> con rami chiusi</td>
+					<td>Le varianti, ciascuna con più istanze</td>
+					<td>Figure con dimensioni diverse</td>
+			</tr>
+			<tr>
+					<td>Interfaccia ordinaria</td>
+					<td>Il contratto, con implementazioni estendibili liberamente</td>
+					<td>Nuove strategie di ordinamento</td>
+			</tr>
+	</tbody>
+</table>
+<ul>
+<li><code>sealed</code> esprime un vincolo sul modello del dominio</li>
+<li>I metodi si invocano con il consueto polimorfismo</li>
+<li>Una nuova variante richiede di rivedere il codice che considera tutti i casi</li>
+</ul>
+<!-- Fonti: https://openjdk.org/jeps/409 e https://docs.oracle.com/en/java/javase/17/language/sealed-classes-and-interfaces.html -->
+</section><section>
+<h1 id="enumerazioni-e-gerarchie-sealed-1">Enumerazioni e gerarchie sealed</h1>
 <div class="deck-cover">
 <div class="deck-cover-course">
 <p>Progettazione e Sviluppo del Software &nbsp;·&nbsp; C.d.L. in Tecnologie dei Sistemi Informatici</p>
@@ -639,7 +768,7 @@
 <a href=".."><i class="fa-solid fa-list"></i> menu principale</a></p>
 </div>
 <div class="deck-cover-date">
-<p><i class="fa-regular fa-calendar"></i> Slide compilate il 2026-11-04
+<p><i class="fa-regular fa-calendar"></i> Slide compilate il 2026-11-05
 </p>
 </div>
 </div>
@@ -832,14 +961,18 @@
   
 
   
+    
+  
+  
+
+  
   
 
   
   
 
   
-  
-
+    
   
   
 
