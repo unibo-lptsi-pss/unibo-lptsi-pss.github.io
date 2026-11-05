@@ -957,7 +957,7 @@ per ottenere flessibilmente computazioni non banali dei loro elementi, con codic
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">record</span> <span style="color:#3f6e75">Person</span>(<span style="color:#000">String</span> <span style="color:#000">name</span>, <span style="color:#000">String</span> <span style="color:#000">city</span>, <span style="color:#a90d91">double</span> <span style="color:#000">income</span>, <span style="color:#000">Set</span><span style="color:#000">&lt;</span><span style="color:#000">String</span><span style="color:#000">&gt;</span> <span style="color:#000">jobs</span>) {}
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">var</span> <span style="color:#000">person</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Person</span>(<span style="color:#c41a16">"Mario"</span>, <span style="color:#c41a16">"Cesena"</span>, <span style="color:#000">20000</span>, <span style="color:#000">Set</span>.<span style="color:#836c28">of</span>(<span style="color:#c41a16">"Teacher"</span>));
-</span></span><span style="display:flex;"><span><span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">person</span>.<span style="color:#836c28">name</span>()); <span style="color:#177500">// Mario</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">IO</span>.<span style="color:#836c28">println</span>(<span style="color:#000">person</span>.<span style="color:#836c28">name</span>()); <span style="color:#177500">// Mario</span>
 </span></span></code></pre></div><ul>
 <li>I record sono disponibili in forma stabile da Java 16</li>
 <li><code>List</code> e <code>Set</code> appartengono al package <code>java.util</code></li>
@@ -967,7 +967,7 @@ per ottenere flessibilmente computazioni non banali dei loro elementi, con codic
 <p>Per ogni componente Java genera un campo privato <code>final</code> e un accessor pubblico.
 Genera anche il costruttore, <code>equals</code>, <code>hashCode</code> e <code>toString</code>.</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">var</span> <span style="color:#000">other</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Person</span>(<span style="color:#c41a16">"Mario"</span>, <span style="color:#c41a16">"Cesena"</span>, <span style="color:#000">20000</span>, <span style="color:#000">Set</span>.<span style="color:#836c28">of</span>(<span style="color:#c41a16">"Teacher"</span>));
-</span></span><span style="display:flex;"><span><span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">person</span>.<span style="color:#836c28">equals</span>(<span style="color:#000">other</span>)); <span style="color:#177500">// true</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">IO</span>.<span style="color:#836c28">println</span>(<span style="color:#000">person</span>.<span style="color:#836c28">equals</span>(<span style="color:#000">other</span>)); <span style="color:#177500">// true</span>
 </span></span></code></pre></div><ul>
 <li>L’uguaglianza è basata sui componenti</li>
 <li>L’immutabilità è <strong>superficiale</strong>: un componente può riferirsi a un oggetto mutabile</li>
@@ -989,7 +989,7 @@ Genera anche il costruttore, <code>equals</code>, <code>hashCode</code> e <code>
 </span></span><span style="display:flex;"><span>    .<span style="color:#836c28">mapToDouble</span>(<span style="color:#000">Person</span>::<span style="color:#000">income</span>)
 </span></span><span style="display:flex;"><span>    .<span style="color:#836c28">sum</span>();
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">totalIncome</span>); <span style="color:#177500">// 150000.0</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">IO</span>.<span style="color:#836c28">println</span>(<span style="color:#000">totalIncome</span>); <span style="color:#177500">// 150000.0</span>
 </span></span></code></pre></div></section><section>
 <h2 id="confronto-soluzione-con-un-ciclo">Confronto: soluzione con un ciclo</h2>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">double</span> <span style="color:#000">totalIncome</span> <span style="color:#000">=</span> <span style="color:#000">0</span>;
@@ -998,7 +998,7 @@ Genera anche il costruttore, <code>equals</code>, <code>hashCode</code> e <code>
 </span></span><span style="display:flex;"><span>        <span style="color:#000">totalIncome</span> <span style="color:#000">+=</span> <span style="color:#000">p</span>.<span style="color:#836c28">income</span>();
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">totalIncome</span>); <span style="color:#177500">// 150000.0</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">IO</span>.<span style="color:#836c28">println</span>(<span style="color:#000">totalIncome</span>); <span style="color:#177500">// 150000.0</span>
 </span></span></code></pre></div></section><section>
 <h2 id="stream-città-distinte-e-ordinate">Stream: città distinte e ordinate</h2>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">String</span><span style="color:#000">&gt;</span> <span style="color:#000">cities</span> <span style="color:#000">=</span> <span style="color:#000">people</span>.<span style="color:#836c28">stream</span>()
@@ -1008,7 +1008,7 @@ Genera anche il costruttore, <code>equals</code>, <code>hashCode</code> e <code>
 </span></span><span style="display:flex;"><span>    .<span style="color:#836c28">sorted</span>()
 </span></span><span style="display:flex;"><span>    .<span style="color:#836c28">toList</span>();
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">cities</span>); <span style="color:#177500">// [Cesena, Forlì]</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">IO</span>.<span style="color:#836c28">println</span>(<span style="color:#000">cities</span>); <span style="color:#177500">// [Cesena, Forlì]</span>
 </span></span></code></pre></div><ul>
 <li><code>map</code> estrae le città, <code>filter</code> esclude quelle mancanti</li>
 <li><code>distinct</code> elimina i duplicati, <code>sorted</code> ordina, <code>toList</code> raccoglie i risultati</li>
@@ -1021,7 +1021,7 @@ Genera anche il costruttore, <code>equals</code>, <code>hashCode</code> e <code>
 </span></span><span style="display:flex;"><span>    .<span style="color:#836c28">map</span>(<span style="color:#000">Person</span>::<span style="color:#000">name</span>)
 </span></span><span style="display:flex;"><span>    .<span style="color:#836c28">toList</span>();
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">topEarners</span>); <span style="color:#177500">// [Lino, Rino]</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">IO</span>.<span style="color:#836c28">println</span>(<span style="color:#000">topEarners</span>); <span style="color:#177500">// [Lino, Rino]</span>
 </span></span></code></pre></div><ul>
 <li><code>sorted</code> ordina per reddito decrescente, <code>limit</code> mantiene i primi due</li>
 <li><code>Comparator</code> si trova nel package <code>java.util</code></li>
@@ -1034,7 +1034,7 @@ Genera anche il costruttore, <code>equals</code>, <code>hashCode</code> e <code>
 </span></span><span style="display:flex;"><span>    .<span style="color:#836c28">sorted</span>()
 </span></span><span style="display:flex;"><span>    .<span style="color:#836c28">toList</span>();
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">jobs</span>);
+</span></span><span style="display:flex;"><span><span style="color:#000">IO</span>.<span style="color:#836c28">println</span>(<span style="color:#000">jobs</span>);
 </span></span><span style="display:flex;"><span><span style="color:#177500">// [Contractor, Dean, Professor, Secretary, Teacher]</span>
 </span></span></code></pre></div><ul>
 <li><code>flatMap</code> unisce gli stream delle professioni delle singole persone</li>
@@ -1045,8 +1045,8 @@ Genera anche il costruttore, <code>equals</code>, <code>hashCode</code> e <code>
 </span></span><span style="display:flex;"><span>    .<span style="color:#836c28">filter</span>(<span style="color:#000">p</span> <span style="color:#000">-&gt;</span> <span style="color:#000">p</span>.<span style="color:#836c28">city</span>() <span style="color:#000">!=</span> <span style="color:#a90d91">null</span>)
 </span></span><span style="display:flex;"><span>    .<span style="color:#836c28">collect</span>(<span style="color:#000">Collectors</span>.<span style="color:#836c28">groupingBy</span>(<span style="color:#000">Person</span>::<span style="color:#000">city</span>, <span style="color:#000">Collectors</span>.<span style="color:#836c28">counting</span>()));
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">counts</span>.<span style="color:#836c28">get</span>(<span style="color:#c41a16">"Cesena"</span>)); <span style="color:#177500">// 3</span>
-</span></span><span style="display:flex;"><span><span style="color:#000">System</span>.<span style="color:#836c28">out</span>.<span style="color:#836c28">println</span>(<span style="color:#000">counts</span>.<span style="color:#836c28">get</span>(<span style="color:#c41a16">"Forlì"</span>));  <span style="color:#177500">// 1</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">IO</span>.<span style="color:#836c28">println</span>(<span style="color:#000">counts</span>.<span style="color:#836c28">get</span>(<span style="color:#c41a16">"Cesena"</span>)); <span style="color:#177500">// 3</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">IO</span>.<span style="color:#836c28">println</span>(<span style="color:#000">counts</span>.<span style="color:#836c28">get</span>(<span style="color:#c41a16">"Forlì"</span>));  <span style="color:#177500">// 1</span>
 </span></span></code></pre></div><ul>
 <li><code>groupingBy</code> raggruppa per città e <code>counting</code> conta le persone di ogni gruppo</li>
 <li>Escludiamo le città mancanti; <code>Collectors</code> si trova in <code>java.util.stream</code></li>
