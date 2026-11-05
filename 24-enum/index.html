@@ -118,11 +118,66 @@
 </ul>
 </section><section>
 <h2 id="esempio-classe-person-12">Esempio classe <code>Person</code>: 1/2</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""></code></pre></div></section><section>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Person</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#000">String</span> <span style="color:#000">name</span>;
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#000">String</span> <span style="color:#000">surname</span>;
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#000">String</span> <span style="color:#000">region</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#000">Person</span>(<span style="color:#000">String</span> <span style="color:#000">name</span>, <span style="color:#000">String</span> <span style="color:#000">surname</span>, <span style="color:#000">String</span> <span style="color:#000">region</span>) {
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span>.<span style="color:#836c28">name</span> <span style="color:#000">=</span> <span style="color:#000">name</span>;
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span>.<span style="color:#836c28">surname</span> <span style="color:#000">=</span> <span style="color:#000">surname</span>;
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span>.<span style="color:#836c28">region</span> <span style="color:#000">=</span> <span style="color:#000">region</span>;
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#000">String</span> <span style="color:#000">toString</span>() {
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#c41a16">"["</span> <span style="color:#000">+</span> <span style="color:#000">name</span> <span style="color:#000">+</span> <span style="color:#c41a16">","</span> <span style="color:#000">+</span> <span style="color:#000">surname</span> <span style="color:#000">+</span> <span style="color:#c41a16">","</span> <span style="color:#000">+</span> <span style="color:#000">region</span> <span style="color:#000">+</span> <span style="color:#c41a16">"]"</span>;
+</span></span><span style="display:flex;"><span>	}
+</span></span></code></pre></div></section><section>
 <h2 id="esempio-classe-person-22">Esempio classe <code>Person</code>: 2/2</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""></code></pre></div></section><section>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">boolean</span> <span style="color:#000">isIslander</span>() { <span style="color:#177500">// Confronto molto lento!!</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> (<span style="color:#a90d91">this</span>.<span style="color:#836c28">region</span>.<span style="color:#836c28">equals</span>(<span style="color:#c41a16">"Sardegna"</span>) <span style="color:#000">||</span> 
+</span></span><span style="display:flex;"><span>				<span style="color:#a90d91">this</span>.<span style="color:#836c28">region</span>.<span style="color:#836c28">equals</span>(<span style="color:#c41a16">"Sicilia"</span>));
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">Person</span><span style="color:#000">&gt;</span> <span style="color:#000">fromRegion</span>(
+</span></span><span style="display:flex;"><span>			<span style="color:#a90d91">final</span> <span style="color:#000">Collection</span><span style="color:#000">&lt;</span><span style="color:#000">Person</span><span style="color:#000">&gt;</span> <span style="color:#000">coll</span>, 
+</span></span><span style="display:flex;"><span>			<span style="color:#a90d91">final</span> <span style="color:#000">String</span> <span style="color:#000">region</span>
+</span></span><span style="display:flex;"><span>	) { <span style="color:#177500">// nota questa possibile formattazione </span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">Person</span><span style="color:#000">&gt;</span> <span style="color:#000">list</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">ArrayList</span><span style="color:#000">&lt;&gt;</span>();
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">for</span> (<span style="color:#a90d91">final</span> <span style="color:#000">Person</span> <span style="color:#000">person</span> : <span style="color:#000">coll</span>) {
+</span></span><span style="display:flex;"><span>			<span style="color:#a90d91">if</span> (<span style="color:#000">person</span>.<span style="color:#836c28">region</span>.<span style="color:#836c28">equals</span>(<span style="color:#000">region</span>)) { <span style="color:#177500">// Confronto lento!!</span>
+</span></span><span style="display:flex;"><span>				<span style="color:#000">list</span>.<span style="color:#836c28">add</span>(<span style="color:#000">person</span>);
+</span></span><span style="display:flex;"><span>			}
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#000">list</span>;
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></section><section>
 <h2 id="useperson"><code>UsePerson</code></h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""></code></pre></div></section><section>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UsePerson</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span>) {
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">ArrayList</span><span style="color:#000">&lt;</span><span style="color:#000">Person</span><span style="color:#000">&gt;</span> <span style="color:#000">list</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">ArrayList</span><span style="color:#000">&lt;&gt;</span>();
+</span></span><span style="display:flex;"><span>		<span style="color:#000">list</span>.<span style="color:#836c28">add</span>(<span style="color:#a90d91">new</span> <span style="color:#000">Person</span>(<span style="color:#c41a16">"Mario"</span>,<span style="color:#c41a16">"Rossi"</span>,<span style="color:#c41a16">"Emilia-Romagna"</span>));
+</span></span><span style="display:flex;"><span>		<span style="color:#000">list</span>.<span style="color:#836c28">add</span>(<span style="color:#a90d91">new</span> <span style="color:#000">Person</span>(<span style="color:#c41a16">"Gino"</span>,<span style="color:#c41a16">"Bianchi"</span>,<span style="color:#c41a16">"Sicilia"</span>));
+</span></span><span style="display:flex;"><span>		<span style="color:#000">list</span>.<span style="color:#836c28">add</span>(<span style="color:#a90d91">new</span> <span style="color:#000">Person</span>(<span style="color:#c41a16">"Carlo"</span>,<span style="color:#c41a16">"Verdi"</span>,<span style="color:#c41a16">"EmiliaRomagna"</span>)); 
+</span></span><span style="display:flex;"><span>		<span style="color:#177500">// Errore sul nome non intercettabile</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">Person</span><span style="color:#000">&gt;</span> <span style="color:#000">out</span> <span style="color:#000">=</span> <span style="color:#000">Person</span>.<span style="color:#836c28">fromRegion</span>(<span style="color:#000">list</span>,<span style="color:#c41a16">"Emilia-Romagna"</span>);
+</span></span><span style="display:flex;"><span>		<span style="color:#000">IO</span>.<span style="color:#836c28">println</span>(<span style="color:#000">list</span>);
+</span></span><span style="display:flex;"><span>		<span style="color:#177500">// [[Mario,Rossi,Emilia-Romagna], [Gino,Bianchi,Sicilia], </span>
+</span></span><span style="display:flex;"><span>		<span style="color:#177500">//    [Carlo,Verdi,EmiliaRomagna]]</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">IO</span>.<span style="color:#836c28">println</span>(<span style="color:#000">out</span>);
+</span></span><span style="display:flex;"><span>		<span style="color:#177500">// [[Mario,Rossi,Emilia-Romagna]]</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">for</span> (<span style="color:#a90d91">final</span> <span style="color:#000">Person</span> <span style="color:#000">p</span> : <span style="color:#000">list</span>) {
+</span></span><span style="display:flex;"><span>			<span style="color:#a90d91">if</span> (<span style="color:#000">p</span>.<span style="color:#836c28">isIslander</span>()) {
+</span></span><span style="display:flex;"><span>				<span style="color:#000">IO</span>.<span style="color:#836c28">println</span>(<span style="color:#000">p</span>);
+</span></span><span style="display:flex;"><span>			}
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>		<span style="color:#177500">// [Gino,Bianchi,Sicilia]</span>
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></section><section>
 <h2 id="soluzione-alternativa-person-12">Soluzione alternativa, <code>Person</code>: 1/2</h2>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Person</span> {
 </span></span><span style="display:flex;"><span>    
@@ -216,9 +271,51 @@
 </ul>
 </section><section>
 <h2 id="soluzione-via-costanti-e-costruttore-privato">Soluzione via costanti e costruttore privato</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""></code></pre></div></section><section>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Region</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">final</span> <span style="color:#000">Region</span> <span style="color:#000">MARCHE</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Region</span>(<span style="color:#000">0</span>,<span style="color:#c41a16">"Marche"</span>);
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">final</span> <span style="color:#000">Region</span> <span style="color:#000">VENETO</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Region</span>(<span style="color:#000">1</span>,<span style="color:#c41a16">"Veneto"</span>);
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">final</span> <span style="color:#000">Region</span> <span style="color:#000">LOMBARDIA</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">Region</span>(<span style="color:#000">2</span>,<span style="color:#c41a16">"Lombardia"</span>);
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">final</span> <span style="color:#000">Region</span><span style="color:#000">[]</span> <span style="color:#000">VALUES</span> <span style="color:#000">=</span>  <span style="color:#a90d91">new</span> <span style="color:#000">Region</span><span style="color:#000">[]</span> {<span style="color:#000">MARCHE</span>, <span style="color:#000">VENETO</span>, <span style="color:#000">LOMBARDIA</span>};
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#a90d91">int</span> <span style="color:#000">id</span>;
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#000">String</span> <span style="color:#000">name</span>;
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">private</span> <span style="color:#000">Region</span>(<span style="color:#a90d91">int</span> <span style="color:#000">id</span>, <span style="color:#000">String</span> <span style="color:#000">name</span>) {
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span>.<span style="color:#836c28">id</span> <span style="color:#000">=</span> <span style="color:#000">id</span>;
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span>.<span style="color:#836c28">name</span> <span style="color:#000">=</span> <span style="color:#000">name</span>;
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">int</span> <span style="color:#000">getId</span>() {
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">id</span>;
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#000">String</span> <span style="color:#000">getName</span>() {
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">name</span>;
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#000">String</span> <span style="color:#000">toString</span>() {
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#c41a16">"Region [id="</span> <span style="color:#000">+</span> <span style="color:#000">id</span> <span style="color:#000">+</span> <span style="color:#c41a16">", name="</span> <span style="color:#000">+</span> <span style="color:#000">name</span> <span style="color:#000">+</span> <span style="color:#c41a16">"]"</span>;
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></section><section>
 <h2 id="useregion"><code>UseRegion</code></h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""></code></pre></div></section><section>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.Arrays</span>;
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.io.IO</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseRegion</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span>) {
+</span></span><span style="display:flex;"><span>		<span style="color:#177500">// nella variabile region, si possono usare solo 3 casi</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">Region</span> <span style="color:#000">region</span> <span style="color:#000">=</span> <span style="color:#000">Region</span>.<span style="color:#836c28">MARCHE</span>;
+</span></span><span style="display:flex;"><span>			
+</span></span><span style="display:flex;"><span>		<span style="color:#000">IO</span>.<span style="color:#836c28">println</span>(<span style="color:#000">region</span>);
+</span></span><span style="display:flex;"><span>		<span style="color:#177500">// si ottengono gli array dei valori possibile</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">IO</span>.<span style="color:#836c28">println</span>(<span style="color:#000">Arrays</span>.<span style="color:#836c28">toString</span>(<span style="color:#000">Region</span>.<span style="color:#836c28">VALUES</span>));
+</span></span><span style="display:flex;"><span>		<span style="color:#177500">// è possibile accedere alla "prossima regione"</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">IO</span>.<span style="color:#836c28">println</span>(<span style="color:#000">Region</span>.<span style="color:#836c28">VALUES</span><span style="color:#000">[</span><span style="color:#000">region</span>.<span style="color:#836c28">getId</span>()<span style="color:#000">+</span><span style="color:#000">1</span><span style="color:#000">]</span>);
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></section><section>
 <h2 id="enum-in-java"><code>enum</code> in Java</h2>
 <h3 id="un-nuovo-tipo-di-dato">Un nuovo tipo di dato</h3>
 <ul>
@@ -249,13 +346,13 @@
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseEnum</span> {
 </span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span>) {
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">Regione</span><span style="color:#000">&gt;</span> <span style="color:#000">list</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">ArrayList</span><span style="color:#000">&lt;&gt;</span>();
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">Region</span><span style="color:#000">&gt;</span> <span style="color:#000">list</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">ArrayList</span><span style="color:#000">&lt;&gt;</span>();
 </span></span><span style="display:flex;"><span>		
-</span></span><span style="display:flex;"><span>		<span style="color:#000">list</span>.<span style="color:#836c28">add</span>(<span style="color:#000">Regione</span>.<span style="color:#836c28">LOMBARDIA</span>);
-</span></span><span style="display:flex;"><span>		<span style="color:#000">list</span>.<span style="color:#836c28">add</span>(<span style="color:#000">Regione</span>.<span style="color:#836c28">PIEMONTE</span>);
-</span></span><span style="display:flex;"><span>		<span style="color:#000">list</span>.<span style="color:#836c28">add</span>(<span style="color:#000">Regione</span>.<span style="color:#836c28">EMILIA_ROMAGNA</span>);
+</span></span><span style="display:flex;"><span>		<span style="color:#000">list</span>.<span style="color:#836c28">add</span>(<span style="color:#000">Region</span>.<span style="color:#836c28">LOMBARDIA</span>);
+</span></span><span style="display:flex;"><span>		<span style="color:#000">list</span>.<span style="color:#836c28">add</span>(<span style="color:#000">Region</span>.<span style="color:#836c28">PIEMONTE</span>);
+</span></span><span style="display:flex;"><span>		<span style="color:#000">list</span>.<span style="color:#836c28">add</span>(<span style="color:#000">Region</span>.<span style="color:#836c28">EMILIA_ROMAGNA</span>);
 </span></span><span style="display:flex;"><span>		
-</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">for</span> (<span style="color:#a90d91">final</span> <span style="color:#000">Regione</span> <span style="color:#000">r</span>: <span style="color:#000">list</span>){
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">for</span> (<span style="color:#a90d91">final</span> <span style="color:#000">Region</span> <span style="color:#000">r</span> : <span style="color:#000">list</span>) {
 </span></span><span style="display:flex;"><span>			<span style="color:#000">IO</span>.<span style="color:#836c28">println</span>(<span style="color:#000">r</span>.<span style="color:#836c28">toString</span>());
 </span></span><span style="display:flex;"><span>		}
 </span></span><span style="display:flex;"><span>	}
@@ -263,16 +360,154 @@
 </span></span></code></pre></div></section><section>
 <h2 id="person-con-uso-della-enum"><code>Person</code> con uso della <code>enum</code></h2>
 <div class="smaller">
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""></code></pre></div></div>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">Person</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#000">String</span> <span style="color:#000">name</span>;
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#000">String</span> <span style="color:#000">surname</span>;
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#000">Region</span> <span style="color:#000">region</span>;
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#000">Person</span>(<span style="color:#000">String</span> <span style="color:#000">name</span>, <span style="color:#000">String</span> <span style="color:#000">surname</span>, <span style="color:#000">Region</span> <span style="color:#000">region</span>) {
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span>.<span style="color:#836c28">name</span> <span style="color:#000">=</span> <span style="color:#000">name</span>;
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span>.<span style="color:#836c28">surname</span> <span style="color:#000">=</span> <span style="color:#000">surname</span>;
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span>.<span style="color:#836c28">region</span> <span style="color:#000">=</span> <span style="color:#000">region</span>;
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">boolean</span> <span style="color:#000">isIslander</span>() {
+</span></span><span style="display:flex;"><span>		<span style="color:#177500">// Confronto veloce!!</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> (<span style="color:#a90d91">this</span>.<span style="color:#836c28">region</span> <span style="color:#000">==</span> <span style="color:#000">Region</span>.<span style="color:#836c28">SARDEGNA</span> 
+</span></span><span style="display:flex;"><span>				<span style="color:#000">||</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">region</span> <span style="color:#000">==</span> <span style="color:#000">Region</span>.<span style="color:#836c28">SICILIA</span>);
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">Person</span><span style="color:#000">&gt;</span> <span style="color:#000">fromRegion</span>(<span style="color:#000">Collection</span><span style="color:#000">&lt;</span><span style="color:#000">Person</span><span style="color:#000">&gt;</span> <span style="color:#000">coll</span>, 
+</span></span><span style="display:flex;"><span>			<span style="color:#000">Region</span> <span style="color:#000">region</span>) {
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">Person</span><span style="color:#000">&gt;</span> <span style="color:#000">list</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">ArrayList</span><span style="color:#000">&lt;&gt;</span>();
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">for</span> (<span style="color:#a90d91">final</span> <span style="color:#000">Person</span> <span style="color:#000">person</span> : <span style="color:#000">coll</span>) {
+</span></span><span style="display:flex;"><span>			<span style="color:#a90d91">if</span> (<span style="color:#000">person</span>.<span style="color:#836c28">region</span> <span style="color:#000">==</span> <span style="color:#000">region</span>) { <span style="color:#177500">// Nota l'== !!</span>
+</span></span><span style="display:flex;"><span>				<span style="color:#000">list</span>.<span style="color:#836c28">add</span>(<span style="color:#000">person</span>);
+</span></span><span style="display:flex;"><span>			}
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#000">list</span>;
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#000">String</span> <span style="color:#000">toString</span>() {
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#c41a16">"["</span> <span style="color:#000">+</span> <span style="color:#000">name</span> <span style="color:#000">+</span> <span style="color:#c41a16">","</span> <span style="color:#000">+</span> <span style="color:#000">surname</span> <span style="color:#000">+</span> <span style="color:#c41a16">","</span>	<span style="color:#000">+</span> <span style="color:#000">region</span> <span style="color:#000">+</span> <span style="color:#c41a16">"]"</span>;
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></div>
 </section><section>
 <h2 id="useperson-con-uso-della-enum"><code>UsePerson</code> con uso della <code>enum</code></h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""></code></pre></div></section><section>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.*</span>;
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.io.IO</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UsePerson</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span>) {
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">ArrayList</span><span style="color:#000">&lt;</span><span style="color:#000">Person</span><span style="color:#000">&gt;</span> <span style="color:#000">list</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">ArrayList</span><span style="color:#000">&lt;&gt;</span>();
+</span></span><span style="display:flex;"><span>		<span style="color:#000">list</span>.<span style="color:#836c28">add</span>(<span style="color:#a90d91">new</span> <span style="color:#000">Person</span>(<span style="color:#c41a16">"Mario"</span>,<span style="color:#c41a16">"Rossi"</span>,<span style="color:#000">Region</span>.<span style="color:#836c28">EMILIA_ROMAGNA</span>));
+</span></span><span style="display:flex;"><span>		<span style="color:#000">list</span>.<span style="color:#836c28">add</span>(<span style="color:#a90d91">new</span> <span style="color:#000">Person</span>(<span style="color:#c41a16">"Gino"</span>,<span style="color:#c41a16">"Bianchi"</span>,<span style="color:#000">Region</span>.<span style="color:#836c28">SICILIA</span>));
+</span></span><span style="display:flex;"><span>		<span style="color:#000">list</span>.<span style="color:#836c28">add</span>(<span style="color:#a90d91">new</span> <span style="color:#000">Person</span>(<span style="color:#c41a16">"Carlo"</span>,<span style="color:#c41a16">"Verdi"</span>,<span style="color:#000">Region</span>.<span style="color:#836c28">LOMBARDIA</span>));
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">Person</span><span style="color:#000">&gt;</span> <span style="color:#000">out</span> <span style="color:#000">=</span> 
+</span></span><span style="display:flex;"><span>		    <span style="color:#000">Person</span>.<span style="color:#836c28">fromRegion</span>(<span style="color:#000">list</span>,<span style="color:#000">Region</span>.<span style="color:#836c28">EMILIA_ROMAGNA</span>); 
+</span></span><span style="display:flex;"><span>		<span style="color:#000">IO</span>.<span style="color:#836c28">println</span>(<span style="color:#000">list</span>);
+</span></span><span style="display:flex;"><span>		<span style="color:#177500">// [[Mario,Rossi,EMILIA_ROMAGNA], [Gino,Bianchi,SICILIA], </span>
+</span></span><span style="display:flex;"><span>		<span style="color:#177500">// [Carlo,Verdi,LOMBARDIA]]</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">IO</span>.<span style="color:#836c28">println</span>(<span style="color:#000">out</span>);
+</span></span><span style="display:flex;"><span>		<span style="color:#177500">// [[Mario,Rossi,EMILIA_ROMAGNA]]</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">for</span> (<span style="color:#a90d91">final</span> <span style="color:#000">Person</span> <span style="color:#000">p</span> : <span style="color:#000">list</span>) {
+</span></span><span style="display:flex;"><span>			<span style="color:#a90d91">if</span> (<span style="color:#000">p</span>.<span style="color:#836c28">isIslander</span>()) {
+</span></span><span style="display:flex;"><span>				<span style="color:#000">IO</span>.<span style="color:#836c28">println</span>(<span style="color:#000">p</span>);
+</span></span><span style="display:flex;"><span>			}
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>		<span style="color:#177500">// [Gino,Bianchi,SICILIA]</span>
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></section><section>
 <h2 id="useperson-con-import-static"><code>UsePerson</code> con <em><strong>import static</strong></em></h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""></code></pre></div></section><section>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">import static</span> <span style="color:#000">it.unibo.advancedmechanisms.enums.en2.Region.*</span>;
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.io.IO</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.*</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UsePerson2</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span>) {
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">ArrayList</span><span style="color:#000">&lt;</span><span style="color:#000">Person</span><span style="color:#000">&gt;</span> <span style="color:#000">list</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">ArrayList</span><span style="color:#000">&lt;&gt;</span>();
+</span></span><span style="display:flex;"><span>		<span style="color:#000">list</span>.<span style="color:#836c28">add</span>(<span style="color:#a90d91">new</span> <span style="color:#000">Person</span>(<span style="color:#c41a16">"Mario"</span>, <span style="color:#c41a16">"Rossi"</span>, <span style="color:#000">EMILIA_ROMAGNA</span>));
+</span></span><span style="display:flex;"><span>		<span style="color:#000">list</span>.<span style="color:#836c28">add</span>(<span style="color:#a90d91">new</span> <span style="color:#000">Person</span>(<span style="color:#c41a16">"Gino"</span>, <span style="color:#c41a16">"Bianchi"</span>, <span style="color:#000">SICILIA</span>));
+</span></span><span style="display:flex;"><span>		<span style="color:#000">list</span>.<span style="color:#836c28">add</span>(<span style="color:#a90d91">new</span> <span style="color:#000">Person</span>(<span style="color:#c41a16">"Carlo"</span>, <span style="color:#c41a16">"Verdi"</span>, <span style="color:#000">LOMBARDIA</span>));
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">Person</span><span style="color:#000">&gt;</span> <span style="color:#000">out</span> <span style="color:#000">=</span> <span style="color:#000">Person</span>.<span style="color:#836c28">fromRegion</span>(<span style="color:#000">list</span>, <span style="color:#000">EMILIA_ROMAGNA</span>); 
+</span></span><span style="display:flex;"><span>		<span style="color:#000">IO</span>.<span style="color:#836c28">println</span>(<span style="color:#000">list</span>);
+</span></span><span style="display:flex;"><span>		<span style="color:#177500">// [[Mario,Rossi,EMILIA_ROMAGNA], [Gino,Bianchi,SICILIA], </span>
+</span></span><span style="display:flex;"><span>		<span style="color:#177500">// [Carlo,Verdi,LOMBARDIA]]</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">IO</span>.<span style="color:#836c28">println</span>(<span style="color:#000">out</span>);
+</span></span><span style="display:flex;"><span>		<span style="color:#177500">// [[Mario,Rossi,EMILIA_ROMAGNA]]</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">for</span> (<span style="color:#a90d91">final</span> <span style="color:#000">Person</span> <span style="color:#000">p</span> : <span style="color:#000">list</span>) {
+</span></span><span style="display:flex;"><span>			<span style="color:#a90d91">if</span> (<span style="color:#000">p</span>.<span style="color:#836c28">isIslander</span>()) {
+</span></span><span style="display:flex;"><span>				<span style="color:#000">IO</span>.<span style="color:#836c28">println</span>(<span style="color:#000">p</span>);
+</span></span><span style="display:flex;"><span>			}
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>		<span style="color:#177500">// [Gino,Bianchi,SICILIA]</span>
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></section><section>
 <h2 id="metodi-di-default-per-ogni-enum">Metodi di default per ogni <code>enum</code></h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""></code></pre></div></section><section>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">import static</span> <span style="color:#000">it.unibo.advancedmechanisms.enums.en2.Region.*</span>;
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.io.IO</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.*</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseRegion</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span>) {
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">ArrayList</span><span style="color:#000">&lt;</span><span style="color:#000">Region</span><span style="color:#000">&gt;</span> <span style="color:#000">list</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">ArrayList</span><span style="color:#000">&lt;&gt;</span>();
+</span></span><span style="display:flex;"><span>		<span style="color:#177500">// 4 modi di ottenere una Region</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">list</span>.<span style="color:#836c28">add</span>(<span style="color:#000">Region</span>.<span style="color:#836c28">LOMBARDIA</span>);
+</span></span><span style="display:flex;"><span>		<span style="color:#000">list</span>.<span style="color:#836c28">add</span>(<span style="color:#000">SARDEGNA</span>);
+</span></span><span style="display:flex;"><span>		<span style="color:#000">list</span>.<span style="color:#836c28">add</span>(<span style="color:#000">Region</span>.<span style="color:#836c28">valueOf</span>(<span style="color:#c41a16">"SICILIA"</span>));
+</span></span><span style="display:flex;"><span>		<span style="color:#000">list</span>.<span style="color:#836c28">add</span>(<span style="color:#000">Region</span>.<span style="color:#836c28">values</span>()<span style="color:#000">[</span><span style="color:#000">10</span><span style="color:#000">]</span>);
+</span></span><span style="display:flex;"><span>		
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">for</span> (<span style="color:#a90d91">final</span> <span style="color:#000">Region</span> <span style="color:#000">r</span> : <span style="color:#000">list</span>) {
+</span></span><span style="display:flex;"><span>			<span style="color:#000">IO</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"toString "</span><span style="color:#000">+</span><span style="color:#000">r</span>); <span style="color:#177500">// LOMBARDIA,...,MOLISE</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#000">IO</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"ordinal "</span><span style="color:#000">+</span><span style="color:#000">r</span>.<span style="color:#836c28">ordinal</span>()); <span style="color:#177500">// 8, 13, 14, 10</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#000">IO</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"name "</span><span style="color:#000">+</span><span style="color:#000">r</span>.<span style="color:#836c28">name</span>()); <span style="color:#177500">// LOMBARDIA,...,MOLISE</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#000">IO</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"---"</span>);
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>		
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">for</span> (<span style="color:#a90d91">final</span> <span style="color:#000">Region</span> <span style="color:#000">r</span> : <span style="color:#000">Region</span>.<span style="color:#836c28">values</span>()) {
+</span></span><span style="display:flex;"><span>			<span style="color:#000">IO</span>.<span style="color:#836c28">print</span>(<span style="color:#000">r</span> <span style="color:#000">+</span> <span style="color:#c41a16">" "</span>); <span style="color:#177500">// Stampa tutte le regioni</span>
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></section><section>
 <h2 id="enum-negli-switch"><code>enum</code> negli <code>switch</code></h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""></code></pre></div></section><section>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">import static</span> <span style="color:#000">it.unibo.advancedmechanisms.enums.en2.Region.*</span>;
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.io.IO</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.*</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseRegion2</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span>) {
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">ArrayList</span><span style="color:#000">&lt;</span><span style="color:#000">Region</span><span style="color:#000">&gt;</span> <span style="color:#000">list</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">ArrayList</span><span style="color:#000">&lt;&gt;</span>();
+</span></span><span style="display:flex;"><span>		<span style="color:#177500">// 4 modi di ottenere una Region</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#000">list</span>.<span style="color:#836c28">add</span>(<span style="color:#000">Region</span>.<span style="color:#836c28">LOMBARDIA</span>);
+</span></span><span style="display:flex;"><span>		<span style="color:#000">list</span>.<span style="color:#836c28">add</span>(<span style="color:#000">SARDEGNA</span>);
+</span></span><span style="display:flex;"><span>		<span style="color:#000">list</span>.<span style="color:#836c28">add</span>(<span style="color:#000">Region</span>.<span style="color:#836c28">valueOf</span>(<span style="color:#c41a16">"SICILIA"</span>));
+</span></span><span style="display:flex;"><span>		<span style="color:#000">list</span>.<span style="color:#836c28">add</span>(<span style="color:#000">Region</span>.<span style="color:#836c28">values</span>()<span style="color:#000">[</span><span style="color:#000">10</span><span style="color:#000">]</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>		<span style="color:#177500">// Le enum sono usabili negli switch</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">for</span> (<span style="color:#a90d91">final</span> <span style="color:#000">Region</span> <span style="color:#000">r</span>  : <span style="color:#000">list</span>) {
+</span></span><span style="display:flex;"><span>			<span style="color:#a90d91">switch</span> (<span style="color:#000">r</span>) {
+</span></span><span style="display:flex;"><span>			<span style="color:#a90d91">case</span> <span style="color:#000">LOMBARDIA</span>:
+</span></span><span style="display:flex;"><span>				<span style="color:#000">IO</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Lombardia"</span>);
+</span></span><span style="display:flex;"><span>				<span style="color:#a90d91">break</span>;
+</span></span><span style="display:flex;"><span>			<span style="color:#a90d91">case</span> <span style="color:#000">EMILIA_ROMAGNA</span>:
+</span></span><span style="display:flex;"><span>				<span style="color:#000">IO</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Emilia Romagna"</span>);
+</span></span><span style="display:flex;"><span>				<span style="color:#a90d91">break</span>;
+</span></span><span style="display:flex;"><span>			<span style="color:#a90d91">default</span>:
+</span></span><span style="display:flex;"><span>				<span style="color:#000">IO</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"Altre.."</span>);
+</span></span><span style="display:flex;"><span>			}
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></section><section>
 <h2 id="lo-switch-con-la-freccia--">Lo <code>switch</code> con la freccia <code>-&gt;</code></h2>
 <p>Lo stesso switch di <code>UseRegion2</code>, nella forma introdotta da <strong>Java 14</strong>:</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">switch</span> (<span style="color:#000">r</span>) {
@@ -308,13 +543,88 @@
 </ul>
 </section><section>
 <h2 id="metodi-aggiuntivi-nelle-enum-zone">Metodi aggiuntivi nelle <code>enum</code>: <code>Zone</code></h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""></code></pre></div></section><section>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.util.*</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">enum</span> <span style="color:#000">Zone</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#000">NORTH</span>, <span style="color:#000">CENTER</span>, <span style="color:#000">SOUTH</span>;
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#000">List</span><span style="color:#000">&lt;</span><span style="color:#000">Region</span><span style="color:#000">&gt;</span> <span style="color:#000">getRegions</span>() {
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">final</span> <span style="color:#000">ArrayList</span><span style="color:#000">&lt;</span><span style="color:#000">Region</span><span style="color:#000">&gt;</span> <span style="color:#000">list</span> <span style="color:#000">=</span> <span style="color:#a90d91">new</span> <span style="color:#000">ArrayList</span><span style="color:#000">&lt;&gt;</span>();
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">for</span> (<span style="color:#a90d91">final</span> <span style="color:#000">Region</span> <span style="color:#000">r</span> : <span style="color:#000">Region</span>.<span style="color:#836c28">values</span>()) {
+</span></span><span style="display:flex;"><span>			<span style="color:#a90d91">if</span> (<span style="color:#000">r</span>.<span style="color:#836c28">getZone</span>() <span style="color:#000">==</span> <span style="color:#a90d91">this</span>) {
+</span></span><span style="display:flex;"><span>				<span style="color:#000">list</span>.<span style="color:#836c28">add</span>(<span style="color:#000">r</span>);
+</span></span><span style="display:flex;"><span>			}
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#000">list</span>;
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></section><section>
 <h2 id="metodi-e-campi-aggiuntivi-nelle-enum-region-12">Metodi e campi aggiuntivi nelle <code>enum</code>: <code>Region</code> (1/2)</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""></code></pre></div></section><section>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">import static</span> <span style="color:#000">it.unibo.advancedmechanisms.enums.en3.Zone.*</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">enum</span> <span style="color:#000">Region</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#000">ABRUZZO</span>(<span style="color:#000">CENTER</span>,<span style="color:#c41a16">"Abruzzo"</span>), 
+</span></span><span style="display:flex;"><span>	<span style="color:#000">BASILICATA</span>(<span style="color:#000">SOUTH</span>,<span style="color:#c41a16">"Basilicata"</span>), 
+</span></span><span style="display:flex;"><span>	<span style="color:#000">CALABRIA</span>(<span style="color:#000">SOUTH</span>,<span style="color:#c41a16">"Calabria"</span>), 
+</span></span><span style="display:flex;"><span>	<span style="color:#000">CAMPANIA</span>(<span style="color:#000">SOUTH</span>,<span style="color:#c41a16">"Campania"</span>), 
+</span></span><span style="display:flex;"><span>	<span style="color:#000">EMILIA_ROMAGNA</span>(<span style="color:#000">NORTH</span>, <span style="color:#c41a16">"Emilia Romagna"</span>), 
+</span></span><span style="display:flex;"><span>	<span style="color:#000">FRIULI_VENEZIA_GIULIA</span>(<span style="color:#000">NORTH</span>, <span style="color:#c41a16">"Friuli Venezia Giula"</span>), 
+</span></span><span style="display:flex;"><span>	<span style="color:#000">LAZIO</span>(<span style="color:#000">CENTER</span>, <span style="color:#c41a16">"Lazio"</span>), 
+</span></span><span style="display:flex;"><span>	<span style="color:#000">LIGURIA</span>(<span style="color:#000">NORTH</span>, <span style="color:#c41a16">"Liguria"</span>), 
+</span></span><span style="display:flex;"><span>	<span style="color:#000">LOMBARDIA</span>(<span style="color:#000">NORTH</span>, <span style="color:#c41a16">"Lombardia"</span>), 
+</span></span><span style="display:flex;"><span>	<span style="color:#000">MARCHE</span>(<span style="color:#000">CENTER</span>, <span style="color:#c41a16">"Marche"</span>),
+</span></span><span style="display:flex;"><span>	<span style="color:#000">MOLISE</span>(<span style="color:#000">SOUTH</span>, <span style="color:#c41a16">"Molise"</span>), 
+</span></span><span style="display:flex;"><span>	<span style="color:#000">PIEMONTE</span>(<span style="color:#000">NORTH</span>, <span style="color:#c41a16">"Piemonte"</span>), 
+</span></span><span style="display:flex;"><span>	<span style="color:#000">PUGLIA</span>(<span style="color:#000">SOUTH</span>, <span style="color:#c41a16">"Puglia"</span>), 
+</span></span><span style="display:flex;"><span>	<span style="color:#000">SARDEGNA</span>(<span style="color:#000">SOUTH</span>, <span style="color:#c41a16">"Sardegna"</span>), 
+</span></span><span style="display:flex;"><span>	<span style="color:#000">SICILIA</span>(<span style="color:#000">SOUTH</span>, <span style="color:#c41a16">"Sicilia"</span>), 
+</span></span><span style="display:flex;"><span>	<span style="color:#000">TOSCANA</span>(<span style="color:#000">CENTER</span>, <span style="color:#c41a16">"Toscana"</span>),
+</span></span><span style="display:flex;"><span>	<span style="color:#000">TRENTINO_ALTO_ADIGE</span>(<span style="color:#000">NORTH</span>, <span style="color:#c41a16">"Trentino Alto Adige"</span>), 
+</span></span><span style="display:flex;"><span>	<span style="color:#000">UMBRIA</span>(<span style="color:#000">CENTER</span>, <span style="color:#c41a16">"Umbria"</span>), 
+</span></span><span style="display:flex;"><span>	<span style="color:#000">VALLE_D_AOSTA</span>(<span style="color:#000">NORTH</span>,<span style="color:#c41a16">"Valle D'Aosta"</span>),
+</span></span><span style="display:flex;"><span>	<span style="color:#000">VENETO</span>(<span style="color:#000">NORTH</span>,<span style="color:#c41a16">"Veneto"</span>);
+</span></span></code></pre></div></section><section>
 <h2 id="metodi-e-campi-aggiuntivi-nelle-enum-region-22">Metodi e campi aggiuntivi nelle <code>enum</code>: <code>Region</code> (2/2)</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""></code></pre></div></section><section>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span>	<span style="color:#000">SICILIA</span>(<span style="color:#000">SOUTH</span>, <span style="color:#c41a16">"Sicilia"</span>), 
+</span></span><span style="display:flex;"><span>	<span style="color:#000">TOSCANA</span>(<span style="color:#000">CENTER</span>, <span style="color:#c41a16">"Toscana"</span>),
+</span></span><span style="display:flex;"><span>	<span style="color:#000">TRENTINO_ALTO_ADIGE</span>(<span style="color:#000">NORTH</span>, <span style="color:#c41a16">"Trentino Alto Adige"</span>), 
+</span></span><span style="display:flex;"><span>	<span style="color:#000">UMBRIA</span>(<span style="color:#000">CENTER</span>, <span style="color:#c41a16">"Umbria"</span>), 
+</span></span><span style="display:flex;"><span>	<span style="color:#000">VALLE_D_AOSTA</span>(<span style="color:#000">NORTH</span>,<span style="color:#c41a16">"Valle D'Aosta"</span>),
+</span></span><span style="display:flex;"><span>	<span style="color:#000">VENETO</span>(<span style="color:#000">NORTH</span>,<span style="color:#c41a16">"Veneto"</span>);
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#000">Zone</span> <span style="color:#000">zone</span>;
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">private</span> <span style="color:#a90d91">final</span> <span style="color:#000">String</span> <span style="color:#000">actualName</span>;
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">private</span> <span style="color:#000">Region</span>(<span style="color:#a90d91">final</span> <span style="color:#000">Zone</span> <span style="color:#000">zone</span>, <span style="color:#a90d91">final</span> <span style="color:#000">String</span> <span style="color:#000">actualName</span>) {
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span>.<span style="color:#836c28">zone</span> <span style="color:#000">=</span> <span style="color:#000">zone</span>;
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">this</span>.<span style="color:#836c28">actualName</span> <span style="color:#000">=</span> <span style="color:#000">actualName</span>;
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#000">Zone</span> <span style="color:#000">getZone</span>() {
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">zone</span>;
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#000">String</span> <span style="color:#000">toString</span>() {
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">return</span> <span style="color:#a90d91">this</span>.<span style="color:#836c28">actualName</span>;
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></section><section>
 <h2 id="metodi-e-campi-aggiuntivi-nelle-enum-usezone">Metodi e campi aggiuntivi nelle <code>enum</code>: <code>UseZone</code></h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""></code></pre></div></section><section>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="nohighlight" data-noescape=""><span style="display:flex;"><span><span style="color:#a90d91">import static</span> <span style="color:#000">it.unibo.advancedmechanisms.enums.en3.Zone.*</span>; 
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">import</span> <span style="color:#000">java.io.IO</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a90d91">public</span> <span style="color:#a90d91">class</span> <span style="color:#3f6e75">UseZone</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a90d91">public</span> <span style="color:#a90d91">static</span> <span style="color:#a90d91">void</span> <span style="color:#000">main</span>(<span style="color:#000">String</span><span style="color:#000">[]</span> <span style="color:#000">args</span>) {
+</span></span><span style="display:flex;"><span>		<span style="color:#a90d91">for</span> (<span style="color:#000">Region</span> <span style="color:#000">r</span> : <span style="color:#000">NORTH</span>.<span style="color:#836c28">getRegions</span>()) {
+</span></span><span style="display:flex;"><span>			<span style="color:#000">IO</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"toString "</span><span style="color:#000">+</span><span style="color:#000">r</span>); 
+</span></span><span style="display:flex;"><span>			<span style="color:#177500">// Emilia Romagna,...,Veneto</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#000">IO</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"name "</span><span style="color:#000">+</span><span style="color:#000">r</span>.<span style="color:#836c28">name</span>());
+</span></span><span style="display:flex;"><span>			<span style="color:#177500">// EMILIA_ROMAGNA,...,VENETO</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#000">IO</span>.<span style="color:#836c28">println</span>(<span style="color:#c41a16">"---"</span>);
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></section><section>
 <h2 id="meccanismi-per-le-enum">Meccanismi per le <code>enum</code></h2>
 <h3 id="riassunto">Riassunto</h3>
 <ul>
@@ -803,6 +1113,19 @@
   
 
   
+    
+  
+  
+
+  
+  
+
+  
+  
+
+  
+    
+  
   
 
   
@@ -824,14 +1147,7 @@
   
 
   
-  
-
-  
-  
-
-  
-  
-
+    
   
   
 
